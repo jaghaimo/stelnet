@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+// project level config
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+// build everything and make a jar
+build {
+    doLast {
+        copy {
+            from jar
+            into '.'
+        }
+    }
+}
+
+// compile time dependencies
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.10'
+    implementation group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: '2.9.3'
+    implementation group: 'org.lwjgl.lwjgl', name: 'lwjgl_util', version: '2.9.3'
+    implementation group: 'log4j', name: 'log4j', version: '1.2.9'
+    implementation group: 'org.json', name: 'json', version: '20170516'
+    implementation group: 'net.java.jinput', name: 'jinput', version: '2.0.7'
+    implementation group: 'org.codehaus.janino', name: 'janino', version: '3.0.7'
+
+    // test only
+    testImplementation 'junit:junit:4.12'
+}
+
+// create a release zip
+task release(type: Zip) {
+    def jsonFile = file('src/main/resources/mod_info.json')
+    def slurper = new groovy.json.JsonSlurper()
+    def parsedJson = slurper.parse(jsonFile)
+    dependsOn build
+    archiveFileName = "${project.name}-${parsedJson.version}.zip"
+    destinationDirectory = file(rootDir)
+    from sourceSets.main.resources
+    from jar
+    into project.name
+}
