@@ -1,0 +1,20 @@
+{
+    "stelnetCommodity": {
+        "name": "Commodities",
+        "width": 119,
+        "putFirst": true,
+        "sort": 23
+    },
+    "stelnetMarket": {
+        "name": "Markets",
+        "width": 119,
+        "putFirst": true,
+        "sort": 24
+    },
+    "stelnetStorage": {
+        "name": "Storage",
+        "width": 119,
+        "putFirst": true,
+        "sort": 25
+    }
+}
