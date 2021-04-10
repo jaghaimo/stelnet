@@ -8,6 +8,7 @@ import java.util.Set;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
+import com.fs.starfarer.api.impl.campaign.events.OfficerManagerEvent;
 import com.fs.starfarer.api.impl.campaign.submarkets.BaseSubmarketPlugin;
 
 import stelnet.filter.market.IsNotHidden;
@@ -26,13 +27,9 @@ public class MarketHelper {
     public static List<MarketAPI> getMarkets() {
         List<MarketAPI> markets = Global.getSector().getEconomy().getMarketsCopy();
         List<MarketFilter> filters = FilterHelper.getBlacklistMarketFilters();
-        // if (ConfigHelper.marketHasToBeNotHidden()) {
         filters.add(new IsNotHidden());
-        // }
-        // if (ConfigHelper.marketHasToBeDiscovered()) {
-        // filters.add(new IsDiscovered());
-        // }
         CollectionHelper.reduce(markets, filters);
+        updateMarketPrePlayerInteraction(markets);
         return markets;
     }
 
@@ -48,6 +45,13 @@ public class MarketHelper {
             submarkets.addAll(marketSubmarkets);
         }
         return submarkets;
+    }
+
+    private static void updateMarketPrePlayerInteraction(List<MarketAPI> markets) {
+        OfficerManagerEvent managerEvent = GlobalHelper.getOfficerManagerEvent();
+        for (MarketAPI market : markets) {
+            managerEvent.reportPlayerOpenedMarket(market);
+        }
     }
 
     private static void updateCargoPrePlayerInteraction(List<SubmarketAPI> submarkets) {

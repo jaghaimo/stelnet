@@ -14,14 +14,12 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import stelnet.commodity.element.ButtonViewFactory;
 import stelnet.commodity.element.CommodityViewFactory;
 import stelnet.commodity.element.IntelSelectionFactory;
-import stelnet.helper.IntelHelper;
 import stelnet.commodity.ui.Callable;
 import stelnet.commodity.ui.GridRenderer;
 import stelnet.commodity.ui.Size;
+import stelnet.helper.IntelHelper;
 
 public class CommodityBoard extends BaseIntelPlugin {
-
-    public final static String TAG = "stelnetCommodity";
 
     public enum CommodityTab {
         BUY("Buy"), SELL("Sell");
@@ -85,7 +83,7 @@ public class CommodityBoard extends BaseIntelPlugin {
     @Override
     public Set<String> getIntelTags(SectorMapAPI map) {
         Set<String> tags = super.getIntelTags(map);
-        tags.add(CommodityBoard.TAG);
+        tags.add(CommodityIntel.TAG);
         return tags;
     }
 

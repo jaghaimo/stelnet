@@ -5,6 +5,7 @@ import java.util.List;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
+import com.fs.starfarer.api.fleet.FleetMemberAPI;
 
 public class CargoHelper {
 
@@ -14,6 +15,10 @@ public class CargoHelper {
             cargoSpace += stack.getSize();
         }
         return (int) cargoSpace;
+    }
+
+    public static int calculateShipQuantity(List<FleetMemberAPI> fleet) {
+        return fleet.size();
     }
 
     public static CargoAPI makeCargoFromStacks(List<CargoStackAPI> cargoStacks) {

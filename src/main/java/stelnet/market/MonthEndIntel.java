@@ -22,6 +22,6 @@ public class MonthEndIntel extends BaseIntelPlugin {
 
     @Override
     public String getIcon() {
-        return Global.getSettings().getSpriteName("hypernet", "board");
+        return Global.getSettings().getSpriteName("stelnet", "market");
     }
 }

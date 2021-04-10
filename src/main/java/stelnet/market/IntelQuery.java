@@ -8,12 +8,12 @@ import stelnet.market.filter.ImmutableFilterManager;
 
 public class IntelQuery {
 
-    String createdDate;
-    long updatedDate;
-    boolean isEnabled;
-    FilterManager filterManager;
-    IntelList hypernetIntels;
-    IntelProvider intelProvider;
+    private String createdDate;
+    private long updatedDate;
+    private boolean isEnabled;
+    private FilterManager filterManager;
+    private IntelList hypernetIntels;
+    private IntelProvider intelProvider;
 
     public IntelQuery(IntelProvider ip, FilterManager fm) {
         CampaignClockAPI clock = getCurrentClock();
