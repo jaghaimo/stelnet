@@ -20,8 +20,6 @@ import stelnet.storage.panel.ElementFactory;
 
 public class StorageBoard extends BaseIntelPlugin {
 
-    public final static String TAG = "stelnetStorage";
-
     public enum Pane {
         Cargo, Ships;
     }
@@ -93,7 +91,7 @@ public class StorageBoard extends BaseIntelPlugin {
     @Override
     public Set<String> getIntelTags(SectorMapAPI map) {
         Set<String> tags = super.getIntelTags(map);
-        tags.add(StorageBoard.TAG);
+        tags.add(StorageIntel.TAG);
         return tags;
     }
 

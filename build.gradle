@@ -1,9 +1,23 @@
 plugins {
     id 'java'
+    id 'eclipse'
 }
 
 repositories {
     mavenCentral()
+}
+
+// fix documentation
+eclipse {
+    classpath {
+        file {
+            whenMerged { 
+                def lib = entries.find { it.path.contains 'starfarer.api.jar' }
+                lib.javadocPath = fileReference(file('libs/starfarer.api.zip'))
+                lib.sourcePath = fileReference(file('libs/starfarer.api.zip'))
+            }
+        }
+    }
 }
 
 // project level config

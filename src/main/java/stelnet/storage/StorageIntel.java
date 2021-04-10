@@ -17,9 +17,10 @@ import com.fs.starfarer.api.util.Misc;
 
 import stelnet.helper.CargoHelper;
 import stelnet.helper.DistanceHelper;
-import stelnet.helper.FleetMembersHelper;
 
 public class StorageIntel extends BaseIntelPlugin {
+
+    public final static String TAG = "stelnetStorage";
 
     private SubmarketAPI storage;
 
@@ -65,7 +66,7 @@ public class StorageIntel extends BaseIntelPlugin {
     @Override
     public Set<String> getIntelTags(SectorMapAPI map) {
         Set<String> tags = super.getIntelTags(map);
-        tags.add("Logistic");
+        tags.add(StorageIntel.TAG);
         return tags;
     }
 
@@ -99,7 +100,7 @@ public class StorageIntel extends BaseIntelPlugin {
     private String getStorageContent() {
         CargoAPI cargo = storage.getCargo();
         int cargoCount = CargoHelper.calculateCargoQuantity(cargo);
-        int shipsCount = FleetMembersHelper.calculateShipQuantity(cargo.getMothballedShips().getMembersListCopy());
+        int shipsCount = CargoHelper.calculateShipQuantity(cargo.getMothballedShips().getMembersListCopy());
         String items = cargoCount != 1 ? "s" : "";
         String ships = shipsCount != 1 ? "s" : "";
         return String.format("%d item%s & %d ship%s", cargoCount, items, shipsCount, ships);

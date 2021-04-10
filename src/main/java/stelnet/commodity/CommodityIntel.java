@@ -20,6 +20,8 @@ import stelnet.commodity.extractor.TableCellHelper;
 
 public class CommodityIntel extends BaseIntelPlugin {
 
+    public final static String TAG = "stelnetCommodity";
+
     private String action;
     private CommoditySpecAPI commodity;
     private MarketAPI market;
@@ -86,7 +88,7 @@ public class CommodityIntel extends BaseIntelPlugin {
     @Override
     public Set<String> getIntelTags(SectorMapAPI map) {
         Set<String> tags = super.getIntelTags(map);
-        tags.add("Commodities");
+        tags.add(CommodityIntel.TAG);
         return tags;
     }
 
