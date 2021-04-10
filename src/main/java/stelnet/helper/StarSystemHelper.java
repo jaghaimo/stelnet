@@ -8,6 +8,6 @@ public class StarSystemHelper {
         if (starSystem == null) {
             return "Hyperspace";
         }
-        return starSystem.getName();
+        return starSystem.getBaseName();
     }
 }

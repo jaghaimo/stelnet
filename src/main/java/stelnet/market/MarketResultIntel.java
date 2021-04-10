@@ -5,11 +5,12 @@ import java.util.Set;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
-import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
+
+import stelnet.helper.StarSystemHelper;
 
 public class MarketResultIntel extends BaseIntelPlugin {
 
@@ -32,7 +33,7 @@ public class MarketResultIntel extends BaseIntelPlugin {
         info.beginGridFlipped(300f, 1, Misc.getTextColor(), 80f, 10f);
         info.addToGrid(0, 0, sectorEntityToken.getName(), "Location", bulletColor);
         info.addToGrid(0, 1, faction.getDisplayName(), "Faction", bulletColor);
-        info.addToGrid(0, 2, getStarSystemName(), "System", bulletColor);
+        info.addToGrid(0, 2, StarSystemHelper.getName(sectorEntityToken.getStarSystem()), "System", bulletColor);
         info.addGrid(3f);
     }
 
@@ -95,13 +96,5 @@ public class MarketResultIntel extends BaseIntelPlugin {
     private String getDistanceToPlayerLY(String format) {
         float distanceToPlayerLY = Misc.getDistanceToPlayerLY(sectorEntityToken);
         return String.format(format, distanceToPlayerLY);
-    }
-
-    private String getStarSystemName() {
-        StarSystemAPI system = sectorEntityToken.getStarSystem();
-        if (system == null) {
-            return "In Hyperspace";
-        }
-        return system.getName();
     }
 }

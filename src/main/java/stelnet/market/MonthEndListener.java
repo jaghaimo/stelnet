@@ -2,16 +2,17 @@ package stelnet.market;
 
 import java.util.List;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.comm.IntelManagerAPI;
 import com.fs.starfarer.api.campaign.listeners.EconomyTickListener;
 import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 
+import stelnet.helper.GlobalHelper;
+
 public class MonthEndListener implements EconomyTickListener {
 
     public static void register() {
-        ListenerManagerAPI listenerManager = Global.getSector().getListenerManager();
+        ListenerManagerAPI listenerManager = GlobalHelper.getListenerManager();
         List<MonthEndListener> listeners = listenerManager.getListeners(MonthEndListener.class);
         if (listeners.isEmpty()) {
             MonthEndListener listener = new MonthEndListener();
@@ -22,23 +23,22 @@ public class MonthEndListener implements EconomyTickListener {
     @Override
     public void reportEconomyMonthEnd() {
         MonthEndIntel intel = new MonthEndIntel(
-                "New month has started. Information intel could be stale - please consider refreshing.");
+                "New month has started. Market intel could be stale - please consider refreshing.");
         toggleIntel(intel);
     }
 
     @Override
     public void reportEconomyTick(int tick) {
-        int maxTicks = Global.getSettings().getInt("economyIterPerMonth");
+        int maxTicks = GlobalHelper.getEconomyIterPerMonth();
         boolean isSecondToLastTick = maxTicks - tick == 2;
         if (isSecondToLastTick) {
-            MonthEndIntel intel = new MonthEndIntel(
-                    "New month will start soon and Information intel may become stale!");
+            MonthEndIntel intel = new MonthEndIntel("New month will start soon and Market intel may become stale!");
             toggleIntel(intel);
         }
     }
 
     private void toggleIntel(BaseIntelPlugin intel) {
-        IntelManagerAPI intelManager = Global.getSector().getIntelManager();
+        IntelManagerAPI intelManager = GlobalHelper.getIntelManager();
         intelManager.addIntel(intel);
         intelManager.removeIntel(intel);
     }

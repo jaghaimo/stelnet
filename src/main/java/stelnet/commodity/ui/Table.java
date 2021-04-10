@@ -1,7 +1,8 @@
 package stelnet.commodity.ui;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
+
+import stelnet.helper.GlobalHelper;
 
 public class Table extends Renderable {
 
@@ -27,7 +28,7 @@ public class Table extends Renderable {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        tooltip.beginTable(Global.getSector().getPlayerFaction(), ROW_HEIGHT, tableContent.getHeaders(width));
+        tooltip.beginTable(GlobalHelper.getPlayerFaction(), ROW_HEIGHT, tableContent.getHeaders(width));
         for (Object[] row : tableContent.getRows()) {
             tooltip.addRow(row);
         }

@@ -5,23 +5,18 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.campaign.econ.EconomyAPI;
 
 import stelnet.commodity.ui.Button;
 import stelnet.commodity.ui.Renderable;
 import stelnet.commodity.ui.Stack;
+import stelnet.helper.GlobalHelper;
 
 public class ButtonViewFactory {
 
-    private EconomyAPI economy;
-
-    public ButtonViewFactory() {
-        economy = Global.getSector().getEconomy();
-    }
-
     public Stack get(String activeId) {
+        EconomyAPI economy = GlobalHelper.getEconomy();
         List<Renderable> buttons = new LinkedList<>();
         List<String> commodityIds = economy.getAllCommodityIds();
         sortCommodities(commodityIds);
@@ -55,8 +50,8 @@ public class ButtonViewFactory {
 
             @Override
             public int compare(String stringA, String stringB) {
-                CommoditySpecAPI commodityA = economy.getCommoditySpec(stringA);
-                CommoditySpecAPI commodityB = economy.getCommoditySpec(stringB);
+                CommoditySpecAPI commodityA = GlobalHelper.getCommoditySpec(stringA);
+                CommoditySpecAPI commodityB = GlobalHelper.getCommoditySpec(stringB);
                 return commodityA.getName().compareToIgnoreCase(commodityB.getName());
             }
         });

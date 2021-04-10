@@ -2,7 +2,6 @@ package stelnet.commodity;
 
 import java.util.Set;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.impl.campaign.ids.Commodities;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
@@ -17,6 +16,7 @@ import stelnet.commodity.element.IntelSelectionFactory;
 import stelnet.commodity.ui.Callable;
 import stelnet.commodity.ui.GridRenderer;
 import stelnet.commodity.ui.Size;
+import stelnet.helper.GlobalHelper;
 import stelnet.helper.IntelHelper;
 
 public class CommodityBoard extends BaseIntelPlugin {
@@ -77,7 +77,7 @@ public class CommodityBoard extends BaseIntelPlugin {
 
     @Override
     public String getIcon() {
-        return Global.getSettings().getSpriteName("stelnet", "commodity");
+        return GlobalHelper.getSpriteName("commodity");
     }
 
     @Override
