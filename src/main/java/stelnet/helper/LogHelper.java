@@ -15,6 +15,18 @@ public class LogHelper {
         getLogger().info(logObject);
     }
 
+    public static void warn(Object logObject) {
+        getLogger().warn(logObject);
+    }
+
+    public static void error(Object logObject) {
+        getLogger().error(logObject);
+    }
+
+    public static void fatal(Object logObject) {
+        getLogger().fatal(logObject);
+    }
+
     private static Logger getLogger() {
         Logger logger = Global.getLogger(getName());
         if (Global.getSettings().isDevMode()) {

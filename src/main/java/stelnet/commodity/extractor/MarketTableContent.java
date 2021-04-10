@@ -9,6 +9,7 @@ import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
 
 import stelnet.commodity.ui.TableContent;
+import stelnet.helper.StarSystemHelper;
 
 public abstract class MarketTableContent implements TableContent {
 
@@ -77,7 +78,7 @@ public abstract class MarketTableContent implements TableContent {
         // Star system
         row[15] = Alignment.MID;
         row[16] = helper.getClaimingFactionColor(market);
-        row[17] = helper.getSystemName(market);
+        row[17] = StarSystemHelper.getName(market.getStarSystem());
         // Distance
         row[18] = Alignment.MID;
         row[19] = Misc.getHighlightColor();

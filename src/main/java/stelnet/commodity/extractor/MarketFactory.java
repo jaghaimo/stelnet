@@ -2,7 +2,6 @@ package stelnet.commodity.extractor;
 
 import java.util.List;
 
-import com.fs.starfarer.api.campaign.econ.EconomyAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 
 import stelnet.filter.market.MarketNotHidden;
@@ -18,8 +17,7 @@ public abstract class MarketFactory {
     }
 
     public List<MarketAPI> getMarkets() {
-        EconomyAPI economy = GlobalHelper.getEconomy();
-        List<MarketAPI> markets = economy.getMarketsCopy();
+        List<MarketAPI> markets = GlobalHelper.getMarkets();
         CollectionHelper.reduce(markets, new MarketNotHidden());
         filterMarkets(markets);
         sortMarkets(markets);

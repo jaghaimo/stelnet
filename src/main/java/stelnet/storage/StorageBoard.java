@@ -2,7 +2,6 @@ package stelnet.storage;
 
 import java.util.Set;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.CustomPanelAPI;
@@ -11,6 +10,7 @@ import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
+import stelnet.helper.GlobalHelper;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.StorageHelper;
 import stelnet.storage.button.ButtonHandler;
@@ -85,7 +85,7 @@ public class StorageBoard extends BaseIntelPlugin {
 
     @Override
     public String getIcon() {
-        return Global.getSettings().getSpriteName("stelnet", "storage");
+        return GlobalHelper.getSpriteName("storage");
     }
 
     @Override

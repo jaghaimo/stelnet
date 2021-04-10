@@ -2,13 +2,13 @@ package stelnet.commodity;
 
 import java.util.HashMap;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 
 import stelnet.commodity.CommodityBoard.CommodityTab;
 import stelnet.commodity.extractor.Price;
 import stelnet.commodity.extractor.PriceFactory;
+import stelnet.helper.GlobalHelper;
 import stelnet.helper.IntelHelper;
 
 public class IntelTracker extends HashMap<String, CommodityIntel> {
@@ -38,7 +38,7 @@ public class IntelTracker extends HashMap<String, CommodityIntel> {
         String key = getKey(action, commodityId, market);
         CommodityIntel intel = get(key);
         if (intel == null) {
-            CommoditySpecAPI commodity = Global.getSector().getEconomy().getCommoditySpec(commodityId);
+            CommoditySpecAPI commodity = GlobalHelper.getCommoditySpec(commodityId);
             Price price = priceFactory.get(commodityId, commodityTab);
             intel = new CommodityIntel(action, commodity, market, this, price);
             IntelHelper.addIntel(intel);

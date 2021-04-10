@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
@@ -60,13 +59,14 @@ public class StorageHelper {
 
     public static List<SubmarketAPI> getAllWithAccess() {
         List<SubmarketAPI> availableStorages = new ArrayList<>();
-        for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
+        for (MarketAPI market : GlobalHelper.getMarkets()) {
             if (Misc.playerHasStorageAccess(market)) {
                 SubmarketAPI storage = market.getSubmarket(Submarkets.SUBMARKET_STORAGE);
                 availableStorages.add(storage);
             }
         }
         return availableStorages;
+
     }
 
     public static List<SubmarketAPI> getAllSortedWithAccess() {

@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.impl.campaign.events.OfficerManagerEvent;
@@ -25,7 +24,7 @@ public class MarketHelper {
     }
 
     public static List<MarketAPI> getMarkets() {
-        List<MarketAPI> markets = Global.getSector().getEconomy().getMarketsCopy();
+        List<MarketAPI> markets = GlobalHelper.getMarkets();
         List<MarketFilter> filters = FilterHelper.getBlacklistMarketFilters();
         filters.add(new IsNotHidden());
         CollectionHelper.reduce(markets, filters);
@@ -47,8 +46,19 @@ public class MarketHelper {
         return submarkets;
     }
 
+    private static OfficerManagerEvent getOfficerManagerEvent() {
+        OfficerManagerEvent managerEvent;
+        List<OfficerManagerEvent> listeners = GlobalHelper.getListenerManager().getListeners(OfficerManagerEvent.class);
+        if (listeners.size() > 0) {
+            managerEvent = listeners.get(0);
+        } else {
+            managerEvent = new OfficerManagerEvent();
+        }
+        return managerEvent;
+    }
+
     private static void updateMarketPrePlayerInteraction(List<MarketAPI> markets) {
-        OfficerManagerEvent managerEvent = GlobalHelper.getOfficerManagerEvent();
+        OfficerManagerEvent managerEvent = getOfficerManagerEvent();
         for (MarketAPI market : markets) {
             managerEvent.reportPlayerOpenedMarket(market);
         }

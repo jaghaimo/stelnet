@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
@@ -18,6 +17,7 @@ import stelnet.filter.submarket.HasCargoStack;
 import stelnet.filter.submarket.IsAccessible;
 import stelnet.filter.submarket.SubmarketFilter;
 import stelnet.helper.CollectionHelper;
+import stelnet.helper.GlobalHelper;
 
 public class CargoSubject extends SubmarketSubject {
 
@@ -58,7 +58,7 @@ public class CargoSubject extends SubmarketSubject {
     @Override
     protected void addSubmarket(TooltipMakerAPI info, SubmarketAPI submarket) {
         super.addSubmarket(info, submarket);
-        CargoAPI cargo = Global.getFactory().createCargo(false);
+        CargoAPI cargo = GlobalHelper.createCargo(false);
         cargo.addFromStack(submarketsWithCargoStack.get(submarket));
         info.showCargo(cargo, 1, false, 3f);
     }

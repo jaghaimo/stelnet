@@ -3,7 +3,6 @@ package stelnet.market.handler.dialog;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CargoPickerListener;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
@@ -12,6 +11,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import stelnet.filter.cargostack.CargoStackFilter;
 import stelnet.helper.CollectionHelper;
+import stelnet.helper.GlobalHelper;
 import stelnet.helper.MarketHelper;
 import stelnet.market.DialogOption;
 import stelnet.market.DialogPlugin;
@@ -89,7 +89,7 @@ public class Cargo extends FilterAware implements CargoPickerListener {
     }
 
     private CargoAPI makeCargoFromStacks(List<CargoStackAPI> cargoStacks) {
-        CargoAPI cargo = Global.getFactory().createCargo(true);
+        CargoAPI cargo = GlobalHelper.createCargo(true);
         for (CargoStackAPI cargoStack : cargoStacks) {
             cargo.addFromStack(cargoStack);
         }

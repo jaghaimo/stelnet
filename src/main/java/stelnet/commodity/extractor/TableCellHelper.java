@@ -3,7 +3,6 @@ package stelnet.commodity.extractor;
 import java.awt.Color;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.impl.campaign.submarkets.OpenMarketPlugin;
@@ -63,13 +62,5 @@ public class TableCellHelper {
 
     public String getLocation(MarketAPI market) {
         return market.getName() + " - " + market.getFaction().getDisplayName();
-    }
-
-    public String getSystemName(MarketAPI market) {
-        StarSystemAPI starSystem = market.getStarSystem();
-        if (starSystem == null) {
-            return "Hyperspace";
-        }
-        return starSystem.getBaseName();
     }
 }

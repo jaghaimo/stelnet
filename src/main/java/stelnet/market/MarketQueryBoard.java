@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.CustomPanelAPI;
@@ -14,6 +13,7 @@ import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
+import stelnet.helper.GlobalHelper;
 import stelnet.helper.IntelHelper;
 import stelnet.market.handler.ButtonHandler;
 import stelnet.market.handler.ButtonHandlerFactory;
@@ -83,7 +83,7 @@ public class MarketQueryBoard extends BaseIntelPlugin {
 
     @Override
     public String getIcon() {
-        return Global.getSettings().getSpriteName("stelnet", "market");
+        return GlobalHelper.getSpriteName("market");
     }
 
     @Override

@@ -1,8 +1,8 @@
 package stelnet.market;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignClockAPI;
 
+import stelnet.helper.GlobalHelper;
 import stelnet.market.filter.FilterManager;
 import stelnet.market.filter.ImmutableFilterManager;
 
@@ -16,7 +16,7 @@ public class IntelQuery {
     private IntelProvider intelProvider;
 
     public IntelQuery(IntelProvider ip, FilterManager fm) {
-        CampaignClockAPI clock = getCurrentClock();
+        CampaignClockAPI clock = GlobalHelper.getCurrentClock();
         createdDate = clock.getDateString();
         updatedDate = clock.getTimestamp();
         isEnabled = true;
@@ -61,7 +61,7 @@ public class IntelQuery {
     }
 
     public boolean isStale() {
-        CampaignClockAPI current = getCurrentClock();
+        CampaignClockAPI current = GlobalHelper.getCurrentClock();
         CampaignClockAPI lastUpdate = current.createClock(updatedDate);
         if (current.getCycle() != lastUpdate.getCycle()) {
             return true;
@@ -76,7 +76,7 @@ public class IntelQuery {
         hypernetIntels.removeIntel();
         hypernetIntels = intelProvider.provide(filterManager);
         hypernetIntels.addIntel(isEnabled);
-        updatedDate = getCurrentClock().getTimestamp();
+        updatedDate = GlobalHelper.getCurrentClock().getTimestamp();
     }
 
     public void toggle() {
@@ -85,9 +85,5 @@ public class IntelQuery {
         } else {
             enable();
         }
-    }
-
-    private CampaignClockAPI getCurrentClock() {
-        return Global.getSector().getClock();
     }
 }

@@ -16,7 +16,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import stelnet.commodity.extractor.Price;
-import stelnet.commodity.extractor.TableCellHelper;
+import stelnet.helper.StarSystemHelper;
 
 public class CommodityIntel extends BaseIntelPlugin {
 
@@ -47,13 +47,12 @@ public class CommodityIntel extends BaseIntelPlugin {
 
     @Override
     public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
-        TableCellHelper helper = new TableCellHelper();
         Color bulletColor = getBulletColorForMode(mode);
         info.addPara(getTitle(), getTitleColor(mode), 0f);
         info.beginGridFlipped(300f, 1, Misc.getTextColor(), 80f, 10f);
-        info.addToGrid(0, 0, market.getName(), "Market", bulletColor);
+        info.addToGrid(0, 0, market.getName(), "Location", bulletColor);
         info.addToGrid(0, 1, market.getFaction().getDisplayName(), "Faction", bulletColor);
-        info.addToGrid(0, 2, helper.getSystemName(market), "System", bulletColor);
+        info.addToGrid(0, 2, StarSystemHelper.getName(market.getStarSystem()), "System", bulletColor);
         info.addGrid(3f);
     }
 
