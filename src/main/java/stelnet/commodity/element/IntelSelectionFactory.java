@@ -8,8 +8,8 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 
 import stelnet.commodity.CommodityBoard.CommodityTab;
 import stelnet.commodity.IntelTracker;
-import stelnet.commodity.ui.Renderable;
-import stelnet.commodity.ui.Row;
+import stelnet.ui.Renderable;
+import stelnet.ui.Row;
 
 public class IntelSelectionFactory {
 

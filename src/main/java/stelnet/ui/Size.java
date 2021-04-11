@@ -1,4 +1,4 @@
-package stelnet.commodity.ui;
+package stelnet.ui;
 
 public class Size {
 

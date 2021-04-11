@@ -9,9 +9,9 @@ import com.fs.starfarer.api.util.Misc;
 import stelnet.commodity.CommodityBoard.CommodityTab;
 import stelnet.commodity.IntelTracker;
 import stelnet.helper.KeyboardHelper;
-import stelnet.commodity.ui.Callable;
-import stelnet.commodity.ui.Size;
-import stelnet.commodity.ui.ToggleButton;
+import stelnet.ui.Callable;
+import stelnet.ui.Size;
+import stelnet.ui.ToggleButton;
 
 public class IntelButton extends ToggleButton {
 
