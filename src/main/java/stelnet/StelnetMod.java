@@ -4,7 +4,7 @@ import com.fs.starfarer.api.BaseModPlugin;
 
 import stelnet.commodity.CommodityBoard;
 import stelnet.helper.LogHelper;
-import stelnet.market.MarketResultBoard;
+import stelnet.market.MarketQueryBoard;
 import stelnet.market.MonthEndListener;
 import stelnet.storage.StorageBoard;
 
@@ -25,7 +25,7 @@ public class StelnetMod extends BaseModPlugin {
     private void init() {
         CommodityBoard.getInstance();
         StorageBoard.getInstance();
-        MarketResultBoard.getInstance();
+        MarketQueryBoard.getInstance();
         MonthEndListener.register();
         LogHelper.debug("Initiation complete");
     }
