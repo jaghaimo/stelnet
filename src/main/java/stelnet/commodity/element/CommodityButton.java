@@ -4,9 +4,9 @@ import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import stelnet.commodity.CommodityBoard;
-import stelnet.commodity.ui.Callable;
-import stelnet.commodity.ui.Size;
-import stelnet.commodity.ui.ToggleButton;
+import stelnet.ui.Callable;
+import stelnet.ui.Size;
+import stelnet.ui.ToggleButton;
 
 public class CommodityButton extends ToggleButton {
 

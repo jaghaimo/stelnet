@@ -13,11 +13,11 @@ import stelnet.commodity.extractor.BuyTableContent;
 import stelnet.commodity.extractor.MarketFactory;
 import stelnet.commodity.extractor.SellMarketFactory;
 import stelnet.commodity.extractor.SellTableContent;
-import stelnet.commodity.ui.Renderable;
-import stelnet.commodity.ui.Row;
-import stelnet.commodity.ui.Stack;
-import stelnet.commodity.ui.Table;
-import stelnet.commodity.ui.TableContent;
+import stelnet.ui.Renderable;
+import stelnet.ui.Row;
+import stelnet.ui.Stack;
+import stelnet.ui.Table;
+import stelnet.ui.TableContent;
 
 public class CommodityViewFactory {
 

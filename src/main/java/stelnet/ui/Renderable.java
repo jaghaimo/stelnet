@@ -1,4 +1,4 @@
-package stelnet.commodity.ui;
+package stelnet.ui;
 
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;

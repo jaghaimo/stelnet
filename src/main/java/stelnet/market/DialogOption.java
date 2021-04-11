@@ -18,7 +18,7 @@ public enum DialogOption {
         }
     },
 
-    // officers personality filter
+    // officer personality filter
     OFFICER_TIMID("Officer: Timid") {
         @Override
         public DialogOption getNext() {
@@ -154,7 +154,7 @@ public enum DialogOption {
         }
     },
 
-    // ship page
+    // ship size filter
     SHIP_SIZE_FRIGATE("Size: Frigates") {
         @Override
         public DialogOption getNext() {
@@ -200,7 +200,7 @@ public enum DialogOption {
         }
     },
 
-    // ship carrier ship filter
+    // ship carrier filter
     SHIP_CARRIER_YES("Carriers: Include") {
         @Override
         public DialogOption getNext() {
@@ -220,7 +220,7 @@ public enum DialogOption {
         }
     },
 
-    // ship civilian ship filter
+    // ship civilian filter
     SHIP_CIVILIAN_YES("Civilian: Include") {
         @Override
         public DialogOption getNext() {

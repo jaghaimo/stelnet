@@ -5,9 +5,9 @@ import com.fs.starfarer.api.util.Misc;
 
 import stelnet.commodity.CommodityBoard;
 import stelnet.commodity.CommodityBoard.CommodityTab;
-import stelnet.commodity.ui.Button;
-import stelnet.commodity.ui.Callable;
-import stelnet.commodity.ui.Size;
+import stelnet.ui.Button;
+import stelnet.ui.Callable;
+import stelnet.ui.Size;
 
 public class TabButton extends Button {
 

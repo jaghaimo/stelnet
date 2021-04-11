@@ -8,9 +8,9 @@ import java.util.List;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.campaign.econ.EconomyAPI;
 
-import stelnet.commodity.ui.Button;
-import stelnet.commodity.ui.Renderable;
-import stelnet.commodity.ui.Stack;
+import stelnet.ui.Button;
+import stelnet.ui.Renderable;
+import stelnet.ui.Stack;
 import stelnet.helper.GlobalHelper;
 
 public class ButtonViewFactory {

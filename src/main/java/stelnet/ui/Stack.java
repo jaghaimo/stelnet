@@ -1,12 +1,17 @@
-package stelnet.commodity.ui;
+package stelnet.ui;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 
-public class Row extends Group {
+public class Stack extends Group {
 
-    public Row(List<Renderable> elements) {
+    public Stack(Renderable... elements) {
+        super(Arrays.asList(elements));
+    }
+
+    public Stack(List<Renderable> elements) {
         super(elements);
     }
 
@@ -15,7 +20,7 @@ public class Row extends Group {
         for (Renderable renderable : getElements()) {
             Size size = renderable.getSize();
             renderable.render(panel, x, y);
-            x += size.getWidth();
+            y += size.getHeigth();
         }
     }
 }

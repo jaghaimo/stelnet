@@ -13,9 +13,9 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import stelnet.commodity.element.ButtonViewFactory;
 import stelnet.commodity.element.CommodityViewFactory;
 import stelnet.commodity.element.IntelSelectionFactory;
-import stelnet.commodity.ui.Callable;
-import stelnet.commodity.ui.GridRenderer;
-import stelnet.commodity.ui.Size;
+import stelnet.ui.Callable;
+import stelnet.ui.GridRenderer;
+import stelnet.ui.Size;
 import stelnet.helper.GlobalHelper;
 import stelnet.helper.IntelHelper;
 
