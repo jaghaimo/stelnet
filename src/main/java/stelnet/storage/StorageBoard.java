@@ -13,10 +13,12 @@ import com.fs.starfarer.api.util.Misc;
 import stelnet.helper.GlobalHelper;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.StorageHelper;
-import stelnet.storage.button.ButtonHandler;
 import stelnet.storage.button.ButtonManager;
 import stelnet.storage.panel.BoardElement;
 import stelnet.storage.panel.ElementFactory;
+import stelnet.ui.Callable;
+import stelnet.ui.GridRenderer;
+import stelnet.ui.Size;
 
 public class StorageBoard extends BaseIntelPlugin {
 
@@ -27,6 +29,7 @@ public class StorageBoard extends BaseIntelPlugin {
     private Pane activePane;
     private ButtonManager buttonManager;
     private FilterFactory filterFactory;
+    private FilterManager filterManager;
 
     public static StorageBoard getInstance() {
         IntelInfoPlugin intel = IntelHelper.getFirstIntel(StorageBoard.class);
@@ -45,10 +48,13 @@ public class StorageBoard extends BaseIntelPlugin {
 
     @Override
     public void buttonPressConfirmed(Object buttonId, IntelUIAPI ui) {
-        if (buttonId instanceof ButtonHandler) {
-            ButtonHandler handler = (ButtonHandler) buttonId;
-            handler.handle(this, ui);
-        }
+        Callable callable = (Callable) buttonId;
+        callable.callback();
+        ui.updateUIForItem(this);
+        // if (buttonId instanceof ButtonHandler) {
+        // ButtonHandler handler = (ButtonHandler) buttonId;
+        // handler.handle(this, ui);
+        // }
     }
 
     @Override
@@ -66,11 +72,16 @@ public class StorageBoard extends BaseIntelPlugin {
         float spacer = 20;
         float controlWidth = 180;
         float displayWidth = width - controlWidth - spacer;
-        ElementFactory factory = new ElementFactory(this, panel, height);
-        BoardElement controls = factory.getControlColumn(controlWidth);
-        BoardElement displays = factory.getDisplayColumn(displayWidth);
-        controls.render();
-        displays.render();
+        GridRenderer renderer = new GridRenderer(new Size(width, height));
+        // renderer.setTopLeft();
+        // renderer.setTopRight();
+        renderer.render(panel);
+
+        // ElementFactory factory = new ElementFactory(this, panel, height);
+        // BoardElement controls = factory.getControlColumn(controlWidth);
+        // BoardElement displays = factory.getDisplayColumn(displayWidth);
+        // controls.render();
+        // displays.render();
     }
 
     @Override
@@ -110,6 +121,10 @@ public class StorageBoard extends BaseIntelPlugin {
 
     public FilterFactory getFilterFactory() {
         return filterFactory;
+    }
+
+    public FilterManager getFilterManager() {
+        return filterManager;
     }
 
     public void togglePane() {
