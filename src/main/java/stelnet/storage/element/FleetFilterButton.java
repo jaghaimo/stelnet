@@ -6,8 +6,8 @@ import stelnet.ui.Callable;
 
 public class FleetFilterButton extends FilteringButton {
 
-    public FleetFilterButton(String name, final FleetMemberFilter filter, boolean isOn) {
-        super(name, isOn);
+    public FleetFilterButton(String name, final FleetMemberFilter filter) {
+        super(name);
         setCallback(new Callable() {
 
             @Override

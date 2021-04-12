@@ -13,9 +13,8 @@ import com.fs.starfarer.api.util.Misc;
 import stelnet.helper.GlobalHelper;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.StorageHelper;
-import stelnet.storage.button.ButtonManager;
-import stelnet.storage.panel.BoardElement;
-import stelnet.storage.panel.ElementFactory;
+import stelnet.storage.element.ControlViewFactory;
+import stelnet.storage.element.DisplayViewFactory;
 import stelnet.ui.Callable;
 import stelnet.ui.GridRenderer;
 import stelnet.ui.Size;
@@ -26,9 +25,15 @@ public class StorageBoard extends BaseIntelPlugin {
         Cargo, Ships;
     }
 
-    private Pane activePane;
+    public enum View {
+        Unified, PerLocation;
+    }
+
+    private Pane currentPane;
+    private View currentView;
+    private ControlViewFactory controlViewFactory;
+    private DisplayViewFactory displayViewFactory;
     private ButtonManager buttonManager;
-    private FilterFactory filterFactory;
     private FilterManager filterManager;
 
     public static StorageBoard getInstance() {
@@ -41,9 +46,11 @@ public class StorageBoard extends BaseIntelPlugin {
     }
 
     private StorageBoard() {
-        activePane = Pane.Cargo;
+        currentPane = Pane.Cargo;
+        controlViewFactory = new ControlViewFactory();
+        displayViewFactory = new DisplayViewFactory();
         buttonManager = new ButtonManager();
-        filterFactory = new FilterFactory(buttonManager);
+        filterManager = new FilterManager();
     }
 
     @Override
@@ -51,10 +58,6 @@ public class StorageBoard extends BaseIntelPlugin {
         Callable callable = (Callable) buttonId;
         callable.callback();
         ui.updateUIForItem(this);
-        // if (buttonId instanceof ButtonHandler) {
-        // ButtonHandler handler = (ButtonHandler) buttonId;
-        // handler.handle(this, ui);
-        // }
     }
 
     @Override
@@ -73,15 +76,10 @@ public class StorageBoard extends BaseIntelPlugin {
         float controlWidth = 180;
         float displayWidth = width - controlWidth - spacer;
         GridRenderer renderer = new GridRenderer(new Size(width, height));
-        // renderer.setTopLeft();
-        // renderer.setTopRight();
+        renderer.setTopLeft(
+                displayViewFactory.get(new Size(displayWidth, height), currentPane, currentView, filterManager));
+        renderer.setTopRight(controlViewFactory.get(new Size(controlWidth, height), currentPane, buttonManager));
         renderer.render(panel);
-
-        // ElementFactory factory = new ElementFactory(this, panel, height);
-        // BoardElement controls = factory.getControlColumn(controlWidth);
-        // BoardElement displays = factory.getDisplayColumn(displayWidth);
-        // controls.render();
-        // displays.render();
     }
 
     @Override
@@ -111,16 +109,8 @@ public class StorageBoard extends BaseIntelPlugin {
         return IntelSortTier.TIER_0;
     }
 
-    public Pane getActivePane() {
-        return activePane;
-    }
-
     public ButtonManager getButtonManager() {
         return buttonManager;
-    }
-
-    public FilterFactory getFilterFactory() {
-        return filterFactory;
     }
 
     public FilterManager getFilterManager() {
@@ -128,7 +118,11 @@ public class StorageBoard extends BaseIntelPlugin {
     }
 
     public void togglePane() {
-        activePane = Pane.Cargo.equals(activePane) ? Pane.Ships : Pane.Cargo;
+        currentPane = Pane.Cargo.equals(currentPane) ? Pane.Ships : Pane.Cargo;
+    }
+
+    public void toggleView() {
+        currentView = View.Unified.equals(currentView) ? View.PerLocation : View.Unified;
     }
 
     private String getDescription(int cargoCount, int shipCount) {
