@@ -78,7 +78,7 @@ public class StorageBoard extends BaseIntelPlugin {
         GridRenderer renderer = new GridRenderer(new Size(width, height));
         renderer.setTopLeft(
                 displayViewFactory.get(new Size(displayWidth, height), currentPane, currentView, filterManager));
-        renderer.setTopRight(controlViewFactory.get(new Size(controlWidth, height), currentPane, buttonManager));
+        renderer.setTopRight(controlViewFactory.get(currentPane, buttonManager));
         renderer.render(panel);
     }
 
