@@ -31,4 +31,8 @@ public class ToggleButton extends Button {
         isOn = !isOn;
         super.callback();
     }
+
+    public boolean isOn() {
+        return isOn;
+    }
 }

@@ -13,7 +13,11 @@ public class FleetFilterButton extends FilteringButton {
             @Override
             public void callback() {
                 FilterManager filterManager = getFilterManager();
-                filterManager.addFilter(filter);
+                if (isOn()) {
+                    filterManager.removeFilter(filter);
+                } else {
+                    filterManager.addFilter(filter);
+                }
             }
         });
     }
