@@ -1,6 +1,6 @@
 package stelnet.storage.element;
 
-import java.awt.Color;
+import com.fs.starfarer.api.util.Misc;
 
 import stelnet.storage.StorageBoard;
 import stelnet.ui.Callable;
@@ -9,8 +9,9 @@ import stelnet.ui.ToggleButton;
 
 public class DisplayModeButton extends ToggleButton {
 
-    public DisplayModeButton(Size size, boolean isEnabled, Color color, boolean isOn) {
-        super(size, "Display Cargo", "Display Ships", isEnabled, color, color, isOn);
+    public DisplayModeButton() {
+        super(new Size(180, 24), "Display Cargo", "Display Ships", true, Misc.getButtonTextColor(),
+                Misc.getButtonTextColor(), true);
         setCallback(new Callable() {
 
             @Override
