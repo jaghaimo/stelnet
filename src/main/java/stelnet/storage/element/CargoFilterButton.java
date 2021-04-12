@@ -6,8 +6,8 @@ import stelnet.ui.Callable;
 
 public class CargoFilterButton extends FilteringButton {
 
-    public CargoFilterButton(String name, final CargoStackFilter filter, boolean isOn) {
-        super(name, isOn);
+    public CargoFilterButton(String name, final CargoStackFilter filter) {
+        super(name);
         setCallback(new Callable() {
 
             @Override

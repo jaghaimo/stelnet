@@ -9,9 +9,9 @@ import stelnet.ui.ToggleButton;
 
 public abstract class FilteringButton extends ToggleButton {
 
-    public FilteringButton(String name, boolean isOn) {
-        super(new Size(200, 24), name + ": On", name + ": Off", true, Misc.getHighlightColor(), Misc.getGrayColor(),
-                isOn);
+    public FilteringButton(String name) {
+        super(new Size(180, 24), name + ": On", name + ": Off", true, Misc.getHighlightColor(), Misc.getGrayColor(),
+                true);
     }
 
     protected FilterManager getFilterManager() {
