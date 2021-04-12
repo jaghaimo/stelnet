@@ -75,8 +75,8 @@ public class Button extends Renderable implements Callable {
     public void render(TooltipMakerAPI tooltip) {
         Color foregroundColor = getColor();
         Color backgroundColor = Misc.scaleColor(foregroundColor, 0.5f);
-        ButtonAPI button = tooltip.addButton(title, this, foregroundColor, backgroundColor, Alignment.MID, cutStyle,
-                size.getWidth() - 4f, size.getHeigth() - 4f, 4f);
+        ButtonAPI button = tooltip.addButton(getTitle(), this, foregroundColor, backgroundColor, Alignment.MID,
+                cutStyle, size.getWidth() - 4f, size.getHeigth() - 4f, 4f);
         button.setEnabled(isEnabled);
         if (shortcut > 0) {
             button.setShortcut(shortcut, false);
