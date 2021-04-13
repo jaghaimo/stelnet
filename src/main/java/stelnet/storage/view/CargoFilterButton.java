@@ -1,4 +1,4 @@
-package stelnet.storage.element;
+package stelnet.storage.view;
 
 import stelnet.filter.cargostack.CargoStackFilter;
 import stelnet.storage.FilterManager;

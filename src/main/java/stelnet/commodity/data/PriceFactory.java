@@ -1,4 +1,4 @@
-package stelnet.commodity.extractor;
+package stelnet.commodity.data;
 
 import stelnet.commodity.CommodityBoard.CommodityTab;
 

@@ -10,9 +10,9 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
-import stelnet.commodity.element.ButtonViewFactory;
-import stelnet.commodity.element.CommodityViewFactory;
-import stelnet.commodity.element.IntelSelectionFactory;
+import stelnet.commodity.view.ButtonViewFactory;
+import stelnet.commodity.view.CommodityViewFactory;
+import stelnet.commodity.view.IntelSelectionFactory;
 import stelnet.ui.Callable;
 import stelnet.ui.GridRenderer;
 import stelnet.ui.Size;

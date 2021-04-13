@@ -1,4 +1,4 @@
-package stelnet.commodity.extractor;
+package stelnet.commodity.data;
 
 import java.util.ArrayList;
 import java.util.List;
