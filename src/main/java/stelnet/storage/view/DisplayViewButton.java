@@ -7,9 +7,9 @@ import stelnet.ui.Callable;
 import stelnet.ui.Size;
 import stelnet.ui.ToggleButton;
 
-public class DisplayGroupButton extends ToggleButton {
+public class DisplayViewButton extends ToggleButton {
 
-    public DisplayGroupButton() {
+    public DisplayViewButton() {
         super(new Size(180, 24), "Group By Location", "Disable Grouping", true, Misc.getButtonTextColor(),
                 Misc.getButtonTextColor(), true);
         setCallback(new Callable() {

@@ -7,9 +7,9 @@ import stelnet.ui.Callable;
 import stelnet.ui.Size;
 import stelnet.ui.ToggleButton;
 
-public class DisplayModeButton extends ToggleButton {
+public class DisplayPaneButton extends ToggleButton {
 
-    public DisplayModeButton() {
+    public DisplayPaneButton() {
         super(new Size(180, 24), "Display Cargo", "Display Ships", true, Misc.getButtonTextColor(),
                 Misc.getButtonTextColor(), true);
         setCallback(new Callable() {
