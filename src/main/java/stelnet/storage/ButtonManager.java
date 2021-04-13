@@ -17,8 +17,8 @@ import stelnet.filter.fleetmember.IsNotDestroyer;
 import stelnet.filter.fleetmember.IsNotFrigate;
 import stelnet.filter.fleetmember.IsNotWarship;
 import stelnet.storage.view.CargoFilterButton;
-import stelnet.storage.view.DisplayGroupButton;
-import stelnet.storage.view.DisplayModeButton;
+import stelnet.storage.view.DisplayViewButton;
+import stelnet.storage.view.DisplayPaneButton;
 import stelnet.storage.view.FleetFilterButton;
 import stelnet.ui.Padding;
 import stelnet.ui.Renderable;
@@ -26,8 +26,8 @@ import stelnet.ui.Renderable;
 public class ButtonManager {
 
     private Renderable[] commonButtons = { //
-            new DisplayGroupButton(), //
-            new DisplayModeButton(), //
+            new DisplayViewButton(), //
+            new DisplayPaneButton(), //
             new Padding(20f), // vertical spacer
     };
 
