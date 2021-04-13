@@ -6,8 +6,8 @@ import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 
 import stelnet.commodity.CommodityBoard.CommodityTab;
-import stelnet.commodity.extractor.Price;
-import stelnet.commodity.extractor.PriceFactory;
+import stelnet.commodity.data.Price;
+import stelnet.commodity.data.PriceFactory;
 import stelnet.helper.GlobalHelper;
 import stelnet.helper.IntelHelper;
 

@@ -1,4 +1,4 @@
-package stelnet.commodity.element;
+package stelnet.commodity.view;
 
 import java.awt.event.KeyEvent;
 

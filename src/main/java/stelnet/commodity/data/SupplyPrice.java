@@ -1,4 +1,4 @@
-package stelnet.commodity.extractor;
+package stelnet.commodity.data;
 
 import com.fs.starfarer.api.campaign.econ.EconomyAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;

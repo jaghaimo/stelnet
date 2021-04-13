@@ -1,4 +1,4 @@
-package stelnet.commodity.element;
+package stelnet.commodity.view;
 
 import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.util.Misc;

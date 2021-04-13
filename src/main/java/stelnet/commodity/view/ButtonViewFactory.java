@@ -1,4 +1,4 @@
-package stelnet.commodity.element;
+package stelnet.commodity.view;
 
 import java.util.Collections;
 import java.util.Comparator;
