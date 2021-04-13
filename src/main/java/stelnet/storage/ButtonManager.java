@@ -16,10 +16,10 @@ import stelnet.filter.fleetmember.IsNotCruiser;
 import stelnet.filter.fleetmember.IsNotDestroyer;
 import stelnet.filter.fleetmember.IsNotFrigate;
 import stelnet.filter.fleetmember.IsNotWarship;
-import stelnet.storage.element.CargoFilterButton;
-import stelnet.storage.element.DisplayGroupButton;
-import stelnet.storage.element.DisplayModeButton;
-import stelnet.storage.element.FleetFilterButton;
+import stelnet.storage.view.CargoFilterButton;
+import stelnet.storage.view.DisplayGroupButton;
+import stelnet.storage.view.DisplayModeButton;
+import stelnet.storage.view.FleetFilterButton;
 import stelnet.ui.Padding;
 import stelnet.ui.Renderable;
 

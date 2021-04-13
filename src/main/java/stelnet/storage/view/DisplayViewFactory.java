@@ -1,4 +1,4 @@
-package stelnet.storage.element;
+package stelnet.storage.view;
 
 import stelnet.storage.FilterManager;
 import stelnet.storage.StorageBoard;

@@ -15,7 +15,7 @@ import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
-import stelnet.commodity.extractor.Price;
+import stelnet.commodity.data.Price;
 import stelnet.helper.StarSystemHelper;
 
 public class CommodityIntel extends BaseIntelPlugin {
