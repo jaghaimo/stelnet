@@ -14,6 +14,14 @@ public class GridRenderer {
         this.size = size;
     }
 
+    public GridRenderer(Size size, GridData data) {
+        this.size = size;
+        topLeft = data.getTopLeft();
+        topRight = data.getTopRight();
+        bottomLeft = data.getBottomLeft();
+        bottomRight = data.getBottomRight();
+    }
+
     public void render(CustomPanelAPI panel) {
         render(panel, topLeft, new Size(0, 0));
         render(panel, topRight, new Size(1, 0));

@@ -61,11 +61,11 @@ public class ButtonManager {
         return commonButtons;
     }
 
-    public Renderable[] getCargoButtons() {
+    public Renderable[] getItemButtons() {
         return cargoButtons;
     }
 
-    public Renderable[] getFleetButtons() {
+    public Renderable[] getShipButtons() {
         return fleetButtons;
     }
 }
