@@ -2,11 +2,11 @@ package stelnet.ui;
 
 public interface GridData {
 
-    public Renderable getTopLeft();
+    public Renderable getTopLeft(Size size);
 
-    public Renderable getTopRight();
+    public Renderable getTopRight(Size size);
 
-    public Renderable getBottomLeft();
+    public Renderable getBottomLeft(Size size);
 
-    public Renderable getBottomRight();
+    public Renderable getBottomRight(Size size);
 }
