@@ -2,26 +2,21 @@ package stelnet.storage;
 
 import java.util.Set;
 
-import javax.swing.text.View;
-
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
-import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
-import com.fs.starfarer.api.ui.CustomPanelAPI;
-import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
+import stelnet.BaseBoard;
 import stelnet.helper.GlobalHelper;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.StorageHelper;
 import stelnet.storage.data.ItemsGridData;
 import stelnet.storage.data.SharedData;
-import stelnet.ui.Callable;
-import stelnet.ui.GridRenderer;
+import stelnet.ui.GridData;
 import stelnet.ui.Size;
 
-public class StorageBoard extends BaseIntelPlugin {
+public class StorageBoard extends BaseBoard {
 
     private ButtonManager buttonManager;
     private FilterManager filterManager;
@@ -43,13 +38,6 @@ public class StorageBoard extends BaseIntelPlugin {
     }
 
     @Override
-    public void buttonPressConfirmed(Object buttonId, IntelUIAPI ui) {
-        Callable callable = (Callable) buttonId;
-        callable.callback();
-        ui.updateUIForItem(this);
-    }
-
-    @Override
     public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
         int itemCount = StorageHelper.getAllItemCount();
         int shipCount = StorageHelper.getAllShipCount();
@@ -57,26 +45,6 @@ public class StorageBoard extends BaseIntelPlugin {
         info.addPara(getDescription(itemCount, shipCount), 1f, getBulletColorForMode(mode), Misc.getHighlightColor(),
                 String.valueOf(itemCount), String.valueOf(shipCount));
         info.addPara("", 1f);
-    }
-
-    @Override
-    public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
-        // TODO use this again
-        // float spacer = 20;
-        // float controlWidth = 180;
-        // float displayWidth = width - controlWidth - spacer;
-        GridRenderer renderer = new GridRenderer(new Size(width, height), gridData);
-        renderer.render(panel);
-    }
-
-    @Override
-    public boolean hasLargeDescription() {
-        return true;
-    }
-
-    @Override
-    public boolean hasSmallDescription() {
-        return false;
     }
 
     @Override
@@ -92,12 +60,12 @@ public class StorageBoard extends BaseIntelPlugin {
     }
 
     @Override
-    public IntelSortTier getSortTier() {
-        return IntelSortTier.TIER_0;
-    }
-
-    public ButtonManager getButtonManager() {
-        return buttonManager;
+    protected GridData getGridData(Size size) {
+        // TODO use this again
+        // float spacer = 20;
+        // float controlWidth = 180;
+        // float displayWidth = width - controlWidth - spacer;
+        return gridData;
     }
 
     public FilterManager getFilterManager() {
