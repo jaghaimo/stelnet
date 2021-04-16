@@ -1,6 +1,7 @@
 package stelnet.storage.data;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
@@ -48,7 +49,11 @@ public abstract class SharedData implements GridData {
 
     @Override
     public Renderable getTopRight(Size size) {
-        return new VerticalGroup(getButtons());
+        Renderable[] common = buttonManager.getCommonButtons();
+        Renderable[] buttons = getButtons();
+        Renderable[] all = Arrays.copyOf(common, common.length + buttons.length);
+        System.arraycopy(buttons, 0, all, common.length, buttons.length);
+        return new VerticalGroup(all);
     }
 
     @Override
