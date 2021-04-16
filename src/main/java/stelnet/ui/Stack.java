@@ -1,26 +1,24 @@
 package stelnet.ui;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.fs.starfarer.api.ui.CustomPanelAPI;
+import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 public class Stack extends Group {
 
-    public Stack(Renderable... elements) {
-        super(Arrays.asList(elements));
-    }
+    private Size size;
 
-    public Stack(List<Renderable> elements) {
+    public Stack(Size size, List<Renderable> elements) {
         super(elements);
+        this.size = size;
     }
 
     @Override
     public void render(CustomPanelAPI panel, float x, float y) {
+        TooltipMakerAPI inner = panel.createUIElement(size.getWidth(), size.getHeigth(), true);
         for (Renderable renderable : getElements()) {
-            Size size = renderable.getSize();
-            renderable.render(panel, x, y);
-            y += size.getHeigth();
+            renderable.render(inner);
         }
     }
 }

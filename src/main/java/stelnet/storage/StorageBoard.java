@@ -3,6 +3,7 @@ package stelnet.storage;
 import java.util.Set;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
+import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
@@ -13,7 +14,7 @@ import stelnet.helper.IntelHelper;
 import stelnet.helper.StorageHelper;
 import stelnet.storage.data.ItemsGridData;
 import stelnet.storage.data.SharedData;
-import stelnet.ui.GridData;
+import stelnet.ui.GridRenderer;
 import stelnet.ui.Size;
 
 public class StorageBoard extends BaseBoard {
@@ -48,6 +49,18 @@ public class StorageBoard extends BaseBoard {
     }
 
     @Override
+    public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
+        float spacer = 20;
+        float controlWidth = 180;
+        float displayWidth = width - controlWidth - spacer;
+        Size size = new Size(width, height);
+        GridRenderer renderer = new GridRenderer(size);
+        renderer.setTopLeft(gridData.getTopLeft(new Size(displayWidth, height)));
+        renderer.setTopRight(gridData.getTopRight(new Size(controlWidth, height)));
+        renderer.render(panel);
+    }
+
+    @Override
     public String getIcon() {
         return GlobalHelper.getSpriteName("storage");
     }
@@ -57,15 +70,6 @@ public class StorageBoard extends BaseBoard {
         Set<String> tags = super.getIntelTags(map);
         tags.add(StorageIntel.TAG);
         return tags;
-    }
-
-    @Override
-    protected GridData getGridData(Size size) {
-        // TODO use this again
-        // float spacer = 20;
-        // float controlWidth = 180;
-        // float displayWidth = width - controlWidth - spacer;
-        return gridData;
     }
 
     public FilterManager getFilterManager() {
