@@ -16,10 +16,10 @@ import stelnet.filter.fleetmember.IsNotCruiser;
 import stelnet.filter.fleetmember.IsNotDestroyer;
 import stelnet.filter.fleetmember.IsNotFrigate;
 import stelnet.filter.fleetmember.IsNotWarship;
-import stelnet.storage.view.CargoFilterButton;
+import stelnet.storage.view.ItemFilterButton;
 import stelnet.storage.view.DisplayViewButton;
 import stelnet.storage.view.DisplayPaneButton;
-import stelnet.storage.view.FleetFilterButton;
+import stelnet.storage.view.ShipFilterButton;
 import stelnet.ui.Padding;
 import stelnet.ui.Renderable;
 
@@ -32,29 +32,29 @@ public class ButtonManager {
     };
 
     private Renderable[] cargoButtons = { //
-            new CargoFilterButton("Commodities", new IsNotCommodity()), //
-            new CargoFilterButton("Weapons", new IsNotWeapon()), //
-            new CargoFilterButton("Fighter Wings", new IsNotFighterWing()), //
-            new CargoFilterButton("Others", new IsNotOther()), //
+            new ItemFilterButton("Commodities", new IsNotCommodity()), //
+            new ItemFilterButton("Weapons", new IsNotWeapon()), //
+            new ItemFilterButton("Fighter Wings", new IsNotFighterWing()), //
+            new ItemFilterButton("Others", new IsNotOther()), //
             new Padding(20f), // vertical spacer
-            new CargoFilterButton("Small Mount", new IsNotMountSize(WeaponSize.SMALL)), //
-            new CargoFilterButton("Medium Mount", new IsNotMountSize(WeaponSize.MEDIUM)), //
-            new CargoFilterButton("Large Mount", new IsNotMountSize(WeaponSize.LARGE)), //
+            new ItemFilterButton("Small Mount", new IsNotMountSize(WeaponSize.SMALL)), //
+            new ItemFilterButton("Medium Mount", new IsNotMountSize(WeaponSize.MEDIUM)), //
+            new ItemFilterButton("Large Mount", new IsNotMountSize(WeaponSize.LARGE)), //
             new Padding(20f), // vertical spacer
-            new CargoFilterButton("Fighters", new IsNotFighterWingRole(WingRole.FIGHTER)), //
-            new CargoFilterButton("Bombers", new IsNotFighterWingRole(WingRole.BOMBER)), //
-            new CargoFilterButton("Interceptors", new IsNotFighterWingRole(WingRole.INTERCEPTOR))//
+            new ItemFilterButton("Fighters", new IsNotFighterWingRole(WingRole.FIGHTER)), //
+            new ItemFilterButton("Bombers", new IsNotFighterWingRole(WingRole.BOMBER)), //
+            new ItemFilterButton("Interceptors", new IsNotFighterWingRole(WingRole.INTERCEPTOR))//
     };
 
     private Renderable[] fleetButtons = { //
-            new FleetFilterButton("Frigates", new IsNotFrigate()), //
-            new FleetFilterButton("Destroyers", new IsNotDestroyer()), //
-            new FleetFilterButton("Cruisers", new IsNotCruiser()), //
-            new FleetFilterButton("Capitals", new IsNotCapital()), //
+            new ShipFilterButton("Frigates", new IsNotFrigate()), //
+            new ShipFilterButton("Destroyers", new IsNotDestroyer()), //
+            new ShipFilterButton("Cruisers", new IsNotCruiser()), //
+            new ShipFilterButton("Capitals", new IsNotCapital()), //
             new Padding(20f), // vertical spacer
-            new FleetFilterButton("Warships", new IsNotWarship()), //
-            new FleetFilterButton("Carriers", new IsNotCarrier()), //
-            new FleetFilterButton("Civilians", new IsNotCivilian())//
+            new ShipFilterButton("Warships", new IsNotWarship()), //
+            new ShipFilterButton("Carriers", new IsNotCarrier()), //
+            new ShipFilterButton("Civilians", new IsNotCivilian())//
     };
 
     public Renderable[] getCommonButtons() {
