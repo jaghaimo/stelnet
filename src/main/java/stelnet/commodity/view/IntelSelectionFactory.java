@@ -9,7 +9,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import stelnet.commodity.CommodityBoard.CommodityTab;
 import stelnet.commodity.IntelTracker;
 import stelnet.ui.Renderable;
-import stelnet.ui.Row;
+import stelnet.ui.HorizontalGroup;
 
 public class IntelSelectionFactory {
 
@@ -30,7 +30,7 @@ public class IntelSelectionFactory {
             MarketAPI market = markets.get(i);
             buttons.add((Renderable) new IntelButton(i + 1, actionTab, commodityId, market, tracker));
         }
-        return new Row(buttons);
+        return new HorizontalGroup(buttons);
     }
 
     public void setMarkets(List<MarketAPI> markets) {

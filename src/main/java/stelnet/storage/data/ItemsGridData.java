@@ -2,6 +2,7 @@ package stelnet.storage.data;
 
 import stelnet.storage.ButtonManager;
 import stelnet.storage.FilterManager;
+import stelnet.ui.Cargo;
 import stelnet.ui.Renderable;
 
 public class ItemsGridData extends SharedData {
@@ -10,19 +11,23 @@ public class ItemsGridData extends SharedData {
         super(buttonManager, filterManager);
     }
 
-    @Override
-    public Renderable getTopLeft() {
-        // TODO Auto-generated method stub
-        return null;
+    protected ItemsGridData(ButtonManager buttonManager, FilterManager filterManager, DataProvider dataProvider) {
+        super(buttonManager, filterManager);
+        this.dataProvider = dataProvider;
     }
 
     @Override
     public SharedData getNext() {
-        return new ShipsGridData(buttonManager, filterManager);
+        return new ShipsGridData(buttonManager, filterManager, dataProvider);
     }
 
     @Override
     protected Renderable[] getButtons() {
         return buttonManager.getItemButtons();
+    }
+
+    @Override
+    protected Renderable getStorageContent(StorageData data) {
+        return new Cargo(data.getItems(), "There are no matching items to display", 0, 0);
     }
 }

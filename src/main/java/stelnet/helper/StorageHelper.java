@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
@@ -18,12 +20,12 @@ import stelnet.filter.fleetmember.FleetMemberFilter;
 
 public class StorageHelper {
 
-    public static CargoAPI getAllCargo() {
-        List<CargoStackFilter> filters = Collections.emptyList();
-        return getAllCargo(filters);
+    public static CargoAPI getAllItems() {
+        Set<CargoStackFilter> filters = new TreeSet<>();
+        return getAllItems(filters);
     }
 
-    public static CargoAPI getAllCargo(List<CargoStackFilter> filters) {
+    public static CargoAPI getAllItems(Set<CargoStackFilter> filters) {
         List<CargoStackAPI> cargoStacks = new ArrayList<>();
         List<SubmarketAPI> submarkets = getAllWithAccess();
         for (SubmarketAPI submarket : submarkets) {
@@ -34,16 +36,16 @@ public class StorageHelper {
     }
 
     public static int getAllItemCount() {
-        CargoAPI cargo = getAllCargo();
+        CargoAPI cargo = getAllItems();
         return CargoHelper.calculateCargoQuantity(cargo);
     }
 
     public static List<FleetMemberAPI> getAllShips() {
-        List<FleetMemberFilter> filters = new ArrayList<>();
+        Set<FleetMemberFilter> filters = new TreeSet<>();
         return getAllShips(filters);
     }
 
-    public static List<FleetMemberAPI> getAllShips(List<FleetMemberFilter> filters) {
+    public static List<FleetMemberAPI> getAllShips(Set<FleetMemberFilter> filters) {
         List<FleetMemberAPI> ships = new ArrayList<>();
         List<SubmarketAPI> submarkets = getAllWithAccess();
         for (SubmarketAPI submarket : submarkets) {
