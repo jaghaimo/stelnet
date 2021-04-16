@@ -2,6 +2,8 @@ package stelnet.storage;
 
 import java.util.Set;
 
+import javax.swing.text.View;
+
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.CustomPanelAPI;
@@ -13,28 +15,17 @@ import com.fs.starfarer.api.util.Misc;
 import stelnet.helper.GlobalHelper;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.StorageHelper;
-import stelnet.storage.view.ControlViewFactory;
-import stelnet.storage.view.DisplayViewFactory;
+import stelnet.storage.data.ItemsGridData;
+import stelnet.storage.data.SharedData;
 import stelnet.ui.Callable;
 import stelnet.ui.GridRenderer;
 import stelnet.ui.Size;
 
 public class StorageBoard extends BaseIntelPlugin {
 
-    public enum Pane {
-        Cargo, Ships;
-    }
-
-    public enum View {
-        Unified, PerLocation;
-    }
-
-    private Pane currentPane;
-    private View currentView;
-    private ControlViewFactory controlViewFactory;
-    private DisplayViewFactory displayViewFactory;
     private ButtonManager buttonManager;
     private FilterManager filterManager;
+    private SharedData gridData;
 
     public static StorageBoard getInstance() {
         IntelInfoPlugin intel = IntelHelper.getFirstIntel(StorageBoard.class);
@@ -46,11 +37,9 @@ public class StorageBoard extends BaseIntelPlugin {
     }
 
     private StorageBoard() {
-        currentPane = Pane.Cargo;
-        controlViewFactory = new ControlViewFactory();
-        displayViewFactory = new DisplayViewFactory();
         buttonManager = new ButtonManager();
         filterManager = new FilterManager();
+        gridData = new ItemsGridData(buttonManager, filterManager);
     }
 
     @Override
@@ -62,23 +51,21 @@ public class StorageBoard extends BaseIntelPlugin {
 
     @Override
     public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
-        int cargoCount = StorageHelper.getAllCargoCount();
+        int itemCount = StorageHelper.getAllItemCount();
         int shipCount = StorageHelper.getAllShipCount();
         info.addPara("Storage Contents", getTitleColor(mode), 0);
-        info.addPara(getDescription(cargoCount, shipCount), 1f, getBulletColorForMode(mode), Misc.getHighlightColor(),
-                String.valueOf(cargoCount), String.valueOf(shipCount));
+        info.addPara(getDescription(itemCount, shipCount), 1f, getBulletColorForMode(mode), Misc.getHighlightColor(),
+                String.valueOf(itemCount), String.valueOf(shipCount));
         info.addPara("", 1f);
     }
 
     @Override
     public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
-        float spacer = 20;
-        float controlWidth = 180;
-        float displayWidth = width - controlWidth - spacer;
-        GridRenderer renderer = new GridRenderer(new Size(width, height));
-        renderer.setTopLeft(
-                displayViewFactory.get(new Size(displayWidth, height), currentPane, currentView, filterManager));
-        renderer.setTopRight(controlViewFactory.get(currentPane, buttonManager));
+        // TODO use this again
+        // float spacer = 20;
+        // float controlWidth = 180;
+        // float displayWidth = width - controlWidth - spacer;
+        GridRenderer renderer = new GridRenderer(new Size(width, height), gridData);
         renderer.render(panel);
     }
 
@@ -118,11 +105,11 @@ public class StorageBoard extends BaseIntelPlugin {
     }
 
     public void togglePane() {
-        currentPane = Pane.Cargo.equals(currentPane) ? Pane.Ships : Pane.Cargo;
+        gridData = gridData.getNext();
     }
 
     public void toggleView() {
-        currentView = View.Unified.equals(currentView) ? View.PerLocation : View.Unified;
+        gridData.changeDataProvider();
     }
 
     private String getDescription(int cargoCount, int shipCount) {

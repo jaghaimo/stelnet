@@ -33,7 +33,7 @@ public class StorageHelper {
         return CargoHelper.makeCargoFromStacks(cargoStacks);
     }
 
-    public static int getAllCargoCount() {
+    public static int getAllItemCount() {
         CargoAPI cargo = getAllCargo();
         return CargoHelper.calculateCargoQuantity(cargo);
     }
