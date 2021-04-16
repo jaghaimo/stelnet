@@ -1,12 +1,12 @@
 package stelnet.storage.view;
 
-import stelnet.filter.fleetmember.FleetMemberFilter;
+import stelnet.filter.cargostack.CargoStackFilter;
 import stelnet.storage.FilterManager;
 import stelnet.ui.Callable;
 
-public class FleetFilterButton extends FilteringButton {
+public class ItemFilterButton extends FilteringButton {
 
-    public FleetFilterButton(String name, final FleetMemberFilter filter) {
+    public ItemFilterButton(String name, final CargoStackFilter filter) {
         super(name);
         setCallback(new Callable() {
 
