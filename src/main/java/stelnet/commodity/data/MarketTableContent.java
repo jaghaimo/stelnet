@@ -8,8 +8,8 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
 
-import stelnet.ui.TableContent;
 import stelnet.helper.StarSystemHelper;
+import stelnet.ui.TableContent;
 
 public abstract class MarketTableContent implements TableContent {
 
