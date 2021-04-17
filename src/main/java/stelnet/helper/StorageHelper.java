@@ -3,9 +3,9 @@ package stelnet.helper;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
@@ -21,7 +21,7 @@ import stelnet.filter.fleetmember.FleetMemberFilter;
 public class StorageHelper {
 
     public static CargoAPI getAllItems() {
-        Set<CargoStackFilter> filters = new TreeSet<>();
+        Set<CargoStackFilter> filters = new HashSet<>();
         return getAllItems(filters);
     }
 
@@ -41,7 +41,7 @@ public class StorageHelper {
     }
 
     public static List<FleetMemberAPI> getAllShips() {
-        Set<FleetMemberFilter> filters = new TreeSet<>();
+        Set<FleetMemberFilter> filters = new HashSet<>();
         return getAllShips(filters);
     }
 
