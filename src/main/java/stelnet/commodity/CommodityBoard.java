@@ -13,11 +13,11 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import stelnet.commodity.view.ButtonViewFactory;
 import stelnet.commodity.view.CommodityViewFactory;
 import stelnet.commodity.view.IntelSelectionFactory;
+import stelnet.helper.GlobalHelper;
+import stelnet.helper.IntelHelper;
 import stelnet.ui.Callable;
 import stelnet.ui.GridRenderer;
 import stelnet.ui.Size;
-import stelnet.helper.GlobalHelper;
-import stelnet.helper.IntelHelper;
 
 public class CommodityBoard extends BaseIntelPlugin {
 

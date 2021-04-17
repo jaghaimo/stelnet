@@ -2,7 +2,6 @@ package stelnet;
 
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
-import com.fs.starfarer.api.campaign.listeners.ListenerUtil;
 
 import stelnet.commodity.CommodityBoard;
 import stelnet.helper.GlobalHelper;
