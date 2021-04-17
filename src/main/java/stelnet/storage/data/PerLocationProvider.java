@@ -46,14 +46,14 @@ public class PerLocationProvider implements DataProvider {
     private CargoAPI getItems(CargoAPI storageCargo) {
         CargoAPI items = storageCargo.createCopy();
         List<CargoStackAPI> cargoStacks = storageCargo.getStacksCopy();
-        CollectionHelper.reduce(cargoStacks, filterManager.getCargoFilters());
+        CollectionHelper.reduce(cargoStacks, filterManager.getItemFilters());
         CargoHelper.replaceCargoStacks(items, cargoStacks);
         return items;
     }
 
     private List<FleetMemberAPI> getShips(CargoAPI storageCargo) {
         List<FleetMemberAPI> ships = storageCargo.getMothballedShips().getMembersInPriorityOrder();
-        CollectionHelper.reduce(ships, filterManager.getFleetMemberFilters());
+        CollectionHelper.reduce(ships, filterManager.getShipFilters());
         return ships;
     }
 }
