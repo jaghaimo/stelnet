@@ -3,6 +3,8 @@ package stelnet;
 import com.fs.starfarer.api.BaseModPlugin;
 
 import stelnet.commodity.CommodityBoard;
+import stelnet.helper.GlobalHelper;
+import stelnet.helper.IntelHelper;
 import stelnet.helper.LogHelper;
 import stelnet.market.MarketQueryBoard;
 import stelnet.market.MonthEndListener;
@@ -23,10 +25,19 @@ public class StelnetMod extends BaseModPlugin {
     }
 
     private void init() {
+        if (GlobalHelper.isDevMode()) {
+            purge(CommodityBoard.class, StorageBoard.class, MarketQueryBoard.class);
+        }
         CommodityBoard.getInstance();
         StorageBoard.getInstance();
         MarketQueryBoard.getInstance();
         MonthEndListener.register();
         LogHelper.debug("Initiation complete");
+    }
+
+    private void purge(Class<?>... classNames) {
+        for (Class<?> className : classNames) {
+            IntelHelper.purgeIntel(className);
+        }
     }
 }

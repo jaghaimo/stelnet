@@ -13,6 +13,14 @@ public class IntelHelper {
         return GlobalHelper.getIntelManager().getFirstIntel(className);
     }
 
+    public static void purgeIntel(Class<?> className) {
+        IntelInfoPlugin plugin = getFirstIntel(className);
+        if (plugin != null) {
+            LogHelper.info("Removing existing intel for " + className);
+            removeIntel(plugin);
+        }
+    }
+
     public static void removeIntel(IntelInfoPlugin plugin) {
         GlobalHelper.getIntelManager().removeIntel(plugin);
     }

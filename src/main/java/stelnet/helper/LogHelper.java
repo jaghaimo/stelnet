@@ -29,7 +29,7 @@ public class LogHelper {
 
     private static Logger getLogger() {
         Logger logger = Global.getLogger(getName());
-        if (Global.getSettings().isDevMode()) {
+        if (GlobalHelper.isDevMode()) {
             logger.setLevel(Level.DEBUG);
         }
         return logger;

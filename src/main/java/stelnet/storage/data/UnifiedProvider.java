@@ -20,8 +20,8 @@ public class UnifiedProvider implements DataProvider {
 
     @Override
     public List<StorageData> getData() {
-        CargoAPI items = StorageHelper.getAllItems(filterManager.getCargoFilters());
-        List<FleetMemberAPI> ships = StorageHelper.getAllShips(filterManager.getFleetMemberFilters());
+        CargoAPI items = StorageHelper.getAllItems(filterManager.getItemFilters());
+        List<FleetMemberAPI> ships = StorageHelper.getAllShips(filterManager.getShipFilters());
         LogHelper.debug("Found " + items.getStacksCopy().size() + " items");
         LogHelper.debug("Found " + ships.size() + " ships");
         return Arrays.asList(new StorageData(null, items, ships));
