@@ -5,6 +5,11 @@ import java.util.List;
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+/**
+ * Renders elements in a vertical line.
+ *
+ * Has fixed size, will display a scroll if elements exceed it.
+ */
 public class ScrollableStack extends Group {
 
     private Size size;

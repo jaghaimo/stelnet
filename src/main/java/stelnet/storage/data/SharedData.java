@@ -16,7 +16,7 @@ import stelnet.ui.Heading;
 import stelnet.ui.Renderable;
 import stelnet.ui.ScrollableStack;
 import stelnet.ui.Size;
-import stelnet.ui.VerticalGroup;
+import stelnet.ui.Stack;
 
 public abstract class SharedData implements GridData {
 
@@ -53,8 +53,8 @@ public abstract class SharedData implements GridData {
         Renderable[] buttons = getButtons();
         Renderable[] all = Arrays.copyOf(common, common.length + buttons.length);
         System.arraycopy(buttons, 0, all, common.length, buttons.length);
-        LogHelper.info("Returning VerticalGroup with " + all.length + " elements");
-        return new VerticalGroup(all);
+        LogHelper.info("Returning Stack with " + all.length + " elements");
+        return new Stack(all);
     }
 
     @Override

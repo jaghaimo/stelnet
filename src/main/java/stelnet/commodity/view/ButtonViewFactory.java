@@ -10,12 +10,12 @@ import com.fs.starfarer.api.campaign.econ.EconomyAPI;
 
 import stelnet.ui.Button;
 import stelnet.ui.Renderable;
-import stelnet.ui.VerticalGroup;
+import stelnet.ui.Stack;
 import stelnet.helper.GlobalHelper;
 
 public class ButtonViewFactory {
 
-    public VerticalGroup get(String activeId) {
+    public Stack get(String activeId) {
         EconomyAPI economy = GlobalHelper.getEconomy();
         List<Renderable> buttons = new LinkedList<>();
         List<String> commodityIds = economy.getAllCommodityIds();
@@ -26,7 +26,7 @@ public class ButtonViewFactory {
                 buttons.add(get(commodity, activeId));
             }
         }
-        return new VerticalGroup(buttons);
+        return new Stack(buttons);
     }
 
     private boolean canInclude(CommoditySpecAPI commodity) {
