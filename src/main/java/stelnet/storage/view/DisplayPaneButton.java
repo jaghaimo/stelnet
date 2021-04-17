@@ -10,7 +10,7 @@ import stelnet.ui.ToggleButton;
 public class DisplayPaneButton extends ToggleButton {
 
     public DisplayPaneButton() {
-        super(new Size(180, 24), "Display Items", "Display Ships", true, Misc.getButtonTextColor(),
+        super(new Size(180, 24), "Display Ships", "Display Items", true, Misc.getButtonTextColor(),
                 Misc.getButtonTextColor(), true);
         setCallback(new Callable() {
 

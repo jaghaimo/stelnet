@@ -43,10 +43,9 @@ public class StorageIntel extends BaseIntelPlugin {
     public void createSmallDescription(TooltipMakerAPI info, float width, float height) {
         Color baseColor = getFactionForUIColors().getBaseUIColor();
         Color darkColor = getFactionForUIColors().getDarkUIColor();
-
-        info.addSectionHeading(getMarketName() + " Cargo", baseColor, darkColor, Alignment.MID, 5f);
+        info.addSectionHeading(getMarketName() + " Items", baseColor, darkColor, Alignment.MID, 5f);
         fakeVerticalSeparator(info, width, 10f);
-        showCargo(info);
+        showItems(info);
         fakeVerticalSeparator(info, width, 20f);
         info.addSectionHeading(getMarketName() + " Ships", baseColor, darkColor, Alignment.MID, 5f);
         fakeVerticalSeparator(info, width, 10f);
@@ -99,18 +98,18 @@ public class StorageIntel extends BaseIntelPlugin {
 
     private String getStorageContent() {
         CargoAPI cargo = storage.getCargo();
-        int cargoCount = CargoHelper.calculateCargoQuantity(cargo);
+        int itemsCount = CargoHelper.calculateItemQuantity(cargo);
         int shipsCount = CargoHelper.calculateShipQuantity(cargo.getMothballedShips().getMembersListCopy());
-        String items = cargoCount != 1 ? "s" : "";
+        String items = itemsCount != 1 ? "s" : "";
         String ships = shipsCount != 1 ? "s" : "";
-        return String.format("%d item%s & %d ship%s", cargoCount, items, shipsCount, ships);
+        return String.format("%d item%s & %d ship%s", itemsCount, items, shipsCount, ships);
     }
 
     private void fakeVerticalSeparator(TooltipMakerAPI info, float width, float height) {
         info.addImage("", width, height, 0);
     }
 
-    private void showCargo(TooltipMakerAPI info) {
+    private void showItems(TooltipMakerAPI info) {
         CargoAPI cargo = storage.getCargo().createCopy();
         cargo.sort();
         info.showCargo(cargo, cargo.getStacksCopy().size(), false, 5f);
