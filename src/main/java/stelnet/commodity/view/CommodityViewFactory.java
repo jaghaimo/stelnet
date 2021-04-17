@@ -14,8 +14,8 @@ import stelnet.commodity.data.MarketFactory;
 import stelnet.commodity.data.SellMarketFactory;
 import stelnet.commodity.data.SellTableContent;
 import stelnet.ui.Renderable;
-import stelnet.ui.HorizontalGroup;
-import stelnet.ui.VerticalGroup;
+import stelnet.ui.Row;
+import stelnet.ui.Stack;
 import stelnet.ui.Table;
 import stelnet.ui.TableContent;
 
@@ -33,13 +33,13 @@ public class CommodityViewFactory {
         TableContent tableContent = getTableContent(commodityId, activeTab);
         Renderable tabs = getTabs(activeTab);
         Renderable table = new Table(commodityId, width, tableHeight, tableContent);
-        return new VerticalGroup(tabs, table);
+        return new Stack(tabs, table);
     }
 
     private Renderable getTabs(CommodityTab activeTab) {
         Renderable buyButton = new TabButton(CommodityTab.BUY, activeTab, Keyboard.KEY_B);
         Renderable sellButton = new TabButton(CommodityTab.SELL, activeTab, Keyboard.KEY_S);
-        return new HorizontalGroup(Arrays.asList(buyButton, sellButton));
+        return new Row(Arrays.asList(buyButton, sellButton));
     }
 
     private TableContent getTableContent(String commodityId, CommodityTab activeTab) {
