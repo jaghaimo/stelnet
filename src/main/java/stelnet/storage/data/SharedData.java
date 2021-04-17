@@ -14,8 +14,8 @@ import stelnet.storage.FilterManager;
 import stelnet.ui.GridData;
 import stelnet.ui.Heading;
 import stelnet.ui.Renderable;
-import stelnet.ui.Size;
 import stelnet.ui.ScrollableStack;
+import stelnet.ui.Size;
 import stelnet.ui.VerticalGroup;
 
 public abstract class SharedData implements GridData {
@@ -43,7 +43,7 @@ public abstract class SharedData implements GridData {
             addTitle(elements, submarket);
             elements.add(getStorageContent(data));
         }
-        LogHelper.info("Returning Stack with " + elements.size() + " elements");
+        LogHelper.info("Returning ScrollableStack with " + elements.size() + " elements");
         return new ScrollableStack(size, elements);
     }
 
