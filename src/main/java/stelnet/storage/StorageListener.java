@@ -1,14 +1,26 @@
 package stelnet.storage;
 
+import java.util.List;
+
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.campaign.comm.IntelManagerAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.campaign.listeners.EconomyTickListener;
+import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
 
 import stelnet.helper.GlobalHelper;
 import stelnet.helper.StorageHelper;
 
 public class StorageListener implements EconomyTickListener {
+
+    public static void register() {
+        ListenerManagerAPI listenerManager = GlobalHelper.getListenerManager();
+        List<StorageListener> listeners = listenerManager.getListeners(StorageListener.class);
+        if (listeners.isEmpty()) {
+            StorageListener listener = new StorageListener();
+            listenerManager.addListener(listener);
+        }
+    }
 
     @Override
     public void reportEconomyMonthEnd() {
