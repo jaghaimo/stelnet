@@ -8,7 +8,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 
 public class CargoHelper {
 
-    public static int calculateCargoQuantity(CargoAPI cargo) {
+    public static int calculateItemQuantity(CargoAPI cargo) {
         float cargoSpace = 0;
         for (CargoStackAPI stack : cargo.getStacksCopy()) {
             cargoSpace += stack.getSize();

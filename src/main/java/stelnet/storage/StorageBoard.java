@@ -84,15 +84,15 @@ public class StorageBoard extends BaseBoard {
         gridData.changeDataProvider();
     }
 
-    private String getDescription(int cargoCount, int shipCount) {
-        if (cargoCount == 0 && shipCount == 0) {
+    private String getDescription(int itemCount, int shipCount) {
+        if (itemCount == 0 && shipCount == 0) {
             return "You don't store anything in your storages.";
         }
-        return getFormattedDescription(cargoCount, shipCount);
+        return getFormattedDescription(itemCount, shipCount);
     }
 
-    private String getFormattedDescription(int cargoCount, int shipCount) {
-        String items = cargoCount != 1 ? "s " : " ";
+    private String getFormattedDescription(int itemCount, int shipCount) {
+        String items = itemCount != 1 ? "s " : " ";
         String ships = shipCount != 1 ? "s " : " ";
         return "You have %s item" + items + "and %s ship" + ships + "stored.";
     }

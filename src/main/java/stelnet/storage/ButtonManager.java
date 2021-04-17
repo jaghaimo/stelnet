@@ -31,7 +31,7 @@ public class ButtonManager {
             new Padding(20f), // vertical spacer
     };
 
-    private Renderable[] cargoButtons = { //
+    private Renderable[] itemButtons = { //
             new ItemFilterButton("Commodities", new IsNotCommodity()), //
             new ItemFilterButton("Weapons", new IsNotWeapon()), //
             new ItemFilterButton("Fighter Wings", new IsNotFighterWing()), //
@@ -46,7 +46,7 @@ public class ButtonManager {
             new ItemFilterButton("Interceptors", new IsNotFighterWingRole(WingRole.INTERCEPTOR))//
     };
 
-    private Renderable[] fleetButtons = { //
+    private Renderable[] shipButtons = { //
             new ShipFilterButton("Frigates", new IsNotFrigate()), //
             new ShipFilterButton("Destroyers", new IsNotDestroyer()), //
             new ShipFilterButton("Cruisers", new IsNotCruiser()), //
@@ -62,10 +62,10 @@ public class ButtonManager {
     }
 
     public Renderable[] getItemButtons() {
-        return cargoButtons;
+        return itemButtons;
     }
 
     public Renderable[] getShipButtons() {
-        return fleetButtons;
+        return shipButtons;
     }
 }

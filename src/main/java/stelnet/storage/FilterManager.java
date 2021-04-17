@@ -8,35 +8,35 @@ import stelnet.filter.fleetmember.FleetMemberFilter;
 
 public class FilterManager {
 
-    private Set<CargoStackFilter> cargoFilters;
-    private Set<FleetMemberFilter> fleetFilters;
+    private Set<CargoStackFilter> itemFilters;
+    private Set<FleetMemberFilter> shipFilters;
 
     public FilterManager() {
-        cargoFilters = new HashSet<>();
-        fleetFilters = new HashSet<>();
+        itemFilters = new HashSet<>();
+        shipFilters = new HashSet<>();
     }
 
     public void addFilter(CargoStackFilter filter) {
-        cargoFilters.add(filter);
+        itemFilters.add(filter);
     }
 
     public void addFilter(FleetMemberFilter filter) {
-        fleetFilters.add(filter);
+        shipFilters.add(filter);
     }
 
-    public Set<CargoStackFilter> getCargoFilters() {
-        return cargoFilters;
+    public Set<CargoStackFilter> getItemFilters() {
+        return itemFilters;
     }
 
-    public Set<FleetMemberFilter> getFleetMemberFilters() {
-        return fleetFilters;
+    public Set<FleetMemberFilter> getShipFilters() {
+        return shipFilters;
     }
 
     public void removeFilter(CargoStackFilter filter) {
-        cargoFilters.remove(filter);
+        itemFilters.remove(filter);
     }
 
     public void removeFilter(FleetMemberFilter filter) {
-        fleetFilters.remove(filter);
+        shipFilters.remove(filter);
     }
 }
