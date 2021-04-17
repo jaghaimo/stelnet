@@ -1,12 +1,22 @@
 package stelnet.ui;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 
-public class HorizontalGroup extends Group {
+/**
+ * Renders elements in a vertical line.
+ *
+ * Calculates size automatically.
+ */
+public class Stack extends Group {
 
-    public HorizontalGroup(List<Renderable> elements) {
+    public Stack(Renderable... elements) {
+        super(Arrays.asList(elements));
+    }
+
+    public Stack(List<Renderable> elements) {
         super(elements);
     }
 
@@ -15,7 +25,7 @@ public class HorizontalGroup extends Group {
         for (Renderable renderable : getElements()) {
             Size size = renderable.getSize();
             renderable.render(panel, x, y);
-            x += size.getWidth();
+            y += size.getHeigth();
         }
     }
 }
