@@ -8,13 +8,14 @@ import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 
+import stelnet.helper.LogHelper;
 import stelnet.storage.ButtonManager;
 import stelnet.storage.FilterManager;
 import stelnet.ui.GridData;
 import stelnet.ui.Heading;
 import stelnet.ui.Renderable;
 import stelnet.ui.Size;
-import stelnet.ui.Stack;
+import stelnet.ui.ScrollableStack;
 import stelnet.ui.VerticalGroup;
 
 public abstract class SharedData implements GridData {
@@ -39,12 +40,11 @@ public abstract class SharedData implements GridData {
         List<StorageData> storageData = dataProvider.getData();
         for (StorageData data : storageData) {
             SubmarketAPI submarket = data.getSubmarket();
-            if (submarket != null) {
-                elements.add(getTitle(submarket));
-            }
+            addTitle(elements, submarket);
             elements.add(getStorageContent(data));
         }
-        return new Stack(size, elements);
+        LogHelper.info("Returning Stack with " + elements.size() + " elements");
+        return new ScrollableStack(size, elements);
     }
 
     @Override
@@ -53,6 +53,7 @@ public abstract class SharedData implements GridData {
         Renderable[] buttons = getButtons();
         Renderable[] all = Arrays.copyOf(common, common.length + buttons.length);
         System.arraycopy(buttons, 0, all, common.length, buttons.length);
+        LogHelper.info("Returning VerticalGroup with " + all.length + " elements");
         return new VerticalGroup(all);
     }
 
@@ -77,4 +78,12 @@ public abstract class SharedData implements GridData {
     protected abstract Renderable[] getButtons();
 
     protected abstract Renderable getStorageContent(StorageData data);
+
+    private void addTitle(List<Renderable> elements, SubmarketAPI submarket) {
+        if (submarket == null) {
+            LogHelper.debug("Skipping addTitle");
+            return;
+        }
+        elements.add(getTitle(submarket));
+    }
 }

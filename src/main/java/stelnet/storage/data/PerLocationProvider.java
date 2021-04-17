@@ -10,6 +10,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 
 import stelnet.helper.CargoHelper;
 import stelnet.helper.CollectionHelper;
+import stelnet.helper.LogHelper;
 import stelnet.helper.StorageHelper;
 import stelnet.storage.FilterManager;
 
@@ -29,6 +30,9 @@ public class PerLocationProvider implements DataProvider {
             CargoAPI storageCargo = storage.getCargo();
             CargoAPI items = getItems(storageCargo);
             List<FleetMemberAPI> ships = getShips(storageCargo);
+            String name = storage.getMarket().getName();
+            LogHelper.debug("Found " + items.getStacksCopy().size() + " items in " + name);
+            LogHelper.debug("Found " + ships.size() + " ships in " + name);
             data.add(new StorageData(storage, items, ships));
         }
         return data;
