@@ -46,6 +46,13 @@ public class CommodityIntel extends BaseIntelPlugin {
     }
 
     @Override
+    public void createConfirmationPrompt(Object buttonId, TooltipMakerAPI prompt) {
+        if (buttonId == BUTTON_DELETE) {
+            prompt.addPara("Are you sure you want to permanently delete this entry?", Misc.getTextColor(), 0f);
+        }
+    }
+
+    @Override
     public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
         Color bulletColor = getBulletColorForMode(mode);
         info.addPara(getTitle(), getTitleColor(mode), 0f);
@@ -71,7 +78,7 @@ public class CommodityIntel extends BaseIntelPlugin {
         info.addPara("The owner of this market is " + reputation.toLowerCase() + " towards you.", 10f,
                 Misc.getTextColor(), relationship.getRelColor(), reputation.toLowerCase());
         info.addPara("", 20f);
-        info.addButton("Delete", "DELETE", width, 20f, 5f);
+        addDeleteButton(info, width, "Delete entry");
     }
 
     @Override
