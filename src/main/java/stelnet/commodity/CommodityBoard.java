@@ -6,20 +6,19 @@ import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.impl.campaign.ids.Commodities;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.CustomPanelAPI;
-import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import stelnet.BaseBoard;
 import stelnet.commodity.view.ButtonViewFactory;
 import stelnet.commodity.view.CommodityViewFactory;
 import stelnet.commodity.view.IntelSelectionFactory;
 import stelnet.helper.GlobalHelper;
 import stelnet.helper.IntelHelper;
-import stelnet.ui.Callable;
 import stelnet.ui.GridRenderer;
 import stelnet.ui.Size;
 
-public class CommodityBoard extends BaseIntelPlugin {
+public class CommodityBoard extends BaseBoard {
 
     public enum CommodityTab {
         BUY("Buy"), SELL("Sell");
@@ -51,13 +50,6 @@ public class CommodityBoard extends BaseIntelPlugin {
     }
 
     @Override
-    public void buttonPressConfirmed(Object buttonId, IntelUIAPI ui) {
-        Callable callable = (Callable) buttonId;
-        callable.callback();
-        ui.updateUIForItem(this);
-    }
-
-    @Override
     public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
         info.addPara("Commodity Market", getTitleColor(mode), 0);
         info.addPara("Compare and track commodity prices among all known markets.", getBulletColorForMode(mode), 1f);
@@ -85,21 +77,6 @@ public class CommodityBoard extends BaseIntelPlugin {
         Set<String> tags = super.getIntelTags(map);
         tags.add(CommodityIntel.TAG);
         return tags;
-    }
-
-    @Override
-    public IntelSortTier getSortTier() {
-        return IntelSortTier.TIER_0;
-    }
-
-    @Override
-    public boolean hasLargeDescription() {
-        return true;
-    }
-
-    @Override
-    public boolean hasSmallDescription() {
-        return false;
     }
 
     public void setActiveId(String activeId) {
