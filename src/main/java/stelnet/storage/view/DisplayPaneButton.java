@@ -1,5 +1,7 @@
 package stelnet.storage.view;
 
+import com.fs.starfarer.api.ui.IntelUIAPI;
+import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import stelnet.storage.StorageBoard;
@@ -15,9 +17,17 @@ public class DisplayPaneButton extends ToggleButton {
         setCallback(new Callable() {
 
             @Override
-            public void callback() {
+            public void confirm(IntelUIAPI ui) {
                 StorageBoard board = StorageBoard.getInstance();
                 board.togglePane();
+            }
+
+            @Override
+            public void cancel() {
+            }
+
+            @Override
+            public void prompt(TooltipMakerAPI tooltipMaker) {
             }
         });
     }

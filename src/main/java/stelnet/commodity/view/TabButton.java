@@ -1,6 +1,8 @@
 package stelnet.commodity.view;
 
 import com.fs.starfarer.api.ui.CutStyle;
+import com.fs.starfarer.api.ui.IntelUIAPI;
+import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import stelnet.commodity.CommodityBoard;
@@ -19,9 +21,17 @@ public class TabButton extends Button {
         setCallback(new Callable() {
 
             @Override
-            public void callback() {
+            public void confirm(IntelUIAPI ui) {
                 CommodityBoard board = CommodityBoard.getInstance();
                 board.setActiveTab(currentTab);
+            }
+
+            @Override
+            public void cancel() {
+            }
+
+            @Override
+            public void prompt(TooltipMakerAPI tooltipMaker) {
             }
         });
         setCutStyle(CutStyle.TOP);

@@ -41,14 +41,14 @@ public class CommodityIntel extends BaseIntelPlugin {
 
     @Override
     public void buttonPressConfirmed(Object buttonId, IntelUIAPI ui) {
-        tracker.remove(this);
+        delete();
         ui.recreateIntelUI();
     }
 
     @Override
     public void createConfirmationPrompt(Object buttonId, TooltipMakerAPI prompt) {
         if (buttonId == BUTTON_DELETE) {
-            prompt.addPara("Are you sure you want to permanently delete this entry?", Misc.getTextColor(), 0f);
+            prompt.addPara("Are you sure you want to delete intel for this entry?", Misc.getTextColor(), 0f);
         }
     }
 
@@ -126,6 +126,10 @@ public class CommodityIntel extends BaseIntelPlugin {
     @Override
     public boolean isNew() {
         return false;
+    }
+
+    public void delete() {
+        tracker.remove(this);
     }
 
     public String getAction() {

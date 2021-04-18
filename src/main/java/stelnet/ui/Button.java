@@ -5,6 +5,7 @@ import java.awt.Color;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.ButtonAPI;
 import com.fs.starfarer.api.ui.CutStyle;
+import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
@@ -60,9 +61,23 @@ public class Button extends Renderable implements Callable {
     }
 
     @Override
-    public void callback() {
+    public void cancel() {
         if (callback != null) {
-            callback.callback();
+            callback.cancel();
+        }
+    }
+
+    @Override
+    public void confirm(IntelUIAPI ui) {
+        if (callback != null) {
+            callback.confirm(ui);
+        }
+    }
+
+    @Override
+    public void prompt(TooltipMakerAPI tooltipMaker) {
+        if (callback != null) {
+            callback.prompt(tooltipMaker);
         }
     }
 
