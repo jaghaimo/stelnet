@@ -1,14 +1,13 @@
 package stelnet.commodity.view;
 
-import java.awt.event.KeyEvent;
-
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.ui.CutStyle;
+import com.fs.starfarer.api.ui.IntelUIAPI;
+import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import stelnet.commodity.CommodityBoard.CommodityTab;
 import stelnet.commodity.IntelTracker;
-import stelnet.helper.KeyboardHelper;
 import stelnet.ui.Callable;
 import stelnet.ui.Size;
 import stelnet.ui.ToggleButton;
@@ -22,9 +21,18 @@ public class IntelButton extends ToggleButton {
         setCallback(new Callable() {
 
             @Override
-            public void callback() {
+            public void confirm(IntelUIAPI ui) {
                 tracker.toggle(commodityId, commodityTab, market);
-                KeyboardHelper.send(KeyEvent.VK_E);
+                // KeyboardHelper.send(KeyEvent.VK_E);
+                ui.recreateIntelUI();
+            }
+
+            @Override
+            public void cancel() {
+            }
+
+            @Override
+            public void prompt(TooltipMakerAPI tooltipMaker) {
             }
         });
         setCutStyle(CutStyle.TL_BR);

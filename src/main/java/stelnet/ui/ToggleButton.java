@@ -2,6 +2,8 @@ package stelnet.ui;
 
 import java.awt.Color;
 
+import com.fs.starfarer.api.ui.IntelUIAPI;
+
 public class ToggleButton extends Button {
 
     private final String titleOff;
@@ -27,9 +29,9 @@ public class ToggleButton extends Button {
     }
 
     @Override
-    public void callback() {
+    public void confirm(IntelUIAPI ui) {
         isOn = !isOn;
-        super.callback();
+        super.confirm(ui);
     }
 
     public boolean isOn() {
