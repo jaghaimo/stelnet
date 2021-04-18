@@ -12,11 +12,14 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import stelnet.BaseBoard;
 import stelnet.commodity.view.ButtonViewFactory;
 import stelnet.commodity.view.CommodityViewFactory;
+import stelnet.commodity.view.DeleteButton;
 import stelnet.commodity.view.IntelSelectionFactory;
+import stelnet.commodity.view.PurgeButton;
 import stelnet.helper.GlobalHelper;
 import stelnet.helper.IntelHelper;
 import stelnet.ui.GridRenderer;
 import stelnet.ui.Size;
+import stelnet.ui.Stack;
 
 public class CommodityBoard extends BaseBoard {
 
@@ -64,6 +67,7 @@ public class CommodityBoard extends BaseBoard {
         renderer.setTopLeft(commodityViewFactory.get(activeId, activeTab, commodityViewWidth, commodityViewHeight));
         renderer.setTopRight(buttonViewFactory.get(activeId));
         renderer.setBottomLeft(intelSelectionFactory.get(activeId, activeTab, commodityViewWidth));
+        renderer.setBottomRight(new Stack(new PurgeButton(), new DeleteButton(activeId)));
         renderer.render(panel);
     }
 
