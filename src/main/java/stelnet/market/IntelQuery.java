@@ -12,7 +12,7 @@ public class IntelQuery {
     private long updatedDate;
     private boolean isEnabled;
     private FilterManager filterManager;
-    private IntelList hypernetIntels;
+    private IntelList managedIntels;
     private IntelProvider intelProvider;
 
     public IntelQuery(IntelProvider ip, FilterManager fm) {
@@ -21,8 +21,8 @@ public class IntelQuery {
         updatedDate = clock.getTimestamp();
         isEnabled = true;
         filterManager = new ImmutableFilterManager(fm);
-        hypernetIntels = ip.provide(filterManager);
-        hypernetIntels.addIntel(isEnabled);
+        managedIntels = ip.provide(filterManager);
+        managedIntels.addIntel(isEnabled);
         intelProvider = ip;
     }
 
@@ -37,19 +37,19 @@ public class IntelQuery {
     }
 
     public String getResultCount() {
-        int count = hypernetIntels.size();
+        int count = managedIntels.size();
         String intelOrIntels = count == 1 ? " result" : " results";
         return String.valueOf(count) + intelOrIntels;
     }
 
     public void disable() {
         isEnabled = false;
-        hypernetIntels.removeIntel();
+        managedIntels.removeIntel();
     }
 
     public void enable() {
         isEnabled = true;
-        hypernetIntels.addIntel(isEnabled);
+        managedIntels.addIntel(isEnabled);
     }
 
     public boolean isActive() {
@@ -73,9 +73,9 @@ public class IntelQuery {
     }
 
     public void refresh() {
-        hypernetIntels.removeIntel();
-        hypernetIntels = intelProvider.provide(filterManager);
-        hypernetIntels.addIntel(isEnabled);
+        managedIntels.removeIntel();
+        managedIntels = intelProvider.provide(filterManager);
+        managedIntels.addIntel(isEnabled);
         updatedDate = GlobalHelper.getCurrentClock().getTimestamp();
     }
 
