@@ -14,7 +14,7 @@ public class Menu implements DialogHandler {
     }
 
     public static void forceMenu(DialogPlugin plugin) {
-        plugin.addTitle("HyperNET");
+        plugin.addTitle("Market Search");
         plugin.addText("Are there any other queries you would like to make?");
         plugin.showMenu();
     }
