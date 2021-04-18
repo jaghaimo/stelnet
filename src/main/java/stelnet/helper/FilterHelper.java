@@ -16,10 +16,10 @@ import stelnet.filter.market.MarketFilter;
 
 public class FilterHelper {
 
-    private static String FACTIONS = "data/config/hypernet/factions.csv";
-    private static String MARKETS = "data/config/hypernet/markets.csv";
-    private static String SYSTEMS = "data/config/hypernet/systems.csv";
-    private static String TAGS = "data/config/hypernet/tags.csv";
+    private static String FACTIONS = "data/config/stelnet/factions.csv";
+    private static String MARKETS = "data/config/stelnet/markets.csv";
+    private static String SYSTEMS = "data/config/stelnet/systems.csv";
+    private static String TAGS = "data/config/stelnet/tags.csv";
 
     public static List<MarketFilter> getBlacklistMarketFilters() {
         List<MarketFilter> filters = new ArrayList<>();
@@ -61,7 +61,7 @@ public class FilterHelper {
     private static List<String> getStrings(String path) {
         List<String> strings = new ArrayList<>();
         try {
-            JSONArray config = Global.getSettings().getMergedSpreadsheetDataForMod("id", path, "hypernet");
+            JSONArray config = Global.getSettings().getMergedSpreadsheetDataForMod("id", path, "stelnet");
             for (int i = 0; i < config.length(); i++) {
                 JSONObject row = config.getJSONObject(i);
                 strings.add(row.getString("id"));
