@@ -26,7 +26,7 @@ public class StelnetMod extends BaseModPlugin {
     }
 
     private void init() {
-        boolean isUninstall = SettingHelper.isUninstall();
+        boolean isUninstall = SettingHelper.uninstallMod();
         boolean isDevMode = SettingHelper.isDevMode();
         if (isUninstall || isDevMode) {
             UninstallHelper.uninstall();

@@ -12,8 +12,8 @@ public class SettingHelper {
         return Global.getSettings().isDevMode();
     }
 
-    public static boolean isUninstall() {
-        return Global.getSettings().getBoolean("stelnetUninstall");
+    public static boolean uninstallMod() {
+        return Global.getSettings().getBoolean("stelnetUninstallMod");
     }
 
     public static boolean warnAboutEndOfMonth() {
