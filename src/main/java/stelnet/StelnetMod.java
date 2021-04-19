@@ -47,7 +47,11 @@ public class StelnetMod extends BaseModPlugin {
 
     private void initMarket() {
         MarketQueryBoard.getInstance();
-        MonthEndListener.register();
+        if (SettingHelper.warnAboutEndOfMonth()) {
+            MonthEndListener.register();
+        } else {
+            UninstallHelper.purgeListeners(MonthEndListener.class);
+        }
     }
 
     private void initStorage() {
