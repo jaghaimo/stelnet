@@ -16,7 +16,7 @@ import stelnet.ui.Size;
 public class PurgeButton extends Button {
 
     public PurgeButton() {
-        super(new Size(200, 24), "Purge all", true, Misc.getNegativeHighlightColor());
+        super(new Size(200, 24), "Delete All", true, Misc.getNegativeHighlightColor());
         setCallback(new SimpleCallback() {
 
             @Override

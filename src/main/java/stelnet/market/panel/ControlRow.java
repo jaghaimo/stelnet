@@ -43,7 +43,7 @@ public class ControlRow extends BoardRow {
     @Override
     protected List<BoardElement> getRightElements() {
         List<BoardElement> elements = new ArrayList<>();
-        elements.add(new ButtonElement(100f, 20f, "Delete all", BUTTON_DELETE_ALL, isEnabled,
+        elements.add(new ButtonElement(100f, 20f, "Delete All", BUTTON_DELETE_ALL, isEnabled,
                 Misc.getNegativeHighlightColor()));
 
         return elements;

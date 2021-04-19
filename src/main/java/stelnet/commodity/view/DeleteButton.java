@@ -16,7 +16,7 @@ import stelnet.ui.Size;
 public class DeleteButton extends Button {
 
     public DeleteButton(final String commodityId) {
-        super(new Size(200, 24), "Delete this", true, Misc.getButtonTextColor());
+        super(new Size(200, 24), "Delete This", true, Misc.getButtonTextColor());
         setCallback(new SimpleCallback() {
 
             @Override
