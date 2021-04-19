@@ -13,8 +13,8 @@ import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
-import stelnet.helper.GlobalHelper;
 import stelnet.helper.IntelHelper;
+import stelnet.helper.SettingHelper;
 import stelnet.market.handler.ButtonHandler;
 import stelnet.market.handler.ButtonHandlerFactory;
 import stelnet.market.panel.BoardRow;
@@ -83,7 +83,7 @@ public class MarketQueryBoard extends BaseIntelPlugin {
 
     @Override
     public String getIcon() {
-        return GlobalHelper.getSpriteName("market");
+        return SettingHelper.getSpriteName("market");
     }
 
     @Override

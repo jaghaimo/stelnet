@@ -7,6 +7,7 @@ import stelnet.commodity.CommodityBoard;
 import stelnet.helper.GlobalHelper;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.LogHelper;
+import stelnet.helper.SettingHelper;
 import stelnet.market.MarketQueryBoard;
 import stelnet.market.MonthEndListener;
 import stelnet.storage.StorageBoard;
@@ -27,14 +28,18 @@ public class StelnetMod extends BaseModPlugin {
     }
 
     private void init() {
-        if (GlobalHelper.isDevMode()) {
+        boolean isUninstall = SettingHelper.isUninstall();
+        boolean isDevMode = SettingHelper.isDevMode();
+        if (isUninstall || isDevMode) {
             purgeIntel(CommodityBoard.class, StorageBoard.class, MarketQueryBoard.class);
             purgeListeners(MonthEndListener.class, StorageListener.class);
         }
-        initCommodity();
-        initMarket();
-        initStorage();
-        LogHelper.debug("Initiation complete");
+        if (!isUninstall) {
+            initCommodity();
+            initMarket();
+            initStorage();
+            LogHelper.debug("Initiation complete");
+        }
     }
 
     private void initCommodity() {
