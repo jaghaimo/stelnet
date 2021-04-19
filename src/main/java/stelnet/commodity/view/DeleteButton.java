@@ -10,14 +10,14 @@ import com.fs.starfarer.api.util.Misc;
 import stelnet.commodity.CommodityIntel;
 import stelnet.helper.IntelHelper;
 import stelnet.ui.Button;
-import stelnet.ui.Callable;
+import stelnet.ui.SimpleCallback;
 import stelnet.ui.Size;
 
 public class DeleteButton extends Button {
 
     public DeleteButton(final String commodityId) {
         super(new Size(200, 24), "Delete this", true, Misc.getButtonTextColor());
-        setCallback(new Callable() {
+        setCallback(new SimpleCallback() {
 
             @Override
             public void confirm(IntelUIAPI ui) {
@@ -37,7 +37,8 @@ public class DeleteButton extends Button {
             }
 
             @Override
-            public void cancel() {
+            public boolean hasPrompt() {
+                return true;
             }
 
             @Override

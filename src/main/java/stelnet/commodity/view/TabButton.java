@@ -2,13 +2,12 @@ package stelnet.commodity.view;
 
 import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.ui.IntelUIAPI;
-import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import stelnet.commodity.CommodityBoard;
 import stelnet.commodity.CommodityBoard.CommodityTab;
 import stelnet.ui.Button;
-import stelnet.ui.Callable;
+import stelnet.ui.SimpleCallback;
 import stelnet.ui.Size;
 
 public class TabButton extends Button {
@@ -18,23 +17,15 @@ public class TabButton extends Button {
         if (currentTab.equals(activeTab)) {
             setColor(Misc.getButtonTextColor());
         }
-        setCallback(new Callable() {
+        setCutStyle(CutStyle.TOP);
+        setShortcut(shortcut);
+        setCallback(new SimpleCallback() {
 
             @Override
             public void confirm(IntelUIAPI ui) {
                 CommodityBoard board = CommodityBoard.getInstance();
                 board.setActiveTab(currentTab);
             }
-
-            @Override
-            public void cancel() {
-            }
-
-            @Override
-            public void prompt(TooltipMakerAPI tooltipMaker) {
-            }
         });
-        setCutStyle(CutStyle.TOP);
-        setShortcut(shortcut);
     }
 }
