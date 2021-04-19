@@ -37,5 +37,5 @@ This mod can be added to an existing playthrough - just enable it in the mod lis
 and load the save.
 
 This mod can be removed from an existing playthrough - edit `data/config/settings.json`
-and set `stellicsUninstall` to `true`. Then load the save, save the game, quit
+and set `stellicsUninstallMod` to `true`. Then load the save, save the game, quit
 the game, and finally disable this mod in the mod list.
