@@ -24,7 +24,6 @@ public class DeleteButton extends Button {
                 boolean needRefresh = false;
                 List<IntelInfoPlugin> intels = IntelHelper.getAll(CommodityIntel.class);
                 for (int i = intels.size(); i > 0; i--) {
-                    // for (IntelInfoPlugin intel : intels) {
                     CommodityIntel commodityIntel = (CommodityIntel) intels.get(i - 1);
                     if (commodityIntel.getCommodityId().equals(commodityId)) {
                         commodityIntel.delete();
