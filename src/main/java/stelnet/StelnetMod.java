@@ -1,19 +1,14 @@
 package stelnet;
 
 import com.fs.starfarer.api.BaseModPlugin;
-import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
 
 import stelnet.commodity.CommodityBoard;
-import stelnet.commodity.CommodityIntel;
-import stelnet.helper.GlobalHelper;
-import stelnet.helper.IntelHelper;
 import stelnet.helper.LogHelper;
 import stelnet.helper.SettingHelper;
+import stelnet.helper.UninstallHelper;
 import stelnet.market.MarketQueryBoard;
-import stelnet.market.MarketResultIntel;
 import stelnet.market.MonthEndListener;
 import stelnet.storage.StorageBoard;
-import stelnet.storage.StorageIntel;
 import stelnet.storage.StorageListener;
 
 public class StelnetMod extends BaseModPlugin {
@@ -34,9 +29,9 @@ public class StelnetMod extends BaseModPlugin {
         boolean isUninstall = SettingHelper.isUninstall();
         boolean isDevMode = SettingHelper.isDevMode();
         if (isUninstall || isDevMode) {
-            purgeIntel(CommodityBoard.class, StorageBoard.class, MarketQueryBoard.class);
-            purgeIntel(CommodityIntel.class, StorageIntel.class, MarketResultIntel.class);
-            purgeListeners(MonthEndListener.class, StorageListener.class);
+            UninstallHelper.uninstall();
+            initStorage();
+            LogHelper.info("Stelnet uninstalled");
         }
         if (!isUninstall) {
             initCommodity();
@@ -58,18 +53,5 @@ public class StelnetMod extends BaseModPlugin {
     private void initStorage() {
         StorageBoard.getInstance();
         StorageListener.register();
-    }
-
-    private void purgeIntel(Class<?>... classNames) {
-        for (Class<?> className : classNames) {
-            IntelHelper.purgeIntel(className);
-        }
-    }
-
-    private void purgeListeners(Class<?>... classNames) {
-        ListenerManagerAPI listenerManagerAPI = GlobalHelper.getListenerManager();
-        for (Class<?> className : classNames) {
-            listenerManagerAPI.removeListenerOfClass(className);
-        }
     }
 }
