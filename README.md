@@ -33,7 +33,8 @@ find out where.
 
 ## Adding and Removing
 
-This mod can be added to existing playthrough - just enable it in the mod list.
+This mod can be added to existing playthrough - just enable it in the mod list
+and load the save.
 
 This mod can be removed from existing playthrough - edit `data/config/settings.json`
 and set `stellicsUninstall` to `true`. Load the save, save the game, quit the game,
