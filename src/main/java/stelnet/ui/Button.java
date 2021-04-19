@@ -75,6 +75,14 @@ public class Button extends Renderable implements Callable {
     }
 
     @Override
+    public boolean hasPrompt() {
+        if (callback != null) {
+            return callback.hasPrompt();
+        }
+        return false;
+    }
+
+    @Override
     public void prompt(TooltipMakerAPI tooltipMaker) {
         if (callback != null) {
             callback.prompt(tooltipMaker);

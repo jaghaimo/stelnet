@@ -9,5 +9,8 @@ public interface Callable {
 
     public void confirm(IntelUIAPI ui);
 
-    public void prompt(TooltipMakerAPI tooltipMaker);
+    public boolean hasPrompt();
+
+    public void prompt(TooltipMakerAPI prompt);
+
 }

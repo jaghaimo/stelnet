@@ -1,17 +1,16 @@
 package stelnet.storage.view;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
-import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import stelnet.filter.fleetmember.FleetMemberFilter;
 import stelnet.storage.FilterManager;
-import stelnet.ui.Callable;
+import stelnet.ui.SimpleCallback;
 
 public class ShipFilterButton extends FilteringButton {
 
     public ShipFilterButton(String name, final FleetMemberFilter filter) {
         super(name);
-        setCallback(new Callable() {
+        setCallback(new SimpleCallback() {
 
             @Override
             public void confirm(IntelUIAPI ui) {
@@ -21,14 +20,6 @@ public class ShipFilterButton extends FilteringButton {
                 } else {
                     filterManager.addFilter(filter);
                 }
-            }
-
-            @Override
-            public void cancel() {
-            }
-
-            @Override
-            public void prompt(TooltipMakerAPI tooltipMaker) {
             }
         });
     }
