@@ -15,8 +15,8 @@ import stelnet.commodity.view.CommodityViewFactory;
 import stelnet.commodity.view.DeleteButton;
 import stelnet.commodity.view.IntelSelectionFactory;
 import stelnet.commodity.view.PurgeButton;
-import stelnet.helper.GlobalHelper;
 import stelnet.helper.IntelHelper;
+import stelnet.helper.SettingHelper;
 import stelnet.ui.GridRenderer;
 import stelnet.ui.Size;
 import stelnet.ui.Stack;
@@ -73,7 +73,7 @@ public class CommodityBoard extends BaseBoard {
 
     @Override
     public String getIcon() {
-        return GlobalHelper.getSpriteName("commodity");
+        return SettingHelper.getSpriteName("commodity");
     }
 
     @Override
