@@ -4,13 +4,16 @@ import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
 
 import stelnet.commodity.CommodityBoard;
+import stelnet.commodity.CommodityIntel;
 import stelnet.helper.GlobalHelper;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.LogHelper;
 import stelnet.helper.SettingHelper;
 import stelnet.market.MarketQueryBoard;
+import stelnet.market.MarketResultIntel;
 import stelnet.market.MonthEndListener;
 import stelnet.storage.StorageBoard;
+import stelnet.storage.StorageIntel;
 import stelnet.storage.StorageListener;
 
 public class StelnetMod extends BaseModPlugin {
@@ -32,6 +35,7 @@ public class StelnetMod extends BaseModPlugin {
         boolean isDevMode = SettingHelper.isDevMode();
         if (isUninstall || isDevMode) {
             purgeIntel(CommodityBoard.class, StorageBoard.class, MarketQueryBoard.class);
+            purgeIntel(CommodityIntel.class, StorageIntel.class, MarketResultIntel.class);
             purgeListeners(MonthEndListener.class, StorageListener.class);
         }
         if (!isUninstall) {
