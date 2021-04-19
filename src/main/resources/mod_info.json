@@ -1,9 +1,9 @@
 {
-    "id": "eli95",
+    "id": "stelnet",
     "name": "Stellar Networks",
     "author": "Jaghaimo",
     "utility": true,
-    "version": "1.0.0-pre2",
+    "version": "1.0.0-pre3",
     "description": "Stellar Networks - a collection of useful intel boards",
     "gameVersion": "0.95a-RC12",
     "modPlugin": "stelnet.StelnetMod",
