@@ -9,8 +9,8 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import stelnet.BaseBoard;
-import stelnet.helper.GlobalHelper;
 import stelnet.helper.IntelHelper;
+import stelnet.helper.SettingHelper;
 import stelnet.helper.StorageHelper;
 import stelnet.storage.data.ItemsGridData;
 import stelnet.storage.data.SharedData;
@@ -62,7 +62,7 @@ public class StorageBoard extends BaseBoard {
 
     @Override
     public String getIcon() {
-        return GlobalHelper.getSpriteName("storage");
+        return SettingHelper.getSpriteName("storage");
     }
 
     @Override
