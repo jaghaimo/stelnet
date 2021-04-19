@@ -67,7 +67,7 @@ public class CommodityBoard extends BaseBoard {
         renderer.setTopLeft(commodityViewFactory.get(activeId, activeTab, commodityViewWidth, commodityViewHeight));
         renderer.setTopRight(buttonViewFactory.get(activeId));
         renderer.setBottomLeft(intelSelectionFactory.get(activeId, activeTab, commodityViewWidth));
-        renderer.setBottomRight(new Stack(new PurgeButton(), new DeleteButton(activeId)));
+        renderer.setBottomRight(new Stack(true, new PurgeButton(), new DeleteButton(activeId)));
         renderer.render(panel);
     }
 
