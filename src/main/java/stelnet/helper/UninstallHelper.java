@@ -19,13 +19,13 @@ public class UninstallHelper {
         purgeListeners(MonthEndListener.class, StorageListener.class);
     }
 
-    private static void purgeIntel(Class<?>... classNames) {
+    public static void purgeIntel(Class<?>... classNames) {
         for (Class<?> className : classNames) {
             IntelHelper.purgeIntel(className);
         }
     }
 
-    private static void purgeListeners(Class<?>... classNames) {
+    public static void purgeListeners(Class<?>... classNames) {
         ListenerManagerAPI listenerManagerAPI = GlobalHelper.getListenerManager();
         for (Class<?> className : classNames) {
             listenerManagerAPI.removeListenerOfClass(className);
