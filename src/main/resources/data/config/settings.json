@@ -1,5 +1,5 @@
 {
-    "stelnetUninstall": true,
+    "stelnetUninstall": false,
     "graphics": {
         "stelnet": {
             "commodity": "graphics/icons/intel/tutorial_mission.png",
