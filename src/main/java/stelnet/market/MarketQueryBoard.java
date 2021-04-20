@@ -6,22 +6,16 @@ import java.util.List;
 import java.util.Set;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
-import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.CustomPanelAPI;
-import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
+import stelnet.BaseBoard;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.SettingHelper;
-import stelnet.market.handler.ButtonHandler;
-import stelnet.market.handler.ButtonHandlerFactory;
-import stelnet.market.panel.BoardRow;
-import stelnet.market.panel.ControlRow;
-import stelnet.market.panel.EmptyQueriesRow;
-import stelnet.market.panel.HeaderRow;
-import stelnet.market.panel.QueryRow;
+import stelnet.ui.GridRenderer;
+import stelnet.ui.Size;
 
 /**
  * Information board for managing displayed information intel.
@@ -29,7 +23,7 @@ import stelnet.market.panel.QueryRow;
  * Use this board to add, remove, refresh, disable, or enable intel queries to
  * dynamically update displayed intel.
  */
-public class MarketQueryBoard extends BaseIntelPlugin {
+public class MarketQueryBoard extends BaseBoard {
 
     private List<IntelQuery> queries = new ArrayList<IntelQuery>();
 
@@ -40,12 +34,6 @@ public class MarketQueryBoard extends BaseIntelPlugin {
             IntelHelper.addIntel(board);
         }
         return (MarketQueryBoard) intel;
-    }
-
-    @Override
-    public void buttonPressConfirmed(Object buttonId, IntelUIAPI ui) {
-        ButtonHandler handler = ButtonHandlerFactory.get(buttonId);
-        handler.handle(queries, ui);
     }
 
     @Override
@@ -66,19 +54,9 @@ public class MarketQueryBoard extends BaseIntelPlugin {
 
     @Override
     public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
-        TooltipMakerAPI outer = panel.createUIElement(width, height, true);
-        float innerWidth = width - 10;
-        CustomPanelAPI inner = panel.createCustomPanel(innerWidth, height, null);
-
-        float currentHeight = 0;
-        for (BoardRow row : getFreshBoardRows(inner, innerWidth)) {
-            row.render(currentHeight);
-            currentHeight += row.getHeight();
-        }
-
-        inner.getPosition().setSize(innerWidth, currentHeight);
-        outer.addCustom(inner, 0);
-        panel.addUIElement(outer).inTL(0, 0);
+        GridRenderer renderer = new GridRenderer(new Size(width, height));
+        // TODO
+        renderer.render(panel);
     }
 
     @Override
@@ -91,37 +69,5 @@ public class MarketQueryBoard extends BaseIntelPlugin {
         Set<String> tags = super.getIntelTags(map);
         tags.add(MarketResultIntel.TAG);
         return tags;
-    }
-
-    @Override
-    public IntelSortTier getSortTier() {
-        return IntelSortTier.TIER_0;
-    }
-
-    @Override
-    public boolean hasSmallDescription() {
-        return false;
-    }
-
-    @Override
-    public boolean hasLargeDescription() {
-        return true;
-    }
-
-    private List<BoardRow> getFreshBoardRows(CustomPanelAPI panel, float width) {
-        List<BoardRow> elements = new ArrayList<>();
-        elements.add(new ControlRow(panel, width, !queries.isEmpty()));
-        elements.add(new HeaderRow(panel, width));
-
-        if (queries.isEmpty()) {
-            elements.add(new EmptyQueriesRow(panel, width));
-        }
-
-        for (int i = 0; i < queries.size(); i++) {
-            IntelQuery query = queries.get(i);
-            elements.add(new QueryRow(panel, width, i, query));
-        }
-
-        return elements;
     }
 }
