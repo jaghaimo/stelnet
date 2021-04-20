@@ -3,22 +3,22 @@ package stelnet.ui;
 public class Size {
 
     private final float width;
-    private final float heigth;
+    private final float height;
 
-    public Size(float width, float heigth) {
+    public Size(float width, float height) {
         this.width = width;
-        this.heigth = heigth;
+        this.height = height;
     }
 
     public float getWidth() {
         return width;
     }
 
-    public float getHeigth() {
-        return heigth;
+    public float getHeight() {
+        return height;
     }
 
     public Size getDifference(Size subtrahend) {
-        return new Size(width - subtrahend.getWidth(), heigth - subtrahend.getHeigth());
+        return new Size(width - subtrahend.getWidth(), height - subtrahend.getHeight());
     }
 }

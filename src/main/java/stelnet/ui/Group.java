@@ -15,13 +15,13 @@ public abstract class Group extends Renderable {
     @Override
     public Size getSize() {
         float width = 0;
-        float heigth = 0;
+        float height = 0;
         for (Renderable renderable : elements) {
             Size size = renderable.getSize();
             width = Math.max(width, size.getWidth());
-            heigth = Math.max(heigth, size.getHeigth());
+            height = Math.max(height, size.getHeight());
         }
-        return new Size(width, heigth);
+        return new Size(width, height);
     }
 
     @Override

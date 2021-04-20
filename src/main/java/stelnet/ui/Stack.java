@@ -40,7 +40,7 @@ public class Stack extends Group {
         for (Renderable renderable : getElements()) {
             Size size = renderable.getSize();
             renderable.render(panel, x, y);
-            y += size.getHeigth() * direction;
+            y += size.getHeight() * direction;
         }
     }
 }
