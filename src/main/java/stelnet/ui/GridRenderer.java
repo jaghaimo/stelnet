@@ -43,7 +43,7 @@ public class GridRenderer {
         }
         Size offset = size.getDifference(renderable.getSize());
         float x = offset.getWidth() * selector.getWidth();
-        float y = offset.getHeigth() * selector.getHeigth();
+        float y = offset.getHeight() * selector.getHeight();
         renderable.render(panel, x, y);
     }
 }

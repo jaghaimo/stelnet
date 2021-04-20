@@ -21,7 +21,7 @@ public class ScrollableStack extends Group {
 
     @Override
     public void render(CustomPanelAPI panel, float x, float y) {
-        TooltipMakerAPI inner = panel.createUIElement(size.getWidth(), size.getHeigth(), true);
+        TooltipMakerAPI inner = panel.createUIElement(size.getWidth(), size.getHeight(), true);
         render(inner);
         panel.addUIElement(inner).inTL(x, y);
     }

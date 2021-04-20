@@ -7,7 +7,7 @@ public abstract class Renderable {
 
     public void render(CustomPanelAPI panel, float x, float y) {
         Size size = getSize();
-        TooltipMakerAPI inner = panel.createUIElement(size.getWidth(), size.getHeigth(), true);
+        TooltipMakerAPI inner = panel.createUIElement(size.getWidth(), size.getHeight(), true);
         render(inner);
         panel.addUIElement(inner).inTL(x, y);
     }

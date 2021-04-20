@@ -99,7 +99,7 @@ public class Button extends Renderable implements Callable {
         Color foregroundColor = getColor();
         Color backgroundColor = Misc.scaleColor(foregroundColor, 0.5f);
         ButtonAPI button = tooltip.addButton(getTitle(), this, foregroundColor, backgroundColor, Alignment.MID,
-                cutStyle, size.getWidth() - 4f, size.getHeigth() - 4f, 4f);
+                cutStyle, size.getWidth() - 4f, size.getHeight() - 4f, 4f);
         button.setEnabled(isEnabled);
         if (shortcut > 0) {
             button.setShortcut(shortcut, false);
