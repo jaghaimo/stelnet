@@ -8,6 +8,10 @@ import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 public class IntelHelper {
 
     public static void addIntel(BaseIntelPlugin plugin) {
+        addIntel(plugin, false);
+    }
+
+    public static void addIntel(BaseIntelPlugin plugin, boolean forceNoMessage) {
         GlobalHelper.getIntelManager().addIntel(plugin);
     }
 

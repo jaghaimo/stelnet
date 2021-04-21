@@ -27,7 +27,7 @@ public class StorageBoard extends BaseBoard {
         IntelInfoPlugin intel = IntelHelper.getFirstIntel(StorageBoard.class);
         if (intel == null) {
             StorageBoard board = new StorageBoard();
-            IntelHelper.addIntel(board);
+            IntelHelper.addIntel(board, true);
         }
         return (StorageBoard) intel;
     }

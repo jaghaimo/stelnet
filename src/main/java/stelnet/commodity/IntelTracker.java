@@ -41,7 +41,7 @@ public class IntelTracker extends HashMap<String, CommodityIntel> {
             CommoditySpecAPI commodity = GlobalHelper.getCommoditySpec(commodityId);
             Price price = priceFactory.get(commodityId, commodityTab);
             intel = new CommodityIntel(action, commodity, market, this, price);
-            IntelHelper.addIntel(intel);
+            IntelHelper.addIntel(intel, true);
             put(key, intel);
         } else {
             IntelHelper.removeIntel(intel);
