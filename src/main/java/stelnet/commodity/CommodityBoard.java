@@ -43,7 +43,7 @@ public class CommodityBoard extends BaseBoard {
         IntelInfoPlugin intel = IntelHelper.getFirstIntel(CommodityBoard.class);
         if (intel == null) {
             BaseIntelPlugin board = new CommodityBoard();
-            IntelHelper.addIntel(board);
+            IntelHelper.addIntel(board, true);
         }
         return (CommodityBoard) intel;
     }
