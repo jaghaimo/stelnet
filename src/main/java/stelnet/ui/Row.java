@@ -11,8 +11,17 @@ import com.fs.starfarer.api.ui.CustomPanelAPI;
  */
 public class Row extends Group {
 
+    private int direction = 1;
+
     public Row(List<Renderable> elements) {
         super(elements);
+    }
+
+    public Row(List<Renderable> elements, boolean reversed) {
+        super(elements);
+        if (reversed) {
+            direction = -1;
+        }
     }
 
     @Override
@@ -20,7 +29,7 @@ public class Row extends Group {
         for (Renderable renderable : getElements()) {
             Size size = renderable.getSize();
             renderable.render(panel, x, y);
-            x += size.getWidth();
+            x += size.getWidth() * direction;
         }
     }
 }
