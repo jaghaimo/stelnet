@@ -2,12 +2,12 @@ package stelnet.market;
 
 import java.util.List;
 
-import com.fs.starfarer.api.campaign.comm.IntelManagerAPI;
 import com.fs.starfarer.api.campaign.listeners.EconomyTickListener;
 import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 
 import stelnet.helper.GlobalHelper;
+import stelnet.helper.IntelHelper;
 
 public class MonthEndListener implements EconomyTickListener {
 
@@ -38,8 +38,7 @@ public class MonthEndListener implements EconomyTickListener {
     }
 
     private void toggleIntel(BaseIntelPlugin intel) {
-        IntelManagerAPI intelManager = GlobalHelper.getIntelManager();
-        intelManager.addIntel(intel);
-        intelManager.removeIntel(intel);
+        IntelHelper.addIntel(intel);
+        IntelHelper.removeIntel(intel);
     }
 }

@@ -31,7 +31,7 @@ public class MarketQueryBoard extends BaseBoard {
         IntelInfoPlugin intel = IntelHelper.getFirstIntel(MarketQueryBoard.class);
         if (intel == null) {
             MarketQueryBoard board = new MarketQueryBoard();
-            IntelHelper.addIntel(board);
+            IntelHelper.addIntel(board, true);
         }
         return (MarketQueryBoard) intel;
     }
