@@ -12,7 +12,7 @@ import com.fs.starfarer.api.ui.CustomPanelAPI;
  */
 public class Stack extends Group {
 
-    private int direction;
+    private int direction = 1;
 
     public Stack(boolean reversed, Renderable... elements) {
         super(Arrays.asList(elements));
@@ -23,16 +23,10 @@ public class Stack extends Group {
 
     public Stack(Renderable... elements) {
         super(Arrays.asList(elements));
-        direction = 1;
     }
 
     public Stack(List<Renderable> elements) {
         super(elements);
-        direction = 1;
-    }
-
-    public void setDirection(int direction) {
-        this.direction = direction;
     }
 
     @Override
