@@ -14,6 +14,7 @@ import com.fs.starfarer.api.util.Misc;
 import stelnet.BaseBoard;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.SettingHelper;
+import stelnet.market.data.MarketData;
 import stelnet.ui.GridRenderer;
 import stelnet.ui.Size;
 
@@ -54,8 +55,10 @@ public class MarketQueryBoard extends BaseBoard {
 
     @Override
     public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
-        GridRenderer renderer = new GridRenderer(new Size(width, height));
-        // TODO
+        Size size = new Size(width, height);
+        GridRenderer renderer = new GridRenderer(size);
+        MarketData data = new MarketData(panel, size);
+        renderer.setTopLeft(data.get(queries));
         renderer.render(panel);
     }
 
