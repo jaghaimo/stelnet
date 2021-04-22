@@ -7,7 +7,7 @@ import stelnet.ui.Size;
 
 public class RefreshAllButton extends Button {
 
-    public RefreshAllButton() {
-        super(new Size(120, 24), "Refresh All", true, Misc.getButtonTextColor());
+    public RefreshAllButton(boolean isEnabled) {
+        super(new Size(120, 24), "Refresh All", isEnabled, Misc.getButtonTextColor());
     }
 }

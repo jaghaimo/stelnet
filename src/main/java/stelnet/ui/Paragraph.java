@@ -19,6 +19,6 @@ public class Paragraph extends Renderable {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        tooltip.addPara(text, 0f);
+        tooltip.addPara(text, 0);
     }
 }
