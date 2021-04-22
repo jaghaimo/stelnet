@@ -9,7 +9,9 @@ public class SettingHelper {
     }
 
     public static boolean isDevMode() {
-        return Global.getSettings().isDevMode();
+        boolean isDevMode = Global.getSettings().isDevMode();
+        boolean isStelnetDevMode = Global.getSettings().getBoolean("stelnetDevMode");
+        return isDevMode || isStelnetDevMode;
     }
 
     public static boolean uninstallMod() {
