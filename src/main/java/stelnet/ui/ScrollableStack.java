@@ -20,9 +20,20 @@ public class ScrollableStack extends Group {
     }
 
     @Override
+    public Size getSize() {
+        return size;
+    }
+
+    @Override
     public void render(CustomPanelAPI panel, float x, float y) {
         TooltipMakerAPI inner = panel.createUIElement(size.getWidth(), size.getHeight(), true);
         render(inner);
         panel.addUIElement(inner).inTL(x, y);
+        log(new Position(x, y));
+    }
+
+    @Override
+    public String toString() {
+        return String.format("ScrollableStack(%d) with %s", getElements().size(), getSize());
     }
 }
