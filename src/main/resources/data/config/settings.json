@@ -1,4 +1,5 @@
 {
+    "stelnetDevMode": false,
     "stelnetUninstallMod": false,
     "stelnetWarnAboutEndOfMonth": true,
     "graphics": {
