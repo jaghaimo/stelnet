@@ -43,7 +43,6 @@ public abstract class SharedData implements GridData {
             addTitle(elements, submarket);
             elements.add(getStorageContent(data));
         }
-        LogHelper.info("Returning ScrollableStack with " + elements.size() + " elements");
         return new ScrollableStack(size, elements);
     }
 
@@ -53,7 +52,6 @@ public abstract class SharedData implements GridData {
         Renderable[] buttons = getButtons();
         Renderable[] all = Arrays.copyOf(common, common.length + buttons.length);
         System.arraycopy(buttons, 0, all, common.length, buttons.length);
-        LogHelper.info("Returning Stack with " + all.length + " elements");
         return new Stack(all);
     }
 

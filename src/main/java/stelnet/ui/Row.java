@@ -1,5 +1,6 @@
 package stelnet.ui;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.fs.starfarer.api.ui.CustomPanelAPI;
@@ -11,17 +12,22 @@ import com.fs.starfarer.api.ui.CustomPanelAPI;
  */
 public class Row extends Group {
 
-    private int direction = 1;
+    public Row(Renderable... elements) {
+        super(Arrays.asList(elements));
+    }
 
     public Row(List<Renderable> elements) {
         super(elements);
     }
 
-    public Row(List<Renderable> elements, boolean reversed) {
-        super(elements);
-        if (reversed) {
-            direction = -1;
+    @Override
+    public Size getSize() {
+        Size size = super.getSize();
+        float width = 0;
+        for (Renderable renderable : getElements()) {
+            width += renderable.getSize().getWidth();
         }
+        return new Size(width, size.getHeight());
     }
 
     @Override
@@ -29,7 +35,12 @@ public class Row extends Group {
         for (Renderable renderable : getElements()) {
             Size size = renderable.getSize();
             renderable.render(panel, x, y);
-            x += size.getWidth() * direction;
+            x += size.getWidth();
         }
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Row(%d) with %s", getElements().size(), getSize());
     }
 }

@@ -30,11 +30,26 @@ public class Stack extends Group {
     }
 
     @Override
+    public Size getSize() {
+        Size size = super.getSize();
+        float height = 0;
+        for (Renderable renderable : getElements()) {
+            height += renderable.getSize().getHeight();
+        }
+        return new Size(size.getWidth(), height);
+    }
+
+    @Override
     public void render(CustomPanelAPI panel, float x, float y) {
         for (Renderable renderable : getElements()) {
             Size size = renderable.getSize();
             renderable.render(panel, x, y);
             y += size.getHeight() * direction;
         }
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Stack(%d,%d) with %s", getElements().size(), direction, getSize());
     }
 }
