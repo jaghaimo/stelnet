@@ -37,7 +37,7 @@ public class StelnetMod extends BaseModPlugin {
             initCommodity();
             initMarket();
             initStorage();
-            LogHelper.debug("Initiation complete");
+            LogHelper.info("Initiation complete");
         }
     }
 
