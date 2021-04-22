@@ -16,7 +16,6 @@ import stelnet.market.view.ToggleOneButton;
 import stelnet.ui.CustomPanel;
 import stelnet.ui.GridRenderer;
 import stelnet.ui.Line;
-import stelnet.ui.Padding;
 import stelnet.ui.Paragraph;
 import stelnet.ui.Renderable;
 import stelnet.ui.Row;
@@ -36,14 +35,26 @@ public class MarketData {
     }
 
     public Renderable get(List<IntelQuery> queries) {
-        Renderable controlRow = getNewRow(//
-                new Row(new AddQueryButton(), new RefreshAllButton(), new ToggleAllButton()), // left
-                new Row(new DeleteAllButton(), new Padding(10)) // right
-        );
+        Renderable controlRow = getControlRow(queries);
         Renderable separator = new Line(size.getWidth(), Misc.getButtonTextColor());
         Renderable spacer = new Spacer(5);
-        Renderable queryStack = new ScrollableStack(size.getDifference(new Size(0, 30)), getQueryRows(40));
+        Renderable queryStack = getQueryStack(queries);
         return new Stack(controlRow, separator, spacer, queryStack);
+    }
+
+    private Renderable getControlRow(List<IntelQuery> queries) {
+        boolean hasQueries = !queries.isEmpty();
+        return getNewRow(//
+                new Row(new AddQueryButton(queries), new RefreshAllButton(hasQueries), new ToggleAllButton(hasQueries)), // left
+                new Row(new DeleteAllButton(hasQueries), new Spacer(10)) // right
+        );
+    }
+
+    private Renderable getQueryStack(List<IntelQuery> queries) {
+        if (queries.size() == 0) {
+            return new Paragraph("No queries", 400);
+        }
+        return new ScrollableStack(size.getDifference(new Size(0, 30)), getQueryRows(queries));
     }
 
     private Renderable getNewRow(Renderable left, Renderable right) {
@@ -56,12 +67,13 @@ public class MarketData {
         return new CustomPanel(rowPanel, rowSize);
     }
 
-    private List<Renderable> getQueryRows(int max) {
+    private List<Renderable> getQueryRows(List<IntelQuery> queries) {
         List<Renderable> data = new ArrayList<>();
-        for (int i = 0; i < max; i++) {
+        Size newSize = size.getDifference(new Size(200, 0));
+        for (IntelQuery query : queries) {
             data.add(getNewRow(//
-                    new Row(new Paragraph("Test", 200)), // left
-                    new Row(new ToggleOneButton(true), new DeleteOneButton(), new Padding(10)) // right
+                    new Row(new Stack(new Spacer(7), new Paragraph(query.getDescription(), newSize.getWidth()))), // left
+                    new Row(new ToggleOneButton(query.isEnabled()), new DeleteOneButton(), new Spacer(10)) // right
             ));
         }
         return data;

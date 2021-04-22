@@ -20,15 +20,15 @@ import stelnet.storage.view.DisplayPaneButton;
 import stelnet.storage.view.DisplayViewButton;
 import stelnet.storage.view.ItemFilterButton;
 import stelnet.storage.view.ShipFilterButton;
-import stelnet.ui.Padding;
 import stelnet.ui.Renderable;
+import stelnet.ui.Spacer;
 
 public class ButtonManager {
 
     private Renderable[] commonButtons = { //
             new DisplayViewButton(), //
             new DisplayPaneButton(), //
-            new Padding(20f), // vertical spacer
+            new Spacer(20f), // vertical spacer
     };
 
     private Renderable[] itemButtons = { //
@@ -36,11 +36,11 @@ public class ButtonManager {
             new ItemFilterButton("Weapons", new IsNotWeapon()), //
             new ItemFilterButton("Fighter Wings", new IsNotFighterWing()), //
             new ItemFilterButton("Others", new IsNotOther()), //
-            new Padding(20f), // vertical spacer
+            new Spacer(20f), // vertical spacer
             new ItemFilterButton("Small Mount", new IsNotMountSize(WeaponSize.SMALL)), //
             new ItemFilterButton("Medium Mount", new IsNotMountSize(WeaponSize.MEDIUM)), //
             new ItemFilterButton("Large Mount", new IsNotMountSize(WeaponSize.LARGE)), //
-            new Padding(20f), // vertical spacer
+            new Spacer(20f), // vertical spacer
             new ItemFilterButton("Fighters", new IsNotFighterWingRole(WingRole.FIGHTER)), //
             new ItemFilterButton("Bombers", new IsNotFighterWingRole(WingRole.BOMBER)), //
             new ItemFilterButton("Interceptors", new IsNotFighterWingRole(WingRole.INTERCEPTOR))//
@@ -51,7 +51,7 @@ public class ButtonManager {
             new ShipFilterButton("Destroyers", new IsNotDestroyer()), //
             new ShipFilterButton("Cruisers", new IsNotCruiser()), //
             new ShipFilterButton("Capitals", new IsNotCapital()), //
-            new Padding(20f), // vertical spacer
+            new Spacer(20f), // vertical spacer
             new ShipFilterButton("Warships", new IsNotWarship()), //
             new ShipFilterButton("Carriers", new IsNotCarrier()), //
             new ShipFilterButton("Civilians", new IsNotCivilian())//

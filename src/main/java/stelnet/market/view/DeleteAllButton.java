@@ -7,7 +7,7 @@ import stelnet.ui.Size;
 
 public class DeleteAllButton extends Button {
 
-    public DeleteAllButton() {
-        super(new Size(120, 24), "Delete All", true, Misc.getNegativeHighlightColor());
+    public DeleteAllButton(boolean isEnabled) {
+        super(new Size(120, 24), "Delete All", isEnabled, Misc.getNegativeHighlightColor());
     }
 }

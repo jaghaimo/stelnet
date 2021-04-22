@@ -7,9 +7,11 @@ import stelnet.helper.LogHelper;
 
 public abstract class Renderable {
 
+    protected boolean withScroller = true;
+
     public void render(CustomPanelAPI panel, float x, float y) {
         Size size = getSize();
-        TooltipMakerAPI inner = panel.createUIElement(size.getWidth(), size.getHeight(), true);
+        TooltipMakerAPI inner = panel.createUIElement(size.getWidth(), size.getHeight(), withScroller);
         render(inner);
         panel.addUIElement(inner).inTL(x, y);
         log(new Position(x, y));
