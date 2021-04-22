@@ -43,10 +43,9 @@ public class MarketData {
     }
 
     private Renderable getControlRow(List<IntelQuery> queries) {
-        boolean hasQueries = !queries.isEmpty();
         return getNewRow(//
-                new Row(new AddQueryButton(queries), new RefreshAllButton(hasQueries), new ToggleAllButton(hasQueries)), // left
-                new Row(new DeleteAllButton(hasQueries), new Spacer(10)) // right
+                new Row(new AddQueryButton(queries), new RefreshAllButton(queries), new ToggleAllButton(queries)), // left
+                new Row(new DeleteAllButton(queries), new Spacer(10)) // right
         );
     }
 
@@ -70,10 +69,11 @@ public class MarketData {
     private List<Renderable> getQueryRows(List<IntelQuery> queries) {
         List<Renderable> data = new ArrayList<>();
         Size newSize = size.getDifference(new Size(200, 0));
-        for (IntelQuery query : queries) {
+        for (int i = 0; i < queries.size(); i++) {
+            IntelQuery query = queries.get(i);
             data.add(getNewRow(//
                     new Row(new Stack(new Spacer(7), new Paragraph(query.getDescription(), newSize.getWidth()))), // left
-                    new Row(new ToggleOneButton(query.isEnabled()), new DeleteOneButton(), new Spacer(10)) // right
+                    new Row(new ToggleOneButton(query), new DeleteOneButton(queries, i), new Spacer(10)) // right
             ));
         }
         return data;

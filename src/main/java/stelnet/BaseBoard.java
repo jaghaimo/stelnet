@@ -14,6 +14,7 @@ public abstract class BaseBoard extends BaseIntelPlugin {
         LogHelper.debug("Calling callback.confirm()");
         Callable callable = (Callable) buttonId;
         callable.confirm(ui);
+        ui.recreateIntelUI();
         ui.updateUIForItem(this);
     }
 
