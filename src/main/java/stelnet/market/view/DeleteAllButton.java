@@ -3,6 +3,7 @@ package stelnet.market.view;
 import java.util.List;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
+import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import stelnet.market.IntelQuery;
@@ -22,6 +23,16 @@ public class DeleteAllButton extends Button {
                     query.disable();
                 }
                 queries.clear();
+            }
+
+            @Override
+            public boolean hasPrompt() {
+                return true;
+            }
+
+            @Override
+            public void prompt(TooltipMakerAPI tooltipMaker) {
+                tooltipMaker.addPara("Are you sure you want to delete ALL intel queries?", Misc.getTextColor(), 0f);
             }
         });
     }
