@@ -10,9 +10,9 @@ import stelnet.market.IntelQuery;
 import stelnet.market.view.AddQueryButton;
 import stelnet.market.view.DeleteAllButton;
 import stelnet.market.view.DeleteOneButton;
-import stelnet.market.view.RefreshAllButton;
 import stelnet.market.view.ToggleAllButton;
 import stelnet.market.view.ToggleOneButton;
+import stelnet.market.view.UpdateAllButton;
 import stelnet.ui.CustomPanel;
 import stelnet.ui.GridData;
 import stelnet.ui.GridRenderer;
@@ -62,7 +62,7 @@ public class MarketData implements GridData {
     private Renderable getControlRow(Size size) {
         return getNewRow(//
                 size, //
-                new Row(new AddQueryButton(queries), new RefreshAllButton(queries), new ToggleAllButton(queries)), // left
+                new Row(new AddQueryButton(queries), new UpdateAllButton(queries), new ToggleAllButton(queries)), // left
                 new Row(new DeleteAllButton(queries), new Spacer(10)) // right
         );
     }

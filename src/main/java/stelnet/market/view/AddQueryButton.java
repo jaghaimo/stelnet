@@ -6,6 +6,8 @@ import com.fs.starfarer.api.campaign.InteractionDialogPlugin;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.util.Misc;
 
+import org.lwjgl.input.Keyboard;
+
 import stelnet.market.DialogPlugin;
 import stelnet.market.IntelQuery;
 import stelnet.ui.Button;
@@ -16,6 +18,7 @@ public class AddQueryButton extends Button {
 
     public AddQueryButton(final List<IntelQuery> queries) {
         super(new Size(160, 24), "Add New Query", true, Misc.getPositiveHighlightColor());
+        setShortcut(Keyboard.KEY_A);
         setCallback(new SimpleCallback() {
 
             @Override
