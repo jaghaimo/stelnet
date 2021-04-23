@@ -57,8 +57,8 @@ public class MarketQueryBoard extends BaseBoard {
     public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
         Size size = new Size(width, height);
         GridRenderer renderer = new GridRenderer(size);
-        MarketData data = new MarketData(panel, size);
-        renderer.setTopLeft(data.get(queries));
+        MarketData data = new MarketData(panel, queries);
+        renderer.setTopLeft(data.getTopLeft(size));
         renderer.render(panel);
     }
 
