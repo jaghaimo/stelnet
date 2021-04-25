@@ -15,11 +15,7 @@ public class Heading extends Renderable {
         this.title = title;
         this.foregroundColor = foregroundColor;
         this.backgroundColor = backgroundColor;
-    }
-
-    @Override
-    public Size getSize() {
-        return new Size(0, 10f);
+        setSize(new Size(0, 10));
     }
 
     @Override

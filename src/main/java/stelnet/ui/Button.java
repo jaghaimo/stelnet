@@ -11,8 +11,7 @@ import com.fs.starfarer.api.util.Misc;
 
 public class Button extends Renderable implements Callable {
 
-    private final Size size;
-    private final String title;
+    private String title;
     private Color color;
     private boolean isEnabled;
     private Callable callback;
@@ -20,12 +19,12 @@ public class Button extends Renderable implements Callable {
     private int shortcut;
 
     public Button(Size size, String title, boolean isEnabled, Color color) {
-        this.size = size;
         this.title = title;
         this.isEnabled = isEnabled;
         this.color = color;
         this.cutStyle = CutStyle.ALL;
         this.shortcut = 0;
+        setSize(size);
     }
 
     public String getTitle() {
@@ -90,12 +89,8 @@ public class Button extends Renderable implements Callable {
     }
 
     @Override
-    public Size getSize() {
-        return size;
-    }
-
-    @Override
     public void render(TooltipMakerAPI tooltip) {
+        Size size = getSize();
         Color foregroundColor = getColor();
         Color backgroundColor = Misc.scaleColor(foregroundColor, 0.5f);
         ButtonAPI button = tooltip.addButton(getTitle(), this, foregroundColor, backgroundColor, Alignment.MID,
