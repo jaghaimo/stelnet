@@ -13,6 +13,12 @@ is used to display buying and selling prices among all known markets.
 
 ![Commodity](https://github.com/jaghaimo/stelnet/raw/master/images/commodity.png)
 
+* Profit tab which calculates 5 most profitable trades.
+* Shows the total distance needed to fly from players current location to location A (buy) and location B (sell)
+* Highlights trades in the same system
+
+![Profit tab](images/commodity_profit.png)
+
 ### Market
 
 Market board (formerly [Hyperspace Networks](https://fractalsoftworks.com/forum/index.php?topic=19252))
