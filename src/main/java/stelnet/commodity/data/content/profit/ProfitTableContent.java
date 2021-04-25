@@ -8,6 +8,7 @@ import stelnet.commodity.data.content.MarketTableContent;
 import stelnet.commodity.data.content.buy.SupplyPrice;
 import stelnet.commodity.data.content.sell.SellMarketFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProfitTableContent extends MarketTableContent {
@@ -33,10 +34,33 @@ public class ProfitTableContent extends MarketTableContent {
     }
 
     @Override
-    protected Object[] getRow(int i, MarketAPI buyMarket) {
+    public List<Object[]> getRows() {
+        List<Object[]> content = new ArrayList<>();
+        int i = 1;
+        for (MarketAPI buyMarket : super.markets) {
+            int j = 1;
+            for (MarketAPI sellMarket : sellmarkets) {
+                if (j > 5) {
+                    continue;
+                }
+                Object[] row = getRow(i, buyMarket, sellMarket);
+                content.add(row);
+                j++;
+            }
+            i++;
+        }
+        return content;
+    }
+
+    // We fail to comply with Interface segregation principle here.
+    @Override
+    protected Object[] getRow(int i, MarketAPI market) {
+        return new Object[0];
+    }
+
+    protected Object[] getRow(int i, MarketAPI buyMarket, MarketAPI sellMarket) {
         CommodityOnMarketAPI commodity = buyMarket.getCommodityData(commodityId);
         float buyPrice = getPrice(buyMarket);
-        MarketAPI sellMarket = sellmarkets.get(i-1);
         float sellPrice = getPrice(sellMarket);
         int available = helper.getAvailable(commodity);
         return getRow(i, buyPrice, sellPrice, available, buyMarket, sellMarket);
