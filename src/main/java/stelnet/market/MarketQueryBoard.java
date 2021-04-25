@@ -16,7 +16,6 @@ import stelnet.helper.IntelHelper;
 import stelnet.helper.SettingHelper;
 import stelnet.market.view.ControlRow;
 import stelnet.market.view.Queries;
-import stelnet.ui.Position;
 import stelnet.ui.Size;
 
 /**
@@ -57,8 +56,8 @@ public class MarketQueryBoard extends BaseBoard {
     @Override
     public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
         Size size = new Size(width, height);
-        (new ControlRow(queries)).render(panel, size, new Position(0, 0));
-        (new Queries(queries)).render(panel, size, new Position(0, 38));
+        (new ControlRow(queries)).render(panel, size);
+        (new Queries(queries)).render(panel, size);
     }
 
     @Override
