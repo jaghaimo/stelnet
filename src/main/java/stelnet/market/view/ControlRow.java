@@ -9,12 +9,11 @@ import stelnet.market.IntelQuery;
 import stelnet.ui.Line;
 import stelnet.ui.Position;
 import stelnet.ui.Renderable;
-import stelnet.ui.Renderer;
 import stelnet.ui.Row;
 import stelnet.ui.Size;
 import stelnet.ui.Stack;
 
-public class ControlRow implements Renderer {
+public class ControlRow {
 
     private List<IntelQuery> queries;
 
@@ -22,10 +21,9 @@ public class ControlRow implements Renderer {
         this.queries = queries;
     }
 
-    @Override
-    public void render(CustomPanelAPI panel, Size size, Position position) {
+    public void render(CustomPanelAPI panel, Size size) {
         Renderable controlRow = get(size);
-        controlRow.render(panel, position.getX(), position.getY());
+        controlRow.render(panel, 0, 0);
     }
 
     private Renderable get(Size size) {

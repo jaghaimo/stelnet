@@ -8,12 +8,10 @@ import com.fs.starfarer.api.ui.CustomPanelAPI;
 import stelnet.market.IntelQuery;
 import stelnet.ui.Group;
 import stelnet.ui.Paragraph;
-import stelnet.ui.Position;
 import stelnet.ui.Renderable;
-import stelnet.ui.Renderer;
 import stelnet.ui.Size;
 
-public class Queries implements Renderer {
+public class Queries {
 
     private List<IntelQuery> queries;
 
@@ -21,13 +19,12 @@ public class Queries implements Renderer {
         this.queries = queries;
     }
 
-    @Override
-    public void render(CustomPanelAPI panel, Size size, Position position) {
+    public void render(CustomPanelAPI panel, Size size) {
         Size panelSize = size.getDifference(new Size(0, 38));
         Renderable queriesOrEmpty = get(panel, panelSize);
         queriesOrEmpty.setSize(panelSize);
         queriesOrEmpty.setScroller(true);
-        queriesOrEmpty.render(panel, position.getX(), position.getY());
+        queriesOrEmpty.render(panel, 0, 38);
     }
 
     private Renderable get(CustomPanelAPI panel, Size size) {
