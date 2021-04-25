@@ -7,6 +7,7 @@ import com.fs.starfarer.api.util.Misc;
 import stelnet.commodity.data.content.MarketTableContent;
 import stelnet.commodity.data.content.buy.SupplyPrice;
 import stelnet.commodity.data.content.sell.SellMarketFactory;
+import stelnet.helper.StarSystemHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,8 @@ public class ProfitTableContent extends MarketTableContent {
                 "Available", .1f * width,
                 "Profit", .1f * width,
                 "Buy Location", .2f * width,
-                "Sell Location", .2f * width
+                "Sell Location", .2f * width,
+                "Total Dist (ly)", .1f * width
         };
         return header;
     }
@@ -67,7 +69,7 @@ public class ProfitTableContent extends MarketTableContent {
     }
 
     protected Object[] getRow(int i, float buyPrice, float sellPrice, int available, MarketAPI buyMarket, MarketAPI sellMarket) {
-        Object[] row = new Object[21];
+        Object[] row = new Object[24];
         // Position
         row[0] = Alignment.MID;
         row[1] = Misc.getGrayColor();
@@ -104,6 +106,18 @@ public class ProfitTableContent extends MarketTableContent {
         row[18] = Alignment.LMID;
         row[19] = sellMarket.getTextColorForFactionOrPlanet();
         row[20] = helper.getLocation(sellMarket);
+
+        float playerToBuy = Misc.getDistanceToPlayerLY(buyMarket.getPrimaryEntity());
+        float buyToSell = Misc.getDistanceLY(buyMarket.getPrimaryEntity(), sellMarket.getPrimaryEntity());
+        String buySystemName = StarSystemHelper.getName(buyMarket.getStarSystem());
+        String sellSystemName = StarSystemHelper.getName(sellMarket.getStarSystem());
+
+        row[21] = Alignment.MID;
+        row[22] = Misc.getGrayColor();
+        if (buySystemName.equals(sellSystemName)) {
+            row[22] = Misc.getHighlightColor();
+        }
+        row[23] = String.format("%.1f", playerToBuy + buyToSell);
         return row;
     }
 }
