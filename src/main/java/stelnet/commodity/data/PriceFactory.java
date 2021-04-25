@@ -1,6 +1,8 @@
 package stelnet.commodity.data;
 
 import stelnet.commodity.CommodityBoard.CommodityTab;
+import stelnet.commodity.data.content.buy.SupplyPrice;
+import stelnet.commodity.data.content.sell.DemandPrice;
 
 public class PriceFactory {
 

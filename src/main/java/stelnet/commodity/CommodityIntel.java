@@ -1,8 +1,5 @@
 package stelnet.commodity;
 
-import java.awt.Color;
-import java.util.Set;
-
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
@@ -14,9 +11,11 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-
 import stelnet.commodity.data.Price;
 import stelnet.helper.StarSystemHelper;
+
+import java.awt.*;
+import java.util.Set;
 
 public class CommodityIntel extends BaseIntelPlugin {
 

@@ -1,9 +1,10 @@
-package stelnet.commodity.data;
+package stelnet.commodity.data.content.sell;
 
 import java.util.List;
 
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import stelnet.commodity.data.content.MarketTableContent;
 
 public class SellTableContent extends MarketTableContent {
 

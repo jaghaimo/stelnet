@@ -24,7 +24,7 @@ import stelnet.ui.Stack;
 public class CommodityBoard extends BaseBoard {
 
     public enum CommodityTab {
-        BUY("Buy"), SELL("Sell");
+        BUY("Buy"), SELL("Sell"), PROFIT("Profit");
 
         public String title;
 

@@ -1,16 +1,17 @@
-package stelnet.commodity.data;
+package stelnet.commodity.data.content.buy;
 
 import com.fs.starfarer.api.campaign.econ.EconomyAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 
+import stelnet.commodity.data.Price;
 import stelnet.helper.GlobalHelper;
 
-public class DemandPrice implements Price {
+public class SupplyPrice implements Price {
 
     private String commodityId;
     private float econUnit;
 
-    public DemandPrice(String commodityId) {
+    public SupplyPrice(String commodityId) {
         this.commodityId = commodityId;
         EconomyAPI economy = GlobalHelper.getEconomy();
         this.econUnit = economy.getCommoditySpec(commodityId).getEconUnit();
@@ -18,6 +19,6 @@ public class DemandPrice implements Price {
 
     @Override
     public float getPrice(MarketAPI market) {
-        return market.getDemandPrice(commodityId, econUnit, true) / econUnit;
+        return market.getSupplyPrice(commodityId, econUnit, true) / econUnit;
     }
 }

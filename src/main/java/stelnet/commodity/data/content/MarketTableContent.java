@@ -1,4 +1,4 @@
-package stelnet.commodity.data;
+package stelnet.commodity.data.content;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,8 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
 
+import stelnet.commodity.data.Price;
+import stelnet.commodity.data.TableCellHelper;
 import stelnet.helper.StarSystemHelper;
 import stelnet.ui.TableContent;
 
@@ -47,8 +49,15 @@ public abstract class MarketTableContent implements TableContent {
     }
 
     protected Object[] getHeader(float width, String availableOrDemand, String excessOrDeficit) {
-        Object header[] = { "#", .05f * width, "Price", .1f * width, availableOrDemand, .1f * width, excessOrDeficit,
-                .1f * width, "Location", .3f * width, "Star system", .2f * width, "Dist (ly)", .1f * width };
+        Object header[] = {
+                "#", .05f * width,
+                "Price", .1f * width,
+                availableOrDemand, .1f * width,
+                excessOrDeficit, .1f * width,
+                "Location", .3f * width,
+                "Star system", .2f * width,
+                "Dist (ly)", .1f * width
+        };
         return header;
     }
 
