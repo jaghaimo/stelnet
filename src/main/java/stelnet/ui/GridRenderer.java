@@ -4,6 +4,7 @@ import com.fs.starfarer.api.ui.CustomPanelAPI;
 
 import stelnet.helper.LogHelper;
 
+@Deprecated
 public class GridRenderer {
 
     private Size size;

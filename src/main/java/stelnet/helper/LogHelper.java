@@ -1,7 +1,5 @@
 package stelnet.helper;
 
-import com.fs.starfarer.api.Global;
-
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -28,7 +26,7 @@ public class LogHelper {
     }
 
     private static Logger getLogger() {
-        Logger logger = Global.getLogger(getName());
+        Logger logger = Logger.getLogger(getName());
         if (SettingHelper.isDevMode()) {
             logger.setLevel(Level.DEBUG);
         }

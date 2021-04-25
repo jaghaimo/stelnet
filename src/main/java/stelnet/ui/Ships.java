@@ -10,17 +10,11 @@ public class Ships extends Renderable {
 
     private List<FleetMemberAPI> ships;
     private String emptyDescription;
-    private float width;
-    private float height;
 
-    public Ships(List<FleetMemberAPI> ships, String emptyDescription, float width, float height) {
+    public Ships(List<FleetMemberAPI> ships, String emptyDescription, Size size) {
         this.ships = ships;
         this.emptyDescription = emptyDescription;
-    }
-
-    @Override
-    public Size getSize() {
-        return new Size(width, height);
+        setSize(size);
     }
 
     @Override

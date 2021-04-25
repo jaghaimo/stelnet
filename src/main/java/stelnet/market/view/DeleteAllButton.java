@@ -10,6 +10,8 @@ import org.lwjgl.input.Keyboard;
 
 import stelnet.market.IntelQuery;
 import stelnet.ui.Button;
+import stelnet.ui.Location;
+import stelnet.ui.Position;
 import stelnet.ui.SimpleCallback;
 import stelnet.ui.Size;
 
@@ -18,6 +20,8 @@ public class DeleteAllButton extends Button {
     public DeleteAllButton(final List<IntelQuery> queries) {
         super(new Size(120, 24), "Delete All", !queries.isEmpty(), Misc.getNegativeHighlightColor());
         setShortcut(Keyboard.KEY_G);
+        setLocation(Location.TOP_RIGHT);
+        setOffset(new Position(4, -24));
         setCallback(new SimpleCallback() {
 
             @Override
