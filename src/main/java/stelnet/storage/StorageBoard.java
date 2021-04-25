@@ -14,7 +14,6 @@ import stelnet.helper.SettingHelper;
 import stelnet.helper.StorageHelper;
 import stelnet.storage.data.ItemsGridData;
 import stelnet.storage.data.SharedData;
-import stelnet.ui.GridRenderer;
 import stelnet.ui.Size;
 
 public class StorageBoard extends BaseBoard {
@@ -50,14 +49,9 @@ public class StorageBoard extends BaseBoard {
 
     @Override
     public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
-        float spacer = 20;
-        float controlWidth = 180;
-        float displayWidth = width - controlWidth - spacer;
         Size size = new Size(width, height);
-        GridRenderer renderer = new GridRenderer(size);
-        renderer.setTopLeft(gridData.getTopLeft(new Size(displayWidth, height)));
-        renderer.setTopRight(gridData.getTopRight(new Size(controlWidth, height)));
-        renderer.render(panel);
+        gridData.getContentColumn(size).render(panel, 0, 0);
+        gridData.getControlColumn(size).render(panel, 0, 0);
     }
 
     @Override

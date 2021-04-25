@@ -8,6 +8,8 @@ import com.fs.starfarer.api.util.Misc;
 
 import stelnet.market.IntelQuery;
 import stelnet.ui.Button;
+import stelnet.ui.Location;
+import stelnet.ui.Position;
 import stelnet.ui.SimpleCallback;
 import stelnet.ui.Size;
 
@@ -15,6 +17,8 @@ public class DeleteOneButton extends Button {
 
     public DeleteOneButton(final List<IntelQuery> queries, final int number) {
         super(new Size(120, 24), "Delete", true, Misc.getNegativeHighlightColor());
+        setLocation(Location.TOP_RIGHT);
+        setOffset(new Position(10, -24));
         setCallback(new SimpleCallback() {
 
             @Override

@@ -11,14 +11,16 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import stelnet.helper.LogHelper;
 import stelnet.storage.ButtonManager;
 import stelnet.storage.FilterManager;
-import stelnet.ui.GridData;
+import stelnet.ui.Group;
 import stelnet.ui.Heading;
 import stelnet.ui.Renderable;
-import stelnet.ui.ScrollableStack;
 import stelnet.ui.Size;
 import stelnet.ui.Stack;
 
-public abstract class SharedData implements GridData {
+public abstract class SharedData {
+
+    private final float spacer = 20;
+    private final float controlWidth = 180;
 
     protected ButtonManager buttonManager;
     protected FilterManager filterManager;
@@ -34,8 +36,7 @@ public abstract class SharedData implements GridData {
         dataProvider = dataProvider.getNext();
     }
 
-    @Override
-    public Renderable getTopLeft(Size size) {
+    public Renderable getContentColumn(Size size) {
         List<Renderable> elements = new ArrayList<>();
         List<StorageData> storageData = dataProvider.getData();
         for (StorageData data : storageData) {
@@ -43,26 +44,20 @@ public abstract class SharedData implements GridData {
             addTitle(elements, submarket);
             elements.add(getStorageContent(data));
         }
-        return new ScrollableStack(size, elements);
+        Renderable group = new Group(elements);
+        group.setSize(size.getDifference(new Size(spacer + controlWidth, 0)));
+        group.setScroller(true);
+        return group;
     }
 
-    @Override
-    public Renderable getTopRight(Size size) {
+    public Renderable getControlColumn(Size size) {
         Renderable[] common = buttonManager.getCommonButtons();
         Renderable[] buttons = getButtons();
         Renderable[] all = Arrays.copyOf(common, common.length + buttons.length);
         System.arraycopy(buttons, 0, all, common.length, buttons.length);
-        return new Stack(all);
-    }
-
-    @Override
-    public Renderable getBottomLeft(Size size) {
-        return null;
-    }
-
-    @Override
-    public Renderable getBottomRight(Size size) {
-        return null;
+        Renderable stack = new Stack(all);
+        stack.setSize(size);
+        return stack;
     }
 
     public abstract SharedData getNext();
