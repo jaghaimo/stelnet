@@ -21,6 +21,10 @@ public abstract class Renderable {
     private boolean withScroller = true;
     private Size size;
 
+    public void render(CustomPanelAPI panel) {
+        render(panel, 0, 0);
+    }
+
     public void render(CustomPanelAPI panel, float x, float y) {
         Size size = getSize();
         TooltipMakerAPI inner = panel.createUIElement(size.getWidth(), size.getHeight(), withScroller);

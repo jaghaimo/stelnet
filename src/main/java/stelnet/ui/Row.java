@@ -11,7 +11,8 @@ import stelnet.helper.LogHelper;
 /**
  * Renders elements in a horizontal line.
  *
- * Calculates size automatically if needed.
+ * Calculates size automatically if needed. Only usable in large intel or
+ * {@link CustomPanel}.
  */
 public class Row extends Group {
 
@@ -34,7 +35,7 @@ public class Row extends Group {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        LogHelper.error("Cannot render Stack in small intel. Use Group instead.");
+        LogHelper.error("Cannot render Stack in small intel. Use Group or prerender in CustomPanel instead.");
     }
 
     @Override

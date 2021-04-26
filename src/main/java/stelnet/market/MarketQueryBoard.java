@@ -56,8 +56,8 @@ public class MarketQueryBoard extends BaseBoard {
     @Override
     public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
         Size size = new Size(width, height);
-        (new ControlRow(queries)).render(panel, size);
-        (new Queries(queries)).render(panel, size);
+        new ControlRow(queries).render(panel, size);
+        new Queries(queries).render(panel, size);
     }
 
     @Override

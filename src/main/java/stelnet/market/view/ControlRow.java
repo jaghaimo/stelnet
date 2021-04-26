@@ -23,7 +23,7 @@ public class ControlRow {
 
     public void render(CustomPanelAPI panel, Size size) {
         Renderable controlRow = get(size);
-        controlRow.render(panel, 0, 0);
+        controlRow.render(panel);
     }
 
     private Renderable get(Size size) {
