@@ -12,14 +12,11 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import stelnet.BaseBoard;
 import stelnet.commodity.view.ButtonViewFactory;
 import stelnet.commodity.view.CommodityViewFactory;
-import stelnet.commodity.view.DeleteButton;
+import stelnet.commodity.view.DeleteViewFactory;
 import stelnet.commodity.view.IntelSelectionFactory;
-import stelnet.commodity.view.PurgeButton;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.SettingHelper;
-import stelnet.ui.GridRenderer;
 import stelnet.ui.Size;
-import stelnet.ui.Stack;
 
 public class CommodityBoard extends BaseBoard {
 
@@ -61,14 +58,11 @@ public class CommodityBoard extends BaseBoard {
 
     @Override
     public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
-        float commodityViewWidth = width - 210;
-        float commodityViewHeight = height - 35;
-        GridRenderer renderer = new GridRenderer(new Size(width, height));
-        renderer.setTopLeft(commodityViewFactory.get(activeId, activeTab, commodityViewWidth, commodityViewHeight));
-        renderer.setTopRight(buttonViewFactory.get(activeId));
-        renderer.setBottomLeft(intelSelectionFactory.get(activeId, activeTab, commodityViewWidth));
-        renderer.setBottomRight(new Stack(true, new PurgeButton(), new DeleteButton(activeId)));
-        renderer.render(panel);
+        Size size = new Size(width, height);
+        commodityViewFactory.get(activeId, activeTab, size).render(panel);
+        intelSelectionFactory.get(activeId, activeTab, size).render(panel);
+        buttonViewFactory.get(activeId, size).render(panel);
+        new DeleteViewFactory().get(activeId, size).render(panel);
     }
 
     @Override

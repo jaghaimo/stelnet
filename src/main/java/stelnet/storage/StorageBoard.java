@@ -50,8 +50,8 @@ public class StorageBoard extends BaseBoard {
     @Override
     public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
         Size size = new Size(width, height);
-        gridData.getContentColumn(size).render(panel, 0, 0);
-        gridData.getControlColumn(size).render(panel, 0, 0);
+        gridData.getContentColumn(size).render(panel);
+        gridData.getControlColumn(size).render(panel);
     }
 
     @Override
