@@ -11,20 +11,10 @@ import stelnet.helper.LogHelper;
 /**
  * Renders elements in a vertical line.
  *
- * Calculates size automatically if needed.
+ * Calculates size automatically if needed. Only usable in large intel or
+ * {@link CustomPanel}.
  */
 public class Stack extends Group {
-
-    @Deprecated
-    private int direction = 1;
-
-    @Deprecated
-    public Stack(boolean reversed, Renderable... elements) {
-        super(Arrays.asList(elements));
-        if (reversed) {
-            direction = -1;
-        }
-    }
 
     public Stack(Renderable... elements) {
         super(Arrays.asList(elements));
@@ -45,12 +35,12 @@ public class Stack extends Group {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        LogHelper.error("Cannot render Stack in small intel. Use Group instead.");
+        LogHelper.error("Cannot render Stack in small intel. Use Group or prerender in CustomPanel instead.");
     }
 
     @Override
     public String toString() {
-        return String.format("Stack(%d,%d) with %s", getElements().size(), direction, getSize());
+        return String.format("Stack(%d) with %s", getElements().size(), getSize());
     }
 
     @Override

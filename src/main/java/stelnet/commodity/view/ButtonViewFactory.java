@@ -11,11 +11,12 @@ import com.fs.starfarer.api.campaign.econ.EconomyAPI;
 import stelnet.helper.GlobalHelper;
 import stelnet.ui.Button;
 import stelnet.ui.Renderable;
+import stelnet.ui.Size;
 import stelnet.ui.Stack;
 
 public class ButtonViewFactory {
 
-    public Stack get(String activeId) {
+    public Renderable get(String activeId, Size size) {
         EconomyAPI economy = GlobalHelper.getEconomy();
         List<Renderable> buttons = new LinkedList<>();
         List<String> commodityIds = economy.getAllCommodityIds();
@@ -26,9 +27,12 @@ public class ButtonViewFactory {
                 buttons.add(get(commodity, activeId));
             }
         }
-        return new Stack(buttons);
+        Renderable stack = new Stack(buttons);
+        stack.setSize(size);
+        return stack;
     }
 
+    // TODO: Replace this with a Filter
     private boolean canInclude(CommoditySpecAPI commodity) {
         if (commodity.hasTag("nonecon")) {
             return false;
@@ -41,8 +45,7 @@ public class ButtonViewFactory {
 
     private Button get(CommoditySpecAPI commodity, String activeId) {
         boolean isOn = commodity.getId().equals(activeId);
-        Button button = new CommodityButton(commodity, isOn);
-        return button;
+        return new CommodityButton(commodity, isOn);
     }
 
     private void sortCommodities(List<String> commodityIds) {

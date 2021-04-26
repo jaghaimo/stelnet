@@ -10,6 +10,7 @@ import stelnet.commodity.CommodityBoard.CommodityTab;
 import stelnet.commodity.IntelTracker;
 import stelnet.ui.Renderable;
 import stelnet.ui.Row;
+import stelnet.ui.Size;
 
 public class IntelSelectionFactory {
 
@@ -21,7 +22,8 @@ public class IntelSelectionFactory {
         tracker = new IntelTracker();
     }
 
-    public Renderable get(String commodityId, CommodityTab actionTab, float width) {
+    public Renderable get(String commodityId, CommodityTab actionTab, Size size) {
+        float width = size.getWidth() - 210;
         int buttonsOnScreen = (int) Math.floor(width / 28f);
         int maxButtons = markets.size();
         int numberOfButtons = Math.min(buttonsOnScreen, maxButtons);
@@ -30,7 +32,9 @@ public class IntelSelectionFactory {
             MarketAPI market = markets.get(i);
             buttons.add((Renderable) new IntelButton(i + 1, actionTab, commodityId, market, tracker));
         }
-        return new Row(buttons);
+        Renderable rows = new Row(buttons);
+        rows.setSize(size);
+        return rows;
     }
 
     public void setMarkets(List<MarketAPI> markets) {

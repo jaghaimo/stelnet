@@ -10,6 +10,7 @@ import com.fs.starfarer.api.util.Misc;
 import stelnet.commodity.CommodityIntel;
 import stelnet.helper.IntelHelper;
 import stelnet.ui.Button;
+import stelnet.ui.Location;
 import stelnet.ui.SimpleCallback;
 import stelnet.ui.Size;
 
@@ -17,6 +18,7 @@ public class PurgeButton extends Button {
 
     public PurgeButton() {
         super(new Size(200, 24), "Delete All", true, Misc.getNegativeHighlightColor());
+        setLocation(Location.BOTTOM_RIGHT);
         setCallback(new SimpleCallback() {
 
             @Override
