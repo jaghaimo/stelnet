@@ -12,7 +12,7 @@ import stelnet.ui.Stack;
 
 public class QueryRow extends CustomPanel {
 
-    private static final float rowHeight = 24;
+    private static final float ROW_HEIGHT = 24;
 
     public QueryRow(float width, int i, List<IntelQuery> queries) {
         super(getAll(width, i, queries));
@@ -32,11 +32,11 @@ public class QueryRow extends CustomPanel {
         IntelQuery query = queries.get(i);
         Renderable rightColumn = new Row(new DeleteOneButton(queries, i), new ToggleOneButton(query));
         rightColumn.setSize(getRowSize(width));
-        rightColumn.setOffset(new Position(0, -rowHeight));
+        rightColumn.setOffset(new Position(0, -ROW_HEIGHT));
         return rightColumn;
     }
 
     private static Size getRowSize(float width) {
-        return new Size(width, rowHeight);
+        return new Size(width, ROW_HEIGHT);
     }
 }
