@@ -9,18 +9,20 @@ import stelnet.market.IntelQuery;
 import stelnet.ui.Line;
 import stelnet.ui.Position;
 import stelnet.ui.Renderable;
+import stelnet.ui.RenderableView;
 import stelnet.ui.Row;
 import stelnet.ui.Size;
 import stelnet.ui.Stack;
 
-public class ControlRow {
+public class ControlRowView implements RenderableView {
 
     private List<IntelQuery> queries;
 
-    public ControlRow(List<IntelQuery> queries) {
+    public ControlRowView(List<IntelQuery> queries) {
         this.queries = queries;
     }
 
+    @Override
     public void render(CustomPanelAPI panel, Size size) {
         Renderable controlRow = get(size);
         controlRow.render(panel);

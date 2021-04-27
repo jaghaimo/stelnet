@@ -1,5 +1,6 @@
 package stelnet.commodity;
 
+import java.util.List;
 import java.util.Set;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
@@ -9,6 +10,7 @@ import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import lombok.Setter;
 import stelnet.BaseBoard;
 import stelnet.commodity.view.ButtonViewFactory;
 import stelnet.commodity.view.CommodityViewFactory;
@@ -16,6 +18,7 @@ import stelnet.commodity.view.DeleteViewFactory;
 import stelnet.commodity.view.IntelSelectionFactory;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.SettingHelper;
+import stelnet.ui.RenderableView;
 import stelnet.ui.Size;
 
 public class CommodityBoard extends BaseBoard {
@@ -30,7 +33,9 @@ public class CommodityBoard extends BaseBoard {
         }
     }
 
+    @Setter
     private String activeId;
+    @Setter
     private CommodityTab activeTab;
     private ButtonViewFactory buttonViewFactory;
     private CommodityViewFactory commodityViewFactory;
@@ -77,12 +82,10 @@ public class CommodityBoard extends BaseBoard {
         return tags;
     }
 
-    public void setActiveId(String activeId) {
-        this.activeId = activeId;
-    }
-
-    public void setActiveTab(CommodityTab activeTab) {
-        this.activeTab = activeTab;
+    @Override
+    protected List<RenderableView> getRenderableViews() {
+        // TODO Auto-generated method stub, rework createLargeDescription
+        return null;
     }
 
     protected Object readResolve() {
