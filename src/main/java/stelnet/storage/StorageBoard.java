@@ -8,6 +8,7 @@ import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
+import lombok.Getter;
 import stelnet.BaseBoard;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.SettingHelper;
@@ -19,6 +20,8 @@ import stelnet.ui.Size;
 public class StorageBoard extends BaseBoard {
 
     private ButtonManager buttonManager;
+
+    @Getter
     private FilterManager filterManager;
     private SharedData gridData;
 
@@ -64,10 +67,6 @@ public class StorageBoard extends BaseBoard {
         Set<String> tags = super.getIntelTags(map);
         tags.add(StorageIntel.TAG);
         return tags;
-    }
-
-    public FilterManager getFilterManager() {
-        return filterManager;
     }
 
     public void togglePane() {

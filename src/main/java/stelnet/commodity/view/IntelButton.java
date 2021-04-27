@@ -8,7 +8,7 @@ import com.fs.starfarer.api.util.Misc;
 import stelnet.commodity.CommodityBoard.CommodityTab;
 import stelnet.commodity.IntelTracker;
 import stelnet.ui.Location;
-import stelnet.ui.SimpleCallback;
+import stelnet.ui.SimpleHandler;
 import stelnet.ui.Size;
 import stelnet.ui.ToggleButton;
 
@@ -20,12 +20,11 @@ public class IntelButton extends ToggleButton {
                 tracker.has(commodityTab.title, commodityId, market));
         setCutStyle(CutStyle.TL_BR);
         setLocation(Location.BOTTOM_LEFT);
-        setCallback(new SimpleCallback() {
+        setHandler(new SimpleHandler() {
 
             @Override
-            public void confirm(IntelUIAPI ui) {
+            public void onConfirm(IntelUIAPI ui) {
                 tracker.toggle(commodityId, commodityTab, market);
-                ui.recreateIntelUI();
             }
         });
     }
