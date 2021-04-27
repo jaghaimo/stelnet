@@ -16,6 +16,7 @@ import com.fs.starfarer.api.util.Misc;
 
 import org.lwjgl.input.Keyboard;
 
+import lombok.Getter;
 import stelnet.helper.KeyboardHelper;
 import stelnet.market.filter.MutableFilterManager;
 import stelnet.market.handler.DialogHandler;
@@ -24,9 +25,10 @@ import stelnet.market.handler.DialogHandlerFactory;
 public class DialogPlugin implements InteractionDialogPlugin {
 
     private DialogOption lastOption;
+    @Getter
     private MutableFilterManager filterManager;
     private List<IntelQuery> queries;
-
+    @Getter
     private InteractionDialogAPI dialog;
     private OptionPanelAPI options;
     private TextPanelAPI textPanel;
@@ -106,14 +108,6 @@ public class DialogPlugin implements InteractionDialogPlugin {
     public void dismiss() {
         dialog.dismiss();
         KeyboardHelper.send(KeyEvent.VK_E);
-    }
-
-    public InteractionDialogAPI getDialog() {
-        return dialog;
-    }
-
-    public MutableFilterManager getFilterManager() {
-        return filterManager;
     }
 
     public void setEscShortcut(DialogOption option) {

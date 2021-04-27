@@ -1,5 +1,7 @@
 package stelnet.market;
 
+import lombok.Getter;
+
 public enum DialogOption {
 
     INIT("Go back"), EXIT("Finish"), STAFF("Search for staff"), CARGO("Search for cargo"), SHIP("Search for ships"),
@@ -240,14 +242,11 @@ public enum DialogOption {
         }
     };
 
+    @Getter
     final private String name;
 
     private DialogOption(String n) {
         name = n;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public DialogOption getNext() {
