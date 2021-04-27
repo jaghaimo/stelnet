@@ -2,11 +2,11 @@ package stelnet.market;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
-import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
@@ -14,10 +14,10 @@ import com.fs.starfarer.api.util.Misc;
 import stelnet.BaseBoard;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.SettingHelper;
-import stelnet.market.view.ControlRow;
-import stelnet.market.view.EmptyRow;
-import stelnet.market.view.Queries;
-import stelnet.ui.Size;
+import stelnet.market.view.ControlRowView;
+import stelnet.market.view.EmptyRowView;
+import stelnet.market.view.QueriesView;
+import stelnet.ui.RenderableView;
 
 /**
  * Information board for managing displayed information intel.
@@ -55,14 +55,6 @@ public class MarketQueryBoard extends BaseBoard {
     }
 
     @Override
-    public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
-        Size size = new Size(width, height);
-        new ControlRow(queries).render(panel, size);
-        new EmptyRow(queries.isEmpty()).render(panel, size);
-        new Queries(queries).render(panel, size);
-    }
-
-    @Override
     public String getIcon() {
         return SettingHelper.getSpriteName("market");
     }
@@ -72,5 +64,11 @@ public class MarketQueryBoard extends BaseBoard {
         Set<String> tags = super.getIntelTags(map);
         tags.add(MarketResultIntel.TAG);
         return tags;
+    }
+
+    @Override
+    protected List<RenderableView> getRenderableViews() {
+        return Arrays.asList(new ControlRowView(queries), new EmptyRowView(queries.isEmpty()),
+                new QueriesView(queries));
     }
 }

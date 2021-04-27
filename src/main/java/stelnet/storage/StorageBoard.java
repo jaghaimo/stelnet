@@ -1,5 +1,6 @@
 package stelnet.storage;
 
+import java.util.List;
 import java.util.Set;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
@@ -15,6 +16,7 @@ import stelnet.helper.SettingHelper;
 import stelnet.helper.StorageHelper;
 import stelnet.storage.data.ItemsGridData;
 import stelnet.storage.data.SharedData;
+import stelnet.ui.RenderableView;
 import stelnet.ui.Size;
 
 public class StorageBoard extends BaseBoard {
@@ -75,6 +77,13 @@ public class StorageBoard extends BaseBoard {
 
     public void toggleView() {
         gridData.changeDataProvider();
+    }
+
+    @Override
+    protected List<RenderableView> getRenderableViews() {
+        // TODO: rework grid data into renderable views and remove
+        // createLargeDescription
+        return null;
     }
 
     private String getDescription(int itemCount, int shipCount) {

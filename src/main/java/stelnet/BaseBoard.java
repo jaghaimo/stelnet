@@ -1,11 +1,16 @@
 package stelnet;
 
+import java.util.List;
+
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
+import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import stelnet.helper.LogHelper;
 import stelnet.ui.ButtonHandler;
+import stelnet.ui.RenderableView;
+import stelnet.ui.Size;
 
 public abstract class BaseBoard extends BaseIntelPlugin {
 
@@ -33,6 +38,14 @@ public abstract class BaseBoard extends BaseIntelPlugin {
     }
 
     @Override
+    public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
+        Size size = new Size(width, height);
+        for (RenderableView view : getRenderableViews()) {
+            view.render(panel, size);
+        }
+    }
+
+    @Override
     public boolean doesButtonHaveConfirmDialog(Object buttonId) {
         LogHelper.debug("Calling hasPrompt()");
         ButtonHandler handler = (ButtonHandler) buttonId;
@@ -53,6 +66,8 @@ public abstract class BaseBoard extends BaseIntelPlugin {
     public IntelSortTier getSortTier() {
         return IntelSortTier.TIER_0;
     }
+
+    protected abstract List<RenderableView> getRenderableViews();
 
     private void redraw(IntelUIAPI ui) {
         ui.recreateIntelUI();

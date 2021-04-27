@@ -5,13 +5,15 @@ import com.fs.starfarer.api.ui.CustomPanelAPI;
 import lombok.AllArgsConstructor;
 import stelnet.ui.Paragraph;
 import stelnet.ui.Renderable;
+import stelnet.ui.RenderableView;
 import stelnet.ui.Size;
 
 @AllArgsConstructor
-public class EmptyRow {
+public class EmptyRowView implements RenderableView {
 
     private boolean isEmpty;
 
+    @Override
     public void render(CustomPanelAPI panel, Size size) {
         if (isEmpty) {
             Size panelSize = size.getDifference(new Size(0, 38));
