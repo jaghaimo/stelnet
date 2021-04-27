@@ -3,12 +3,16 @@ package stelnet.storage;
 import java.util.HashSet;
 import java.util.Set;
 
+import lombok.Getter;
 import stelnet.filter.cargostack.CargoStackFilter;
 import stelnet.filter.fleetmember.FleetMemberFilter;
 
 public class FilterManager {
 
+    @Getter
     private Set<CargoStackFilter> itemFilters;
+
+    @Getter
     private Set<FleetMemberFilter> shipFilters;
 
     public FilterManager() {
@@ -22,14 +26,6 @@ public class FilterManager {
 
     public void addFilter(FleetMemberFilter filter) {
         shipFilters.add(filter);
-    }
-
-    public Set<CargoStackFilter> getItemFilters() {
-        return itemFilters;
-    }
-
-    public Set<FleetMemberFilter> getShipFilters() {
-        return shipFilters;
     }
 
     public void removeFilter(CargoStackFilter filter) {

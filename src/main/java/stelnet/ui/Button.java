@@ -9,13 +9,29 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
-public class Button extends Renderable implements Callable {
+import lombok.Getter;
+import lombok.Setter;
 
+public class Button extends Renderable implements ButtonHandler {
+
+    @Getter
     private String title;
+
+    @Getter
+    @Setter
     private Color color;
+
+    @Getter
+    @Setter
     private boolean isEnabled;
-    private Callable callback;
+
+    @Setter
+    private ButtonHandler handler;
+
+    @Setter
     private CutStyle cutStyle;
+
+    @Setter
     private int shortcut;
 
     public Button(Size size, String title, boolean isEnabled, Color color) {
@@ -27,64 +43,32 @@ public class Button extends Renderable implements Callable {
         setSize(size);
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public boolean isEnabled() {
-        return isEnabled;
-    }
-
-    public void setEnabled(boolean isEnabled) {
-        this.isEnabled = isEnabled;
-    }
-
-    public void setCallback(Callable callback) {
-        this.callback = callback;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public void setCutStyle(CutStyle cutStyle) {
-        this.cutStyle = cutStyle;
-    }
-
-    public void setShortcut(int shortcut) {
-        this.shortcut = shortcut;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    @Override
-    public void cancel() {
-        if (callback != null) {
-            callback.cancel();
-        }
-    }
-
-    @Override
-    public void confirm(IntelUIAPI ui) {
-        if (callback != null) {
-            callback.confirm(ui);
-        }
-    }
-
     @Override
     public boolean hasPrompt() {
-        if (callback != null) {
-            return callback.hasPrompt();
+        if (handler != null) {
+            return handler.hasPrompt();
         }
         return false;
     }
 
     @Override
-    public void prompt(TooltipMakerAPI tooltipMaker) {
-        if (callback != null) {
-            callback.prompt(tooltipMaker);
+    public void onCancel(IntelUIAPI ui) {
+        if (handler != null) {
+            handler.onCancel(ui);
+        }
+    }
+
+    @Override
+    public void onConfirm(IntelUIAPI ui) {
+        if (handler != null) {
+            handler.onConfirm(ui);
+        }
+    }
+
+    @Override
+    public void onPrompt(TooltipMakerAPI tooltipMaker) {
+        if (handler != null) {
+            handler.onPrompt(tooltipMaker);
         }
     }
 

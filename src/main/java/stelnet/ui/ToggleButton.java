@@ -4,10 +4,14 @@ import java.awt.Color;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
 
+import lombok.Getter;
+
 public class ToggleButton extends Button {
 
     private final String titleOff;
     private final Color colorOff;
+
+    @Getter
     private boolean isOn;
 
     public ToggleButton(Size size, String titleOn, String titleOff, boolean isEnabled, Color colorOn, Color colorOff,
@@ -29,12 +33,8 @@ public class ToggleButton extends Button {
     }
 
     @Override
-    public void confirm(IntelUIAPI ui) {
+    public void onConfirm(IntelUIAPI ui) {
         isOn = !isOn;
-        super.confirm(ui);
-    }
-
-    public boolean isOn() {
-        return isOn;
+        super.onConfirm(ui);
     }
 }
