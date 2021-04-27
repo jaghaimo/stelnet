@@ -15,6 +15,7 @@ import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
+import lombok.Getter;
 import stelnet.commodity.data.Price;
 import stelnet.helper.StarSystemHelper;
 
@@ -22,8 +23,10 @@ public class CommodityIntel extends BaseIntelPlugin {
 
     public final static String TAG = "stelnetCommodity";
 
+    @Getter
     private String action;
     private CommoditySpecAPI commodity;
+    @Getter
     private MarketAPI market;
     private IntelTracker tracker;
     private Price priceProvider;
@@ -132,16 +135,8 @@ public class CommodityIntel extends BaseIntelPlugin {
         tracker.remove(this);
     }
 
-    public String getAction() {
-        return action;
-    }
-
     public String getCommodityId() {
         return commodity.getId();
-    }
-
-    public MarketAPI getMarket() {
-        return market;
     }
 
     private String getTitle() {
