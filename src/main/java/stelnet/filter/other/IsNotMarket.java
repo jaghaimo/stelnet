@@ -7,7 +7,7 @@ import stelnet.filter.Filter;
 
 public class IsNotMarket implements Filter<SubmarketAPI> {
 
-    private MarketAPI market;
+    private final MarketAPI market;
 
     public IsNotMarket(MarketAPI market) {
         this.market = market;

@@ -7,10 +7,10 @@ import com.fs.starfarer.api.util.Misc;
 
 import lombok.Setter;
 
+@Setter
 public class Paragraph extends Renderable {
 
-    private String text;
-    @Setter
+    private final String text;
     private Color color;
 
     public Paragraph(String title, float width) {

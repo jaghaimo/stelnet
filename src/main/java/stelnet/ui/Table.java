@@ -8,10 +8,10 @@ public class Table extends Renderable {
 
     private final static int ROW_HEIGHT = 20;
 
-    private String title;
-    private float width;
-    private float maxHeight;
-    private TableContent tableContent;
+    private final String title;
+    private final float width;
+    private final float maxHeight;
+    private final TableContent tableContent;
 
     public Table(String title, float width, float maxHeight, TableContent tableContent) {
         this.title = title;

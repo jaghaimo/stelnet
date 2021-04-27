@@ -5,7 +5,7 @@ import com.fs.starfarer.api.loading.WingRole;
 
 public class IsNotFighterWingRole implements CargoStackFilter {
 
-    private WingRole wingRole;
+    private final WingRole wingRole;
 
     public IsNotFighterWingRole(WingRole wingRole) {
         this.wingRole = wingRole;

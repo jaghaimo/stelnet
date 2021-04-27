@@ -7,7 +7,7 @@ import stelnet.helper.SettingHelper;
 
 public class MonthEndIntel extends BaseIntelPlugin {
 
-    private String message;
+    private final String message;
 
     public MonthEndIntel(String message) {
         this.message = message;

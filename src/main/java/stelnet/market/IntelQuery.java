@@ -7,16 +7,16 @@ import stelnet.helper.GlobalHelper;
 import stelnet.market.filter.FilterManager;
 import stelnet.market.filter.ImmutableFilterManager;
 
+@Getter
 public class IntelQuery {
 
-    @Getter
-    private String createdDate;
+    private final String createdDate;
+    private final FilterManager filterManager;
+    private final IntelProvider intelProvider;
+
     private long updatedDate;
-    @Getter
     private boolean isEnabled;
-    private FilterManager filterManager;
     private IntelList managedIntels;
-    private IntelProvider intelProvider;
 
     public IntelQuery(IntelProvider ip, FilterManager fm) {
         CampaignClockAPI clock = GlobalHelper.getCurrentClock();

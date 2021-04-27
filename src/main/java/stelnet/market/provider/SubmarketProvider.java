@@ -19,10 +19,6 @@ public abstract class SubmarketProvider extends IntelProvider {
         List<SubmarketAPI> submarkets = MarketHelper.getSubmarkets();
         SubmarketFilter filter = getFilter();
         CollectionHelper.reduce(submarkets, filter);
-        // if (!ConfigHelper.includePlayerStorage()) {
-        // SubmarketFilter notStorage = new IsNotStorage();
-        // CollectionHelper.reduce(submarkets, notStorage);
-        // }
         return super.provide(MarketHelper.extractMarkets(submarkets));
     }
 

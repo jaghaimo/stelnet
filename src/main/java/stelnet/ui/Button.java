@@ -12,26 +12,15 @@ import com.fs.starfarer.api.util.Misc;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
+@Setter
 public class Button extends Renderable implements ButtonHandler {
 
-    @Getter
     private String title;
-
-    @Getter
-    @Setter
     private Color color;
-
-    @Getter
-    @Setter
     private boolean isEnabled;
-
-    @Setter
     private ButtonHandler handler;
-
-    @Setter
     private CutStyle cutStyle;
-
-    @Setter
     private int shortcut;
 
     public Button(Size size, String title, boolean isEnabled, Color color) {

@@ -3,7 +3,7 @@ package stelnet.ui;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
-public class SimpleHandler implements ButtonHandler {
+public class EventHandler implements ButtonHandler {
 
     public boolean hasPrompt() {
         return false;

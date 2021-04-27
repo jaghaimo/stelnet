@@ -22,7 +22,7 @@ public class StorageIntel extends BaseIntelPlugin {
 
     public final static String TAG = "stelnetStorage";
 
-    private SubmarketAPI storage;
+    private final SubmarketAPI storage;
 
     public StorageIntel(SubmarketAPI storage) {
         this.storage = storage;

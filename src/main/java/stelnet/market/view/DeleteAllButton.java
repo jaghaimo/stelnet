@@ -12,7 +12,7 @@ import stelnet.market.IntelQuery;
 import stelnet.ui.Button;
 import stelnet.ui.Location;
 import stelnet.ui.Position;
-import stelnet.ui.SimpleHandler;
+import stelnet.ui.EventHandler;
 import stelnet.ui.Size;
 
 public class DeleteAllButton extends Button {
@@ -22,7 +22,7 @@ public class DeleteAllButton extends Button {
         setShortcut(Keyboard.KEY_G);
         setLocation(Location.TOP_RIGHT);
         setOffset(new Position(4, -24));
-        setHandler(new SimpleHandler() {
+        setHandler(new EventHandler() {
 
             @Override
             public boolean hasPrompt() {

@@ -1,6 +1,7 @@
 package stelnet.storage.data;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import com.fs.starfarer.api.campaign.CargoAPI;
@@ -12,7 +13,7 @@ import stelnet.storage.FilterManager;
 
 public class UnifiedProvider implements DataProvider {
 
-    private FilterManager filterManager;
+    private final FilterManager filterManager;
 
     public UnifiedProvider(FilterManager filterManager) {
         this.filterManager = filterManager;
@@ -24,7 +25,7 @@ public class UnifiedProvider implements DataProvider {
         List<FleetMemberAPI> ships = StorageHelper.getAllShips(filterManager.getShipFilters());
         LogHelper.debug("Found " + items.getStacksCopy().size() + " items");
         LogHelper.debug("Found " + ships.size() + " ships");
-        return Arrays.asList(new StorageData(null, items, ships));
+        return Collections.singletonList(new StorageData(null, items, ships));
     }
 
     @Override

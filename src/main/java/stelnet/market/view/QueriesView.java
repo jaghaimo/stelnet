@@ -13,7 +13,7 @@ import stelnet.ui.Size;
 
 public class QueriesView implements RenderableView {
 
-    private List<IntelQuery> queries;
+    private final List<IntelQuery> queries;
 
     public QueriesView(List<IntelQuery> queries) {
         this.queries = queries;

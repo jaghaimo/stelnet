@@ -15,8 +15,8 @@ public abstract class MarketTableContent implements TableContent {
 
     protected String commodityId;
     protected TableCellHelper helper;
-    private List<MarketAPI> markets;
-    private Price price;
+    private final List<MarketAPI> markets;
+    private final Price price;
 
     protected MarketTableContent(String commodityId, List<MarketAPI> markets, Price price) {
         this.commodityId = commodityId;

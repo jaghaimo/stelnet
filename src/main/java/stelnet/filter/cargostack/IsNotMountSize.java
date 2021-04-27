@@ -5,7 +5,7 @@ import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 
 public class IsNotMountSize implements CargoStackFilter {
 
-    private WeaponSize weaponSize;
+    private final WeaponSize weaponSize;
 
     public IsNotMountSize(WeaponSize weaponSize) {
         this.weaponSize = weaponSize;

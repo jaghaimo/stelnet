@@ -14,7 +14,7 @@ import stelnet.helper.IntelHelper;
 public class IntelTracker extends HashMap<String, CommodityIntel> {
 
     private static final long serialVersionUID = 1L;
-    private PriceFactory priceFactory;
+    private final PriceFactory priceFactory;
 
     public IntelTracker() {
         super();

@@ -6,7 +6,7 @@ import stelnet.market.DialogOption;
 
 public class IsCarrier implements FleetMemberFilter {
 
-    private DialogOption option;
+    private final DialogOption option;
 
     public IsCarrier(DialogOption o) {
         option = o;

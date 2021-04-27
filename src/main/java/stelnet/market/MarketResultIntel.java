@@ -16,9 +16,9 @@ public class MarketResultIntel extends BaseIntelPlugin {
 
     public final static String TAG = "stelnetMarket";
 
-    private FactionAPI faction;
-    private SectorEntityToken sectorEntityToken;
-    private IntelSubject intelSubject;
+    private final FactionAPI faction;
+    private final SectorEntityToken sectorEntityToken;
+    private final IntelSubject intelSubject;
 
     public MarketResultIntel(FactionAPI f, SectorEntityToken s, IntelSubject i) {
         faction = f;

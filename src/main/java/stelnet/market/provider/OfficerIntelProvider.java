@@ -9,7 +9,7 @@ import stelnet.market.subject.OfficerSubject;
 
 public class OfficerIntelProvider extends MarketProvider {
 
-    private String personality;
+    private final String personality;
 
     public OfficerIntelProvider(String p) {
         personality = p;

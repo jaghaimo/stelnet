@@ -7,13 +7,12 @@ import lombok.Getter;
 import stelnet.filter.cargostack.CargoStackFilter;
 import stelnet.filter.fleetmember.FleetMemberFilter;
 
+@Getter
+
 public class FilterManager {
 
-    @Getter
-    private Set<CargoStackFilter> itemFilters;
-
-    @Getter
-    private Set<FleetMemberFilter> shipFilters;
+    private final Set<CargoStackFilter> itemFilters;
+    private final Set<FleetMemberFilter> shipFilters;
 
     public FilterManager() {
         itemFilters = new HashSet<>();

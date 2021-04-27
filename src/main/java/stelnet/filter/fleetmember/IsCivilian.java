@@ -7,7 +7,7 @@ import stelnet.market.DialogOption;
 
 public class IsCivilian implements FleetMemberFilter {
 
-    private DialogOption option;
+    private final DialogOption option;
 
     public IsCivilian(DialogOption o) {
         option = o;

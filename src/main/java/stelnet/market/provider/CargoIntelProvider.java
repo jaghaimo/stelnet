@@ -10,7 +10,7 @@ import stelnet.market.subject.CargoSubject;
 
 public class CargoIntelProvider extends SubmarketProvider {
 
-    private CargoStackAPI cargoStack;
+    private final CargoStackAPI cargoStack;
 
     public CargoIntelProvider(CargoStackAPI c) {
         cargoStack = c;

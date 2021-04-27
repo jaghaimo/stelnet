@@ -21,7 +21,7 @@ import stelnet.helper.GlobalHelper;
 
 public class CargoSubject extends SubmarketSubject {
 
-    private CargoStackAPI cargoStack;
+    private final CargoStackAPI cargoStack;
     private Map<SubmarketAPI, CargoStackAPI> submarketsWithCargoStack;
 
     public CargoSubject(CargoStackAPI c, MarketAPI m) {

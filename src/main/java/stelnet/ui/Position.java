@@ -2,11 +2,10 @@ package stelnet.ui;
 
 import lombok.Getter;
 
+@Getter
 public class Position {
 
-    @Getter
     private final float x;
-    @Getter
     private final float y;
 
     public Position(float x, float y) {

@@ -7,8 +7,8 @@ import stelnet.commodity.data.TableCellHelper;
 
 public class CommodityAvailableFilter implements MarketFilter {
 
-    private String commodityId;
-    private TableCellHelper helper;
+    private final String commodityId;
+    private final TableCellHelper helper;
 
     public CommodityAvailableFilter(String commodityId) {
         this.commodityId = commodityId;

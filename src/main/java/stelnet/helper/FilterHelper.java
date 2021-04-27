@@ -16,10 +16,10 @@ import stelnet.filter.market.MarketFilter;
 
 public class FilterHelper {
 
-    private static String FACTIONS = "data/config/stelnet/factions.csv";
-    private static String MARKETS = "data/config/stelnet/markets.csv";
-    private static String SYSTEMS = "data/config/stelnet/systems.csv";
-    private static String TAGS = "data/config/stelnet/tags.csv";
+    private static final String FACTIONS = "data/config/stelnet/factions.csv";
+    private static final String MARKETS = "data/config/stelnet/markets.csv";
+    private static final String SYSTEMS = "data/config/stelnet/systems.csv";
+    private static final String TAGS = "data/config/stelnet/tags.csv";
 
     public static List<MarketFilter> getBlacklistMarketFilters() {
         List<MarketFilter> filters = new ArrayList<>();
