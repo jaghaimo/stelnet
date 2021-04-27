@@ -19,8 +19,8 @@ import stelnet.ui.Stack;
 
 public abstract class SharedData {
 
-    private final float spacer = 20;
-    private final float controlWidth = 180;
+    private final float SPACER = 20;
+    private final float CONTROL_WIDTH = 180;
 
     protected ButtonManager buttonManager;
     protected FilterManager filterManager;
@@ -45,7 +45,7 @@ public abstract class SharedData {
             elements.add(getStorageContent(data));
         }
         Renderable group = new Group(elements);
-        group.setSize(size.getDifference(new Size(spacer + controlWidth, 0)));
+        group.setSize(size.getDifference(new Size(SPACER + CONTROL_WIDTH, 0)));
         group.setScroller(true);
         return group;
     }

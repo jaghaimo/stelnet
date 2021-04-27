@@ -2,14 +2,17 @@ package stelnet.market;
 
 import com.fs.starfarer.api.campaign.CampaignClockAPI;
 
+import lombok.Getter;
 import stelnet.helper.GlobalHelper;
 import stelnet.market.filter.FilterManager;
 import stelnet.market.filter.ImmutableFilterManager;
 
 public class IntelQuery {
 
+    @Getter
     private String createdDate;
     private long updatedDate;
+    @Getter
     private boolean isEnabled;
     private FilterManager filterManager;
     private IntelList managedIntels;
@@ -24,10 +27,6 @@ public class IntelQuery {
         managedIntels = ip.provide(filterManager);
         managedIntels.addIntel(isEnabled);
         intelProvider = ip;
-    }
-
-    public String getCreatedDate() {
-        return createdDate;
     }
 
     public String getDescription() {
@@ -54,10 +53,6 @@ public class IntelQuery {
 
     public boolean isActive() {
         return isEnabled() && !isStale();
-    }
-
-    public boolean isEnabled() {
-        return isEnabled;
     }
 
     public boolean isStale() {
