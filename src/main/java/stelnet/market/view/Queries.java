@@ -7,7 +7,6 @@ import com.fs.starfarer.api.ui.CustomPanelAPI;
 
 import stelnet.market.IntelQuery;
 import stelnet.ui.Group;
-import stelnet.ui.Paragraph;
 import stelnet.ui.Renderable;
 import stelnet.ui.Size;
 
@@ -20,18 +19,14 @@ public class Queries {
     }
 
     public void render(CustomPanelAPI panel, Size size) {
-        Size panelSize = size.getDifference(new Size(0, 38));
-        Renderable queriesOrEmpty = get(panel, panelSize);
-        queriesOrEmpty.setSize(panelSize);
-        queriesOrEmpty.setScroller(true);
-        queriesOrEmpty.render(panel, 0, 38);
-    }
-
-    private Renderable get(CustomPanelAPI panel, Size size) {
         if (queries.isEmpty()) {
-            return new Paragraph("No queries", size.getWidth());
+            return;
         }
-        return new Group(getRows(panel, size));
+        Size panelSize = size.getDifference(new Size(0, 38));
+        Renderable queries = new Group(getRows(panel, panelSize));
+        queries.setSize(panelSize);
+        queries.setScroller(true);
+        queries.render(panel, 0, 38);
     }
 
     private List<Renderable> getRows(CustomPanelAPI panel, Size size) {
