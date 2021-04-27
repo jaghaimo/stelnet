@@ -12,7 +12,7 @@ import stelnet.market.IntelQuery;
 import stelnet.ui.Button;
 import stelnet.ui.Location;
 import stelnet.ui.Position;
-import stelnet.ui.SimpleCallback;
+import stelnet.ui.SimpleHandler;
 import stelnet.ui.Size;
 
 public class DeleteAllButton extends Button {
@@ -22,15 +22,7 @@ public class DeleteAllButton extends Button {
         setShortcut(Keyboard.KEY_G);
         setLocation(Location.TOP_RIGHT);
         setOffset(new Position(4, -24));
-        setCallback(new SimpleCallback() {
-
-            @Override
-            public void confirm(IntelUIAPI ui) {
-                for (IntelQuery query : queries) {
-                    query.disable();
-                }
-                queries.clear();
-            }
+        setHandler(new SimpleHandler() {
 
             @Override
             public boolean hasPrompt() {
@@ -38,7 +30,15 @@ public class DeleteAllButton extends Button {
             }
 
             @Override
-            public void prompt(TooltipMakerAPI tooltipMaker) {
+            public void onConfirm(IntelUIAPI ui) {
+                for (IntelQuery query : queries) {
+                    query.disable();
+                }
+                queries.clear();
+            }
+
+            @Override
+            public void onPrompt(TooltipMakerAPI tooltipMaker) {
                 tooltipMaker.addPara("Are you sure you want to delete ALL intel queries?", Misc.getTextColor(), 0f);
             }
         });
