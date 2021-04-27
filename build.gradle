@@ -63,22 +63,11 @@ task release(type: Zip) {
 }
 
 task copyToMods(type: Copy) {
-    Properties properties = new Properties()
-    def propertiesFile = file('gradle_local.properties')
-    if (propertiesFile.exists()) {
-        properties.load(propertiesFile.newDataInputStream())
-    } else {
-        throw new GradleException("Missing gradle_local.properties file in project root directory")
-    }
-
-    if (properties.getProperty('game.full_path') == null) {
-        throw new GradleException(
-            "Missing game.full_path in gradle_local.properties file. \r\n " +
-            "For example: game.full_path = C:\\\\Program Files (x86)\\\\Fractal Softworks\\\\Starsector\\\\mods\\\\stelnet"
-        )
+    if (!project.hasProperty('game.full_path')) {
+        throw new GradleException("Missing game.full_path in gradle.properties. See gradle.properties.dist as an example.")
     }
 
     dependsOn build
     from jar
-    into properties.getProperty('game.full_path')
+    into project.getProperty('game.full_path')
 }

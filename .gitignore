@@ -6,4 +6,4 @@
 /*.zip
 bin/
 build/
-gradle_local.properties
+gradle.properties
