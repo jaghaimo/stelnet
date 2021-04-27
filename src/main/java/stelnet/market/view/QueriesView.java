@@ -8,16 +8,18 @@ import com.fs.starfarer.api.ui.CustomPanelAPI;
 import stelnet.market.IntelQuery;
 import stelnet.ui.Group;
 import stelnet.ui.Renderable;
+import stelnet.ui.RenderableView;
 import stelnet.ui.Size;
 
-public class Queries {
+public class QueriesView implements RenderableView {
 
     private List<IntelQuery> queries;
 
-    public Queries(List<IntelQuery> queries) {
+    public QueriesView(List<IntelQuery> queries) {
         this.queries = queries;
     }
 
+    @Override
     public void render(CustomPanelAPI panel, Size size) {
         if (queries.isEmpty()) {
             return;
