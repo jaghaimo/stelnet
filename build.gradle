@@ -11,7 +11,7 @@ repositories {
 eclipse {
     classpath {
         file {
-            whenMerged { 
+            whenMerged {
                 def lib = entries.find { it.path.contains 'starfarer.api.jar' }
                 lib.javadocPath = fileReference(file('libs/starfarer.api.zip'))
                 lib.sourcePath = fileReference(file('libs/starfarer.api.zip'))
@@ -60,4 +60,25 @@ task release(type: Zip) {
     from sourceSets.main.resources
     from jar
     into project.name
+}
+
+task copyToMods(type: Copy) {
+    Properties properties = new Properties()
+    def propertiesFile = file('gradle_local.properties')
+    if (propertiesFile.exists()) {
+        properties.load(propertiesFile.newDataInputStream())
+    } else {
+        throw new GradleException("Missing gradle_local.properties file in project root directory")
+    }
+
+    if (properties.getProperty('game.full_path') == null) {
+        throw new GradleException(
+            "Missing game.full_path in gradle_local.properties file. \r\n " +
+            "For example: game.full_path = C:\\\\Program Files (x86)\\\\Fractal Softworks\\\\Starsector\\\\mods\\\\stelnet"
+        )
+    }
+
+    dependsOn build
+    from jar
+    into properties.getProperty('game.full_path')
 }
