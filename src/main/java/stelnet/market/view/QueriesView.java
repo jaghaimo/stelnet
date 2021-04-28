@@ -27,8 +27,6 @@ public class QueriesView implements RenderableView {
         Size panelSize = size.getDifference(new Size(0, 38));
         AbstractRenderable queries = new Group(getRows(panel, panelSize));
         queries.setSize(panelSize);
-        // TODO test if this is still needed
-        queries.setWithScroller(true);
         queries.render(panel, 0, 38);
     }
 
