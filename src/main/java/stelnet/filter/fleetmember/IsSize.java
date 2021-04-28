@@ -6,7 +6,7 @@ import stelnet.market.DialogOption;
 
 public class IsSize implements FleetMemberFilter {
 
-    private DialogOption option;
+    private final DialogOption option;
 
     public IsSize(DialogOption o) {
         option = o;

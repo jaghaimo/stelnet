@@ -7,7 +7,7 @@ import stelnet.market.DialogOption;
 
 public class IsType implements CargoStackFilter {
 
-    private DialogOption option;
+    private final DialogOption option;
 
     public IsType(DialogOption o) {
         option = o;

@@ -11,7 +11,7 @@ import stelnet.helper.CollectionHelper;
 
 public class HasAdministrator implements MarketFilter {
 
-    private PersonFilter filter;
+    private final PersonFilter filter;
 
     public HasAdministrator() {
         filter = new IsFreelanceAdmin();

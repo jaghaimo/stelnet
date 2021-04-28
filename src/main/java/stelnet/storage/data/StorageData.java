@@ -11,9 +11,9 @@ import lombok.Getter;
 @Getter
 public class StorageData {
 
-    private SubmarketAPI submarket;
-    private CargoAPI items;
-    private List<FleetMemberAPI> ships;
+    private final SubmarketAPI submarket;
+    private final CargoAPI items;
+    private final List<FleetMemberAPI> ships;
 
     public StorageData(SubmarketAPI submarket, CargoAPI items, List<FleetMemberAPI> ships) {
         this.submarket = submarket;

@@ -16,7 +16,7 @@ import stelnet.ui.Stack;
 
 public class ControlRowView implements RenderableView {
 
-    private List<IntelQuery> queries;
+    private final List<IntelQuery> queries;
 
     public ControlRowView(List<IntelQuery> queries) {
         this.queries = queries;

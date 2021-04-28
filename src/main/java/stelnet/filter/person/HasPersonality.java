@@ -7,7 +7,7 @@ import stelnet.helper.LogHelper;
 
 public class HasPersonality implements PersonFilter {
 
-    private String personality;
+    private final String personality;
 
     public HasPersonality(String p) {
         personality = p;

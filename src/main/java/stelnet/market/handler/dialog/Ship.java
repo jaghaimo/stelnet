@@ -97,7 +97,7 @@ public class Ship extends FilterAware implements FleetMemberPickerListener {
         }
     }
 
-    private class FleetComparator implements Comparator<FleetMemberAPI> {
+    private static class FleetComparator implements Comparator<FleetMemberAPI> {
 
         @Override
         public int compare(FleetMemberAPI f1, FleetMemberAPI f2) {

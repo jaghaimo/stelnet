@@ -5,7 +5,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 
 public class IsNotInSystem implements MarketFilter {
 
-    private String systemId;
+    private final String systemId;
 
     public IsNotInSystem(String systemId) {
         this.systemId = systemId;

@@ -13,7 +13,7 @@ import stelnet.filter.person.PersonFilter;
 
 public class OfficerSubject extends PersonSubject {
 
-    private String personality;
+    private final String personality;
 
     public OfficerSubject(String p, MarketAPI m) {
         super(p + " officer", m);

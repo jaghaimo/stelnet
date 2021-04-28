@@ -11,7 +11,7 @@ import stelnet.commodity.CommodityIntel;
 import stelnet.helper.IntelHelper;
 import stelnet.ui.Button;
 import stelnet.ui.Location;
-import stelnet.ui.SimpleHandler;
+import stelnet.ui.EventHandler;
 import stelnet.ui.Size;
 
 public class DeleteButton extends Button {
@@ -19,7 +19,7 @@ public class DeleteButton extends Button {
     public DeleteButton(final String commodityId) {
         super(new Size(200, 24), "Delete This", true, Misc.getButtonTextColor());
         setLocation(Location.BOTTOM_RIGHT);
-        setHandler(new SimpleHandler() {
+        setHandler(new EventHandler() {
 
             @Override
             public boolean hasPrompt() {

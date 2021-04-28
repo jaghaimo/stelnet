@@ -4,6 +4,8 @@ import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.PositionAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import lombok.Getter;
+import lombok.Setter;
 import stelnet.helper.LogHelper;
 
 /**
@@ -14,12 +16,19 @@ import stelnet.helper.LogHelper;
  * offset (0, 0 by default). Comes with a scroller (by default) if needs to use
  * larger screen than available in {@link CustomPanelAPI} panel.
  */
+
+@Getter
+@Setter
 public abstract class Renderable {
 
     private Location location = Location.TOP_LEFT;
     private Position offset = new Position(0, 0);
     private boolean withScroller = true;
     private Size size;
+
+    public void log(Position position) {
+        LogHelper.debug(String.format("Rendered %s in %s", this, position));
+    }
 
     public void render(CustomPanelAPI panel) {
         render(panel, 0, 0);
@@ -42,35 +51,11 @@ public abstract class Renderable {
         this.size = size;
     }
 
-    public void log() {
-        LogHelper.debug(String.format("Rendered %s", this));
-    }
-
-    public void log(Position position) {
-        LogHelper.debug(String.format("Rendered %s in %s", this, position));
-    }
-
     public Size getSize() {
         if (size == null) {
             LogHelper.warn("Null size found");
         }
         return size;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public Position getOffset() {
-        return offset;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public void setOffset(Position offset) {
-        this.offset = offset;
     }
 
     public abstract void render(TooltipMakerAPI tooltip);

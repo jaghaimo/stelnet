@@ -9,7 +9,7 @@ import org.lwjgl.input.Keyboard;
 
 import stelnet.market.IntelQuery;
 import stelnet.ui.Button;
-import stelnet.ui.SimpleHandler;
+import stelnet.ui.EventHandler;
 import stelnet.ui.Size;
 
 public class UpdateAllButton extends Button {
@@ -17,7 +17,7 @@ public class UpdateAllButton extends Button {
     public UpdateAllButton(final List<IntelQuery> queries) {
         super(new Size(120, 24), "Update All", !queries.isEmpty(), Misc.getButtonTextColor());
         setShortcut(Keyboard.KEY_U);
-        setHandler(new SimpleHandler() {
+        setHandler(new EventHandler() {
             @Override
             public void onConfirm(IntelUIAPI ui) {
                 for (IntelQuery query : queries) {

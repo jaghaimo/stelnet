@@ -19,18 +19,17 @@ import lombok.Getter;
 import stelnet.commodity.data.Price;
 import stelnet.helper.StarSystemHelper;
 
+@Getter
 public class CommodityIntel extends BaseIntelPlugin {
 
     public final static String TAG = "stelnetCommodity";
 
-    @Getter
-    private String action;
-    private CommoditySpecAPI commodity;
-    @Getter
-    private MarketAPI market;
-    private IntelTracker tracker;
-    private Price priceProvider;
-    private float price;
+    private final String action;
+    private final CommoditySpecAPI commodity;
+    private final MarketAPI market;
+    private final IntelTracker tracker;
+    private final Price priceProvider;
+    private final float price;
 
     public CommodityIntel(String action, CommoditySpecAPI commodity, MarketAPI market, IntelTracker tracker,
             Price priceProvider) {

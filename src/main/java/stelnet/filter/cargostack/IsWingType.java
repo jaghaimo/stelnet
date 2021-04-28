@@ -7,7 +7,7 @@ import stelnet.market.DialogOption;
 
 public class IsWingType implements CargoStackFilter {
 
-    private DialogOption option;
+    private final DialogOption option;
 
     public IsWingType(DialogOption o) {
         option = o;

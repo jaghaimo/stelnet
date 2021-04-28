@@ -22,13 +22,13 @@ import stelnet.market.filter.MutableFilterManager;
 import stelnet.market.handler.DialogHandler;
 import stelnet.market.handler.DialogHandlerFactory;
 
+@Getter
 public class DialogPlugin implements InteractionDialogPlugin {
 
+    private final MutableFilterManager filterManager;
+    private final List<IntelQuery> queries;
+
     private DialogOption lastOption;
-    @Getter
-    private MutableFilterManager filterManager;
-    private List<IntelQuery> queries;
-    @Getter
     private InteractionDialogAPI dialog;
     private OptionPanelAPI options;
     private TextPanelAPI textPanel;

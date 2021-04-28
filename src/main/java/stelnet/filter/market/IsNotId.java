@@ -4,7 +4,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 
 public class IsNotId implements MarketFilter {
 
-    private String marketId;
+    private final String marketId;
 
     public IsNotId(String marketId) {
         this.marketId = marketId;
