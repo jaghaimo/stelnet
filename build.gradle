@@ -1,3 +1,6 @@
+import groovy.json.JsonSlurper
+import org.apache.tools.ant.taskdefs.condition.Os
+
 plugins {
     id 'java'
     id 'eclipse'
@@ -49,26 +52,57 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
-// create a release zip
+
 task release(type: Zip) {
-    def jsonFile = file('src/main/resources/mod_info.json')
-    def slurper = new groovy.json.JsonSlurper()
-    def parsedJson = slurper.parse(jsonFile)
     dependsOn build
-    archiveFileName = "${project.name}-${parsedJson.version}.zip"
+    archiveFileName = "${project.name}-${modInfo().version}.zip"
     destinationDirectory = file(rootDir)
     from sourceSets.main.resources
     from jar
     into project.name
 }
 
+def modInfo() {
+    def jsonFile = file('src/main/resources/mod_info.json')
+    def slurper = new JsonSlurper()
+    return slurper.parse(jsonFile)
+}
+
+def getModDir() {
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        return project.getProperty('game.dir') + "\\mods\\" + modInfo().id
+    }
+    return project.getProperty('game.dir') + "/mods/" + modInfo().id
+}
+
 task copyToMods(type: Copy) {
-    if (!project.hasProperty('game.full_path')) {
-        println "WARNING: Missing game.full_path in gradle.properties. See gradle.properties.dist as an example."
+    if (!project.hasProperty('game.dir')) {
+        println "WARNING: Missing game.dir in gradle.properties. See gradle.properties.dist as an example."
+        println "WARNING: Task execution stopped."
         return;
     }
 
     dependsOn build
     from jar
-    into project.getProperty('game.full_path')
+
+    into getModDir()
+}
+
+def getCoreDir() {
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        return project.getProperty('game.dir') + "\\starsector-core\\"
+    }
+    return project.getProperty('game.dir') + "/starsector-core/"
+}
+
+task runGameWithBuild(type:Exec) {
+    dependsOn copyToMods
+
+    workingDir = file(getCoreDir())
+
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        commandLine 'cmd', '/c', 'starsector.bat'
+    } else {
+        commandLine 'sh', './starsector.command'
+    }
 }
