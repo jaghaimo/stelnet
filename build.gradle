@@ -79,10 +79,17 @@ def getModDir() {
     return project.getProperty('game.dir') + "/mods/" + modInfo().id
 }
 
-task copyToMods(type: Copy) {
+def isModPathDefined() {
     if (!project.hasProperty('game.dir')) {
         println "WARNING: Missing game.dir in gradle.properties. See gradle.properties.dist as an example."
         println "WARNING: Task execution stopped."
+        return false;
+    }
+    return true;
+}
+
+task copyToMods(type: Copy) {
+    if (!isModPathDefined()) {
         return;
     }
 
@@ -100,6 +107,10 @@ def getCoreDir() {
 }
 
 task runGameWithBuild(type:Exec) {
+    if (!isModPathDefined()) {
+        return;
+    }
+
     dependsOn copyToMods
 
     workingDir = file(getCoreDir())
