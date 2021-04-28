@@ -77,10 +77,8 @@ task checkProperties {
 task copyToMods(type: Copy) {
     dependsOn checkProperties
     dependsOn build
-    doLast {
-        from jar
-        into getStarsectorModDir()
-    }
+    from jar
+    into getStarsectorModDir()
 }
 
 task runGameWithBuild(type: Exec) {
@@ -97,11 +95,14 @@ def areGradlePropertiesDefined() {
 }
 
 def getStarsectorModDir() {
-    return project.getProperty('game.dir') + project.getProperty('game.mod_folder') + readModInfoJson().id
+    if (!areGradlePropertiesDefined()) {
+        return ""
+    }
+    return file(project.getProperty('game.dir') + '/' + project.getProperty('game.mod_folder') + '/' + readModInfoJson().id)
 }
 
 def getStarsectorExecutableDir() {
-    return isWindows() ? file(project.getProperty('game.dir') + 'starsector-core') : file(project.getProperty('game.dir'))
+    return isWindows() ? file(project.getProperty('game.dir') + '/starsector-core') : file(project.getProperty('game.dir'))
 }
 
 def isWindows() {
