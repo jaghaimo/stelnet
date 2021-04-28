@@ -85,19 +85,13 @@ task copyToMods(type: Copy) {
 
 task runGameWithBuild(type: Exec) {
     dependsOn copyToMods
-    doLast {
+    isWindows() ? commandLine('cmd', '/c', 'starsector.bat') : commandLine('sh', './starsector.sh')
+    doFirst {
         workingDir = getStarsectorExecutableDir()
-        Os.isFamily(Os.FAMILY_WINDOWS) ? commandLine('cmd', '/c', 'starsector.bat') : commandLine('sh', './starsector.sh')
     }
 }
 
 // methods
-def readModInfoJson() {
-    def jsonFile = file('src/main/resources/mod_info.json')
-    def slurper = new JsonSlurper()
-    return slurper.parse(jsonFile)
-}
-
 def areGradlePropertiesDefined() {
     return (project.hasProperty('game.dir') && project.hasProperty('game.mod_folder'))
 }
@@ -107,5 +101,15 @@ def getStarsectorModDir() {
 }
 
 def getStarsectorExecutableDir() {
-    return Os.isFamily(Os.FAMILY_WINDOWS) ? file(project.getProperty('game.dir') + 'starsector-core') : file(project.getProperty('game.dir'))
+    return isWindows() ? file(project.getProperty('game.dir') + 'starsector-core') : file(project.getProperty('game.dir'))
+}
+
+def isWindows() {
+    return Os.isFamily(Os.FAMILY_WINDOWS)
+}
+
+def readModInfoJson() {
+    def jsonFile = file('src/main/resources/mod_info.json')
+    def slurper = new JsonSlurper()
+    return slurper.parse(jsonFile)
 }
