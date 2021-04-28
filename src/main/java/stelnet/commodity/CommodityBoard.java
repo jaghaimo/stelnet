@@ -18,7 +18,7 @@ import stelnet.commodity.view.DeleteViewFactory;
 import stelnet.commodity.view.IntelSelectionFactory;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.SettingHelper;
-import stelnet.ui.RenderableView;
+import stelnet.ui.Renderable;
 import stelnet.ui.Size;
 
 public class CommodityBoard extends BaseBoard {
@@ -83,7 +83,7 @@ public class CommodityBoard extends BaseBoard {
     }
 
     @Override
-    protected List<RenderableView> getRenderableViews() {
+    protected List<Renderable> getRenderables(float width, float height) {
         // TODO Auto-generated method stub, rework createLargeDescription
         return null;
     }

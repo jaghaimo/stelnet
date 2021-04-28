@@ -7,10 +7,10 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import stelnet.market.IntelQuery;
+import stelnet.ui.AbstractButtonHandler;
 import stelnet.ui.Button;
 import stelnet.ui.Location;
 import stelnet.ui.Position;
-import stelnet.ui.EventHandler;
 import stelnet.ui.Size;
 
 public class DeleteOneButton extends Button {
@@ -19,7 +19,7 @@ public class DeleteOneButton extends Button {
         super(new Size(120, 24), "Delete", true, Misc.getNegativeHighlightColor());
         setLocation(Location.TOP_RIGHT);
         setOffset(new Position(10, -24));
-        setHandler(new EventHandler() {
+        setHandler(new AbstractButtonHandler() {
 
             @Override
             public boolean hasPrompt() {

@@ -2,7 +2,7 @@ package stelnet.storage.data;
 
 import stelnet.storage.ButtonManager;
 import stelnet.storage.FilterManager;
-import stelnet.ui.Renderable;
+import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Ships;
 import stelnet.ui.Size;
 
@@ -19,12 +19,12 @@ public class ShipsGridData extends SharedData {
     }
 
     @Override
-    protected Renderable[] getButtons() {
+    protected AbstractRenderable[] getButtons() {
         return buttonManager.getShipButtons();
     }
 
     @Override
-    protected Renderable getStorageContent(StorageData data) {
+    protected AbstractRenderable getStorageContent(StorageData data) {
         return new Ships(data.getShips(), "There are no matching ships to display", new Size(0, 0));
     }
 }

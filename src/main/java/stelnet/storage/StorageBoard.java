@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
-import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
@@ -16,8 +15,7 @@ import stelnet.helper.SettingHelper;
 import stelnet.helper.StorageHelper;
 import stelnet.storage.data.ItemsGridData;
 import stelnet.storage.data.SharedData;
-import stelnet.ui.RenderableView;
-import stelnet.ui.Size;
+import stelnet.ui.Renderable;
 
 public class StorageBoard extends BaseBoard {
 
@@ -51,13 +49,6 @@ public class StorageBoard extends BaseBoard {
     }
 
     @Override
-    public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
-        Size size = new Size(width, height);
-        gridData.getContentColumn(size).render(panel);
-        gridData.getControlColumn(size).render(panel);
-    }
-
-    @Override
     public String getIcon() {
         return SettingHelper.getSpriteName("storage");
     }
@@ -78,7 +69,10 @@ public class StorageBoard extends BaseBoard {
     }
 
     @Override
-    protected List<RenderableView> getRenderableViews() {
+    protected List<Renderable> getRenderables(float width, float height) {
+        // gridData.getContentColumn(size).render(panel);
+        // gridData.getControlColumn(size).render(panel);
+
         // TODO: rework grid data into renderable views and remove
         // createLargeDescription
         return null;

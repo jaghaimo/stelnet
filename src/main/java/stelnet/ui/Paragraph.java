@@ -8,7 +8,7 @@ import com.fs.starfarer.api.util.Misc;
 import lombok.Setter;
 
 @Setter
-public class Paragraph extends Renderable {
+public class Paragraph extends AbstractRenderable {
 
     private final String text;
     private Color color;

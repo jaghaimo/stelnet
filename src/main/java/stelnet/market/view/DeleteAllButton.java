@@ -9,10 +9,10 @@ import com.fs.starfarer.api.util.Misc;
 import org.lwjgl.input.Keyboard;
 
 import stelnet.market.IntelQuery;
+import stelnet.ui.AbstractButtonHandler;
 import stelnet.ui.Button;
 import stelnet.ui.Location;
 import stelnet.ui.Position;
-import stelnet.ui.EventHandler;
 import stelnet.ui.Size;
 
 public class DeleteAllButton extends Button {
@@ -22,7 +22,7 @@ public class DeleteAllButton extends Button {
         setShortcut(Keyboard.KEY_G);
         setLocation(Location.TOP_RIGHT);
         setOffset(new Position(4, -24));
-        setHandler(new EventHandler() {
+        setHandler(new AbstractButtonHandler() {
 
             @Override
             public boolean hasPrompt() {

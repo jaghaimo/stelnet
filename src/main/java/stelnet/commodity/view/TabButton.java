@@ -6,8 +6,8 @@ import com.fs.starfarer.api.util.Misc;
 
 import stelnet.commodity.CommodityBoard;
 import stelnet.commodity.CommodityBoard.CommodityTab;
+import stelnet.ui.AbstractButtonHandler;
 import stelnet.ui.Button;
-import stelnet.ui.EventHandler;
 import stelnet.ui.Size;
 
 public class TabButton extends Button {
@@ -19,7 +19,7 @@ public class TabButton extends Button {
         }
         setCutStyle(CutStyle.TOP);
         setShortcut(shortcut);
-        setHandler(new EventHandler() {
+        setHandler(new AbstractButtonHandler() {
 
             @Override
             public void onConfirm(IntelUIAPI ui) {

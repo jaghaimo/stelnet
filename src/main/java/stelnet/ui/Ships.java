@@ -6,7 +6,7 @@ import java.util.List;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
-public class Ships extends Renderable {
+public class Ships extends AbstractRenderable {
 
     private final List<FleetMemberAPI> ships;
     private final String emptyDescription;

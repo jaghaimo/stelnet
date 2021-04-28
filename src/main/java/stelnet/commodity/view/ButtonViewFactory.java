@@ -10,15 +10,15 @@ import com.fs.starfarer.api.campaign.econ.EconomyAPI;
 
 import stelnet.helper.GlobalHelper;
 import stelnet.ui.Button;
-import stelnet.ui.Renderable;
+import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Size;
 import stelnet.ui.Stack;
 
 public class ButtonViewFactory {
 
-    public Renderable get(String activeId, Size size) {
+    public AbstractRenderable get(String activeId, Size size) {
         EconomyAPI economy = GlobalHelper.getEconomy();
-        List<Renderable> buttons = new LinkedList<>();
+        List<AbstractRenderable> buttons = new LinkedList<>();
         List<String> commodityIds = economy.getAllCommodityIds();
         sortCommodities(commodityIds);
         for (String commodityId : commodityIds) {
@@ -27,7 +27,7 @@ public class ButtonViewFactory {
                 buttons.add(get(commodity, activeId));
             }
         }
-        Renderable stack = new Stack(buttons);
+        AbstractRenderable stack = new Stack(buttons);
         stack.setSize(size);
         return stack;
     }
