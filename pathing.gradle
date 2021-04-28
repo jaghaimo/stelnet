@@ -8,8 +8,12 @@ def readModInfoJson() {
     return slurper.parse(jsonFile)
 }
 
-def arePropertiesDefined() {
-    if (!project.hasProperty('game.dir') || !project.hasProperty('game.mod_folder')) {
+def areGradlePropertiesDefined() {
+    return (project.hasProperty('game.dir') && project.hasProperty('game.mod_folder'))
+}
+
+def checkPropertiesWithWarning() {
+    if (!arePropertiesDefined) {
         println 'WARNING: Missing properties in gradle.properties. See gradle.properties.dist as an example.'
         println 'WARNING: Task execution stopped.'
         return false
@@ -18,16 +22,18 @@ def arePropertiesDefined() {
 }
 
 def getStarsectorModDir() {
+    if (!areGradlePropertiesDefined()) return ""
     return project.getProperty('game.dir') + project.getProperty('game.mod_folder') + readModInfoJson().id
 }
 
 def getStarsectorExecutableDir() {
+    if (!areGradlePropertiesDefined()) return ""
     return Os.isFamily(Os.FAMILY_WINDOWS) ? file(project.getProperty('game.dir') + 'starsector-core') : file(project.getProperty('game.dir'))
 }
 
 ext {
     readModInfoJson = this.&readModInfoJson as MethodClosure
-    arePropertiesDefined = this.&arePropertiesDefined as MethodClosure
+    arePropertiesDefined = this.&checkPropertiesWithWarning as MethodClosure
     getStarsectorModDir = this.&getStarsectorModDir as MethodClosure
     getStarsectorExecutableDir = this.&getStarsectorExecutableDir as MethodClosure
 }

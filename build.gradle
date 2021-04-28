@@ -66,18 +66,14 @@ task release(type: Zip) {
 }
 
 task copyToMods(type: Copy) {
-    if (!arePropertiesDefined) {
-        return
-    }
+    if (!arePropertiesDefined) return
     dependsOn build
     from jar
     into getStarsectorModDir
 }
 
 task runGameWithBuild(type: Exec) {
-    if (!arePropertiesDefined) {
-        return
-    }
+    if (!arePropertiesDefined) return
     dependsOn copyToMods
     workingDir = getStarsectorExecutableDir
     Os.isFamily(Os.FAMILY_WINDOWS) ? commandLine('cmd', '/c', 'starsector.bat') : commandLine('sh', './starsector.sh')
