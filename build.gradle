@@ -1,10 +1,9 @@
+import groovy.json.JsonSlurper
 import org.apache.tools.ant.taskdefs.condition.Os
 plugins {
     id 'java'
     id 'eclipse'
 }
-
-apply from: 'pathing.gradle'
 
 repositories {
     mavenCentral()
@@ -58,7 +57,7 @@ dependencies {
 
 task release(type: Zip) {
     dependsOn build
-    archiveFileName = "${project.name}-${readModInfoJson.version}.zip"
+    archiveFileName = "${project.name}-${readModInfoJson().version}.zip"
     destinationDirectory = file(rootDir)
     from sourceSets.main.resources
     from jar
@@ -66,15 +65,47 @@ task release(type: Zip) {
 }
 
 task copyToMods(type: Copy) {
-    if (!arePropertiesDefined) return
+    if (!arePropertiesDefinedAndPrintWarning()) return
     dependsOn build
     from jar
-    into getStarsectorModDir
+    into getStarsectorModDir()
 }
 
 task runGameWithBuild(type: Exec) {
-    if (!arePropertiesDefined) return
+    if (!arePropertiesDefinedAndPrintWarning()) {
+        Os.isFamily(Os.FAMILY_WINDOWS) ? commandLine('cmd', '/c', 'echo "Failed to run task"') : commandLine('echo', 'failed to run task')
+        return
+    }
+
     dependsOn copyToMods
-    workingDir = getStarsectorExecutableDir
+    workingDir = getStarsectorExecutableDir()
     Os.isFamily(Os.FAMILY_WINDOWS) ? commandLine('cmd', '/c', 'starsector.bat') : commandLine('sh', './starsector.sh')
+}
+
+
+def readModInfoJson() {
+    def jsonFile = file('src/main/resources/mod_info.json')
+    def slurper = new JsonSlurper()
+    return slurper.parse(jsonFile)
+}
+
+def areGradlePropertiesDefined() {
+    return (project.hasProperty('game.dir') && project.hasProperty('game.mod_folder'))
+}
+
+def arePropertiesDefinedAndPrintWarning() {
+    if (areGradlePropertiesDefined()) return true
+    println 'WARNING: Missing properties in gradle.properties. See gradle.properties.dist as an example.'
+    println 'WARNING: Task execution stopped.'
+    return false
+}
+
+def getStarsectorModDir() {
+    if (!areGradlePropertiesDefined()) return ""
+    return project.getProperty('game.dir') + project.getProperty('game.mod_folder') + readModInfoJson().id
+}
+
+def getStarsectorExecutableDir() {
+    if (!areGradlePropertiesDefined()) return ""
+    return Os.isFamily(Os.FAMILY_WINDOWS) ? file(project.getProperty('game.dir') + 'starsector-core') : file(project.getProperty('game.dir'))
 }
