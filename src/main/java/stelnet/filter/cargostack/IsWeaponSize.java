@@ -7,7 +7,7 @@ import stelnet.market.DialogOption;
 
 public class IsWeaponSize implements CargoStackFilter {
 
-    private DialogOption option;
+    private final DialogOption option;
 
     public IsWeaponSize(DialogOption o) {
         option = o;

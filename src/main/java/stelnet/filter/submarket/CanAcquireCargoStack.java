@@ -6,7 +6,7 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 
 public class CanAcquireCargoStack implements SubmarketFilter {
 
-    private CargoStackAPI cargoStack;
+    private final CargoStackAPI cargoStack;
 
     public CanAcquireCargoStack(CargoStackAPI cargoStack) {
         this.cargoStack = cargoStack;

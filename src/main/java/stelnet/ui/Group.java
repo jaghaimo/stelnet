@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import lombok.AccessLevel;
+import lombok.Getter;
 import stelnet.helper.LogHelper;
 
 /**
@@ -12,6 +14,8 @@ import stelnet.helper.LogHelper;
  * Extended by {@link Row} and {@link Stack} which can only be used in large
  * intel only.
  */
+
+@Getter(AccessLevel.PROTECTED)
 public class Group extends Renderable {
 
     private List<Renderable> elements;
@@ -33,10 +37,6 @@ public class Group extends Renderable {
         for (Renderable renderable : getElements()) {
             renderable.render(tooltip);
         }
-    }
-
-    protected List<Renderable> getElements() {
-        return elements;
     }
 
     protected void setCalculatedSize() {

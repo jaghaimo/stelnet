@@ -6,35 +6,42 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 
 import lombok.Getter;
 
+@Getter
 public class ToggleButton extends Button {
 
     private final String titleOff;
     private final Color colorOff;
 
-    @Getter
-    private boolean isOn;
+    private boolean isToggledOn;
 
-    public ToggleButton(Size size, String titleOn, String titleOff, boolean isEnabled, Color colorOn, Color colorOff,
-            boolean isOn) {
-        super(size, titleOn, isEnabled, colorOn);
-        this.titleOff = titleOff;
+    public ToggleButton(
+            Size size,
+            String toggledOnTitle,
+            String toggledOffTitle,
+            boolean isEnabled,
+            Color colorOn,
+            Color colorOff,
+            boolean isToggledOn
+    ) {
+        super(size, toggledOnTitle, isEnabled, colorOn);
+        this.titleOff = toggledOffTitle;
         this.colorOff = colorOff;
-        this.isOn = isOn;
+        this.isToggledOn = isToggledOn;
     }
 
     @Override
     public Color getColor() {
-        return isOn ? super.getColor() : colorOff;
+        return isToggledOn ? super.getColor() : colorOff;
     }
 
     @Override
     public String getTitle() {
-        return isOn ? super.getTitle() : titleOff;
+        return isToggledOn ? super.getTitle() : titleOff;
     }
 
     @Override
     public void onConfirm(IntelUIAPI ui) {
-        isOn = !isOn;
+        isToggledOn = !isToggledOn;
         super.onConfirm(ui);
     }
 }

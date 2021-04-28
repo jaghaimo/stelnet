@@ -13,7 +13,7 @@ import stelnet.helper.CollectionHelper;
 
 public class HasOfficer implements MarketFilter {
 
-    private List<PersonFilter> filters;
+    private final List<PersonFilter> filters;
 
     public HasOfficer(String personality) {
         filters = Arrays.asList(new IsOfficer(), new HasPersonality(personality));

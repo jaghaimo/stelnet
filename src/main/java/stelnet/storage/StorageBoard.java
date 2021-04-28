@@ -21,10 +21,8 @@ import stelnet.ui.Size;
 
 public class StorageBoard extends BaseBoard {
 
-    private ButtonManager buttonManager;
-
     @Getter
-    private FilterManager filterManager;
+    private final FilterManager filterManager;
     private SharedData gridData;
 
     public static StorageBoard getInstance() {
@@ -37,7 +35,7 @@ public class StorageBoard extends BaseBoard {
     }
 
     private StorageBoard() {
-        buttonManager = new ButtonManager();
+        ButtonManager buttonManager = new ButtonManager();
         filterManager = new FilterManager();
         gridData = new ItemsGridData(buttonManager, filterManager);
     }

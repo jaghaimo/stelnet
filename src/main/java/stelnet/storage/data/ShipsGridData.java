@@ -7,11 +7,7 @@ import stelnet.ui.Ships;
 import stelnet.ui.Size;
 
 public class ShipsGridData extends SharedData {
-
-    public ShipsGridData(ButtonManager buttonManager, FilterManager filterManager) {
-        super(buttonManager, filterManager);
-    }
-
+    
     public ShipsGridData(ButtonManager buttonManager, FilterManager filterManager, DataProvider dataProvider) {
         super(buttonManager, filterManager);
         this.dataProvider = dataProvider;

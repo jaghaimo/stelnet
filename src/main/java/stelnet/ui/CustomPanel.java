@@ -8,8 +8,8 @@ import stelnet.helper.LogHelper;
 
 public class CustomPanel extends Renderable {
 
+    private final Renderable renderable;
     private CustomPanelAPI customPanel;
-    private Renderable renderable;
 
     public CustomPanel(Renderable renderable) {
         this.renderable = renderable;

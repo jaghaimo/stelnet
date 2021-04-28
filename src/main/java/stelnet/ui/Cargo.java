@@ -6,8 +6,8 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 public class Cargo extends Renderable {
 
-    private CargoAPI cargo;
-    private String emptyDescription;
+    private final CargoAPI cargo;
+    private final String emptyDescription;
 
     public Cargo(CargoAPI cargo, String emptyDescription, Size size) {
         this.cargo = cargo;

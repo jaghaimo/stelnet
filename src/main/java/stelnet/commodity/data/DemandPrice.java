@@ -7,8 +7,8 @@ import stelnet.helper.GlobalHelper;
 
 public class DemandPrice implements Price {
 
-    private String commodityId;
-    private float econUnit;
+    private final String commodityId;
+    private final float econUnit;
 
     public DemandPrice(String commodityId) {
         this.commodityId = commodityId;

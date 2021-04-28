@@ -11,7 +11,7 @@ import stelnet.helper.CollectionHelper;
 
 public class HasFleetMember implements SubmarketFilter {
 
-    private FleetMemberFilter filter;
+    private final FleetMemberFilter filter;
 
     public HasFleetMember(FleetMemberAPI fleetMember) {
         filter = new HasMember(fleetMember);

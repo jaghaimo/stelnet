@@ -2,11 +2,10 @@ package stelnet.ui;
 
 import lombok.Getter;
 
+@Getter
 public class Size {
 
-    @Getter
     private final float width;
-    @Getter
     private final float height;
 
     public Size(float width, float height) {

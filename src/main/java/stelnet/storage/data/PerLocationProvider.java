@@ -16,7 +16,7 @@ import stelnet.storage.FilterManager;
 
 public class PerLocationProvider implements DataProvider {
 
-    private FilterManager filterManager;
+    private final FilterManager filterManager;
 
     public PerLocationProvider(FilterManager filterManager) {
         this.filterManager = filterManager;

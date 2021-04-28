@@ -4,7 +4,7 @@ import com.fs.starfarer.api.campaign.CargoStackAPI;
 
 public class HasStack implements CargoStackFilter {
 
-    private CargoStackAPI cargoStack;
+    private final CargoStackAPI cargoStack;
 
     public HasStack(CargoStackAPI c) {
         cargoStack = c;

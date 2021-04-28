@@ -4,7 +4,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 
 public class HasMember implements FleetMemberFilter {
 
-    private String shipHullSpecId;
+    private final String shipHullSpecId;
 
     public HasMember(FleetMemberAPI f) {
         shipHullSpecId = f.getHullSpec().getHullId();

@@ -8,8 +8,8 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 public class Ships extends Renderable {
 
-    private List<FleetMemberAPI> ships;
-    private String emptyDescription;
+    private final List<FleetMemberAPI> ships;
+    private final String emptyDescription;
 
     public Ships(List<FleetMemberAPI> ships, String emptyDescription, Size size) {
         this.ships = ships;

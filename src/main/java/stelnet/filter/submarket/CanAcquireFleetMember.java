@@ -6,7 +6,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 
 public class CanAcquireFleetMember implements SubmarketFilter {
 
-    private FleetMemberAPI fleetMember;
+    private final FleetMemberAPI fleetMember;
 
     public CanAcquireFleetMember(FleetMemberAPI fleetMember) {
         this.fleetMember = fleetMember;

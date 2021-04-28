@@ -7,7 +7,7 @@ import stelnet.filter.Filter;
 
 public class HasTag implements Filter<CommDirectoryEntryAPI> {
 
-    private String tag;
+    private final String tag;
 
     public HasTag(String tag) {
         this.tag = tag;

@@ -11,7 +11,7 @@ import stelnet.ui.Size;
 @AllArgsConstructor
 public class EmptyRowView implements RenderableView {
 
-    private boolean isEmpty;
+    private final boolean isEmpty;
 
     @Override
     public void render(CustomPanelAPI panel, Size size) {

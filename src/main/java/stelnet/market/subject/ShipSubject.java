@@ -19,7 +19,7 @@ import stelnet.helper.CollectionHelper;
 
 public class ShipSubject extends SubmarketSubject {
 
-    private FleetMemberAPI ship;
+    private final FleetMemberAPI ship;
     private Map<SubmarketAPI, List<FleetMemberAPI>> submarketsWithFleetMembers;
 
     public ShipSubject(FleetMemberAPI s, MarketAPI m) {

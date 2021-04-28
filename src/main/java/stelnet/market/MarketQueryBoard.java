@@ -27,7 +27,7 @@ import stelnet.ui.RenderableView;
  */
 public class MarketQueryBoard extends BaseBoard {
 
-    private List<IntelQuery> queries = new ArrayList<IntelQuery>();
+    private final List<IntelQuery> queries = new ArrayList<IntelQuery>();
 
     public static MarketQueryBoard getInstance() {
         IntelInfoPlugin intel = IntelHelper.getFirstIntel(MarketQueryBoard.class);

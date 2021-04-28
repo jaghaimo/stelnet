@@ -15,9 +15,9 @@ public class IsAccessible implements SubmarketFilter {
         return plugin.isEnabled(openTrade) || plugin.isEnabled(sneakTrade);
     }
 
-    private class DummyCoreUi implements CoreUIAPI {
+    private static class DummyCoreUi implements CoreUIAPI {
 
-        private CoreUITradeMode tradeMode;
+        private final CoreUITradeMode tradeMode;
 
         public DummyCoreUi(CoreUITradeMode tradeMode) {
             this.tradeMode = tradeMode;
