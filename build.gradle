@@ -93,8 +93,8 @@ task copyToMods(type: Copy) {
     into getModDir()
 }
 
-def getCoreDir() {
-    return project.getProperty('game.dir') + '/starsector-core/'
+def getCoreDirForWindowsOrMainPathForLinux() {
+    return Os.isFamily(Os.FAMILY_WINDOWS) ? project.getProperty('game.dir') + '/starsector-core/' : project.getProperty('game.dir')
 }
 
 task runGameWithBuild(type: Exec) {
@@ -102,6 +102,6 @@ task runGameWithBuild(type: Exec) {
         return
     }
     dependsOn copyToMods
-    workingDir = file(getCoreDir())
-    Os.isFamily(Os.FAMILY_WINDOWS) ? commandLine('cmd', '/c', 'starsector.bat') : commandLine('sh', './starsector.command')
+    workingDir = file(getCoreDirForWindowsOrMainPathForLinux())
+    Os.isFamily(Os.FAMILY_WINDOWS) ? commandLine('cmd', '/c', 'starsector.bat') : commandLine('sh', './starsector.sh')
 }
