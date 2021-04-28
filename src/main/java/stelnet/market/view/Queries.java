@@ -4,23 +4,23 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.fs.starfarer.api.ui.CustomPanelAPI;
+import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import lombok.AllArgsConstructor;
 import stelnet.market.IntelQuery;
 import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Group;
-import stelnet.ui.RenderableView;
+import stelnet.ui.Renderable;
 import stelnet.ui.Size;
 
-public class QueriesView implements RenderableView {
+@AllArgsConstructor
+public class Queries implements Renderable {
 
+    private final Size size;
     private final List<IntelQuery> queries;
 
-    public QueriesView(List<IntelQuery> queries) {
-        this.queries = queries;
-    }
-
     @Override
-    public void render(CustomPanelAPI panel, Size size) {
+    public void render(CustomPanelAPI panel) {
         if (queries.isEmpty()) {
             return;
         }
@@ -28,6 +28,10 @@ public class QueriesView implements RenderableView {
         AbstractRenderable queries = new Group(getRows(panel, panelSize));
         queries.setSize(panelSize);
         queries.render(panel, 0, 38);
+    }
+
+    @Override
+    public void render(TooltipMakerAPI info) {
     }
 
     private List<AbstractRenderable> getRows(CustomPanelAPI panel, Size size) {

@@ -19,7 +19,7 @@ import stelnet.helper.LogHelper;
 
 @Getter
 @Setter
-public abstract class AbstractRenderable {
+public abstract class AbstractRenderable implements Renderable {
 
     private Location location = Location.TOP_LEFT;
     private Position offset = new Position(0, 0);

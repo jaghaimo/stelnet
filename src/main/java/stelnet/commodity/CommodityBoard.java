@@ -1,6 +1,5 @@
 package stelnet.commodity;
 
-import java.util.List;
 import java.util.Set;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
@@ -18,7 +17,6 @@ import stelnet.commodity.view.DeleteViewFactory;
 import stelnet.commodity.view.IntelSelectionFactory;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.SettingHelper;
-import stelnet.ui.RenderableView;
 import stelnet.ui.Size;
 
 public class CommodityBoard extends BaseBoard {
@@ -63,6 +61,7 @@ public class CommodityBoard extends BaseBoard {
 
     @Override
     public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
+        // TODO: rework grid data into renderable views and remove method
         Size size = new Size(width, height);
         commodityViewFactory.get(activeId, activeTab, size).render(panel);
         intelSelectionFactory.get(activeId, activeTab, size).render(panel);
@@ -80,12 +79,6 @@ public class CommodityBoard extends BaseBoard {
         Set<String> tags = super.getIntelTags(map);
         tags.add(CommodityIntel.TAG);
         return tags;
-    }
-
-    @Override
-    protected List<RenderableView> getRenderableViews() {
-        // TODO Auto-generated method stub, rework createLargeDescription
-        return null;
     }
 
     protected Object readResolve() {
