@@ -4,6 +4,7 @@ import stelnet.storage.ButtonManager;
 import stelnet.storage.FilterManager;
 import stelnet.ui.Cargo;
 import stelnet.ui.Renderable;
+import stelnet.ui.Size;
 
 public class ItemsGridData extends SharedData {
 
@@ -28,6 +29,6 @@ public class ItemsGridData extends SharedData {
 
     @Override
     protected Renderable getStorageContent(StorageData data) {
-        return new Cargo(data.getItems(), "There are no matching items to display", 0, 0);
+        return new Cargo(data.getItems(), "There are no matching items to display", new Size(0, 0));
     }
 }

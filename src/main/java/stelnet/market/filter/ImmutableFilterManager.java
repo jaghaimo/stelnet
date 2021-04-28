@@ -8,9 +8,9 @@ import stelnet.filter.market.MarketFilter;
 
 public class ImmutableFilterManager implements FilterManager {
 
-    private List<CargoStackFilter> cargoFilters;
-    private List<FleetMemberFilter> fleetFilters;
-    private List<MarketFilter> staffFilters;
+    private final List<CargoStackFilter> cargoFilters;
+    private final List<FleetMemberFilter> fleetFilters;
+    private final List<MarketFilter> staffFilters;
 
     public ImmutableFilterManager(FilterManager filterManager) {
         cargoFilters = filterManager.listCargoFilters();

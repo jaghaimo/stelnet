@@ -7,19 +7,15 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 public class Heading extends Renderable {
 
-    private String title;
-    private Color foregroundColor;
-    private Color backgroundColor;
+    private final String title;
+    private final Color foregroundColor;
+    private final Color backgroundColor;
 
     public Heading(String title, Color foregroundColor, Color backgroundColor) {
         this.title = title;
         this.foregroundColor = foregroundColor;
         this.backgroundColor = backgroundColor;
-    }
-
-    @Override
-    public Size getSize() {
-        return new Size(0, 10f);
+        setSize(new Size(0, 10));
     }
 
     @Override

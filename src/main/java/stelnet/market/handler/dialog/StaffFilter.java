@@ -6,7 +6,7 @@ import stelnet.market.DialogPlugin;
 import stelnet.market.handler.DialogHandler;
 
 public class StaffFilter implements DialogHandler {
-    private DialogOption option;
+    private final DialogOption option;
 
     public StaffFilter(DialogOption o) {
         option = o;

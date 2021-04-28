@@ -1,5 +1,6 @@
 package stelnet.storage;
 
+import java.util.List;
 import java.util.Set;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
@@ -8,19 +9,20 @@ import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
+import lombok.Getter;
 import stelnet.BaseBoard;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.SettingHelper;
 import stelnet.helper.StorageHelper;
 import stelnet.storage.data.ItemsGridData;
 import stelnet.storage.data.SharedData;
-import stelnet.ui.GridRenderer;
+import stelnet.ui.RenderableView;
 import stelnet.ui.Size;
 
 public class StorageBoard extends BaseBoard {
 
-    private ButtonManager buttonManager;
-    private FilterManager filterManager;
+    @Getter
+    private final FilterManager filterManager;
     private SharedData gridData;
 
     public static StorageBoard getInstance() {
@@ -33,7 +35,7 @@ public class StorageBoard extends BaseBoard {
     }
 
     private StorageBoard() {
-        buttonManager = new ButtonManager();
+        ButtonManager buttonManager = new ButtonManager();
         filterManager = new FilterManager();
         gridData = new ItemsGridData(buttonManager, filterManager);
     }
@@ -50,14 +52,9 @@ public class StorageBoard extends BaseBoard {
 
     @Override
     public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
-        float spacer = 20;
-        float controlWidth = 180;
-        float displayWidth = width - controlWidth - spacer;
         Size size = new Size(width, height);
-        GridRenderer renderer = new GridRenderer(size);
-        renderer.setTopLeft(gridData.getTopLeft(new Size(displayWidth, height)));
-        renderer.setTopRight(gridData.getTopRight(new Size(controlWidth, height)));
-        renderer.render(panel);
+        gridData.getContentColumn(size).render(panel);
+        gridData.getControlColumn(size).render(panel);
     }
 
     @Override
@@ -72,16 +69,19 @@ public class StorageBoard extends BaseBoard {
         return tags;
     }
 
-    public FilterManager getFilterManager() {
-        return filterManager;
-    }
-
     public void togglePane() {
         gridData = gridData.getNext();
     }
 
     public void toggleView() {
         gridData.changeDataProvider();
+    }
+
+    @Override
+    protected List<RenderableView> getRenderableViews() {
+        // TODO: rework grid data into renderable views and remove
+        // createLargeDescription
+        return null;
     }
 
     private String getDescription(int itemCount, int shipCount) {

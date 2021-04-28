@@ -11,7 +11,7 @@ import org.lwjgl.input.Keyboard;
 import stelnet.market.DialogPlugin;
 import stelnet.market.IntelQuery;
 import stelnet.ui.Button;
-import stelnet.ui.SimpleCallback;
+import stelnet.ui.EventHandler;
 import stelnet.ui.Size;
 
 public class AddQueryButton extends Button {
@@ -19,10 +19,10 @@ public class AddQueryButton extends Button {
     public AddQueryButton(final List<IntelQuery> queries) {
         super(new Size(160, 24), "Add New Query", true, Misc.getPositiveHighlightColor());
         setShortcut(Keyboard.KEY_A);
-        setCallback(new SimpleCallback() {
+        setHandler(new EventHandler() {
 
             @Override
-            public void confirm(IntelUIAPI ui) {
+            public void onConfirm(IntelUIAPI ui) {
                 InteractionDialogPlugin intelDialog = new DialogPlugin(queries);
                 ui.showDialog(null, intelDialog);
             }

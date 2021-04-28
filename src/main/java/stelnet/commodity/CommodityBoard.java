@@ -1,5 +1,6 @@
 package stelnet.commodity;
 
+import java.util.List;
 import java.util.Set;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
@@ -9,17 +10,16 @@ import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import lombok.Setter;
 import stelnet.BaseBoard;
 import stelnet.commodity.view.ButtonViewFactory;
 import stelnet.commodity.view.CommodityViewFactory;
-import stelnet.commodity.view.DeleteButton;
+import stelnet.commodity.view.DeleteViewFactory;
 import stelnet.commodity.view.IntelSelectionFactory;
-import stelnet.commodity.view.PurgeButton;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.SettingHelper;
-import stelnet.ui.GridRenderer;
+import stelnet.ui.RenderableView;
 import stelnet.ui.Size;
-import stelnet.ui.Stack;
 
 public class CommodityBoard extends BaseBoard {
 
@@ -33,7 +33,9 @@ public class CommodityBoard extends BaseBoard {
         }
     }
 
+    @Setter
     private String activeId;
+    @Setter
     private CommodityTab activeTab;
     private ButtonViewFactory buttonViewFactory;
     private CommodityViewFactory commodityViewFactory;
@@ -61,14 +63,11 @@ public class CommodityBoard extends BaseBoard {
 
     @Override
     public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
-        float commodityViewWidth = width - 210;
-        float commodityViewHeight = height - 35;
-        GridRenderer renderer = new GridRenderer(new Size(width, height));
-        renderer.setTopLeft(commodityViewFactory.get(activeId, activeTab, commodityViewWidth, commodityViewHeight));
-        renderer.setTopRight(buttonViewFactory.get(activeId));
-        renderer.setBottomLeft(intelSelectionFactory.get(activeId, activeTab, commodityViewWidth));
-        renderer.setBottomRight(new Stack(true, new PurgeButton(), new DeleteButton(activeId)));
-        renderer.render(panel);
+        Size size = new Size(width, height);
+        commodityViewFactory.get(activeId, activeTab, size).render(panel);
+        intelSelectionFactory.get(activeId, activeTab, size).render(panel);
+        buttonViewFactory.get(activeId, size).render(panel);
+        new DeleteViewFactory().get(activeId, size).render(panel);
     }
 
     @Override
@@ -83,12 +82,10 @@ public class CommodityBoard extends BaseBoard {
         return tags;
     }
 
-    public void setActiveId(String activeId) {
-        this.activeId = activeId;
-    }
-
-    public void setActiveTab(CommodityTab activeTab) {
-        this.activeTab = activeTab;
+    @Override
+    protected List<RenderableView> getRenderableViews() {
+        // TODO Auto-generated method stub, rework createLargeDescription
+        return null;
     }
 
     protected Object readResolve() {

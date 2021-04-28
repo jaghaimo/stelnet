@@ -6,27 +6,18 @@ import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 
+import lombok.Getter;
+
+@Getter
 public class StorageData {
 
-    private SubmarketAPI submarket;
-    private CargoAPI items;
-    private List<FleetMemberAPI> ships;
+    private final SubmarketAPI submarket;
+    private final CargoAPI items;
+    private final List<FleetMemberAPI> ships;
 
     public StorageData(SubmarketAPI submarket, CargoAPI items, List<FleetMemberAPI> ships) {
         this.submarket = submarket;
         this.items = items;
         this.ships = ships;
-    }
-
-    public SubmarketAPI getSubmarket() {
-        return submarket;
-    }
-
-    public CargoAPI getItems() {
-        return items;
-    }
-
-    public List<FleetMemberAPI> getShips() {
-        return ships;
     }
 }

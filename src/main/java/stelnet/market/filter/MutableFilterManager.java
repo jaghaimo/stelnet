@@ -3,6 +3,7 @@ package stelnet.market.filter;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
 import stelnet.filter.cargostack.CargoStackFilter;
 import stelnet.filter.cargostack.IsType;
 import stelnet.filter.cargostack.IsWeaponSize;
@@ -18,6 +19,7 @@ import stelnet.filter.market.HasOfficer;
 import stelnet.filter.market.MarketFilter;
 import stelnet.market.DialogOption;
 
+@Getter
 public class MutableFilterManager implements FilterManager {
 
     private DialogOption cargoType = DialogOption.CARGO_TYPE_WEAPON;
@@ -69,18 +71,10 @@ public class MutableFilterManager implements FilterManager {
         return filters;
     }
 
-    public DialogOption getCargoType() {
-        return cargoType;
-    }
-
     public void setCargoType(DialogOption option) {
         if (option.isType("CARGO_TYPE")) {
             cargoType = option.getNext();
         }
-    }
-
-    public DialogOption getCargoWeaponSize() {
-        return cargoWeaponSize;
     }
 
     public void setCargoWeaponSize(DialogOption option) {
@@ -89,18 +83,10 @@ public class MutableFilterManager implements FilterManager {
         }
     }
 
-    public DialogOption getCargoWeaponType() {
-        return cargoWeaponType;
-    }
-
     public void setCargoWeaponType(DialogOption option) {
         if (option.isType("WEAPON_TYPE")) {
             cargoWeaponType = option.getNext();
         }
-    }
-
-    public DialogOption getCargoWingType() {
-        return cargoWingType;
     }
 
     public void setCargoWingType(DialogOption option) {
@@ -109,18 +95,10 @@ public class MutableFilterManager implements FilterManager {
         }
     }
 
-    public DialogOption getFleetShipSize() {
-        return fleetShipSize;
-    }
-
     public void setFleetShipSize(DialogOption option) {
         if (option.isType("SHIP_SIZE")) {
             fleetShipSize = option.getNext();
         }
-    }
-
-    public DialogOption getFleetShipDamaged() {
-        return fleetShipDamaged;
     }
 
     public void setFleetShipDamaged(DialogOption option) {
@@ -129,18 +107,10 @@ public class MutableFilterManager implements FilterManager {
         }
     }
 
-    public DialogOption getFleetShipCarrier() {
-        return fleetShipCarrier;
-    }
-
     public void setFleetShipCarrier(DialogOption option) {
         if (option.isType("SHIP_CARRIER")) {
             fleetShipCarrier = option.getNext();
         }
-    }
-
-    public DialogOption getFleetShipCivilian() {
-        return fleetShipCivilian;
     }
 
     public void setFleetShipCivilian(DialogOption option) {
@@ -149,18 +119,10 @@ public class MutableFilterManager implements FilterManager {
         }
     }
 
-    public DialogOption getStaffType() {
-        return staffType;
-    }
-
     public void setStaffType(DialogOption option) {
         if (option.isType("STAFF_TYPE")) {
             staffType = option.getNext();
         }
-    }
-
-    public DialogOption getStaffOfficer() {
-        return staffOfficer;
     }
 
     public void setStaffOfficer(DialogOption option) {

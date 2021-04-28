@@ -3,6 +3,7 @@ package stelnet.storage;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.loading.WingRole;
 
+import lombok.Getter;
 import stelnet.filter.cargostack.IsNotCommodity;
 import stelnet.filter.cargostack.IsNotFighterWing;
 import stelnet.filter.cargostack.IsNotFighterWingRole;
@@ -23,15 +24,16 @@ import stelnet.storage.view.ShipFilterButton;
 import stelnet.ui.Renderable;
 import stelnet.ui.Spacer;
 
+@Getter
 public class ButtonManager {
 
-    private Renderable[] commonButtons = { //
+    private final Renderable[] commonButtons = { //
             new DisplayViewButton(), //
             new DisplayPaneButton(), //
             new Spacer(20f), // vertical spacer
     };
 
-    private Renderable[] itemButtons = { //
+    private final Renderable[] itemButtons = { //
             new ItemFilterButton("Commodities", new IsNotCommodity()), //
             new ItemFilterButton("Weapons", new IsNotWeapon()), //
             new ItemFilterButton("Fighter Wings", new IsNotFighterWing()), //
@@ -46,7 +48,7 @@ public class ButtonManager {
             new ItemFilterButton("Interceptors", new IsNotFighterWingRole(WingRole.INTERCEPTOR))//
     };
 
-    private Renderable[] shipButtons = { //
+    private final Renderable[] shipButtons = { //
             new ShipFilterButton("Frigates", new IsNotFrigate()), //
             new ShipFilterButton("Destroyers", new IsNotDestroyer()), //
             new ShipFilterButton("Cruisers", new IsNotCruiser()), //
@@ -56,16 +58,4 @@ public class ButtonManager {
             new ShipFilterButton("Carriers", new IsNotCarrier()), //
             new ShipFilterButton("Civilians", new IsNotCivilian())//
     };
-
-    public Renderable[] getCommonButtons() {
-        return commonButtons;
-    }
-
-    public Renderable[] getItemButtons() {
-        return itemButtons;
-    }
-
-    public Renderable[] getShipButtons() {
-        return shipButtons;
-    }
 }

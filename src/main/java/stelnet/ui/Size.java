@@ -1,5 +1,8 @@
 package stelnet.ui;
 
+import lombok.Getter;
+
+@Getter
 public class Size {
 
     private final float width;
@@ -8,14 +11,6 @@ public class Size {
     public Size(float width, float height) {
         this.width = width;
         this.height = height;
-    }
-
-    public float getWidth() {
-        return width;
-    }
-
-    public float getHeight() {
-        return height;
     }
 
     public Size getDifference(Size subtrahend) {

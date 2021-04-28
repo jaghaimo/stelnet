@@ -25,9 +25,8 @@ public class CollectionHelper {
     }
 
     private static <E, F extends Filter<E>> boolean matches(E item, Iterable<F> filters) {
-        Iterator<F> filter = filters.iterator();
-        while (filter.hasNext()) {
-            if (!filter.next().accept(item)) {
+        for (F filter : filters) {
+            if (!filter.accept(item)) {
                 return false;
             }
         }

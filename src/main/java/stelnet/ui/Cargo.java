@@ -6,21 +6,13 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 public class Cargo extends Renderable {
 
-    private CargoAPI cargo;
-    private String emptyDescription;
-    private float width;
-    private float height;
+    private final CargoAPI cargo;
+    private final String emptyDescription;
 
-    public Cargo(CargoAPI cargo, String emptyDescription, float width, float height) {
+    public Cargo(CargoAPI cargo, String emptyDescription, Size size) {
         this.cargo = cargo;
         this.emptyDescription = emptyDescription;
-        this.width = width;
-        this.height = height;
-    }
-
-    @Override
-    public Size getSize() {
-        return new Size(width, height);
+        setSize(size);
     }
 
     @Override

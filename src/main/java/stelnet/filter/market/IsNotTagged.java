@@ -5,7 +5,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 
 public class IsNotTagged implements MarketFilter {
 
-    private String tag;
+    private final String tag;
 
     public IsNotTagged(String tag) {
         this.tag = tag;

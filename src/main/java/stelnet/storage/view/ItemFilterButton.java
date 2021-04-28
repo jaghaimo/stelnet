@@ -4,18 +4,18 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 
 import stelnet.filter.cargostack.CargoStackFilter;
 import stelnet.storage.FilterManager;
-import stelnet.ui.SimpleCallback;
+import stelnet.ui.EventHandler;
 
 public class ItemFilterButton extends FilteringButton {
 
     public ItemFilterButton(String name, final CargoStackFilter filter) {
         super(name);
-        setCallback(new SimpleCallback() {
+        setHandler(new EventHandler() {
 
             @Override
-            public void confirm(IntelUIAPI ui) {
+            public void onConfirm(IntelUIAPI ui) {
                 FilterManager filterManager = getFilterManager();
-                if (isOn()) {
+                if (isToggledOn()) {
                     filterManager.removeFilter(filter);
                 } else {
                     filterManager.addFilter(filter);

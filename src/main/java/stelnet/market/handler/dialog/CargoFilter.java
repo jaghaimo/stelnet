@@ -7,7 +7,7 @@ import stelnet.market.handler.DialogHandler;
 
 public class CargoFilter implements DialogHandler {
 
-    private DialogOption option;
+    private final DialogOption option;
 
     public CargoFilter(DialogOption o) {
         option = o;

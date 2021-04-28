@@ -10,7 +10,7 @@ import stelnet.market.subject.ShipSubject;
 
 public class ShipIntelProvider extends SubmarketProvider {
 
-    private FleetMemberAPI fleetMember;
+    private final FleetMemberAPI fleetMember;
 
     public ShipIntelProvider(FleetMemberAPI f) {
         fleetMember = f;

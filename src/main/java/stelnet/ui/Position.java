@@ -1,5 +1,8 @@
 package stelnet.ui;
 
+import lombok.Getter;
+
+@Getter
 public class Position {
 
     private final float x;
@@ -13,14 +16,6 @@ public class Position {
     public Position(Size size) {
         this.x = size.getWidth();
         this.y = size.getHeight();
-    }
-
-    public float getX() {
-        return x;
-    }
-
-    public float getY() {
-        return y;
     }
 
     @Override

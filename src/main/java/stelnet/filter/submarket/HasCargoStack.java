@@ -11,7 +11,7 @@ import stelnet.helper.CollectionHelper;
 
 public class HasCargoStack implements SubmarketFilter {
 
-    private CargoStackFilter filter;
+    private final CargoStackFilter filter;
 
     public HasCargoStack(CargoStackAPI cargoStack) {
         filter = new HasStack(cargoStack);

@@ -11,7 +11,7 @@ import stelnet.helper.CollectionHelper;
 
 public class SellMarketFactory extends MarketFactory {
 
-    private DemandPrice price;
+    private final DemandPrice price;
 
     public SellMarketFactory(String commodityId) {
         super(commodityId);

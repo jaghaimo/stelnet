@@ -15,6 +15,7 @@ import stelnet.commodity.data.SellMarketFactory;
 import stelnet.commodity.data.SellTableContent;
 import stelnet.ui.Renderable;
 import stelnet.ui.Row;
+import stelnet.ui.Size;
 import stelnet.ui.Stack;
 import stelnet.ui.Table;
 import stelnet.ui.TableContent;
@@ -27,7 +28,9 @@ public class CommodityViewFactory {
         this.intelSelectionFactory = intelSelectionFactory;
     }
 
-    public Renderable get(String commodityId, CommodityTab activeTab, float width, float height) {
+    public Renderable get(String commodityId, CommodityTab activeTab, Size size) {
+        float width = size.getWidth() - 210;
+        float height = size.getHeight() - 35;
         float tabsHeight = 15f;
         float tableHeight = height - tabsHeight;
         TableContent tableContent = getTableContent(commodityId, activeTab);

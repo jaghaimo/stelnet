@@ -4,7 +4,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 
 public class IsNotFaction implements MarketFilter {
 
-    private String factionId;
+    private final String factionId;
 
     public IsNotFaction(String factionId) {
         this.factionId = factionId;

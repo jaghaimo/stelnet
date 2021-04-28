@@ -9,93 +9,61 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
-public class Button extends Renderable implements Callable {
+import lombok.Getter;
+import lombok.Setter;
 
-    private final Size size;
-    private final String title;
+@Getter
+@Setter
+public class Button extends Renderable implements ButtonHandler {
+
+    private String title;
     private Color color;
     private boolean isEnabled;
-    private Callable callback;
+    private ButtonHandler handler;
     private CutStyle cutStyle;
     private int shortcut;
 
     public Button(Size size, String title, boolean isEnabled, Color color) {
-        this.size = size;
         this.title = title;
         this.isEnabled = isEnabled;
         this.color = color;
         this.cutStyle = CutStyle.ALL;
         this.shortcut = 0;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public boolean isEnabled() {
-        return isEnabled;
-    }
-
-    public void setEnabled(boolean isEnabled) {
-        this.isEnabled = isEnabled;
-    }
-
-    public void setCallback(Callable callback) {
-        this.callback = callback;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public void setCutStyle(CutStyle cutStyle) {
-        this.cutStyle = cutStyle;
-    }
-
-    public void setShortcut(int shortcut) {
-        this.shortcut = shortcut;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    @Override
-    public void cancel() {
-        if (callback != null) {
-            callback.cancel();
-        }
-    }
-
-    @Override
-    public void confirm(IntelUIAPI ui) {
-        if (callback != null) {
-            callback.confirm(ui);
-        }
+        setSize(size);
     }
 
     @Override
     public boolean hasPrompt() {
-        if (callback != null) {
-            return callback.hasPrompt();
+        if (handler != null) {
+            return handler.hasPrompt();
         }
         return false;
     }
 
     @Override
-    public void prompt(TooltipMakerAPI tooltipMaker) {
-        if (callback != null) {
-            callback.prompt(tooltipMaker);
+    public void onCancel(IntelUIAPI ui) {
+        if (handler != null) {
+            handler.onCancel(ui);
         }
     }
 
     @Override
-    public Size getSize() {
-        return size;
+    public void onConfirm(IntelUIAPI ui) {
+        if (handler != null) {
+            handler.onConfirm(ui);
+        }
+    }
+
+    @Override
+    public void onPrompt(TooltipMakerAPI tooltipMaker) {
+        if (handler != null) {
+            handler.onPrompt(tooltipMaker);
+        }
     }
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
+        Size size = getSize();
         Color foregroundColor = getColor();
         Color backgroundColor = Misc.scaleColor(foregroundColor, 0.5f);
         ButtonAPI button = tooltip.addButton(getTitle(), this, foregroundColor, backgroundColor, Alignment.MID,
