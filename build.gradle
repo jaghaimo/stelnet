@@ -103,11 +103,9 @@ def areGradlePropertiesDefined() {
 }
 
 def getStarsectorModDir() {
-    if (!areGradlePropertiesDefined()) return ""
     return project.getProperty('game.dir') + project.getProperty('game.mod_folder') + readModInfoJson().id
 }
 
 def getStarsectorExecutableDir() {
-    if (!areGradlePropertiesDefined()) return ""
     return Os.isFamily(Os.FAMILY_WINDOWS) ? file(project.getProperty('game.dir') + 'starsector-core') : file(project.getProperty('game.dir'))
 }
