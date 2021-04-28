@@ -91,7 +91,6 @@ task copyToMods(type: Copy) {
 
     dependsOn build
     from jar
-
     into getModDir()
 }
 
@@ -105,7 +104,6 @@ task runGameWithBuild(type:Exec) {
     }
 
     dependsOn copyToMods
-
     workingDir = file(getCoreDir())
 
     if (Os.isFamily(Os.FAMILY_WINDOWS)) {
