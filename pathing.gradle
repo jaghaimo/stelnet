@@ -13,7 +13,7 @@ def areGradlePropertiesDefined() {
 }
 
 def checkPropertiesWithWarning() {
-    if (!arePropertiesDefined) {
+    if (!areGradlePropertiesDefined()) {
         println 'WARNING: Missing properties in gradle.properties. See gradle.properties.dist as an example.'
         println 'WARNING: Task execution stopped.'
         return false
