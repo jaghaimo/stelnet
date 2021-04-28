@@ -64,7 +64,8 @@ task release(type: Zip) {
 
 task copyToMods(type: Copy) {
     if (!project.hasProperty('game.full_path')) {
-        throw new GradleException("Missing game.full_path in gradle.properties. See gradle.properties.dist as an example.")
+        println "WARNING: Missing game.full_path in gradle.properties. See gradle.properties.dist as an example."
+        return;
     }
 
     dependsOn build
