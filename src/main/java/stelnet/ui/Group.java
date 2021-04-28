@@ -5,6 +5,7 @@ import java.util.List;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import stelnet.helper.LogHelper;
 
@@ -15,14 +16,11 @@ import stelnet.helper.LogHelper;
  * intel only.
  */
 
+@AllArgsConstructor
 @Getter(AccessLevel.PROTECTED)
 public class Group extends AbstractRenderable {
 
     private List<AbstractRenderable> elements;
-
-    public Group(List<AbstractRenderable> elements) {
-        this.elements = elements;
-    }
 
     @Override
     public Size getSize() {
@@ -47,7 +45,7 @@ public class Group extends AbstractRenderable {
             width = Math.max(width, size.getWidth());
             height = Math.max(height, size.getHeight());
         }
-        LogHelper.info("Setting calculated size");
         super.setSize(new Size(width, height));
+        LogHelper.debug("Setting calculated size as " + getSize());
     }
 }

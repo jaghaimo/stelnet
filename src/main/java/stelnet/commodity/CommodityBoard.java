@@ -1,12 +1,12 @@
 package stelnet.commodity;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.impl.campaign.ids.Commodities;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
-import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
@@ -18,7 +18,7 @@ import stelnet.commodity.view.DeleteViewFactory;
 import stelnet.commodity.view.IntelSelectionFactory;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.SettingHelper;
-import stelnet.ui.RenderableView;
+import stelnet.ui.Renderable;
 import stelnet.ui.Size;
 
 public class CommodityBoard extends BaseBoard {
@@ -37,7 +37,6 @@ public class CommodityBoard extends BaseBoard {
     private String activeId;
     @Setter
     private CommodityTab activeTab;
-    private ButtonViewFactory buttonViewFactory;
     private CommodityViewFactory commodityViewFactory;
     private IntelSelectionFactory intelSelectionFactory;
 
@@ -50,8 +49,11 @@ public class CommodityBoard extends BaseBoard {
         return (CommodityBoard) intel;
     }
 
-    public CommodityBoard() {
-        readResolve();
+    private CommodityBoard() {
+        activeId = Commodities.SUPPLIES;
+        activeTab = CommodityTab.BUY;
+        intelSelectionFactory = new IntelSelectionFactory();
+        commodityViewFactory = new CommodityViewFactory(intelSelectionFactory);
     }
 
     @Override
@@ -59,15 +61,6 @@ public class CommodityBoard extends BaseBoard {
         info.addPara("Commodity Market", getTitleColor(mode), 0);
         info.addPara("Compare and track commodity prices among all known markets.", getBulletColorForMode(mode), 1f);
         info.addPara("", 1f);
-    }
-
-    @Override
-    public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
-        Size size = new Size(width, height);
-        commodityViewFactory.get(activeId, activeTab, size).render(panel);
-        intelSelectionFactory.get(activeId, activeTab, size).render(panel);
-        buttonViewFactory.get(activeId, size).render(panel);
-        new DeleteViewFactory().get(activeId, size).render(panel);
     }
 
     @Override
@@ -83,27 +76,9 @@ public class CommodityBoard extends BaseBoard {
     }
 
     @Override
-    protected List<RenderableView> getRenderableViews() {
-        // TODO Auto-generated method stub, rework createLargeDescription
-        return null;
-    }
-
-    protected Object readResolve() {
-        if (activeId == null) {
-            activeId = Commodities.SUPPLIES;
-        }
-        if (activeTab == null) {
-            activeTab = CommodityTab.BUY;
-        }
-        if (buttonViewFactory == null) {
-            buttonViewFactory = new ButtonViewFactory();
-        }
-        if (intelSelectionFactory == null) {
-            intelSelectionFactory = new IntelSelectionFactory();
-        }
-        if (commodityViewFactory == null) {
-            commodityViewFactory = new CommodityViewFactory(intelSelectionFactory);
-        }
-        return this;
+    protected List<Renderable> getRenderables(Size size) {
+        return Arrays.<Renderable>asList(commodityViewFactory.get(activeId, activeTab, size),
+                intelSelectionFactory.get(activeId, activeTab, size), new ButtonViewFactory().get(activeId, size),
+                new DeleteViewFactory().get(activeId, size));
     }
 }
