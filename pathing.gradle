@@ -13,12 +13,10 @@ def areGradlePropertiesDefined() {
 }
 
 def checkPropertiesWithWarning() {
-    if (!areGradlePropertiesDefined()) {
-        println 'WARNING: Missing properties in gradle.properties. See gradle.properties.dist as an example.'
-        println 'WARNING: Task execution stopped.'
-        return false
-    }
-    return true
+    if (areGradlePropertiesDefined()) return true
+    println 'WARNING: Missing properties in gradle.properties. See gradle.properties.dist as an example.'
+    println 'WARNING: Task execution stopped.'
+    return false
 }
 
 def getStarsectorModDir() {
