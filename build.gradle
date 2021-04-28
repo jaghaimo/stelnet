@@ -1,7 +1,10 @@
+import org.apache.tools.ant.taskdefs.condition.Os
 plugins {
     id 'java'
     id 'eclipse'
 }
+
+apply from: 'pathing.gradle'
 
 repositories {
     mavenCentral()
@@ -53,13 +56,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
-// create a release zip
 task release(type: Zip) {
-    def jsonFile = file('src/main/resources/mod_info.json')
-    def slurper = new groovy.json.JsonSlurper()
-    def parsedJson = slurper.parse(jsonFile)
     dependsOn build
-    archiveFileName = "${project.name}-${parsedJson.version}.zip"
+    archiveFileName = "${project.name}-${readModInfoJson.version}.zip"
     destinationDirectory = file(rootDir)
     from sourceSets.main.resources
     from jar
@@ -67,12 +66,15 @@ task release(type: Zip) {
 }
 
 task copyToMods(type: Copy) {
-    if (!project.hasProperty('game.full_path')) {
-        println "WARNING: Missing game.full_path in gradle.properties. See gradle.properties.dist as an example."
-        return;
-    }
-
+    if (!arePropertiesDefined) return
     dependsOn build
     from jar
-    into project.getProperty('game.full_path')
+    into getStarsectorModDir
+}
+
+task runGameWithBuild(type: Exec) {
+    if (!arePropertiesDefined) return
+    dependsOn copyToMods
+    workingDir = getStarsectorExecutableDir
+    Os.isFamily(Os.FAMILY_WINDOWS) ? commandLine('cmd', '/c', 'starsector.bat') : commandLine('sh', './starsector.sh')
 }
