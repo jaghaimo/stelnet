@@ -8,7 +8,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 
 import stelnet.commodity.CommodityBoard.CommodityTab;
 import stelnet.commodity.IntelTracker;
-import stelnet.ui.Renderable;
+import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Row;
 import stelnet.ui.Size;
 
@@ -22,17 +22,17 @@ public class IntelSelectionFactory {
         tracker = new IntelTracker();
     }
 
-    public Renderable get(String commodityId, CommodityTab actionTab, Size size) {
+    public AbstractRenderable get(String commodityId, CommodityTab actionTab, Size size) {
         float width = size.getWidth() - 210;
         int buttonsOnScreen = (int) Math.floor(width / 28f);
         int maxButtons = markets.size();
         int numberOfButtons = Math.min(buttonsOnScreen, maxButtons);
-        List<Renderable> buttons = new LinkedList<>();
+        List<AbstractRenderable> buttons = new LinkedList<>();
         for (int i = 0; i < numberOfButtons; i++) {
             MarketAPI market = markets.get(i);
-            buttons.add((Renderable) new IntelButton(i + 1, actionTab, commodityId, market, tracker));
+            buttons.add((AbstractRenderable) new IntelButton(i + 1, actionTab, commodityId, market, tracker));
         }
-        Renderable rows = new Row(buttons);
+        AbstractRenderable rows = new Row(buttons);
         rows.setSize(size);
         return rows;
     }

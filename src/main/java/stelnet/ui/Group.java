@@ -16,11 +16,11 @@ import stelnet.helper.LogHelper;
  */
 
 @Getter(AccessLevel.PROTECTED)
-public class Group extends Renderable {
+public class Group extends AbstractRenderable {
 
-    private List<Renderable> elements;
+    private List<AbstractRenderable> elements;
 
-    public Group(List<Renderable> elements) {
+    public Group(List<AbstractRenderable> elements) {
         this.elements = elements;
     }
 
@@ -34,7 +34,7 @@ public class Group extends Renderable {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        for (Renderable renderable : getElements()) {
+        for (AbstractRenderable renderable : getElements()) {
             renderable.render(tooltip);
         }
     }
@@ -42,7 +42,7 @@ public class Group extends Renderable {
     protected void setCalculatedSize() {
         float width = 0;
         float height = 0;
-        for (Renderable renderable : elements) {
+        for (AbstractRenderable renderable : elements) {
             Size size = renderable.getSize();
             width = Math.max(width, size.getWidth());
             height = Math.max(height, size.getHeight());

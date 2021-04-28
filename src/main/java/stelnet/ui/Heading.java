@@ -5,7 +5,7 @@ import java.awt.Color;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
-public class Heading extends Renderable {
+public class Heading extends AbstractRenderable {
 
     private final String title;
     private final Color foregroundColor;

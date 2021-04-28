@@ -13,7 +13,7 @@ import stelnet.commodity.data.BuyTableContent;
 import stelnet.commodity.data.MarketFactory;
 import stelnet.commodity.data.SellMarketFactory;
 import stelnet.commodity.data.SellTableContent;
-import stelnet.ui.Renderable;
+import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Row;
 import stelnet.ui.Size;
 import stelnet.ui.Stack;
@@ -28,20 +28,20 @@ public class CommodityViewFactory {
         this.intelSelectionFactory = intelSelectionFactory;
     }
 
-    public Renderable get(String commodityId, CommodityTab activeTab, Size size) {
+    public AbstractRenderable get(String commodityId, CommodityTab activeTab, Size size) {
         float width = size.getWidth() - 210;
         float height = size.getHeight() - 35;
         float tabsHeight = 15f;
         float tableHeight = height - tabsHeight;
         TableContent tableContent = getTableContent(commodityId, activeTab);
-        Renderable tabs = getTabs(activeTab);
-        Renderable table = new Table(commodityId, width, tableHeight, tableContent);
+        AbstractRenderable tabs = getTabs(activeTab);
+        AbstractRenderable table = new Table(commodityId, width, tableHeight, tableContent);
         return new Stack(tabs, table);
     }
 
-    private Renderable getTabs(CommodityTab activeTab) {
-        Renderable buyButton = new TabButton(CommodityTab.BUY, activeTab, Keyboard.KEY_B);
-        Renderable sellButton = new TabButton(CommodityTab.SELL, activeTab, Keyboard.KEY_S);
+    private AbstractRenderable getTabs(CommodityTab activeTab) {
+        AbstractRenderable buyButton = new TabButton(CommodityTab.BUY, activeTab, Keyboard.KEY_B);
+        AbstractRenderable sellButton = new TabButton(CommodityTab.SELL, activeTab, Keyboard.KEY_S);
         return new Row(Arrays.asList(buyButton, sellButton));
     }
 

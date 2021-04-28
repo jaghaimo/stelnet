@@ -6,12 +6,12 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import stelnet.helper.LogHelper;
 
-public class CustomPanel extends Renderable {
+public class CustomPanel extends AbstractRenderable {
 
-    private final Renderable renderable;
+    private final AbstractRenderable renderable;
     private CustomPanelAPI customPanel;
 
-    public CustomPanel(Renderable renderable) {
+    public CustomPanel(AbstractRenderable renderable) {
         this.renderable = renderable;
     }
 

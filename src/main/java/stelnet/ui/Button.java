@@ -14,7 +14,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Button extends Renderable implements ButtonHandler {
+public class Button extends AbstractRenderable implements ButtonHandler {
 
     private String title;
     private Color color;
