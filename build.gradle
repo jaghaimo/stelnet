@@ -1,10 +1,10 @@
-import groovy.json.JsonSlurper
 import org.apache.tools.ant.taskdefs.condition.Os
-
 plugins {
     id 'java'
     id 'eclipse'
 }
+
+apply from: 'pathing.gradle'
 
 repositories {
     mavenCentral()
@@ -56,52 +56,29 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
-def readModInfoJson() {
-    def jsonFile = file('src/main/resources/mod_info.json')
-    def slurper = new JsonSlurper()
-    return slurper.parse(jsonFile)
-}
-
 task release(type: Zip) {
     dependsOn build
-    archiveFileName = "${project.name}-${readModInfoJson().version}.zip"
+    archiveFileName = "${project.name}-${readModInfoJson.version}.zip"
     destinationDirectory = file(rootDir)
     from sourceSets.main.resources
     from jar
     into project.name
 }
 
-def arePropertiesDefined() {
-    if (!project.hasProperty('game.dir') || !project.hasProperty('game.mod_folder')) {
-        println 'WARNING: Missing properties in gradle.properties. See gradle.properties.dist as an example.'
-        println 'WARNING: Task execution stopped.'
-        return false
-    }
-    return true
-}
-
-def getModDir() {
-    return project.getProperty('game.dir') + project.getProperty('game.mod_folder') + readModInfoJson().id
-}
-
 task copyToMods(type: Copy) {
-    if (!arePropertiesDefined()) {
+    if (!arePropertiesDefined) {
         return
     }
     dependsOn build
     from jar
-    into getModDir()
-}
-
-def getCoreDirForWindowsOrMainPathForLinux() {
-    return Os.isFamily(Os.FAMILY_WINDOWS) ? project.getProperty('game.dir') + '/starsector-core/' : project.getProperty('game.dir')
+    into getStarsectorModDir
 }
 
 task runGameWithBuild(type: Exec) {
-    if (!arePropertiesDefined()) {
+    if (!arePropertiesDefined) {
         return
     }
     dependsOn copyToMods
-    workingDir = file(getCoreDirForWindowsOrMainPathForLinux())
+    workingDir = getStarsectorExecutableDir
     Os.isFamily(Os.FAMILY_WINDOWS) ? commandLine('cmd', '/c', 'starsector.bat') : commandLine('sh', './starsector.sh')
 }

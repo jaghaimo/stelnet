@@ -1,0 +1,33 @@
+import groovy.json.JsonSlurper
+import org.apache.tools.ant.taskdefs.condition.Os
+import org.codehaus.groovy.runtime.MethodClosure
+
+def readModInfoJson() {
+    def jsonFile = file('src/main/resources/mod_info.json')
+    def slurper = new JsonSlurper()
+    return slurper.parse(jsonFile)
+}
+
+def arePropertiesDefined() {
+    if (!project.hasProperty('game.dir') || !project.hasProperty('game.mod_folder')) {
+        println 'WARNING: Missing properties in gradle.properties. See gradle.properties.dist as an example.'
+        println 'WARNING: Task execution stopped.'
+        return false
+    }
+    return true
+}
+
+def getStarsectorModDir() {
+    return project.getProperty('game.dir') + project.getProperty('game.mod_folder') + readModInfoJson().id
+}
+
+def getStarsectorExecutableDir() {
+    return Os.isFamily(Os.FAMILY_WINDOWS) ? file(project.getProperty('game.dir') + 'starsector-core') : file(project.getProperty('game.dir'))
+}
+
+ext {
+    readModInfoJson = this.&readModInfoJson as MethodClosure
+    arePropertiesDefined = this.&arePropertiesDefined as MethodClosure
+    getStarsectorModDir = this.&getStarsectorModDir as MethodClosure
+    getStarsectorExecutableDir = this.&getStarsectorExecutableDir as MethodClosure
+}
