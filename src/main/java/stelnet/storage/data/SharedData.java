@@ -11,9 +11,9 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import stelnet.helper.LogHelper;
 import stelnet.storage.ButtonManager;
 import stelnet.storage.FilterManager;
+import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Group;
 import stelnet.ui.Heading;
-import stelnet.ui.Renderable;
 import stelnet.ui.Size;
 import stelnet.ui.Stack;
 
@@ -36,43 +36,44 @@ public abstract class SharedData {
         dataProvider = dataProvider.getNext();
     }
 
-    public Renderable getContentColumn(Size size) {
-        List<Renderable> elements = new ArrayList<>();
+    public AbstractRenderable getContentColumn(Size size) {
+        List<AbstractRenderable> elements = new ArrayList<>();
         List<StorageData> storageData = dataProvider.getData();
         for (StorageData data : storageData) {
             SubmarketAPI submarket = data.getSubmarket();
             addTitle(elements, submarket);
             elements.add(getStorageContent(data));
         }
-        Renderable group = new Group(elements);
+        AbstractRenderable group = new Group(elements);
         group.setSize(size.getDifference(new Size(SPACER + CONTROL_WIDTH, 0)));
-        group.setScroller(true);
+        // TODO this call is probably not needed - test
+        group.setWithScroller(true);
         return group;
     }
 
-    public Renderable getControlColumn(Size size) {
-        Renderable[] common = buttonManager.getCommonButtons();
-        Renderable[] buttons = getButtons();
-        Renderable[] all = Arrays.copyOf(common, common.length + buttons.length);
+    public AbstractRenderable getControlColumn(Size size) {
+        AbstractRenderable[] common = buttonManager.getCommonButtons();
+        AbstractRenderable[] buttons = getButtons();
+        AbstractRenderable[] all = Arrays.copyOf(common, common.length + buttons.length);
         System.arraycopy(buttons, 0, all, common.length, buttons.length);
-        Renderable stack = new Stack(all);
+        AbstractRenderable stack = new Stack(all);
         stack.setSize(size);
         return stack;
     }
 
     public abstract SharedData getNext();
 
-    protected Renderable getTitle(SubmarketAPI submarket) {
+    protected AbstractRenderable getTitle(SubmarketAPI submarket) {
         MarketAPI market = submarket.getMarket();
         FactionAPI faction = market.getFaction();
         return new Heading(market.getName(), faction.getBaseUIColor(), faction.getDarkUIColor());
     }
 
-    protected abstract Renderable[] getButtons();
+    protected abstract AbstractRenderable[] getButtons();
 
-    protected abstract Renderable getStorageContent(StorageData data);
+    protected abstract AbstractRenderable getStorageContent(StorageData data);
 
-    private void addTitle(List<Renderable> elements, SubmarketAPI submarket) {
+    private void addTitle(List<AbstractRenderable> elements, SubmarketAPI submarket) {
         if (submarket == null) {
             LogHelper.debug("Skipping addTitle");
             return;

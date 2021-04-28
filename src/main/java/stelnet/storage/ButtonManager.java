@@ -21,19 +21,19 @@ import stelnet.storage.view.DisplayPaneButton;
 import stelnet.storage.view.DisplayViewButton;
 import stelnet.storage.view.ItemFilterButton;
 import stelnet.storage.view.ShipFilterButton;
-import stelnet.ui.Renderable;
+import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Spacer;
 
 @Getter
 public class ButtonManager {
 
-    private final Renderable[] commonButtons = { //
+    private final AbstractRenderable[] commonButtons = { //
             new DisplayViewButton(), //
             new DisplayPaneButton(), //
             new Spacer(20f), // vertical spacer
     };
 
-    private final Renderable[] itemButtons = { //
+    private final AbstractRenderable[] itemButtons = { //
             new ItemFilterButton("Commodities", new IsNotCommodity()), //
             new ItemFilterButton("Weapons", new IsNotWeapon()), //
             new ItemFilterButton("Fighter Wings", new IsNotFighterWing()), //
@@ -48,7 +48,7 @@ public class ButtonManager {
             new ItemFilterButton("Interceptors", new IsNotFighterWingRole(WingRole.INTERCEPTOR))//
     };
 
-    private final Renderable[] shipButtons = { //
+    private final AbstractRenderable[] shipButtons = { //
             new ShipFilterButton("Frigates", new IsNotFrigate()), //
             new ShipFilterButton("Destroyers", new IsNotDestroyer()), //
             new ShipFilterButton("Cruisers", new IsNotCruiser()), //

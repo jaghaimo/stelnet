@@ -4,7 +4,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import stelnet.helper.GlobalHelper;
 
-public class Table extends Renderable {
+public class Table extends AbstractRenderable {
 
     private final static int ROW_HEIGHT = 20;
 

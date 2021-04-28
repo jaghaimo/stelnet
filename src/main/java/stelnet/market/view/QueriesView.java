@@ -6,8 +6,8 @@ import java.util.List;
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 
 import stelnet.market.IntelQuery;
+import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Group;
-import stelnet.ui.Renderable;
 import stelnet.ui.RenderableView;
 import stelnet.ui.Size;
 
@@ -25,17 +25,18 @@ public class QueriesView implements RenderableView {
             return;
         }
         Size panelSize = size.getDifference(new Size(0, 38));
-        Renderable queries = new Group(getRows(panel, panelSize));
+        AbstractRenderable queries = new Group(getRows(panel, panelSize));
         queries.setSize(panelSize);
-        queries.setScroller(true);
+        // TODO test if this is still needed
+        queries.setWithScroller(true);
         queries.render(panel, 0, 38);
     }
 
-    private List<Renderable> getRows(CustomPanelAPI panel, Size size) {
-        List<Renderable> rows = new LinkedList<>();
+    private List<AbstractRenderable> getRows(CustomPanelAPI panel, Size size) {
+        List<AbstractRenderable> rows = new LinkedList<>();
         for (int i = 0; i < queries.size(); i++) {
             CustomPanelAPI rowPanel = panel.createCustomPanel(size.getWidth(), 24, null);
-            Renderable queryRow = new QueryRow(size.getWidth(), i, queries);
+            AbstractRenderable queryRow = new QueryRow(size.getWidth(), i, queries);
             queryRow.render(rowPanel, 0, 0);
             rows.add(queryRow);
         }

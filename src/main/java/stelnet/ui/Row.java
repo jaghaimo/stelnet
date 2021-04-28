@@ -16,17 +16,17 @@ import stelnet.helper.LogHelper;
  */
 public class Row extends Group {
 
-    public Row(Renderable... elements) {
+    public Row(AbstractRenderable... elements) {
         super(Arrays.asList(elements));
     }
 
-    public Row(List<Renderable> elements) {
+    public Row(List<AbstractRenderable> elements) {
         super(elements);
     }
 
     @Override
     public void render(CustomPanelAPI panel, float x, float y) {
-        for (Renderable renderable : getElements()) {
+        for (AbstractRenderable renderable : getElements()) {
             Size size = renderable.getSize();
             renderable.render(panel, x, y);
             x += size.getWidth() * getLocation().getHorizontalDirection();
@@ -48,7 +48,7 @@ public class Row extends Group {
         super.setCalculatedSize();
         Size size = super.getSize();
         float width = 0;
-        for (Renderable renderable : getElements()) {
+        for (AbstractRenderable renderable : getElements()) {
             width += renderable.getSize().getWidth();
         }
         setSize(new Size(width, size.getHeight()));

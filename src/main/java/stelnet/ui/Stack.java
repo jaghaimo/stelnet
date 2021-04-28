@@ -16,17 +16,17 @@ import stelnet.helper.LogHelper;
  */
 public class Stack extends Group {
 
-    public Stack(Renderable... elements) {
+    public Stack(AbstractRenderable... elements) {
         super(Arrays.asList(elements));
     }
 
-    public Stack(List<Renderable> elements) {
+    public Stack(List<AbstractRenderable> elements) {
         super(elements);
     }
 
     @Override
     public void render(CustomPanelAPI panel, float x, float y) {
-        for (Renderable renderable : getElements()) {
+        for (AbstractRenderable renderable : getElements()) {
             Size size = renderable.getSize();
             renderable.render(panel, x, y);
             y += size.getHeight() * getLocation().getVerticalDirection();
@@ -48,7 +48,7 @@ public class Stack extends Group {
         super.setCalculatedSize();
         Size size = super.getSize();
         float height = 0;
-        for (Renderable renderable : getElements()) {
+        for (AbstractRenderable renderable : getElements()) {
             height += renderable.getSize().getHeight();
         }
         setSize(new Size(size.getWidth(), height));

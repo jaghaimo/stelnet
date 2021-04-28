@@ -19,7 +19,7 @@ import stelnet.helper.LogHelper;
 
 @Getter
 @Setter
-public abstract class Renderable {
+public abstract class AbstractRenderable {
 
     private Location location = Location.TOP_LEFT;
     private Position offset = new Position(0, 0);
@@ -41,21 +41,6 @@ public abstract class Renderable {
         PositionAPI element = panel.addUIElement(inner);
         location.render(element, x + offset.getX(), y + offset.getY());
         log(new Position(x, y));
-    }
-
-    public void setScroller(boolean withScroller) {
-        this.withScroller = withScroller;
-    }
-
-    public void setSize(Size size) {
-        this.size = size;
-    }
-
-    public Size getSize() {
-        if (size == null) {
-            LogHelper.warn("Null size found");
-        }
-        return size;
     }
 
     public abstract void render(TooltipMakerAPI tooltip);
