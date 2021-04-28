@@ -65,3 +65,14 @@ task release(type: Zip) {
     from jar
     into project.name
 }
+
+task copyToMods(type: Copy) {
+    if (!project.hasProperty('game.full_path')) {
+        println "WARNING: Missing game.full_path in gradle.properties. See gradle.properties.dist as an example."
+        return;
+    }
+
+    dependsOn build
+    from jar
+    into project.getProperty('game.full_path')
+}
