@@ -46,8 +46,6 @@ public abstract class SharedData {
         }
         AbstractRenderable group = new Group(elements);
         group.setSize(size.getDifference(new Size(SPACER + CONTROL_WIDTH, 0)));
-        // TODO this call is probably not needed - test
-        group.setWithScroller(true);
         return group;
     }
 
