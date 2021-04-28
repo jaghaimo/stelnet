@@ -14,10 +14,11 @@ import com.fs.starfarer.api.util.Misc;
 import stelnet.BaseBoard;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.SettingHelper;
-import stelnet.market.view.ControlRowView;
-import stelnet.market.view.EmptyRowView;
-import stelnet.market.view.QueriesView;
-import stelnet.ui.RenderableView;
+import stelnet.market.view.ControlRow;
+import stelnet.market.view.EmptyRow;
+import stelnet.market.view.Queries;
+import stelnet.ui.Renderable;
+import stelnet.ui.Size;
 
 /**
  * Information board for managing displayed information intel.
@@ -67,8 +68,8 @@ public class MarketQueryBoard extends BaseBoard {
     }
 
     @Override
-    protected List<RenderableView> getRenderableViews() {
-        return Arrays.asList(new ControlRowView(queries), new EmptyRowView(queries.isEmpty()),
-                new QueriesView(queries));
+    protected List<Renderable> getRenderables(Size size) {
+        return Arrays.asList(new ControlRow(size, queries), new EmptyRow(size, queries.isEmpty()),
+                new Queries(size, queries));
     }
 }

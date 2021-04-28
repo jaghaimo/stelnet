@@ -3,29 +3,33 @@ package stelnet.market.view;
 import java.util.List;
 
 import com.fs.starfarer.api.ui.CustomPanelAPI;
+import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
+import lombok.AllArgsConstructor;
 import stelnet.market.IntelQuery;
 import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Line;
 import stelnet.ui.Position;
-import stelnet.ui.RenderableView;
+import stelnet.ui.Renderable;
 import stelnet.ui.Row;
 import stelnet.ui.Size;
 import stelnet.ui.Stack;
 
-public class ControlRowView implements RenderableView {
+@AllArgsConstructor
+public class ControlRow implements Renderable {
 
+    private final Size size;
     private final List<IntelQuery> queries;
 
-    public ControlRowView(List<IntelQuery> queries) {
-        this.queries = queries;
+    @Override
+    public void render(CustomPanelAPI panel) {
+        AbstractRenderable controlRow = get(size);
+        controlRow.render(panel);
     }
 
     @Override
-    public void render(CustomPanelAPI panel, Size size) {
-        AbstractRenderable controlRow = get(size);
-        controlRow.render(panel);
+    public void render(TooltipMakerAPI info) {
     }
 
     private AbstractRenderable get(Size size) {

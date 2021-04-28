@@ -19,7 +19,7 @@ import stelnet.helper.LogHelper;
 
 @Getter
 @Setter
-public abstract class AbstractRenderable {
+public abstract class AbstractRenderable implements Renderable {
 
     private Location location = Location.TOP_LEFT;
     private Position offset = new Position(0, 0);
@@ -30,6 +30,7 @@ public abstract class AbstractRenderable {
         LogHelper.debug(String.format("Rendered %s in %s", this, position));
     }
 
+    @Override
     public void render(CustomPanelAPI panel) {
         render(panel, 0, 0);
     }
@@ -42,6 +43,4 @@ public abstract class AbstractRenderable {
         location.render(element, x + offset.getX(), y + offset.getY());
         log(new Position(x, y));
     }
-
-    public abstract void render(TooltipMakerAPI tooltip);
 }

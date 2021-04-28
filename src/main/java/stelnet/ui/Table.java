@@ -2,8 +2,10 @@ package stelnet.ui;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import lombok.AllArgsConstructor;
 import stelnet.helper.GlobalHelper;
 
+@AllArgsConstructor
 public class Table extends AbstractRenderable {
 
     private final static int ROW_HEIGHT = 20;
@@ -12,13 +14,6 @@ public class Table extends AbstractRenderable {
     private final float width;
     private final float maxHeight;
     private final TableContent tableContent;
-
-    public Table(String title, float width, float maxHeight, TableContent tableContent) {
-        this.title = title;
-        this.width = width;
-        this.maxHeight = maxHeight;
-        this.tableContent = tableContent;
-    }
 
     @Override
     public Size getSize() {
