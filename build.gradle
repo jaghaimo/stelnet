@@ -75,9 +75,9 @@ def arePropertiesDefined() {
     if (!project.hasProperty('game.dir') || !project.hasProperty('game.mod_folder')) {
         println 'WARNING: Missing properties in gradle.properties. See gradle.properties.dist as an example.'
         println 'WARNING: Task execution stopped.'
-        return false;
+        return false
     }
-    return true;
+    return true
 }
 
 def getModDir() {
@@ -86,7 +86,7 @@ def getModDir() {
 
 task copyToMods(type: Copy) {
     if (!arePropertiesDefined()) {
-        return;
+        return
     }
 
     dependsOn build
@@ -100,7 +100,7 @@ def getCoreDir() {
 
 task runGameWithBuild(type: Exec) {
     if (!arePropertiesDefined()) {
-        return;
+        return
     }
     dependsOn copyToMods
     workingDir = file(getCoreDir())
