@@ -1,10 +1,10 @@
+import groovy.json.JsonSlurper
 import org.apache.tools.ant.taskdefs.condition.Os
+
 plugins {
     id 'java'
     id 'eclipse'
 }
-
-apply from: 'pathing.gradle'
 
 repositories {
     mavenCentral()
@@ -56,25 +56,61 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
+// custom tasks
 task release(type: Zip) {
     dependsOn build
-    archiveFileName = "${project.name}-${readModInfoJson.version}.zip"
+    archiveFileName = "${project.name}-${readModInfoJson().version}.zip"
     destinationDirectory = file(rootDir)
     from sourceSets.main.resources
     from jar
     into project.name
 }
 
+task checkProperties {
+    doLast {
+        if (!areGradlePropertiesDefined()) {
+            throw new GradleException('Missing properties in gradle.properties. See gradle.properties.dist as an example.')
+        }
+    }
+}
+
 task copyToMods(type: Copy) {
-    if (!arePropertiesDefined) return
+    dependsOn checkProperties
     dependsOn build
     from jar
-    into getStarsectorModDir
+    into getStarsectorModDir()
 }
 
 task runGameWithBuild(type: Exec) {
-    if (!arePropertiesDefined) return
     dependsOn copyToMods
-    workingDir = getStarsectorExecutableDir
-    Os.isFamily(Os.FAMILY_WINDOWS) ? commandLine('cmd', '/c', 'starsector.bat') : commandLine('sh', './starsector.sh')
+    isWindows() ? commandLine('cmd', '/c', 'starsector.bat') : commandLine('sh', './starsector.sh')
+    doFirst {
+        workingDir = getStarsectorExecutableDir()
+    }
+}
+
+// methods
+def areGradlePropertiesDefined() {
+    return (project.hasProperty('game.dir') && project.hasProperty('game.mod_folder'))
+}
+
+def getStarsectorModDir() {
+    if (!areGradlePropertiesDefined()) {
+        return ""
+    }
+    return file(project.getProperty('game.dir') + '/' + project.getProperty('game.mod_folder') + '/' + readModInfoJson().id)
+}
+
+def getStarsectorExecutableDir() {
+    return isWindows() ? file(project.getProperty('game.dir') + '/starsector-core') : file(project.getProperty('game.dir'))
+}
+
+def isWindows() {
+    return Os.isFamily(Os.FAMILY_WINDOWS)
+}
+
+def readModInfoJson() {
+    def jsonFile = file('src/main/resources/mod_info.json')
+    def slurper = new JsonSlurper()
+    return slurper.parse(jsonFile)
 }
