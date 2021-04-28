@@ -73,8 +73,8 @@ task release(type: Zip) {
 
 def arePropertiesDefined() {
     if (!project.hasProperty('game.dir') || !project.hasProperty('game.mod_folder')) {
-        println "WARNING: Missing properties in gradle.properties. See gradle.properties.dist as an example."
-        println "WARNING: Task execution stopped."
+        println 'WARNING: Missing properties in gradle.properties. See gradle.properties.dist as an example.'
+        println 'WARNING: Task execution stopped.'
         return false;
     }
     return true;
@@ -95,20 +95,14 @@ task copyToMods(type: Copy) {
 }
 
 def getCoreDir() {
-    return project.getProperty('game.dir') + "/starsector-core/"
+    return project.getProperty('game.dir') + '/starsector-core/'
 }
 
-task runGameWithBuild(type:Exec) {
+task runGameWithBuild(type: Exec) {
     if (!arePropertiesDefined()) {
         return;
     }
-
     dependsOn copyToMods
     workingDir = file(getCoreDir())
-
-    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-        commandLine 'cmd', '/c', 'starsector.bat'
-    } else {
-        commandLine 'sh', './starsector.command'
-    }
+    Os.isFamily(Os.FAMILY_WINDOWS) ? commandLine('cmd', '/c', 'starsector.bat') : commandLine('sh', './starsector.command')
 }
