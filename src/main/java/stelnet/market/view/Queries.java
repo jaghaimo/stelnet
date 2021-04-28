@@ -38,8 +38,8 @@ public class Queries implements Renderable {
         List<AbstractRenderable> rows = new LinkedList<>();
         for (int i = 0; i < queries.size(); i++) {
             CustomPanelAPI rowPanel = panel.createCustomPanel(size.getWidth(), 24, null);
-            AbstractRenderable queryRow = new QueryRow(size.getWidth(), i, queries);
-            queryRow.render(rowPanel, 0, 0);
+            QueryRow queryRow = new QueryRow(size.getWidth(), i, queries);
+            queryRow.render(rowPanel);
             rows.add(queryRow);
         }
         return rows;

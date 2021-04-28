@@ -30,6 +30,7 @@ public abstract class AbstractRenderable implements Renderable {
         LogHelper.debug(String.format("Rendered %s in %s", this, position));
     }
 
+    @Override
     public void render(CustomPanelAPI panel) {
         render(panel, 0, 0);
     }
@@ -42,6 +43,4 @@ public abstract class AbstractRenderable implements Renderable {
         location.render(element, x + offset.getX(), y + offset.getY());
         log(new Position(x, y));
     }
-
-    public abstract void render(TooltipMakerAPI tooltip);
 }

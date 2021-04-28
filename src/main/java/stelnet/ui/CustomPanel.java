@@ -4,16 +4,14 @@ import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.PositionAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import lombok.RequiredArgsConstructor;
 import stelnet.helper.LogHelper;
 
+@RequiredArgsConstructor
 public class CustomPanel extends AbstractRenderable {
 
     private final AbstractRenderable renderable;
     private CustomPanelAPI customPanel;
-
-    public CustomPanel(AbstractRenderable renderable) {
-        this.renderable = renderable;
-    }
 
     @Override
     public void render(CustomPanelAPI panel, float x, float y) {
@@ -29,7 +27,8 @@ public class CustomPanel extends AbstractRenderable {
     @Override
     public void render(TooltipMakerAPI tooltip) {
         if (customPanel == null) {
-            LogHelper.error("Cannot render CustomPanel in small intel");
+            LogHelper.error(
+                    "Cannot render CustomPanel in small intel. Create CustomPanelAPI and call render(CustomPanelAPI panel) to prerender it first.");
             return;
         }
         tooltip.addCustom(customPanel, 0);
