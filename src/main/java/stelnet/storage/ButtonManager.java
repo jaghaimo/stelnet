@@ -25,7 +25,6 @@ import stelnet.ui.Renderable;
 import stelnet.ui.Spacer;
 
 @Getter
-
 public class ButtonManager {
 
     private final Renderable[] commonButtons = { //

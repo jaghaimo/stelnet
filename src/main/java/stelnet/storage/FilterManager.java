@@ -8,7 +8,6 @@ import stelnet.filter.cargostack.CargoStackFilter;
 import stelnet.filter.fleetmember.FleetMemberFilter;
 
 @Getter
-
 public class FilterManager {
 
     private final Set<CargoStackFilter> itemFilters;
