@@ -11,5 +11,7 @@ public class Spacer extends AbstractRenderable {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
+        float height = getSize().getHeight();
+        tooltip.addSpacer(height);
     }
 }
