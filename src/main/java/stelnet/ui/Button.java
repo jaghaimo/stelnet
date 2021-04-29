@@ -30,6 +30,7 @@ public class Button extends AbstractRenderable implements ButtonHandler {
         this.cutStyle = CutStyle.ALL;
         this.shortcut = 0;
         setSize(size);
+        setWithScroller(false);
     }
 
     @Override

@@ -15,7 +15,7 @@ public class ShipFilterButton extends FilteringButton {
             @Override
             public void onConfirm(IntelUIAPI ui) {
                 FilterManager filterManager = getFilterManager();
-                if (isToggledOn()) {
+                if (isChecked()) {
                     filterManager.removeFilter(filter);
                 } else {
                     filterManager.addFilter(filter);
