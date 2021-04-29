@@ -29,6 +29,6 @@ public class ItemsGridData extends SharedData {
 
     @Override
     protected AbstractRenderable getStorageContent(StorageData data) {
-        return new Cargo(data.getItems(), "There are no matching items to display", new Size(0, 0));
+        return new Cargo(data.getItems(), "There are no matching items to display.", new Size(0, 0));
     }
 }

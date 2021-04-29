@@ -4,23 +4,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
-
-import stelnet.helper.LogHelper;
+import stelnet.helper.StorageHelper;
 import stelnet.storage.ButtonManager;
 import stelnet.storage.FilterManager;
 import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Group;
 import stelnet.ui.Heading;
+import stelnet.ui.Paragraph;
 import stelnet.ui.Size;
 import stelnet.ui.Stack;
 
 public abstract class SharedData {
 
-    private final float SPACER = 20;
-    private final float CONTROL_WIDTH = 180;
+    private final float CONTROL_WIDTH = 200;
 
     protected ButtonManager buttonManager;
     protected FilterManager filterManager;
@@ -39,13 +35,10 @@ public abstract class SharedData {
     public AbstractRenderable getContentColumn(Size size) {
         List<AbstractRenderable> elements = new ArrayList<>();
         List<StorageData> storageData = dataProvider.getData();
-        for (StorageData data : storageData) {
-            SubmarketAPI submarket = data.getSubmarket();
-            addTitle(elements, submarket);
-            elements.add(getStorageContent(data));
-        }
+        addEmptyData(elements, storageData, size.getWidth() - CONTROL_WIDTH);
+        addStorageData(elements, storageData);
         AbstractRenderable group = new Group(elements);
-        group.setSize(size.getDifference(new Size(SPACER + CONTROL_WIDTH, 0)));
+        group.setSize(size.getDifference(new Size(CONTROL_WIDTH, 0)));
         return group;
     }
 
@@ -61,21 +54,28 @@ public abstract class SharedData {
 
     public abstract SharedData getNext();
 
-    protected AbstractRenderable getTitle(SubmarketAPI submarket) {
-        MarketAPI market = submarket.getMarket();
-        FactionAPI faction = market.getFaction();
-        return new Heading(market.getName(), faction.getBaseUIColor(), faction.getDarkUIColor());
-    }
-
     protected abstract AbstractRenderable[] getButtons();
 
     protected abstract AbstractRenderable getStorageContent(StorageData data);
 
-    private void addTitle(List<AbstractRenderable> elements, SubmarketAPI submarket) {
-        if (submarket == null) {
-            LogHelper.debug("Skipping addTitle");
+    private void addEmptyData(List<AbstractRenderable> elements, List<StorageData> storageData, float width) {
+        if (!hasStorage()) {
+            elements.add(new Paragraph("You do not have any storages.", width));
+        }
+    }
+
+    private void addStorageData(List<AbstractRenderable> elements, List<StorageData> storageData) {
+        if (!hasStorage()) {
             return;
         }
-        elements.add(getTitle(submarket));
+        for (StorageData data : storageData) {
+            LocationData locationData = data.getLocationData();
+            elements.add(new Heading(locationData.getName(), locationData.getFgColor(), locationData.getBgColor()));
+            elements.add(getStorageContent(data));
+        }
+    }
+
+    private boolean hasStorage() {
+        return !StorageHelper.getAllWithAccess().isEmpty();
     }
 }
