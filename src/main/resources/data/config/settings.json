@@ -1,5 +1,6 @@
 {
     "stelnetDevMode": false,
+    "stelnetIgnoreStorageInQueries": true,
     "stelnetUninstallMod": false,
     "stelnetWarnAboutEndOfMonth": true,
     "graphics": {
