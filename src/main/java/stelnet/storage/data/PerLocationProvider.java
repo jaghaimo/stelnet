@@ -33,7 +33,7 @@ public class PerLocationProvider implements DataProvider {
             String name = storage.getMarket().getName();
             LogHelper.debug("Found " + items.getStacksCopy().size() + " items in " + name);
             LogHelper.debug("Found " + ships.size() + " ships in " + name);
-            data.add(new StorageData(storage, items, ships));
+            data.add(new StorageData(new LocationData(storage), items, ships));
         }
         return data;
     }

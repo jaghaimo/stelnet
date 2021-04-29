@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
+import com.fs.starfarer.api.util.Misc;
 
 import stelnet.helper.LogHelper;
 import stelnet.helper.StorageHelper;
@@ -24,11 +25,15 @@ public class UnifiedProvider implements DataProvider {
         List<FleetMemberAPI> ships = StorageHelper.getAllShips(filterManager.getShipFilters());
         LogHelper.debug("Found " + items.getStacksCopy().size() + " items");
         LogHelper.debug("Found " + ships.size() + " ships");
-        return Collections.singletonList(new StorageData(null, items, ships));
+        return Collections.singletonList(new StorageData(getLocationData(), items, ships));
     }
 
     @Override
     public DataProvider getNext() {
         return new PerLocationProvider(filterManager);
+    }
+
+    private LocationData getLocationData() {
+        return new LocationData("Unified View", Misc.getBasePlayerColor(), Misc.getDarkPlayerColor());
     }
 }
