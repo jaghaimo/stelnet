@@ -8,6 +8,10 @@ public class SettingHelper {
         return Global.getSettings().getSpriteName("stelnet", sprite);
     }
 
+    public static boolean ignoreStorage() {
+        return Global.getSettings().getBoolean("stelnetIgnoreStorageInQueries");
+    }
+
     public static boolean isDevMode() {
         boolean isDevMode = Global.getSettings().isDevMode();
         boolean isStelnetDevMode = Global.getSettings().getBoolean("stelnetDevMode");
