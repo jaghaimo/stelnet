@@ -14,31 +14,32 @@ import stelnet.storage.StorageListener;
 public class StelnetMod extends BaseModPlugin {
 
     @Override
+    public void beforeGameSave() {
+        boolean isUninstall = SettingHelper.uninstallMod();
+        if (isUninstall) {
+            uninstall();
+        }
+    }
+
+    @Override
     public void onNewGame() {
-        LogHelper.debug("Initiating new game");
         init();
     }
 
     @Override
     public void onGameLoad(boolean newGame) {
-        LogHelper.debug("Initiating game load");
         init();
     }
 
     private void init() {
-        boolean isUninstall = SettingHelper.uninstallMod();
         boolean isDevMode = SettingHelper.isDevMode();
-        if (isUninstall || isDevMode) {
-            UninstallHelper.uninstall();
-            initStorage();
-            LogHelper.info("Stelnet uninstalled");
+        if (isDevMode) {
+            uninstall();
         }
-        if (!isUninstall) {
-            initCommodity();
-            initMarket();
-            initStorage();
-            LogHelper.info("Initiation complete");
-        }
+        initCommodity();
+        initMarket();
+        initStorage();
+        LogHelper.debug("Initiated");
     }
 
     private void initCommodity() {
@@ -57,5 +58,10 @@ public class StelnetMod extends BaseModPlugin {
     private void initStorage() {
         StorageBoard.getInstance();
         StorageListener.register();
+    }
+
+    private void uninstall() {
+        UninstallHelper.uninstall();
+        LogHelper.debug("Uninstalled");
     }
 }
