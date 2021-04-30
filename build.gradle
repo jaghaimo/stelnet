@@ -61,7 +61,7 @@ task release(type: Zip) {
     dependsOn build
     archiveFileName = "${project.name}-${readModInfoJson().version}.zip"
     destinationDirectory = file(rootDir)
-    from sourceSets.main.resources
+    from 'assets'
     from jar
     into project.name
 }
@@ -110,7 +110,7 @@ def isWindows() {
 }
 
 def readModInfoJson() {
-    def jsonFile = file('src/main/resources/mod_info.json')
+    def jsonFile = file('assets/mod_info.json')
     def slurper = new JsonSlurper()
     return slurper.parse(jsonFile)
 }
