@@ -2,14 +2,8 @@ package stelnet;
 
 import com.fs.starfarer.api.BaseModPlugin;
 
-import stelnet.commodity.CommodityBoard;
-import stelnet.helper.LogHelper;
+import stelnet.helper.Installer;
 import stelnet.helper.SettingHelper;
-import stelnet.helper.UninstallHelper;
-import stelnet.market.MarketQueryBoard;
-import stelnet.market.MonthEndListener;
-import stelnet.storage.StorageBoard;
-import stelnet.storage.StorageListener;
 
 public class StelnetMod extends BaseModPlugin {
 
@@ -23,45 +17,27 @@ public class StelnetMod extends BaseModPlugin {
 
     @Override
     public void onNewGame() {
-        init();
+        onNewGameOrGameLoad();
     }
 
     @Override
     public void onGameLoad(boolean newGame) {
-        init();
+        onNewGameOrGameLoad();
     }
 
-    private void init() {
+    private void onNewGameOrGameLoad() {
         boolean isDevMode = SettingHelper.isDevMode();
         if (isDevMode) {
             uninstall();
         }
-        initCommodity();
-        initMarket();
-        initStorage();
-        LogHelper.debug("Initiated");
+        install();
     }
 
-    private void initCommodity() {
-        CommodityBoard.getInstance();
-    }
-
-    private void initMarket() {
-        MarketQueryBoard.getInstance();
-        if (SettingHelper.warnAboutEndOfMonth()) {
-            MonthEndListener.register();
-        } else {
-            UninstallHelper.purgeListeners(MonthEndListener.class);
-        }
-    }
-
-    private void initStorage() {
-        StorageBoard.getInstance();
-        StorageListener.register();
+    private void install() {
+        Installer.install();
     }
 
     private void uninstall() {
-        UninstallHelper.uninstall();
-        LogHelper.debug("Uninstalled");
+        Installer.uninstall();
     }
 }
