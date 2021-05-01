@@ -1,8 +1,5 @@
 package stelnet.commodity;
 
-import java.awt.Color;
-import java.util.Set;
-
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
@@ -14,10 +11,12 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-
 import lombok.Getter;
 import stelnet.commodity.data.Price;
 import stelnet.helper.StarSystemHelper;
+
+import java.awt.*;
+import java.util.Set;
 
 @Getter
 public class CommodityIntel extends BaseIntelPlugin {
@@ -27,18 +26,18 @@ public class CommodityIntel extends BaseIntelPlugin {
     private final String action;
     private final CommoditySpecAPI commodity;
     private final MarketAPI market;
-    private final IntelTracker tracker;
+    private final IntelTrackerMap tracker;
     private final Price priceProvider;
     private final float price;
 
-    public CommodityIntel(String action, CommoditySpecAPI commodity, MarketAPI market, IntelTracker tracker,
+    public CommodityIntel(String action, CommoditySpecAPI commodity, MarketAPI market, IntelTrackerMap tracker,
             Price priceProvider) {
         this.action = action;
         this.commodity = commodity;
         this.market = market;
         this.tracker = tracker;
         this.priceProvider = priceProvider;
-        this.price = priceProvider.getPrice(market);
+        this.price = priceProvider.getPriceAmount(market);
     }
 
     @Override
@@ -75,7 +74,7 @@ public class CommodityIntel extends BaseIntelPlugin {
         if (isEnding()) {
             info.addPara("The original price of %s has changed to %s.", 5f, Misc.getTextColor(),
                     Misc.getHighlightColor(), Misc.getDGSCredits(price),
-                    Misc.getDGSCredits(priceProvider.getPrice(market)));
+                    Misc.getDGSCredits(priceProvider.getPriceAmount(market)));
         }
         info.addPara("The owner of this market is " + reputation.toLowerCase() + " towards you.", 10f,
                 Misc.getTextColor(), relationship.getRelColor(), reputation.toLowerCase());
@@ -122,7 +121,7 @@ public class CommodityIntel extends BaseIntelPlugin {
 
     @Override
     public boolean isEnding() {
-        return Math.abs(price - priceProvider.getPrice(market)) > 1;
+        return Math.abs(price - priceProvider.getPriceAmount(market)) > 1;
     }
 
     @Override

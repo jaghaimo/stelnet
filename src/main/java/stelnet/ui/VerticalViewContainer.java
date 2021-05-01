@@ -1,12 +1,11 @@
 package stelnet.ui;
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-
 import stelnet.helper.LogHelper;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Renders elements in a vertical line.
@@ -14,13 +13,13 @@ import stelnet.helper.LogHelper;
  * Calculates size automatically if needed. Only usable in large intel or
  * {@link CustomPanel}.
  */
-public class Stack extends Group {
+public class VerticalViewContainer extends Group {
 
-    public Stack(AbstractRenderable... elements) {
+    public VerticalViewContainer(AbstractRenderable... elements) {
         super(Arrays.asList(elements));
     }
 
-    public Stack(List<AbstractRenderable> elements) {
+    public VerticalViewContainer(List<AbstractRenderable> elements) {
         super(elements);
     }
 

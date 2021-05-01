@@ -1,18 +1,17 @@
 package stelnet.ui;
 
-import java.util.List;
-
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import stelnet.helper.LogHelper;
 
+import java.util.List;
+
 /**
  * Simple element grouping usable in both large and small intel.
  *
- * Extended by {@link Row} and {@link Stack} which can only be used in large
+ * Extended by {@link HorizontalViewContainer} and {@link VerticalViewContainer} which can only be used in large
  * intel only.
  */
 

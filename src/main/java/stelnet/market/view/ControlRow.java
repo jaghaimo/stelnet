@@ -1,20 +1,13 @@
 package stelnet.market.view;
 
-import java.util.List;
-
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-
 import lombok.AllArgsConstructor;
 import stelnet.market.IntelQuery;
-import stelnet.ui.AbstractRenderable;
-import stelnet.ui.Line;
-import stelnet.ui.Position;
-import stelnet.ui.Renderable;
-import stelnet.ui.Row;
-import stelnet.ui.Size;
-import stelnet.ui.Stack;
+import stelnet.ui.*;
+
+import java.util.List;
 
 @AllArgsConstructor
 public class ControlRow implements Renderable {
@@ -33,13 +26,13 @@ public class ControlRow implements Renderable {
     }
 
     private AbstractRenderable get(Size size) {
-        AbstractRenderable leftRow = new Row(new AddQueryButton(queries), new UpdateAllButton(queries),
+        AbstractRenderable leftRow = new HorizontalViewContainer(new AddQueryButton(queries), new UpdateAllButton(queries),
                 new ToggleAllButton(queries));
-        AbstractRenderable rightRow = new Row(new DeleteAllButton(queries));
+        AbstractRenderable rightRow = new HorizontalViewContainer(new DeleteAllButton(queries));
         rightRow.setSize(new Size(size.getWidth(), 24));
         rightRow.setOffset(new Position(0, -24));
         AbstractRenderable separator = new Line(size.getWidth(), Misc.getButtonTextColor());
         separator.setOffset(new Position(0, -21));
-        return new Stack(leftRow, rightRow, separator);
+        return new VerticalViewContainer(leftRow, rightRow, separator);
     }
 }

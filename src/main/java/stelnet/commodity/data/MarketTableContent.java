@@ -1,95 +1,75 @@
 package stelnet.commodity.data;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
-import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
-
+import lombok.Getter;
+import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.helper.StarSystemHelper;
 import stelnet.ui.TableContent;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
 public abstract class MarketTableContent implements TableContent {
 
     protected String commodityId;
-    protected TableCellHelper helper;
-    private final List<MarketAPI> markets;
-    private final Price price;
+    protected final List<MarketApiWrapper> markets;
+    protected List<RowDataElement> rows = new ArrayList<>();
 
-    protected MarketTableContent(String commodityId, List<MarketAPI> markets, Price price) {
+    protected MarketTableContent(String commodityId, List<MarketApiWrapper> markets) {
         this.commodityId = commodityId;
-        this.helper = new TableCellHelper();
         this.markets = markets;
-        this.price = price;
-    }
-
-    @Override
-    public Object[] getHeaders(float width) {
-        return getHeader(width, "", "");
-    }
-
-    @Override
-    public List<Object[]> getRows() {
-        List<Object[]> content = new ArrayList<>();
-        int i = 1;
-        for (MarketAPI market : markets) {
-            Object[] row = getRow(i++, market);
-            content.add(row);
-        }
-        return content;
-    }
-
-    @Override
-    public int getSize() {
-        return markets.size();
+        createRows();
     }
 
     protected Object[] getHeader(float width, String availableOrDemand, String excessOrDeficit) {
-        Object header[] = { "#", .05f * width, "Price", .1f * width, availableOrDemand, .1f * width, excessOrDeficit,
-                .1f * width, "Location", .3f * width, "Star system", .2f * width, "Dist (ly)", .1f * width };
+        Object header[] = {
+                "#", .05f * width,
+                "Price", .1f * width,
+                availableOrDemand, .1f * width,
+                excessOrDeficit, .1f * width,
+                "Location", .3f * width,
+                "Star system", .2f * width,
+                "Dist (ly)",
+                .1f * width
+        };
         return header;
     }
 
-    protected Object[] getRow(int i, MarketAPI market, CommodityOnMarketAPI commodity, float price, int available,
-            int excess) {
-        Object[] row = new Object[21];
-        // Position
-        row[0] = Alignment.MID;
-        row[1] = Misc.getGrayColor();
-        row[2] = String.valueOf(i) + ".";
-        // Price
-        row[3] = Alignment.MID;
-        row[4] = Misc.getHighlightColor();
-        row[5] = Misc.getDGSCredits(price);
-        // Available or Demand
-        row[6] = Alignment.MID;
-        row[7] = Misc.getHighlightColor();
-        row[8] = Misc.getWithDGS(available);
-        // Excess or Deficit
-        row[9] = Alignment.MID;
-        row[10] = helper.getExcessColor(excess);
-        row[11] = helper.getExcessValue(excess);
-        // Location
-        row[12] = Alignment.LMID;
-        row[13] = market.getTextColorForFactionOrPlanet();
-        row[14] = helper.getLocation(market);
-        // Star system
-        row[15] = Alignment.MID;
-        row[16] = helper.getClaimingFactionColor(market);
-        row[17] = StarSystemHelper.getName(market.getStarSystem());
-        // Distance
-        row[18] = Alignment.MID;
-        row[19] = Misc.getHighlightColor();
-        row[20] = helper.getDistance(market);
+    protected void createRows() {
+        rows.clear();
+        int i = 1;
 
-        return row;
+        for (MarketApiWrapper market : markets) {
+            RowDataElement row = createRowData(i++, market);
+            rows.add(row);
+        }
     }
 
-    protected float getPrice(MarketAPI market) {
-        return price.getPrice(market);
+    protected abstract RowDataElement createRowData(int i, MarketApiWrapper market);
+
+    protected RowDataElement createRenderableRow(
+            int i,
+            MarketApiWrapper market,
+            float price,
+            int available,
+            int excess
+    ) {
+        return new RowDataElement()
+                .addRowNumber(i)
+                .addDGSCreditsRow(price)
+                .addDGSRow(available)
+                .addExcessRow(excess)
+                .addCustomRow(
+                        TableCellHelper.getClaimingFactionColor(market.getMarketAPI()),
+                        StarSystemHelper.getName(market.getMarketAPI().getStarSystem())
+                ).addCustomRow(
+                        TableCellHelper.getClaimingFactionColor(market.getMarketAPI()),
+                        StarSystemHelper.getName(market.getMarketAPI().getStarSystem())
+                ).addCustomRow(
+                        Misc.getHighlightColor(),
+                        TableCellHelper.getDistance(market.getMarketAPI())
+                );
     }
 
-    protected abstract Object[] getRow(int i, MarketAPI market);
 }

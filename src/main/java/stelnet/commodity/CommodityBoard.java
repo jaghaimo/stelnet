@@ -1,44 +1,38 @@
 package stelnet.commodity;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.impl.campaign.ids.Commodities;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-
+import lombok.Getter;
 import lombok.Setter;
 import stelnet.BaseBoard;
 import stelnet.commodity.view.ButtonViewFactory;
-import stelnet.commodity.view.CommodityViewFactory;
 import stelnet.commodity.view.DeleteViewFactory;
-import stelnet.commodity.view.IntelSelectionFactory;
+import stelnet.commodity.view.TableViewFactory;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.SettingHelper;
 import stelnet.ui.Renderable;
 import stelnet.ui.Size;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+
+@Setter
+@Getter
 public class CommodityBoard extends BaseBoard {
 
-    public enum CommodityTab {
-        BUY("Buy"), SELL("Sell");
-
-        public String title;
-
-        private CommodityTab(String title) {
-            this.title = title;
-        }
-    }
-
-    @Setter
     private String activeId;
-    @Setter
     private CommodityTab activeTab;
-    private CommodityViewFactory commodityViewFactory;
-    private IntelSelectionFactory intelSelectionFactory;
+    private TableViewFactory tableViewFactory;
+
+    private CommodityBoard() {
+        activeId = Commodities.SUPPLIES;
+        activeTab = CommodityTab.BUY;
+        tableViewFactory = new TableViewFactory();
+    }
 
     public static CommodityBoard getInstance() {
         IntelInfoPlugin intel = IntelHelper.getFirstIntel(CommodityBoard.class);
@@ -47,13 +41,6 @@ public class CommodityBoard extends BaseBoard {
             IntelHelper.addIntel(board, true);
         }
         return (CommodityBoard) intel;
-    }
-
-    private CommodityBoard() {
-        activeId = Commodities.SUPPLIES;
-        activeTab = CommodityTab.BUY;
-        intelSelectionFactory = new IntelSelectionFactory();
-        commodityViewFactory = new CommodityViewFactory(intelSelectionFactory);
     }
 
     @Override
@@ -77,8 +64,10 @@ public class CommodityBoard extends BaseBoard {
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
-        return Arrays.<Renderable>asList(commodityViewFactory.get(activeId, activeTab, size),
-                intelSelectionFactory.get(activeId, activeTab, size), new ButtonViewFactory().get(activeId, size),
-                new DeleteViewFactory().get(activeId, size));
+        return Arrays.<Renderable>asList(
+                tableViewFactory.create(activeId, activeTab, size),
+                new ButtonViewFactory().get(activeId, size),
+                new DeleteViewFactory().get(activeId, size)
+        );
     }
 }

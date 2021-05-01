@@ -1,22 +1,20 @@
 package stelnet.commodity;
 
-import java.util.HashMap;
-
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-
-import stelnet.commodity.CommodityBoard.CommodityTab;
 import stelnet.commodity.data.Price;
 import stelnet.commodity.data.PriceFactory;
 import stelnet.helper.GlobalHelper;
 import stelnet.helper.IntelHelper;
 
-public class IntelTracker extends HashMap<String, CommodityIntel> {
+import java.util.HashMap;
+
+public class IntelTrackerMap extends HashMap<String, CommodityIntel> {
 
     private static final long serialVersionUID = 1L;
     private final PriceFactory priceFactory;
 
-    public IntelTracker() {
+    public IntelTrackerMap() {
         super();
         priceFactory = new PriceFactory();
     }

@@ -1,22 +1,22 @@
 package stelnet.commodity.data;
 
-import java.awt.Color;
-
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.impl.campaign.submarkets.OpenMarketPlugin;
 import com.fs.starfarer.api.util.Misc;
 
+import java.awt.*;
+
 public class TableCellHelper {
 
-    public int getAvailable(CommodityOnMarketAPI commodity) {
+    public static int getAvailable(CommodityOnMarketAPI commodity) {
         int available = OpenMarketPlugin.getApproximateStockpileLimit(commodity);
         available += commodity.getPlayerTradeNetQuantity();
         return available;
     }
 
-    public Color getClaimingFactionColor(MarketAPI market) {
+    public static Color getClaimingFactionColor(MarketAPI market) {
         FactionAPI faction = Misc.getClaimingFaction(market.getPrimaryEntity());
         if (faction == null) {
             return Misc.getGrayColor();
@@ -24,7 +24,7 @@ public class TableCellHelper {
         return faction.getColor();
     }
 
-    public int getDemand(MarketAPI market, CommodityOnMarketAPI commodity) {
+    public static int getDemand(MarketAPI market, CommodityOnMarketAPI commodity) {
         int demandIcons = commodity.getMaxDemand();
         if (!commodity.getCommodity().isPrimary()) {
             CommodityOnMarketAPI primary = market.getCommodityData(commodity.getCommodity().getDemandClass());
@@ -35,7 +35,7 @@ public class TableCellHelper {
         return demand;
     }
 
-    public Color getExcessColor(int excess) {
+    public static Color getExcessColor(int excess) {
         if (excess > 0) {
             return Misc.getPositiveHighlightColor();
         }
@@ -45,7 +45,7 @@ public class TableCellHelper {
         return Misc.getGrayColor();
     }
 
-    public String getExcessValue(int excess) {
+    public static String getExcessValue(int excess) {
         if (excess > 0) {
             return Misc.getWithDGS(excess);
         }
@@ -55,12 +55,12 @@ public class TableCellHelper {
         return "---";
     }
 
-    public String getDistance(MarketAPI market) {
+    public static String getDistance(MarketAPI market) {
         float distance = Misc.getDistanceToPlayerLY(market.getPrimaryEntity());
         return String.format("%.1f", distance);
     }
 
-    public String getLocation(MarketAPI market) {
+    public static String getLocation(MarketAPI market) {
         return market.getName() + " - " + market.getFaction().getDisplayName();
     }
 }

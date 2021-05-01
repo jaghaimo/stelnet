@@ -1,18 +1,13 @@
 package stelnet.storage.data;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import stelnet.helper.StorageHelper;
 import stelnet.storage.ButtonManager;
 import stelnet.storage.FilterManager;
-import stelnet.ui.AbstractRenderable;
-import stelnet.ui.Group;
-import stelnet.ui.Heading;
-import stelnet.ui.Paragraph;
-import stelnet.ui.Size;
-import stelnet.ui.Stack;
+import stelnet.ui.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public abstract class SharedData {
 
@@ -47,7 +42,7 @@ public abstract class SharedData {
         AbstractRenderable[] buttons = getButtons();
         AbstractRenderable[] all = Arrays.copyOf(common, common.length + buttons.length);
         System.arraycopy(buttons, 0, all, common.length, buttons.length);
-        AbstractRenderable stack = new Stack(all);
+        AbstractRenderable stack = new VerticalViewContainer(all);
         stack.setSize(size);
         return stack;
     }
