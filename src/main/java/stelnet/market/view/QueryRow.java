@@ -30,7 +30,8 @@ public class QueryRow extends CustomPanel {
 
     private static AbstractRenderable getRightRenderable(float width, int i, List<IntelQuery> queries) {
         IntelQuery query = queries.get(i);
-        AbstractRenderable rightColumn = new Row(new DeleteOneButton(queries, i), new ToggleOneButton(query));
+        AbstractRenderable rightColumn = new Row(new DeleteOneButton(queries, i), new ToggleOneButton(query),
+                new IntelCount(query));
         rightColumn.setSize(getRowSize(width));
         rightColumn.setOffset(new Position(0, -ROW_HEIGHT));
         return rightColumn;
