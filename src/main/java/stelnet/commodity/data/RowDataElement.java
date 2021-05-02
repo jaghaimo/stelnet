@@ -22,7 +22,7 @@ public class RowDataElement {
     }
 
     public RowDataElement addExcessRow(int value) {
-        return addCustomRow(TableCellHelper.getExcessColor(value), TableCellHelper.getExcessValue(value));
+        return addCustomRow(getExcessColor(value), getExcessValue(value));
     }
 
     public RowDataElement addCustomRow(Color color, Object element) {
@@ -34,5 +34,25 @@ public class RowDataElement {
 
     public Object[] buildObjectArray() {
         return elements.toArray();
+    }
+
+    private static String getExcessValue(int excess) {
+        if (excess > 0) {
+            return Misc.getWithDGS(excess);
+        }
+        if (excess < 0) {
+            return Misc.getWithDGS(-excess);
+        }
+        return "---";
+    }
+
+    private static Color getExcessColor(int excess) {
+        if (excess > 0) {
+            return Misc.getPositiveHighlightColor();
+        }
+        if (excess < 0) {
+            return Misc.getNegativeHighlightColor();
+        }
+        return Misc.getGrayColor();
     }
 }

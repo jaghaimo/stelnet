@@ -3,7 +3,6 @@ package stelnet.commodity.data;
 import com.fs.starfarer.api.util.Misc;
 import lombok.Getter;
 import stelnet.commodity.market.MarketApiWrapper;
-import stelnet.helper.StarSystemHelper;
 import stelnet.ui.TableContent;
 
 import java.util.ArrayList;
@@ -48,27 +47,26 @@ public abstract class MarketTableContent implements TableContent {
 
     protected abstract RowDataElement createRowData(int i, MarketApiWrapper market);
 
-    protected RowDataElement createRenderableRow(
+    protected RowDataElement createRowData(
             int i,
             MarketApiWrapper market,
-            float price,
-            int available,
-            int excess
+            int demandOrAvailability,
+            int excessOrDeficit
     ) {
         return new RowDataElement()
                 .addRowNumber(i)
-                .addDGSCreditsRow(price)
-                .addDGSRow(available)
-                .addExcessRow(excess)
+                .addDGSCreditsRow(market.getPriceAmount())
+                .addDGSRow(demandOrAvailability)
+                .addExcessRow(excessOrDeficit)
                 .addCustomRow(
                         TableCellHelper.getClaimingFactionColor(market.getMarketAPI()),
-                        TableCellHelper.getLocation(market.getMarketAPI())
+                        market.getFactionDisplayName()
                 ).addCustomRow(
                         TableCellHelper.getClaimingFactionColor(market.getMarketAPI()),
-                        StarSystemHelper.getName(market.getMarketAPI().getStarSystem())
+                        market.getStarSystem()
                 ).addCustomRow(
                         Misc.getHighlightColor(),
-                        TableCellHelper.getDistance(market.getMarketAPI())
+                        String.format("%.1f", market.getDistanceToPlayer())
                 );
     }
 

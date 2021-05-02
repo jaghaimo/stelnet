@@ -35,31 +35,6 @@ public class TableCellHelper {
         return demand;
     }
 
-    public static Color getExcessColor(int excess) {
-        if (excess > 0) {
-            return Misc.getPositiveHighlightColor();
-        }
-        if (excess < 0) {
-            return Misc.getNegativeHighlightColor();
-        }
-        return Misc.getGrayColor();
-    }
-
-    public static String getExcessValue(int excess) {
-        if (excess > 0) {
-            return Misc.getWithDGS(excess);
-        }
-        if (excess < 0) {
-            return Misc.getWithDGS(-excess);
-        }
-        return "---";
-    }
-
-    public static String getDistance(MarketAPI market) {
-        float distance = Misc.getDistanceToPlayerLY(market.getPrimaryEntity());
-        return String.format("%.1f", distance);
-    }
-
     public static String getLocation(MarketAPI market) {
         return market.getName() + " - " + market.getFaction().getDisplayName();
     }
