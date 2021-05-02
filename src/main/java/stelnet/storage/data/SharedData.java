@@ -1,13 +1,18 @@
 package stelnet.storage.data;
 
-import stelnet.helper.StorageHelper;
-import stelnet.storage.ButtonManager;
-import stelnet.storage.FilterManager;
-import stelnet.ui.*;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import stelnet.helper.StorageHelper;
+import stelnet.storage.ButtonManager;
+import stelnet.storage.FilterManager;
+import stelnet.ui.AbstractRenderable;
+import stelnet.ui.Group;
+import stelnet.ui.Heading;
+import stelnet.ui.Paragraph;
+import stelnet.ui.Size;
+import stelnet.ui.VerticalViewContainer;
 
 public abstract class SharedData {
 

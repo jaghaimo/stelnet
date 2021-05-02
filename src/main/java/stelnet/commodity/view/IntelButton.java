@@ -3,6 +3,7 @@ package stelnet.commodity.view;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.util.Misc;
+
 import stelnet.commodity.CommodityTab;
 import stelnet.commodity.IntelTracker;
 import stelnet.ui.AreaCheckbox;

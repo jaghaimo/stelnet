@@ -1,12 +1,13 @@
 package stelnet.commodity.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fs.starfarer.api.util.Misc;
+
 import lombok.Getter;
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.ui.TableContent;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 public abstract class MarketTableContent implements TableContent {

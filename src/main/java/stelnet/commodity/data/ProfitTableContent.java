@@ -1,14 +1,15 @@
 package stelnet.commodity.data;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fs.starfarer.api.util.Misc;
+
 import lombok.Getter;
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.commodity.market.MarketRepository;
 import stelnet.ui.TableContent;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ProfitTableContent implements TableContent {
     protected List rows = new ArrayList<>();

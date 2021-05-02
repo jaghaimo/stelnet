@@ -1,11 +1,12 @@
 package stelnet.ui;
 
-import com.fs.starfarer.api.ui.CustomPanelAPI;
-import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import stelnet.helper.LogHelper;
-
 import java.util.Arrays;
 import java.util.List;
+
+import com.fs.starfarer.api.ui.CustomPanelAPI;
+import com.fs.starfarer.api.ui.TooltipMakerAPI;
+
+import stelnet.helper.LogHelper;
 
 /**
  * Renders elements in a horizontal line.

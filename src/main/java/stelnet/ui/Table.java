@@ -1,6 +1,7 @@
 package stelnet.ui;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
+
 import lombok.AllArgsConstructor;
 import stelnet.commodity.data.RowDataElement;
 import stelnet.helper.GlobalHelper;

@@ -1,13 +1,20 @@
 package stelnet.market.view;
 
+import java.util.List;
+
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
+
 import lombok.AllArgsConstructor;
 import stelnet.market.IntelQuery;
-import stelnet.ui.*;
-
-import java.util.List;
+import stelnet.ui.AbstractRenderable;
+import stelnet.ui.HorizontalViewContainer;
+import stelnet.ui.Line;
+import stelnet.ui.Position;
+import stelnet.ui.Renderable;
+import stelnet.ui.Size;
+import stelnet.ui.VerticalViewContainer;
 
 @AllArgsConstructor
 public class ControlRow implements Renderable {

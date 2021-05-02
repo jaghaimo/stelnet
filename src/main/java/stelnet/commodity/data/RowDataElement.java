@@ -1,10 +1,10 @@
 package stelnet.commodity.data;
 
+import java.awt.Color;
+import java.util.ArrayList;
+
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
-
-import java.awt.*;
-import java.util.ArrayList;
 
 public class RowDataElement {
     ArrayList<Object> elements = new ArrayList<>();

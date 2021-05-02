@@ -1,8 +1,8 @@
 package stelnet.ui;
 
-import stelnet.commodity.data.RowDataElement;
-
 import java.util.List;
+
+import stelnet.commodity.data.RowDataElement;
 
 public interface TableContent {
 

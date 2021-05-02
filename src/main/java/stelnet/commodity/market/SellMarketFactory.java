@@ -1,14 +1,15 @@
 package stelnet.commodity.market;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+
 import stelnet.commodity.market.price.DemandPrice;
 import stelnet.commodity.market.price.Price;
 import stelnet.filter.market.CommodityDemandFilter;
 import stelnet.helper.CollectionHelper;
-
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 public class SellMarketFactory extends MarketFactory {
 

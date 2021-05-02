@@ -1,14 +1,20 @@
 package stelnet.commodity.view;
 
+import java.util.Arrays;
+
 import org.lwjgl.input.Keyboard;
+
 import stelnet.commodity.CommodityTab;
 import stelnet.commodity.data.BuyTableContent;
 import stelnet.commodity.data.ProfitTableContent;
 import stelnet.commodity.data.SellTableContent;
 import stelnet.commodity.market.MarketRepository;
-import stelnet.ui.*;
-
-import java.util.Arrays;
+import stelnet.ui.AbstractRenderable;
+import stelnet.ui.HorizontalViewContainer;
+import stelnet.ui.Size;
+import stelnet.ui.Table;
+import stelnet.ui.TableContent;
+import stelnet.ui.VerticalViewContainer;
 
 public class TableViewFactory {
 

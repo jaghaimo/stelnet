@@ -1,13 +1,14 @@
 package stelnet.commodity.market;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+
 import stelnet.commodity.market.price.Price;
 import stelnet.filter.market.MarketNotHidden;
 import stelnet.helper.CollectionHelper;
 import stelnet.helper.GlobalHelper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class MarketFactory {
 

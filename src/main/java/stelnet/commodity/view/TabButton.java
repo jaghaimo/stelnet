@@ -3,6 +3,7 @@ package stelnet.commodity.view;
 import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.util.Misc;
+
 import stelnet.commodity.CommodityBoard;
 import stelnet.commodity.CommodityTab;
 import stelnet.ui.Button;

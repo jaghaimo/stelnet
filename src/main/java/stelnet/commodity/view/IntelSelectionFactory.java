@@ -1,6 +1,10 @@
 package stelnet.commodity.view;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+
 import stelnet.commodity.CommodityTab;
 import stelnet.commodity.IntelTracker;
 import stelnet.commodity.market.MarketApiWrapper;
@@ -8,9 +12,6 @@ import stelnet.commodity.market.MarketRepository;
 import stelnet.ui.AbstractRenderable;
 import stelnet.ui.HorizontalViewContainer;
 import stelnet.ui.Size;
-
-import java.util.LinkedList;
-import java.util.List;
 
 public class IntelSelectionFactory {
 

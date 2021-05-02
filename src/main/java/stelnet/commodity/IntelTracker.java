@@ -1,14 +1,15 @@
 package stelnet.commodity;
 
+import java.util.HashMap;
+
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+
 import stelnet.commodity.market.MarketRepository;
 import stelnet.commodity.market.price.Price;
 import stelnet.commodity.market.price.PriceFactory;
 import stelnet.helper.GlobalHelper;
 import stelnet.helper.IntelHelper;
-
-import java.util.HashMap;
 
 public class IntelTracker extends HashMap<String, CommodityIntel> {
 

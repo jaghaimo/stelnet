@@ -1,9 +1,9 @@
 package stelnet.commodity.market;
 
-import stelnet.commodity.CommodityTab;
-
 import java.util.HashMap;
 import java.util.List;
+
+import stelnet.commodity.CommodityTab;
 
 public class MarketRepository {
 

@@ -6,6 +6,7 @@ import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.impl.campaign.submarkets.OpenMarketPlugin;
 import com.fs.starfarer.api.util.Misc;
+
 import lombok.Builder;
 import lombok.Data;
 import stelnet.commodity.market.price.Price;

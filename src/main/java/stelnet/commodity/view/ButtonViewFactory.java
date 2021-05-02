@@ -1,17 +1,18 @@
 package stelnet.commodity.view;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
+
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.campaign.econ.EconomyAPI;
+
 import stelnet.helper.GlobalHelper;
 import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Button;
 import stelnet.ui.Size;
 import stelnet.ui.VerticalViewContainer;
-
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
 
 public class ButtonViewFactory {
 

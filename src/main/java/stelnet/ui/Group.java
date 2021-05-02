@@ -1,12 +1,13 @@
 package stelnet.ui;
 
+import java.util.List;
+
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import stelnet.helper.LogHelper;
-
-import java.util.List;
 
 /**
  * Simple element grouping usable in both large and small intel.

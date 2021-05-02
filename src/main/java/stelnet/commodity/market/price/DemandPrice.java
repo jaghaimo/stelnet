@@ -2,6 +2,7 @@ package stelnet.commodity.market.price;
 
 import com.fs.starfarer.api.campaign.econ.EconomyAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+
 import stelnet.helper.GlobalHelper;
 
 public class DemandPrice implements Price {

@@ -1,10 +1,15 @@
 package stelnet.commodity;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.impl.campaign.ids.Commodities;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
+
 import lombok.Getter;
 import lombok.Setter;
 import stelnet.BaseBoard;
@@ -17,10 +22,6 @@ import stelnet.helper.IntelHelper;
 import stelnet.helper.SettingHelper;
 import stelnet.ui.Renderable;
 import stelnet.ui.Size;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
 
 @Setter
 @Getter

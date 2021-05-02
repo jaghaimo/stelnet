@@ -1,9 +1,14 @@
 package stelnet.market.view;
 
-import stelnet.market.IntelQuery;
-import stelnet.ui.*;
-
 import java.util.List;
+
+import stelnet.market.IntelQuery;
+import stelnet.ui.AbstractRenderable;
+import stelnet.ui.CustomPanel;
+import stelnet.ui.HorizontalViewContainer;
+import stelnet.ui.Position;
+import stelnet.ui.Size;
+import stelnet.ui.VerticalViewContainer;
 
 public class QueryRow extends CustomPanel {
 

@@ -1,9 +1,16 @@
 package stelnet.market;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
+
 import stelnet.BaseBoard;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.SettingHelper;
@@ -12,12 +19,6 @@ import stelnet.market.view.EmptyRow;
 import stelnet.market.view.Queries;
 import stelnet.ui.Renderable;
 import stelnet.ui.Size;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Information board for managing displayed information intel.

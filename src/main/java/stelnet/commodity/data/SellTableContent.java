@@ -1,8 +1,8 @@
 package stelnet.commodity.data;
 
-import stelnet.commodity.market.MarketApiWrapper;
-
 import java.util.List;
+
+import stelnet.commodity.market.MarketApiWrapper;
 
 public class SellTableContent extends MarketTableContent {
 
