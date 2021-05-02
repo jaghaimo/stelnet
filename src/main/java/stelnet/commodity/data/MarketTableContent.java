@@ -7,6 +7,7 @@ import com.fs.starfarer.api.util.Misc;
 
 import lombok.Getter;
 import stelnet.commodity.market.MarketApiWrapper;
+import stelnet.ui.RowDataElement;
 import stelnet.ui.TableContent;
 
 @Getter
@@ -54,21 +55,24 @@ public abstract class MarketTableContent implements TableContent {
             int demandOrAvailability,
             int excessOrDeficit
     ) {
-        return new RowDataElement()
-                .addRowNumber(i)
-                .addDGSCreditsRow(market.getPriceAmount())
-                .addDGSRow(demandOrAvailability)
-                .addExcessRow(excessOrDeficit)
-                .addCustomRow(
-                        TableCellHelper.getClaimingFactionColor(market.getMarketAPI()),
-                        market.getMarketAndFactionDisplayName()
-                ).addCustomRow(
-                        TableCellHelper.getClaimingFactionColor(market.getMarketAPI()),
-                        market.getStarSystem()
-                ).addCustomRow(
-                        Misc.getHighlightColor(),
-                        String.format("%.1f", market.getDistanceToPlayer())
-                );
+        RowDataElement rowDataElement = new RowDataElement();
+        rowDataElement.addRowNumber(i);
+        rowDataElement.addDGSCreditsRow(market.getPriceAmount());
+        rowDataElement.addDGSRow(demandOrAvailability);
+        rowDataElement.addExcessRow(excessOrDeficit);
+        rowDataElement.addCustomRow(
+                TableCellHelper.getClaimingFactionColor(market.getMarketAPI()),
+                market.getMarketAndFactionDisplayName()
+        );
+        rowDataElement.addCustomRow(
+                TableCellHelper.getClaimingFactionColor(market.getMarketAPI()),
+                market.getStarSystem()
+        );
+        rowDataElement.addCustomRow(
+                Misc.getHighlightColor(),
+                String.format("%.1f", market.getDistanceToPlayer())
+        );
+        return rowDataElement;
     }
 
 }

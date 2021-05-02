@@ -45,7 +45,7 @@ public class TableViewFactory {
         } else if (activeTab == CommodityTab.SELL) {
             tableContent = new SellTableContent(commodityId, marketRepository.getSellMarketByCommodity(commodityId));
         } else if (activeTab == CommodityTab.PROFIT) {
-            tableContent = new ProfitTableContent(commodityId);
+            tableContent = new ProfitTableContent(commodityId, marketRepository);
         }
 
         return tableContent;

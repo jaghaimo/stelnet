@@ -6,11 +6,11 @@ import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.impl.campaign.submarkets.OpenMarketPlugin;
-import com.fs.starfarer.api.util.Misc;
 
 import lombok.Builder;
 import lombok.Data;
 import stelnet.commodity.market.price.Price;
+import stelnet.helper.DistanceHelper;
 
 @Data
 @Builder
@@ -68,7 +68,7 @@ public class MarketApiWrapper {
     }
 
     public float getDistanceToPlayer() {
-        return Misc.getDistanceToPlayerLY(marketAPI.getPrimaryEntity());
+        return DistanceHelper.getDistanceToPlayerLY(marketAPI.getPrimaryEntity());
     }
 
     public String getMarketAndFactionDisplayName() {

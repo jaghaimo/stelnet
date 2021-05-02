@@ -29,7 +29,7 @@ public class CommodityBoard extends BaseBoard {
 
     private String commodityId = Commodities.SUPPLIES;
     private CommodityTab activeTab = CommodityTab.BUY;
-    private TableViewFactory tableViewFactory = new TableViewFactory();
+    private final TableViewFactory tableViewFactory = new TableViewFactory();
 
     public static CommodityBoard getInstance() {
         IntelInfoPlugin intel = IntelHelper.getFirstIntel(CommodityBoard.class);

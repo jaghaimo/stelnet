@@ -1,4 +1,4 @@
-package stelnet.commodity.data;
+package stelnet.ui;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -9,27 +9,26 @@ import com.fs.starfarer.api.util.Misc;
 public class RowDataElement {
     ArrayList<Object> elements = new ArrayList<>();
 
-    public RowDataElement addRowNumber(Integer i) {
-        return addCustomRow(Misc.getGrayColor(), i + ".");
+    public void addRowNumber(Integer i) {
+        addCustomRow(Misc.getGrayColor(), i + ".");
     }
 
-    public RowDataElement addDGSCreditsRow(float value) {
-        return addCustomRow(Misc.getHighlightColor(), Misc.getDGSCredits(value));
+    public void addDGSCreditsRow(float value) {
+        addCustomRow(Misc.getHighlightColor(), Misc.getDGSCredits(value));
     }
 
-    public RowDataElement addDGSRow(int value) {
-        return addCustomRow(Misc.getHighlightColor(), Misc.getWithDGS(value));
+    public void addDGSRow(int value) {
+        addCustomRow(Misc.getHighlightColor(), Misc.getWithDGS(value));
     }
 
-    public RowDataElement addExcessRow(int value) {
-        return addCustomRow(getExcessColor(value), getExcessValue(value));
+    public void addExcessRow(int value) {
+        addCustomRow(getExcessColor(value), getExcessValue(value));
     }
 
-    public RowDataElement addCustomRow(Color color, Object element) {
+    public void addCustomRow(Color color, Object element) {
         elements.add(Alignment.MID);
         elements.add(color);
         elements.add(element.toString());
-        return this;
     }
 
     public Object[] buildObjectArray() {

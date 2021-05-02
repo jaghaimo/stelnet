@@ -10,6 +10,7 @@ import com.fs.starfarer.api.util.Misc;
 import lombok.Getter;
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.commodity.market.MarketRepository;
+import stelnet.ui.RowDataElement;
 import stelnet.ui.TableContent;
 
 public class ProfitTableContent implements TableContent {
@@ -17,24 +18,24 @@ public class ProfitTableContent implements TableContent {
     private final MarketRepository marketRepository;
     private final String commodityId;
 
-    public ProfitTableContent(String commodityId) {
+    public ProfitTableContent(String commodityId, MarketRepository marketRepository) {
         this.commodityId = commodityId;
-        marketRepository = MarketRepository.getInstance(commodityId);
+        this.marketRepository = marketRepository;
         createRows();
     }
 
     @Override
     public Object[] getHeaders(float width) {
         return new Object[]{
-            "Buy #", .05f * width,
-            "Buy Price", .1f * width,
-            "Sell Price", .1f * width,
-            "Avail. / Demand", .15f * width,
-            "Profit", .1f * width,
-            "P. Ly", .1f * width,
-            "Buy Location", .2f * width,
-            "Sell Location", .1f * width,
-            "Total Dist (ly)", .1f * width
+                "Buy #", .05f * width,
+                "Buy Price", .1f * width,
+                "Sell Price", .1f * width,
+                "Avail. / Demand", .15f * width,
+                "Profit", .1f * width,
+                "P. Ly", .1f * width,
+                "Buy Location", .2f * width,
+                "Sell Location", .1f * width,
+                "Total Dist (ly)", .1f * width
         };
     }
 
@@ -66,27 +67,27 @@ public class ProfitTableContent implements TableContent {
         float profit = getPotentialProfit(buyMarket, sellMarket);
         float buyToSellDist = Misc.getDistanceLY(buyMarket.getPrimaryEntity(), sellMarket.getPrimaryEntity());
         float totalDist = buyMarket.getDistanceToPlayer() + buyToSellDist;
-        String availDemand =
-            Misc.getWithDGS(buyMarket.getAvailable(commodityId))
-                + " / " +
-                Misc.getWithDGS(sellMarket.getDemand(commodityId));
-        return (SortableRow) new SortableRow(profit)
-            .addRowNumber(i)
-            .addDGSCreditsRow(buyMarket.getPriceAmount())
-            .addDGSCreditsRow(sellMarket.getPriceAmount())
-            .addCustomRow(Misc.getHighlightColor(), availDemand)
-            .addDGSCreditsRow(profit)
-            .addDGSCreditsRow(profit/totalDist)
-            .addCustomRow(
+        String availDemand = Misc.getWithDGS(buyMarket.getAvailable(commodityId)) + " / " + Misc.getWithDGS(sellMarket.getDemand(commodityId));
+        SortableRow sortableRow = new SortableRow(profit);
+        sortableRow.addRowNumber(i);
+        sortableRow.addDGSCreditsRow(buyMarket.getPriceAmount());
+        sortableRow.addDGSCreditsRow(sellMarket.getPriceAmount());
+        sortableRow.addCustomRow(Misc.getHighlightColor(), availDemand);
+        sortableRow.addDGSCreditsRow(profit);
+        sortableRow.addDGSCreditsRow(profit / totalDist);
+        sortableRow.addCustomRow(
                 TableCellHelper.getClaimingFactionColor(buyMarket.getMarketAPI()),
                 TableCellHelper.getLocation(buyMarket.getMarketAPI())
-            ).addCustomRow(
+        );
+        sortableRow.addCustomRow(
                 TableCellHelper.getClaimingFactionColor(sellMarket.getMarketAPI()),
                 sellMarket.getStarSystem()
-            ).addCustomRow(
+        );
+        sortableRow.addCustomRow(
                 getSystemColorForDistance(buyMarket, sellMarket),
                 String.format("%.1f", totalDist)
-            );
+        );
+        return sortableRow;
     }
 
     private float getPotentialProfit(MarketApiWrapper buyFromMarket, MarketApiWrapper sellToMarket) {
