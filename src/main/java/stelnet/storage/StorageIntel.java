@@ -2,98 +2,55 @@ package stelnet.storage;
 
 import java.awt.Color;
 import java.util.List;
-import java.util.Set;
 
 import com.fs.starfarer.api.campaign.CargoAPI;
-import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
-import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.Alignment;
-import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import com.fs.starfarer.api.util.Misc;
 
+import stelnet.BaseIntel;
+import stelnet.IntelInfo;
 import stelnet.helper.CargoHelper;
-import stelnet.helper.DistanceHelper;
 
-public class StorageIntel extends BaseIntelPlugin {
+public class StorageIntel extends BaseIntel {
 
     public final static String TAG = "stelnetStorage";
 
     private final SubmarketAPI storage;
 
     public StorageIntel(SubmarketAPI storage) {
+        super(storage.getMarket().getFaction(), storage.getMarket().getPrimaryEntity());
         this.storage = storage;
-    }
-
-    @Override
-    public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
-        Color bulletColor = getBulletColorForMode(mode);
-        info.addPara(getMarketName(), getTitleColor(mode), 0);
-        info.beginGridFlipped(300f, 1, Misc.getTextColor(), 80f, 10f);
-        info.addToGrid(0, 0, getStorageContent(), "Content", bulletColor);
-        info.addToGrid(0, 1, getFactionName(), "Faction", bulletColor);
-        info.addToGrid(0, 2, getDistance(), "Distance", bulletColor);
-        info.addGrid(3f);
     }
 
     @Override
     public void createSmallDescription(TooltipMakerAPI info, float width, float height) {
         Color baseColor = getFactionForUIColors().getBaseUIColor();
         Color darkColor = getFactionForUIColors().getDarkUIColor();
-        info.addSectionHeading(getMarketName() + " Items", baseColor, darkColor, Alignment.MID, 5f);
-        fakeVerticalSeparator(info, width, 10f);
+        info.addSectionHeading(getLocationName() + " Items", baseColor, darkColor, Alignment.MID, 5f);
+        info.addSpacer(10);
         showItems(info);
-        fakeVerticalSeparator(info, width, 20f);
-        info.addSectionHeading(getMarketName() + " Ships", baseColor, darkColor, Alignment.MID, 5f);
-        fakeVerticalSeparator(info, width, 10f);
+        info.addSpacer(10);
+        info.addSectionHeading(getLocationName() + " Ships", baseColor, darkColor, Alignment.MID, 5f);
+        info.addSpacer(10);
         showShips(info);
     }
 
     @Override
-    public FactionAPI getFactionForUIColors() {
-        return storage.getMarket().getFaction();
-    }
-
-    @Override
     public String getIcon() {
-        return getFactionForUIColors().getCrest();
+        return getFaction().getCrest();
     }
 
     @Override
-    public Set<String> getIntelTags(SectorMapAPI map) {
-        Set<String> tags = super.getIntelTags(map);
-        tags.add(StorageIntel.TAG);
-        return tags;
+    protected IntelInfo getIntelInfo() {
+        return new IntelInfo(getLocationNameWithSystem(), "Content", getStorageContent(), "Faction",
+                getFactionWithRel());
     }
 
     @Override
-    public SectorEntityToken getMapLocation(SectorMapAPI map) {
-        return storage.getMarket().getPrimaryEntity();
-    }
-
-    @Override
-    public String getSortString() {
-        return String.format("%06.2f", DistanceHelper.getDistanceToPlayerLY(getMapLocation(null)));
-    }
-
-    @Override
-    public boolean isNew() {
-        return false;
-    }
-
-    private String getDistance() {
-        return String.format("%.2fLY", DistanceHelper.getDistanceToPlayerLY(getMapLocation(null)));
-    }
-
-    private String getFactionName() {
-        return getFactionForUIColors().getDisplayName();
-    }
-
-    private String getMarketName() {
-        return storage.getMarket().getName();
+    protected String getTag() {
+        return TAG;
     }
 
     private String getStorageContent() {
@@ -103,10 +60,6 @@ public class StorageIntel extends BaseIntelPlugin {
         String items = itemsCount != 1 ? "s" : "";
         String ships = shipsCount != 1 ? "s" : "";
         return String.format("%d item%s & %d ship%s", itemsCount, items, shipsCount, ships);
-    }
-
-    private void fakeVerticalSeparator(TooltipMakerAPI info, float width, float height) {
-        info.addImage("", width, height, 0);
     }
 
     private void showItems(TooltipMakerAPI info) {
