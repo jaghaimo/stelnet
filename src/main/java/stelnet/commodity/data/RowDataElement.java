@@ -1,4 +1,4 @@
-package stelnet.ui;
+package stelnet.commodity.data;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -6,26 +6,29 @@ import java.util.ArrayList;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
 
-public class RowDataElement {
+import stelnet.ui.TableContentRow;
+
+public class RowDataElement implements TableContentRow {
+
     ArrayList<Object> elements = new ArrayList<>();
 
     public void addRowNumber(Integer i) {
-        addCustomRow(Misc.getGrayColor(), i + ".");
+        addRow(Misc.getGrayColor(), i + ".");
     }
 
     public void addDGSCreditsRow(float value) {
-        addCustomRow(Misc.getHighlightColor(), Misc.getDGSCredits(value));
+        addRow(Misc.getHighlightColor(), Misc.getDGSCredits(value));
     }
 
     public void addDGSRow(int value) {
-        addCustomRow(Misc.getHighlightColor(), Misc.getWithDGS(value));
+        addRow(Misc.getHighlightColor(), Misc.getWithDGS(value));
     }
 
     public void addExcessRow(int value) {
-        addCustomRow(getExcessColor(value), getExcessValue(value));
+        addRow(getExcessColor(value), getExcessValue(value));
     }
 
-    public void addCustomRow(Color color, Object element) {
+    public void addRow(Color color, Object element) {
         elements.add(Alignment.MID);
         elements.add(color);
         elements.add(element.toString());

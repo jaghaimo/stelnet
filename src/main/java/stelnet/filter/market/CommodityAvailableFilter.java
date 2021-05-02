@@ -8,17 +8,15 @@ import stelnet.commodity.data.TableCellHelper;
 public class CommodityAvailableFilter implements MarketFilter {
 
     private final String commodityId;
-    private final TableCellHelper helper;
 
     public CommodityAvailableFilter(String commodityId) {
         this.commodityId = commodityId;
-        this.helper = new TableCellHelper();
     }
 
     @Override
     public boolean accept(MarketAPI market) {
         CommodityOnMarketAPI commodity = market.getCommodityData(commodityId);
-        int available = helper.getAvailable(commodity);
+        int available = TableCellHelper.getAvailable(commodity);
         if (available <= 0) {
             return false;
         }

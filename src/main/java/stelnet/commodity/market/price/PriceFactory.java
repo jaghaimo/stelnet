@@ -14,6 +14,9 @@ public class PriceFactory {
         case SELL:
             price = new DemandPrice(commodityId);
             break;
+
+        case PROFIT:
+            break;
         }
         return price;
     }

@@ -3,11 +3,10 @@ package stelnet.commodity.data;
 import java.util.List;
 
 import stelnet.commodity.market.MarketApiWrapper;
-import stelnet.ui.RowDataElement;
 
 public class SellTableContent extends MarketTableContent {
 
-    public SellTableContent(String commodityId,  List<MarketApiWrapper> sellMarket) {
+    public SellTableContent(String commodityId, List<MarketApiWrapper> sellMarket) {
         super(commodityId, sellMarket);
     }
 

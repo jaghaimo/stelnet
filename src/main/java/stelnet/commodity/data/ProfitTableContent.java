@@ -10,10 +10,12 @@ import com.fs.starfarer.api.util.Misc;
 import lombok.Getter;
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.commodity.market.MarketRepository;
-import stelnet.ui.RowDataElement;
 import stelnet.ui.TableContent;
+import stelnet.ui.TableContentRow;
 
 public class ProfitTableContent implements TableContent {
+
+    // TODO: this generic needs to be parametrized
     protected List rows = new ArrayList<>();
     private final MarketRepository marketRepository;
     private final String commodityId;
@@ -40,7 +42,7 @@ public class ProfitTableContent implements TableContent {
     }
 
     @Override
-    public List<RowDataElement> getRows() {
+    public List<TableContentRow> getRows() {
         return rows;
     }
 
@@ -72,18 +74,18 @@ public class ProfitTableContent implements TableContent {
         sortableRow.addRowNumber(i);
         sortableRow.addDGSCreditsRow(buyMarket.getPriceAmount());
         sortableRow.addDGSCreditsRow(sellMarket.getPriceAmount());
-        sortableRow.addCustomRow(Misc.getHighlightColor(), availDemand);
+        sortableRow.addRow(Misc.getHighlightColor(), availDemand);
         sortableRow.addDGSCreditsRow(profit);
         sortableRow.addDGSCreditsRow(profit / totalDist);
-        sortableRow.addCustomRow(
+        sortableRow.addRow(
                 TableCellHelper.getClaimingFactionColor(buyMarket.getMarketAPI()),
                 TableCellHelper.getLocation(buyMarket.getMarketAPI())
         );
-        sortableRow.addCustomRow(
+        sortableRow.addRow(
                 TableCellHelper.getClaimingFactionColor(sellMarket.getMarketAPI()),
                 sellMarket.getStarSystem()
         );
-        sortableRow.addCustomRow(
+        sortableRow.addRow(
                 getSystemColorForDistance(buyMarket, sellMarket),
                 String.format("%.1f", totalDist)
         );
@@ -124,8 +126,9 @@ public class ProfitTableContent implements TableContent {
         return color;
     }
 
+    // TODO: consider merging rowdata with sortablerow
     @Getter
-    private static class SortableRow extends RowDataElement implements Comparable {
+    private static class SortableRow extends RowDataElement implements Comparable<SortableRow> {
         private final float profit;
 
         public SortableRow(float profit) {
@@ -133,8 +136,8 @@ public class ProfitTableContent implements TableContent {
         }
 
         @Override
-        public int compareTo(Object o) {
-            return compare(this.getProfit(), ((SortableRow) o).getProfit());
+        public int compareTo(SortableRow o) {
+            return compare(this.getProfit(), o.getProfit());
         }
 
         private int compare(float o1, float o2) {

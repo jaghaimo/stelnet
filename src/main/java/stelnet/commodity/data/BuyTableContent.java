@@ -3,7 +3,6 @@ package stelnet.commodity.data;
 import java.util.List;
 
 import stelnet.commodity.market.MarketApiWrapper;
-import stelnet.ui.RowDataElement;
 
 public class BuyTableContent extends MarketTableContent {
 
@@ -16,7 +15,6 @@ public class BuyTableContent extends MarketTableContent {
         return getHeader(width, "Available", "Excess");
     }
 
-    // TODO: Ideally over here we would register a callback with a row
     @Override
     protected RowDataElement createRowData(int i, MarketApiWrapper market) {
         int excess = market.getExcessQuantity(commodityId);

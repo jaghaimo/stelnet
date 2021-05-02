@@ -7,15 +7,15 @@ import com.fs.starfarer.api.util.Misc;
 
 import lombok.Getter;
 import stelnet.commodity.market.MarketApiWrapper;
-import stelnet.ui.RowDataElement;
 import stelnet.ui.TableContent;
+import stelnet.ui.TableContentRow;
 
 @Getter
 public abstract class MarketTableContent implements TableContent {
 
     protected String commodityId;
     protected final List<MarketApiWrapper> markets;
-    protected List<RowDataElement> rows = new ArrayList<>();
+    protected List<TableContentRow> rows = new ArrayList<>();
 
     protected MarketTableContent(String commodityId, List<MarketApiWrapper> markets) {
         this.commodityId = commodityId;
@@ -60,19 +60,18 @@ public abstract class MarketTableContent implements TableContent {
         rowDataElement.addDGSCreditsRow(market.getPriceAmount());
         rowDataElement.addDGSRow(demandOrAvailability);
         rowDataElement.addExcessRow(excessOrDeficit);
-        rowDataElement.addCustomRow(
+        rowDataElement.addRow(
                 TableCellHelper.getClaimingFactionColor(market.getMarketAPI()),
                 market.getMarketAndFactionDisplayName()
         );
-        rowDataElement.addCustomRow(
+        rowDataElement.addRow(
                 TableCellHelper.getClaimingFactionColor(market.getMarketAPI()),
                 market.getStarSystem()
         );
-        rowDataElement.addCustomRow(
+        rowDataElement.addRow(
                 Misc.getHighlightColor(),
                 String.format("%.1f", market.getDistanceToPlayer())
         );
         return rowDataElement;
     }
-
 }
