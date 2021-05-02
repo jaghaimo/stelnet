@@ -8,9 +8,9 @@ import com.fs.starfarer.api.util.Misc;
 
 import stelnet.market.IntelQuery;
 import stelnet.ui.Button;
+import stelnet.ui.EventHandler;
 import stelnet.ui.Location;
 import stelnet.ui.Position;
-import stelnet.ui.EventHandler;
 import stelnet.ui.Size;
 
 public class DeleteOneButton extends Button {

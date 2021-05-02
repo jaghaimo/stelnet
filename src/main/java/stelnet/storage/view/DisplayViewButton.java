@@ -4,8 +4,8 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import stelnet.storage.StorageBoard;
-import stelnet.ui.Location;
 import stelnet.ui.EventHandler;
+import stelnet.ui.Location;
 import stelnet.ui.Size;
 import stelnet.ui.ToggleButton;
 

@@ -6,7 +6,6 @@ import java.util.Set;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
-import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.RelationshipAPI;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.Alignment;
@@ -16,8 +15,8 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import lombok.Getter;
-import stelnet.commodity.data.Price;
-import stelnet.helper.StarSystemHelper;
+import stelnet.commodity.market.MarketApiWrapper;
+import stelnet.commodity.market.price.Price;
 
 @Getter
 public class CommodityIntel extends BaseIntelPlugin {
@@ -26,19 +25,19 @@ public class CommodityIntel extends BaseIntelPlugin {
 
     private final String action;
     private final CommoditySpecAPI commodity;
-    private final MarketAPI market;
+    private final MarketApiWrapper market;
     private final IntelTracker tracker;
     private final Price priceProvider;
     private final float price;
 
-    public CommodityIntel(String action, CommoditySpecAPI commodity, MarketAPI market, IntelTracker tracker,
+    public CommodityIntel(String action, CommoditySpecAPI commodity, MarketApiWrapper market, IntelTracker tracker,
             Price priceProvider) {
         this.action = action;
         this.commodity = commodity;
         this.market = market;
         this.tracker = tracker;
         this.priceProvider = priceProvider;
-        this.price = priceProvider.getPrice(market);
+        this.price = market.getPriceAmount();
     }
 
     @Override
@@ -60,8 +59,8 @@ public class CommodityIntel extends BaseIntelPlugin {
         info.addPara(getTitle(), getTitleColor(mode), 0f);
         info.beginGridFlipped(300f, 1, Misc.getTextColor(), 80f, 10f);
         info.addToGrid(0, 0, market.getName(), "Location", bulletColor);
-        info.addToGrid(0, 1, market.getFaction().getDisplayName(), "Faction", bulletColor);
-        info.addToGrid(0, 2, StarSystemHelper.getName(market.getStarSystem()), "System", bulletColor);
+        info.addToGrid(0, 1, market.getDisplayName(), "Faction", bulletColor);
+        info.addToGrid(0, 2, market.getStarSystem(), "System", bulletColor);
         info.addGrid(3f);
     }
 
@@ -75,7 +74,7 @@ public class CommodityIntel extends BaseIntelPlugin {
         if (isEnding()) {
             info.addPara("The original price of %s has changed to %s.", 5f, Misc.getTextColor(),
                     Misc.getHighlightColor(), Misc.getDGSCredits(price),
-                    Misc.getDGSCredits(priceProvider.getPrice(market)));
+                    Misc.getDGSCredits(market.getPriceAmount()));
         }
         info.addPara("The owner of this market is " + reputation.toLowerCase() + " towards you.", 10f,
                 Misc.getTextColor(), relationship.getRelColor(), reputation.toLowerCase());
@@ -122,7 +121,7 @@ public class CommodityIntel extends BaseIntelPlugin {
 
     @Override
     public boolean isEnding() {
-        return Math.abs(price - priceProvider.getPrice(market)) > 1;
+        return Math.abs(price - market.getPriceAmount()) > 1;
     }
 
     @Override

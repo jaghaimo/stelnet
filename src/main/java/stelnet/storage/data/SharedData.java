@@ -12,7 +12,7 @@ import stelnet.ui.Group;
 import stelnet.ui.Heading;
 import stelnet.ui.Paragraph;
 import stelnet.ui.Size;
-import stelnet.ui.Stack;
+import stelnet.ui.VerticalViewContainer;
 
 public abstract class SharedData {
 
@@ -47,7 +47,7 @@ public abstract class SharedData {
         AbstractRenderable[] buttons = getButtons();
         AbstractRenderable[] all = Arrays.copyOf(common, common.length + buttons.length);
         System.arraycopy(buttons, 0, all, common.length, buttons.length);
-        AbstractRenderable stack = new Stack(all);
+        AbstractRenderable stack = new VerticalViewContainer(all);
         stack.setSize(size);
         return stack;
     }

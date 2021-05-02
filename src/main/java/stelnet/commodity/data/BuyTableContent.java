@@ -2,13 +2,13 @@ package stelnet.commodity.data;
 
 import java.util.List;
 
-import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
-import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import stelnet.commodity.market.MarketApiWrapper;
+import stelnet.ui.RowDataElement;
 
 public class BuyTableContent extends MarketTableContent {
 
-    public BuyTableContent(String commodityId, List<MarketAPI> markets) {
-        super(commodityId, markets, new SupplyPrice(commodityId));
+    public BuyTableContent(String commodityId, List<MarketApiWrapper> buyMarket) {
+        super(commodityId, buyMarket);
     }
 
     @Override
@@ -16,12 +16,11 @@ public class BuyTableContent extends MarketTableContent {
         return getHeader(width, "Available", "Excess");
     }
 
+    // TODO: Ideally over here we would register a callback with a row
     @Override
-    protected Object[] getRow(int i, MarketAPI market) {
-        CommodityOnMarketAPI commodity = market.getCommodityData(commodityId);
-        float price = getPrice(market);
-        int available = helper.getAvailable(commodity);
-        int excess = commodity.getExcessQuantity();
-        return getRow(i, market, commodity, price, available, excess);
+    protected RowDataElement createRowData(int i, MarketApiWrapper market) {
+        int excess = market.getExcessQuantity(commodityId);
+        int demand = market.getDemand(commodityId);
+        return createRowData(i, market, demand, excess);
     }
 }

@@ -69,7 +69,10 @@ public class MarketQueryBoard extends BaseBoard {
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
-        return Arrays.asList(new ControlRow(size, queries), new EmptyRow(size, queries.isEmpty()),
-                new Queries(size, queries));
+        return Arrays.asList(
+                new ControlRow(size, queries),
+                new EmptyRow(size, queries.isEmpty()),
+                new Queries(size, queries)
+        );
     }
 }

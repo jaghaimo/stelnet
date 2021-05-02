@@ -24,8 +24,8 @@ public class Table extends AbstractRenderable {
     @Override
     public void render(TooltipMakerAPI tooltip) {
         tooltip.beginTable(GlobalHelper.getPlayerFaction(), ROW_HEIGHT, tableContent.getHeaders(width));
-        for (Object[] row : tableContent.getRows()) {
-            tooltip.addRow(row);
+        for (RowDataElement row : tableContent.getRows()) {
+            tooltip.addRow(row.buildObjectArray());
         }
         tooltip.addTable(title, 0, 0);
     }

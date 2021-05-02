@@ -5,7 +5,7 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import stelnet.commodity.CommodityBoard;
-import stelnet.commodity.CommodityBoard.CommodityTab;
+import stelnet.commodity.CommodityTab;
 import stelnet.ui.Button;
 import stelnet.ui.EventHandler;
 import stelnet.ui.Size;

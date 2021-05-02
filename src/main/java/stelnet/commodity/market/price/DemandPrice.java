@@ -1,4 +1,4 @@
-package stelnet.commodity.data;
+package stelnet.commodity.market.price;
 
 import com.fs.starfarer.api.campaign.econ.EconomyAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
@@ -17,7 +17,7 @@ public class DemandPrice implements Price {
     }
 
     @Override
-    public float getPrice(MarketAPI market) {
+    public float getPriceAmount(MarketAPI market) {
         return market.getDemandPrice(commodityId, econUnit, true) / econUnit;
     }
 }

@@ -12,11 +12,11 @@ import stelnet.helper.GlobalHelper;
 import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Button;
 import stelnet.ui.Size;
-import stelnet.ui.Stack;
+import stelnet.ui.VerticalViewContainer;
 
 public class ButtonViewFactory {
 
-    public AbstractRenderable get(String activeId, Size size) {
+    public VerticalViewContainer createContainer(String activeId, Size size) {
         EconomyAPI economy = GlobalHelper.getEconomy();
         List<AbstractRenderable> buttons = new LinkedList<>();
         List<String> commodityIds = economy.getAllCommodityIds();
@@ -24,12 +24,12 @@ public class ButtonViewFactory {
         for (String commodityId : commodityIds) {
             CommoditySpecAPI commodity = economy.getCommoditySpec(commodityId);
             if (canInclude(commodity)) {
-                buttons.add(get(commodity, activeId));
+                buttons.add(createContainer(commodity, activeId));
             }
         }
-        AbstractRenderable stack = new Stack(buttons);
-        stack.setSize(size);
-        return stack;
+        VerticalViewContainer verticalViewContainer = new VerticalViewContainer(buttons);
+        verticalViewContainer.setSize(size);
+        return verticalViewContainer;
     }
 
     // TODO: Replace this with a Filter
@@ -43,7 +43,7 @@ public class ButtonViewFactory {
         return true;
     }
 
-    private Button get(CommoditySpecAPI commodity, String activeId) {
+    private Button createContainer(CommoditySpecAPI commodity, String activeId) {
         boolean isOn = commodity.getId().equals(activeId);
         return new CommodityButton(commodity, isOn);
     }

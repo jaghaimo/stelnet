@@ -10,8 +10,8 @@ import com.fs.starfarer.api.util.Misc;
 import stelnet.commodity.CommodityIntel;
 import stelnet.helper.IntelHelper;
 import stelnet.ui.Button;
-import stelnet.ui.Location;
 import stelnet.ui.EventHandler;
+import stelnet.ui.Location;
 import stelnet.ui.Size;
 
 public class DeleteButton extends Button {

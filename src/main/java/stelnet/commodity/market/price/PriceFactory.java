@@ -1,11 +1,11 @@
-package stelnet.commodity.data;
+package stelnet.commodity.market.price;
 
-import stelnet.commodity.CommodityBoard.CommodityTab;
+import stelnet.commodity.CommodityTab;
 
 public class PriceFactory {
 
     public Price get(String commodityId, CommodityTab commodityTab) {
-        Price price = new DummyPrice();
+        Price price = null;
         switch (commodityTab) {
         case BUY:
             price = new SupplyPrice(commodityId);
