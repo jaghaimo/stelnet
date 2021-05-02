@@ -1,5 +1,6 @@
 package stelnet.commodity.market;
 
+import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
@@ -70,7 +71,19 @@ public class MarketApiWrapper {
         return Misc.getDistanceToPlayerLY(marketAPI.getPrimaryEntity());
     }
 
-    public String getFactionDisplayName() {
+    public String getMarketAndFactionDisplayName() {
         return marketAPI.getName() + " - " + marketAPI.getFaction().getDisplayName();
+    }
+
+    public String getName() {
+        return marketAPI.getName();
+    }
+
+    public String getDisplayName() {
+        return marketAPI.getFaction().getDisplayName();
+    }
+
+    public FactionAPI getFaction() {
+        return marketAPI.getFaction();
     }
 }

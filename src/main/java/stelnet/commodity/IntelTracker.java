@@ -3,9 +3,8 @@ package stelnet.commodity;
 import java.util.HashMap;
 
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
-import com.fs.starfarer.api.campaign.econ.MarketAPI;
 
-import stelnet.commodity.market.MarketRepository;
+import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.commodity.market.price.Price;
 import stelnet.commodity.market.price.PriceFactory;
 import stelnet.helper.GlobalHelper;
@@ -15,11 +14,9 @@ public class IntelTracker extends HashMap<String, CommodityIntel> {
 
     private static final long serialVersionUID = 1L;
     private final PriceFactory priceFactory;
-    private MarketRepository marketRepository;
 
-    public IntelTracker(MarketRepository marketRepository) {
+    public IntelTracker() {
         super();
-        this.marketRepository = marketRepository;
         priceFactory = new PriceFactory();
     }
 
@@ -29,13 +26,13 @@ public class IntelTracker extends HashMap<String, CommodityIntel> {
         remove(key);
     }
 
-    public boolean has(String action, String commodityId, MarketAPI market) {
+    public boolean has(String action, String commodityId, MarketApiWrapper market) {
         String key = getKey(action, commodityId, market);
         CommodityIntel intel = get(key);
         return intel != null;
     }
 
-    public void toggle(String commodityId, CommodityTab commodityTab, MarketAPI market) {
+    public void toggle(String commodityId, CommodityTab commodityTab, MarketApiWrapper market) {
         String action = commodityTab.title;
         String key = getKey(action, commodityId, market);
         CommodityIntel intel = get(key);
@@ -51,7 +48,7 @@ public class IntelTracker extends HashMap<String, CommodityIntel> {
         }
     }
 
-    private String getKey(String action, String commodityId, MarketAPI market) {
+    private String getKey(String action, String commodityId, MarketApiWrapper market) {
         return action + ":" + commodityId + ":" + market.getName();
     }
 }

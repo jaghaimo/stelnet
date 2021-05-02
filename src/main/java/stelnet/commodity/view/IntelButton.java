@@ -6,6 +6,7 @@ import com.fs.starfarer.api.util.Misc;
 
 import stelnet.commodity.CommodityTab;
 import stelnet.commodity.IntelTracker;
+import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.ui.AreaCheckbox;
 import stelnet.ui.EventHandler;
 import stelnet.ui.Location;
@@ -17,7 +18,7 @@ public class IntelButton extends AreaCheckbox {
             int i,
             final CommodityTab commodityTab,
             final String commodityId,
-            final MarketAPI market,
+            final MarketApiWrapper market,
             final IntelTracker tracker
     ) {
         super(

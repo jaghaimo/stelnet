@@ -3,8 +3,6 @@ package stelnet.commodity.view;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.fs.starfarer.api.campaign.econ.MarketAPI;
-
 import stelnet.commodity.CommodityTab;
 import stelnet.commodity.IntelTracker;
 import stelnet.commodity.market.MarketApiWrapper;
@@ -20,7 +18,7 @@ public class IntelSelectionFactory {
 
     public IntelSelectionFactory(MarketRepository marketRepository) {
         this.marketRepository = marketRepository;
-        tracker = new IntelTracker(marketRepository);
+        tracker = new IntelTracker();
     }
 
     public HorizontalViewContainer createContainer(String commodityId, CommodityTab actionTab, Size size) {
@@ -29,7 +27,7 @@ public class IntelSelectionFactory {
 
         List<AbstractRenderable> buttons = new LinkedList<>();
         for (int i = 0; i < numberOfButtons; i++) {
-            MarketAPI market = markets.get(i).getMarketAPI();
+            MarketApiWrapper market = markets.get(i);
             buttons.add(new IntelButton(i + 1, actionTab, commodityId, market, tracker));
         }
 

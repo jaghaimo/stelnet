@@ -2,6 +2,7 @@ package stelnet.commodity.data;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.fs.starfarer.api.util.Misc;
@@ -25,13 +26,13 @@ public class ProfitTableContent implements TableContent {
     @Override
     public Object[] getHeaders(float width) {
         return new Object[]{
-            "#", .05f * width,
+            "Buy #", .05f * width,
             "Buy Price", .1f * width,
             "Sell Price", .1f * width,
             "Avail. / Demand", .15f * width,
             "Profit", .1f * width,
             "Buy Location", .2f * width,
-            "Sell Location", .2f * width,
+            "Sell Location", .1f * width,
             "Total Dist (ly)", .1f * width
         };
     }
@@ -57,6 +58,7 @@ public class ProfitTableContent implements TableContent {
             }
             i++;
         }
+        Collections.sort(rows);
     }
 
     protected SortableRow createRowData(int i, MarketApiWrapper buyMarket, MarketApiWrapper sellMarket) {
