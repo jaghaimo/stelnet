@@ -1,7 +1,6 @@
 package stelnet.commodity.market;
 
-import stelnet.commodity.data.BuyMarketFactory;
-import stelnet.commodity.data.SellMarketFactory;
+import stelnet.commodity.CommodityTab;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +9,7 @@ public class MarketRepository {
 
     HashMap<String, List<MarketApiWrapper>> buyMarkets = new HashMap<>();
     HashMap<String, List<MarketApiWrapper>> sellMarkets = new HashMap<>();
+    private static MarketRepository instance;
 
     public MarketRepository(String commodityId) {
         List<MarketApiWrapper> buyMarket = new BuyMarketFactory(commodityId).createMarkets();
@@ -17,6 +17,14 @@ public class MarketRepository {
 
         buyMarkets.put(commodityId, buyMarket);
         sellMarkets.put(commodityId, sellMarket);
+        instance = this;
+    }
+
+    public static MarketRepository getInstance(String commodityId) {
+        if (instance == null) {
+            instance = new MarketRepository(commodityId);
+        }
+        return instance;
     }
 
     public List<MarketApiWrapper> getBuyMarketByCommodity(String commodityId) {
@@ -25,5 +33,14 @@ public class MarketRepository {
 
     public List<MarketApiWrapper> getSellMarketByCommodity(String commodityId) {
         return sellMarkets.get(commodityId);
+    }
+
+    public List<MarketApiWrapper> getMarketByCommodityIdAndMarket(String commodityId, CommodityTab marketType) {
+        if (marketType == CommodityTab.BUY) {
+            return buyMarkets.get(commodityId);
+        } else if (marketType == CommodityTab.SELL) {
+            return sellMarkets.get(commodityId);
+        }
+        return buyMarkets.get(commodityId);
     }
 }

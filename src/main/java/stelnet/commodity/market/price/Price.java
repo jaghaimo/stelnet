@@ -1,4 +1,4 @@
-package stelnet.commodity.data;
+package stelnet.commodity.market.price;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 

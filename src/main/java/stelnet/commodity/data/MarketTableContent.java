@@ -62,7 +62,7 @@ public abstract class MarketTableContent implements TableContent {
                 .addExcessRow(excess)
                 .addCustomRow(
                         TableCellHelper.getClaimingFactionColor(market.getMarketAPI()),
-                        StarSystemHelper.getName(market.getMarketAPI().getStarSystem())
+                        TableCellHelper.getLocation(market.getMarketAPI())
                 ).addCustomRow(
                         TableCellHelper.getClaimingFactionColor(market.getMarketAPI()),
                         StarSystemHelper.getName(market.getMarketAPI().getStarSystem())

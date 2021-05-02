@@ -12,12 +12,11 @@ import java.util.Arrays;
 
 public class TableViewFactory {
 
-    public AbstractRenderable create(String commodityId, CommodityTab activeTab, Size size) {
+    public AbstractRenderable createContainer(String commodityId, CommodityTab activeTab, Size size) {
         float width = size.getWidth() - 210;
         float height = size.getHeight() - 35;
         float tabsHeight = 15f;
         float tableHeight = height - tabsHeight;
-
         HorizontalViewContainer tabs = createTabs(activeTab);
         MarketTableContent tableContent = createTableContent(commodityId, activeTab);
         Table table = new Table(commodityId, width, tableHeight, tableContent);
@@ -32,7 +31,7 @@ public class TableViewFactory {
 
     private MarketTableContent createTableContent(String commodityId, CommodityTab activeTab) {
         MarketTableContent tableContent = null;
-        MarketRepository marketRepository = new MarketRepository(commodityId);
+        MarketRepository marketRepository = MarketRepository.getInstance(commodityId);
 
         if (activeTab == CommodityTab.BUY) {
             tableContent = new BuyTableContent(commodityId, marketRepository.getBuyMarketByCommodity(commodityId));

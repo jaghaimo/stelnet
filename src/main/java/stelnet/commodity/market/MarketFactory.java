@@ -1,7 +1,7 @@
-package stelnet.commodity.data;
+package stelnet.commodity.market;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import stelnet.commodity.market.MarketApiWrapper;
+import stelnet.commodity.market.price.Price;
 import stelnet.filter.market.MarketNotHidden;
 import stelnet.helper.CollectionHelper;
 import stelnet.helper.GlobalHelper;

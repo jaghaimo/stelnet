@@ -12,7 +12,7 @@ import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import lombok.Getter;
-import stelnet.commodity.data.Price;
+import stelnet.commodity.market.price.Price;
 import stelnet.helper.StarSystemHelper;
 
 import java.awt.*;
@@ -26,11 +26,11 @@ public class CommodityIntel extends BaseIntelPlugin {
     private final String action;
     private final CommoditySpecAPI commodity;
     private final MarketAPI market;
-    private final IntelTrackerMap tracker;
+    private final IntelTracker tracker;
     private final Price priceProvider;
     private final float price;
 
-    public CommodityIntel(String action, CommoditySpecAPI commodity, MarketAPI market, IntelTrackerMap tracker,
+    public CommodityIntel(String action, CommoditySpecAPI commodity, MarketAPI market, IntelTracker tracker,
             Price priceProvider) {
         this.action = action;
         this.commodity = commodity;

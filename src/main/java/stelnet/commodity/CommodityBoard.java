@@ -8,8 +8,10 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import lombok.Getter;
 import lombok.Setter;
 import stelnet.BaseBoard;
+import stelnet.commodity.market.MarketRepository;
 import stelnet.commodity.view.ButtonViewFactory;
 import stelnet.commodity.view.DeleteViewFactory;
+import stelnet.commodity.view.IntelSelectionFactory;
 import stelnet.commodity.view.TableViewFactory;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.SettingHelper;
@@ -24,15 +26,9 @@ import java.util.Set;
 @Getter
 public class CommodityBoard extends BaseBoard {
 
-    private String activeId;
-    private CommodityTab activeTab;
-    private TableViewFactory tableViewFactory;
-
-    private CommodityBoard() {
-        activeId = Commodities.SUPPLIES;
-        activeTab = CommodityTab.BUY;
-        tableViewFactory = new TableViewFactory();
-    }
+    private String commodityId = Commodities.SUPPLIES;
+    private CommodityTab activeTab = CommodityTab.BUY;
+    private TableViewFactory tableViewFactory = new TableViewFactory();
 
     public static CommodityBoard getInstance() {
         IntelInfoPlugin intel = IntelHelper.getFirstIntel(CommodityBoard.class);
@@ -64,10 +60,13 @@ public class CommodityBoard extends BaseBoard {
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
+        MarketRepository marketRepository = new MarketRepository(commodityId);
+        IntelSelectionFactory intelSelectionFactory = new IntelSelectionFactory(marketRepository);
         return Arrays.<Renderable>asList(
-                tableViewFactory.create(activeId, activeTab, size),
-                new ButtonViewFactory().get(activeId, size),
-                new DeleteViewFactory().get(activeId, size)
+                tableViewFactory.createContainer(commodityId, activeTab, size),
+                intelSelectionFactory.createContainer(commodityId, activeTab, size),
+                new ButtonViewFactory().createContainer(commodityId, size),
+                new DeleteViewFactory().createContainer(commodityId, size)
         );
     }
 }

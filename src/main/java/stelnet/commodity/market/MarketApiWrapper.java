@@ -3,7 +3,7 @@ package stelnet.commodity.market;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.Builder;
 import lombok.Data;
-import stelnet.commodity.data.Price;
+import stelnet.commodity.market.price.Price;
 
 @Data
 @Builder

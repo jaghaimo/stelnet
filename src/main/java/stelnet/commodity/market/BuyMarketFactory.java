@@ -1,25 +1,28 @@
-package stelnet.commodity.data;
+package stelnet.commodity.market;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import stelnet.filter.market.CommodityDemandFilter;
+import lombok.Getter;
+import stelnet.commodity.market.price.SupplyPrice;
+import stelnet.filter.market.CommodityAvailableFilter;
 import stelnet.helper.CollectionHelper;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class SellMarketFactory extends MarketFactory {
+public class BuyMarketFactory extends MarketFactory {
 
-    private final DemandPrice price;
+    @Getter
+    private final SupplyPrice price;
 
-    public SellMarketFactory(String commodityId) {
+    public BuyMarketFactory(String commodityId) {
         super(commodityId);
-        this.price = new DemandPrice(commodityId);
+        this.price = new SupplyPrice(commodityId);
     }
 
     @Override
     protected void filterMarkets(List<MarketAPI> markets) {
-        CollectionHelper.reduce(markets, new CommodityDemandFilter(commodityId));
+        CollectionHelper.reduce(markets, new CommodityAvailableFilter(commodityId));
     }
 
     @Override
@@ -30,14 +33,9 @@ public class SellMarketFactory extends MarketFactory {
             public int compare(MarketAPI marketA, MarketAPI marketB) {
                 float priceA = getPriceAmount(marketA);
                 float priceB = getPriceAmount(marketB);
-                return (int) Math.signum(priceB - priceA);
+                return (int) Math.signum(priceA - priceB);
             }
         });
-    }
-
-    @Override
-    protected Price getPrice() {
-        return this.price;
     }
 
     private float getPriceAmount(MarketAPI market) {
