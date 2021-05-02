@@ -31,6 +31,7 @@ public class ProfitTableContent implements TableContent {
             "Sell Price", .1f * width,
             "Avail. / Demand", .15f * width,
             "Profit", .1f * width,
+            "P. Ly", .1f * width,
             "Buy Location", .2f * width,
             "Sell Location", .1f * width,
             "Total Dist (ly)", .1f * width
@@ -64,6 +65,7 @@ public class ProfitTableContent implements TableContent {
     protected SortableRow createRowData(int i, MarketApiWrapper buyMarket, MarketApiWrapper sellMarket) {
         float profit = getPotentialProfit(buyMarket, sellMarket);
         float buyToSellDist = Misc.getDistanceLY(buyMarket.getPrimaryEntity(), sellMarket.getPrimaryEntity());
+        float totalDist = buyMarket.getDistanceToPlayer() + buyToSellDist;
         String availDemand =
             Misc.getWithDGS(buyMarket.getAvailable(commodityId))
                 + " / " +
@@ -74,6 +76,7 @@ public class ProfitTableContent implements TableContent {
             .addDGSCreditsRow(sellMarket.getPriceAmount())
             .addCustomRow(Misc.getHighlightColor(), availDemand)
             .addDGSCreditsRow(profit)
+            .addDGSCreditsRow(profit/totalDist)
             .addCustomRow(
                 TableCellHelper.getClaimingFactionColor(buyMarket.getMarketAPI()),
                 TableCellHelper.getLocation(buyMarket.getMarketAPI())
@@ -82,7 +85,7 @@ public class ProfitTableContent implements TableContent {
                 sellMarket.getStarSystem()
             ).addCustomRow(
                 getSystemColorForDistance(buyMarket, sellMarket),
-                String.format("%.1f", buyMarket.getDistanceToPlayer() + buyToSellDist)
+                String.format("%.1f", totalDist)
             );
     }
 
