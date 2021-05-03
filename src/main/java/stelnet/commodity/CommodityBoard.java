@@ -29,6 +29,7 @@ public class CommodityBoard extends BaseBoard {
 
     private String commodityId = Commodities.SUPPLIES;
     private CommodityTab activeTab = CommodityTab.BUY;
+    private final IntelTracker intelTracker = new IntelTracker();
     private final TableViewFactory tableViewFactory = new TableViewFactory();
 
     public static CommodityBoard getInstance() {
@@ -62,7 +63,7 @@ public class CommodityBoard extends BaseBoard {
     @Override
     protected List<Renderable> getRenderables(Size size) {
         MarketRepository marketRepository = new MarketRepository(commodityId);
-        IntelSelectionFactory intelSelectionFactory = new IntelSelectionFactory(marketRepository);
+        IntelSelectionFactory intelSelectionFactory = new IntelSelectionFactory(marketRepository, intelTracker);
         // @formatter:off
         return Arrays.<Renderable>asList(
                 tableViewFactory.createContainer(commodityId, activeTab, size),

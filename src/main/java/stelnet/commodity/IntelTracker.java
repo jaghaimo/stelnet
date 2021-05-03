@@ -9,6 +9,7 @@ import stelnet.commodity.market.price.Price;
 import stelnet.commodity.market.price.PriceFactory;
 import stelnet.helper.GlobalHelper;
 import stelnet.helper.IntelHelper;
+import stelnet.helper.LogHelper;
 
 public class IntelTracker extends HashMap<String, CommodityIntel> {
 
@@ -20,16 +21,16 @@ public class IntelTracker extends HashMap<String, CommodityIntel> {
         priceFactory = new PriceFactory();
     }
 
-    public void remove(CommodityIntel intel) {
-        String key = getKey(intel.getAction(), intel.getCommodityId(), intel.getMarket());
-        IntelHelper.removeIntel(intel);
-        remove(key);
-    }
-
     public boolean has(String action, String commodityId, MarketApiWrapper market) {
         String key = getKey(action, commodityId, market);
         CommodityIntel intel = get(key);
         return intel != null;
+    }
+
+    public void remove(CommodityIntel intel) {
+        String key = getKey(intel.getAction(), intel.getCommodityId(), intel.getMarketWrapper());
+        IntelHelper.removeIntel(intel);
+        remove(key);
     }
 
     public void toggle(String commodityId, CommodityTab commodityTab, MarketApiWrapper market) {
@@ -37,12 +38,14 @@ public class IntelTracker extends HashMap<String, CommodityIntel> {
         String key = getKey(action, commodityId, market);
         CommodityIntel intel = get(key);
         if (intel == null) {
+            LogHelper.debug("Adding new intel with key " + key);
             CommoditySpecAPI commodity = GlobalHelper.getCommoditySpec(commodityId);
             Price price = priceFactory.get(commodityId, commodityTab);
             intel = new CommodityIntel(action, commodity, market, this, price);
             IntelHelper.addIntel(intel, true);
             put(key, intel);
         } else {
+            LogHelper.debug("Removing existing intel with key " + key);
             IntelHelper.removeIntel(intel);
             remove(key);
         }

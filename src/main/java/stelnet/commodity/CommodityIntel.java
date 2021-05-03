@@ -1,6 +1,5 @@
 package stelnet.commodity;
 
-import java.awt.Color;
 import java.util.List;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
@@ -26,20 +25,20 @@ public class CommodityIntel extends BaseIntel {
 
     private final String action;
     private final CommoditySpecAPI commodity;
-    private final MarketApiWrapper market;
+    private final MarketApiWrapper marketWrapper;
     private final IntelTracker tracker;
     private final Price priceProvider;
     private final float price;
 
-    public CommodityIntel(String action, CommoditySpecAPI commodity, MarketApiWrapper market, IntelTracker tracker,
-            Price priceProvider) {
-        super(market.getFaction(), market.getPrimaryEntity());
+    public CommodityIntel(String action, CommoditySpecAPI commodity, MarketApiWrapper marketWrapper,
+            IntelTracker tracker, Price priceProvider) {
+        super(marketWrapper.getFaction(), marketWrapper.getPrimaryEntity());
         this.action = action;
         this.commodity = commodity;
-        this.market = market;
+        this.marketWrapper = marketWrapper;
         this.tracker = tracker;
         this.priceProvider = priceProvider;
-        this.price = market.getPriceAmount();
+        this.price = marketWrapper.getPriceAmount();
     }
 
     @Override
@@ -58,27 +57,18 @@ public class CommodityIntel extends BaseIntel {
     }
 
     @Override
-    public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
-        Color bulletColor = getBulletColorForMode(mode);
-        info.addPara(getTitle(), getTitleColor(mode), 0f);
-        info.beginGridFlipped(300f, 1, Misc.getTextColor(), 80f, 10f);
-        info.addToGrid(0, 0, market.getName(), "Location", bulletColor);
-        info.addToGrid(0, 1, market.getDisplayName(), "Faction", bulletColor);
-        info.addToGrid(0, 2, market.getStarSystem(), "System", bulletColor);
-        info.addGrid(3f);
-    }
-
-    @Override
     public void createSmallDescription(TooltipMakerAPI info, float width, float height) {
         // TODO remove once using Renderable
-        FactionAPI faction = market.getFaction();
+        FactionAPI faction = marketWrapper.getFaction();
         RelationshipAPI relationship = faction.getRelToPlayer();
         String reputation = relationship.getLevel().getDisplayName();
-        info.addSectionHeading(market.getName(), faction.getBaseUIColor(), faction.getDarkUIColor(), Alignment.MID, 5f);
+        info.addSectionHeading(marketWrapper.getName(), faction.getBaseUIColor(), faction.getDarkUIColor(),
+                Alignment.MID, 5f);
         info.addImage(faction.getLogo(), width, 128, 10f);
         if (isEnding()) {
             info.addPara("The original price of %s has changed to %s.", 5f, Misc.getTextColor(),
-                    Misc.getHighlightColor(), Misc.getDGSCredits(price), Misc.getDGSCredits(market.getPriceAmount()));
+                    Misc.getHighlightColor(), Misc.getDGSCredits(price),
+                    Misc.getDGSCredits(marketWrapper.getPriceAmount()));
         }
         info.addPara("The owner of this market is " + reputation.toLowerCase() + " towards you.", 10f,
                 Misc.getTextColor(), relationship.getRelColor(), reputation.toLowerCase());
@@ -103,9 +93,10 @@ public class CommodityIntel extends BaseIntel {
 
     @Override
     public boolean isEnding() {
-        return Math.abs(price - market.getPriceAmount()) > 1;
+        return Math.abs(price - marketWrapper.getPriceAmount()) > 1;
     }
 
+    // TODO remove once using Renderable
     public void delete() {
         tracker.remove(this);
     }

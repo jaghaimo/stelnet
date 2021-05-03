@@ -79,10 +79,6 @@ public class MarketApiWrapper {
         return marketAPI.getName();
     }
 
-    public String getDisplayName() {
-        return marketAPI.getFaction().getDisplayName();
-    }
-
     public FactionAPI getFaction() {
         return marketAPI.getFaction();
     }
