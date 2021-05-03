@@ -13,4 +13,9 @@ public class BaseBoard extends RenderableIntel {
     public IntelSortTier getSortTier() {
         return IntelSortTier.TIER_0;
     }
+
+    @Override
+    public boolean isNew() {
+        return false;
+    }
 }

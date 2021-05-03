@@ -1,11 +1,15 @@
 package stelnet.market;
 
+import java.util.List;
+
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import stelnet.BaseIntel;
 import stelnet.IntelInfo;
+import stelnet.ui.Renderable;
+import stelnet.ui.Size;
 
 public class MarketResultIntel extends BaseIntel {
 
@@ -20,7 +24,7 @@ public class MarketResultIntel extends BaseIntel {
 
     @Override
     public void createSmallDescription(TooltipMakerAPI info, float width, float height) {
-        // TODO: redo using Renderable
+        // TODO remove once using Renderable
         intelSubject.createSmallDescription(info, width, height);
     }
 
@@ -44,6 +48,17 @@ public class MarketResultIntel extends BaseIntel {
                 getFactionWithRel());
     }
 
+    @Override
+    protected List<Renderable> getRenderables(Size size) {
+        // TODO Auto-generated method stub
+        return super.getRenderables(size);
+    }
+
+    @Override
+    protected String getTag() {
+        return TAG;
+    }
+
     private void endIfInvalid() {
         ending = false;
         if (!intelSubject.isAvailable()) {
@@ -52,10 +67,5 @@ public class MarketResultIntel extends BaseIntel {
         if (!intelSubject.canAcquire()) {
             ending = true;
         }
-    }
-
-    @Override
-    protected String getTag() {
-        return TAG;
     }
 }

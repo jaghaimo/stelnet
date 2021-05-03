@@ -1,25 +1,26 @@
 package stelnet.commodity;
 
 import java.awt.Color;
-import java.util.Set;
+import java.util.List;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.characters.RelationshipAPI;
-import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.IntelUIAPI;
-import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import lombok.Getter;
+import stelnet.BaseIntel;
+import stelnet.IntelInfo;
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.commodity.market.price.Price;
+import stelnet.ui.Renderable;
+import stelnet.ui.Size;
 
 @Getter
-public class CommodityIntel extends BaseIntelPlugin {
+public class CommodityIntel extends BaseIntel {
 
     public final static String TAG = "stelnetCommodity";
 
@@ -32,6 +33,7 @@ public class CommodityIntel extends BaseIntelPlugin {
 
     public CommodityIntel(String action, CommoditySpecAPI commodity, MarketApiWrapper market, IntelTracker tracker,
             Price priceProvider) {
+        super(market.getFaction(), market.getPrimaryEntity());
         this.action = action;
         this.commodity = commodity;
         this.market = market;
@@ -42,12 +44,14 @@ public class CommodityIntel extends BaseIntelPlugin {
 
     @Override
     public void buttonPressConfirmed(Object buttonId, IntelUIAPI ui) {
+        // TODO remove once using Renderable
         delete();
         ui.recreateIntelUI();
     }
 
     @Override
     public void createConfirmationPrompt(Object buttonId, TooltipMakerAPI prompt) {
+        // TODO remove once using Renderable
         if (buttonId == BUTTON_DELETE) {
             prompt.addPara("Are you sure you want to delete intel for this entry?", Misc.getTextColor(), 0f);
         }
@@ -66,6 +70,7 @@ public class CommodityIntel extends BaseIntelPlugin {
 
     @Override
     public void createSmallDescription(TooltipMakerAPI info, float width, float height) {
+        // TODO remove once using Renderable
         FactionAPI faction = market.getFaction();
         RelationshipAPI relationship = faction.getRelToPlayer();
         String reputation = relationship.getLevel().getDisplayName();
@@ -73,8 +78,7 @@ public class CommodityIntel extends BaseIntelPlugin {
         info.addImage(faction.getLogo(), width, 128, 10f);
         if (isEnding()) {
             info.addPara("The original price of %s has changed to %s.", 5f, Misc.getTextColor(),
-                    Misc.getHighlightColor(), Misc.getDGSCredits(price),
-                    Misc.getDGSCredits(market.getPriceAmount()));
+                    Misc.getHighlightColor(), Misc.getDGSCredits(price), Misc.getDGSCredits(market.getPriceAmount()));
         }
         info.addPara("The owner of this market is " + reputation.toLowerCase() + " towards you.", 10f,
                 Misc.getTextColor(), relationship.getRelColor(), reputation.toLowerCase());
@@ -83,20 +87,8 @@ public class CommodityIntel extends BaseIntelPlugin {
     }
 
     @Override
-    public SectorEntityToken getMapLocation(SectorMapAPI map) {
-        return market.getPrimaryEntity();
-    }
-
-    @Override
     public String getIcon() {
         return commodity.getIconName();
-    }
-
-    @Override
-    public Set<String> getIntelTags(SectorMapAPI map) {
-        Set<String> tags = super.getIntelTags(map);
-        tags.add(CommodityIntel.TAG);
-        return tags;
     }
 
     @Override
@@ -110,23 +102,8 @@ public class CommodityIntel extends BaseIntelPlugin {
     }
 
     @Override
-    public boolean hasLargeDescription() {
-        return false;
-    }
-
-    @Override
-    public boolean hasSmallDescription() {
-        return true;
-    }
-
-    @Override
     public boolean isEnding() {
         return Math.abs(price - market.getPriceAmount()) > 1;
-    }
-
-    @Override
-    public boolean isNew() {
-        return false;
     }
 
     public void delete() {
@@ -135,6 +112,22 @@ public class CommodityIntel extends BaseIntelPlugin {
 
     public String getCommodityId() {
         return commodity.getId();
+    }
+
+    @Override
+    protected IntelInfo getIntelInfo() {
+        return new IntelInfo(getTitle(), "Location", getLocationNameWithSystem(), "Faction", getFactionWithRel());
+    }
+
+    @Override
+    protected String getTag() {
+        return TAG;
+    }
+
+    @Override
+    protected List<Renderable> getRenderables(Size size) {
+        // TODO Auto-generated method stub
+        return super.getRenderables(size);
     }
 
     private String getTitle() {
