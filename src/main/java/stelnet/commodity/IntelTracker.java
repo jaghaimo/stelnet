@@ -6,7 +6,6 @@ import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.commodity.market.price.Price;
-import stelnet.commodity.market.price.PriceFactory;
 import stelnet.helper.GlobalHelper;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.LogHelper;
@@ -14,12 +13,6 @@ import stelnet.helper.LogHelper;
 public class IntelTracker extends HashMap<String, CommodityIntel> {
 
     private static final long serialVersionUID = 1L;
-    private final PriceFactory priceFactory;
-
-    public IntelTracker() {
-        super();
-        priceFactory = new PriceFactory();
-    }
 
     public boolean has(String action, String commodityId, MarketApiWrapper market) {
         String key = getKey(action, commodityId, market);
@@ -40,7 +33,7 @@ public class IntelTracker extends HashMap<String, CommodityIntel> {
         if (intel == null) {
             LogHelper.debug("Adding new intel with key " + key);
             CommoditySpecAPI commodity = GlobalHelper.getCommoditySpec(commodityId);
-            Price price = priceFactory.get(commodityId, commodityTab);
+            Price price = market.getPrice();
             intel = new CommodityIntel(action, commodity, market, this, price);
             IntelHelper.addIntel(intel, true);
             put(key, intel);
