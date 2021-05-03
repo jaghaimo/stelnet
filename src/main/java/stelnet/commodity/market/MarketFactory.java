@@ -29,7 +29,12 @@ public abstract class MarketFactory {
     private List<MarketApiWrapper> mapToWrapper(List<MarketAPI> entities) {
         List<MarketApiWrapper> list = new ArrayList<>();
         for (MarketAPI marketAPI : entities) {
-            MarketApiWrapper marketApiWrapper = MarketApiWrapper.builder().marketAPI(marketAPI).price(getPrice()).build();
+            // @formatter:off
+            MarketApiWrapper marketApiWrapper = MarketApiWrapper.builder()
+                .marketAPI(marketAPI)
+                .price(getPrice())
+                .build();
+            // @formatter:on
             list.add(marketApiWrapper);
         }
         return list;

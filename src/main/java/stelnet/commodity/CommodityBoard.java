@@ -63,11 +63,13 @@ public class CommodityBoard extends BaseBoard {
     protected List<Renderable> getRenderables(Size size) {
         MarketRepository marketRepository = new MarketRepository(commodityId);
         IntelSelectionFactory intelSelectionFactory = new IntelSelectionFactory(marketRepository);
+        // @formatter:off
         return Arrays.<Renderable>asList(
                 tableViewFactory.createContainer(commodityId, activeTab, size),
                 intelSelectionFactory.createContainer(commodityId, activeTab, size),
                 new ButtonViewFactory().createContainer(commodityId, size),
                 new DeleteViewFactory().createContainer(commodityId, size)
         );
+        // @formatter:on
     }
 }

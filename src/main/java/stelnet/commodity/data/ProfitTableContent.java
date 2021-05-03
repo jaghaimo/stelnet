@@ -28,6 +28,7 @@ public class ProfitTableContent implements TableContent {
 
     @Override
     public Object[] getHeaders(float width) {
+        // @formatter:off
         return new Object[]{
                 "Buy #", .05f * width,
                 "Buy Price", .1f * width,
@@ -39,6 +40,7 @@ public class ProfitTableContent implements TableContent {
                 "Sell Location", .1f * width,
                 "Total Dist (ly)", .1f * width
         };
+        // @formatter:on
     }
 
     @Override
@@ -69,7 +71,8 @@ public class ProfitTableContent implements TableContent {
         float profit = getPotentialProfit(buyMarket, sellMarket);
         float buyToSellDist = Misc.getDistanceLY(buyMarket.getPrimaryEntity(), sellMarket.getPrimaryEntity());
         float totalDist = buyMarket.getDistanceToPlayer() + buyToSellDist;
-        String availDemand = Misc.getWithDGS(buyMarket.getAvailable(commodityId)) + " / " + Misc.getWithDGS(sellMarket.getDemand(commodityId));
+        String availDemand = Misc.getWithDGS(buyMarket.getAvailable(commodityId)) + " / "
+                + Misc.getWithDGS(sellMarket.getDemand(commodityId));
         SortableRow sortableRow = new SortableRow(profit);
         sortableRow.addRowNumber(i);
         sortableRow.addDGSCreditsRow(buyMarket.getPriceAmount());
@@ -77,6 +80,7 @@ public class ProfitTableContent implements TableContent {
         sortableRow.addRow(Misc.getHighlightColor(), availDemand);
         sortableRow.addDGSCreditsRow(profit);
         sortableRow.addDGSCreditsRow(profit / totalDist);
+        // @formatter:off
         sortableRow.addRow(
                 TableCellHelper.getClaimingFactionColor(buyMarket.getMarketAPI()),
                 TableCellHelper.getLocation(buyMarket.getMarketAPI())
@@ -89,6 +93,7 @@ public class ProfitTableContent implements TableContent {
                 getSystemColorForDistance(buyMarket, sellMarket),
                 String.format("%.1f", totalDist)
         );
+        // @formatter:on
         return sortableRow;
     }
 
