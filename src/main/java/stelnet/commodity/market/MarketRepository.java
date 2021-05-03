@@ -9,6 +9,7 @@ public class MarketRepository {
 
     HashMap<String, List<MarketApiWrapper>> buyMarkets = new HashMap<>();
     HashMap<String, List<MarketApiWrapper>> sellMarkets = new HashMap<>();
+    // TODO investigate making this non-static
     private static MarketRepository instance;
 
     public MarketRepository(String commodityId) {
