@@ -2,6 +2,7 @@ package stelnet.ui;
 
 import java.awt.Color;
 
+import com.fs.starfarer.api.ui.LabelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
@@ -12,6 +13,8 @@ public class Paragraph extends AbstractRenderable {
 
     private final String text;
     private Color color;
+    private Color[] highlightColors = {};
+    private String[] highlightStrings = {};
 
     public Paragraph(String title, float width) {
         this.text = title;
@@ -21,6 +24,20 @@ public class Paragraph extends AbstractRenderable {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        tooltip.addPara(text, color, 0);
+        LabelAPI addedText = tooltip.addPara(text, color, 0);
+        if (highlightStrings.length > 0) {
+            addedText.setHighlight(highlightStrings);
+        }
+        if (highlightColors.length > 0) {
+            addedText.setHighlightColors(highlightColors);
+        }
+    }
+
+    public void setHighlightColors(Color... highlightColors) {
+        this.highlightColors = highlightColors;
+    }
+
+    public void setHighlightStrings(String... highlightStrings) {
+        this.highlightStrings = highlightStrings;
     }
 }

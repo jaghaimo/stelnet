@@ -20,6 +20,21 @@ public class IntelTracker extends HashMap<String, CommodityIntel> {
         return intel != null;
     }
 
+    public void removeAll() {
+        for (CommodityIntel intel : values()) {
+            IntelHelper.removeIntel(intel);
+        }
+        clear();
+    }
+
+    public void removeCommodity(String commodityId) {
+        for (CommodityIntel intel : values()) {
+            if (intel.getCommodityId().equals(commodityId)) {
+                remove(intel);
+            }
+        }
+    }
+
     public void remove(CommodityIntel intel) {
         String key = getKey(intel.getAction(), intel.getCommodityId(), intel.getMarketWrapper());
         IntelHelper.removeIntel(intel);
@@ -34,7 +49,7 @@ public class IntelTracker extends HashMap<String, CommodityIntel> {
             LogHelper.debug("Adding new intel with key " + key);
             CommoditySpecAPI commodity = GlobalHelper.getCommoditySpec(commodityId);
             Price price = market.getPrice();
-            intel = new CommodityIntel(action, commodity, market, this, price);
+            intel = new CommodityIntel(action, commodity, market, price);
             IntelHelper.addIntel(intel, true);
             put(key, intel);
         } else {

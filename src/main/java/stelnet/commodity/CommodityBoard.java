@@ -50,6 +50,18 @@ public class CommodityBoard extends BaseBoard {
         return SettingHelper.getSpriteName("commodity");
     }
 
+    public void deleteIntel() {
+        intelTracker.removeAll();
+    }
+
+    public void deleteIntel(CommodityIntel intel) {
+        intelTracker.remove(intel);
+    }
+
+    public void deleteIntel(String commodityId) {
+        intelTracker.removeCommodity(commodityId);
+    }
+
     @Override
     protected List<Renderable> getRenderables(Size size) {
         MarketRepository marketRepository = new MarketRepository(commodityId);
