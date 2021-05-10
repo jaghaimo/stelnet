@@ -2,12 +2,10 @@ package stelnet.commodity;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.impl.campaign.ids.Commodities;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
-import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import lombok.Getter;
@@ -30,7 +28,6 @@ public class CommodityBoard extends BaseBoard {
     private String commodityId = Commodities.SUPPLIES;
     private CommodityTab activeTab = CommodityTab.BUY;
     private final IntelTracker intelTracker = new IntelTracker();
-    private final TableViewFactory tableViewFactory = new TableViewFactory();
 
     public static CommodityBoard getInstance() {
         IntelInfoPlugin intel = IntelHelper.getFirstIntel(CommodityBoard.class);
@@ -54,23 +51,21 @@ public class CommodityBoard extends BaseBoard {
     }
 
     @Override
-    public Set<String> getIntelTags(SectorMapAPI map) {
-        Set<String> tags = super.getIntelTags(map);
-        tags.add(CommodityIntel.TAG);
-        return tags;
-    }
-
-    @Override
     protected List<Renderable> getRenderables(Size size) {
         MarketRepository marketRepository = new MarketRepository(commodityId);
         IntelSelectionFactory intelSelectionFactory = new IntelSelectionFactory(marketRepository, intelTracker);
         // @formatter:off
         return Arrays.<Renderable>asList(
-                tableViewFactory.createContainer(commodityId, activeTab, size),
+                new TableViewFactory().createContainer(commodityId, activeTab, size),
                 intelSelectionFactory.createContainer(commodityId, activeTab, size),
                 new ButtonViewFactory().createContainer(commodityId, size),
                 new DeleteViewFactory().createContainer(commodityId, size)
         );
         // @formatter:on
+    }
+
+    @Override
+    protected String getTag() {
+        return CommodityIntel.TAG;
     }
 }

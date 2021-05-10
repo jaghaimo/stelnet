@@ -2,7 +2,7 @@ package stelnet;
 
 import stelnet.ui.RenderableIntel;
 
-public class BaseBoard extends RenderableIntel {
+public abstract class BaseBoard extends RenderableIntel {
 
     @Override
     public boolean hasLargeDescription() {
@@ -18,4 +18,6 @@ public class BaseBoard extends RenderableIntel {
     public boolean isNew() {
         return false;
     }
+
+    protected abstract String getTag();
 }

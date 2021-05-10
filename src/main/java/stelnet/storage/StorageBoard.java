@@ -2,10 +2,8 @@ package stelnet.storage;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
-import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
@@ -55,13 +53,6 @@ public class StorageBoard extends BaseBoard {
         return SettingHelper.getSpriteName("storage");
     }
 
-    @Override
-    public Set<String> getIntelTags(SectorMapAPI map) {
-        Set<String> tags = super.getIntelTags(map);
-        tags.add(StorageIntel.TAG);
-        return tags;
-    }
-
     public void togglePane() {
         gridData = gridData.getNext();
     }
@@ -86,5 +77,10 @@ public class StorageBoard extends BaseBoard {
         String items = itemCount != 1 ? "s " : " ";
         String ships = shipCount != 1 ? "s " : " ";
         return "You have %s item" + items + "and %s ship" + ships + "stored.";
+    }
+
+    @Override
+    protected String getTag() {
+        return StorageIntel.TAG;
     }
 }
