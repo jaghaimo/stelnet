@@ -45,9 +45,8 @@ public class ProfitTableContent implements TableContent {
     }
 
     public void createRows() {
-        List<MarketApiWrapper> sellMarkets = marketRepository.getSellMarketByCommodity(commodityId);
         List<MarketApiWrapper> buyMarkets = marketRepository.getBuyMarketByCommodity(commodityId);
-
+        List<MarketApiWrapper> sellMarkets = marketRepository.getSellMarketByCommodity(commodityId);
         int i = 1;
         for (MarketApiWrapper buyMarket : buyMarkets) {
             for (MarketApiWrapper sellMarket : sellMarkets) {
@@ -77,11 +76,11 @@ public class ProfitTableContent implements TableContent {
                 profit
         );
         sortableRow.addRow(
-                TableCellHelper.getClaimingFactionColor(buyMarket.getMarketAPI()),
+                TableCellHelper.getFactionColor(buyMarket.getMarketAPI().getFaction()),
                 TableCellHelper.getLocation(buyMarket.getMarketAPI())
         );
         sortableRow.addRow(
-                TableCellHelper.getClaimingFactionColor(sellMarket.getMarketAPI()),
+                TableCellHelper.getFactionColor(sellMarket.getMarketAPI().getFaction()),
                 TableCellHelper.getLocation(sellMarket.getMarketAPI())
         );
         sortableRow.addRow(

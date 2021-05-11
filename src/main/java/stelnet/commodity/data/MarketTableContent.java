@@ -57,7 +57,7 @@ public abstract class MarketTableContent implements TableContent {
         rowDataElement.addDGSCreditsCell(market.getPriceAmount());
         rowDataElement.addDGSCell(demandOrAvailability);
         rowDataElement.addExcessDemandCell(excessOrDeficit);
-        rowDataElement.addRow(TableCellHelper.getClaimingFactionColor(market.getMarketAPI()),
+        rowDataElement.addRow(TableCellHelper.getFactionColor(market.getMarketAPI().getFaction()),
                 market.getMarketAndFactionDisplayName());
         rowDataElement.addRow(TableCellHelper.getClaimingFactionColor(market.getMarketAPI()), market.getStarSystem());
         rowDataElement.addRow(Misc.getTextColor(), String.format("%.1f", market.getDistanceToPlayer()));

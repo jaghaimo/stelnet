@@ -16,12 +16,16 @@ public class TableCellHelper {
         return available;
     }
 
-    public static Color getClaimingFactionColor(MarketAPI market) {
-        FactionAPI faction = Misc.getClaimingFaction(market.getPrimaryEntity());
+    public static Color getFactionColor(FactionAPI faction) {
         if (faction == null) {
             return Misc.getGrayColor();
         }
         return faction.getColor();
+    }
+
+    public static Color getClaimingFactionColor(MarketAPI market) {
+        FactionAPI faction = Misc.getClaimingFaction(market.getPrimaryEntity());
+        return getFactionColor(faction);
     }
 
     public static int getDemand(MarketAPI market, CommodityOnMarketAPI commodity) {
