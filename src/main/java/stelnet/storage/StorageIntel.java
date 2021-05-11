@@ -36,8 +36,15 @@ public class StorageIntel extends BaseIntel {
 
     @Override
     protected IntelInfo getIntelInfo() {
-        return new IntelInfo(getLocationNameWithSystem(), "Content", getStorageContent(), "Faction",
-                getFactionWithRel());
+        // @formatter:off
+        return new IntelInfo(
+                getLocationNameWithSystem(),
+                "Content",
+                getStorageContent(),
+                "Faction",
+                getFactionWithRel()
+        );
+        // @formatter:on
     }
 
     @Override
@@ -46,14 +53,17 @@ public class StorageIntel extends BaseIntel {
         Color darkColor = getFactionForUIColors().getDarkUIColor();
         CargoAPI cargo = storage.getCargo();
         List<FleetMemberAPI> ships = storage.getCargo().getMothballedShips().getMembersListCopy();
-        return Arrays.<Renderable>asList(//
-                new Heading(getLocationName() + " Items", baseColor, darkColor), //
-                new Spacer(10), //
-                new Cargo(cargo, "There are no items in this storage.", size), //
-                new Spacer(10), //
-                new Heading(getLocationName() + " Ships", baseColor, darkColor), //
-                new Spacer(10), //
-                new Ships(ships, "There are no ships in this storage.", size));
+        // @formatter:off
+        return Arrays.<Renderable>asList(
+                new Heading(getLocationName() + " Items", baseColor, darkColor),
+                new Spacer(10),
+                new Cargo(cargo, "There are no items in this storage.", size),
+                new Spacer(10),
+                new Heading(getLocationName() + " Ships", baseColor, darkColor),
+                new Spacer(10),
+                new Ships(ships, "There are no ships in this storage.", size)
+        );
+        // formatter:on
     }
 
     @Override
