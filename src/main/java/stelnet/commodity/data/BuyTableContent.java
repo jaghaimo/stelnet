@@ -8,6 +8,7 @@ public class BuyTableContent extends MarketTableContent {
 
     public BuyTableContent(String commodityId, List<MarketApiWrapper> buyMarket) {
         super(commodityId, buyMarket);
+        createRows();
     }
 
     @Override

@@ -6,21 +6,17 @@ import java.util.List;
 import com.fs.starfarer.api.util.Misc;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.ui.TableContent;
 
+@RequiredArgsConstructor
 @Getter
 public abstract class MarketTableContent implements TableContent {
 
-    protected String commodityId;
+    protected final String commodityId;
     protected final List<MarketApiWrapper> markets;
     protected List<TableRow> rows = new ArrayList<>();
-
-    protected MarketTableContent(String commodityId, List<MarketApiWrapper> markets) {
-        this.commodityId = commodityId;
-        this.markets = markets;
-        createRows();
-    }
 
     protected Object[] getHeader(float maxWidth, String availableOrDemand, String excessOrDeficit) {
         float width = maxWidth - 24;
