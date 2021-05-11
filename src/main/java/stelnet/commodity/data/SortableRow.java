@@ -1,15 +1,13 @@
 package stelnet.commodity.data;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Getter
 public class SortableRow extends TableRow implements Comparable<SortableRow> {
 
     private final float profit;
-
-    public SortableRow(float profit) {
-        this.profit = profit;
-    }
 
     @Override
     public int compareTo(SortableRow o) {
