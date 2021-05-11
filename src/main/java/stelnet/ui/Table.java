@@ -23,10 +23,16 @@ public class Table extends AbstractRenderable {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
+        boolean hasRows = false;
         tooltip.beginTable(GlobalHelper.getPlayerFaction(), ROW_HEIGHT, tableContent.getHeaders(width));
         for (TableContentRow row : tableContent.getRows()) {
             tooltip.addRow(row.buildObjectArray());
+            hasRows = true;
         }
-        tooltip.addTable(title, 0, 0);
+        if (hasRows) {
+            tooltip.addTable(title, 0, 0);
+        } else {
+            tooltip.addPara("No rows present.", 0);
+        }
     }
 }

@@ -101,7 +101,7 @@ public class ProfitTableContent implements TableContent {
 
     private float getPotentialProfit(MarketApiWrapper buyFromMarket, MarketApiWrapper sellToMarket) {
         int available = buyFromMarket.getAvailable(commodityId);
-        int demand = sellToMarket.getAvailable(commodityId);
+        int demand = sellToMarket.getDemand(commodityId);
         int quantity = Math.min(available, demand);
 
         if (quantity <= 0) {
