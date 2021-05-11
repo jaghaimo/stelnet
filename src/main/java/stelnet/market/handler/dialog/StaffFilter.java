@@ -1,8 +1,8 @@
 package stelnet.market.handler.dialog;
 
-import stelnet.market.filter.MutableFilterManager;
 import stelnet.market.DialogOption;
 import stelnet.market.DialogPlugin;
+import stelnet.market.filter.MutableFilterManager;
 import stelnet.market.handler.DialogHandler;
 
 public class StaffFilter implements DialogHandler {

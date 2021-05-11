@@ -2,13 +2,13 @@ package stelnet.commodity.data;
 
 import java.util.List;
 
-import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
-import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import stelnet.commodity.market.MarketApiWrapper;
 
 public class SellTableContent extends MarketTableContent {
 
-    public SellTableContent(String commodityId, List<MarketAPI> markets) {
-        super(commodityId, markets, new DemandPrice(commodityId));
+    public SellTableContent(String commodityId, List<MarketApiWrapper> sellMarket) {
+        super(commodityId, sellMarket);
+        createRows();
     }
 
     @Override
@@ -17,11 +17,9 @@ public class SellTableContent extends MarketTableContent {
     }
 
     @Override
-    protected Object[] getRow(int i, MarketAPI market) {
-        CommodityOnMarketAPI commodity = market.getCommodityData(commodityId);
-        float price = getPrice(market);
-        int demand = helper.getDemand(market, commodity);
-        int deficit = -commodity.getDeficitQuantity();
-        return getRow(i, market, commodity, price, demand, deficit);
+    protected TableRow createRowData(int i, MarketApiWrapper market) {
+        int demand = market.getDemand(commodityId);
+        int deficit = -market.getDeficitQuantity(commodityId);
+        return createRowData(i, market, demand, deficit);
     }
 }

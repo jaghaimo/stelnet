@@ -1,67 +1,31 @@
 package stelnet.market;
 
-import java.awt.Color;
-import java.util.Set;
+import java.util.Collections;
+import java.util.List;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
-import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
-import com.fs.starfarer.api.ui.SectorMapAPI;
-import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import com.fs.starfarer.api.util.Misc;
 
-import stelnet.helper.StarSystemHelper;
+import stelnet.BaseIntel;
+import stelnet.IntelInfo;
+import stelnet.market.view.LegacyIntel;
+import stelnet.ui.Renderable;
+import stelnet.ui.Size;
 
-public class MarketResultIntel extends BaseIntelPlugin {
+public class MarketResultIntel extends BaseIntel {
 
     public final static String TAG = "stelnetMarket";
 
-    private final FactionAPI faction;
-    private final SectorEntityToken sectorEntityToken;
     private final IntelSubject intelSubject;
 
     public MarketResultIntel(FactionAPI f, SectorEntityToken s, IntelSubject i) {
-        faction = f;
-        sectorEntityToken = s;
+        super(f, s);
         intelSubject = i;
-    }
-
-    @Override
-    public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
-        Color bulletColor = getBulletColorForMode(mode);
-        info.addPara(intelSubject.getIntelTitle(), getTitleColor(mode), 0f);
-        info.beginGridFlipped(300f, 1, Misc.getTextColor(), 80f, 10f);
-        info.addToGrid(0, 0, sectorEntityToken.getName(), "Location", bulletColor);
-        info.addToGrid(0, 1, faction.getDisplayName(), "Faction", bulletColor);
-        info.addToGrid(0, 2, StarSystemHelper.getName(sectorEntityToken.getStarSystem()), "System", bulletColor);
-        info.addGrid(3f);
-    }
-
-    @Override
-    public void createSmallDescription(TooltipMakerAPI info, float width, float height) {
-        intelSubject.createSmallDescription(info, width, height);
     }
 
     @Override
     public String getIcon() {
         return intelSubject.getIcon();
-    }
-
-    @Override
-    public SectorEntityToken getMapLocation(SectorMapAPI map) {
-        return sectorEntityToken;
-    }
-
-    @Override
-    public FactionAPI getFactionForUIColors() {
-        return faction;
-    }
-
-    @Override
-    public Set<String> getIntelTags(SectorMapAPI map) {
-        Set<String> tags = super.getIntelTags(map);
-        tags.add(TAG);
-        return tags;
     }
 
     @Override
@@ -74,13 +38,19 @@ public class MarketResultIntel extends BaseIntelPlugin {
     }
 
     @Override
-    public String getSortString() {
-        return getDistanceToPlayerLY("%07.2f");
+    protected IntelInfo getIntelInfo() {
+        return new IntelInfo(intelSubject.getIntelTitle(), "Location", getLocationNameWithSystem(), "Faction",
+                getFactionWithRel());
     }
 
     @Override
-    public boolean isNew() {
-        return false;
+    protected List<Renderable> getRenderables(Size size) {
+        return Collections.<Renderable>singletonList(new LegacyIntel(intelSubject, size));
+    }
+
+    @Override
+    protected String getTag() {
+        return TAG;
     }
 
     private void endIfInvalid() {
@@ -91,10 +61,5 @@ public class MarketResultIntel extends BaseIntelPlugin {
         if (!intelSubject.canAcquire()) {
             ending = true;
         }
-    }
-
-    private String getDistanceToPlayerLY(String format) {
-        float distanceToPlayerLY = Misc.getDistanceToPlayerLY(sectorEntityToken);
-        return String.format(format, distanceToPlayerLY);
     }
 }
