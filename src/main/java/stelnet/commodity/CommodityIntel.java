@@ -1,103 +1,50 @@
 package stelnet.commodity;
 
-import java.awt.Color;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
-import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.RelationshipAPI;
-import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
-import com.fs.starfarer.api.ui.Alignment;
-import com.fs.starfarer.api.ui.IntelUIAPI;
-import com.fs.starfarer.api.ui.SectorMapAPI;
-import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import lombok.Getter;
-import stelnet.commodity.data.Price;
-import stelnet.helper.StarSystemHelper;
+import stelnet.BaseIntel;
+import stelnet.IntelInfo;
+import stelnet.commodity.market.MarketApiWrapper;
+import stelnet.commodity.market.price.Price;
+import stelnet.commodity.view.DeleteIntel;
+import stelnet.ui.Heading;
+import stelnet.ui.Image;
+import stelnet.ui.Paragraph;
+import stelnet.ui.Renderable;
+import stelnet.ui.Size;
+import stelnet.ui.Spacer;
 
 @Getter
-public class CommodityIntel extends BaseIntelPlugin {
+public class CommodityIntel extends BaseIntel {
 
     public final static String TAG = "stelnetCommodity";
 
     private final String action;
     private final CommoditySpecAPI commodity;
-    private final MarketAPI market;
-    private final IntelTracker tracker;
+    private final MarketApiWrapper marketWrapper;
     private final Price priceProvider;
     private final float price;
 
-    public CommodityIntel(String action, CommoditySpecAPI commodity, MarketAPI market, IntelTracker tracker,
+    public CommodityIntel(String action, CommoditySpecAPI commodity, MarketApiWrapper marketWrapper,
             Price priceProvider) {
+        super(marketWrapper.getFaction(), marketWrapper.getPrimaryEntity());
         this.action = action;
         this.commodity = commodity;
-        this.market = market;
-        this.tracker = tracker;
+        this.marketWrapper = marketWrapper;
         this.priceProvider = priceProvider;
-        this.price = priceProvider.getPrice(market);
-    }
-
-    @Override
-    public void buttonPressConfirmed(Object buttonId, IntelUIAPI ui) {
-        delete();
-        ui.recreateIntelUI();
-    }
-
-    @Override
-    public void createConfirmationPrompt(Object buttonId, TooltipMakerAPI prompt) {
-        if (buttonId == BUTTON_DELETE) {
-            prompt.addPara("Are you sure you want to delete intel for this entry?", Misc.getTextColor(), 0f);
-        }
-    }
-
-    @Override
-    public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
-        Color bulletColor = getBulletColorForMode(mode);
-        info.addPara(getTitle(), getTitleColor(mode), 0f);
-        info.beginGridFlipped(300f, 1, Misc.getTextColor(), 80f, 10f);
-        info.addToGrid(0, 0, market.getName(), "Location", bulletColor);
-        info.addToGrid(0, 1, market.getFaction().getDisplayName(), "Faction", bulletColor);
-        info.addToGrid(0, 2, StarSystemHelper.getName(market.getStarSystem()), "System", bulletColor);
-        info.addGrid(3f);
-    }
-
-    @Override
-    public void createSmallDescription(TooltipMakerAPI info, float width, float height) {
-        FactionAPI faction = market.getFaction();
-        RelationshipAPI relationship = faction.getRelToPlayer();
-        String reputation = relationship.getLevel().getDisplayName();
-        info.addSectionHeading(market.getName(), faction.getBaseUIColor(), faction.getDarkUIColor(), Alignment.MID, 5f);
-        info.addImage(faction.getLogo(), width, 128, 10f);
-        if (isEnding()) {
-            info.addPara("The original price of %s has changed to %s.", 5f, Misc.getTextColor(),
-                    Misc.getHighlightColor(), Misc.getDGSCredits(price),
-                    Misc.getDGSCredits(priceProvider.getPrice(market)));
-        }
-        info.addPara("The owner of this market is " + reputation.toLowerCase() + " towards you.", 10f,
-                Misc.getTextColor(), relationship.getRelColor(), reputation.toLowerCase());
-        info.addPara("", 20f);
-        addDeleteButton(info, width, "Delete entry");
-    }
-
-    @Override
-    public SectorEntityToken getMapLocation(SectorMapAPI map) {
-        return market.getPrimaryEntity();
+        this.price = marketWrapper.getPriceAmount();
     }
 
     @Override
     public String getIcon() {
         return commodity.getIconName();
-    }
-
-    @Override
-    public Set<String> getIntelTags(SectorMapAPI map) {
-        Set<String> tags = super.getIntelTags(map);
-        tags.add(CommodityIntel.TAG);
-        return tags;
     }
 
     @Override
@@ -111,31 +58,61 @@ public class CommodityIntel extends BaseIntelPlugin {
     }
 
     @Override
-    public boolean hasLargeDescription() {
-        return false;
-    }
-
-    @Override
-    public boolean hasSmallDescription() {
-        return true;
-    }
-
-    @Override
     public boolean isEnding() {
-        return Math.abs(price - priceProvider.getPrice(market)) > 1;
-    }
-
-    @Override
-    public boolean isNew() {
-        return false;
-    }
-
-    public void delete() {
-        tracker.remove(this);
+        return Math.abs(price - marketWrapper.getPriceAmount()) > 1;
     }
 
     public String getCommodityId() {
         return commodity.getId();
+    }
+
+    @Override
+    protected IntelInfo getIntelInfo() {
+        return new IntelInfo(getTitle(), "Location", getLocationNameWithSystem(), "Faction", getFactionWithRel());
+    }
+
+    @Override
+    protected List<Renderable> getRenderables(Size size) {
+        float width = size.getWidth();
+        FactionAPI faction = marketWrapper.getFaction();
+        List<Renderable> renderables = new ArrayList<>();
+        renderables.add(new Heading(marketWrapper.getName(), faction.getBaseUIColor(), faction.getDarkUIColor()));
+        renderables.add(new Image(faction.getLogo(), width, 128));
+        renderables.add(new Spacer(10f));
+        addPriceChange(renderables, width);
+        addRelationship(renderables, width);
+        renderables.add(new Spacer(30f));
+        renderables.add(new DeleteIntel(size.getWidth(), this));
+        return renderables;
+    }
+
+    @Override
+    protected String getTag() {
+        return TAG;
+    }
+
+    private void addPriceChange(List<Renderable> renderables, float width) {
+        if (isEnding()) {
+            String priceChangeText = String.format("The original price of %s has changed to %s.",
+                    Misc.getDGSCredits(price), Misc.getDGSCredits(marketWrapper.getPriceAmount()));
+            Paragraph priceChangeRenderable = new Paragraph(priceChangeText, width);
+            priceChangeRenderable.setHighlightStrings(Misc.getDGSCredits(price),
+                    Misc.getDGSCredits(marketWrapper.getPriceAmount()));
+            priceChangeRenderable.setHighlightColors(Misc.getHighlightColor(), Misc.getHighlightColor());
+            renderables.add(priceChangeRenderable);
+            renderables.add(new Spacer(10f));
+        }
+    }
+
+    private void addRelationship(List<Renderable> renderables, float width) {
+        FactionAPI faction = marketWrapper.getFaction();
+        RelationshipAPI relationship = faction.getRelToPlayer();
+        String reputation = relationship.getLevel().getDisplayName();
+        Paragraph relationshipRenderable = new Paragraph(
+                "The owner of this market is " + reputation.toLowerCase() + " towards you.", width);
+        relationshipRenderable.setHighlightStrings(reputation.toLowerCase());
+        relationshipRenderable.setHighlightColors(relationship.getRelColor());
+        renderables.add(relationshipRenderable);
     }
 
     private String getTitle() {

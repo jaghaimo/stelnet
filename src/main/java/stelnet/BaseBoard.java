@@ -1,8 +1,24 @@
 package stelnet;
 
+import java.util.Set;
+
+import com.fs.starfarer.api.ui.SectorMapAPI;
+
 import stelnet.ui.RenderableIntel;
 
-public class BaseBoard extends RenderableIntel {
+public abstract class BaseBoard extends RenderableIntel {
+
+    @Override
+    public Set<String> getIntelTags(SectorMapAPI map) {
+        Set<String> tags = super.getIntelTags(map);
+        tags.add(getTag());
+        return tags;
+    }
+
+    @Override
+    public IntelSortTier getSortTier() {
+        return IntelSortTier.TIER_0;
+    }
 
     @Override
     public boolean hasLargeDescription() {
@@ -10,7 +26,9 @@ public class BaseBoard extends RenderableIntel {
     }
 
     @Override
-    public IntelSortTier getSortTier() {
-        return IntelSortTier.TIER_0;
+    public boolean isNew() {
+        return false;
     }
+
+    protected abstract String getTag();
 }

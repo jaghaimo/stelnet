@@ -5,7 +5,7 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import stelnet.commodity.CommodityBoard;
-import stelnet.commodity.CommodityBoard.CommodityTab;
+import stelnet.commodity.CommodityTab;
 import stelnet.ui.Button;
 import stelnet.ui.EventHandler;
 import stelnet.ui.Size;
@@ -13,7 +13,7 @@ import stelnet.ui.Size;
 public class TabButton extends Button {
 
     public TabButton(final CommodityTab currentTab, CommodityTab activeTab, int shortcut) {
-        super(new Size(200, 22), currentTab.title, true, Misc.getGrayColor());
+        super(new Size(140, 22), currentTab.title, true, Misc.getGrayColor());
         if (currentTab.equals(activeTab)) {
             setColor(Misc.getButtonTextColor());
         }

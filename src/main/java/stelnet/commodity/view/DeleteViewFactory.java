@@ -2,13 +2,18 @@ package stelnet.commodity.view;
 
 import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Size;
-import stelnet.ui.Stack;
+import stelnet.ui.VerticalViewContainer;
 
 public class DeleteViewFactory {
 
-    public AbstractRenderable get(String activeId, Size size) {
-        AbstractRenderable stack = new Stack(new PurgeButton(), new DeleteButton(activeId));
-        stack.setSize(size);
-        return stack;
+    public AbstractRenderable createContainer(String activeId, Size size) {
+        // @formatter:off
+        AbstractRenderable verticalContainer = new VerticalViewContainer(
+                new DeleteAllIntel(),
+                new DeleteCommodityIntel(activeId)
+        );
+        // @formatter:on
+        verticalContainer.setSize(size);
+        return verticalContainer;
     }
 }

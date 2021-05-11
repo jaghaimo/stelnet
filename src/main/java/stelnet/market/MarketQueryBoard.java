@@ -4,10 +4,8 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
-import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
@@ -61,15 +59,18 @@ public class MarketQueryBoard extends BaseBoard {
     }
 
     @Override
-    public Set<String> getIntelTags(SectorMapAPI map) {
-        Set<String> tags = super.getIntelTags(map);
-        tags.add(MarketResultIntel.TAG);
-        return tags;
+    protected List<Renderable> getRenderables(Size size) {
+        // @formatter:off
+        return Arrays.asList(
+                new ControlRow(size, queries),
+                new EmptyRow(size, queries.isEmpty()),
+                new Queries(size, queries)
+        );
+        // @formatter:on
     }
 
     @Override
-    protected List<Renderable> getRenderables(Size size) {
-        return Arrays.asList(new ControlRow(size, queries), new EmptyRow(size, queries.isEmpty()),
-                new Queries(size, queries));
+    protected String getTag() {
+        return MarketResultIntel.TAG;
     }
 }

@@ -2,43 +2,31 @@ package stelnet.commodity;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.impl.campaign.ids.Commodities;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
-import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import lombok.Getter;
 import lombok.Setter;
 import stelnet.BaseBoard;
 import stelnet.commodity.view.ButtonViewFactory;
-import stelnet.commodity.view.CommodityViewFactory;
 import stelnet.commodity.view.DeleteViewFactory;
-import stelnet.commodity.view.IntelSelectionFactory;
+import stelnet.commodity.view.IntelViewFactory;
+import stelnet.commodity.view.TableViewFactory;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.SettingHelper;
 import stelnet.ui.Renderable;
 import stelnet.ui.Size;
 
+@Setter
+@Getter
 public class CommodityBoard extends BaseBoard {
 
-    public enum CommodityTab {
-        BUY("Buy"), SELL("Sell");
-
-        public String title;
-
-        private CommodityTab(String title) {
-            this.title = title;
-        }
-    }
-
-    @Setter
-    private String activeId;
-    @Setter
-    private CommodityTab activeTab;
-    private CommodityViewFactory commodityViewFactory;
-    private IntelSelectionFactory intelSelectionFactory;
+    private String commodityId = Commodities.SUPPLIES;
+    private CommodityTab activeTab = CommodityTab.BUY;
+    private final IntelTracker intelTracker = new IntelTracker();
 
     public static CommodityBoard getInstance() {
         IntelInfoPlugin intel = IntelHelper.getFirstIntel(CommodityBoard.class);
@@ -47,13 +35,6 @@ public class CommodityBoard extends BaseBoard {
             IntelHelper.addIntel(board, true);
         }
         return (CommodityBoard) intel;
-    }
-
-    private CommodityBoard() {
-        activeId = Commodities.SUPPLIES;
-        activeTab = CommodityTab.BUY;
-        intelSelectionFactory = new IntelSelectionFactory();
-        commodityViewFactory = new CommodityViewFactory(intelSelectionFactory);
     }
 
     @Override
@@ -68,17 +49,32 @@ public class CommodityBoard extends BaseBoard {
         return SettingHelper.getSpriteName("commodity");
     }
 
-    @Override
-    public Set<String> getIntelTags(SectorMapAPI map) {
-        Set<String> tags = super.getIntelTags(map);
-        tags.add(CommodityIntel.TAG);
-        return tags;
+    public void deleteIntel() {
+        intelTracker.removeAll();
+    }
+
+    public void deleteIntel(CommodityIntel intel) {
+        intelTracker.remove(intel);
+    }
+
+    public void deleteIntel(String commodityId) {
+        intelTracker.removeCommodity(commodityId);
     }
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
-        return Arrays.<Renderable>asList(commodityViewFactory.get(activeId, activeTab, size),
-                intelSelectionFactory.get(activeId, activeTab, size), new ButtonViewFactory().get(activeId, size),
-                new DeleteViewFactory().get(activeId, size));
+        // @formatter:off
+        return Arrays.<Renderable>asList(
+                new TableViewFactory().createContainer(commodityId, activeTab, size),
+                new IntelViewFactory(intelTracker).createContainer(commodityId, activeTab, size),
+                new ButtonViewFactory().createContainer(commodityId, size),
+                new DeleteViewFactory().createContainer(commodityId, size)
+        );
+        // @formatter:on
+    }
+
+    @Override
+    protected String getTag() {
+        return CommodityIntel.TAG;
     }
 }

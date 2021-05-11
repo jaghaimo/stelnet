@@ -9,18 +9,18 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import stelnet.helper.LogHelper;
 
 /**
- * Renders elements in a vertical line.
+ * Renders elements in a horizontal line.
  *
  * Calculates size automatically if needed. Only usable in large intel or
  * {@link CustomPanel}.
  */
-public class Stack extends Group {
+public class HorizontalViewContainer extends Group {
 
-    public Stack(AbstractRenderable... elements) {
+    public HorizontalViewContainer(AbstractRenderable... elements) {
         super(Arrays.asList(elements));
     }
 
-    public Stack(List<AbstractRenderable> elements) {
+    public HorizontalViewContainer(List<AbstractRenderable> elements) {
         super(elements);
     }
 
@@ -29,7 +29,7 @@ public class Stack extends Group {
         for (AbstractRenderable renderable : getElements()) {
             Size size = renderable.getSize();
             renderable.render(panel, x, y);
-            y += size.getHeight() * getLocation().getVerticalDirection();
+            x += size.getWidth() * getLocation().getHorizontalDirection();
         }
     }
 
@@ -40,17 +40,17 @@ public class Stack extends Group {
 
     @Override
     public String toString() {
-        return String.format("Stack(%d) with %s", getElements().size(), getSize());
+        return String.format("Row(%d) with %s", getElements().size(), getSize());
     }
 
     @Override
     protected void setCalculatedSize() {
         super.setCalculatedSize();
         Size size = super.getSize();
-        float height = 0;
+        float width = 0;
         for (AbstractRenderable renderable : getElements()) {
-            height += renderable.getSize().getHeight();
+            width += renderable.getSize().getWidth();
         }
-        setSize(new Size(size.getWidth(), height));
+        setSize(new Size(width, size.getHeight()));
     }
 }

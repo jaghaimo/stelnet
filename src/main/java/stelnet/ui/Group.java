@@ -12,7 +12,7 @@ import stelnet.helper.LogHelper;
 /**
  * Simple element grouping usable in both large and small intel.
  *
- * Extended by {@link Row} and {@link Stack} which can only be used in large
+ * Extended by {@link HorizontalViewContainer} and {@link VerticalViewContainer} which can only be used in large
  * intel only.
  */
 
