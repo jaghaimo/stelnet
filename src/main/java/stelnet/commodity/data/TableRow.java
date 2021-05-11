@@ -8,7 +8,7 @@ import com.fs.starfarer.api.util.Misc;
 
 import stelnet.ui.TableContentRow;
 
-public class RowDataElement implements TableContentRow {
+public class TableRow implements TableContentRow {
 
     ArrayList<Object> elements = new ArrayList<>();
 

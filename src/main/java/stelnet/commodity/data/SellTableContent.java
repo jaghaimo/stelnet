@@ -16,7 +16,7 @@ public class SellTableContent extends MarketTableContent {
     }
 
     @Override
-    protected RowDataElement createRowData(int i, MarketApiWrapper market) {
+    protected TableRow createRowData(int i, MarketApiWrapper market) {
         int demand = market.getDemand(commodityId);
         int deficit = -market.getDeficitQuantity(commodityId);
         return createRowData(i, market, demand, deficit);

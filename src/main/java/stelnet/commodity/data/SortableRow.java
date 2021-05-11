@@ -3,7 +3,7 @@ package stelnet.commodity.data;
 import lombok.Getter;
 
 @Getter
-public class SortableRow extends RowDataElement implements Comparable<SortableRow> {
+public class SortableRow extends TableRow implements Comparable<SortableRow> {
 
     private final float profit;
 

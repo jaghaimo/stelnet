@@ -14,7 +14,7 @@ public abstract class MarketTableContent implements TableContent {
 
     protected String commodityId;
     protected final List<MarketApiWrapper> markets;
-    protected List<RowDataElement> rows = new ArrayList<>();
+    protected List<TableRow> rows = new ArrayList<>();
 
     protected MarketTableContent(String commodityId, List<MarketApiWrapper> markets) {
         this.commodityId = commodityId;
@@ -43,16 +43,15 @@ public abstract class MarketTableContent implements TableContent {
         int i = 1;
 
         for (MarketApiWrapper market : markets) {
-            RowDataElement row = createRowData(i++, market);
+            TableRow row = createRowData(i++, market);
             rows.add(row);
         }
     }
 
-    protected abstract RowDataElement createRowData(int i, MarketApiWrapper market);
+    protected abstract TableRow createRowData(int i, MarketApiWrapper market);
 
-    protected RowDataElement createRowData(int i, MarketApiWrapper market, int demandOrAvailability,
-            int excessOrDeficit) {
-        RowDataElement rowDataElement = new RowDataElement();
+    protected TableRow createRowData(int i, MarketApiWrapper market, int demandOrAvailability, int excessOrDeficit) {
+        TableRow rowDataElement = new TableRow();
         rowDataElement.addRowNumberCell(i);
         rowDataElement.addDGSCreditsCell(market.getPriceAmount());
         rowDataElement.addDGSCell(demandOrAvailability);
