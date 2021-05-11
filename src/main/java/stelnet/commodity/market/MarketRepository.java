@@ -1,37 +1,25 @@
 package stelnet.commodity.market;
 
-import java.util.HashMap;
 import java.util.List;
 
+import lombok.Getter;
 import stelnet.commodity.CommodityTab;
 
+@Getter
 public class MarketRepository {
 
-    HashMap<String, List<MarketApiWrapper>> buyMarkets = new HashMap<>();
-    HashMap<String, List<MarketApiWrapper>> sellMarkets = new HashMap<>();
+    List<MarketApiWrapper> buyMarkets;
+    List<MarketApiWrapper> sellMarkets;
 
     public MarketRepository(String commodityId) {
-        List<MarketApiWrapper> buyMarket = new BuyMarketFactory(commodityId).createMarkets();
-        List<MarketApiWrapper> sellMarket = new SellMarketFactory(commodityId).createMarkets();
-
-        buyMarkets.put(commodityId, buyMarket);
-        sellMarkets.put(commodityId, sellMarket);
+        buyMarkets = new BuyMarketFactory(commodityId).createMarkets();
+        sellMarkets = new SellMarketFactory(commodityId).createMarkets();
     }
 
-    public List<MarketApiWrapper> getBuyMarketByCommodity(String commodityId) {
-        return buyMarkets.get(commodityId);
-    }
-
-    public List<MarketApiWrapper> getSellMarketByCommodity(String commodityId) {
-        return sellMarkets.get(commodityId);
-    }
-
-    public List<MarketApiWrapper> getMarketByCommodityIdAndMarket(String commodityId, CommodityTab marketType) {
-        if (marketType == CommodityTab.BUY) {
-            return buyMarkets.get(commodityId);
-        } else if (marketType == CommodityTab.SELL) {
-            return sellMarkets.get(commodityId);
+    public List<MarketApiWrapper> getMarketsByType(CommodityTab marketType) {
+        if (marketType == CommodityTab.SELL) {
+            return sellMarkets;
         }
-        return buyMarkets.get(commodityId);
+        return buyMarkets;
     }
 }

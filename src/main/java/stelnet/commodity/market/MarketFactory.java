@@ -5,18 +5,16 @@ import java.util.List;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 
+import lombok.RequiredArgsConstructor;
 import stelnet.commodity.market.price.Price;
 import stelnet.filter.market.MarketNotHidden;
 import stelnet.helper.CollectionHelper;
 import stelnet.helper.GlobalHelper;
 
+@RequiredArgsConstructor
 public abstract class MarketFactory {
 
-    protected String commodityId;
-
-    public MarketFactory(String commodityId) {
-        this.commodityId = commodityId;
-    }
+    protected final String commodityId;
 
     public List<MarketApiWrapper> createMarkets() {
         List<MarketAPI> markets = GlobalHelper.getMarkets();

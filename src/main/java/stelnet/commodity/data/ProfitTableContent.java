@@ -45,8 +45,8 @@ public class ProfitTableContent implements TableContent {
     }
 
     public void createRows() {
-        List<MarketApiWrapper> buyMarkets = marketRepository.getBuyMarketByCommodity(commodityId);
-        List<MarketApiWrapper> sellMarkets = marketRepository.getSellMarketByCommodity(commodityId);
+        List<MarketApiWrapper> buyMarkets = marketRepository.getBuyMarkets();
+        List<MarketApiWrapper> sellMarkets = marketRepository.getSellMarkets();
         int i = 1;
         for (MarketApiWrapper buyMarket : buyMarkets) {
             for (MarketApiWrapper sellMarket : sellMarkets) {

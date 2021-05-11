@@ -41,9 +41,9 @@ public class TableViewFactory {
         MarketRepository marketRepository = new MarketRepository(commodityId);
 
         if (activeTab == CommodityTab.BUY) {
-            tableContent = new BuyTableContent(commodityId, marketRepository.getBuyMarketByCommodity(commodityId));
+            tableContent = new BuyTableContent(commodityId, marketRepository.getBuyMarkets());
         } else if (activeTab == CommodityTab.SELL) {
-            tableContent = new SellTableContent(commodityId, marketRepository.getSellMarketByCommodity(commodityId));
+            tableContent = new SellTableContent(commodityId, marketRepository.getSellMarkets());
         } else if (activeTab == CommodityTab.PROFIT) {
             tableContent = new ProfitTableContent(commodityId, marketRepository);
         }

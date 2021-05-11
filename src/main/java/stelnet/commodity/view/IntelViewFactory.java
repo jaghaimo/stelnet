@@ -19,7 +19,7 @@ public class IntelViewFactory {
 
     public HorizontalViewContainer createContainer(String commodityId, CommodityTab actionTab, Size size) {
         MarketRepository marketRepository = new MarketRepository(commodityId);
-        List<MarketApiWrapper> markets = marketRepository.getMarketByCommodityIdAndMarket(commodityId, actionTab);
+        List<MarketApiWrapper> markets = marketRepository.getMarketsByType(actionTab);
         int numberOfButtons = calcNumberOfButtons(markets, size);
 
         List<AbstractRenderable> buttons = new LinkedList<>();
