@@ -6,8 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
-import com.fs.starfarer.api.campaign.econ.EconomyAPI;
 
+import stelnet.filter.commodityspec.HasNotTag;
+import stelnet.helper.CollectionHelper;
 import stelnet.helper.GlobalHelper;
 import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Button;
@@ -17,30 +18,16 @@ import stelnet.ui.VerticalViewContainer;
 public class ButtonViewFactory {
 
     public VerticalViewContainer createContainer(String activeId, Size size) {
-        EconomyAPI economy = GlobalHelper.getEconomy();
         List<AbstractRenderable> buttons = new LinkedList<>();
-        List<String> commodityIds = economy.getAllCommodityIds();
-        sortCommodities(commodityIds);
-        for (String commodityId : commodityIds) {
-            CommoditySpecAPI commodity = economy.getCommoditySpec(commodityId);
-            if (canInclude(commodity)) {
-                buttons.add(createContainer(commodity, activeId));
-            }
+        List<CommoditySpecAPI> commodities = GlobalHelper.getAllCommodities();
+        filterCommodities(commodities);
+        sortCommodities(commodities);
+        for (CommoditySpecAPI commodity : commodities) {
+            buttons.add(createContainer(commodity, activeId));
         }
         VerticalViewContainer verticalViewContainer = new VerticalViewContainer(buttons);
         verticalViewContainer.setSize(size);
         return verticalViewContainer;
-    }
-
-    // TODO: Replace this with a Filter
-    private boolean canInclude(CommoditySpecAPI commodity) {
-        if (commodity.hasTag("nonecon")) {
-            return false;
-        }
-        if (commodity.hasTag("meta")) {
-            return false;
-        }
-        return true;
     }
 
     private Button createContainer(CommoditySpecAPI commodity, String activeId) {
@@ -48,13 +35,16 @@ public class ButtonViewFactory {
         return new CommodityButton(commodity, isOn);
     }
 
-    private void sortCommodities(List<String> commodityIds) {
-        Collections.sort(commodityIds, new Comparator<String>() {
+    private void filterCommodities(List<CommoditySpecAPI> commodities) {
+        CollectionHelper.reduce(commodities, new HasNotTag("nonecon"));
+        CollectionHelper.reduce(commodities, new HasNotTag("meta"));
+    }
+
+    private void sortCommodities(List<CommoditySpecAPI> commodities) {
+        Collections.sort(commodities, new Comparator<CommoditySpecAPI>() {
 
             @Override
-            public int compare(String stringA, String stringB) {
-                CommoditySpecAPI commodityA = GlobalHelper.getCommoditySpec(stringA);
-                CommoditySpecAPI commodityB = GlobalHelper.getCommoditySpec(stringB);
+            public int compare(CommoditySpecAPI commodityA, CommoditySpecAPI commodityB) {
                 return commodityA.getName().compareToIgnoreCase(commodityB.getName());
             }
         });

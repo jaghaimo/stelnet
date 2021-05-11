@@ -22,17 +22,17 @@ public abstract class MarketTableContent implements TableContent {
         createRows();
     }
 
-    protected Object[] getHeader(float width, String availableOrDemand, String excessOrDeficit) {
+    protected Object[] getHeader(float maxWidth, String availableOrDemand, String excessOrDeficit) {
+        float width = maxWidth - 24;
         // @formatter:off
         Object header[] = {
                 "#", .05f * width,
                 "Price", .1f * width,
-                availableOrDemand, .1f * width,
-                excessOrDeficit, .1f * width,
-                "Location", .3f * width,
-                "Star system", .2f * width,
-                "Dist (ly)",
-                .1f * width
+                availableOrDemand, .11f * width,
+                excessOrDeficit, .11f * width,
+                "Location", .32f * width,
+                "Star system", .21f * width,
+                "Dist (ly)", .1f * width
         };
         // @formatter:on
         return header;
@@ -53,14 +53,14 @@ public abstract class MarketTableContent implements TableContent {
     protected RowDataElement createRowData(int i, MarketApiWrapper market, int demandOrAvailability,
             int excessOrDeficit) {
         RowDataElement rowDataElement = new RowDataElement();
-        rowDataElement.addRowNumber(i);
-        rowDataElement.addDGSCreditsRow(market.getPriceAmount());
-        rowDataElement.addDGSRow(demandOrAvailability);
-        rowDataElement.addExcessRow(excessOrDeficit);
+        rowDataElement.addRowNumberCell(i);
+        rowDataElement.addDGSCreditsCell(market.getPriceAmount());
+        rowDataElement.addDGSCell(demandOrAvailability);
+        rowDataElement.addExcessDemandCell(excessOrDeficit);
         rowDataElement.addRow(TableCellHelper.getClaimingFactionColor(market.getMarketAPI()),
                 market.getMarketAndFactionDisplayName());
         rowDataElement.addRow(TableCellHelper.getClaimingFactionColor(market.getMarketAPI()), market.getStarSystem());
-        rowDataElement.addRow(Misc.getHighlightColor(), String.format("%.1f", market.getDistanceToPlayer()));
+        rowDataElement.addRow(Misc.getTextColor(), String.format("%.1f", market.getDistanceToPlayer()));
         return rowDataElement;
     }
 }

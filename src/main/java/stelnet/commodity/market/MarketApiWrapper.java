@@ -5,21 +5,26 @@ import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import com.fs.starfarer.api.impl.campaign.submarkets.OpenMarketPlugin;
 
 import lombok.Builder;
 import lombok.Data;
+import stelnet.commodity.data.TableCellHelper;
 import stelnet.commodity.market.price.Price;
 import stelnet.helper.DistanceHelper;
 
 @Data
 @Builder
 public class MarketApiWrapper {
-    Price price;
-    MarketAPI marketAPI;
+
+    private Price price;
+    private MarketAPI marketAPI;
 
     public float getPriceAmount() {
         return price.getPriceAmount(marketAPI);
+    }
+
+    public float getPriceAmount(int quantity) {
+        return price.getPriceAmount(marketAPI, quantity);
     }
 
     public CommodityOnMarketAPI getCommodityData(String commodityId) {
@@ -28,21 +33,12 @@ public class MarketApiWrapper {
 
     public int getAvailable(String commodityId) {
         CommodityOnMarketAPI commodityData = getCommodityData(commodityId);
-        int available = OpenMarketPlugin.getApproximateStockpileLimit(commodityData);
-        available += commodityData.getPlayerTradeNetQuantity();
-        return available;
+        return TableCellHelper.getAvailable(commodityData);
     }
 
     public int getDemand(String commodityId) {
         CommodityOnMarketAPI commodityData = getCommodityData(commodityId);
-        int demandIcons = commodityData.getMaxDemand();
-        if (!commodityData.getCommodity().isPrimary()) {
-            CommodityOnMarketAPI primary = marketAPI.getCommodityData(commodityData.getCommodity().getDemandClass());
-            demandIcons = primary.getMaxDemand();
-        }
-        int demand = (int) (commodityData.getCommodity().getEconUnit() * demandIcons);
-        demand -= commodityData.getPlayerTradeNetQuantity();
-        return demand;
+        return TableCellHelper.getDemand(marketAPI, commodityData);
     }
 
     public int getExcessQuantity(String commodityId) {

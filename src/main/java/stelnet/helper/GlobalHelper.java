@@ -1,5 +1,6 @@
 package stelnet.helper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fs.starfarer.api.Global;
@@ -17,6 +18,18 @@ public class GlobalHelper {
 
     public static CargoAPI createCargo(boolean unlimitedStacks) {
         return Global.getFactory().createCargo(unlimitedStacks);
+    }
+
+    public static List<CommoditySpecAPI> getAllCommodities() {
+        List<CommoditySpecAPI> commodities = new ArrayList<>();
+        for (String commodityId : getAllCommodityIds()) {
+            commodities.add(getCommoditySpec(commodityId));
+        }
+        return commodities;
+    }
+
+    public static List<String> getAllCommodityIds() {
+        return Global.getSector().getEconomy().getAllCommodityIds();
     }
 
     public static CommoditySpecAPI getCommoditySpec(String commodityId) {

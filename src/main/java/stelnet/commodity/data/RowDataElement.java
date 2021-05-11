@@ -12,20 +12,32 @@ public class RowDataElement implements TableContentRow {
 
     ArrayList<Object> elements = new ArrayList<>();
 
-    public void addRowNumber(Integer i) {
-        addRow(Misc.getGrayColor(), i + ".");
+    public void addRowNumberCell(Integer i) {
+        addRowNumberCell(Misc.getGrayColor(), i);
     }
 
-    public void addDGSCreditsRow(float value) {
-        addRow(Misc.getHighlightColor(), Misc.getDGSCredits(value));
+    public void addRowNumberCell(Color color, Integer i) {
+        addRow(color, i + ".");
     }
 
-    public void addDGSRow(int value) {
-        addRow(Misc.getHighlightColor(), Misc.getWithDGS(value));
+    public void addDGSCreditsCell(float value) {
+        addDGSCreditsCell(Misc.getTextColor(), value);
     }
 
-    public void addExcessRow(int value) {
-        addRow(getExcessColor(value), getExcessValue(value));
+    public void addDGSCreditsCell(Color color, float value) {
+        addRow(color, Misc.getDGSCredits(value));
+    }
+
+    public void addDGSCell(int value) {
+        addDGSCell(Misc.getTextColor(), value);
+    }
+
+    public void addDGSCell(Color color, int value) {
+        addRow(color, Misc.getWithDGS(value));
+    }
+
+    public void addExcessDemandCell(int value) {
+        addRow(getExcessDemandColor(value), getExcessDemandValue(value));
     }
 
     public void addRow(Color color, Object element) {
@@ -38,21 +50,21 @@ public class RowDataElement implements TableContentRow {
         return elements.toArray();
     }
 
-    private static String getExcessValue(int excess) {
-        if (excess > 0) {
-            return Misc.getWithDGS(excess);
+    private static String getExcessDemandValue(int excessDemand) {
+        if (excessDemand > 0) {
+            return Misc.getWithDGS(excessDemand);
         }
-        if (excess < 0) {
-            return Misc.getWithDGS(-excess);
+        if (excessDemand < 0) {
+            return Misc.getWithDGS(-excessDemand);
         }
         return "---";
     }
 
-    private static Color getExcessColor(int excess) {
-        if (excess > 0) {
+    private static Color getExcessDemandColor(int excessDemand) {
+        if (excessDemand > 0) {
             return Misc.getPositiveHighlightColor();
         }
-        if (excess < 0) {
+        if (excessDemand < 0) {
             return Misc.getNegativeHighlightColor();
         }
         return Misc.getGrayColor();
