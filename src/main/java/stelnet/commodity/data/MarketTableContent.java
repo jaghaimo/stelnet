@@ -8,14 +8,13 @@ import com.fs.starfarer.api.util.Misc;
 import lombok.Getter;
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.ui.TableContent;
-import stelnet.ui.TableContentRow;
 
 @Getter
 public abstract class MarketTableContent implements TableContent {
 
     protected String commodityId;
     protected final List<MarketApiWrapper> markets;
-    protected List<TableContentRow> rows = new ArrayList<>();
+    protected List<RowDataElement> rows = new ArrayList<>();
 
     protected MarketTableContent(String commodityId, List<MarketApiWrapper> markets) {
         this.commodityId = commodityId;

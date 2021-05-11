@@ -6,5 +6,5 @@ public interface TableContent {
 
     public Object[] getHeaders(float width);
 
-    public List<TableContentRow> getRows();
+    public List<? extends TableContentRow> getRows();
 }

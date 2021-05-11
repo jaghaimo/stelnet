@@ -7,16 +7,13 @@ import java.util.List;
 
 import com.fs.starfarer.api.util.Misc;
 
-import lombok.Getter;
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.commodity.market.MarketRepository;
 import stelnet.ui.TableContent;
-import stelnet.ui.TableContentRow;
 
 public class ProfitTableContent implements TableContent {
 
-    // TODO: this generic needs to be parametrized
-    protected List rows = new ArrayList<>();
+    protected List<SortableRow> rows = new ArrayList<>();
     private final MarketRepository marketRepository;
     private final String commodityId;
 
@@ -30,7 +27,7 @@ public class ProfitTableContent implements TableContent {
     public Object[] getHeaders(float width) {
         // @formatter:off
         return new Object[]{
-                "Buy #", .05f * width,
+                "#", .05f * width,
                 "Buy Price", .1f * width,
                 "Sell Price", .1f * width,
                 "Avail. / Demand", .15f * width,
@@ -44,7 +41,7 @@ public class ProfitTableContent implements TableContent {
     }
 
     @Override
-    public List<TableContentRow> getRows() {
+    public List<SortableRow> getRows() {
         return rows;
     }
 
@@ -124,29 +121,10 @@ public class ProfitTableContent implements TableContent {
     private Color getSystemColorForDistance(MarketApiWrapper buyMarket, MarketApiWrapper sellMarket) {
         String buySystemName = buyMarket.getStarSystem();
         String sellSystemName = sellMarket.getStarSystem();
-        Color color = Misc.getGrayColor();
+        Color color = Misc.getTextColor();
         if (buySystemName.equals(sellSystemName)) {
             color = Misc.getHighlightColor();
         }
         return color;
-    }
-
-    // TODO: consider merging rowdata with sortablerow
-    @Getter
-    private static class SortableRow extends RowDataElement implements Comparable<SortableRow> {
-        private final float profit;
-
-        public SortableRow(float profit) {
-            this.profit = profit;
-        }
-
-        @Override
-        public int compareTo(SortableRow o) {
-            return compare(this.getProfit(), o.getProfit());
-        }
-
-        private int compare(float o1, float o2) {
-            return (int) (o2 - o1);
-        }
     }
 }
