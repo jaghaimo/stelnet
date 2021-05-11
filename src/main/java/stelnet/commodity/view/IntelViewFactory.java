@@ -13,12 +13,12 @@ import stelnet.ui.HorizontalViewContainer;
 import stelnet.ui.Size;
 
 @AllArgsConstructor
-public class IntelSelectionFactory {
+public class IntelViewFactory {
 
-    private final MarketRepository marketRepository;
     private final IntelTracker tracker;
 
     public HorizontalViewContainer createContainer(String commodityId, CommodityTab actionTab, Size size) {
+        MarketRepository marketRepository = new MarketRepository(commodityId);
         List<MarketApiWrapper> markets = marketRepository.getMarketByCommodityIdAndMarket(commodityId, actionTab);
         int numberOfButtons = calcNumberOfButtons(markets, size);
 

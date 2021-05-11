@@ -11,10 +11,9 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import lombok.Getter;
 import lombok.Setter;
 import stelnet.BaseBoard;
-import stelnet.commodity.market.MarketRepository;
 import stelnet.commodity.view.ButtonViewFactory;
 import stelnet.commodity.view.DeleteViewFactory;
-import stelnet.commodity.view.IntelSelectionFactory;
+import stelnet.commodity.view.IntelViewFactory;
 import stelnet.commodity.view.TableViewFactory;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.SettingHelper;
@@ -64,12 +63,10 @@ public class CommodityBoard extends BaseBoard {
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
-        MarketRepository marketRepository = new MarketRepository(commodityId);
-        IntelSelectionFactory intelSelectionFactory = new IntelSelectionFactory(marketRepository, intelTracker);
         // @formatter:off
         return Arrays.<Renderable>asList(
                 new TableViewFactory().createContainer(commodityId, activeTab, size),
-                intelSelectionFactory.createContainer(commodityId, activeTab, size),
+                new IntelViewFactory(intelTracker).createContainer(commodityId, activeTab, size),
                 new ButtonViewFactory().createContainer(commodityId, size),
                 new DeleteViewFactory().createContainer(commodityId, size)
         );
