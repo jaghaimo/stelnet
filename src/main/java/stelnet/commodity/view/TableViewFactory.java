@@ -38,7 +38,7 @@ public class TableViewFactory {
 
     private TableContent createTableContent(String commodityId, CommodityTab activeTab) {
         TableContent tableContent = null;
-        MarketRepository marketRepository = MarketRepository.getInstance(commodityId);
+        MarketRepository marketRepository = new MarketRepository(commodityId);
 
         if (activeTab == CommodityTab.BUY) {
             tableContent = new BuyTableContent(commodityId, marketRepository.getBuyMarketByCommodity(commodityId));
