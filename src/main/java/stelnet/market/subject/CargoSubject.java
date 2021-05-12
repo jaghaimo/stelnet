@@ -16,8 +16,8 @@ import stelnet.filter.submarket.CanAcquireCargoStack;
 import stelnet.filter.submarket.HasCargoStack;
 import stelnet.filter.submarket.IsAccessible;
 import stelnet.filter.submarket.SubmarketFilter;
+import stelnet.helper.CargoHelper;
 import stelnet.helper.CollectionHelper;
-import stelnet.helper.GlobalHelper;
 
 public class CargoSubject extends SubmarketSubject {
 
@@ -58,7 +58,7 @@ public class CargoSubject extends SubmarketSubject {
     @Override
     protected void addSubmarket(TooltipMakerAPI info, SubmarketAPI submarket) {
         super.addSubmarket(info, submarket);
-        CargoAPI cargo = GlobalHelper.createCargo(false);
+        CargoAPI cargo = CargoHelper.createCargo(false);
         cargo.addFromStack(submarketsWithCargoStack.get(submarket));
         info.showCargo(cargo, 1, false, 3f);
     }

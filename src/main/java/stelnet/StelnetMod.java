@@ -2,17 +2,21 @@ package stelnet;
 
 import com.fs.starfarer.api.BaseModPlugin;
 
-import stelnet.helper.Installer;
-import stelnet.helper.SettingHelper;
+import stelnet.config.ModConfig;
+import stelnet.helper.Configurator;
 
 public class StelnetMod extends BaseModPlugin {
 
     @Override
     public void beforeGameSave() {
-        boolean isUninstall = SettingHelper.uninstallMod();
-        if (isUninstall) {
-            uninstall();
+        if (ModConfig.uninstallMod) {
+            Configurator.uninstall();
         }
+    }
+
+    @Override
+    public void onApplicationLoad() throws Exception {
+        Configurator.configure();
     }
 
     @Override
@@ -26,18 +30,6 @@ public class StelnetMod extends BaseModPlugin {
     }
 
     private void onNewGameOrGameLoad() {
-        boolean isDevMode = SettingHelper.isDevMode();
-        if (isDevMode) {
-            uninstall();
-        }
-        install();
-    }
-
-    private void install() {
-        Installer.install();
-    }
-
-    private void uninstall() {
-        Installer.uninstall();
+        Configurator.install();
     }
 }

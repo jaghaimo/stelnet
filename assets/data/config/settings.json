@@ -1,8 +1,4 @@
 {
-    "stelnetDevMode": false,
-    "stelnetIgnoreStorageInQueries": true,
-    "stelnetUninstallMod": false,
-    "stelnetWarnAboutEndOfMonth": true,
     "graphics": {
         "stelnet": {
             "commodity": "graphics/icons/intel/tutorial_mission.png",

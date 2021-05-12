@@ -24,7 +24,7 @@ public class MarketHelper {
     }
 
     public static List<MarketAPI> getMarkets() {
-        List<MarketAPI> markets = GlobalHelper.getMarkets();
+        List<MarketAPI> markets = GlobalSectorHelper.getMarkets();
         List<MarketFilter> filters = FilterHelper.getBlacklistMarketFilters();
         filters.add(new IsNotHidden());
         CollectionHelper.reduce(markets, filters);
@@ -48,7 +48,8 @@ public class MarketHelper {
 
     private static OfficerManagerEvent getOfficerManagerEvent() {
         OfficerManagerEvent managerEvent;
-        List<OfficerManagerEvent> listeners = GlobalHelper.getListenerManager().getListeners(OfficerManagerEvent.class);
+        List<OfficerManagerEvent> listeners = GlobalSectorHelper.getListenerManager()
+                .getListeners(OfficerManagerEvent.class);
         if (listeners.size() > 0) {
             managerEvent = listeners.get(0);
         } else {

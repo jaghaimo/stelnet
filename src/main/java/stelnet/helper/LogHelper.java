@@ -3,6 +3,8 @@ package stelnet.helper;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
+import stelnet.config.ModConfig;
+
 public class LogHelper {
 
     public static void debug(Object logObject) {
@@ -27,8 +29,8 @@ public class LogHelper {
 
     private static Logger getLogger() {
         Logger logger = Logger.getLogger(getName());
-        if (SettingHelper.isDevMode()) {
-            logger.setLevel(Level.DEBUG);
+        if (ModConfig.verboseLogging) {
+            logger.setLevel(Level.ALL);
         }
         return logger;
     }

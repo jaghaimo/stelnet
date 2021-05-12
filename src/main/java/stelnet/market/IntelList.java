@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.fs.starfarer.api.campaign.comm.IntelManagerAPI;
 
-import stelnet.helper.GlobalHelper;
+import stelnet.helper.GlobalSectorHelper;
 
 public class IntelList extends ArrayList<MarketResultIntel> {
 
@@ -14,14 +14,14 @@ public class IntelList extends ArrayList<MarketResultIntel> {
         if (!isEnabled) {
             return;
         }
-        IntelManagerAPI intelManager = GlobalHelper.getIntelManager();
+        IntelManagerAPI intelManager = GlobalSectorHelper.getIntelManager();
         for (MarketResultIntel intel : this) {
             intelManager.addIntel(intel, true);
         }
     }
 
     public void removeIntel() {
-        IntelManagerAPI intelManager = GlobalHelper.getIntelManager();
+        IntelManagerAPI intelManager = GlobalSectorHelper.getIntelManager();
         for (MarketResultIntel intel : this) {
             intelManager.removeIntel(intel);
         }

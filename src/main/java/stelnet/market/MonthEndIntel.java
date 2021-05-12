@@ -3,7 +3,7 @@ package stelnet.market;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
-import stelnet.helper.SettingHelper;
+import stelnet.helper.GlobalSettingsHelper;
 
 public class MonthEndIntel extends BaseIntelPlugin {
 
@@ -23,6 +23,6 @@ public class MonthEndIntel extends BaseIntelPlugin {
 
     @Override
     public String getIcon() {
-        return SettingHelper.getSpriteName("market");
+        return GlobalSettingsHelper.getSpriteName("market");
     }
 }

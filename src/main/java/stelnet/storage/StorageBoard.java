@@ -9,8 +9,8 @@ import com.fs.starfarer.api.util.Misc;
 
 import lombok.Getter;
 import stelnet.BaseBoard;
+import stelnet.helper.GlobalSettingsHelper;
 import stelnet.helper.IntelHelper;
-import stelnet.helper.SettingHelper;
 import stelnet.helper.StorageHelper;
 import stelnet.storage.data.ItemsGridData;
 import stelnet.storage.data.SharedData;
@@ -50,7 +50,7 @@ public class StorageBoard extends BaseBoard {
 
     @Override
     public String getIcon() {
-        return SettingHelper.getSpriteName("storage");
+        return GlobalSettingsHelper.getSpriteName("storage");
     }
 
     public void togglePane() {
