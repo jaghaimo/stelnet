@@ -2,17 +2,29 @@ package stelnet;
 
 import com.fs.starfarer.api.BaseModPlugin;
 
-import stelnet.helper.Installer;
-import stelnet.helper.SettingHelper;
+import stelnet.config.BoardConfig;
+import stelnet.config.MarketConfig;
+import stelnet.config.ModConfig;
+import stelnet.helper.Configurator;
 
 public class StelnetMod extends BaseModPlugin {
 
+    private ModConfig config;
+    private BoardConfig boardConfig;
+    private MarketConfig marketConfig;
+
     @Override
     public void beforeGameSave() {
-        boolean isUninstall = SettingHelper.uninstallMod();
-        if (isUninstall) {
+        if (config.isUninstallMod()) {
             uninstall();
         }
+    }
+
+    @Override
+    public void onApplicationLoad() throws Exception {
+        config = ModConfig.getInstance();
+        boardConfig = BoardConfig.getInstance();
+        marketConfig = MarketConfig.getInstance();
     }
 
     @Override
@@ -26,18 +38,17 @@ public class StelnetMod extends BaseModPlugin {
     }
 
     private void onNewGameOrGameLoad() {
-        boolean isDevMode = SettingHelper.isDevMode();
-        if (isDevMode) {
+        if (config.isDevMode()) {
             uninstall();
         }
         install();
     }
 
     private void install() {
-        Installer.install();
+        Configurator.configure(boardConfig, marketConfig);
     }
 
     private void uninstall() {
-        Installer.uninstall();
+        Configurator.uninstall();
     }
 }

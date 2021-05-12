@@ -6,13 +6,14 @@ import com.fs.starfarer.api.campaign.listeners.EconomyTickListener;
 import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 
-import stelnet.helper.GlobalHelper;
+import stelnet.helper.GlobalSectorHelper;
+import stelnet.helper.GlobalSettingsHelper;
 import stelnet.helper.IntelHelper;
 
 public class MonthEndListener implements EconomyTickListener {
 
     public static void register() {
-        ListenerManagerAPI listenerManager = GlobalHelper.getListenerManager();
+        ListenerManagerAPI listenerManager = GlobalSectorHelper.getListenerManager();
         List<MonthEndListener> listeners = listenerManager.getListeners(MonthEndListener.class);
         if (listeners.isEmpty()) {
             MonthEndListener listener = new MonthEndListener();
@@ -29,7 +30,7 @@ public class MonthEndListener implements EconomyTickListener {
 
     @Override
     public void reportEconomyTick(int tick) {
-        int maxTicks = GlobalHelper.getEconomyIterPerMonth();
+        int maxTicks = GlobalSettingsHelper.getEconomyIterPerMonth();
         boolean isSecondToLastTick = maxTicks - tick == 2;
         if (isSecondToLastTick) {
             MonthEndIntel intel = new MonthEndIntel("New month will start soon and Market intel may become stale!");

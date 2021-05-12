@@ -1,0 +1,17 @@
+{
+## This is a human friendly JSON file format (all Starsector JSON files are in fact HJSONs).
+## See: https://hjson.github.io/
+
+## Mod settings
+devMode: false # used to get more logging out of the mod
+uninstallMod: false # set to true, load and save the game to remove the mod
+
+## Board toggles - used to enable or disable specific boards
+hasCommodities: true
+hasMarket: true
+hasStorage: true
+
+## Market settings
+ignoreStorageInQueries: true # exclude player storage from market searches
+warnAboutEndOfMonth: true # show an intel popup one tick before end of month, and on new month
+}

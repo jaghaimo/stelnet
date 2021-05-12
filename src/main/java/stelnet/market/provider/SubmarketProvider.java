@@ -6,11 +6,11 @@ import java.util.List;
 
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 
+import stelnet.config.MarketConfig;
 import stelnet.filter.submarket.IsNotStorage;
 import stelnet.filter.submarket.SubmarketFilter;
 import stelnet.helper.CollectionHelper;
 import stelnet.helper.MarketHelper;
-import stelnet.helper.SettingHelper;
 import stelnet.market.IntelList;
 import stelnet.market.IntelProvider;
 import stelnet.market.filter.FilterManager;
@@ -22,7 +22,7 @@ public abstract class SubmarketProvider extends IntelProvider {
         List<SubmarketAPI> submarkets = MarketHelper.getSubmarkets();
         List<SubmarketFilter> filters = new LinkedList<>();
         filters.add(getFilter());
-        if (SettingHelper.ignoreStorage()) {
+        if (MarketConfig.getInstance().isIgnoreStorageInQueries()) {
             filters.add(new IsNotStorage());
             CollectionHelper.reduce(submarkets, filters);
         }

@@ -6,7 +6,7 @@ import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.commodity.market.price.Price;
-import stelnet.helper.GlobalHelper;
+import stelnet.helper.GlobalSectorHelper;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.LogHelper;
 
@@ -47,7 +47,7 @@ public class IntelTracker extends HashMap<String, CommodityIntel> {
         CommodityIntel intel = get(key);
         if (intel == null) {
             LogHelper.debug("Adding new intel with key " + key);
-            CommoditySpecAPI commodity = GlobalHelper.getCommoditySpec(commodityId);
+            CommoditySpecAPI commodity = GlobalSectorHelper.getCommoditySpec(commodityId);
             Price price = market.getPrice();
             intel = new CommodityIntel(action, commodity, market, price);
             IntelHelper.addIntel(intel, true);

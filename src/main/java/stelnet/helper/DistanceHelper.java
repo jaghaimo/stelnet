@@ -25,7 +25,7 @@ public class DistanceHelper {
     }
 
     public static float getDistanceToPlayerLY(SectorEntityToken entity) {
-        CampaignFleetAPI player = GlobalHelper.getPlayerFleet();
+        CampaignFleetAPI player = GlobalSectorHelper.getPlayerFleet();
         return getDistanceLY(player, entity);
     }
 

@@ -10,8 +10,8 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import stelnet.BaseBoard;
+import stelnet.helper.GlobalSettingsHelper;
 import stelnet.helper.IntelHelper;
-import stelnet.helper.SettingHelper;
 import stelnet.market.view.ControlRow;
 import stelnet.market.view.EmptyRow;
 import stelnet.market.view.Queries;
@@ -55,7 +55,7 @@ public class MarketQueryBoard extends BaseBoard {
 
     @Override
     public String getIcon() {
-        return SettingHelper.getSpriteName("market");
+        return GlobalSettingsHelper.getSpriteName("market");
     }
 
     @Override

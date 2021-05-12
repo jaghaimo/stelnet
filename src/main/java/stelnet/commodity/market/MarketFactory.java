@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import stelnet.commodity.market.price.Price;
 import stelnet.filter.market.MarketNotHidden;
 import stelnet.helper.CollectionHelper;
-import stelnet.helper.GlobalHelper;
+import stelnet.helper.GlobalSectorHelper;
 
 @RequiredArgsConstructor
 public abstract class MarketFactory {
@@ -17,7 +17,7 @@ public abstract class MarketFactory {
     protected final String commodityId;
 
     public List<MarketApiWrapper> createMarkets() {
-        List<MarketAPI> markets = GlobalHelper.getMarkets();
+        List<MarketAPI> markets = GlobalSectorHelper.getMarkets();
         CollectionHelper.reduce(markets, new MarketNotHidden());
         filterMarkets(markets);
         sortMarkets(markets);
