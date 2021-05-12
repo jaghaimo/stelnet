@@ -29,8 +29,8 @@ public class LogHelper {
 
     private static Logger getLogger() {
         Logger logger = Logger.getLogger(getName());
-        if (GlobalSettingsHelper.isDevMode()) {
-            logger.setLevel(Level.toLevel(ModConfig.logLevel));
+        if (ModConfig.verboseLogging) {
+            logger.setLevel(Level.ALL);
         }
         return logger;
     }

@@ -3,8 +3,8 @@
 ## See: https://hjson.github.io/
 
 ## Mod settings
-verboseLogging: false, # increases log verbosity
 uninstallMod: false, # set to true, load and save the game to remove the mod
+verboseLogging: false, # increases log verbosity
 
 ## Board toggles - used to enable or disable specific boards
 hasCommodities: true,
