@@ -10,8 +10,6 @@ import stelnet.helper.Configurator;
 public class StelnetMod extends BaseModPlugin {
 
     private ModConfig config;
-    private BoardConfig boardConfig;
-    private MarketConfig marketConfig;
 
     @Override
     public void beforeGameSave() {
@@ -23,8 +21,6 @@ public class StelnetMod extends BaseModPlugin {
     @Override
     public void onApplicationLoad() throws Exception {
         config = ModConfig.getInstance();
-        boardConfig = BoardConfig.getInstance();
-        marketConfig = MarketConfig.getInstance();
     }
 
     @Override
@@ -45,6 +41,8 @@ public class StelnetMod extends BaseModPlugin {
     }
 
     private void install() {
+        BoardConfig boardConfig = BoardConfig.getInstance();
+        MarketConfig marketConfig = MarketConfig.getInstance();
         Configurator.configure(boardConfig, marketConfig);
     }
 
