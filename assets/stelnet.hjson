@@ -1,5 +1,5 @@
 {
-## This is a human friendly JSON file format (all Starsector JSON files are in fact HJSONs).
+## This is a human friendly JSON file format (like all Starsector JSON files).
 ## See: https://hjson.github.io/
 
 ## Mod settings
