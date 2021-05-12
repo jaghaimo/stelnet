@@ -8,13 +8,13 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.campaign.listeners.EconomyTickListener;
 import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
 
-import stelnet.helper.GlobalHelper;
+import stelnet.helper.GlobalSectorHelper;
 import stelnet.helper.StorageHelper;
 
 public class StorageListener implements EconomyTickListener {
 
     public static void register() {
-        ListenerManagerAPI listenerManager = GlobalHelper.getListenerManager();
+        ListenerManagerAPI listenerManager = GlobalSectorHelper.getListenerManager();
         List<StorageListener> listeners = listenerManager.getListeners(StorageListener.class);
         if (listeners.isEmpty()) {
             StorageListener listener = new StorageListener();
@@ -28,7 +28,7 @@ public class StorageListener implements EconomyTickListener {
 
     @Override
     public void reportEconomyTick(int iterIndex) {
-        IntelManagerAPI intelManager = GlobalHelper.getIntelManager();
+        IntelManagerAPI intelManager = GlobalSectorHelper.getIntelManager();
         removeAll(intelManager);
         addAll(intelManager);
     }

@@ -9,7 +9,7 @@ import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 
 import stelnet.filter.commodityspec.HasNotTag;
 import stelnet.helper.CollectionHelper;
-import stelnet.helper.GlobalHelper;
+import stelnet.helper.GlobalSectorHelper;
 import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Button;
 import stelnet.ui.Size;
@@ -19,7 +19,7 @@ public class ButtonViewFactory {
 
     public VerticalViewContainer createContainer(String activeId, Size size) {
         List<AbstractRenderable> buttons = new LinkedList<>();
-        List<CommoditySpecAPI> commodities = GlobalHelper.getAllCommodities();
+        List<CommoditySpecAPI> commodities = GlobalSectorHelper.getAllCommodities();
         filterCommodities(commodities);
         sortCommodities(commodities);
         for (CommoditySpecAPI commodity : commodities) {

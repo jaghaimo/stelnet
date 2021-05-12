@@ -3,7 +3,7 @@ package stelnet.ui;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import lombok.AllArgsConstructor;
-import stelnet.helper.GlobalHelper;
+import stelnet.helper.GlobalSectorHelper;
 
 @AllArgsConstructor
 public class Table extends AbstractRenderable {
@@ -24,7 +24,7 @@ public class Table extends AbstractRenderable {
     @Override
     public void render(TooltipMakerAPI tooltip) {
         boolean hasRows = false;
-        tooltip.beginTable(GlobalHelper.getPlayerFaction(), ROW_HEIGHT, tableContent.getHeaders(width));
+        tooltip.beginTable(GlobalSectorHelper.getPlayerFaction(), ROW_HEIGHT, tableContent.getHeaders(width));
         for (TableContentRow row : tableContent.getRows()) {
             tooltip.addRow(row.buildObjectArray());
             hasRows = true;

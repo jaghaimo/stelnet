@@ -3,7 +3,7 @@ package stelnet.market;
 import com.fs.starfarer.api.campaign.CampaignClockAPI;
 
 import lombok.Getter;
-import stelnet.helper.GlobalHelper;
+import stelnet.helper.GlobalSectorHelper;
 import stelnet.market.filter.FilterManager;
 import stelnet.market.filter.ImmutableFilterManager;
 
@@ -19,7 +19,7 @@ public class IntelQuery {
     private IntelList managedIntels;
 
     public IntelQuery(IntelProvider ip, FilterManager fm) {
-        CampaignClockAPI clock = GlobalHelper.getCurrentClock();
+        CampaignClockAPI clock = GlobalSectorHelper.getCurrentClock();
         createdDate = clock.getDateString();
         updatedDate = clock.getTimestamp();
         isEnabled = true;
@@ -56,7 +56,7 @@ public class IntelQuery {
     }
 
     public boolean isStale() {
-        CampaignClockAPI current = GlobalHelper.getCurrentClock();
+        CampaignClockAPI current = GlobalSectorHelper.getCurrentClock();
         CampaignClockAPI lastUpdate = current.createClock(updatedDate);
         if (current.getCycle() != lastUpdate.getCycle()) {
             return true;
@@ -71,7 +71,7 @@ public class IntelQuery {
         managedIntels.removeIntel();
         managedIntels = intelProvider.provide(filterManager);
         managedIntels.addIntel(isEnabled);
-        updatedDate = GlobalHelper.getCurrentClock().getTimestamp();
+        updatedDate = GlobalSectorHelper.getCurrentClock().getTimestamp();
     }
 
     public void toggle() {

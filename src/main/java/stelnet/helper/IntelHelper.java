@@ -12,27 +12,27 @@ public class IntelHelper {
     }
 
     public static void addIntel(BaseIntelPlugin plugin, boolean forceNoMessage) {
-        GlobalHelper.getIntelManager().addIntel(plugin);
+        GlobalSectorHelper.getIntelManager().addIntel(plugin);
     }
 
     public static List<IntelInfoPlugin> getAll(Class<?> className) {
-        return GlobalHelper.getIntelManager().getIntel(className);
+        return GlobalSectorHelper.getIntelManager().getIntel(className);
     }
 
     public static IntelInfoPlugin getFirstIntel(Class<?> className) {
-        return GlobalHelper.getIntelManager().getFirstIntel(className);
+        return GlobalSectorHelper.getIntelManager().getFirstIntel(className);
     }
 
     public static void purgeIntel(Class<?> className) {
         IntelInfoPlugin plugin = getFirstIntel(className);
         while (plugin != null) {
-            LogHelper.info("Removing existing intel for " + className);
+            LogHelper.debug("Removing intel " + className);
             removeIntel(plugin);
             plugin = getFirstIntel(className);
         }
     }
 
     public static void removeIntel(IntelInfoPlugin plugin) {
-        GlobalHelper.getIntelManager().removeIntel(plugin);
+        GlobalSectorHelper.getIntelManager().removeIntel(plugin);
     }
 }

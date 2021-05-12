@@ -10,8 +10,8 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import stelnet.filter.cargostack.CargoStackFilter;
+import stelnet.helper.CargoHelper;
 import stelnet.helper.CollectionHelper;
-import stelnet.helper.GlobalHelper;
 import stelnet.helper.MarketHelper;
 import stelnet.market.DialogOption;
 import stelnet.market.DialogPlugin;
@@ -89,7 +89,7 @@ public class Cargo extends FilterAware implements CargoPickerListener {
     }
 
     private CargoAPI makeCargoFromStacks(List<CargoStackAPI> cargoStacks) {
-        CargoAPI cargo = GlobalHelper.createCargo(true);
+        CargoAPI cargo = CargoHelper.createCargo(true);
         for (CargoStackAPI cargoStack : cargoStacks) {
             cargo.addFromStack(cargoStack);
         }
