@@ -1,6 +1,6 @@
 {
-    "masterVersionFile":"https://raw.githubusercontent.com/jaghaimo/eli95/master/src/main/resources/eli95.version",
-    "modName":"Economy, Logistic, and Information intel",
+    "masterVersionFile":"https://github.com/jaghaimo/stelnet/blob/master/assets/stelnet.version"
+    "modName":"Stellar Networks - a collection of intel boards",
     "modThreadId":0,
     "modVersion":
     {
