@@ -38,6 +38,7 @@ public class Configurator {
     public static void purgeListeners(Class<?>... classNames) {
         ListenerManagerAPI listenerManagerAPI = GlobalSectorHelper.getListenerManager();
         for (Class<?> className : classNames) {
+            LogHelper.debug("Removing listener " + className);
             listenerManagerAPI.removeListenerOfClass(className);
         }
     }

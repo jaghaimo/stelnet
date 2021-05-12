@@ -26,7 +26,7 @@ public class IntelHelper {
     public static void purgeIntel(Class<?> className) {
         IntelInfoPlugin plugin = getFirstIntel(className);
         while (plugin != null) {
-            LogHelper.info("Removing existing intel for " + className);
+            LogHelper.debug("Removing intel " + className);
             removeIntel(plugin);
             plugin = getFirstIntel(className);
         }
