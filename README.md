@@ -41,4 +41,4 @@ This mod can be removed from an existing playthrough - edit `stelnet.hjson`
 and set `uninstallMod` to `true`. Then load the save, save the game, quit
 the game, and finally disable this mod in the mod list.
 
-To configure the mod edit [stelnet.hjson](stellnet.hjson).
+To configure the mod edit [stelnet.hjson](assets/stelnet.hjson).
