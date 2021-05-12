@@ -4,12 +4,13 @@ Stellar Networks is a pure-information oriented Starsector mod. It adds three
 new intel tabs: Commodity, Market, and Storage. Each tab comes with its own
 interactive board that can be used to manage presented intel.
 
-## Boards
+## Available Boards
 
 ### Commodity
 
 Commodity board (formerly [Galactic Markets](https://fractalsoftworks.com/forum/index.php?topic=19383))
-is used to display buying and selling prices among all known markets.
+is used to display buying and selling prices among all known markets. It also
+hosts a Profit tab that can be used to find viable trade routes.
 
 ![Commodity](https://github.com/jaghaimo/stelnet/raw/master/images/commodity.png)
 
@@ -31,11 +32,13 @@ find out where.
 
 ![Storage](https://github.com/jaghaimo/stelnet/raw/master/images/storage.gif)
 
-## Installation
+## Installation and Configuration
 
 This mod can be added to an existing playthrough - just enable it in the mod list
 and load the save.
 
-This mod can be removed from an existing playthrough - edit `data/config/settings.json`
-and set `stellicsUninstallMod` to `true`. Then load the save, save the game, quit
+This mod can be removed from an existing playthrough - edit `stelnet.hjson`
+and set `uninstallMod` to `true`. Then load the save, save the game, quit
 the game, and finally disable this mod in the mod list.
+
+To configure the mod edit [stelnet.hjson](stellnet.hjson).

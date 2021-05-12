@@ -17,6 +17,7 @@ public abstract class Config {
 
     protected JSONObject load() throws JSONException, IOException {
         if (cachedSettings == null) {
+            LogHelper.debug("Reading config file");
             cachedSettings = Global.getSettings().loadJSON(FILE, MOD);
         }
         return cachedSettings;
