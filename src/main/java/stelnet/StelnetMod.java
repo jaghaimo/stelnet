@@ -2,8 +2,6 @@ package stelnet;
 
 import com.fs.starfarer.api.BaseModPlugin;
 
-import stelnet.config.BoardConfig;
-import stelnet.config.MarketConfig;
 import stelnet.config.ModConfig;
 import stelnet.helper.Configurator;
 
@@ -12,15 +10,13 @@ public class StelnetMod extends BaseModPlugin {
     @Override
     public void beforeGameSave() {
         if (ModConfig.uninstallMod) {
-            uninstall();
+            Configurator.uninstall();
         }
     }
 
     @Override
     public void onApplicationLoad() throws Exception {
-        ModConfig.configure();
-        BoardConfig.configure();
-        MarketConfig.configure();
+        Configurator.configure();
     }
 
     @Override
@@ -34,14 +30,6 @@ public class StelnetMod extends BaseModPlugin {
     }
 
     private void onNewGameOrGameLoad() {
-        install();
-    }
-
-    private void install() {
-        Configurator.configure();
-    }
-
-    private void uninstall() {
-        Configurator.uninstall();
+        Configurator.install();
     }
 }

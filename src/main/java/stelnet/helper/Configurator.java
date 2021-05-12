@@ -6,6 +6,7 @@ import stelnet.commodity.CommodityBoard;
 import stelnet.commodity.CommodityIntel;
 import stelnet.config.BoardConfig;
 import stelnet.config.MarketConfig;
+import stelnet.config.ModConfig;
 import stelnet.market.MarketQueryBoard;
 import stelnet.market.MarketResultIntel;
 import stelnet.market.MonthEndListener;
@@ -16,6 +17,12 @@ import stelnet.storage.StorageListener;
 public class Configurator {
 
     public static void configure() {
+        ModConfig.configure();
+        BoardConfig.configure();
+        MarketConfig.configure();
+    }
+
+    public static void install() {
         initCommodity(BoardConfig.hasCommodities);
         initMarket(BoardConfig.hasMarket, MarketConfig.warnAboutEndOfMonth);
         initStorage(BoardConfig.hasStorage);
