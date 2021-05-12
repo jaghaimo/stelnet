@@ -11,4 +11,8 @@ public class GlobalSettingsHelper {
     public static String getSpriteName(String sprite) {
         return Global.getSettings().getSpriteName("stelnet", sprite);
     }
+
+    public static boolean isDevMode() {
+        return Global.getSettings().isDevMode();
+    }
 }

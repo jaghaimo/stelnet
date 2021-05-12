@@ -11,11 +11,11 @@ import stelnet.helper.LogHelper;
 
 public abstract class Config {
 
-    private final String MOD = "stelnet";
-    private final String FILE = "stelnet.hjson";
+    private static final String MOD = "stelnet";
+    private static final String FILE = "stelnet.hjson";
     private static transient JSONObject cachedSettings = null;
 
-    protected JSONObject load() throws JSONException, IOException {
+    protected static JSONObject load() throws JSONException, IOException {
         if (cachedSettings == null) {
             LogHelper.debug("Reading config file");
             cachedSettings = Global.getSettings().loadJSON(FILE, MOD);
@@ -24,7 +24,7 @@ public abstract class Config {
     }
 
     @SuppressWarnings("unchecked")
-    protected <T> T get(String key, T defaultValue) {
+    protected static <T> T get(String key, T defaultValue) {
         try {
             Object value = load().get(key);
             LogHelper.debug("Returning read value for '" + key + "' - " + value);

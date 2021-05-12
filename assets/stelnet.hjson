@@ -3,15 +3,15 @@
 ## See: https://hjson.github.io/
 
 ## Mod settings
-devMode: false # used to get more logging out of the mod
-uninstallMod: false # set to true, load and save the game to remove the mod
+verboseLogging: false, # increases log verbosity
+uninstallMod: false, # set to true, load and save the game to remove the mod
 
 ## Board toggles - used to enable or disable specific boards
-hasCommodities: true
-hasMarket: true
-hasStorage: true
+hasCommodities: true,
+hasMarket: true,
+hasStorage: true,
 
 ## Market settings
-ignoreStorageInQueries: true # exclude player storage from market searches
-warnAboutEndOfMonth: true # show an intel popup one tick before end of month, and on new month
+ignoreStorageInQueries: true, # exclude player storage from market searches
+warnAboutEndOfMonth: true, # show an intel popup one tick before end of month, and on new month
 }

@@ -15,10 +15,10 @@ import stelnet.storage.StorageListener;
 
 public class Configurator {
 
-    public static void configure(BoardConfig boardConfig, MarketConfig marketConfig) {
-        initCommodity(boardConfig.isHasCommodities());
-        initMarket(boardConfig.isHasMarket(), marketConfig.isWarnAboutEndOfMonth());
-        initStorage(boardConfig.isHasStorage());
+    public static void configure() {
+        initCommodity(BoardConfig.hasCommodities);
+        initMarket(BoardConfig.hasMarket, MarketConfig.warnAboutEndOfMonth);
+        initStorage(BoardConfig.hasStorage);
         LogHelper.debug("Configured");
     }
 
