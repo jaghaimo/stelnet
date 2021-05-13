@@ -3,7 +3,7 @@ package stelnet.l10n;
 public class CommodityBundle extends Bundle {
 
     public CommodityBundle() {
-        super(CommodityBundle.class.getName());
+        super("CommodityBundle");
     }
 
     public String boardTitle() {

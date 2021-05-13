@@ -1,11 +1,13 @@
 package stelnet.l10n;
 
 import java.util.Locale;
+import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
+import lombok.extern.log4j.Log4j;
 import stelnet.config.ModConfig;
-import stelnet.helper.LogHelper;
 
+@Log4j
 public abstract class Bundle {
 
     protected static ResourceBundle resourceBundle;
@@ -13,7 +15,7 @@ public abstract class Bundle {
     protected Bundle(String bundle) {
         if (resourceBundle == null) {
             Locale locale = new Locale(ModConfig.language);
-            resourceBundle = ResourceBundle.getBundle(bundle, locale);
+            resourceBundle = PropertyResourceBundle.getBundle(bundle, locale);
         }
     }
 
@@ -21,7 +23,7 @@ public abstract class Bundle {
         String translation = resourceBundle.getString(key);
         if (translation == null) {
             translation = "Missing translation for key " + key;
-            LogHelper.warn(translation);
+            log.warn(translation);
         }
         return String.format(translation, args);
     }

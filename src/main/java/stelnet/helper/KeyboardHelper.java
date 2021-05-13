@@ -3,6 +3,7 @@ package stelnet.helper;
 import java.awt.AWTException;
 import java.awt.Robot;
 
+@Deprecated
 public class KeyboardHelper {
 
     public static void send(int key) {
