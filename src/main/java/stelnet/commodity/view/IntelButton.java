@@ -25,7 +25,7 @@ public class IntelButton extends AreaCheckbox {
                 new Size(28f, 24f),
                 String.valueOf(i),
                 true,
-                tracker.has(commodityTab.title, commodityId, market),
+                tracker.has(commodityTab.getTitle(), commodityId, market),
                 Misc.getTextColor(),
                 Misc.getGrayColor()
         );

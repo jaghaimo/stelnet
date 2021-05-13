@@ -41,8 +41,8 @@ public class CommodityBoard extends BaseBoard {
     @Override
     public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
         CommodityBundle bundle = new CommodityBundle();
-        info.addPara(bundle.commodityMarket(), getTitleColor(mode), 0);
-        info.addPara("Compare and track commodity prices among all known markets.", getBulletColorForMode(mode), 1f);
+        info.addPara(bundle.boardTitle(), getTitleColor(mode), 0);
+        info.addPara(bundle.boardDescription(), getBulletColorForMode(mode), 1f);
         info.addPara("", 1f);
     }
 

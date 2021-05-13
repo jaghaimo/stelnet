@@ -13,7 +13,7 @@ import stelnet.ui.Size;
 public class TabButton extends Button {
 
     public TabButton(final CommodityTab currentTab, CommodityTab activeTab, int shortcut) {
-        super(new Size(140, 22), currentTab.title, true, Misc.getGrayColor());
+        super(new Size(140, 22), currentTab.getTitle(), true, Misc.getGrayColor());
         if (currentTab.equals(activeTab)) {
             setColor(Misc.getButtonTextColor());
         }
