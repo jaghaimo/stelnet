@@ -43,7 +43,7 @@ public class IntelTracker extends HashMap<String, CommodityIntel> {
     }
 
     public void toggle(String commodityId, CommodityTab commodityTab, MarketApiWrapper market) {
-        String action = commodityTab.getTitle();
+        String action = commodityTab.title;
         String key = getKey(action, commodityId, market);
         CommodityIntel intel = get(key);
         if (intel == null) {
