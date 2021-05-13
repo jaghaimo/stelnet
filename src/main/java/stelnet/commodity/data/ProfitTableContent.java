@@ -9,6 +9,7 @@ import com.fs.starfarer.api.util.Misc;
 
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.commodity.market.MarketRepository;
+import stelnet.helper.DistanceHelper;
 import stelnet.ui.TableContent;
 
 public class ProfitTableContent implements TableContent {
@@ -66,7 +67,8 @@ public class ProfitTableContent implements TableContent {
     protected SortableRow createRowData(int i, MarketApiWrapper buyMarket, MarketApiWrapper sellMarket) {
         Color color = getRowColor(buyMarket, sellMarket);
         float profit = getPotentialProfit(buyMarket, sellMarket);
-        float buyToSellDistance = Misc.getDistanceLY(buyMarket.getPrimaryEntity(), sellMarket.getPrimaryEntity());
+        float buyToSellDistance = DistanceHelper.getDistanceLY(buyMarket.getPrimaryEntity(),
+                sellMarket.getPrimaryEntity());
         float totalDistance = buyMarket.getDistanceToPlayer() + buyToSellDistance;
         SortableRow sortableRow = new SortableRow(profit);
         sortableRow.addRowNumberCell(i);
