@@ -17,6 +17,7 @@ import stelnet.commodity.view.IntelViewFactory;
 import stelnet.commodity.view.TableViewFactory;
 import stelnet.helper.GlobalSettingsHelper;
 import stelnet.helper.IntelHelper;
+import stelnet.l10n.CommodityBundle;
 import stelnet.ui.Renderable;
 import stelnet.ui.Size;
 
@@ -39,7 +40,8 @@ public class CommodityBoard extends BaseBoard {
 
     @Override
     public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
-        info.addPara("Commodity Market", getTitleColor(mode), 0);
+        CommodityBundle bundle = new CommodityBundle();
+        info.addPara(bundle.commodityMarket(), getTitleColor(mode), 0);
         info.addPara("Compare and track commodity prices among all known markets.", getBulletColorForMode(mode), 1f);
         info.addPara("", 1f);
     }
