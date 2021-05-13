@@ -2,15 +2,11 @@ package stelnet.l10n;
 
 public class IntelBundle extends Bundle {
 
-    public IntelBundle() {
-        super("IntelBundle");
-    }
-
     public String faction() {
-        return format("faction");
+        return format("intelFaction");
     }
 
     public String location() {
-        return format("location");
+        return format("intelLocation");
     }
 }

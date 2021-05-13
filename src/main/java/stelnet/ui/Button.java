@@ -11,6 +11,7 @@ import com.fs.starfarer.api.util.Misc;
 
 import lombok.Getter;
 import lombok.Setter;
+import stelnet.l10n.Bundle;
 
 @Getter
 @Setter
@@ -24,13 +25,18 @@ public class Button extends AbstractRenderable implements ButtonHandler {
     private int shortcut;
 
     public Button(Size size, String title, boolean isEnabled, Color color) {
-        this.title = title;
+        setTitle(title);
         this.isEnabled = isEnabled;
         this.color = color;
         this.cutStyle = CutStyle.ALL;
         this.shortcut = 0;
         setSize(size);
         setWithScroller(false);
+    }
+
+    public void setTitle(String title) {
+        Bundle bundle = new Bundle();
+        this.title = bundle.format(title);
     }
 
     @Override

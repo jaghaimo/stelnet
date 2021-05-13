@@ -6,6 +6,7 @@ import com.fs.starfarer.api.util.Misc;
 
 import stelnet.commodity.CommodityBoard;
 import stelnet.commodity.CommodityIntel;
+import stelnet.l10n.Bundle;
 import stelnet.ui.Button;
 import stelnet.ui.EventHandler;
 import stelnet.ui.Size;
@@ -13,7 +14,7 @@ import stelnet.ui.Size;
 public class DeleteIntel extends Button {
 
     public DeleteIntel(float width, final CommodityIntel intel) {
-        super(new Size(width, 24), "Delete", true, Misc.getButtonTextColor());
+        super(new Size(width, 24), "commodityDelete", true, Misc.getButtonTextColor());
         setHandler(new EventHandler() {
 
             @Override
@@ -28,7 +29,8 @@ public class DeleteIntel extends Button {
 
             @Override
             public void onPrompt(TooltipMakerAPI tooltipMaker) {
-                tooltipMaker.addPara("Are you sure you want to delete intel for this entry?", Misc.getTextColor(), 0f);
+                Bundle bundle = new Bundle();
+                tooltipMaker.addPara(bundle.format("commodityDeleteConfirmation"), Misc.getTextColor(), 0f);
             }
         });
     }
