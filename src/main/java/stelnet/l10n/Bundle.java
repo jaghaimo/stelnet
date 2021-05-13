@@ -1,7 +1,9 @@
 package stelnet.l10n;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
+import stelnet.config.ModConfig;
 import stelnet.helper.LogHelper;
 
 public abstract class Bundle {
@@ -10,7 +12,8 @@ public abstract class Bundle {
 
     protected Bundle(String bundle) {
         if (resourceBundle == null) {
-            resourceBundle = ResourceBundle.getBundle(bundle);
+            Locale locale = new Locale(ModConfig.language);
+            resourceBundle = ResourceBundle.getBundle(bundle, locale);
         }
     }
 
