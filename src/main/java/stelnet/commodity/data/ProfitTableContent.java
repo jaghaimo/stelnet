@@ -10,6 +10,7 @@ import com.fs.starfarer.api.util.Misc;
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.commodity.market.MarketRepository;
 import stelnet.helper.DistanceHelper;
+import stelnet.l10n.CommodityBundle;
 import stelnet.ui.TableContent;
 
 public class ProfitTableContent implements TableContent {
@@ -27,15 +28,16 @@ public class ProfitTableContent implements TableContent {
     @Override
     public Object[] getHeaders(float maxWidth) {
         float width = maxWidth - 22;
+        CommodityBundle bundle = new CommodityBundle();
         // @formatter:off
         return new Object[]{
                 "#", .05f * width,
-                "Profit", .12f * width,
-                "Buy location", .2f * width,
-                "Sell location", .2f * width,
-                "Buy / Available", .165f * width,
-                "Sell / Demand", .165f * width,
-                "Trip (ly)", .1f * width
+                bundle.translateHeader("Profit"), .12f * width,
+                bundle.translateHeader("BuyLocation"), .2f * width,
+                bundle.translateHeader("SellLocation"), .2f * width,
+                bundle.translateHeader("BuyAvailable"), .165f * width,
+                bundle.translateHeader("SellDemand"), .165f * width,
+                bundle.translateHeader("Trip"), .1f * width
         };
         // @formatter:on
     }

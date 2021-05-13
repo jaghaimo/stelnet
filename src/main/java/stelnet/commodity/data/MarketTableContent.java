@@ -8,6 +8,7 @@ import com.fs.starfarer.api.util.Misc;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import stelnet.commodity.market.MarketApiWrapper;
+import stelnet.l10n.CommodityBundle;
 import stelnet.ui.TableContent;
 
 @RequiredArgsConstructor
@@ -20,15 +21,16 @@ public abstract class MarketTableContent implements TableContent {
 
     protected Object[] getHeader(float maxWidth, String availableOrDemand, String excessOrDeficit) {
         float width = maxWidth - 24;
+        CommodityBundle bundle = new CommodityBundle();
         // @formatter:off
         Object header[] = {
                 "#", .05f * width,
-                "Price", .1f * width,
-                availableOrDemand, .11f * width,
-                excessOrDeficit, .11f * width,
-                "Location", .32f * width,
-                "Star system", .21f * width,
-                "Dist (ly)", .1f * width
+                bundle.translateHeader("Price"), .1f * width,
+                bundle.translateHeader(availableOrDemand), .11f * width,
+                bundle.translateHeader(excessOrDeficit), .11f * width,
+                bundle.translateHeader("Location"), .32f * width,
+                bundle.translateHeader("System"), .21f * width,
+                bundle.translateHeader("Distance"), .1f * width
         };
         // @formatter:on
         return header;

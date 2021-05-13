@@ -29,4 +29,8 @@ public class CommodityBundle extends Bundle {
     public String translateTab(String tab) {
         return format("tab" + tab);
     }
+
+    public String translateHeader(String column) {
+        return format("header" + column);
+    }
 }
