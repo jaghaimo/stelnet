@@ -7,19 +7,20 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import lombok.Setter;
+import stelnet.L10n;
 
 @Setter
 public class Paragraph extends AbstractRenderable {
 
-    private final String text;
+    private String text;
     private Color color;
     private Color[] highlightColors = {};
     private String[] highlightStrings = {};
 
     public Paragraph(String title, float width) {
-        this.text = title;
         setSize(new Size(width, 20));
         setColor(Misc.getTextColor());
+        setText(text);
     }
 
     @Override
@@ -39,5 +40,9 @@ public class Paragraph extends AbstractRenderable {
 
     public void setHighlightStrings(String... highlightStrings) {
         this.highlightStrings = highlightStrings;
+    }
+
+    public void setText(String text) {
+        this.text = L10n.get(text);
     }
 }

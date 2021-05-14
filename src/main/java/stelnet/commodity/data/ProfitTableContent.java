@@ -7,10 +7,10 @@ import java.util.List;
 
 import com.fs.starfarer.api.util.Misc;
 
+import stelnet.L10n;
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.commodity.market.MarketRepository;
 import stelnet.helper.DistanceHelper;
-import stelnet.l10n.CommodityBundle;
 import stelnet.ui.TableContent;
 
 public class ProfitTableContent implements TableContent {
@@ -28,18 +28,15 @@ public class ProfitTableContent implements TableContent {
     @Override
     public Object[] getHeaders(float maxWidth) {
         float width = maxWidth - 22;
-        CommodityBundle bundle = new CommodityBundle();
-        // @formatter:off
-        return new Object[]{
+        return new Object[] {
                 "#", .05f * width,
-                bundle.translateHeader("Profit"), .12f * width,
-                bundle.translateHeader("BuyLocation"), .2f * width,
-                bundle.translateHeader("SellLocation"), .2f * width,
-                bundle.translateHeader("BuyAvailable"), .165f * width,
-                bundle.translateHeader("SellDemand"), .165f * width,
-                bundle.translateHeader("Trip"), .1f * width
+                L10n.get("commodityHeaderProfit"), .12f * width,
+                L10n.get("commodityHeaderBuyLocation"), .2f * width,
+                L10n.get("commodityHeaderSellLocation"), .2f * width,
+                L10n.get("commodityHeaderBuyAvailable"), .165f * width,
+                L10n.get("commodityHeaderSellDemand"), .165f * width,
+                L10n.get("commodityHeaderTrip"), .1f * width
         };
-        // @formatter:on
     }
 
     @Override
@@ -74,32 +71,24 @@ public class ProfitTableContent implements TableContent {
         float totalDistance = buyMarket.getDistanceToPlayer() + buyToSellDistance;
         SortableRow sortableRow = new SortableRow(profit);
         sortableRow.addRowNumberCell(i);
-        // @formatter:off
         sortableRow.addDGSCreditsCell(
                 color,
-                profit
-        );
+                profit);
         sortableRow.addRow(
                 TableCellHelper.getFactionColor(buyMarket.getMarketAPI().getFaction()),
-                TableCellHelper.getLocation(buyMarket.getMarketAPI())
-        );
+                TableCellHelper.getLocation(buyMarket.getMarketAPI()));
         sortableRow.addRow(
                 TableCellHelper.getFactionColor(sellMarket.getMarketAPI().getFaction()),
-                TableCellHelper.getLocation(sellMarket.getMarketAPI())
-        );
+                TableCellHelper.getLocation(sellMarket.getMarketAPI()));
         sortableRow.addRow(
                 color,
-                Misc.getDGSCredits(buyMarket.getPriceAmount()) + " / " + buyMarket.getAvailable(commodityId)
-        );
+                Misc.getDGSCredits(buyMarket.getPriceAmount()) + " / " + buyMarket.getAvailable(commodityId));
         sortableRow.addRow(
                 color,
-                Misc.getDGSCredits(sellMarket.getPriceAmount()) + " / " + sellMarket.getDemand(commodityId)
-        );
+                Misc.getDGSCredits(sellMarket.getPriceAmount()) + " / " + sellMarket.getDemand(commodityId));
         sortableRow.addRow(
                 color,
-                String.format("%.1f", totalDistance)
-        );
-        // @formatter:on
+                String.format("%.1f", totalDistance));
         return sortableRow;
     }
 

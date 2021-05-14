@@ -27,7 +27,6 @@ import stelnet.ui.Spacer;
 @Getter
 public class ButtonManager {
 
-    // @formatter:off
     private final AbstractRenderable[] commonButtons = {
             new DisplayViewButton(),
             new DisplayPaneButton(),
@@ -59,5 +58,4 @@ public class ButtonManager {
             new ShipFilterButton("storageFilterCarriers", new IsNotCarrier()),
             new ShipFilterButton("storageFilterCivilians", new IsNotCivilian())
     };
-    // @formatter:on
 }

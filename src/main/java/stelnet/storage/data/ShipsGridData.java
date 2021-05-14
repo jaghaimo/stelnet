@@ -25,6 +25,6 @@ public class ShipsGridData extends SharedData {
 
     @Override
     protected AbstractRenderable getStorageContent(StorageData data) {
-        return new Ships(data.getShips(), "There are no matching ships to display.", new Size(0, 0));
+        return new Ships(data.getShips(), "storageNoShips", new Size(0, 0));
     }
 }

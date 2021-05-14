@@ -60,7 +60,7 @@ public abstract class SharedData {
 
     private void addEmptyData(List<AbstractRenderable> elements, List<StorageData> storageData, float width) {
         if (!hasStorage()) {
-            elements.add(new Paragraph("You do not have any storages.", width));
+            elements.add(new Paragraph("storageNoStorages", width));
         }
     }
 

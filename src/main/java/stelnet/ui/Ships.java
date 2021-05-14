@@ -6,14 +6,16 @@ import java.util.List;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import stelnet.L10n;
+
 public class Ships extends AbstractRenderable {
 
     private final List<FleetMemberAPI> ships;
-    private final String emptyDescription;
+    private String emptyDescription;
 
     public Ships(List<FleetMemberAPI> ships, String emptyDescription, Size size) {
         this.ships = ships;
-        this.emptyDescription = emptyDescription;
+        setEmptyDescription(emptyDescription);
         setSize(size);
     }
 
@@ -24,5 +26,9 @@ public class Ships extends AbstractRenderable {
         } else {
             tooltip.showShips(ships, ships.size(), false, 5f);
         }
+    }
+
+    public void setEmptyDescription(String emptyDescription) {
+        this.emptyDescription = L10n.get(emptyDescription);
     }
 }

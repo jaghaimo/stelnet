@@ -4,8 +4,8 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
+import stelnet.L10n;
 import stelnet.commodity.CommodityBoard;
-import stelnet.l10n.Bundle;
 import stelnet.ui.Button;
 import stelnet.ui.EventHandler;
 import stelnet.ui.Location;
@@ -30,8 +30,7 @@ public class DeleteAllIntel extends Button {
 
             @Override
             public void onPrompt(TooltipMakerAPI tooltipMaker) {
-                Bundle bundle = new Bundle();
-                tooltipMaker.addPara(bundle.format("commodityDeleteAllConfirmation"), Misc.getTextColor(), 0f);
+                tooltipMaker.addPara(L10n.get("commodityDeleteAllConfirmation"), Misc.getTextColor(), 0f);
             }
         });
     }

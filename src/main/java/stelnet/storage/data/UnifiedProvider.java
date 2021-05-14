@@ -8,6 +8,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import lombok.extern.log4j.Log4j;
+import stelnet.L10n;
 import stelnet.helper.StorageHelper;
 import stelnet.storage.FilterManager;
 
@@ -35,6 +36,6 @@ public class UnifiedProvider implements DataProvider {
     }
 
     private LocationData getLocationData() {
-        return new LocationData("Unified View", Misc.getBasePlayerColor(), Misc.getDarkPlayerColor());
+        return new LocationData(L10n.get("storageUnifiedView"), Misc.getBasePlayerColor(), Misc.getDarkPlayerColor());
     }
 }

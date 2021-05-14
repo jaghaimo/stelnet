@@ -11,11 +11,10 @@ import com.fs.starfarer.api.util.Misc;
 import lombok.Getter;
 import stelnet.BaseIntel;
 import stelnet.IntelInfo;
+import stelnet.L10n;
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.commodity.market.price.Price;
 import stelnet.commodity.view.DeleteIntel;
-import stelnet.l10n.CommodityBundle;
-import stelnet.l10n.IntelBundle;
 import stelnet.ui.Heading;
 import stelnet.ui.Image;
 import stelnet.ui.Paragraph;
@@ -70,9 +69,13 @@ public class CommodityIntel extends BaseIntel {
 
     @Override
     protected IntelInfo getIntelInfo() {
-        IntelBundle bundle = new IntelBundle();
-        return new IntelInfo(getTitle(), bundle.location(), getLocationNameWithSystem(), bundle.faction(),
-                getFactionWithRel());
+        return new IntelInfo(
+                getTitle(),
+                L10n.get("intelLocation"),
+                getLocationNameWithSystem(),
+                L10n.get("intelFaction"),
+                getFactionWithRel()
+        );
     }
 
     @Override
@@ -97,8 +100,7 @@ public class CommodityIntel extends BaseIntel {
 
     private void addPriceChange(List<Renderable> renderables, float width) {
         if (isEnding()) {
-            CommodityBundle bundle = new CommodityBundle();
-            String priceChangeText = bundle.priceChanged(Misc.getDGSCredits(price),
+            String priceChangeText = L10n.get("commodityPriceChanged", Misc.getDGSCredits(price),
                     Misc.getDGSCredits(marketWrapper.getPriceAmount()));
             Paragraph priceChangeRenderable = new Paragraph(priceChangeText, width);
             priceChangeRenderable.setHighlightStrings(Misc.getDGSCredits(price),
@@ -110,18 +112,16 @@ public class CommodityIntel extends BaseIntel {
     }
 
     private void addRelationship(List<Renderable> renderables, float width) {
-        CommodityBundle bundle = new CommodityBundle();
         FactionAPI faction = marketWrapper.getFaction();
         RelationshipAPI relationship = faction.getRelToPlayer();
         String reputation = relationship.getLevel().getDisplayName();
-        Paragraph relationshipRenderable = new Paragraph(bundle.ownerRelationship(reputation), width);
+        Paragraph relationshipRenderable = new Paragraph(L10n.get("commodityOwnerRelationship", reputation), width);
         relationshipRenderable.setHighlightStrings(reputation.toLowerCase());
         relationshipRenderable.setHighlightColors(relationship.getRelColor());
         renderables.add(relationshipRenderable);
     }
 
     private String getTitle() {
-        CommodityBundle bundle = new CommodityBundle();
-        return bundle.intelTitle(action, commodity.getName(), Misc.getDGSCredits(price));
+        return L10n.get("commodityIntelTitle", action, commodity.getName(), Misc.getDGSCredits(price));
     }
 }

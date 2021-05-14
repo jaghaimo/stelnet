@@ -13,7 +13,6 @@ import stelnet.ui.ToggleButton;
 public class CommodityButton extends ToggleButton {
 
     public CommodityButton(final CommoditySpecAPI commodity, boolean isOn) {
-        // @formatter:off
         super(
                 new Size(200, 24),
                 commodity.getName(),
@@ -23,7 +22,6 @@ public class CommodityButton extends ToggleButton {
                 Misc.getGrayColor(),
                 isOn
         );
-        // @formatter:on
         setLocation(Location.TOP_RIGHT);
         setHandler(new EventHandler() {
 

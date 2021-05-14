@@ -11,13 +11,13 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import lombok.Getter;
 import lombok.Setter;
 import stelnet.BaseBoard;
+import stelnet.L10n;
 import stelnet.commodity.view.ButtonViewFactory;
 import stelnet.commodity.view.DeleteViewFactory;
 import stelnet.commodity.view.IntelViewFactory;
 import stelnet.commodity.view.TableViewFactory;
 import stelnet.helper.GlobalSettingsHelper;
 import stelnet.helper.IntelHelper;
-import stelnet.l10n.CommodityBundle;
 import stelnet.ui.Renderable;
 import stelnet.ui.Size;
 
@@ -40,9 +40,8 @@ public class CommodityBoard extends BaseBoard {
 
     @Override
     public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
-        CommodityBundle bundle = new CommodityBundle();
-        info.addPara(bundle.boardTitle(), getTitleColor(mode), 0);
-        info.addPara(bundle.boardDescription(), getBulletColorForMode(mode), 1f);
+        info.addPara(L10n.get("commodityBoardTitle"), getTitleColor(mode), 0);
+        info.addPara(L10n.get("commodityBoardDescription"), getBulletColorForMode(mode), 1f);
         info.addPara("", 1f);
     }
 
@@ -65,14 +64,11 @@ public class CommodityBoard extends BaseBoard {
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
-        // @formatter:off
         return Arrays.<Renderable>asList(
                 new TableViewFactory().createContainer(commodityId, activeTab, size),
                 new IntelViewFactory(intelTracker).createContainer(commodityId, activeTab, size),
                 new ButtonViewFactory().createContainer(commodityId, size),
-                new DeleteViewFactory().createContainer(commodityId, size)
-        );
-        // @formatter:on
+                new DeleteViewFactory().createContainer(commodityId, size));
     }
 
     @Override

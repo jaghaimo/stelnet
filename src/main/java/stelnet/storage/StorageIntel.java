@@ -10,6 +10,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 
 import stelnet.BaseIntel;
 import stelnet.IntelInfo;
+import stelnet.L10n;
 import stelnet.helper.CargoHelper;
 import stelnet.ui.Cargo;
 import stelnet.ui.Heading;
@@ -36,15 +37,13 @@ public class StorageIntel extends BaseIntel {
 
     @Override
     protected IntelInfo getIntelInfo() {
-        // @formatter:off
         return new IntelInfo(
                 getLocationNameWithSystem(),
-                "Content",
+                L10n.get("intelLocation"),
                 getStorageContent(),
-                "Faction",
+                L10n.get("intelFaction"),
                 getFactionWithRel()
         );
-        // @formatter:on
     }
 
     @Override
@@ -53,7 +52,6 @@ public class StorageIntel extends BaseIntel {
         Color darkColor = getFactionForUIColors().getDarkUIColor();
         CargoAPI cargo = storage.getCargo();
         List<FleetMemberAPI> ships = storage.getCargo().getMothballedShips().getMembersListCopy();
-        // @formatter:off
         return Arrays.<Renderable>asList(
                 new Heading(getLocationName() + " Items", baseColor, darkColor),
                 new Spacer(10),
@@ -63,7 +61,6 @@ public class StorageIntel extends BaseIntel {
                 new Spacer(10),
                 new Ships(ships, "There are no ships in this storage.", size)
         );
-        // formatter:on
     }
 
     @Override

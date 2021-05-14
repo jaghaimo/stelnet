@@ -11,7 +11,7 @@ import com.fs.starfarer.api.util.Misc;
 
 import lombok.Getter;
 import lombok.Setter;
-import stelnet.l10n.Bundle;
+import stelnet.L10n;
 
 @Getter
 @Setter
@@ -35,8 +35,7 @@ public class Button extends AbstractRenderable implements ButtonHandler {
     }
 
     public void setTitle(String title) {
-        Bundle bundle = new Bundle();
-        this.title = bundle.format(title);
+        this.title = L10n.get(title);
     }
 
     @Override
