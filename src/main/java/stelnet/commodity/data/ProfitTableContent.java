@@ -66,29 +66,37 @@ public class ProfitTableContent implements TableContent {
     protected SortableRow createRowData(int i, MarketApiWrapper buyMarket, MarketApiWrapper sellMarket) {
         Color color = getRowColor(buyMarket, sellMarket);
         float profit = getPotentialProfit(buyMarket, sellMarket);
-        float buyToSellDistance = DistanceHelper.getDistanceLY(buyMarket.getPrimaryEntity(),
-                sellMarket.getPrimaryEntity());
+        float buyToSellDistance = DistanceHelper.getDistanceLY(
+                buyMarket.getPrimaryEntity(),
+                sellMarket.getPrimaryEntity()
+        );
         float totalDistance = buyMarket.getDistanceToPlayer() + buyToSellDistance;
         SortableRow sortableRow = new SortableRow(profit);
         sortableRow.addRowNumberCell(i);
         sortableRow.addDGSCreditsCell(
                 color,
-                profit);
+                profit
+        );
         sortableRow.addRow(
                 TableCellHelper.getFactionColor(buyMarket.getMarketAPI().getFaction()),
-                TableCellHelper.getLocation(buyMarket.getMarketAPI()));
+                TableCellHelper.getLocation(buyMarket.getMarketAPI())
+        );
         sortableRow.addRow(
                 TableCellHelper.getFactionColor(sellMarket.getMarketAPI().getFaction()),
-                TableCellHelper.getLocation(sellMarket.getMarketAPI()));
+                TableCellHelper.getLocation(sellMarket.getMarketAPI())
+        );
         sortableRow.addRow(
                 color,
-                Misc.getDGSCredits(buyMarket.getPriceAmount()) + " / " + buyMarket.getAvailable(commodityId));
+                Misc.getDGSCredits(buyMarket.getPriceAmount()) + " / " + buyMarket.getAvailable(commodityId)
+        );
         sortableRow.addRow(
                 color,
-                Misc.getDGSCredits(sellMarket.getPriceAmount()) + " / " + sellMarket.getDemand(commodityId));
+                Misc.getDGSCredits(sellMarket.getPriceAmount()) + " / " + sellMarket.getDemand(commodityId)
+        );
         sortableRow.addRow(
                 color,
-                String.format("%.1f", totalDistance));
+                String.format("%.1f", totalDistance)
+        );
         return sortableRow;
     }
 

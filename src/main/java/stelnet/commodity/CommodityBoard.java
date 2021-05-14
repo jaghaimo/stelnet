@@ -68,7 +68,8 @@ public class CommodityBoard extends BaseBoard {
                 new TableViewFactory().createContainer(commodityId, activeTab, size),
                 new IntelViewFactory(intelTracker).createContainer(commodityId, activeTab, size),
                 new ButtonViewFactory().createContainer(commodityId, size),
-                new DeleteViewFactory().createContainer(commodityId, size));
+                new DeleteViewFactory().createContainer(commodityId, size)
+        );
     }
 
     @Override

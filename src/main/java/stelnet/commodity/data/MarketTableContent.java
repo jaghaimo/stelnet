@@ -24,8 +24,8 @@ public abstract class MarketTableContent implements TableContent {
         Object header[] = {
                 "#", .05f * width,
                 L10n.get("commodityHeaderPrice"), .1f * width,
-                L10n.get("commodityHeaderavailableOrDemand"), .11f * width,
-                L10n.get("commodityHeaderexcessOrDeficit"), .11f * width,
+                L10n.get(availableOrDemand), .11f * width,
+                L10n.get(excessOrDeficit), .11f * width,
                 L10n.get("commodityHeaderLocation"), .32f * width,
                 L10n.get("commodityHeaderSystem"), .21f * width,
                 L10n.get("commodityHeaderDistance"), .1f * width
