@@ -12,8 +12,8 @@ import stelnet.ui.ToggleButton;
 public class DisplayViewButton extends ToggleButton {
 
     public DisplayViewButton() {
-        super(new Size(180, 24), "Group By Location", "Disable Grouping", true, Misc.getButtonTextColor(),
-                Misc.getButtonTextColor(), true);
+        super(new Size(180, 24), "storageButtonGroupByLocation", "storageButtonDisableGrouping", true,
+                Misc.getButtonTextColor(), Misc.getButtonTextColor(), true);
         setLocation(Location.TOP_RIGHT);
         setHandler(new EventHandler() {
 

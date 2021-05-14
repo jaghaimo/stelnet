@@ -53,13 +53,13 @@ public class StorageIntel extends BaseIntel {
         CargoAPI cargo = storage.getCargo();
         List<FleetMemberAPI> ships = storage.getCargo().getMothballedShips().getMembersListCopy();
         return Arrays.<Renderable>asList(
-                new Heading(getLocationName() + " Items", baseColor, darkColor),
+                new Heading(L10n.get("storageIntelHeaderItems", getLocationName()), baseColor, darkColor),
                 new Spacer(10),
-                new Cargo(cargo, "There are no items in this storage.", size),
+                new Cargo(cargo, "storageIntelNoCargo", size),
                 new Spacer(10),
-                new Heading(getLocationName() + " Ships", baseColor, darkColor),
+                new Heading(L10n.get("storageIntelHeaderShips", getLocationName()), baseColor, darkColor),
                 new Spacer(10),
-                new Ships(ships, "There are no ships in this storage.", size)
+                new Ships(ships, "storageIntelNoShips", size)
         );
     }
 
@@ -70,10 +70,8 @@ public class StorageIntel extends BaseIntel {
 
     private String getStorageContent() {
         CargoAPI cargo = storage.getCargo();
-        int itemsCount = CargoHelper.calculateItemQuantity(cargo);
-        int shipsCount = CargoHelper.calculateShipQuantity(cargo.getMothballedShips().getMembersListCopy());
-        String items = itemsCount != 1 ? "s" : "";
-        String ships = shipsCount != 1 ? "s" : "";
-        return String.format("%d item%s & %d ship%s", itemsCount, items, shipsCount, ships);
+        int itemCount = CargoHelper.calculateItemQuantity(cargo);
+        int shipCount = CargoHelper.calculateShipQuantity(cargo.getMothballedShips().getMembersListCopy());
+        return L10n.get("storageIntelContent", itemCount, shipCount);
     }
 }

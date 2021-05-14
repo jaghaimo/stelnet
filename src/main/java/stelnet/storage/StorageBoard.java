@@ -9,6 +9,7 @@ import com.fs.starfarer.api.util.Misc;
 
 import lombok.Getter;
 import stelnet.BaseBoard;
+import stelnet.L10n;
 import stelnet.helper.GlobalSettingsHelper;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.StorageHelper;
@@ -42,7 +43,7 @@ public class StorageBoard extends BaseBoard {
     public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
         int itemCount = StorageHelper.getAllItemCount();
         int shipCount = StorageHelper.getAllShipCount();
-        info.addPara("Storage Contents", getTitleColor(mode), 0);
+        info.addPara(L10n.get("storageBoardTitle"), getTitleColor(mode), 0);
         info.addPara(getDescription(itemCount, shipCount), 1f, getBulletColorForMode(mode), Misc.getHighlightColor(),
                 String.valueOf(itemCount), String.valueOf(shipCount));
         info.addPara("", 1f);
@@ -68,15 +69,9 @@ public class StorageBoard extends BaseBoard {
 
     private String getDescription(int itemCount, int shipCount) {
         if (itemCount == 0 && shipCount == 0) {
-            return "You don't have anything in your storages.";
+            return L10n.get("storageBoardNoContent");
         }
-        return getFormattedDescription(itemCount, shipCount);
-    }
-
-    private String getFormattedDescription(int itemCount, int shipCount) {
-        String items = itemCount != 1 ? "s " : " ";
-        String ships = shipCount != 1 ? "s " : " ";
-        return "You have %s item" + items + "and %s ship" + ships + "stored.";
+        return L10n.get("storageBoardContent", itemCount, shipCount);
     }
 
     @Override

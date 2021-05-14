@@ -5,13 +5,13 @@ import java.awt.Color;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 
 import lombok.Getter;
+import stelnet.L10n;
 
 @Getter
 public class ToggleButton extends Button {
 
-    private final String titleOff;
+    private String titleOff;
     private final Color colorOff;
-
     private boolean isToggledOn;
 
     public ToggleButton(
@@ -37,6 +37,10 @@ public class ToggleButton extends Button {
     @Override
     public String getTitle() {
         return isToggledOn ? super.getTitle() : titleOff;
+    }
+
+    public void setTitleOff(String titleOff) {
+        this.titleOff = L10n.get(titleOff);
     }
 
     @Override

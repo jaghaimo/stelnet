@@ -12,8 +12,8 @@ import stelnet.ui.ToggleButton;
 public class DisplayPaneButton extends ToggleButton {
 
     public DisplayPaneButton() {
-        super(new Size(180, 24), "Display Ships", "Display Items", true, Misc.getButtonTextColor(),
-                Misc.getButtonTextColor(), true);
+        super(new Size(180, 24), "storageButtonDisplayShips", "storageButtonDisplayItems", true,
+                Misc.getButtonTextColor(), Misc.getButtonTextColor(), true);
         setLocation(Location.TOP_RIGHT);
         setHandler(new EventHandler() {
 
