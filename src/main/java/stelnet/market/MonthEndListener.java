@@ -23,8 +23,7 @@ public class MonthEndListener implements EconomyTickListener {
 
     @Override
     public void reportEconomyMonthEnd() {
-        MonthEndIntel intel = new MonthEndIntel(
-                "New month has started. Market intel could be stale - please consider refreshing.");
+        MonthEndIntel intel = new MonthEndIntel("marketMonthNewMonth");
         toggleIntel(intel);
     }
 
@@ -33,7 +32,7 @@ public class MonthEndListener implements EconomyTickListener {
         int maxTicks = GlobalSettingsHelper.getEconomyIterPerMonth();
         boolean isSecondToLastTick = maxTicks - tick == 2;
         if (isSecondToLastTick) {
-            MonthEndIntel intel = new MonthEndIntel("New month will start soon and Market intel may become stale!");
+            MonthEndIntel intel = new MonthEndIntel("marketMonthAlmostNew");
             toggleIntel(intel);
         }
     }

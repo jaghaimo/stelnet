@@ -8,6 +8,7 @@ import com.fs.starfarer.api.campaign.SectorEntityToken;
 
 import stelnet.BaseIntel;
 import stelnet.IntelInfo;
+import stelnet.L10n;
 import stelnet.market.view.LegacyIntel;
 import stelnet.ui.Renderable;
 import stelnet.ui.Size;
@@ -39,8 +40,13 @@ public class MarketResultIntel extends BaseIntel {
 
     @Override
     protected IntelInfo getIntelInfo() {
-        return new IntelInfo(intelSubject.getIntelTitle(), "Location", getLocationNameWithSystem(), "Faction",
-                getFactionWithRel());
+        return new IntelInfo(
+                intelSubject.getIntelTitle(),
+                L10n.get("intelLocation"),
+                getLocationNameWithSystem(),
+                L10n.get("intelFaction"),
+                getFactionWithRel()
+        );
     }
 
     @Override
