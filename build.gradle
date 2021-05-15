@@ -56,6 +56,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
+// do not crash when configuring tasks
+if (!project.hasProperty("launcher")) {
+    ext.launcher = ""
+}
+
 // custom tasks
 task release(type: Zip) {
     dependsOn build
