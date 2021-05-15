@@ -2,7 +2,6 @@ package stelnet;
 
 import java.util.Locale;
 import java.util.MissingResourceException;
-import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
 import lombok.extern.log4j.Log4j;
@@ -16,7 +15,7 @@ public class L10n {
     public static void init() {
         if (resourceBundle == null) {
             Locale locale = new Locale(ModConfig.language);
-            resourceBundle = PropertyResourceBundle.getBundle("strings", locale);
+            resourceBundle = ResourceBundle.getBundle("strings", locale);
         }
     }
 

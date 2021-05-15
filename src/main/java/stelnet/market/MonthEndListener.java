@@ -6,6 +6,7 @@ import com.fs.starfarer.api.campaign.listeners.EconomyTickListener;
 import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 
+import stelnet.L10n;
 import stelnet.helper.GlobalSectorHelper;
 import stelnet.helper.GlobalSettingsHelper;
 import stelnet.helper.IntelHelper;
@@ -23,7 +24,7 @@ public class MonthEndListener implements EconomyTickListener {
 
     @Override
     public void reportEconomyMonthEnd() {
-        MonthEndIntel intel = new MonthEndIntel("marketMonthNewMonth");
+        MonthEndIntel intel = new MonthEndIntel(getTitle(), L10n.get("marketMonthNewMonth"));
         toggleIntel(intel);
     }
 
@@ -32,7 +33,7 @@ public class MonthEndListener implements EconomyTickListener {
         int maxTicks = GlobalSettingsHelper.getEconomyIterPerMonth();
         boolean isSecondToLastTick = maxTicks - tick == 2;
         if (isSecondToLastTick) {
-            MonthEndIntel intel = new MonthEndIntel("marketMonthAlmostNew");
+            MonthEndIntel intel = new MonthEndIntel(getTitle(), L10n.get("marketMonthAlmostNew"));
             toggleIntel(intel);
         }
     }
@@ -40,5 +41,9 @@ public class MonthEndListener implements EconomyTickListener {
     private void toggleIntel(BaseIntelPlugin intel) {
         IntelHelper.addIntel(intel);
         IntelHelper.removeIntel(intel);
+    }
+
+    private String getTitle() {
+        return L10n.get("marketMonthEndTitle");
     }
 }

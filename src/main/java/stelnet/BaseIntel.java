@@ -67,8 +67,9 @@ public abstract class BaseIntel extends RenderableIntel {
     }
 
     protected String getFactionWithRel() {
-        String reputation = faction.getRelToPlayer().getLevel().getDisplayName().toLowerCase();
-        return faction.getDisplayName() + " (" + reputation + ")";
+        String reputation = faction.getRelToPlayer().getLevel().getDisplayName();
+        String translatedRep = L10n.get("reputation" + reputation);
+        return L10n.get("intelFactionWithRel", faction.getDisplayName(), translatedRep);
     }
 
     protected String getLocationName() {

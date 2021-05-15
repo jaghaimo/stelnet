@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.util.Misc;
 
+import stelnet.L10n;
 import stelnet.filter.market.HasOfficer;
 import stelnet.filter.market.MarketFilter;
 import stelnet.filter.person.HasPersonality;
@@ -16,7 +18,7 @@ public class OfficerSubject extends PersonSubject {
     private final String personality;
 
     public OfficerSubject(String p, MarketAPI m) {
-        super(p + " officer", m);
+        super(L10n.get("marketOfficer" + Misc.ucFirst(p)), m);
         personality = p;
     }
 

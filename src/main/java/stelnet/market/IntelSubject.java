@@ -7,6 +7,8 @@ import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
+import stelnet.L10n;
+
 public abstract class IntelSubject {
 
     protected String entity;
@@ -25,10 +27,6 @@ public abstract class IntelSubject {
         return Misc.ucFirst(entity);
     }
 
-    public String getIntelDesc() {
-        return entity + "s";
-    }
-
     public abstract void createSmallDescription(TooltipMakerAPI info, float width, float height);
 
     public abstract boolean canAcquire();
@@ -39,8 +37,8 @@ public abstract class IntelSubject {
         FactionAPI faction = market.getFaction();
         RelationshipAPI relationship = faction.getRelToPlayer();
         String reputation = relationship.getLevel().getDisplayName();
-        info.addPara(basicInfo + "The owner of this market is " + reputation.toLowerCase() + " towards you.", 10f,
-                Misc.getTextColor(), relationship.getRelColor(), reputation.toLowerCase());
+        String marketRepInfo = basicInfo + L10n.get("intelOwnerRelationship", reputation.toLowerCase());
+        info.addPara(marketRepInfo, 10f, Misc.getTextColor(), relationship.getRelColor(), reputation.toLowerCase());
     }
 
     protected void addHeader(TooltipMakerAPI info, float width) {
