@@ -1,5 +1,6 @@
 package stelnet.storage.data;
 
+import stelnet.L10n;
 import stelnet.storage.ButtonManager;
 import stelnet.storage.FilterManager;
 import stelnet.ui.AbstractRenderable;
@@ -29,6 +30,6 @@ public class ItemsGridData extends SharedData {
 
     @Override
     protected AbstractRenderable getStorageContent(StorageData data) {
-        return new Cargo(data.getItems(), "storageNoItems", new Size(0, 0));
+        return new Cargo(data.getItems(), L10n.get("storageNoItems"), new Size(0, 0));
     }
 }

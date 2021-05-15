@@ -55,11 +55,11 @@ public class StorageIntel extends BaseIntel {
         return Arrays.<Renderable>asList(
                 new Heading(L10n.get("storageIntelHeaderItems", getLocationName()), baseColor, darkColor),
                 new Spacer(10),
-                new Cargo(cargo, "storageIntelNoCargo", size),
+                new Cargo(cargo, L10n.get("storageIntelNoCargo"), size),
                 new Spacer(10),
                 new Heading(L10n.get("storageIntelHeaderShips", getLocationName()), baseColor, darkColor),
                 new Spacer(10),
-                new Ships(ships, "storageIntelNoShips", size)
+                new Ships(ships, L10n.get("storageIntelNoShips"), size)
         );
     }
 

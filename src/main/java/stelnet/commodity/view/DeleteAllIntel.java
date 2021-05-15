@@ -14,7 +14,7 @@ import stelnet.ui.Size;
 public class DeleteAllIntel extends Button {
 
     public DeleteAllIntel() {
-        super(new Size(200, 24), "commodityDeleteAll", true, Misc.getNegativeHighlightColor());
+        super(new Size(200, 24), L10n.get("commodityDeleteAll"), true, Misc.getNegativeHighlightColor());
         setLocation(Location.BOTTOM_RIGHT);
         setHandler(new EventHandler() {
 

@@ -14,7 +14,7 @@ import stelnet.ui.Size;
 public class DeleteIntel extends Button {
 
     public DeleteIntel(float width, final CommodityIntel intel) {
-        super(new Size(width, 24), "commodityDelete", true, Misc.getButtonTextColor());
+        super(new Size(width, 24), L10n.get("commodityDelete"), true, Misc.getButtonTextColor());
         setHandler(new EventHandler() {
 
             @Override

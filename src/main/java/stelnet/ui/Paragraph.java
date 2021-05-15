@@ -7,7 +7,6 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import lombok.Setter;
-import stelnet.L10n;
 
 @Setter
 public class Paragraph extends AbstractRenderable {
@@ -40,9 +39,5 @@ public class Paragraph extends AbstractRenderable {
 
     public void setHighlightStrings(String... highlightStrings) {
         this.highlightStrings = highlightStrings;
-    }
-
-    public void setText(String text) {
-        this.text = L10n.get(text);
     }
 }
