@@ -57,8 +57,8 @@ dependencies {
 }
 
 // do not crash when configuring tasks
-if (!project.hasProperty("launcher")) {
-    ext.launcher = ""
+if (!project.hasProperty("game.launcher")) {
+    ext.game.launcher = ""
 }
 
 // custom tasks
@@ -88,7 +88,7 @@ task copyToMods(type: Copy) {
 
 task runGameWithBuild(type: Exec) {
     dependsOn copyToMods
-    isWindows() ? commandLine('cmd', '/c', launcher) : commandLine(launcher)
+    isWindows() ? commandLine('cmd', '/c', project.getProperty('game.launcher')) : commandLine(project.getProperty('game.launcher'))
     doFirst {
         workingDir = file(project.getProperty('game.dir'))
     }
