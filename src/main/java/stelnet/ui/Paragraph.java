@@ -16,7 +16,7 @@ public class Paragraph extends AbstractRenderable {
     private Color[] highlightColors = {};
     private String[] highlightStrings = {};
 
-    public Paragraph(String title, float width) {
+    public Paragraph(String text, float width) {
         setSize(new Size(width, 20));
         setColor(Misc.getTextColor());
         setText(text);
