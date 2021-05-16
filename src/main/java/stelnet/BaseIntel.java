@@ -27,11 +27,11 @@ public abstract class BaseIntel extends RenderableIntel {
     public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
         IntelInfo intelInfo = getIntelInfo();
         Color bulletColor = getBulletColorForMode(mode);
-        info.addPara(intelInfo.getTitle(), getTitleColor(mode), 0f);
-        info.beginGridFlipped(300f, 1, Misc.getTextColor(), 80f, 10f);
+        info.addPara(intelInfo.getTitle(), getTitleColor(mode), 0);
+        info.beginGridFlipped(300, 1, Misc.getTextColor(), 80, 10);
         info.addToGrid(0, 0, intelInfo.getContent1(), intelInfo.getHeader1(), bulletColor);
         info.addToGrid(0, 1, intelInfo.getContent2(), intelInfo.getHeader2(), bulletColor);
-        info.addGrid(3f);
+        info.addGrid(3);
     }
 
     @Override

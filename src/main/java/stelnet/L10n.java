@@ -1,5 +1,6 @@
 package stelnet;
 
+import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -24,7 +25,7 @@ public class L10n {
         String translation;
         try {
             translation = resourceBundle.getString(key);
-            return String.format(translation, args);
+            return MessageFormat.format(translation, args);
         } catch (MissingResourceException e) {
             log.warn("Missing translation for key " + key);
             return key;
