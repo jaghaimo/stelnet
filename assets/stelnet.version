@@ -1,5 +1,5 @@
 {
-    "masterVersionFile":"https://github.com/jaghaimo/stelnet/blob/master/assets/stelnet.version",
+    "masterVersionFile":"https://raw.githubusercontent.com/jaghaimo/stelnet/master/assets/stelnet.version",
     "modName":"Stellar Networks - a collection of intel boards",
     "modThreadId":0,
     "modVersion":
