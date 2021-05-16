@@ -37,8 +37,9 @@ public abstract class IntelSubject {
         FactionAPI faction = market.getFaction();
         RelationshipAPI relationship = faction.getRelToPlayer();
         String reputation = relationship.getLevel().getDisplayName();
-        String marketRepInfo = basicInfo + L10n.get("intelOwnerRelationship", reputation.toLowerCase());
-        info.addPara(marketRepInfo, 10f, Misc.getTextColor(), relationship.getRelColor(), reputation.toLowerCase());
+        String translatedRep = L10n.get("reputation" + reputation);
+        String marketRepInfo = basicInfo + L10n.get("intelOwnerRelationship", translatedRep);
+        info.addPara(marketRepInfo, 10f, Misc.getTextColor(), relationship.getRelColor(), translatedRep);
     }
 
     protected void addHeader(TooltipMakerAPI info, float width) {
