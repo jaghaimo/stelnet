@@ -24,8 +24,8 @@ public abstract class SubmarketProvider extends IntelProvider {
         filters.add(getFilter());
         if (MarketConfig.ignoreStorageInQueries) {
             filters.add(new IsNotStorage());
-            CollectionHelper.reduce(submarkets, filters);
         }
+        CollectionHelper.reduce(submarkets, filters);
         return super.provide(MarketHelper.extractMarkets(submarkets));
     }
 

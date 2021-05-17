@@ -10,8 +10,10 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import stelnet.config.MarketConfig;
 import stelnet.filter.cargostack.HasStack;
 import stelnet.filter.fleetmember.HasMember;
+import stelnet.filter.submarket.IsNotStorage;
 import stelnet.filter.submarket.SubmarketFilter;
 import stelnet.helper.CollectionHelper;
 import stelnet.market.IntelSubject;
@@ -37,7 +39,7 @@ public abstract class SubmarketSubject extends IntelSubject {
         SubmarketFilter filter = getFilter();
         List<SubmarketAPI> submarkets = market.getSubmarketsCopy();
         CollectionHelper.reduce(submarkets, filter);
-        return !submarkets.isEmpty();
+        return canAquire(submarkets);
     }
 
     protected void addBasicInfo(TooltipMakerAPI info) {
@@ -57,6 +59,13 @@ public abstract class SubmarketSubject extends IntelSubject {
         FactionAPI faction = submarket.getFaction();
         info.addPara("", 0f);
         info.addPara(submarket.getNameOneLine(), faction.getBaseUIColor(), 10f);
+    }
+
+    protected boolean canAquire(List<SubmarketAPI> submarkets) {
+        if (MarketConfig.ignoreStorageInQueries) {
+            CollectionHelper.reduce(submarkets, new IsNotStorage());
+        }
+        return !submarkets.isEmpty();
     }
 
     protected List<SubmarketAPI> findSubmarkets() {

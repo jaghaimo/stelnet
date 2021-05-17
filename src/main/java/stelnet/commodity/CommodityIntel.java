@@ -115,8 +115,9 @@ public class CommodityIntel extends BaseIntel {
         FactionAPI faction = marketWrapper.getFaction();
         RelationshipAPI relationship = faction.getRelToPlayer();
         String reputation = relationship.getLevel().getDisplayName();
-        Paragraph relationshipRenderable = new Paragraph(L10n.get("intelOwnerRelationship", reputation), width);
-        relationshipRenderable.setHighlightStrings(reputation.toLowerCase());
+        String translatedRep = L10n.get("reputation" + reputation);
+        Paragraph relationshipRenderable = new Paragraph(L10n.get("intelOwnerRelationship", translatedRep), width);
+        relationshipRenderable.setHighlightStrings(translatedRep);
         relationshipRenderable.setHighlightColors(relationship.getRelColor());
         renderables.add(relationshipRenderable);
     }

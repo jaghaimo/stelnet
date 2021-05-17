@@ -33,7 +33,7 @@ public class ShipSubject extends SubmarketSubject {
                 new IsAccessible());
         List<SubmarketAPI> submarkets = market.getSubmarketsCopy();
         CollectionHelper.reduce(submarkets, filters);
-        return !submarkets.isEmpty();
+        return super.canAquire(submarkets);
     }
 
     @Override

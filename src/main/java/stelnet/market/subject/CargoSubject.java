@@ -35,7 +35,7 @@ public class CargoSubject extends SubmarketSubject {
                 new CanAcquireCargoStack(cargoStack));
         List<SubmarketAPI> submarkets = market.getSubmarketsCopy();
         CollectionHelper.reduce(submarkets, filters);
-        return !submarkets.isEmpty();
+        return super.canAquire(submarkets);
     }
 
     @Override
