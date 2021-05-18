@@ -9,8 +9,6 @@ import stelnet.config.BoardConfig;
 import stelnet.config.ModConfig;
 import stelnet.market.MarketQueryBoard;
 import stelnet.market.MarketResultIntel;
-import stelnet.market.MonthEndIntel;
-import stelnet.market.MonthEndListener;
 import stelnet.storage.StorageBoard;
 import stelnet.storage.StorageIntel;
 import stelnet.storage.StorageListener;
@@ -69,8 +67,6 @@ public class Configurator {
             purgeIntel(MarketQueryBoard.class, MarketResultIntel.class);
             log.info("Disabled Market");
         }
-        purgeIntel(MonthEndIntel.class);
-        purgeListeners(MonthEndListener.class);
     }
 
     private static void initStorage(boolean hasStorage) {
