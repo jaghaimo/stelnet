@@ -1,5 +1,6 @@
 package stelnet.market.subject;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -8,7 +9,9 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import stelnet.filter.submarket.IsNotLocalResources;
 import stelnet.filter.submarket.IsNotStorage;
+import stelnet.filter.submarket.NeedsRefresh;
 import stelnet.filter.submarket.SubmarketFilter;
 import stelnet.helper.CollectionHelper;
 import stelnet.market.IntelSubject;
@@ -27,6 +30,16 @@ public abstract class SubmarketSubject extends IntelSubject {
         for (SubmarketAPI submarket : getSubmarkets()) {
             addSubmarket(info, submarket);
         }
+    }
+
+    @Override
+    public boolean isStale() {
+        List<SubmarketAPI> submarkets = market.getSubmarketsCopy();
+        CollectionHelper.reduce(
+                submarkets,
+                Arrays.asList(new IsNotStorage(), new IsNotLocalResources(), new NeedsRefresh())
+        );
+        return !submarkets.isEmpty();
     }
 
     protected void addBasicInfo(TooltipMakerAPI info) {

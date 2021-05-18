@@ -60,6 +60,6 @@ public class MarketResultIntel extends BaseIntel {
     }
 
     private void endIfInvalid() {
-        ending = !intelSubject.isAvailable();
+        ending = !intelSubject.isAvailable() || intelSubject.isStale();
     }
 }

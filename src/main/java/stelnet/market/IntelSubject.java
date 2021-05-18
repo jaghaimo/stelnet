@@ -24,12 +24,16 @@ public abstract class IntelSubject {
     }
 
     public String getIntelTitle() {
-        return Misc.ucFirst(entity);
+        boolean canCheck = market != null;
+        String titleId = canCheck && isStale() ? "marketIntelTitleStale" : "marketIntelTitle";
+        return L10n.get(titleId, Misc.ucFirst(entity));
     }
 
     public abstract void createSmallDescription(TooltipMakerAPI info, float width, float height);
 
     public abstract boolean isAvailable();
+
+    public abstract boolean isStale();
 
     protected void addBasicInfo(TooltipMakerAPI info, String basicInfo) {
         FactionAPI faction = market.getFaction();

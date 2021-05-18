@@ -31,6 +31,11 @@ public abstract class PersonSubject extends IntelSubject {
         }
     }
 
+    @Override
+    public boolean isStale() {
+        return false;
+    }
+
     protected abstract List<PersonFilter> getFilters();
 
     private void addBasicInfo(TooltipMakerAPI info, int adminsSize) {
