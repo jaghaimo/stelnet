@@ -1,6 +1,7 @@
 package stelnet.market;
 
 import lombok.Getter;
+import stelnet.L10n;
 import stelnet.helper.GlobalSectorHelper;
 import stelnet.market.filter.FilterManager;
 import stelnet.market.filter.ImmutableFilterManager;
@@ -30,7 +31,7 @@ public class IntelQuery {
     public String getResultCount() {
         int count = managedIntels.available();
         int total = managedIntels.size();
-        return String.format("%d  of  %d", count, total);
+        return L10n.get("marketResultCount", count, total);
     }
 
     public void disable() {
