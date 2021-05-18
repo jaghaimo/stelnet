@@ -11,7 +11,7 @@ public class IntelDescription extends Paragraph {
     public IntelDescription(IntelQuery query, float width) {
         super(query.getDescription(), width);
         setOffset(new Position(0, 2));
-        if (!query.isActive()) {
+        if (!query.isEnabled()) {
             setColor(Misc.getGrayColor());
         }
     }

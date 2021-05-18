@@ -2,6 +2,7 @@ package stelnet.ui;
 
 import java.awt.Color;
 
+import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.LabelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
@@ -15,11 +16,13 @@ public class Paragraph extends AbstractRenderable {
     private Color color;
     private Color[] highlightColors = {};
     private String[] highlightStrings = {};
+    private Alignment alignment = Alignment.TL;
 
     public Paragraph(String text, float width) {
         setSize(new Size(width, 20));
         setColor(Misc.getTextColor());
         setText(text);
+        setWithScroller(false);
     }
 
     @Override
@@ -31,6 +34,7 @@ public class Paragraph extends AbstractRenderable {
         if (highlightColors.length > 0) {
             addedText.setHighlightColors(highlightColors);
         }
+        addedText.setAlignment(alignment);
     }
 
     public void setHighlightColors(Color... highlightColors) {

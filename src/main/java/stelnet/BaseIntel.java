@@ -12,7 +12,6 @@ import com.fs.starfarer.api.util.Misc;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import stelnet.helper.DistanceHelper;
 import stelnet.helper.StarSystemHelper;
 import stelnet.ui.RenderableIntel;
 
@@ -53,7 +52,7 @@ public abstract class BaseIntel extends RenderableIntel {
 
     @Override
     public String getSortString() {
-        return String.format("%07.2f", DistanceHelper.getDistanceToPlayerLY(sectorEntityToken));
+        return String.format("%07.2f", Misc.getDistanceToPlayerLY(sectorEntityToken));
     }
 
     @Override

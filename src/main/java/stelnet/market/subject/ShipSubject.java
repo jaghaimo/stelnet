@@ -11,6 +11,7 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import stelnet.filter.fleetmember.HasMember;
 import stelnet.filter.submarket.CanAcquireFleetMember;
 import stelnet.filter.submarket.HasFleetMember;
 import stelnet.filter.submarket.IsAccessible;
@@ -28,17 +29,20 @@ public class ShipSubject extends SubmarketSubject {
     }
 
     @Override
-    public boolean canAcquire() {
-        List<SubmarketFilter> filters = Arrays.asList(new HasFleetMember(ship), new CanAcquireFleetMember(ship),
-                new IsAccessible());
-        List<SubmarketAPI> submarkets = market.getSubmarketsCopy();
-        CollectionHelper.reduce(submarkets, filters);
-        return super.canAquire(submarkets);
+    public String getIcon() {
+        return ship.getHullSpec().getSpriteName();
     }
 
     @Override
-    public String getIcon() {
-        return ship.getHullSpec().getSpriteName();
+    public boolean isAvailable() {
+        List<SubmarketAPI> submarkets = findSubmarkets();
+        List<SubmarketFilter> filters = Arrays.asList(
+                new HasFleetMember(ship),
+                new CanAcquireFleetMember(ship),
+                new IsAccessible()
+        );
+        CollectionHelper.reduce(submarkets, filters);
+        return !submarkets.isEmpty();
     }
 
     @Override
@@ -77,5 +81,11 @@ public class ShipSubject extends SubmarketSubject {
         for (SubmarketAPI submarket : findSubmarkets()) {
             submarketsWithFleetMembers.put(submarket, getFleetMembers(submarket, ship));
         }
+    }
+
+    private List<FleetMemberAPI> getFleetMembers(SubmarketAPI submarket, FleetMemberAPI fleetMember) {
+        List<FleetMemberAPI> fleetMembers = submarket.getCargo().getMothballedShips().getMembersListCopy();
+        CollectionHelper.reduce(fleetMembers, new HasMember(fleetMember));
+        return fleetMembers;
     }
 }

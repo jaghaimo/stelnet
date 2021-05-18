@@ -29,8 +29,6 @@ public abstract class IntelSubject {
 
     public abstract void createSmallDescription(TooltipMakerAPI info, float width, float height);
 
-    public abstract boolean canAcquire();
-
     public abstract boolean isAvailable();
 
     protected void addBasicInfo(TooltipMakerAPI info, String basicInfo) {

@@ -12,6 +12,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import stelnet.filter.cargostack.HasStack;
 import stelnet.filter.submarket.CanAcquireCargoStack;
 import stelnet.filter.submarket.HasCargoStack;
 import stelnet.filter.submarket.IsAccessible;
@@ -30,15 +31,6 @@ public class CargoSubject extends SubmarketSubject {
     }
 
     @Override
-    public boolean canAcquire() {
-        List<SubmarketFilter> filters = Arrays.asList(new HasCargoStack(cargoStack), new IsAccessible(),
-                new CanAcquireCargoStack(cargoStack));
-        List<SubmarketAPI> submarkets = market.getSubmarketsCopy();
-        CollectionHelper.reduce(submarkets, filters);
-        return super.canAquire(submarkets);
-    }
-
-    @Override
     public String getIcon() {
         if (cargoStack.isWeaponStack()) {
             return cargoStack.getWeaponSpecIfWeapon().getTurretSpriteName();
@@ -53,6 +45,18 @@ public class CargoSubject extends SubmarketSubject {
         }
 
         return super.getIcon();
+    }
+
+    @Override
+    public boolean isAvailable() {
+        List<SubmarketFilter> filters = Arrays.asList(
+                new HasCargoStack(cargoStack),
+                new IsAccessible(),
+                new CanAcquireCargoStack(cargoStack)
+        );
+        List<SubmarketAPI> submarkets = findSubmarkets();
+        CollectionHelper.reduce(submarkets, filters);
+        return !submarkets.isEmpty();
     }
 
     @Override
@@ -93,5 +97,14 @@ public class CargoSubject extends SubmarketSubject {
         for (SubmarketAPI submarket : findSubmarkets()) {
             submarketsWithCargoStack.put(submarket, getCargoStack(submarket, cargoStack));
         }
+    }
+
+    private CargoStackAPI getCargoStack(SubmarketAPI submarket, CargoStackAPI cargoStack) {
+        List<CargoStackAPI> cargoStacks = submarket.getCargo().getStacksCopy();
+        CollectionHelper.reduce(cargoStacks, new HasStack(cargoStack));
+        if (cargoStacks.isEmpty()) {
+            return cargoStack;
+        }
+        return cargoStacks.get(0);
     }
 }

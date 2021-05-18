@@ -6,10 +6,10 @@ import lombok.extern.log4j.Log4j;
 import stelnet.commodity.CommodityBoard;
 import stelnet.commodity.CommodityIntel;
 import stelnet.config.BoardConfig;
-import stelnet.config.MarketConfig;
 import stelnet.config.ModConfig;
 import stelnet.market.MarketQueryBoard;
 import stelnet.market.MarketResultIntel;
+import stelnet.market.MonthEndIntel;
 import stelnet.market.MonthEndListener;
 import stelnet.storage.StorageBoard;
 import stelnet.storage.StorageIntel;
@@ -21,19 +21,18 @@ public class Configurator {
     public static void configure() {
         ModConfig.configure();
         BoardConfig.configure();
-        MarketConfig.configure();
     }
 
     public static void install() {
         initCommodity(BoardConfig.hasCommodities);
-        initMarket(BoardConfig.hasMarket, MarketConfig.warnAboutEndOfMonth);
+        initMarket(BoardConfig.hasMarket);
         initStorage(BoardConfig.hasStorage);
         log.debug("Configured");
     }
 
     public static void uninstall() {
         initCommodity(false);
-        initMarket(false, false);
+        initMarket(false);
         initStorage(false);
         log.debug("Uninstalled");
     }
@@ -62,7 +61,7 @@ public class Configurator {
         }
     }
 
-    private static void initMarket(boolean hasMarket, boolean warnAboutEndOfMonth) {
+    private static void initMarket(boolean hasMarket) {
         if (hasMarket) {
             MarketQueryBoard.getInstance();
             log.info("Enabled Market");
@@ -70,14 +69,8 @@ public class Configurator {
             purgeIntel(MarketQueryBoard.class, MarketResultIntel.class);
             log.info("Disabled Market");
         }
-        boolean needListener = warnAboutEndOfMonth && hasMarket;
-        if (needListener) {
-            MonthEndListener.register();
-            log.debug("Enabled end-of-month nagging");
-        } else {
-            purgeListeners(MonthEndListener.class);
-            log.debug("Disabled end-of-month nagging");
-        }
+        purgeIntel(MonthEndIntel.class);
+        purgeListeners(MonthEndListener.class);
     }
 
     private static void initStorage(boolean hasStorage) {
