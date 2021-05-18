@@ -24,11 +24,17 @@ public class MarketHelper {
     }
 
     public static List<MarketAPI> getMarkets() {
+        return getMarkets(true);
+    }
+
+    public static List<MarketAPI> getMarkets(boolean refreshContent) {
         List<MarketAPI> markets = GlobalSectorHelper.getMarkets();
         List<MarketFilter> filters = FilterHelper.getBlacklistMarketFilters();
         filters.add(new IsNotHidden());
         CollectionHelper.reduce(markets, filters);
-        updateMarketPrePlayerInteraction(markets);
+        if (refreshContent) {
+            updateMarketPrePlayerInteraction(markets);
+        }
         return markets;
     }
 

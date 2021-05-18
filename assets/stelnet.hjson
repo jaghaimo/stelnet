@@ -3,6 +3,7 @@
 ## See: https://hjson.github.io/
 
 ## Mod settings
+language: en, # set to a supported language, missing translations will default to English
 uninstallMod: false, # set to true, load and save the game to remove the mod
 verboseLogging: false, # increases log verbosity
 
@@ -10,8 +11,4 @@ verboseLogging: false, # increases log verbosity
 hasCommodities: true,
 hasMarket: true,
 hasStorage: true,
-
-## Market settings
-ignoreStorageInQueries: true, # exclude player storage from market searches
-warnAboutEndOfMonth: true, # show an intel popup one tick before end of month, and on new month
 }

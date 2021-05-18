@@ -8,8 +8,8 @@ import stelnet.ui.EventHandler;
 
 public class ShipFilterButton extends FilteringButton {
 
-    public ShipFilterButton(String name, final FleetMemberFilter filter) {
-        super(name);
+    public ShipFilterButton(String translationId, final FleetMemberFilter filter) {
+        super(translationId);
         setHandler(new EventHandler() {
 
             @Override

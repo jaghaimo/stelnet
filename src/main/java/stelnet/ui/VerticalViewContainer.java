@@ -6,7 +6,7 @@ import java.util.List;
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
-import stelnet.helper.LogHelper;
+import lombok.extern.log4j.Log4j;
 
 /**
  * Renders elements in a vertical line.
@@ -14,6 +14,7 @@ import stelnet.helper.LogHelper;
  * Calculates size automatically if needed. Only usable in large intel or
  * {@link CustomPanel}.
  */
+@Log4j
 public class VerticalViewContainer extends Group {
 
     public VerticalViewContainer(AbstractRenderable... elements) {
@@ -35,7 +36,7 @@ public class VerticalViewContainer extends Group {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        LogHelper.error("Cannot render Stack in small intel. Use Group or prerender in CustomPanel instead.");
+        log.error("Cannot render Stack in small intel. Use Group or prerender in CustomPanel instead.");
     }
 
     @Override

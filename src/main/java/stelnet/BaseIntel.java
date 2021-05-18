@@ -12,7 +12,6 @@ import com.fs.starfarer.api.util.Misc;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import stelnet.helper.DistanceHelper;
 import stelnet.helper.StarSystemHelper;
 import stelnet.ui.RenderableIntel;
 
@@ -27,11 +26,11 @@ public abstract class BaseIntel extends RenderableIntel {
     public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
         IntelInfo intelInfo = getIntelInfo();
         Color bulletColor = getBulletColorForMode(mode);
-        info.addPara(intelInfo.getTitle(), getTitleColor(mode), 0f);
-        info.beginGridFlipped(300f, 1, Misc.getTextColor(), 80f, 10f);
+        info.addPara(intelInfo.getTitle(), getTitleColor(mode), 0);
+        info.beginGridFlipped(300, 1, Misc.getTextColor(), 80, 10);
         info.addToGrid(0, 0, intelInfo.getContent1(), intelInfo.getHeader1(), bulletColor);
         info.addToGrid(0, 1, intelInfo.getContent2(), intelInfo.getHeader2(), bulletColor);
-        info.addGrid(3f);
+        info.addGrid(3);
     }
 
     @Override
@@ -53,7 +52,7 @@ public abstract class BaseIntel extends RenderableIntel {
 
     @Override
     public String getSortString() {
-        return String.format("%07.2f", DistanceHelper.getDistanceToPlayerLY(sectorEntityToken));
+        return String.format("%07.2f", Misc.getDistanceToPlayerLY(sectorEntityToken));
     }
 
     @Override
@@ -67,8 +66,9 @@ public abstract class BaseIntel extends RenderableIntel {
     }
 
     protected String getFactionWithRel() {
-        String reputation = faction.getRelToPlayer().getLevel().getDisplayName().toLowerCase();
-        return faction.getDisplayName() + " (" + reputation + ")";
+        String reputation = faction.getRelToPlayer().getLevel().getDisplayName();
+        String translatedRep = L10n.get("reputation" + reputation);
+        return L10n.get("intelFactionWithRel", faction.getDisplayName(), translatedRep);
     }
 
     protected String getLocationName() {

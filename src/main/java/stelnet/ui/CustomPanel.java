@@ -5,9 +5,10 @@ import com.fs.starfarer.api.ui.PositionAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import lombok.RequiredArgsConstructor;
-import stelnet.helper.LogHelper;
+import lombok.extern.log4j.Log4j;
 
 @RequiredArgsConstructor
+@Log4j
 public class CustomPanel extends AbstractRenderable {
 
     private final AbstractRenderable renderable;
@@ -27,7 +28,7 @@ public class CustomPanel extends AbstractRenderable {
     @Override
     public void render(TooltipMakerAPI tooltip) {
         if (customPanel == null) {
-            LogHelper.error(
+            log.error(
                     "Cannot render CustomPanel in small intel. Create CustomPanelAPI and call render(CustomPanelAPI panel) to prerender it first.");
             return;
         }

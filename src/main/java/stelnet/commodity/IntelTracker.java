@@ -4,12 +4,13 @@ import java.util.HashMap;
 
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 
+import lombok.extern.log4j.Log4j;
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.commodity.market.price.Price;
 import stelnet.helper.GlobalSectorHelper;
 import stelnet.helper.IntelHelper;
-import stelnet.helper.LogHelper;
 
+@Log4j
 public class IntelTracker extends HashMap<String, CommodityIntel> {
 
     private static final long serialVersionUID = 1L;
@@ -46,14 +47,14 @@ public class IntelTracker extends HashMap<String, CommodityIntel> {
         String key = getKey(action, commodityId, market);
         CommodityIntel intel = get(key);
         if (intel == null) {
-            LogHelper.debug("Adding new intel with key " + key);
+            log.debug("Adding new intel with key " + key);
             CommoditySpecAPI commodity = GlobalSectorHelper.getCommoditySpec(commodityId);
             Price price = market.getPrice();
             intel = new CommodityIntel(action, commodity, market, price);
             IntelHelper.addIntel(intel, true);
             put(key, intel);
         } else {
-            LogHelper.debug("Removing existing intel with key " + key);
+            log.debug("Removing existing intel with key " + key);
             IntelHelper.removeIntel(intel);
             remove(key);
         }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import stelnet.L10n;
 import stelnet.helper.StorageHelper;
 import stelnet.storage.ButtonManager;
 import stelnet.storage.FilterManager;
@@ -60,7 +61,7 @@ public abstract class SharedData {
 
     private void addEmptyData(List<AbstractRenderable> elements, List<StorageData> storageData, float width) {
         if (!hasStorage()) {
-            elements.add(new Paragraph("You do not have any storages.", width));
+            elements.add(new Paragraph(L10n.get("storageNoStorages"), width));
         }
     }
 

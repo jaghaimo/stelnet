@@ -13,7 +13,6 @@ import stelnet.ui.Size;
 
 public class IntelButton extends AreaCheckbox {
 
-    // @formatter:off
     public IntelButton(
             int i,
             final CommodityTab commodityTab,
@@ -29,7 +28,6 @@ public class IntelButton extends AreaCheckbox {
                 Misc.getTextColor(),
                 Misc.getGrayColor()
         );
-        // @formatter:on
         setLocation(Location.BOTTOM_LEFT);
         setHandler(new EventHandler() {
 

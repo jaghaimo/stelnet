@@ -20,6 +20,14 @@ public class IntelList extends ArrayList<MarketResultIntel> {
         }
     }
 
+    public int available() {
+        int available = 0;
+        for (MarketResultIntel intel : this) {
+            available += intel.isEnding() ? 0 : 1;
+        }
+        return available;
+    }
+
     public void removeIntel() {
         IntelManagerAPI intelManager = GlobalSectorHelper.getIntelManager();
         for (MarketResultIntel intel : this) {

@@ -1,5 +1,6 @@
 package stelnet.storage.data;
 
+import stelnet.L10n;
 import stelnet.storage.ButtonManager;
 import stelnet.storage.FilterManager;
 import stelnet.ui.AbstractRenderable;
@@ -25,6 +26,6 @@ public class ShipsGridData extends SharedData {
 
     @Override
     protected AbstractRenderable getStorageContent(StorageData data) {
-        return new Ships(data.getShips(), "There are no matching ships to display.", new Size(0, 0));
+        return new Ships(data.getShips(), L10n.get("storageNoShips"), new Size(0, 0));
     }
 }

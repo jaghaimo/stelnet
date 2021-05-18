@@ -11,6 +11,7 @@ import com.fs.starfarer.api.util.Misc;
 import lombok.Getter;
 import stelnet.BaseIntel;
 import stelnet.IntelInfo;
+import stelnet.L10n;
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.commodity.market.price.Price;
 import stelnet.commodity.view.DeleteIntel;
@@ -68,7 +69,13 @@ public class CommodityIntel extends BaseIntel {
 
     @Override
     protected IntelInfo getIntelInfo() {
-        return new IntelInfo(getTitle(), "Location", getLocationNameWithSystem(), "Faction", getFactionWithRel());
+        return new IntelInfo(
+                getTitle(),
+                L10n.get("intelLocation"),
+                getLocationNameWithSystem(),
+                L10n.get("intelFaction"),
+                getFactionWithRel()
+        );
     }
 
     @Override
@@ -93,8 +100,8 @@ public class CommodityIntel extends BaseIntel {
 
     private void addPriceChange(List<Renderable> renderables, float width) {
         if (isEnding()) {
-            String priceChangeText = String.format("The original price of %s has changed to %s.",
-                    Misc.getDGSCredits(price), Misc.getDGSCredits(marketWrapper.getPriceAmount()));
+            String priceChangeText = L10n.get("commodityPriceChanged", Misc.getDGSCredits(price),
+                    Misc.getDGSCredits(marketWrapper.getPriceAmount()));
             Paragraph priceChangeRenderable = new Paragraph(priceChangeText, width);
             priceChangeRenderable.setHighlightStrings(Misc.getDGSCredits(price),
                     Misc.getDGSCredits(marketWrapper.getPriceAmount()));
@@ -108,14 +115,14 @@ public class CommodityIntel extends BaseIntel {
         FactionAPI faction = marketWrapper.getFaction();
         RelationshipAPI relationship = faction.getRelToPlayer();
         String reputation = relationship.getLevel().getDisplayName();
-        Paragraph relationshipRenderable = new Paragraph(
-                "The owner of this market is " + reputation.toLowerCase() + " towards you.", width);
-        relationshipRenderable.setHighlightStrings(reputation.toLowerCase());
+        String translatedRep = L10n.get("reputation" + reputation);
+        Paragraph relationshipRenderable = new Paragraph(L10n.get("intelOwnerRelationship", translatedRep), width);
+        relationshipRenderable.setHighlightStrings(translatedRep);
         relationshipRenderable.setHighlightColors(relationship.getRelColor());
         renderables.add(relationshipRenderable);
     }
 
     private String getTitle() {
-        return String.format("%s %s for %s", action, commodity.getName(), Misc.getDGSCredits(price));
+        return L10n.get("commodityIntelTitle", action, commodity.getName(), Misc.getDGSCredits(price));
     }
 }

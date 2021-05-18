@@ -7,17 +7,17 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import stelnet.helper.LogHelper;
+import lombok.extern.log4j.Log4j;
 
 /**
  * Simple element grouping usable in both large and small intel.
  *
- * Extended by {@link HorizontalViewContainer} and {@link VerticalViewContainer} which can only be used in large
- * intel only.
+ * Extended by {@link HorizontalViewContainer} and {@link VerticalViewContainer}
+ * which can only be used in large intel only.
  */
-
 @AllArgsConstructor
 @Getter(AccessLevel.PROTECTED)
+@Log4j
 public class Group extends AbstractRenderable {
 
     private List<AbstractRenderable> elements;
@@ -46,6 +46,6 @@ public class Group extends AbstractRenderable {
             height = Math.max(height, size.getHeight());
         }
         super.setSize(new Size(width, height));
-        LogHelper.debug("Setting calculated size as " + getSize());
+        log.debug("Setting calculated size as " + getSize());
     }
 }

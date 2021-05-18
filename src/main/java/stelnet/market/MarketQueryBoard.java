@@ -1,15 +1,14 @@
 package stelnet.market;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
-import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import com.fs.starfarer.api.util.Misc;
 
 import stelnet.BaseBoard;
+import stelnet.BoardInfo;
+import stelnet.L10n;
 import stelnet.helper.GlobalSettingsHelper;
 import stelnet.helper.IntelHelper;
 import stelnet.market.view.ControlRow;
@@ -38,35 +37,23 @@ public class MarketQueryBoard extends BaseBoard {
     }
 
     @Override
-    public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
-        Color bulletColor = getBulletColorForMode(mode);
-        Color highlightColor = Misc.getHighlightColor();
-        info.addPara("Query Board", getTitleColor(mode), 0);
-        int queriesPresent = queries.size();
-        if (queriesPresent == 1) {
-            info.addPara("Managing %s intel query.", 1f, bulletColor, highlightColor, "1");
-        } else if (queriesPresent > 1) {
-            info.addPara("Managing %s intel queries.", 1f, bulletColor, highlightColor, String.valueOf(queriesPresent));
-        } else {
-            info.addPara("No intel queries present.", bulletColor, 1f);
-        }
-        info.addPara("", 1f);
-    }
-
-    @Override
     public String getIcon() {
         return GlobalSettingsHelper.getSpriteName("market");
     }
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
-        // @formatter:off
         return Arrays.asList(
                 new ControlRow(size, queries),
                 new EmptyRow(size, queries.isEmpty()),
                 new Queries(size, queries)
         );
-        // @formatter:on
+    }
+
+    @Override
+    protected BoardInfo getBoardInfo() {
+        int queriesPresent = queries.size();
+        return new BoardInfo(L10n.get("marketBoardTitle"), L10n.get("marketBoardDescription", queriesPresent));
     }
 
     @Override
