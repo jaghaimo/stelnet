@@ -6,7 +6,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import lombok.Getter;
 import lombok.Setter;
-import stelnet.helper.LogHelper;
+import lombok.extern.log4j.Log4j;
 
 /**
  * Base building block of UI (both {@link CustomPanelAPI} and
@@ -16,9 +16,9 @@ import stelnet.helper.LogHelper;
  * offset (0, 0 by default). Comes with a scroller (by default) if needs to use
  * larger screen than available in {@link CustomPanelAPI} panel.
  */
-
 @Getter
 @Setter
+@Log4j
 public abstract class AbstractRenderable implements Renderable {
 
     private Location location = Location.TOP_LEFT;
@@ -27,7 +27,7 @@ public abstract class AbstractRenderable implements Renderable {
     private Size size;
 
     public void log(Position position) {
-        LogHelper.debug(String.format("Rendered %s in %s", this, position));
+        log.debug(String.format("Rendered %s in %s", this, position));
     }
 
     @Override

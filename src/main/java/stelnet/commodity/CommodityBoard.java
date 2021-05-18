@@ -6,11 +6,12 @@ import java.util.List;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.impl.campaign.ids.Commodities;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
-import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import lombok.Getter;
 import lombok.Setter;
 import stelnet.BaseBoard;
+import stelnet.BoardInfo;
+import stelnet.L10n;
 import stelnet.commodity.view.ButtonViewFactory;
 import stelnet.commodity.view.DeleteViewFactory;
 import stelnet.commodity.view.IntelViewFactory;
@@ -38,13 +39,6 @@ public class CommodityBoard extends BaseBoard {
     }
 
     @Override
-    public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
-        info.addPara("Commodity Market", getTitleColor(mode), 0);
-        info.addPara("Compare and track commodity prices among all known markets.", getBulletColorForMode(mode), 1f);
-        info.addPara("", 1f);
-    }
-
-    @Override
     public String getIcon() {
         return GlobalSettingsHelper.getSpriteName("commodity");
     }
@@ -63,14 +57,17 @@ public class CommodityBoard extends BaseBoard {
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
-        // @formatter:off
         return Arrays.<Renderable>asList(
                 new TableViewFactory().createContainer(commodityId, activeTab, size),
                 new IntelViewFactory(intelTracker).createContainer(commodityId, activeTab, size),
                 new ButtonViewFactory().createContainer(commodityId, size),
                 new DeleteViewFactory().createContainer(commodityId, size)
         );
-        // @formatter:on
+    }
+
+    @Override
+    protected BoardInfo getBoardInfo() {
+        return new BoardInfo(L10n.get("commodityBoardTitle"), L10n.get("commodityBoardDescription"));
     }
 
     @Override

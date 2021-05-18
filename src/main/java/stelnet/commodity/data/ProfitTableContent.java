@@ -7,8 +7,10 @@ import java.util.List;
 
 import com.fs.starfarer.api.util.Misc;
 
+import stelnet.L10n;
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.commodity.market.MarketRepository;
+import stelnet.helper.DistanceHelper;
 import stelnet.ui.TableContent;
 
 public class ProfitTableContent implements TableContent {
@@ -26,17 +28,15 @@ public class ProfitTableContent implements TableContent {
     @Override
     public Object[] getHeaders(float maxWidth) {
         float width = maxWidth - 22;
-        // @formatter:off
-        return new Object[]{
+        return new Object[] {
                 "#", .05f * width,
-                "Profit", .12f * width,
-                "Buy location", .2f * width,
-                "Sell location", .2f * width,
-                "Buy / Available", .165f * width,
-                "Sell / Demand", .165f * width,
-                "Trip (ly)", .1f * width
+                L10n.get("commodityHeaderProfit"), .12f * width,
+                L10n.get("commodityHeaderBuyLocation"), .2f * width,
+                L10n.get("commodityHeaderSellLocation"), .2f * width,
+                L10n.get("commodityHeaderBuyAvailable"), .165f * width,
+                L10n.get("commodityHeaderSellDemand"), .165f * width,
+                L10n.get("commodityHeaderTrip"), .1f * width
         };
-        // @formatter:on
     }
 
     @Override
@@ -66,11 +66,13 @@ public class ProfitTableContent implements TableContent {
     protected SortableRow createRowData(int i, MarketApiWrapper buyMarket, MarketApiWrapper sellMarket) {
         Color color = getRowColor(buyMarket, sellMarket);
         float profit = getPotentialProfit(buyMarket, sellMarket);
-        float buyToSellDistance = Misc.getDistanceLY(buyMarket.getPrimaryEntity(), sellMarket.getPrimaryEntity());
+        float buyToSellDistance = DistanceHelper.getDistanceLY(
+                buyMarket.getPrimaryEntity(),
+                sellMarket.getPrimaryEntity()
+        );
         float totalDistance = buyMarket.getDistanceToPlayer() + buyToSellDistance;
         SortableRow sortableRow = new SortableRow(profit);
         sortableRow.addRowNumberCell(i);
-        // @formatter:off
         sortableRow.addDGSCreditsCell(
                 color,
                 profit
@@ -95,7 +97,6 @@ public class ProfitTableContent implements TableContent {
                 color,
                 String.format("%.1f", totalDistance)
         );
-        // @formatter:on
         return sortableRow;
     }
 

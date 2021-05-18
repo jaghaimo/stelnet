@@ -7,6 +7,8 @@ import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
+import stelnet.L10n;
+
 public abstract class IntelSubject {
 
     protected String entity;
@@ -22,25 +24,24 @@ public abstract class IntelSubject {
     }
 
     public String getIntelTitle() {
-        return Misc.ucFirst(entity);
-    }
-
-    public String getIntelDesc() {
-        return entity + "s";
+        boolean canCheck = market != null;
+        String titleId = canCheck && isStale() ? "marketIntelTitleStale" : "marketIntelTitle";
+        return L10n.get(titleId, Misc.ucFirst(entity));
     }
 
     public abstract void createSmallDescription(TooltipMakerAPI info, float width, float height);
 
-    public abstract boolean canAcquire();
-
     public abstract boolean isAvailable();
+
+    public abstract boolean isStale();
 
     protected void addBasicInfo(TooltipMakerAPI info, String basicInfo) {
         FactionAPI faction = market.getFaction();
         RelationshipAPI relationship = faction.getRelToPlayer();
         String reputation = relationship.getLevel().getDisplayName();
-        info.addPara(basicInfo + "The owner of this market is " + reputation.toLowerCase() + " towards you.", 10f,
-                Misc.getTextColor(), relationship.getRelColor(), reputation.toLowerCase());
+        String translatedRep = L10n.get("reputation" + reputation);
+        String marketRepInfo = basicInfo + L10n.get("intelOwnerRelationship", translatedRep);
+        info.addPara(marketRepInfo, 10f, Misc.getTextColor(), relationship.getRelColor(), translatedRep);
     }
 
     protected void addHeader(TooltipMakerAPI info, float width) {

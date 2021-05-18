@@ -8,13 +8,14 @@ import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
-import stelnet.helper.LogHelper;
+import lombok.extern.log4j.Log4j;
 
+@Log4j
 public class RenderableIntel extends BaseIntelPlugin {
 
     @Override
     public void buttonPressCancelled(Object buttonId, IntelUIAPI ui) {
-        LogHelper.debug("Calling cancel()");
+        log.debug("Calling cancel()");
         ButtonHandler handler = (ButtonHandler) buttonId;
         handler.onCancel(ui);
         redraw(ui);
@@ -22,7 +23,7 @@ public class RenderableIntel extends BaseIntelPlugin {
 
     @Override
     public void buttonPressConfirmed(Object buttonId, IntelUIAPI ui) {
-        LogHelper.debug("Calling confirm()");
+        log.debug("Calling confirm()");
         ButtonHandler handler = (ButtonHandler) buttonId;
         handler.onConfirm(ui);
         redraw(ui);
@@ -30,7 +31,7 @@ public class RenderableIntel extends BaseIntelPlugin {
 
     @Override
     public void createConfirmationPrompt(Object buttonId, TooltipMakerAPI prompt) {
-        LogHelper.debug("Calling prompt()");
+        log.debug("Calling prompt()");
         ButtonHandler handler = (ButtonHandler) buttonId;
         handler.onPrompt(prompt);
     }
@@ -53,7 +54,7 @@ public class RenderableIntel extends BaseIntelPlugin {
 
     @Override
     public boolean doesButtonHaveConfirmDialog(Object buttonId) {
-        LogHelper.debug("Calling hasPrompt()");
+        log.debug("Calling hasPrompt()");
         ButtonHandler handler = (ButtonHandler) buttonId;
         return handler.hasPrompt();
     }

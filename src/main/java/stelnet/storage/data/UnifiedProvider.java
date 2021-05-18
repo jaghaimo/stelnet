@@ -7,10 +7,12 @@ import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.util.Misc;
 
-import stelnet.helper.LogHelper;
+import lombok.extern.log4j.Log4j;
+import stelnet.L10n;
 import stelnet.helper.StorageHelper;
 import stelnet.storage.FilterManager;
 
+@Log4j
 public class UnifiedProvider implements DataProvider {
 
     private final FilterManager filterManager;
@@ -23,8 +25,8 @@ public class UnifiedProvider implements DataProvider {
     public List<StorageData> getData() {
         CargoAPI items = StorageHelper.getAllItems(filterManager.getItemFilters());
         List<FleetMemberAPI> ships = StorageHelper.getAllShips(filterManager.getShipFilters());
-        LogHelper.debug("Found " + items.getStacksCopy().size() + " items");
-        LogHelper.debug("Found " + ships.size() + " ships");
+        log.debug("Found " + items.getStacksCopy().size() + " items");
+        log.debug("Found " + ships.size() + " ships");
         return Collections.singletonList(new StorageData(getLocationData(), items, ships));
     }
 
@@ -34,6 +36,6 @@ public class UnifiedProvider implements DataProvider {
     }
 
     private LocationData getLocationData() {
-        return new LocationData("Unified View", Misc.getBasePlayerColor(), Misc.getDarkPlayerColor());
+        return new LocationData(L10n.get("storageUnifiedView"), Misc.getBasePlayerColor(), Misc.getDarkPlayerColor());
     }
 }

@@ -11,7 +11,6 @@ public class ToggleButton extends Button {
 
     private final String titleOff;
     private final Color colorOff;
-
     private boolean isToggledOn;
 
     public ToggleButton(

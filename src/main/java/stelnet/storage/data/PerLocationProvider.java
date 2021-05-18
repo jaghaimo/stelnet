@@ -8,12 +8,13 @@ import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 
+import lombok.extern.log4j.Log4j;
 import stelnet.helper.CargoHelper;
 import stelnet.helper.CollectionHelper;
-import stelnet.helper.LogHelper;
 import stelnet.helper.StorageHelper;
 import stelnet.storage.FilterManager;
 
+@Log4j
 public class PerLocationProvider implements DataProvider {
 
     private final FilterManager filterManager;
@@ -31,8 +32,8 @@ public class PerLocationProvider implements DataProvider {
             CargoAPI items = getItems(storageCargo);
             List<FleetMemberAPI> ships = getShips(storageCargo);
             String name = storage.getMarket().getName();
-            LogHelper.debug("Found " + items.getStacksCopy().size() + " items in " + name);
-            LogHelper.debug("Found " + ships.size() + " ships in " + name);
+            log.debug("Found " + items.getStacksCopy().size() + " items in " + name);
+            log.debug("Found " + ships.size() + " ships in " + name);
             data.add(new StorageData(new LocationData(storage.getMarket()), items, ships));
         }
         return data;

@@ -1,17 +1,17 @@
 package stelnet.market.subject;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
-import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
-import stelnet.filter.cargostack.HasStack;
-import stelnet.filter.fleetmember.HasMember;
+import stelnet.filter.submarket.IsNotLocalResources;
+import stelnet.filter.submarket.IsNotStorage;
+import stelnet.filter.submarket.NeedsRefresh;
 import stelnet.filter.submarket.SubmarketFilter;
 import stelnet.helper.CollectionHelper;
 import stelnet.market.IntelSubject;
@@ -33,10 +33,12 @@ public abstract class SubmarketSubject extends IntelSubject {
     }
 
     @Override
-    public boolean isAvailable() {
-        SubmarketFilter filter = getFilter();
+    public boolean isStale() {
         List<SubmarketAPI> submarkets = market.getSubmarketsCopy();
-        CollectionHelper.reduce(submarkets, filter);
+        CollectionHelper.reduce(
+                submarkets,
+                Arrays.asList(new IsNotStorage(), new IsNotLocalResources(), new NeedsRefresh())
+        );
         return !submarkets.isEmpty();
     }
 
@@ -62,22 +64,8 @@ public abstract class SubmarketSubject extends IntelSubject {
     protected List<SubmarketAPI> findSubmarkets() {
         List<SubmarketAPI> submarkets = market.getSubmarketsCopy();
         CollectionHelper.reduce(submarkets, getFilter());
+        CollectionHelper.reduce(submarkets, new IsNotStorage());
         return submarkets;
-    }
-
-    protected CargoStackAPI getCargoStack(SubmarketAPI submarket, CargoStackAPI cargoStack) {
-        List<CargoStackAPI> cargoStacks = submarket.getCargo().getStacksCopy();
-        CollectionHelper.reduce(cargoStacks, new HasStack(cargoStack));
-        if (cargoStacks.isEmpty()) {
-            return cargoStack;
-        }
-        return cargoStacks.get(0);
-    }
-
-    protected List<FleetMemberAPI> getFleetMembers(SubmarketAPI submarket, FleetMemberAPI fleetMember) {
-        List<FleetMemberAPI> fleetMembers = submarket.getCargo().getMothballedShips().getMembersListCopy();
-        CollectionHelper.reduce(fleetMembers, new HasMember(fleetMember));
-        return fleetMembers;
     }
 
     protected abstract int getEntityCount();
