@@ -29,11 +29,18 @@ public class TabViewContainer extends AbstractRenderable {
 
     @Override
     public void render(CustomPanelAPI panel) {
-        AbstractRenderable tabButtons = new HorizontalViewContainer(new ArrayList<AbstractRenderable>(tabs.keySet()));
-        AbstractRenderable tabToDisplay = new Paragraph("No idea what to display", 200);
-        if (tabs.containsKey(activeTab)) {
-            tabToDisplay = tabs.get(activeTab);
+        if (tabs.isEmpty()) {
+            return;
         }
+        AbstractRenderable tabButtons = new HorizontalViewContainer(new ArrayList<AbstractRenderable>(tabs.keySet()));
+        AbstractRenderable tabToDisplay = getTabToDisplay();
         new VerticalViewContainer(tabButtons, tabToDisplay).render(panel);
+    }
+
+    private AbstractRenderable getTabToDisplay() {
+        if (tabs.containsKey(activeTab)) {
+            return tabs.get(activeTab);
+        }
+        return tabs.get(tabs.keySet().iterator().next());
     }
 }
