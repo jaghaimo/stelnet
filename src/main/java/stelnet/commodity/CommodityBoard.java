@@ -15,7 +15,7 @@ import stelnet.L10n;
 import stelnet.commodity.view.ButtonViewFactory;
 import stelnet.commodity.view.DeleteViewFactory;
 import stelnet.commodity.view.IntelViewFactory;
-import stelnet.commodity.view.TableViewFactory;
+import stelnet.commodity.view.TabViewFactory;
 import stelnet.helper.GlobalSettingsHelper;
 import stelnet.helper.IntelHelper;
 import stelnet.ui.Renderable;
@@ -58,7 +58,7 @@ public class CommodityBoard extends BaseBoard {
     @Override
     protected List<Renderable> getRenderables(Size size) {
         return Arrays.<Renderable>asList(
-                new TableViewFactory(commodityId, activeTab).createContainer(size),
+                new TabViewFactory(commodityId, activeTab).createContainer(size),
                 new IntelViewFactory(intelTracker).createContainer(commodityId, activeTab, size),
                 new ButtonViewFactory().createContainer(commodityId, size),
                 new DeleteViewFactory().createContainer(commodityId, size)

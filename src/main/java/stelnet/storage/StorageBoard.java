@@ -1,5 +1,6 @@
 package stelnet.storage;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
@@ -12,6 +13,7 @@ import stelnet.L10n;
 import stelnet.helper.GlobalSettingsHelper;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.StorageHelper;
+import stelnet.storage.view.TabViewFactory;
 import stelnet.ui.Renderable;
 import stelnet.ui.Size;
 
@@ -40,8 +42,9 @@ public class StorageBoard extends BaseBoard {
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
-        // TODO add factory to build left and right columns
-        return null;
+        return Collections.<Renderable>singletonList(
+                new TabViewFactory(buttonManager, filterManager, activeTab, activeView).createContainer(size)
+        );
     }
 
     @Override

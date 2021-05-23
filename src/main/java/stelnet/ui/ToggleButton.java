@@ -5,8 +5,10 @@ import java.awt.Color;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class ToggleButton extends Button {
 
     private final String titleOff;

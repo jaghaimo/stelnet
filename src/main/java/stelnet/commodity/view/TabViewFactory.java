@@ -2,7 +2,7 @@ package stelnet.commodity.view;
 
 import org.lwjgl.input.Keyboard;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import stelnet.commodity.CommodityTab;
 import stelnet.commodity.data.BuyTableContent;
 import stelnet.commodity.data.ProfitTableContent;
@@ -14,33 +14,31 @@ import stelnet.ui.TabViewContainer;
 import stelnet.ui.Table;
 import stelnet.ui.TableContent;
 
-@AllArgsConstructor
-public class TableViewFactory {
+@RequiredArgsConstructor
+public class TabViewFactory {
 
-    private String commodityId;
-    private CommodityTab activeTab;
+    private final String commodityId;
+    private final CommodityTab activeTab;
 
     public AbstractRenderable createContainer(Size size) {
         float width = size.getWidth() - 210;
-        float height = size.getHeight() - 35;
-        float tabsHeight = 15f;
-        float tableHeight = height - tabsHeight;
+        float height = size.getHeight() - 50;
         MarketRepository marketRepository = new MarketRepository(commodityId);
         TabViewContainer tabViewContainer = new TabViewContainer();
 
         tabViewContainer.addTab(
                 getTabButton(CommodityTab.BUY, Keyboard.KEY_B),
-                getBuyTable(width, tableHeight, marketRepository),
+                getBuyTable(width, height, marketRepository),
                 isActive(CommodityTab.BUY)
         );
         tabViewContainer.addTab(
                 getTabButton(CommodityTab.SELL, Keyboard.KEY_S),
-                getSellTable(width, tableHeight, marketRepository),
+                getSellTable(width, height, marketRepository),
                 isActive(CommodityTab.SELL)
         );
         tabViewContainer.addTab(
                 getTabButton(CommodityTab.PROFIT, Keyboard.KEY_P),
-                getProfitTable(width, tableHeight, marketRepository),
+                getProfitTable(width, height, marketRepository),
                 isActive(CommodityTab.PROFIT)
         );
 
@@ -62,8 +60,8 @@ public class TableViewFactory {
         return new Table(commodityId, width, tableHeight, tableContent);
     }
 
-    private TabButton getTabButton(CommodityTab currentTab, int keyboardShortcut) {
-        return new TabButton(currentTab, activeTab, keyboardShortcut);
+    private CommodityTabButton getTabButton(CommodityTab currentTab, int keyboardShortcut) {
+        return new CommodityTabButton(currentTab, activeTab, keyboardShortcut);
     }
 
     private boolean isActive(CommodityTab currentTab) {

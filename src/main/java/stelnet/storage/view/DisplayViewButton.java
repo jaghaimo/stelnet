@@ -13,9 +13,9 @@ import stelnet.ui.ToggleButton;
 
 public class DisplayViewButton extends ToggleButton {
 
-    public DisplayViewButton(String buttonNameId, final StorageView view) {
-        super(new Size(180, 24), L10n.get(buttonNameId), L10n.get(buttonNameId), true, Misc.getButtonTextColor(),
-                Misc.getButtonTextColor(), true);
+    public DisplayViewButton(final StorageView view, boolean isToggledOn) {
+        super(new Size(180, 24), L10n.get("storageView" + view.title), L10n.get("storageView" + view.title), true,
+                Misc.getButtonTextColor(), Misc.getButtonTextColor(), isToggledOn);
         setLocation(Location.TOP_RIGHT);
         setHandler(new EventHandler() {
 
