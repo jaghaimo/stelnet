@@ -58,7 +58,7 @@ public class CommodityBoard extends BaseBoard {
     @Override
     protected List<Renderable> getRenderables(Size size) {
         return Arrays.<Renderable>asList(
-                new TableViewFactory().createContainer(commodityId, activeTab, size),
+                new TableViewFactory(commodityId, activeTab).createContainer(size),
                 new IntelViewFactory(intelTracker).createContainer(commodityId, activeTab, size),
                 new ButtonViewFactory().createContainer(commodityId, size),
                 new DeleteViewFactory().createContainer(commodityId, size)

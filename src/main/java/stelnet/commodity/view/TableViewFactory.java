@@ -1,14 +1,12 @@
 package stelnet.commodity.view;
 
-import java.util.List;
-
 import org.lwjgl.input.Keyboard;
 
+import lombok.AllArgsConstructor;
 import stelnet.commodity.CommodityTab;
 import stelnet.commodity.data.BuyTableContent;
 import stelnet.commodity.data.ProfitTableContent;
 import stelnet.commodity.data.SellTableContent;
-import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.commodity.market.MarketRepository;
 import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Size;
@@ -16,46 +14,59 @@ import stelnet.ui.TabViewContainer;
 import stelnet.ui.Table;
 import stelnet.ui.TableContent;
 
+@AllArgsConstructor
 public class TableViewFactory {
 
-    public AbstractRenderable createContainer(String commodityId, CommodityTab activeTab, Size size) {
+    private String commodityId;
+    private CommodityTab activeTab;
+
+    public AbstractRenderable createContainer(Size size) {
         float width = size.getWidth() - 210;
         float height = size.getHeight() - 35;
         float tabsHeight = 15f;
         float tableHeight = height - tabsHeight;
         MarketRepository marketRepository = new MarketRepository(commodityId);
         TabViewContainer tabViewContainer = new TabViewContainer();
-        addBuyTab(tabViewContainer, commodityId, activeTab, width, tableHeight, marketRepository.getBuyMarkets());
-        addSellTab(tabViewContainer, commodityId, activeTab, width, tableHeight, marketRepository.getSellMarkets());
-        addProfitTab(tabViewContainer, commodityId, activeTab, width, tableHeight, marketRepository);
+
+        tabViewContainer.addTab(
+                getTabButton(CommodityTab.BUY, Keyboard.KEY_B),
+                getBuyTable(width, tableHeight, marketRepository),
+                isActive(CommodityTab.BUY)
+        );
+        tabViewContainer.addTab(
+                getTabButton(CommodityTab.SELL, Keyboard.KEY_S),
+                getSellTable(width, tableHeight, marketRepository),
+                isActive(CommodityTab.SELL)
+        );
+        tabViewContainer.addTab(
+                getTabButton(CommodityTab.PROFIT, Keyboard.KEY_P),
+                getProfitTable(width, tableHeight, marketRepository),
+                isActive(CommodityTab.PROFIT)
+        );
+
         return tabViewContainer;
     }
 
-    private void addBuyTab(TabViewContainer tabViewContainer, String commodityId, CommodityTab activeTab, float width,
-            float tableHeight, List<MarketApiWrapper> buyMarkets) {
-        TabButton buyButton = new TabButton(CommodityTab.BUY, activeTab, Keyboard.KEY_B);
-        TableContent tableContent = new BuyTableContent(commodityId, buyMarkets);
-        Table table = new Table(commodityId, width, tableHeight, tableContent);
-        tabViewContainer.addTab(buyButton, table, isActive(CommodityTab.BUY, activeTab));
+    private Table getBuyTable(float width, float tableHeight, MarketRepository marketRepository) {
+        TableContent tableContent = new BuyTableContent(commodityId, marketRepository.getBuyMarkets());
+        return new Table(commodityId, width, tableHeight, tableContent);
     }
 
-    private void addSellTab(TabViewContainer tabViewContainer, String commodityId, CommodityTab activeTab, float width,
-            float tableHeight, List<MarketApiWrapper> sellMarkets) {
-        TabButton sellButton = new TabButton(CommodityTab.SELL, activeTab, Keyboard.KEY_S);
-        TableContent tableContent = new SellTableContent(commodityId, sellMarkets);
-        Table table = new Table(commodityId, width, tableHeight, tableContent);
-        tabViewContainer.addTab(sellButton, table, isActive(CommodityTab.SELL, activeTab));
+    private Table getSellTable(float width, float tableHeight, MarketRepository marketRepository) {
+        TableContent tableContent = new SellTableContent(commodityId, marketRepository.getSellMarkets());
+        return new Table(commodityId, width, tableHeight, tableContent);
     }
 
-    private void addProfitTab(TabViewContainer tabViewContainer, String commodityId, CommodityTab activeTab,
-            float width, float tableHeight, MarketRepository marketRepository) {
-        TabButton profitButton = new TabButton(CommodityTab.PROFIT, activeTab, Keyboard.KEY_P);
+    private Table getProfitTable(float width, float tableHeight, MarketRepository marketRepository) {
         TableContent tableContent = new ProfitTableContent(commodityId, marketRepository);
-        Table table = new Table(commodityId, width, tableHeight, tableContent);
-        tabViewContainer.addTab(profitButton, table, isActive(CommodityTab.PROFIT, activeTab));
+        return new Table(commodityId, width, tableHeight, tableContent);
     }
 
-    private boolean isActive(CommodityTab current, CommodityTab active) {
-        return current.equals(active);
+    private TabButton getTabButton(CommodityTab currentTab, int keyboardShortcut) {
+        return new TabButton(currentTab, activeTab, keyboardShortcut);
+    }
+
+    private boolean isActive(CommodityTab currentTab) {
+        return currentTab.equals(activeTab);
     }
 }
