@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
+import com.fs.starfarer.api.util.Misc;
 
 import lombok.Setter;
 
@@ -32,9 +33,11 @@ public class TabViewContainer extends AbstractRenderable {
         if (tabs.isEmpty()) {
             return;
         }
-        AbstractRenderable tabButtons = new HorizontalViewContainer(new ArrayList<AbstractRenderable>(tabs.keySet()));
         AbstractRenderable tabToDisplay = getTabToDisplay();
-        new VerticalViewContainer(tabButtons, tabToDisplay).render(panel);
+        AbstractRenderable tabButtons = new HorizontalViewContainer(new ArrayList<AbstractRenderable>(tabs.keySet()));
+        AbstractRenderable separatorLine = new Line(tabToDisplay.getSize().getWidth(), Misc.getButtonTextColor());
+        separatorLine.setOffset(new Position(0, -4));
+        new VerticalViewContainer(tabButtons, separatorLine, tabToDisplay).render(panel);
     }
 
     private AbstractRenderable getTabToDisplay() {

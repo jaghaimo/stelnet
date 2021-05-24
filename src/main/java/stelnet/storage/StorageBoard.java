@@ -23,7 +23,7 @@ public class StorageBoard extends BaseBoard {
 
     private final ButtonManager buttonManager = new ButtonManager();
     private final FilterManager filterManager = new FilterManager();
-    private StorageTab activeTab = StorageTab.CARGO;
+    private StorageTab activeTab = StorageTab.ITEMS;
     private StorageView activeView = StorageView.UNIFIED;
 
     public static StorageBoard getInstance() {

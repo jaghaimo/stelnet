@@ -19,7 +19,6 @@ import stelnet.storage.data.StorageData;
 import stelnet.storage.data.UnifiedProvider;
 import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Cargo;
-import stelnet.ui.Group;
 import stelnet.ui.Heading;
 import stelnet.ui.HorizontalViewContainer;
 import stelnet.ui.Paragraph;
@@ -44,15 +43,16 @@ public class TabViewFactory {
 
         TabViewContainer tabViewContainer = new TabViewContainer();
         tabViewContainer.addTab(
-                getTabButton(StorageTab.CARGO, Keyboard.KEY_C),
-                getCargoPane(size, contentSize),
-                isActive(StorageTab.CARGO)
+                getTabButton(StorageTab.ITEMS, Keyboard.KEY_I),
+                getTabPane(size, contentSize, buttonManager.getItemButtons()),
+                isActive(StorageTab.ITEMS)
         );
         tabViewContainer.addTab(
                 getTabButton(StorageTab.SHIPS, Keyboard.KEY_S),
-                getShipsPane(size, contentSize),
+                getTabPane(size, contentSize, buttonManager.getShipButtons()),
                 isActive(StorageTab.SHIPS)
         );
+
         return tabViewContainer;
     }
 
@@ -60,23 +60,19 @@ public class TabViewFactory {
         return new StorageTabButton(currentTab, isActive(currentTab), keyboardShortcut);
     }
 
-    private AbstractRenderable getCargoPane(Size size, Size contentSize) {
+    private AbstractRenderable getTabPane(Size size, Size contentSize, AbstractRenderable[] buttons) {
         List<AbstractRenderable> elements = new ArrayList<>();
         List<StorageData> storageData = getStorageData();
         addEmptyData(elements, storageData, contentSize.getWidth());
         addStorageData(elements, storageData);
-        AbstractRenderable group = new Group(elements);
-        group.setSize(contentSize);
-        VerticalViewContainer buttons = new VerticalViewContainer(buttonManager.getItemButtons());
-        buttons.setSize(size);
-
-        return new HorizontalViewContainer(group, buttons);
-    }
-
-    private AbstractRenderable getShipsPane(Size size, Size contentSize) {
-        VerticalViewContainer buttons = new VerticalViewContainer(buttonManager.getShipButtons());
-        buttons.setSize(size);
-        return new HorizontalViewContainer(null, buttons);
+        AbstractRenderable contentContainer = new VerticalViewContainer(elements);
+        contentContainer.setSize(contentSize);
+        AbstractRenderable buttonContainer = new VerticalViewContainer(buttons);
+        buttonContainer.setSize(new Size(size.getDifference(contentSize).getWidth(), contentSize.getHeight()));
+        // buttonContainer.setLocation(Location.TOP_RIGHT);
+        AbstractRenderable tabContainer = new HorizontalViewContainer(contentContainer, buttonContainer);
+        tabContainer.setSize(size);
+        return tabContainer;
     }
 
     private boolean isActive(StorageTab currentTab) {
@@ -105,7 +101,7 @@ public class TabViewFactory {
     }
 
     private AbstractRenderable getStorageContent(StorageData data) {
-        return StorageTab.CARGO.equals(activeTab)
+        return StorageTab.ITEMS.equals(activeTab)
                 ? new Cargo(data.getItems(), L10n.get("storageNoItems"), new Size(0, 0))
                 : new Ships(data.getShips(), L10n.get("storageNoShips"), new Size(0, 0));
     }

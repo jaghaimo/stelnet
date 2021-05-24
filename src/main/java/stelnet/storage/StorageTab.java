@@ -2,7 +2,7 @@ package stelnet.storage;
 
 public enum StorageTab {
 
-    CARGO("Cargo"), SHIPS("Ships");
+    ITEMS("Items"), SHIPS("Ships");
 
     public final String title;
 
