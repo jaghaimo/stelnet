@@ -12,18 +12,13 @@ import stelnet.storage.ButtonManager;
 import stelnet.storage.FilterManager;
 import stelnet.storage.StorageTab;
 import stelnet.storage.StorageView;
-import stelnet.storage.data.DataProvider;
 import stelnet.storage.data.LocationData;
-import stelnet.storage.data.PerLocationProvider;
 import stelnet.storage.data.StorageData;
-import stelnet.storage.data.UnifiedProvider;
 import stelnet.ui.AbstractRenderable;
-import stelnet.ui.Cargo;
 import stelnet.ui.Heading;
 import stelnet.ui.HorizontalViewContainer;
 import stelnet.ui.Paragraph;
 import stelnet.ui.Renderable;
-import stelnet.ui.Ships;
 import stelnet.ui.Size;
 import stelnet.ui.TabViewContainer;
 import stelnet.ui.VerticalViewContainer;
@@ -62,14 +57,13 @@ public class TabViewFactory {
 
     private AbstractRenderable getTabPane(Size size, Size contentSize, AbstractRenderable[] buttons) {
         List<AbstractRenderable> elements = new ArrayList<>();
-        List<StorageData> storageData = getStorageData();
+        List<StorageData> storageData = activeView.getStorageData(filterManager);
         addEmptyData(elements, storageData, contentSize.getWidth());
         addStorageData(elements, storageData);
         AbstractRenderable contentContainer = new VerticalViewContainer(elements);
         contentContainer.setSize(contentSize);
         AbstractRenderable buttonContainer = new VerticalViewContainer(buttons);
         buttonContainer.setSize(new Size(size.getDifference(contentSize).getWidth(), contentSize.getHeight()));
-        // buttonContainer.setLocation(Location.TOP_RIGHT);
         AbstractRenderable tabContainer = new HorizontalViewContainer(contentContainer, buttonContainer);
         tabContainer.setSize(size);
         return tabContainer;
@@ -92,24 +86,11 @@ public class TabViewFactory {
         for (StorageData data : storageData) {
             LocationData locationData = data.getLocationData();
             elements.add(new Heading(locationData.getName(), locationData.getFgColor(), locationData.getBgColor()));
-            elements.add(getStorageContent(data));
+            elements.add(activeTab.getStorageRenderer(data));
         }
     }
 
     private boolean hasStorage() {
         return !StorageHelper.getAllWithAccess().isEmpty();
-    }
-
-    private AbstractRenderable getStorageContent(StorageData data) {
-        return StorageTab.ITEMS.equals(activeTab)
-                ? new Cargo(data.getItems(), L10n.get("storageNoItems"), new Size(0, 0))
-                : new Ships(data.getShips(), L10n.get("storageNoShips"), new Size(0, 0));
-    }
-
-    private List<StorageData> getStorageData() {
-        DataProvider provider = StorageView.PER_LOCATION.equals(activeView)
-                ? new PerLocationProvider(filterManager)
-                : new UnifiedProvider(filterManager);
-        return provider.getData();
     }
 }

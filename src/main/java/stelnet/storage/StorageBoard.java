@@ -1,6 +1,6 @@
 package stelnet.storage;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
@@ -42,8 +42,9 @@ public class StorageBoard extends BaseBoard {
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
-        return Collections.<Renderable>singletonList(
-                new TabViewFactory(buttonManager, filterManager, activeTab, activeView).createContainer(size)
+        return Arrays.<Renderable>asList(
+                new TabViewFactory(buttonManager, filterManager, activeTab, activeView).createContainer(size),
+                activeView.getNextButton()
         );
     }
 
