@@ -37,7 +37,8 @@ public class TabViewContainer extends AbstractRenderable {
         AbstractRenderable tabButtons = new HorizontalViewContainer(new ArrayList<AbstractRenderable>(tabs.keySet()));
         AbstractRenderable separatorLine = new Line(tabToDisplay.getSize().getWidth(), Misc.getButtonTextColor());
         separatorLine.setOffset(new Position(0, -4));
-        new VerticalViewContainer(tabButtons, separatorLine, tabToDisplay).render(panel);
+        AbstractRenderable spacer = new Spacer(2);
+        new VerticalViewContainer(tabButtons, separatorLine, spacer, tabToDisplay).render(panel);
     }
 
     private AbstractRenderable getTabToDisplay() {

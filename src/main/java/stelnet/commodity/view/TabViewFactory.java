@@ -22,7 +22,7 @@ public class TabViewFactory {
 
     public AbstractRenderable createContainer(Size size) {
         float width = size.getWidth() - 210;
-        float height = size.getHeight() - 50;
+        float height = size.getHeight() - 54;
         MarketRepository marketRepository = new MarketRepository(commodityId);
         TabViewContainer tabViewContainer = new TabViewContainer();
 

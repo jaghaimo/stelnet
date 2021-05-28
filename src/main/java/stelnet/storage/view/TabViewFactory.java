@@ -15,13 +15,14 @@ import stelnet.storage.StorageView;
 import stelnet.storage.data.LocationData;
 import stelnet.storage.data.StorageData;
 import stelnet.ui.AbstractRenderable;
+import stelnet.ui.Group;
 import stelnet.ui.Heading;
 import stelnet.ui.HorizontalViewContainer;
 import stelnet.ui.Paragraph;
+import stelnet.ui.Position;
 import stelnet.ui.Renderable;
 import stelnet.ui.Size;
 import stelnet.ui.TabViewContainer;
-import stelnet.ui.VerticalViewContainer;
 
 @RequiredArgsConstructor
 public class TabViewFactory {
@@ -33,7 +34,7 @@ public class TabViewFactory {
 
     public Renderable createContainer(Size size) {
         float width = size.getWidth() - 210;
-        float height = size.getHeight() - 50;
+        float height = size.getHeight() - 54;
         Size contentSize = new Size(width, height);
 
         TabViewContainer tabViewContainer = new TabViewContainer();
@@ -60,10 +61,12 @@ public class TabViewFactory {
         List<StorageData> storageData = activeView.getStorageData(filterManager);
         addEmptyData(elements, storageData, contentSize.getWidth());
         addStorageData(elements, storageData);
-        AbstractRenderable contentContainer = new VerticalViewContainer(elements);
-        contentContainer.setSize(contentSize);
-        AbstractRenderable buttonContainer = new VerticalViewContainer(buttons);
+        AbstractRenderable contentContainer = new Group(elements);
+        contentContainer.setSize(contentSize.getDifference(new Size(8, 0)));
+        contentContainer.setOffset(new Position(5, 0));
+        AbstractRenderable buttonContainer = new Group(buttons);
         buttonContainer.setSize(new Size(size.getDifference(contentSize).getWidth(), contentSize.getHeight()));
+        buttonContainer.setOffset(new Position(8, 0));
         AbstractRenderable tabContainer = new HorizontalViewContainer(contentContainer, buttonContainer);
         tabContainer.setSize(size);
         return tabContainer;
