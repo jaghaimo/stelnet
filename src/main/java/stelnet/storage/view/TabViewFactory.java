@@ -22,6 +22,7 @@ import stelnet.ui.Paragraph;
 import stelnet.ui.Position;
 import stelnet.ui.Renderable;
 import stelnet.ui.Size;
+import stelnet.ui.Spacer;
 import stelnet.ui.TabViewContainer;
 
 @RequiredArgsConstructor
@@ -90,7 +91,9 @@ public class TabViewFactory {
             LocationData locationData = data.getLocationData();
             elements.add(new Heading(locationData.getName(), locationData.getFgColor(), locationData.getBgColor()));
             elements.add(activeTab.getStorageRenderer(data));
+            elements.add(new Spacer(8));
         }
+        elements.remove(elements.size() - 1);
     }
 
     private boolean hasStorage() {
