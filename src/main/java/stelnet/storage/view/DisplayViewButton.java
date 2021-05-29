@@ -16,7 +16,7 @@ import stelnet.ui.TabButton;
 public class DisplayViewButton extends TabButton {
 
     public DisplayViewButton(final StorageView view) {
-        super(L10n.get("storageView" + view.title), true, Keyboard.KEY_V);
+        super(L10n.get("storageView" + view.title), true, Keyboard.KEY_G);
         setSize(new Size(180, 24));
         setLocation(Location.TOP_RIGHT);
         setOffset(new Position(30, -2));
