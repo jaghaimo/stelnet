@@ -37,8 +37,8 @@ find out where.
 This mod can be added to an existing playthrough - just enable it in the mod list
 and load the save.
 
-This mod can be removed from an existing playthrough - edit `stelnet.hjson`
+This mod can be removed from an existing playthrough - edit `stelnet.jsonc`
 and set `uninstallMod` to `true`. Then load the save, save the game, quit
 the game, and finally disable this mod in the mod list.
 
-To configure the mod edit [stelnet.hjson](assets/stelnet.hjson).
+To configure the mod edit [stelnet.jsonc](assets/stelnet.jsonc).

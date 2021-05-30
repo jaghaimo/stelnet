@@ -13,7 +13,7 @@ import lombok.extern.log4j.Log4j;
 public abstract class Config {
 
     private static final String MOD = "stelnet";
-    private static final String FILE = "stelnet.hjson";
+    private static final String FILE = "stelnet.jsonc";
     private static transient JSONObject cachedSettings = null;
 
     protected static JSONObject load() throws JSONException, IOException {
