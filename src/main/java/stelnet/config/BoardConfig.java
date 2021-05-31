@@ -2,9 +2,9 @@ package stelnet.config;
 
 public class BoardConfig extends Config {
 
-    public static boolean hasCommodities = true;
-    public static boolean hasMarket = true;
-    public static boolean hasStorage = true;
+    public static transient boolean hasCommodities = true;
+    public static transient boolean hasMarket = true;
+    public static transient boolean hasStorage = true;
 
     public static void configure() {
         hasCommodities = get("hasCommodities", hasCommodities);
