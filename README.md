@@ -24,7 +24,7 @@ Market board (formerly [Hyperspace Networks](https://fractalsoftworks.com/forum/
 Storage board (formerly [Stellar Logistics](https://fractalsoftworks.com/forum/index.php?topic=18948)) displays all cargo and ships stored among all Storages.
 It allows to display a unified view to quickly verify what is available, and per-location view to find out where.
 
-![Storage](https://github.com/jaghaimo/stelnet/raw/master/images/storage.gif)
+![Storage](https://github.com/jaghaimo/stelnet/raw/master/images/storage.png)
 
 ## Installation and Configuration
 
