@@ -1,5 +1,6 @@
 package stelnet.ui;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
@@ -21,6 +22,10 @@ import lombok.extern.log4j.Log4j;
 public class Group extends AbstractRenderable {
 
     private List<AbstractRenderable> elements;
+
+    public Group(AbstractRenderable... elements) {
+        this.elements = Arrays.asList(elements);
+    }
 
     @Override
     public Size getSize() {

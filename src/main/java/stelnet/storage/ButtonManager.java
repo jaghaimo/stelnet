@@ -17,8 +17,6 @@ import stelnet.filter.fleetmember.IsNotCruiser;
 import stelnet.filter.fleetmember.IsNotDestroyer;
 import stelnet.filter.fleetmember.IsNotFrigate;
 import stelnet.filter.fleetmember.IsNotWarship;
-import stelnet.storage.view.DisplayPaneButton;
-import stelnet.storage.view.DisplayViewButton;
 import stelnet.storage.view.ItemFilterButton;
 import stelnet.storage.view.ShipFilterButton;
 import stelnet.ui.AbstractRenderable;
@@ -26,12 +24,6 @@ import stelnet.ui.Spacer;
 
 @Getter
 public class ButtonManager {
-
-    private final AbstractRenderable[] commonButtons = {
-            new DisplayViewButton(),
-            new DisplayPaneButton(),
-            new Spacer(20f),
-    };
 
     private final AbstractRenderable[] itemButtons = {
             new ItemFilterButton("storageFilterCommodities", new IsNotCommodity()),

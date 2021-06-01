@@ -1,0 +1,12 @@
+{
+    ## In order to modify Stelnet settings save this file as stelnet.json
+
+    # Mod settings
+    "language": "en", # set to a supported language, missing translations will default to English
+    "uninstallMod": false, # set to true, load and save the game to remove the mod
+    "verboseLogging": false, # increases log verbosity
+    # Board toggles - used to enable or disable specific boards
+    "hasCommodities": true,
+    "hasMarket": true,
+    "hasStorage": true
+}

@@ -13,7 +13,7 @@ public class SellTableContent extends MarketTableContent {
 
     @Override
     public Object[] getHeaders(float width) {
-        return getHeader(width, "Demand", "Deficit");
+        return getHeader(width, "commodityHeaderDemand", "commodityHeaderDeficit");
     }
 
     @Override

@@ -30,11 +30,6 @@ public class UnifiedProvider implements DataProvider {
         return Collections.singletonList(new StorageData(getLocationData(), items, ships));
     }
 
-    @Override
-    public DataProvider getNext() {
-        return new PerLocationProvider(filterManager);
-    }
-
     private LocationData getLocationData() {
         return new LocationData(L10n.get("storageUnifiedView"), Misc.getBasePlayerColor(), Misc.getDarkPlayerColor());
     }
