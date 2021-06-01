@@ -1,6 +1,5 @@
 package stelnet.ui;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.fs.starfarer.api.ui.CustomPanelAPI;
@@ -18,7 +17,7 @@ import lombok.extern.log4j.Log4j;
 public class VerticalViewContainer extends Group {
 
     public VerticalViewContainer(AbstractRenderable... elements) {
-        super(Arrays.asList(elements));
+        super(elements);
     }
 
     public VerticalViewContainer(List<AbstractRenderable> elements) {

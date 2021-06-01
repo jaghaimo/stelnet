@@ -5,7 +5,7 @@ import java.awt.Color;
 public class Line extends Button {
 
     public Line(float width, Color color) {
-        super(new Size(width, 5), "", false, color);
+        super(new Size(width, 5), "", true, color);
     }
 
     @Override

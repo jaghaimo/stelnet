@@ -56,12 +56,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
-// do not crash when configuring tasks
-ext.gameLauncher = ""
-if (project.hasProperty("game.launcher")) {
-    ext.gameLauncher = project.getProperty("game.launcher")
-}
-
 // custom tasks
 task release(type: Zip) {
     dependsOn build
@@ -72,45 +66,7 @@ task release(type: Zip) {
     into project.name
 }
 
-task checkProperties {
-    doLast {
-        if (!areGradlePropertiesDefined()) {
-            throw new GradleException('Missing properties in gradle.properties. See gradle.properties.dist as an example.')
-        }
-    }
-}
-
-task copyToMods(type: Copy) {
-    dependsOn checkProperties
-    dependsOn build
-    from jar
-    into getStarsectorModDir()
-}
-
-task runGameWithBuild(type: Exec) {
-    dependsOn copyToMods
-    isWindows() ? commandLine('cmd', '/c', gameLauncher) : commandLine(gameLauncher)
-    doFirst {
-        workingDir = file(project.getProperty('game.dir'))
-    }
-}
-
 // methods
-def areGradlePropertiesDefined() {
-    return (project.hasProperty('game.dir') && project.hasProperty('game.mod_folder'))
-}
-
-def getStarsectorModDir() {
-    if (!areGradlePropertiesDefined()) {
-        return ""
-    }
-    return file(project.getProperty('game.dir') + '/' + project.getProperty('game.mod_folder') + '/' + readModInfoJson().id)
-}
-
-def isWindows() {
-    return Os.isFamily(Os.FAMILY_WINDOWS)
-}
-
 def readModInfoJson() {
     def jsonFile = file('assets/mod_info.json')
     def slurper = new JsonSlurper()

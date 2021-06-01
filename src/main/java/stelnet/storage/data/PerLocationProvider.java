@@ -39,11 +39,6 @@ public class PerLocationProvider implements DataProvider {
         return data;
     }
 
-    @Override
-    public DataProvider getNext() {
-        return new UnifiedProvider(filterManager);
-    }
-
     private CargoAPI getItems(CargoAPI storageCargo) {
         CargoAPI items = storageCargo.createCopy();
         List<CargoStackAPI> cargoStacks = storageCargo.getStacksCopy();
