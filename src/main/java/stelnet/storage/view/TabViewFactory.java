@@ -63,10 +63,10 @@ public class TabViewFactory {
         addEmptyData(elements, storageData, contentSize.getWidth());
         addStorageData(elements, storageData);
         AbstractRenderable contentContainer = new Group(elements);
-        contentContainer.setSize(contentSize.getDifference(new Size(8, 0)));
+        contentContainer.setSize(contentSize.reduce(new Size(8, 0)));
         contentContainer.setOffset(new Position(5, 0));
         AbstractRenderable buttonContainer = new Group(buttons);
-        buttonContainer.setSize(new Size(size.getDifference(contentSize).getWidth(), contentSize.getHeight()));
+        buttonContainer.setSize(new Size(size.reduce(contentSize).getWidth(), contentSize.getHeight()));
         buttonContainer.setOffset(new Position(8, 0));
         AbstractRenderable tabContainer = new HorizontalViewContainer(contentContainer, buttonContainer);
         tabContainer.setSize(size);

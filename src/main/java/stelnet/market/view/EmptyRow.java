@@ -23,7 +23,7 @@ public class EmptyRow implements Renderable {
     @Override
     public void render(CustomPanelAPI panel, float x, float y) {
         if (isEmpty) {
-            Size panelSize = size.getDifference(new Size(0, 38));
+            Size panelSize = size.reduce(new Size(0, 38));
             AbstractRenderable paragraph = new Paragraph("There are no Intel queries yet.", size.getWidth());
             paragraph.setSize(panelSize);
             paragraph.render(panel, 0, 38);

@@ -29,7 +29,7 @@ public class Queries implements Renderable {
         if (queries.isEmpty()) {
             return;
         }
-        Size panelSize = size.getDifference(new Size(0, 38));
+        Size panelSize = size.reduce(new Size(0, 38));
         AbstractRenderable queries = new Group(getRows(panel, panelSize));
         queries.setSize(panelSize);
         queries.render(panel, 0, 38);

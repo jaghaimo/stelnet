@@ -1,31 +1,30 @@
 package stelnet.ui.property;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@AllArgsConstructor
 @Getter
-public class Position {
+public class Position extends Point2D {
 
-    private final float x;
-    private final float y;
-
-    public Position() {
-        this.x = 0;
-        this.y = 0;
+    public Position(float x, float y) {
+        super(x, y);
     }
 
-    public Position(Size size) {
-        this.x = size.getWidth();
-        this.y = size.getHeight();
+    public Position(Point2D point2d) {
+        super(point2d);
     }
 
-    public Position shift(Size size) {
-        return new Position(x + size.getWidth(), y + size.getHeight());
+    @Override
+    public Position shift(Point2D point2d) {
+        return new Position(super.shift(point2d));
+    }
+
+    @Override
+    public Position unshift(Point2D point2d) {
+        return new Position(super.unshift(point2d));
     }
 
     @Override
     public String toString() {
-        return String.format("Position(%.0f,%.0f)", x, y);
+        return String.format("Position(%.0f,%.0f)", getX(), getY());
     }
 }

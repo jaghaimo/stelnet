@@ -41,7 +41,7 @@ public class DynamicGroup extends AbstractRenderable {
 
     @Override
     public void render(CustomPanelAPI panel, float x, float y) {
-        Position offset = new Position();
+        Position offset = new Position(0, 0);
         for (Renderable renderable : getElements()) {
             offset = getNewOffset(offset, renderable.getSize());
             renderable.render(panel, offset.getX(), offset.getY());
@@ -56,7 +56,7 @@ public class DynamicGroup extends AbstractRenderable {
     }
 
     private void calculateSize() {
-        Position finalOffset = new Position();
+        Position finalOffset = new Position(0, 0);
         for (Renderable renderable : getElements()) {
             finalOffset = getNewOffset(finalOffset, renderable.getSize());
         }

@@ -1,26 +1,36 @@
 package stelnet.ui.property;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@AllArgsConstructor
 @Getter
-public class Size {
+public class Size extends Point2D {
 
-    private final float width;
-    private final float height;
-
-    public Size(Position position) {
-        width = position.getX();
-        height = position.getY();
+    public Size(Point2D point) {
+        super(point);
     }
 
-    public Size getDifference(Size size) {
-        return new Size(width - size.getWidth(), height - size.getHeight());
+    public Size(float x, float y) {
+        super(x, y);
+    }
+
+    public float getWidth() {
+        return getX();
+    }
+
+    public float getHeight() {
+        return getY();
+    }
+
+    public Size increase(Point2D point2d) {
+        return new Size(shift(point2d));
+    }
+
+    public Size reduce(Point2D point2d) {
+        return new Size(unshift(point2d));
     }
 
     @Override
     public String toString() {
-        return String.format("Size(%.0f,%.0f)", width, height);
+        return String.format("Size(%.0f,%.0f)", getX(), getY());
     }
 }
