@@ -8,8 +8,8 @@ import stelnet.commodity.IntelTracker;
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.ui.AreaCheckbox;
 import stelnet.ui.EventHandler;
-import stelnet.ui.Location;
-import stelnet.ui.Size;
+import stelnet.ui.property.Location;
+import stelnet.ui.property.Size;
 
 public class IntelButton extends AreaCheckbox {
 

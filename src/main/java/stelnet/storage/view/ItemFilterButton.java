@@ -15,7 +15,7 @@ public class ItemFilterButton extends FilteringButton {
             @Override
             public void onConfirm(IntelUIAPI ui) {
                 FilterManager filterManager = getFilterManager();
-                if (isChecked()) {
+                if (isStateOn()) {
                     filterManager.removeFilter(filter);
                 } else {
                     filterManager.addFilter(filter);

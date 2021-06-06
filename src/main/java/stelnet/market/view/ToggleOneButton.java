@@ -5,10 +5,10 @@ import com.fs.starfarer.api.util.Misc;
 
 import stelnet.market.IntelQuery;
 import stelnet.ui.EventHandler;
-import stelnet.ui.Location;
-import stelnet.ui.Position;
-import stelnet.ui.Size;
 import stelnet.ui.ToggleButton;
+import stelnet.ui.property.Location;
+import stelnet.ui.property.Position;
+import stelnet.ui.property.Size;
 
 public class ToggleOneButton extends ToggleButton {
 

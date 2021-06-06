@@ -1,4 +1,4 @@
-package stelnet.ui;
+package stelnet.ui.property;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,8 +10,13 @@ public class Size {
     private final float width;
     private final float height;
 
-    public Size getDifference(Size subtrahend) {
-        return new Size(width - subtrahend.getWidth(), height - subtrahend.getHeight());
+    public Size(Position position) {
+        width = position.getX();
+        height = position.getY();
+    }
+
+    public Size getDifference(Size size) {
+        return new Size(width - size.getWidth(), height - size.getHeight());
     }
 
     @Override

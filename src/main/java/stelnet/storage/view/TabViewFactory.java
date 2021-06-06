@@ -19,11 +19,11 @@ import stelnet.ui.Group;
 import stelnet.ui.Heading;
 import stelnet.ui.HorizontalViewContainer;
 import stelnet.ui.Paragraph;
-import stelnet.ui.Position;
 import stelnet.ui.Renderable;
-import stelnet.ui.Size;
 import stelnet.ui.Spacer;
 import stelnet.ui.TabViewContainer;
+import stelnet.ui.property.Position;
+import stelnet.ui.property.Size;
 
 @RequiredArgsConstructor
 public class TabViewFactory {

@@ -2,6 +2,8 @@ package stelnet.ui;
 
 import java.awt.Color;
 
+import stelnet.ui.property.Size;
+
 public class Line extends Button {
 
     public Line(float width, Color color) {

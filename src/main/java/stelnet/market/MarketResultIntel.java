@@ -11,7 +11,7 @@ import stelnet.IntelInfo;
 import stelnet.L10n;
 import stelnet.market.view.LegacyIntel;
 import stelnet.ui.Renderable;
-import stelnet.ui.Size;
+import stelnet.ui.property.Size;
 
 public class MarketResultIntel extends BaseIntel {
 

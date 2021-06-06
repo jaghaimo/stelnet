@@ -8,8 +8,8 @@ import stelnet.L10n;
 import stelnet.commodity.CommodityBoard;
 import stelnet.ui.Button;
 import stelnet.ui.EventHandler;
-import stelnet.ui.Location;
-import stelnet.ui.Size;
+import stelnet.ui.property.Location;
+import stelnet.ui.property.Size;
 
 public class DeleteAllIntel extends Button {
 

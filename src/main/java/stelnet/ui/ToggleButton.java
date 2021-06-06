@@ -6,14 +6,15 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 
 import lombok.Getter;
 import lombok.Setter;
+import stelnet.ui.property.Size;
 
 @Getter
 @Setter
-public class ToggleButton extends Button {
+public class ToggleButton extends Button implements TwoStateButton {
 
     private final String titleOff;
     private final Color colorOff;
-    private boolean isToggledOn;
+    private boolean isStateOn;
 
     public ToggleButton(
             Size size,
@@ -22,27 +23,27 @@ public class ToggleButton extends Button {
             boolean isEnabled,
             Color colorOn,
             Color colorOff,
-            boolean isToggledOn
+            boolean isStateOn
     ) {
         super(size, toggledOnTitle, isEnabled, colorOn);
         this.titleOff = toggledOffTitle;
         this.colorOff = colorOff;
-        this.isToggledOn = isToggledOn;
+        this.isStateOn = isStateOn;
     }
 
     @Override
     public Color getColor() {
-        return isToggledOn ? super.getColor() : colorOff;
+        return isStateOn ? super.getColor() : colorOff;
     }
 
     @Override
     public String getTitle() {
-        return isToggledOn ? super.getTitle() : titleOff;
+        return isStateOn ? super.getTitle() : titleOff;
     }
 
     @Override
     public void onConfirm(IntelUIAPI ui) {
-        isToggledOn = !isToggledOn;
+        setStateOn(!isStateOn);
         super.onConfirm(ui);
     }
 }

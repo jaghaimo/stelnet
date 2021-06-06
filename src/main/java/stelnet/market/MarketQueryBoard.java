@@ -15,7 +15,7 @@ import stelnet.market.view.ControlRow;
 import stelnet.market.view.EmptyRow;
 import stelnet.market.view.Queries;
 import stelnet.ui.Renderable;
-import stelnet.ui.Size;
+import stelnet.ui.property.Size;
 
 /**
  * Information board for managing displayed information intel.

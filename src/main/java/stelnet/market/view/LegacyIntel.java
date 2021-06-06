@@ -4,7 +4,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import stelnet.market.IntelSubject;
 import stelnet.ui.AbstractRenderable;
-import stelnet.ui.Size;
+import stelnet.ui.property.Size;
 
 public class LegacyIntel extends AbstractRenderable {
 

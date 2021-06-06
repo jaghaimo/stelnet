@@ -6,7 +6,7 @@ import stelnet.L10n;
 import stelnet.storage.FilterManager;
 import stelnet.storage.StorageBoard;
 import stelnet.ui.AreaCheckbox;
-import stelnet.ui.Size;
+import stelnet.ui.property.Size;
 
 public abstract class FilteringButton extends AreaCheckbox {
 

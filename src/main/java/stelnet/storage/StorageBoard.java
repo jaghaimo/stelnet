@@ -15,7 +15,7 @@ import stelnet.helper.IntelHelper;
 import stelnet.helper.StorageHelper;
 import stelnet.storage.view.TabViewFactory;
 import stelnet.ui.Renderable;
-import stelnet.ui.Size;
+import stelnet.ui.property.Size;
 
 @Getter
 @Setter

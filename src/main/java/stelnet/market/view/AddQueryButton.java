@@ -12,7 +12,7 @@ import stelnet.market.DialogPlugin;
 import stelnet.market.IntelQuery;
 import stelnet.ui.Button;
 import stelnet.ui.EventHandler;
-import stelnet.ui.Size;
+import stelnet.ui.property.Size;
 
 public class AddQueryButton extends Button {
 

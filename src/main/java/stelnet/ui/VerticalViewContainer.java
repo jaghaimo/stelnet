@@ -6,6 +6,7 @@ import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import lombok.extern.log4j.Log4j;
+import stelnet.ui.property.Size;
 
 /**
  * Renders elements in a vertical line.

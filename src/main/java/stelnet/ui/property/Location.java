@@ -1,4 +1,4 @@
-package stelnet.ui;
+package stelnet.ui.property;
 
 import com.fs.starfarer.api.ui.PositionAPI;
 

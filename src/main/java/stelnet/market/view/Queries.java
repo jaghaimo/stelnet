@@ -11,7 +11,7 @@ import stelnet.market.IntelQuery;
 import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Group;
 import stelnet.ui.Renderable;
-import stelnet.ui.Size;
+import stelnet.ui.property.Size;
 
 @AllArgsConstructor
 public class Queries implements Renderable {
@@ -20,7 +20,12 @@ public class Queries implements Renderable {
     private final List<IntelQuery> queries;
 
     @Override
-    public void render(CustomPanelAPI panel) {
+    public Size getSize() {
+        return size;
+    }
+
+    @Override
+    public void render(CustomPanelAPI panel, float x, float y) {
         if (queries.isEmpty()) {
             return;
         }
@@ -39,7 +44,7 @@ public class Queries implements Renderable {
         for (int i = 0; i < queries.size(); i++) {
             CustomPanelAPI rowPanel = panel.createCustomPanel(size.getWidth(), 24, null);
             QueryRow queryRow = new QueryRow(size.getWidth(), i, queries);
-            queryRow.render(rowPanel);
+            queryRow.render(rowPanel, 0, 0);
             rows.add(queryRow);
         }
         return rows;

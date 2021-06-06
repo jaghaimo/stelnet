@@ -8,10 +8,10 @@ import stelnet.L10n;
 import stelnet.storage.StorageBoard;
 import stelnet.storage.StorageView;
 import stelnet.ui.EventHandler;
-import stelnet.ui.Location;
-import stelnet.ui.Position;
-import stelnet.ui.Size;
 import stelnet.ui.TabButton;
+import stelnet.ui.property.Location;
+import stelnet.ui.property.Position;
+import stelnet.ui.property.Size;
 
 public class DisplayViewButton extends TabButton {
 

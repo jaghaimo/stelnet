@@ -6,9 +6,9 @@ import stelnet.market.IntelQuery;
 import stelnet.ui.AbstractRenderable;
 import stelnet.ui.CustomPanel;
 import stelnet.ui.HorizontalViewContainer;
-import stelnet.ui.Position;
-import stelnet.ui.Size;
 import stelnet.ui.VerticalViewContainer;
+import stelnet.ui.property.Position;
+import stelnet.ui.property.Size;
 
 public class QueryRow extends CustomPanel {
 
