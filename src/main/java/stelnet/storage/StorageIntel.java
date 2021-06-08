@@ -50,7 +50,7 @@ public class StorageIntel extends BaseIntel {
     protected List<Renderable> getRenderables(Size size) {
         Color baseColor = getFactionForUIColors().getBaseUIColor();
         Color darkColor = getFactionForUIColors().getDarkUIColor();
-        CargoAPI cargo = storage.getCargo();
+        CargoAPI cargo = storage.getCargo().createCopy();
         List<FleetMemberAPI> ships = storage.getCargo().getMothballedShips().getMembersListCopy();
         return Arrays.<Renderable>asList(
                 new Heading(L10n.get("storageIntelHeaderItems", getLocationName()), baseColor, darkColor),
@@ -70,7 +70,7 @@ public class StorageIntel extends BaseIntel {
 
     private String getStorageContent() {
         CargoAPI cargo = storage.getCargo();
-        int itemCount = CargoHelper.calculateItemQuantity(cargo);
+        int itemCount = CargoHelper.calculateItemQuantity(cargo.createCopy());
         int shipCount = CargoHelper.calculateShipQuantity(cargo.getMothballedShips().getMembersListCopy());
         return L10n.get("storageIntelContent", itemCount, shipCount);
     }
