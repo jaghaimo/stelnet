@@ -7,8 +7,7 @@ import java.util.Set;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
-import com.fs.starfarer.api.impl.campaign.events.OfficerManagerEvent;
-import com.fs.starfarer.api.impl.campaign.submarkets.BaseSubmarketPlugin;
+import com.fs.starfarer.api.campaign.listeners.ListenerUtil;
 
 import stelnet.filter.market.IsNotHidden;
 import stelnet.filter.market.MarketFilter;
@@ -46,41 +45,14 @@ public class MarketHelper {
         List<SubmarketAPI> submarkets = new ArrayList<>();
         for (MarketAPI market : markets) {
             List<SubmarketAPI> marketSubmarkets = market.getSubmarketsCopy();
-            updateCargoPrePlayerInteraction(marketSubmarkets);
             submarkets.addAll(marketSubmarkets);
         }
         return submarkets;
     }
 
-    private static OfficerManagerEvent getOfficerManagerEvent() {
-        OfficerManagerEvent managerEvent;
-        List<OfficerManagerEvent> listeners = GlobalSectorHelper.getListenerManager()
-                .getListeners(OfficerManagerEvent.class);
-        if (listeners.size() > 0) {
-            managerEvent = listeners.get(0);
-        } else {
-            managerEvent = new OfficerManagerEvent();
-        }
-        return managerEvent;
-    }
-
     private static void updateMarketPrePlayerInteraction(List<MarketAPI> markets) {
-        OfficerManagerEvent managerEvent = getOfficerManagerEvent();
         for (MarketAPI market : markets) {
-            managerEvent.reportPlayerOpenedMarket(market);
-        }
-    }
-
-    private static void updateCargoPrePlayerInteraction(List<SubmarketAPI> submarkets) {
-        for (SubmarketAPI submarket : submarkets) {
-            updateCargoPrePlayerInteraction(submarket);
-        }
-    }
-
-    private static void updateCargoPrePlayerInteraction(SubmarketAPI submarket) {
-        try {
-            ((BaseSubmarketPlugin) submarket.getPlugin()).updateCargoPrePlayerInteraction();
-        } catch (Exception exception) {
+            ListenerUtil.reportPlayerOpenedMarket(market);
         }
     }
 }
