@@ -52,7 +52,14 @@ public class MarketHelper {
 
     private static void updateMarketPrePlayerInteraction(List<MarketAPI> markets) {
         for (MarketAPI market : markets) {
+            updateSubmarketsPrePlayerInteraction(market);
             ListenerUtil.reportPlayerOpenedMarket(market);
+        }
+    }
+
+    private static void updateSubmarketsPrePlayerInteraction(MarketAPI market) {
+        for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
+            submarket.getPlugin().updateCargoPrePlayerInteraction();
         }
     }
 }
