@@ -14,7 +14,7 @@ public class CommodityButton extends ToggleButton {
 
     public CommodityButton(final CommoditySpecAPI commodity, boolean isOn) {
         super(
-                new Size(200, 24),
+                new Size(190, 24),
                 commodity.getName(),
                 commodity.getName(),
                 true,

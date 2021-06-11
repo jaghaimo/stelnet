@@ -27,7 +27,7 @@ public abstract class AbstractRenderable implements Renderable {
     private Size size;
 
     public void log(Position position) {
-        log.debug(String.format("Rendered %s in %s", this, position));
+        log.debug(String.format("Rendering %s in %s at %s", this, position, location));
     }
 
     @Override
@@ -36,11 +36,11 @@ public abstract class AbstractRenderable implements Renderable {
     }
 
     public void render(CustomPanelAPI panel, float x, float y) {
+        log(new Position(x, y));
         Size size = getSize();
         TooltipMakerAPI inner = panel.createUIElement(size.getWidth(), size.getHeight(), withScroller);
         render(inner);
         PositionAPI element = panel.addUIElement(inner);
         location.render(element, x + offset.getX(), y + offset.getY());
-        log(new Position(x, y));
     }
 }

@@ -44,4 +44,9 @@ public enum Location {
 
     public void render(PositionAPI position, float x, float y) {
     }
+
+    @Override
+    public String toString() {
+        return String.format("Location(%s)", this.name());
+    }
 }
