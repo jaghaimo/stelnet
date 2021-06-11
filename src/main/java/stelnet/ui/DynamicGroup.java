@@ -68,8 +68,10 @@ public class DynamicGroup extends AbstractRenderable {
     }
 
     private Position getNewOffset(Position startingPosition, Size shiftSize) {
-        // TODO missing logic for shifting in x or y depending on desired width or
-        // height
-        return startingPosition.shift(shiftSize);
+        Position newPosition = startingPosition.shift(shiftSize);
+        if (newPosition.getX() > width) {
+            return new Position(0, newPosition.getY());
+        }
+        return new Position(newPosition.getX(), startingPosition.getY());
     }
 }
