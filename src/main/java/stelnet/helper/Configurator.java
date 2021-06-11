@@ -7,8 +7,8 @@ import stelnet.commodity.CommodityBoard;
 import stelnet.commodity.CommodityIntel;
 import stelnet.config.BoardConfig;
 import stelnet.config.ModConfig;
-import stelnet.market.MarketQueryBoard;
-import stelnet.market.MarketResultIntel;
+import stelnet.market.MarketBoard;
+import stelnet.market.MarketIntel;
 import stelnet.storage.StorageBoard;
 import stelnet.storage.StorageIntel;
 import stelnet.storage.StorageListener;
@@ -61,10 +61,10 @@ public class Configurator {
 
     private static void initMarket(boolean hasMarket) {
         if (hasMarket) {
-            MarketQueryBoard.getInstance();
+            MarketBoard.getInstance();
             log.info("Enabled Market");
         } else {
-            purgeIntel(MarketQueryBoard.class, MarketResultIntel.class);
+            purgeIntel(MarketBoard.class, MarketIntel.class);
             log.info("Disabled Market");
         }
     }

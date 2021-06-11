@@ -2,7 +2,7 @@ package stelnet.market.view;
 
 import com.fs.starfarer.api.util.Misc;
 
-import stelnet.market.IntelQuery;
+import stelnet.market.intel.IntelQuery;
 import stelnet.ui.Paragraph;
 import stelnet.ui.property.Position;
 

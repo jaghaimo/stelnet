@@ -8,7 +8,7 @@ import com.fs.starfarer.api.util.Misc;
 
 import org.lwjgl.input.Keyboard;
 
-import stelnet.market.IntelQuery;
+import stelnet.market.intel.IntelQuery;
 import stelnet.ui.Button;
 import stelnet.ui.EventHandler;
 import stelnet.ui.property.Location;

@@ -7,7 +7,7 @@ import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import lombok.AllArgsConstructor;
-import stelnet.market.IntelQuery;
+import stelnet.market.intel.IntelQuery;
 import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Group;
 import stelnet.ui.Renderable;

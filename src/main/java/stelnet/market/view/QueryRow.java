@@ -2,7 +2,7 @@ package stelnet.market.view;
 
 import java.util.List;
 
-import stelnet.market.IntelQuery;
+import stelnet.market.intel.IntelQuery;
 import stelnet.ui.AbstractRenderable;
 import stelnet.ui.CustomPanel;
 import stelnet.ui.HorizontalViewContainer;

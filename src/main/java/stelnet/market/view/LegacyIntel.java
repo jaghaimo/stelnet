@@ -2,7 +2,7 @@ package stelnet.market.view;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
-import stelnet.market.IntelSubject;
+import stelnet.market.intel.subject.IntelSubject;
 import stelnet.ui.AbstractRenderable;
 import stelnet.ui.property.Size;
 
