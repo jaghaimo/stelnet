@@ -26,6 +26,7 @@ public class HorizontalViewContainer extends Group {
 
     @Override
     public void render(CustomPanelAPI panel, float x, float y) {
+        log(new Position(x, y));
         for (AbstractRenderable renderable : getElements()) {
             Size size = renderable.getSize();
             renderable.render(panel, x, y);

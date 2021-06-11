@@ -16,13 +16,13 @@ public class CustomPanel extends AbstractRenderable {
 
     @Override
     public void render(CustomPanelAPI panel, float x, float y) {
+        log(new Position(x, y));
         Size size = getSize();
         customPanel = panel.createCustomPanel(size.getWidth(), size.getHeight(), null);
         renderable.render(customPanel, x, y);
         PositionAPI element = panel.addComponent(customPanel);
         Position offset = getOffset();
         getLocation().render(element, x + offset.getX(), y + offset.getY());
-        log(new Position(x, y));
     }
 
     @Override

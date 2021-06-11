@@ -12,12 +12,13 @@ import stelnet.helper.CollectionHelper;
 import stelnet.helper.GlobalSectorHelper;
 import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Button;
+import stelnet.ui.Group;
+import stelnet.ui.Position;
 import stelnet.ui.Size;
-import stelnet.ui.VerticalViewContainer;
 
 public class ButtonViewFactory {
 
-    public VerticalViewContainer createContainer(String activeId, Size size) {
+    public AbstractRenderable createContainer(String activeId, Size size) {
         List<AbstractRenderable> buttons = new LinkedList<>();
         List<CommoditySpecAPI> commodities = GlobalSectorHelper.getAllCommodities();
         filterCommodities(commodities);
@@ -25,9 +26,10 @@ public class ButtonViewFactory {
         for (CommoditySpecAPI commodity : commodities) {
             buttons.add(createContainer(commodity, activeId));
         }
-        VerticalViewContainer verticalViewContainer = new VerticalViewContainer(buttons);
-        verticalViewContainer.setSize(size);
-        return verticalViewContainer;
+        Group group = new Group(buttons);
+        group.setSize(new Size(200, size.getHeight() - 55));
+        group.setOffset(new Position(size.getWidth() - 200, 0));
+        return group;
     }
 
     private Button createContainer(CommoditySpecAPI commodity, String activeId) {

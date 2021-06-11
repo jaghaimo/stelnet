@@ -61,6 +61,11 @@ public class Button extends AbstractRenderable implements ButtonHandler {
     }
 
     @Override
+    public String toString() {
+        return String.format("Button with %s", getSize());
+    }
+
+    @Override
     public void render(TooltipMakerAPI tooltip) {
         Size size = getSize();
         Color foregroundColor = getColor();
