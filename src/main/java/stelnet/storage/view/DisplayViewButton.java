@@ -1,5 +1,6 @@
 package stelnet.storage.view;
 
+import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 
 import org.lwjgl.input.Keyboard;
@@ -17,9 +18,10 @@ public class DisplayViewButton extends TabButton {
 
     public DisplayViewButton(final StorageView view) {
         super(L10n.get("storageView" + view.title), true, Keyboard.KEY_G);
+        setCutStyle(CutStyle.ALL);
         setSize(new Size(180, 24));
-        setLocation(Location.TOP_RIGHT);
-        setOffset(new Position(30, -2));
+        setLocation(Location.BOTTOM_RIGHT);
+        setOffset(new Position(30, 8));
         setHandler(new EventHandler() {
 
             @Override
