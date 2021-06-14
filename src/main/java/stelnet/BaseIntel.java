@@ -28,8 +28,8 @@ public abstract class BaseIntel extends RenderableIntel {
         Color bulletColor = getBulletColorForMode(mode);
         info.addPara(intelInfo.getTitle(), getTitleColor(mode), 0);
         info.beginGridFlipped(300, 1, Misc.getTextColor(), 80, 10);
-        info.addToGrid(0, 0, intelInfo.getContent1(), intelInfo.getHeader1(), bulletColor);
-        info.addToGrid(0, 1, intelInfo.getContent2(), intelInfo.getHeader2(), bulletColor);
+        info.addToGrid(0, 0, info.shortenString(intelInfo.getContent1(), 200), intelInfo.getHeader1(), bulletColor);
+        info.addToGrid(0, 1, info.shortenString(intelInfo.getContent2(), 200), intelInfo.getHeader2(), bulletColor);
         info.addGrid(3);
     }
 
