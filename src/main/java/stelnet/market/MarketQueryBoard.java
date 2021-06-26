@@ -24,22 +24,28 @@ import stelnet.ui.property.Size;
  * Use this board to add, remove, refresh, disable, or enable intel queries to
  * dynamically update displayed intel.
  */
-public class MarketBoard extends BaseBoard {
+public class MarketQueryBoard extends BaseBoard {
 
     private final List<IntelQuery> queries = new ArrayList<IntelQuery>();
 
-    public static MarketBoard getInstance() {
-        IntelInfoPlugin intel = IntelHelper.getFirstIntel(MarketBoard.class);
+    public static MarketQueryBoard getInstance() {
+        IntelInfoPlugin intel = IntelHelper.getFirstIntel(MarketQueryBoard.class);
         if (intel == null) {
-            MarketBoard board = new MarketBoard();
+            MarketQueryBoard board = new MarketQueryBoard();
             IntelHelper.addIntel(board, true);
         }
-        return (MarketBoard) intel;
+        return (MarketQueryBoard) intel;
     }
 
     @Override
     public String getIcon() {
         return GlobalSettingsHelper.getSpriteName("market");
+    }
+
+    @Override
+    protected BoardInfo getBoardInfo() {
+        int queriesPresent = queries.size();
+        return new BoardInfo(L10n.get("marketQueryTitle"), L10n.get("marketQueryDescription", queriesPresent));
     }
 
     @Override
@@ -52,13 +58,7 @@ public class MarketBoard extends BaseBoard {
     }
 
     @Override
-    protected BoardInfo getBoardInfo() {
-        int queriesPresent = queries.size();
-        return new BoardInfo(L10n.get("marketBoardTitle"), L10n.get("marketBoardDescription", queriesPresent));
-    }
-
-    @Override
     protected String getTag() {
-        return MarketIntel.TAG;
+        return MarketQueryIntel.TAG;
     }
 }

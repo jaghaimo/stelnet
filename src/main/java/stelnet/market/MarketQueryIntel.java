@@ -14,13 +14,13 @@ import stelnet.market.view.LegacyIntel;
 import stelnet.ui.Renderable;
 import stelnet.ui.property.Size;
 
-public class MarketIntel extends BaseIntel {
+public class MarketQueryIntel extends BaseIntel {
 
     public final static String TAG = "stelnetMarket";
 
     private final IntelSubject intelSubject;
 
-    public MarketIntel(FactionAPI f, SectorEntityToken s, IntelSubject i) {
+    public MarketQueryIntel(FactionAPI f, SectorEntityToken s, IntelSubject i) {
         super(f, s);
         intelSubject = i;
     }

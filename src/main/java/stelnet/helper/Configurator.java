@@ -7,8 +7,9 @@ import stelnet.commodity.CommodityBoard;
 import stelnet.commodity.CommodityIntel;
 import stelnet.config.BoardConfig;
 import stelnet.config.ModConfig;
-import stelnet.market.MarketBoard;
-import stelnet.market.MarketIntel;
+import stelnet.market.MarketQueryBoard;
+import stelnet.market.MarketQueryIntel;
+import stelnet.market.MarketViewBoard;
 import stelnet.storage.StorageBoard;
 import stelnet.storage.StorageIntel;
 import stelnet.storage.StorageListener;
@@ -25,14 +26,14 @@ public class Configurator {
         initCommodity(BoardConfig.hasCommodities);
         initMarket(BoardConfig.hasMarket);
         initStorage(BoardConfig.hasStorage);
-        log.debug("Configured");
+        log.debug("Mod configured");
     }
 
     public static void uninstall() {
         initCommodity(false);
         initMarket(false);
         initStorage(false);
-        log.debug("Uninstalled");
+        log.debug("Mod uninstalled");
     }
 
     public static void purgeIntel(Class<?>... classNames) {
@@ -52,20 +53,21 @@ public class Configurator {
     private static void initCommodity(boolean hasCommodities) {
         if (hasCommodities) {
             CommodityBoard.getInstance();
-            log.info("Enabled Commodity");
+            log.info("Enabled Commodity plugin");
         } else {
             purgeIntel(CommodityBoard.class, CommodityIntel.class);
-            log.info("Disabled Commodity");
+            log.info("Disabled Commodity plugin");
         }
     }
 
     private static void initMarket(boolean hasMarket) {
         if (hasMarket) {
-            MarketBoard.getInstance();
-            log.info("Enabled Market");
+            MarketQueryBoard.getInstance();
+            MarketViewBoard.getInstance();
+            log.info("Enabled Market plugin");
         } else {
-            purgeIntel(MarketBoard.class, MarketIntel.class);
-            log.info("Disabled Market");
+            purgeIntel(MarketQueryBoard.class, MarketQueryIntel.class, MarketViewBoard.class);
+            log.info("Disabled Market plugin");
         }
     }
 
@@ -73,11 +75,11 @@ public class Configurator {
         if (hasStorage) {
             StorageBoard.getInstance();
             StorageListener.register();
-            log.info("Enabled Storage");
+            log.info("Enabled Storage plugin");
         } else {
             purgeIntel(StorageBoard.class, StorageIntel.class);
             purgeListeners(StorageListener.class);
-            log.info("Disabled Storage");
+            log.info("Disabled Storage plugin");
         }
     }
 }

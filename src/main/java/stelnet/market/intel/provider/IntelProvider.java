@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 
-import stelnet.market.MarketIntel;
+import stelnet.market.MarketQueryIntel;
 import stelnet.market.filter.FilterManager;
 import stelnet.market.intel.IntelList;
 import stelnet.market.intel.subject.IntelSubject;
@@ -22,7 +22,7 @@ public abstract class IntelProvider {
         IntelList intels = new IntelList();
         for (MarketAPI market : markets) {
             IntelSubject subject = getSubject(market);
-            intels.add(new MarketIntel(market.getFaction(), market.getPrimaryEntity(), subject));
+            intels.add(new MarketQueryIntel(market.getFaction(), market.getPrimaryEntity(), subject));
         }
         return intels;
     }
