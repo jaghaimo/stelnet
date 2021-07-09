@@ -27,15 +27,11 @@ public class StelnetMod extends BaseModPlugin {
 
     @Override
     public void onNewGame() {
-        onNewGameOrGameLoad();
+        Configurator.install();
     }
 
     @Override
     public void onGameLoad(boolean newGame) {
-        onNewGameOrGameLoad();
-    }
-
-    private void onNewGameOrGameLoad() {
         Configurator.install();
     }
 }
