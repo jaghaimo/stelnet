@@ -11,7 +11,7 @@ import stelnet.helper.StorageHelper;
 import stelnet.storage.ButtonManager;
 import stelnet.storage.FilterManager;
 import stelnet.storage.StorageTab;
-import stelnet.storage.StorageView;
+import stelnet.storage.data.DataProvider;
 import stelnet.storage.data.LocationData;
 import stelnet.storage.data.StorageData;
 import stelnet.ui.AbstractRenderable;
@@ -31,7 +31,7 @@ public class TabViewFactory {
     private final ButtonManager buttonManager;
     private final FilterManager filterManager;
     private final StorageTab activeTab;
-    private final StorageView activeView;
+    private final DataProvider activeView;
 
     public Renderable createContainer(Size size) {
         float width = size.getWidth() - 210;
@@ -59,7 +59,7 @@ public class TabViewFactory {
 
     private AbstractRenderable getTabPane(Size size, Size contentSize, AbstractRenderable[] buttons) {
         List<AbstractRenderable> elements = new ArrayList<>();
-        List<StorageData> storageData = activeView.getStorageData(filterManager);
+        List<StorageData> storageData = activeView.getData(filterManager);
         addEmptyData(elements, storageData, contentSize.getWidth());
         addStorageData(elements, storageData);
         AbstractRenderable contentContainer = new Group(elements);

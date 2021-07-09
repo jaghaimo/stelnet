@@ -5,24 +5,25 @@ import java.util.List;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import com.fs.starfarer.api.ui.IntelUIAPI;
-import com.fs.starfarer.api.util.Misc;
 
 import stelnet.BaseBoard;
 import stelnet.BoardInfo;
 import stelnet.L10n;
 import stelnet.helper.GlobalSettingsHelper;
 import stelnet.helper.IntelHelper;
-import stelnet.market.dialog.MarketSelector;
-import stelnet.ui.Button;
-import stelnet.ui.EventHandler;
-import stelnet.ui.Paragraph;
+import stelnet.storage.ButtonManager;
+import stelnet.storage.FilterManager;
+import stelnet.storage.StorageTab;
+import stelnet.storage.view.TabViewFactory;
 import stelnet.ui.Renderable;
 import stelnet.ui.property.Size;
 
 public class MarketViewBoard extends BaseBoard {
 
-    private MarketAPI selectedMarket;
+    private final ButtonManager buttonManager = new ButtonManager();
+    private final FilterManager filterManager = new FilterManager();
+    private StorageTab activeTab = StorageTab.ITEMS;
+    private MarketProvider marketProvider;
 
     public static MarketViewBoard getInstance() {
         IntelInfoPlugin intel = IntelHelper.getFirstIntel(MarketViewBoard.class);
@@ -44,7 +45,7 @@ public class MarketViewBoard extends BaseBoard {
     }
 
     public void setMarket(MarketAPI market) {
-        selectedMarket = market;
+        marketProvider = new MarketProvider(market);
     }
 
     @Override
@@ -54,18 +55,22 @@ public class MarketViewBoard extends BaseBoard {
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
-        String marketName = selectedMarket != null ? selectedMarket.getName() : "None";
-        Button pickMe = new Button(new Size(200, 24), "Pick me", true, Misc.getButtonTextColor());
-        pickMe.setHandler(new EventHandler() {
-            @Override
-            public void onConfirm(IntelUIAPI ui) {
-                ui.showDialog(null, new MarketSelector(ui));
-            }
-        });
         return Arrays.<Renderable>asList(
-                new Paragraph(marketName, size.getWidth()),
-                pickMe
+                new TabViewFactory(buttonManager, filterManager, activeTab, marketProvider).createContainer(size)
         );
+        // TODO: add select market button based on below
+        // String marketName = selectedMarket != null ? selectedMarket.getName() :
+        // "None";
+        // Button pickMe = new Button(new Size(200, 24), "Pick me", true,
+        // Misc.getButtonTextColor());
+        // pickMe.setHandler(new EventHandler() {
+        // @Override
+        // public void onConfirm(IntelUIAPI ui) {
+        // ui.showDialog(null, new MarketSelector(ui));
+        // }
+        // });
+        // return Arrays.<Renderable>asList(new Paragraph(marketName, size.getWidth()),
+        // pickMe);
     }
 
     @Override

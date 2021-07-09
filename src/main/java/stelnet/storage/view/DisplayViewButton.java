@@ -17,7 +17,7 @@ import stelnet.ui.property.Size;
 public class DisplayViewButton extends TabButton {
 
     public DisplayViewButton(final StorageView view) {
-        super(L10n.get("storageView" + view.title), true, Keyboard.KEY_G);
+        super(L10n.get("storageView" + view.getTitle()), true, Keyboard.KEY_G);
         setCutStyle(CutStyle.ALL);
         setSize(new Size(180, 24));
         setLocation(Location.BOTTOM_RIGHT);

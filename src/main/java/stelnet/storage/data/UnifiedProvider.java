@@ -15,14 +15,8 @@ import stelnet.storage.FilterManager;
 @Log4j
 public class UnifiedProvider implements DataProvider {
 
-    private final FilterManager filterManager;
-
-    public UnifiedProvider(FilterManager filterManager) {
-        this.filterManager = filterManager;
-    }
-
     @Override
-    public List<StorageData> getData() {
+    public List<StorageData> getData(FilterManager filterManager) {
         CargoAPI items = StorageHelper.getAllItems(filterManager.getItemFilters());
         List<FleetMemberAPI> ships = StorageHelper.getAllShips(filterManager.getShipFilters());
         log.debug("Found " + items.getStacksCopy().size() + " items");

@@ -17,20 +17,14 @@ import stelnet.storage.FilterManager;
 @Log4j
 public class PerLocationProvider implements DataProvider {
 
-    private final FilterManager filterManager;
-
-    public PerLocationProvider(FilterManager filterManager) {
-        this.filterManager = filterManager;
-    }
-
     @Override
-    public List<StorageData> getData() {
+    public List<StorageData> getData(FilterManager filterManager) {
         List<StorageData> data = new ArrayList<>();
         List<SubmarketAPI> storages = StorageHelper.getAllSortedWithAccess();
         for (SubmarketAPI storage : storages) {
             CargoAPI storageCargo = storage.getCargo();
-            CargoAPI items = getItems(storageCargo);
-            List<FleetMemberAPI> ships = getShips(storageCargo);
+            CargoAPI items = getItems(filterManager, storageCargo);
+            List<FleetMemberAPI> ships = getShips(filterManager, storageCargo);
             String name = storage.getMarket().getName();
             log.debug("Found " + items.getStacksCopy().size() + " items in " + name);
             log.debug("Found " + ships.size() + " ships in " + name);
@@ -39,7 +33,7 @@ public class PerLocationProvider implements DataProvider {
         return data;
     }
 
-    private CargoAPI getItems(CargoAPI storageCargo) {
+    private CargoAPI getItems(FilterManager filterManager, CargoAPI storageCargo) {
         CargoAPI items = storageCargo.createCopy();
         List<CargoStackAPI> cargoStacks = storageCargo.getStacksCopy();
         CollectionHelper.reduce(cargoStacks, filterManager.getItemFilters());
@@ -47,7 +41,7 @@ public class PerLocationProvider implements DataProvider {
         return items;
     }
 
-    private List<FleetMemberAPI> getShips(CargoAPI storageCargo) {
+    private List<FleetMemberAPI> getShips(FilterManager filterManager, CargoAPI storageCargo) {
         List<FleetMemberAPI> ships = storageCargo.getMothballedShips().getMembersInPriorityOrder();
         CollectionHelper.reduce(ships, filterManager.getShipFilters());
         return ships;

@@ -3,6 +3,7 @@ package stelnet.storage.data;
 import java.awt.Color;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,5 +20,11 @@ public class LocationData {
         name = market.getName();
         fgColor = market.getFaction().getBaseUIColor();
         bgColor = market.getFaction().getDarkUIColor();
+    }
+
+    public LocationData(SubmarketAPI submarket) {
+        name = submarket.getName();
+        fgColor = submarket.getFaction().getBaseUIColor();
+        bgColor = submarket.getFaction().getDarkUIColor();
     }
 }

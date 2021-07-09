@@ -2,12 +2,13 @@ package stelnet.storage;
 
 import java.util.List;
 
+import stelnet.storage.data.DataProvider;
 import stelnet.storage.data.PerLocationProvider;
 import stelnet.storage.data.StorageData;
 import stelnet.storage.data.UnifiedProvider;
 import stelnet.storage.view.DisplayViewButton;
 
-public enum StorageView {
+public enum StorageView implements DataProvider {
 
     PER_LOCATION("PerLocation") {
 
@@ -17,8 +18,8 @@ public enum StorageView {
         }
 
         @Override
-        public List<StorageData> getStorageData(FilterManager filterManager) {
-            return new PerLocationProvider(filterManager).getData();
+        public List<StorageData> getData(FilterManager filterManager) {
+            return new PerLocationProvider().getData(filterManager);
         }
     },
     UNIFIED("Unified") {
@@ -29,12 +30,12 @@ public enum StorageView {
         }
 
         @Override
-        public List<StorageData> getStorageData(FilterManager filterManager) {
-            return new UnifiedProvider(filterManager).getData();
+        public List<StorageData> getData(FilterManager filterManager) {
+            return new UnifiedProvider().getData(filterManager);
         }
     };
 
-    public final String title;
+    private final String title;
 
     private StorageView(String title) {
         this.title = title;
@@ -44,7 +45,11 @@ public enum StorageView {
         return null;
     }
 
-    public List<StorageData> getStorageData(FilterManager filterManager) {
+    public List<StorageData> getData(FilterManager filterManager) {
         return null;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }
