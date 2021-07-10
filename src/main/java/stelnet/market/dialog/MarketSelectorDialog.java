@@ -13,12 +13,13 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import lombok.RequiredArgsConstructor;
+import stelnet.L10n;
 import stelnet.helper.MarketHelper;
 import stelnet.market.MarketProvider;
 import stelnet.market.MarketViewBoard;
 
 @RequiredArgsConstructor
-public class MarketSelector implements InteractionDialogPlugin {
+public class MarketSelectorDialog implements InteractionDialogPlugin {
 
     private final IntelUIAPI ui;
 
@@ -26,9 +27,9 @@ public class MarketSelector implements InteractionDialogPlugin {
     public void init(final InteractionDialogAPI dialog) {
         final MarketViewBoard board = MarketViewBoard.getInstance();
         dialog.showCampaignEntityPicker(
-                "Select a market",
-                "Selected: ",
-                "Confirm",
+                L10n.get("marketViewDialogSelect"),
+                L10n.get("marketViewDialogSelected"),
+                L10n.get("marketViewDialogConfirm"),
                 Global.getSector().getPlayerFaction(),
                 MarketHelper.convertMarkets(MarketHelper.getMarkets()),
                 new CampaignEntityPickerListener() {
@@ -53,7 +54,11 @@ public class MarketSelector implements InteractionDialogPlugin {
 
                     @Override
                     public String getSelectedTextOverrideFor(SectorEntityToken entity) {
-                        return entity.getName() + " in " + entity.getContainingLocation().getNameWithTypeShort();
+                        return L10n.get(
+                                "marketViewDialogSelection",
+                                entity.getName(),
+                                entity.getContainingLocation().getNameWithTypeShort()
+                        );
                     }
 
                     @Override

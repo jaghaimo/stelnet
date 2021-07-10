@@ -13,6 +13,7 @@ import com.fs.starfarer.api.util.Misc;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import stelnet.L10n;
 import stelnet.storage.FilterManager;
 import stelnet.storage.data.LocationData;
 import stelnet.storage.data.PerLocationProvider;
@@ -38,7 +39,7 @@ public class MarketProvider extends PerLocationProvider {
                 continue;
             }
             log.debug("Processing submarket " + submarket.getNameOneLine());
-            processSubmarket(submarket, filterManager, data);
+            processSubmarket(new LocationData(submarket), submarket, filterManager, data);
         }
         return data;
     }
@@ -46,7 +47,7 @@ public class MarketProvider extends PerLocationProvider {
     private List<StorageData> getEmptyData() {
         return Collections.singletonList(
                 new StorageData(
-                        new LocationData("Please select market", Misc.getTextColor(), Misc.getGrayColor()),
+                        new LocationData(L10n.get("marketViewNoMarket"), Misc.getTextColor(), Misc.getGrayColor()),
                         Global.getFactory().createCargo(true),
                         Collections.<FleetMemberAPI>emptyList()
                 )

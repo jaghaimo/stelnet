@@ -8,9 +8,9 @@ import stelnet.storage.StorageTab;
 import stelnet.ui.EventHandler;
 import stelnet.ui.TabButton;
 
-public class MarketViewTabButton extends TabButton {
+public class ViewerTabButton extends TabButton {
 
-    public MarketViewTabButton(final StorageTab storageTab, boolean isActive, int shortcut) {
+    public ViewerTabButton(final StorageTab storageTab, boolean isActive, int shortcut) {
         super(L10n.get("storageTab" + storageTab.title), isActive, shortcut);
         setHandler(new EventHandler() {
 
