@@ -23,7 +23,7 @@ public class LocationData {
     }
 
     public LocationData(SubmarketAPI submarket) {
-        name = submarket.getName();
+        name = submarket.getNameOneLine();
         fgColor = submarket.getFaction().getBaseUIColor();
         bgColor = submarket.getFaction().getDarkUIColor();
     }

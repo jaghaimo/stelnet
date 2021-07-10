@@ -8,13 +8,12 @@ import stelnet.ui.EventHandler;
 
 public class ItemFilterButton extends FilteringButton {
 
-    public ItemFilterButton(String translationId, final CargoStackFilter filter) {
+    public ItemFilterButton(final FilterManager filterManager, String translationId, final CargoStackFilter filter) {
         super(translationId);
         setHandler(new EventHandler() {
 
             @Override
             public void onConfirm(IntelUIAPI ui) {
-                FilterManager filterManager = getFilterManager();
                 if (isStateOn()) {
                     filterManager.removeFilter(filter);
                 } else {

@@ -13,7 +13,7 @@ import stelnet.L10n;
 import stelnet.helper.GlobalSettingsHelper;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.StorageHelper;
-import stelnet.storage.view.TabViewFactory;
+import stelnet.storage.view.StorageTabViewFactory;
 import stelnet.ui.Renderable;
 import stelnet.ui.property.Size;
 
@@ -21,8 +21,8 @@ import stelnet.ui.property.Size;
 @Setter
 public class StorageBoard extends BaseBoard {
 
-    private final ButtonManager buttonManager = new ButtonManager();
     private final FilterManager filterManager = new FilterManager();
+    private final ButtonManager buttonManager = new ButtonManager(filterManager);
     private StorageTab activeTab = StorageTab.ITEMS;
     private StorageView activeView = StorageView.UNIFIED;
 
@@ -43,7 +43,7 @@ public class StorageBoard extends BaseBoard {
     @Override
     protected List<Renderable> getRenderables(Size size) {
         return Arrays.<Renderable>asList(
-                new TabViewFactory(buttonManager, filterManager, activeTab, activeView).createContainer(size),
+                new StorageTabViewFactory(buttonManager, filterManager, activeTab, activeView).createContainer(size),
                 activeView.getNextButton()
         );
     }

@@ -21,12 +21,13 @@ import stelnet.ui.HorizontalViewContainer;
 import stelnet.ui.Paragraph;
 import stelnet.ui.Renderable;
 import stelnet.ui.Spacer;
+import stelnet.ui.TabButton;
 import stelnet.ui.TabViewContainer;
 import stelnet.ui.property.Position;
 import stelnet.ui.property.Size;
 
 @RequiredArgsConstructor
-public class TabViewFactory {
+public class StorageTabViewFactory {
 
     private final ButtonManager buttonManager;
     private final FilterManager filterManager;
@@ -53,8 +54,16 @@ public class TabViewFactory {
         return tabViewContainer;
     }
 
-    private StorageTabButton getTabButton(StorageTab currentTab, int keyboardShortcut) {
+    protected boolean isActive(StorageTab currentTab) {
+        return currentTab.equals(activeTab);
+    }
+
+    protected TabButton getTabButton(StorageTab currentTab, int keyboardShortcut) {
         return new StorageTabButton(currentTab, isActive(currentTab), keyboardShortcut);
+    }
+
+    protected boolean hasStorage() {
+        return !StorageHelper.getAllWithAccess().isEmpty();
     }
 
     private AbstractRenderable getTabPane(Size size, Size contentSize, AbstractRenderable[] buttons) {
@@ -71,10 +80,6 @@ public class TabViewFactory {
         AbstractRenderable tabContainer = new HorizontalViewContainer(contentContainer, buttonContainer);
         tabContainer.setSize(size);
         return tabContainer;
-    }
-
-    private boolean isActive(StorageTab currentTab) {
-        return currentTab.equals(activeTab);
     }
 
     private void addEmptyData(List<AbstractRenderable> elements, List<StorageData> storageData, float width) {
@@ -94,9 +99,5 @@ public class TabViewFactory {
             elements.add(new Spacer(8));
         }
         elements.remove(elements.size() - 1);
-    }
-
-    private boolean hasStorage() {
-        return !StorageHelper.getAllWithAccess().isEmpty();
     }
 }

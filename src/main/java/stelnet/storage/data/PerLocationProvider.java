@@ -1,6 +1,6 @@
 package stelnet.storage.data;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.fs.starfarer.api.campaign.CargoAPI;
@@ -19,18 +19,22 @@ public class PerLocationProvider implements DataProvider {
 
     @Override
     public List<StorageData> getData(FilterManager filterManager) {
-        List<StorageData> data = new ArrayList<>();
+        List<StorageData> data = new LinkedList<>();
         List<SubmarketAPI> storages = StorageHelper.getAllSortedWithAccess();
         for (SubmarketAPI storage : storages) {
-            CargoAPI storageCargo = storage.getCargo();
-            CargoAPI items = getItems(filterManager, storageCargo);
-            List<FleetMemberAPI> ships = getShips(filterManager, storageCargo);
-            String name = storage.getMarket().getName();
-            log.debug("Found " + items.getStacksCopy().size() + " items in " + name);
-            log.debug("Found " + ships.size() + " ships in " + name);
-            data.add(new StorageData(new LocationData(storage.getMarket()), items, ships));
+            processSubmarket(storage, filterManager, data);
         }
         return data;
+    }
+
+    protected void processSubmarket(SubmarketAPI storage, FilterManager filterManager, List<StorageData> data) {
+        CargoAPI storageCargo = storage.getCargo();
+        CargoAPI items = getItems(filterManager, storageCargo);
+        List<FleetMemberAPI> ships = getShips(filterManager, storageCargo);
+        String name = storage.getMarket().getName();
+        log.debug("Found " + items.getStacksCopy().size() + " items in " + name);
+        log.debug("Found " + ships.size() + " ships in " + name);
+        data.add(new StorageData(new LocationData(storage.getMarket()), items, ships));
     }
 
     private CargoAPI getItems(FilterManager filterManager, CargoAPI storageCargo) {
