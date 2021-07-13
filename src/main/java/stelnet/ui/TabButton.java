@@ -3,6 +3,8 @@ package stelnet.ui;
 import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.util.Misc;
 
+import stelnet.ui.property.Size;
+
 public class TabButton extends Button {
 
     public TabButton(String title, boolean isActive, int shortcut) {

@@ -19,7 +19,7 @@ import stelnet.commodity.view.TabViewFactory;
 import stelnet.helper.GlobalSettingsHelper;
 import stelnet.helper.IntelHelper;
 import stelnet.ui.Renderable;
-import stelnet.ui.Size;
+import stelnet.ui.property.Size;
 
 @Setter
 @Getter

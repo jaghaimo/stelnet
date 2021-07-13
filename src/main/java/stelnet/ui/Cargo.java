@@ -4,6 +4,8 @@ package stelnet.ui;
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import stelnet.ui.property.Size;
+
 public class Cargo extends AbstractRenderable {
 
     private final CargoAPI cargo;

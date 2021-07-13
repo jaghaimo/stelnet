@@ -9,12 +9,13 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
+import stelnet.ui.property.Size;
 
 /**
  * Simple element grouping usable in both large and small intel.
  *
  * Extended by {@link HorizontalViewContainer} and {@link VerticalViewContainer}
- * which can only be used in large intel only.
+ * which can be used in large intel only.
  */
 @AllArgsConstructor
 @Getter(AccessLevel.PROTECTED)

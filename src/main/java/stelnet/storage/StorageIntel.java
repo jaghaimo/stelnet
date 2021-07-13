@@ -16,8 +16,8 @@ import stelnet.ui.Cargo;
 import stelnet.ui.Heading;
 import stelnet.ui.Renderable;
 import stelnet.ui.Ships;
-import stelnet.ui.Size;
 import stelnet.ui.Spacer;
+import stelnet.ui.property.Size;
 
 public class StorageIntel extends BaseIntel {
 

@@ -4,7 +4,7 @@ public class ModConfig extends Config {
 
     public static transient String language = "en";
     public static transient boolean uninstallMod = false;
-    public static transient boolean verboseLogging = true;
+    public static transient boolean verboseLogging = false;
 
     public static void configure() {
         language = get("language", language);

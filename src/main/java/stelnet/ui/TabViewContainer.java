@@ -9,6 +9,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import lombok.Setter;
+import stelnet.ui.property.Position;
 
 @Setter
 public class TabViewContainer extends AbstractRenderable {
@@ -29,7 +30,7 @@ public class TabViewContainer extends AbstractRenderable {
     }
 
     @Override
-    public void render(CustomPanelAPI panel) {
+    public void render(CustomPanelAPI panel, float x, float y) {
         if (tabs.isEmpty()) {
             return;
         }
@@ -38,7 +39,7 @@ public class TabViewContainer extends AbstractRenderable {
         AbstractRenderable separatorLine = new Line(tabToDisplay.getSize().getWidth(), Misc.getButtonTextColor());
         separatorLine.setOffset(new Position(0, -4));
         AbstractRenderable spacer = new Spacer(2);
-        new VerticalViewContainer(tabButtons, separatorLine, spacer, tabToDisplay).render(panel);
+        new VerticalViewContainer(tabButtons, separatorLine, spacer, tabToDisplay).render(panel, 0, 0);
     }
 
     private AbstractRenderable getTabToDisplay() {

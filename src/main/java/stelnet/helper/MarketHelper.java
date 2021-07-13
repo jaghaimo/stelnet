@@ -2,9 +2,11 @@ package stelnet.helper;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.campaign.listeners.ListenerUtil;
@@ -13,6 +15,14 @@ import stelnet.filter.market.IsNotHidden;
 import stelnet.filter.market.MarketFilter;
 
 public class MarketHelper {
+
+    public static List<SectorEntityToken> convertMarkets(List<MarketAPI> markets) {
+        List<SectorEntityToken> tokens = new LinkedList<>();
+        for (MarketAPI market : markets) {
+            tokens.add(market.getPrimaryEntity());
+        }
+        return tokens;
+    }
 
     public static Set<MarketAPI> extractMarkets(List<SubmarketAPI> submarkets) {
         Set<MarketAPI> markets = new HashSet<>();

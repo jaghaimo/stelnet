@@ -19,8 +19,8 @@ import stelnet.ui.Heading;
 import stelnet.ui.Image;
 import stelnet.ui.Paragraph;
 import stelnet.ui.Renderable;
-import stelnet.ui.Size;
 import stelnet.ui.Spacer;
+import stelnet.ui.property.Size;
 
 @Getter
 public class CommodityIntel extends BaseIntel {

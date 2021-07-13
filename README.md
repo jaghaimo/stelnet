@@ -15,9 +15,13 @@ It also hosts a Profit tab that can be used to find viable trade routes.
 
 ### Market
 
-Market board (formerly [Hyperspace Networks](https://fractalsoftworks.com/forum/index.php?topic=19252)) manages market searches. These can be either staff search (e.g. freelance administrator, steady officer, aggressive mercenary), item search (e.g. specific mod-spec or weapon), or ship search (e.g. pristine frigate, d-modded carrier).
+Market Queries board (formerly [Hyperspace Networks](https://fractalsoftworks.com/forum/index.php?topic=19252)) manages market searches. These can be either staff search (e.g. freelance administrator, steady officer, aggressive mercenary), item search (e.g. specific mod-spec or weapon), or ship search (e.g. pristine frigate, d-modded carrier).
 
 ![Market](https://github.com/jaghaimo/stelnet/raw/master/images/market.png)
+
+Market Viewer board lets you select a market and preview content of all its submarkets.
+
+![Viewer](https://github.com/jaghaimo/stelnet/raw/master/images/viewer.png)
 
 ### Storage
 

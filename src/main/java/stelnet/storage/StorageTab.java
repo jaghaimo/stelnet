@@ -5,7 +5,7 @@ import stelnet.storage.data.StorageData;
 import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Cargo;
 import stelnet.ui.Ships;
-import stelnet.ui.Size;
+import stelnet.ui.property.Size;
 
 public enum StorageTab {
 

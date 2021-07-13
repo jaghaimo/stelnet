@@ -7,10 +7,13 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
+import stelnet.ui.property.Location;
+import stelnet.ui.property.Position;
+import stelnet.ui.property.Size;
 
 /**
- * Base building block of UI (both {@link CustomPanelAPI} and
- * {@link TooltipMakerAPI}).
+ * Basic rendering logic for components {@link CustomPanelAPI}. Elements still
+ * need to implement their own rendering logic using {@link TooltipMakerAPI}).
  *
  * Can account for {@link Location} (TOP_LEFT by default) and {@link Position}
  * offset (0, 0 by default). Comes with a scroller (by default) if needs to use
@@ -31,10 +34,6 @@ public abstract class AbstractRenderable implements Renderable {
     }
 
     @Override
-    public void render(CustomPanelAPI panel) {
-        render(panel, 0, 0);
-    }
-
     public void render(CustomPanelAPI panel, float x, float y) {
         log(new Position(x, y));
         Size size = getSize();

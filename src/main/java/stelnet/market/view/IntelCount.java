@@ -3,10 +3,10 @@ package stelnet.market.view;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
 
-import stelnet.market.IntelQuery;
-import stelnet.ui.Location;
+import stelnet.market.intel.IntelQuery;
 import stelnet.ui.Paragraph;
-import stelnet.ui.Position;
+import stelnet.ui.property.Location;
+import stelnet.ui.property.Position;
 
 public class IntelCount extends Paragraph {
 

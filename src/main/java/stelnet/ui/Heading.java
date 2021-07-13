@@ -5,6 +5,8 @@ import java.awt.Color;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import stelnet.ui.property.Size;
+
 public class Heading extends AbstractRenderable {
 
     private final String title;
