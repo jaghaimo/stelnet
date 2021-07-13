@@ -17,7 +17,7 @@ import stelnet.filter.fleetmember.IsSize;
 import stelnet.filter.market.HasAdministrator;
 import stelnet.filter.market.HasOfficer;
 import stelnet.filter.market.MarketFilter;
-import stelnet.market.DialogOption;
+import stelnet.market.dialog.DialogOption;
 
 @Getter
 public class MutableFilterManager implements FilterManager {

@@ -6,6 +6,8 @@ import java.util.List;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
+import stelnet.ui.property.Size;
+
 public class Ships extends AbstractRenderable {
 
     private final List<FleetMemberAPI> ships;

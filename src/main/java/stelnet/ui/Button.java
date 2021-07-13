@@ -11,6 +11,7 @@ import com.fs.starfarer.api.util.Misc;
 
 import lombok.Getter;
 import lombok.Setter;
+import stelnet.ui.property.Size;
 
 @Getter
 @Setter

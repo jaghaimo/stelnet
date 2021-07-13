@@ -6,6 +6,8 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import stelnet.ui.property.Position;
+import stelnet.ui.property.Size;
 
 @RequiredArgsConstructor
 @Log4j

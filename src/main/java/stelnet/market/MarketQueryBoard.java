@@ -11,11 +11,12 @@ import stelnet.BoardInfo;
 import stelnet.L10n;
 import stelnet.helper.GlobalSettingsHelper;
 import stelnet.helper.IntelHelper;
+import stelnet.market.intel.IntelQuery;
 import stelnet.market.view.ControlRow;
 import stelnet.market.view.EmptyRow;
 import stelnet.market.view.Queries;
 import stelnet.ui.Renderable;
-import stelnet.ui.Size;
+import stelnet.ui.property.Size;
 
 /**
  * Information board for managing displayed information intel.
@@ -42,6 +43,12 @@ public class MarketQueryBoard extends BaseBoard {
     }
 
     @Override
+    protected BoardInfo getBoardInfo() {
+        int queriesPresent = queries.size();
+        return new BoardInfo(L10n.get("marketQueryTitle"), L10n.get("marketQueryDescription", queriesPresent));
+    }
+
+    @Override
     protected List<Renderable> getRenderables(Size size) {
         return Arrays.asList(
                 new ControlRow(size, queries),
@@ -51,13 +58,7 @@ public class MarketQueryBoard extends BaseBoard {
     }
 
     @Override
-    protected BoardInfo getBoardInfo() {
-        int queriesPresent = queries.size();
-        return new BoardInfo(L10n.get("marketBoardTitle"), L10n.get("marketBoardDescription", queriesPresent));
-    }
-
-    @Override
     protected String getTag() {
-        return MarketResultIntel.TAG;
+        return MarketQueryIntel.TAG;
     }
 }

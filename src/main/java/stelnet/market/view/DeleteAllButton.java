@@ -8,12 +8,12 @@ import com.fs.starfarer.api.util.Misc;
 
 import org.lwjgl.input.Keyboard;
 
-import stelnet.market.IntelQuery;
+import stelnet.market.intel.IntelQuery;
 import stelnet.ui.Button;
 import stelnet.ui.EventHandler;
-import stelnet.ui.Location;
-import stelnet.ui.Position;
-import stelnet.ui.Size;
+import stelnet.ui.property.Location;
+import stelnet.ui.property.Position;
+import stelnet.ui.property.Size;
 
 public class DeleteAllButton extends Button {
 

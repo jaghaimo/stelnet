@@ -4,6 +4,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import lombok.AllArgsConstructor;
 import stelnet.helper.GlobalSectorHelper;
+import stelnet.ui.property.Size;
 
 @AllArgsConstructor
 public class Table extends AbstractRenderable {

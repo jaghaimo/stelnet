@@ -13,12 +13,13 @@ import stelnet.helper.GlobalSectorHelper;
 import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Button;
 import stelnet.ui.Group;
-import stelnet.ui.Position;
-import stelnet.ui.Size;
+import stelnet.ui.Renderable;
+import stelnet.ui.property.Position;
+import stelnet.ui.property.Size;
 
 public class ButtonViewFactory {
 
-    public AbstractRenderable createContainer(String activeId, Size size) {
+    public Renderable createContainer(String activeId, Size size) {
         List<AbstractRenderable> buttons = new LinkedList<>();
         List<CommoditySpecAPI> commodities = GlobalSectorHelper.getAllCommodities();
         filterCommodities(commodities);

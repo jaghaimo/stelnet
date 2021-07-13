@@ -3,7 +3,7 @@ package stelnet.filter.cargostack;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.loading.WingRole;
 
-import stelnet.market.DialogOption;
+import stelnet.market.dialog.DialogOption;
 
 public class IsWingType implements CargoStackFilter {
 

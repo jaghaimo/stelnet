@@ -8,11 +8,11 @@ import stelnet.commodity.data.BuyTableContent;
 import stelnet.commodity.data.ProfitTableContent;
 import stelnet.commodity.data.SellTableContent;
 import stelnet.commodity.market.MarketRepository;
-import stelnet.ui.AbstractRenderable;
-import stelnet.ui.Size;
+import stelnet.ui.Renderable;
 import stelnet.ui.TabViewContainer;
 import stelnet.ui.Table;
 import stelnet.ui.TableContent;
+import stelnet.ui.property.Size;
 
 @RequiredArgsConstructor
 public class TabViewFactory {
@@ -20,7 +20,7 @@ public class TabViewFactory {
     private final String commodityId;
     private final CommodityTab activeTab;
 
-    public AbstractRenderable createContainer(Size size) {
+    public Renderable createContainer(Size size) {
         float width = size.getWidth() - 210;
         float height = size.getHeight() - 54;
         MarketRepository marketRepository = new MarketRepository(commodityId);

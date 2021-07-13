@@ -8,6 +8,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
 import lombok.Setter;
+import stelnet.ui.property.Size;
 
 @Setter
 public class Paragraph extends AbstractRenderable {

@@ -2,7 +2,7 @@ package stelnet.filter.fleetmember;
 
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 
-import stelnet.market.DialogOption;
+import stelnet.market.dialog.DialogOption;
 
 public class IsCarrier implements FleetMemberFilter {
 

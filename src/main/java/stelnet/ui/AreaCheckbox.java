@@ -9,17 +9,18 @@ import com.fs.starfarer.api.util.Misc;
 
 import lombok.Getter;
 import lombok.Setter;
+import stelnet.ui.property.Size;
 
 @Getter
 @Setter
-public class AreaCheckbox extends Button {
+public class AreaCheckbox extends Button implements TwoStateButton {
 
-    private boolean isChecked;
+    private boolean isStateOn;
     private Color offColor;
 
-    public AreaCheckbox(Size size, String title, boolean isEnabled, boolean isChecked, Color onColor, Color offColor) {
+    public AreaCheckbox(Size size, String title, boolean isEnabled, boolean isStateOn, Color onColor, Color offColor) {
         super(size, title, isEnabled, onColor);
-        this.isChecked = isChecked;
+        this.isStateOn = isStateOn;
         this.offColor = offColor;
         setSize(size);
         setWithScroller(false);
@@ -27,7 +28,7 @@ public class AreaCheckbox extends Button {
 
     @Override
     public void onConfirm(IntelUIAPI ui) {
-        setChecked(!isChecked);
+        setStateOn(!isStateOn);
         super.onConfirm(ui);
     }
 
@@ -39,14 +40,14 @@ public class AreaCheckbox extends Button {
         ButtonAPI button = tooltip.addAreaCheckbox(getTitle(), this, Misc.getGrayColor(), backgroundColor,
                 foregroundColor, size.getWidth() - 4, size.getHeight() - 4, 4);
         button.setEnabled(isEnabled());
-        button.setChecked(isChecked);
+        button.setChecked(isStateOn);
         if (getShortcut() > 0) {
             button.setShortcut(getShortcut(), false);
         }
     }
 
     private Color getForegroundColor() {
-        if (isChecked) {
+        if (isStateOn) {
             return getColor();
         }
         return offColor;

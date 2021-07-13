@@ -9,6 +9,7 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import lombok.extern.log4j.Log4j;
+import stelnet.ui.property.Size;
 
 @Log4j
 public class RenderableIntel extends BaseIntelPlugin {
@@ -48,7 +49,7 @@ public class RenderableIntel extends BaseIntelPlugin {
     public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
         Size size = new Size(width, height);
         for (Renderable view : getRenderables(size)) {
-            view.render(panel);
+            view.render(panel, 0, 0);
         }
     }
 
