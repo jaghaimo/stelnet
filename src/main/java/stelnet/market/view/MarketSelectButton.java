@@ -6,7 +6,7 @@ import com.fs.starfarer.api.util.Misc;
 import org.lwjgl.input.Keyboard;
 
 import stelnet.L10n;
-import stelnet.market.dialog.MarketSelectorDialog;
+import stelnet.market.dialog.MarketSelectDialog;
 import stelnet.ui.Button;
 import stelnet.ui.EventHandler;
 import stelnet.ui.property.Location;
@@ -23,7 +23,7 @@ public class MarketSelectButton extends Button {
         setHandler(new EventHandler() {
             @Override
             public void onConfirm(IntelUIAPI ui) {
-                ui.showDialog(null, new MarketSelectorDialog(ui));
+                ui.showDialog(null, new MarketSelectDialog(ui));
             }
         });
     }

@@ -19,7 +19,7 @@ import stelnet.market.MarketViewBoard;
 import stelnet.market.data.MarketProvider;
 
 @RequiredArgsConstructor
-public class MarketSelectorDialog implements InteractionDialogPlugin {
+public class MarketSelectDialog implements InteractionDialogPlugin {
 
     private final IntelUIAPI ui;
 
