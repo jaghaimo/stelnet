@@ -2,7 +2,7 @@ package stelnet.filter.fleetmember;
 
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 
-import stelnet.market.dialog.DialogOption;
+import stelnet.market_old.dialog.DialogOption;
 
 public class IsDamaged implements FleetMemberFilter {
 

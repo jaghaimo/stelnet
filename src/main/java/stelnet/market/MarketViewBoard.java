@@ -12,6 +12,7 @@ import stelnet.BoardInfo;
 import stelnet.L10n;
 import stelnet.helper.GlobalSettingsHelper;
 import stelnet.helper.IntelHelper;
+import stelnet.market.data.MarketProvider;
 import stelnet.market.view.MarketSelectButton;
 import stelnet.market.view.ViewerTabViewFactory;
 import stelnet.storage.ButtonManager;
@@ -68,6 +69,6 @@ public class MarketViewBoard extends BaseBoard {
 
     @Override
     protected String getTag() {
-        return MarketQueryIntel.TAG;
+        return Market.TAG;
     }
 }

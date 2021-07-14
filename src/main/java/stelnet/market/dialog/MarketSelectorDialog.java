@@ -15,8 +15,8 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import lombok.RequiredArgsConstructor;
 import stelnet.L10n;
 import stelnet.helper.MarketHelper;
-import stelnet.market.MarketProvider;
 import stelnet.market.MarketViewBoard;
+import stelnet.market.data.MarketProvider;
 
 @RequiredArgsConstructor
 public class MarketSelectorDialog implements InteractionDialogPlugin {

@@ -3,7 +3,7 @@ package stelnet.filter.cargostack;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 
-import stelnet.market.dialog.DialogOption;
+import stelnet.market_old.dialog.DialogOption;
 
 public class IsWeaponSize implements CargoStackFilter {
 

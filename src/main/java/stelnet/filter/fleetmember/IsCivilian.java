@@ -3,7 +3,7 @@ package stelnet.filter.fleetmember;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.ids.HullMods;
 
-import stelnet.market.dialog.DialogOption;
+import stelnet.market_old.dialog.DialogOption;
 
 public class IsCivilian implements FleetMemberFilter {
 
