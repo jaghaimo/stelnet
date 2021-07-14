@@ -9,14 +9,13 @@ import com.fs.starfarer.api.campaign.SectorEntityToken;
 import stelnet.BaseIntel;
 import stelnet.IntelInfo;
 import stelnet.L10n;
+import stelnet.helper.Tagger;
 import stelnet.market_old.intel.subject.IntelSubject;
 import stelnet.market_old.view.LegacyIntel;
 import stelnet.ui.Renderable;
 import stelnet.ui.property.Size;
 
 public class MarketQueryIntel extends BaseIntel {
-
-    public final static String TAG = "stelnetMarket";
 
     private final IntelSubject intelSubject;
 
@@ -57,7 +56,7 @@ public class MarketQueryIntel extends BaseIntel {
 
     @Override
     protected String getTag() {
-        return TAG;
+        return Tagger.MARKET;
     }
 
     private void endIfInvalid() {

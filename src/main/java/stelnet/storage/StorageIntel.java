@@ -12,6 +12,7 @@ import stelnet.BaseIntel;
 import stelnet.IntelInfo;
 import stelnet.L10n;
 import stelnet.helper.CargoHelper;
+import stelnet.helper.Tagger;
 import stelnet.ui.Cargo;
 import stelnet.ui.Heading;
 import stelnet.ui.Renderable;
@@ -20,8 +21,6 @@ import stelnet.ui.Spacer;
 import stelnet.ui.property.Size;
 
 public class StorageIntel extends BaseIntel {
-
-    public final static String TAG = "stelnetStorage";
 
     private final SubmarketAPI storage;
 
@@ -65,7 +64,7 @@ public class StorageIntel extends BaseIntel {
 
     @Override
     protected String getTag() {
-        return TAG;
+        return Tagger.STORAGE;
     }
 
     private String getStorageContent() {

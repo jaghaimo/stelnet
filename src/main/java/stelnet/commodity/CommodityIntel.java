@@ -15,6 +15,7 @@ import stelnet.L10n;
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.commodity.market.price.Price;
 import stelnet.commodity.view.DeleteIntel;
+import stelnet.helper.Tagger;
 import stelnet.ui.Heading;
 import stelnet.ui.Image;
 import stelnet.ui.Paragraph;
@@ -24,8 +25,6 @@ import stelnet.ui.property.Size;
 
 @Getter
 public class CommodityIntel extends BaseIntel {
-
-    public final static String TAG = "stelnetCommodity";
 
     private final String action;
     private final CommoditySpecAPI commodity;
@@ -95,7 +94,7 @@ public class CommodityIntel extends BaseIntel {
 
     @Override
     protected String getTag() {
-        return TAG;
+        return Tagger.COMMODITY;
     }
 
     private void addPriceChange(List<Renderable> renderables, float width) {

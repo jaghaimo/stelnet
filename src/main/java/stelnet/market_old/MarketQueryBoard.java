@@ -11,6 +11,7 @@ import stelnet.BoardInfo;
 import stelnet.L10n;
 import stelnet.helper.GlobalSettingsHelper;
 import stelnet.helper.IntelHelper;
+import stelnet.helper.Tagger;
 import stelnet.market_old.intel.IntelQuery;
 import stelnet.market_old.view.ControlRow;
 import stelnet.market_old.view.EmptyRow;
@@ -59,6 +60,6 @@ public class MarketQueryBoard extends BaseBoard {
 
     @Override
     protected String getTag() {
-        return MarketQueryIntel.TAG;
+        return Tagger.MARKET;
     }
 }

@@ -13,6 +13,7 @@ import stelnet.L10n;
 import stelnet.helper.GlobalSettingsHelper;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.StorageHelper;
+import stelnet.helper.Tagger;
 import stelnet.storage.view.StorageTabViewFactory;
 import stelnet.ui.Renderable;
 import stelnet.ui.property.Size;
@@ -55,7 +56,7 @@ public class StorageBoard extends BaseBoard {
 
     @Override
     protected String getTag() {
-        return StorageIntel.TAG;
+        return Tagger.STORAGE;
     }
 
     private String getDescription() {

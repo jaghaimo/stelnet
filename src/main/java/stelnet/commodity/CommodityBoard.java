@@ -18,6 +18,7 @@ import stelnet.commodity.view.IntelViewFactory;
 import stelnet.commodity.view.TabViewFactory;
 import stelnet.helper.GlobalSettingsHelper;
 import stelnet.helper.IntelHelper;
+import stelnet.helper.Tagger;
 import stelnet.ui.Renderable;
 import stelnet.ui.property.Size;
 
@@ -72,6 +73,6 @@ public class CommodityBoard extends BaseBoard {
 
     @Override
     protected String getTag() {
-        return CommodityIntel.TAG;
+        return Tagger.COMMODITY;
     }
 }
