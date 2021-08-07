@@ -40,10 +40,16 @@ public class StorageTabViewFactory {
         Size contentSize = new Size(width, height);
 
         TabViewContainer tabViewContainer = new TabViewContainer();
-        tabViewContainer.addTab(getTabButton(StorageTab.ITEMS, Keyboard.KEY_I),
-                getTabPane(size, contentSize, buttonManager.getItemButtons()), isActive(StorageTab.ITEMS));
-        tabViewContainer.addTab(getTabButton(StorageTab.SHIPS, Keyboard.KEY_S),
-                getTabPane(size, contentSize, buttonManager.getShipButtons()), isActive(StorageTab.SHIPS));
+        tabViewContainer.addTab(
+                getTabButton(StorageTab.ITEMS, Keyboard.KEY_I),
+                getTabPane(size, contentSize, buttonManager.getItemButtons()),
+                isActive(StorageTab.ITEMS)
+        );
+        tabViewContainer.addTab(
+                getTabButton(StorageTab.SHIPS, Keyboard.KEY_S),
+                getTabPane(size, contentSize, buttonManager.getShipButtons()),
+                isActive(StorageTab.SHIPS)
+        );
 
         return tabViewContainer;
     }
