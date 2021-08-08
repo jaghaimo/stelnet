@@ -7,9 +7,9 @@ import stelnet.storage.data.DataProvider;
 import stelnet.storage.view.StorageTabViewFactory;
 import stelnet.ui.TabButton;
 
-public class VierwerTabViewFactory extends StorageTabViewFactory {
+public class ViewerTabViewFactory extends StorageTabViewFactory {
 
-    public VierwerTabViewFactory(
+    public ViewerTabViewFactory(
             ButtonManager buttonManager,
             FilterManager filterManager,
             StorageTab activeTab,
@@ -21,10 +21,5 @@ public class VierwerTabViewFactory extends StorageTabViewFactory {
     @Override
     protected TabButton getTabButton(StorageTab currentTab, int keyboardShortcut) {
         return new ViewerTabButton(currentTab, isActive(currentTab), keyboardShortcut);
-    }
-
-    @Override
-    protected boolean hasStorage() {
-        return true;
     }
 }

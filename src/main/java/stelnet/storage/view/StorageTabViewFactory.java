@@ -7,7 +7,6 @@ import org.lwjgl.input.Keyboard;
 
 import lombok.RequiredArgsConstructor;
 import stelnet.L10n;
-import stelnet.helper.StorageHelper;
 import stelnet.storage.ButtonManager;
 import stelnet.storage.FilterManager;
 import stelnet.storage.StorageTab;
@@ -62,10 +61,6 @@ public class StorageTabViewFactory {
         return new StorageTabButton(currentTab, isActive(currentTab), keyboardShortcut);
     }
 
-    protected boolean hasStorage() {
-        return !StorageHelper.getAllWithAccess().isEmpty();
-    }
-
     private AbstractRenderable getTabPane(Size size, Size contentSize, AbstractRenderable[] buttons) {
         List<AbstractRenderable> elements = new ArrayList<>();
         List<StorageData> storageData = activeView.getData(filterManager);
@@ -83,21 +78,24 @@ public class StorageTabViewFactory {
     }
 
     private void addEmptyData(List<AbstractRenderable> elements, List<StorageData> storageData, float width) {
-        if (!hasStorage()) {
+        if (storageData.isEmpty()) {
             elements.add(new Paragraph(L10n.get("storageNoStorages"), width));
         }
     }
 
     private void addStorageData(List<AbstractRenderable> elements, List<StorageData> storageData) {
-        if (!hasStorage() || storageData.isEmpty()) {
-            return;
-        }
         for (StorageData data : storageData) {
             LocationData locationData = data.getLocationData();
             elements.add(new Heading(locationData.getName(), locationData.getFgColor(), locationData.getBgColor()));
             elements.add(activeTab.getStorageRenderer(data));
             elements.add(new Spacer(8));
         }
-        elements.remove(elements.size() - 1);
+        removeLastElement(elements);
+    }
+
+    private void removeLastElement(List<AbstractRenderable> elements) {
+        if (elements.size() > 0) {
+            elements.remove(elements.size() - 1);
+        }
     }
 }
