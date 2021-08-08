@@ -89,7 +89,7 @@ public class StorageTabViewFactory {
     }
 
     private void addStorageData(List<AbstractRenderable> elements, List<StorageData> storageData) {
-        if (!hasStorage()) {
+        if (!hasStorage() || storageData.isEmpty()) {
             return;
         }
         for (StorageData data : storageData) {
