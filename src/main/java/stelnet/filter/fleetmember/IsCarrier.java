@@ -2,26 +2,18 @@ package stelnet.filter.fleetmember;
 
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 
-import stelnet.market_old.dialog.DialogOption;
-
 public class IsCarrier implements FleetMemberFilter {
 
-    private final DialogOption option;
+    private final Boolean isCarrier;
 
-    public IsCarrier(DialogOption o) {
-        option = o;
+    public IsCarrier(Boolean isCarrier) {
+        this.isCarrier = isCarrier;
     }
 
     public boolean accept(FleetMemberAPI f) {
-        switch (option) {
-        case SHIP_CARRIER_NO:
-            return !f.isCarrier();
-
-        case SHIP_CARRIER_ONLY:
-            return f.isCarrier();
-
-        default:
+        if (isCarrier == null) {
             return true;
         }
+        return isCarrier.equals(f.isCarrier());
     }
 }

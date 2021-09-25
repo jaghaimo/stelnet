@@ -3,13 +3,16 @@ package stelnet.filter.cargostack;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 
-import stelnet.market_old.dialog.DialogOption;
-
 public class IsWeaponSize implements CargoStackFilter {
 
-    private final DialogOption option;
+    // TODO: Temporary implementation
+    public enum Size {
+        SIZE_SMALL, SIZE_MEDIUM, SIZE_LARGE;
+    }
 
-    public IsWeaponSize(DialogOption o) {
+    private final Size option;
+
+    public IsWeaponSize(Size o) {
         option = o;
     }
 
@@ -21,17 +24,17 @@ public class IsWeaponSize implements CargoStackFilter {
         WeaponSize weaponSize = c.getWeaponSpecIfWeapon().getSize();
 
         switch (option) {
-        case WEAPON_SIZE_SMALL:
-            return weaponSize.equals(WeaponSize.SMALL);
+            case SIZE_SMALL:
+                return weaponSize.equals(WeaponSize.SMALL);
 
-        case WEAPON_SIZE_MEDIUM:
-            return weaponSize.equals(WeaponSize.MEDIUM);
+            case SIZE_MEDIUM:
+                return weaponSize.equals(WeaponSize.MEDIUM);
 
-        case WEAPON_SIZE_LARGE:
-            return weaponSize.equals(WeaponSize.LARGE);
+            case SIZE_LARGE:
+                return weaponSize.equals(WeaponSize.LARGE);
 
-        default:
-            return true;
+            default:
+                return true;
         }
     }
 }

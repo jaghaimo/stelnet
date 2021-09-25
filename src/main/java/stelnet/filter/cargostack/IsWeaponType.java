@@ -3,13 +3,16 @@ package stelnet.filter.cargostack;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 
-import stelnet.market_old.dialog.DialogOption;
-
 public class IsWeaponType implements CargoStackFilter {
 
-    private final DialogOption option;
+    // TODO: Temporary implementation
+    public enum Type {
+        BALLISTIC, ENERGY, MISSILE;
+    }
 
-    public IsWeaponType(DialogOption o) {
+    private final Type option;
+
+    public IsWeaponType(Type o) {
         option = o;
     }
 
@@ -21,17 +24,17 @@ public class IsWeaponType implements CargoStackFilter {
         WeaponType weaponType = c.getWeaponSpecIfWeapon().getType();
 
         switch (option) {
-        case WEAPON_TYPE_BALLISTIC:
-            return weaponType.equals(WeaponType.BALLISTIC);
+            case BALLISTIC:
+                return weaponType.equals(WeaponType.BALLISTIC);
 
-        case WEAPON_TYPE_ENERGY:
-            return weaponType.equals(WeaponType.ENERGY);
+            case ENERGY:
+                return weaponType.equals(WeaponType.ENERGY);
 
-        case WEAPON_TYPE_MISSILE:
-            return weaponType.equals(WeaponType.MISSILE);
+            case MISSILE:
+                return weaponType.equals(WeaponType.MISSILE);
 
-        default:
-            return true;
+            default:
+                return true;
         }
     }
 }

@@ -3,13 +3,16 @@ package stelnet.filter.cargostack;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.loading.WingRole;
 
-import stelnet.market_old.dialog.DialogOption;
-
 public class IsWingType implements CargoStackFilter {
 
-    private final DialogOption option;
+    // TODO Temporary implementation
+    public enum Type {
+        BOMBER, FIGHTER, INTERCEPTOR;
+    }
 
-    public IsWingType(DialogOption o) {
+    private final Type option;
+
+    public IsWingType(Type o) {
         option = o;
     }
 
@@ -21,17 +24,17 @@ public class IsWingType implements CargoStackFilter {
         WingRole wingRole = c.getFighterWingSpecIfWing().getRole();
 
         switch (option) {
-        case WING_TYPE_BOMBER:
-            return wingRole.equals(WingRole.BOMBER);
+            case BOMBER:
+                return wingRole.equals(WingRole.BOMBER);
 
-        case WING_TYPE_FIGHTER:
-            return wingRole.equals(WingRole.FIGHTER);
+            case FIGHTER:
+                return wingRole.equals(WingRole.FIGHTER);
 
-        case WING_TYPE_INTERCEPTOR:
-            return wingRole.equals(WingRole.INTERCEPTOR);
+            case INTERCEPTOR:
+                return wingRole.equals(WingRole.INTERCEPTOR);
 
-        default:
-            return true;
+            default:
+                return true;
         }
     }
 }

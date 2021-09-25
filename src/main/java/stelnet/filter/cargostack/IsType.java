@@ -3,32 +3,35 @@ package stelnet.filter.cargostack;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.SpecialItemSpecAPI;
 
-import stelnet.market_old.dialog.DialogOption;
-
 public class IsType implements CargoStackFilter {
 
-    private final DialogOption option;
+    // TODO: Temporary implementation
+    public enum Type {
+        TYPE_WEAPON, TYPE_FIGHTER, TYPE_MODSPEC, TYPE_BLUEPRINT;
+    }
 
-    public IsType(DialogOption o) {
+    private final Type option;
+
+    public IsType(Type o) {
         option = o;
     }
 
     public boolean accept(CargoStackAPI c) {
         switch (option) {
-        case CARGO_TYPE_WEAPON:
-            return c.isWeaponStack();
+            case TYPE_WEAPON:
+                return c.isWeaponStack();
 
-        case CARGO_TYPE_FIGHTER:
-            return c.isFighterWingStack();
+            case TYPE_FIGHTER:
+                return c.isFighterWingStack();
 
-        case CARGO_TYPE_MODSPEC:
-            return isModspec(c);
+            case TYPE_MODSPEC:
+                return isModspec(c);
 
-        case CARGO_TYPE_BLUEPRINT:
-            return isBlueprint(c);
+            case TYPE_BLUEPRINT:
+                return isBlueprint(c);
 
-        default:
-            return false;
+            default:
+                return false;
         }
     }
 
