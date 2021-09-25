@@ -14,10 +14,10 @@ import stelnet.ui.property.Position;
 @Setter
 public class TabViewContainer extends AbstractRenderable {
 
-    private final Map<Button, AbstractRenderable> tabs = new LinkedHashMap<>();
+    private final Map<Button, Renderable> tabs = new LinkedHashMap<>();
     private Button activeTab;
 
-    public void addTab(Button tabButton, AbstractRenderable tabPanel, boolean isActive) {
+    public void addTab(Button tabButton, Renderable tabPanel, boolean isActive) {
         tabs.put(tabButton, tabPanel);
         if (isActive) {
             setActiveTab(tabButton);
@@ -34,15 +34,15 @@ public class TabViewContainer extends AbstractRenderable {
         if (tabs.isEmpty()) {
             return;
         }
-        AbstractRenderable tabToDisplay = getTabToDisplay();
-        AbstractRenderable tabButtons = new HorizontalViewContainer(new ArrayList<AbstractRenderable>(tabs.keySet()));
-        AbstractRenderable separatorLine = new Line(tabToDisplay.getSize().getWidth(), Misc.getButtonTextColor());
+        Renderable tabToDisplay = getTabToDisplay();
+        HorizontalViewContainer tabButtons = new HorizontalViewContainer(new ArrayList<Renderable>(tabs.keySet()));
+        Line separatorLine = new Line(tabToDisplay.getSize().getWidth(), Misc.getButtonTextColor());
         separatorLine.setOffset(new Position(0, -4));
-        AbstractRenderable spacer = new Spacer(2);
+        Spacer spacer = new Spacer(2);
         new VerticalViewContainer(tabButtons, separatorLine, spacer, tabToDisplay).render(panel, 0, 0);
     }
 
-    private AbstractRenderable getTabToDisplay() {
+    private Renderable getTabToDisplay() {
         if (tabs.containsKey(activeTab)) {
             return tabs.get(activeTab);
         }

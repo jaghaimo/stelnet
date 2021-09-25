@@ -24,20 +24,20 @@ import stelnet.ui.property.Size;
 
 @Getter
 @Setter
-public class MarketViewBoard extends BaseBoard {
+public class ViewerBoard extends BaseBoard {
 
     private final FilterManager filterManager = new FilterManager();
     private final ButtonManager buttonManager = new ButtonManager(filterManager);
     private StorageTab activeTab = StorageTab.ITEMS;
     private MarketProvider marketProvider = new MarketProvider(null);
 
-    public static MarketViewBoard getInstance() {
-        IntelInfoPlugin intel = IntelHelper.getFirstIntel(MarketViewBoard.class);
+    public static ViewerBoard getInstance() {
+        IntelInfoPlugin intel = IntelHelper.getFirstIntel(ViewerBoard.class);
         if (intel == null) {
-            MarketViewBoard board = new MarketViewBoard();
+            ViewerBoard board = new ViewerBoard();
             IntelHelper.addIntel(board, true);
         }
-        return (MarketViewBoard) intel;
+        return (ViewerBoard) intel;
     }
 
     @Override

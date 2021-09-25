@@ -18,18 +18,18 @@ import stelnet.ui.property.Size;
 @Log4j
 public class VerticalViewContainer extends Group {
 
-    public VerticalViewContainer(AbstractRenderable... elements) {
+    public VerticalViewContainer(Renderable... elements) {
         super(elements);
     }
 
-    public VerticalViewContainer(List<AbstractRenderable> elements) {
+    public VerticalViewContainer(List<Renderable> elements) {
         super(elements);
     }
 
     @Override
     public void render(CustomPanelAPI panel, float x, float y) {
         log(new Position(x, y));
-        for (AbstractRenderable renderable : getElements()) {
+        for (Renderable renderable : getElements()) {
             Size size = renderable.getSize();
             renderable.render(panel, x, y);
             y += size.getHeight() * getLocation().getVerticalDirection();
@@ -51,7 +51,7 @@ public class VerticalViewContainer extends Group {
         super.setCalculatedSize();
         Size size = super.getSize();
         float height = 0;
-        for (AbstractRenderable renderable : getElements()) {
+        for (Renderable renderable : getElements()) {
             height += renderable.getSize().getHeight();
         }
         setSize(new Size(size.getWidth(), height));

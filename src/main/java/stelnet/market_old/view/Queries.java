@@ -39,8 +39,8 @@ public class Queries implements Renderable {
     public void render(TooltipMakerAPI info) {
     }
 
-    private List<AbstractRenderable> getRows(CustomPanelAPI panel, Size size) {
-        List<AbstractRenderable> rows = new LinkedList<>();
+    private List<Renderable> getRows(CustomPanelAPI panel, Size size) {
+        List<Renderable> rows = new LinkedList<>();
         for (int i = 0; i < queries.size(); i++) {
             CustomPanelAPI rowPanel = panel.createCustomPanel(size.getWidth(), 24, null);
             QueryRow queryRow = new QueryRow(size.getWidth(), i, queries);

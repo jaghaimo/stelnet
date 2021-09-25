@@ -10,7 +10,6 @@ import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import stelnet.filter.commodityspec.HasNotTag;
 import stelnet.helper.CollectionHelper;
 import stelnet.helper.GlobalSectorHelper;
-import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Button;
 import stelnet.ui.Group;
 import stelnet.ui.Renderable;
@@ -20,7 +19,7 @@ import stelnet.ui.property.Size;
 public class ButtonViewFactory {
 
     public Renderable createContainer(String activeId, Size size) {
-        List<AbstractRenderable> buttons = new LinkedList<>();
+        List<Renderable> buttons = new LinkedList<>();
         List<CommoditySpecAPI> commodities = GlobalSectorHelper.getAllCommodities();
         filterCommodities(commodities);
         sortCommodities(commodities);

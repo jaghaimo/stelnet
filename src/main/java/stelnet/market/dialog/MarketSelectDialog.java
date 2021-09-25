@@ -15,7 +15,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import lombok.RequiredArgsConstructor;
 import stelnet.L10n;
 import stelnet.helper.MarketHelper;
-import stelnet.market.MarketViewBoard;
+import stelnet.market.ViewerBoard;
 import stelnet.market.data.MarketProvider;
 
 @RequiredArgsConstructor
@@ -25,7 +25,7 @@ public class MarketSelectDialog implements InteractionDialogPlugin {
 
     @Override
     public void init(final InteractionDialogAPI dialog) {
-        final MarketViewBoard board = MarketViewBoard.getInstance();
+        final ViewerBoard board = ViewerBoard.getInstance();
         dialog.showCampaignEntityPicker(
                 L10n.get("marketViewDialogSelect"),
                 L10n.get("marketViewDialogSelected"),

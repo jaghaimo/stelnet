@@ -29,7 +29,7 @@ public abstract class AbstractRenderable implements Renderable {
     private boolean withScroller = true;
     private Size size;
 
-    public void log(Position position) {
+    protected void log(Position position) {
         log.debug(String.format("Rendering %s in %s at %s", this, position, location));
     }
 

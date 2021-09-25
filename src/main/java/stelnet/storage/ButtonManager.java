@@ -19,19 +19,19 @@ import stelnet.filter.fleetmember.IsNotFrigate;
 import stelnet.filter.fleetmember.IsNotWarship;
 import stelnet.storage.view.ItemFilterButton;
 import stelnet.storage.view.ShipFilterButton;
-import stelnet.ui.AbstractRenderable;
+import stelnet.ui.Renderable;
 import stelnet.ui.Spacer;
 
 @Getter
 public class ButtonManager {
 
     private final FilterManager filterManager;
-    private final AbstractRenderable[] itemButtons;
-    private final AbstractRenderable[] shipButtons;
+    private final Renderable[] itemButtons;
+    private final Renderable[] shipButtons;
 
     public ButtonManager(FilterManager filterManager) {
         this.filterManager = filterManager;
-        this.itemButtons = new AbstractRenderable[] {
+        this.itemButtons = new Renderable[] {
                 new ItemFilterButton(filterManager, "storageFilterCommodities", new IsNotCommodity()),
                 new ItemFilterButton(filterManager, "storageFilterWeapons", new IsNotWeapon()),
                 new ItemFilterButton(filterManager, "storageFilterFighterWings", new IsNotFighterWing()),
@@ -47,7 +47,7 @@ public class ButtonManager {
                 new ItemFilterButton(filterManager, "storageFilterInterceptors",
                         new IsNotFighterWingRole(WingRole.INTERCEPTOR))
         };
-        this.shipButtons = new AbstractRenderable[] {
+        this.shipButtons = new Renderable[] {
                 new ShipFilterButton(filterManager, "storageFilterFrigates", new IsNotFrigate()),
                 new ShipFilterButton(filterManager, "storageFilterDestroyers", new IsNotDestroyer()),
                 new ShipFilterButton(filterManager, "storageFilterCruisers", new IsNotCruiser()),

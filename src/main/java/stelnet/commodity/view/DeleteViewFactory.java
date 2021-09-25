@@ -1,6 +1,5 @@
 package stelnet.commodity.view;
 
-import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Renderable;
 import stelnet.ui.VerticalViewContainer;
 import stelnet.ui.property.Size;
@@ -8,7 +7,7 @@ import stelnet.ui.property.Size;
 public class DeleteViewFactory {
 
     public Renderable createContainer(String activeId, Size size) {
-        AbstractRenderable verticalContainer = new VerticalViewContainer(
+        VerticalViewContainer verticalContainer = new VerticalViewContainer(
                 new DeleteAllIntel(),
                 new DeleteCommodityIntel(activeId)
         );

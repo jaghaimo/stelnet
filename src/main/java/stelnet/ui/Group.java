@@ -22,9 +22,9 @@ import stelnet.ui.property.Size;
 @Log4j
 public class Group extends AbstractRenderable {
 
-    private List<AbstractRenderable> elements;
+    private List<Renderable> elements;
 
-    public Group(AbstractRenderable... elements) {
+    public Group(Renderable... elements) {
         this.elements = Arrays.asList(elements);
     }
 
@@ -38,7 +38,7 @@ public class Group extends AbstractRenderable {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        for (AbstractRenderable renderable : getElements()) {
+        for (Renderable renderable : getElements()) {
             renderable.render(tooltip);
         }
     }
@@ -46,7 +46,7 @@ public class Group extends AbstractRenderable {
     protected void setCalculatedSize() {
         float width = 0;
         float height = 0;
-        for (AbstractRenderable renderable : elements) {
+        for (Renderable renderable : elements) {
             Size size = renderable.getSize();
             width = Math.max(width, size.getWidth());
             height = Math.max(height, size.getHeight());

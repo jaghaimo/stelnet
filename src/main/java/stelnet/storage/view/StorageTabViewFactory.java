@@ -13,7 +13,6 @@ import stelnet.storage.StorageTab;
 import stelnet.storage.data.DataProvider;
 import stelnet.storage.data.LocationData;
 import stelnet.storage.data.StorageData;
-import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Group;
 import stelnet.ui.Heading;
 import stelnet.ui.HorizontalViewContainer;
@@ -61,29 +60,29 @@ public class StorageTabViewFactory {
         return new StorageTabButton(currentTab, isActive(currentTab), keyboardShortcut);
     }
 
-    private AbstractRenderable getTabPane(Size size, Size contentSize, AbstractRenderable[] buttons) {
-        List<AbstractRenderable> elements = new ArrayList<>();
+    private Renderable getTabPane(Size size, Size contentSize, Renderable[] buttons) {
+        List<Renderable> elements = new ArrayList<>();
         List<StorageData> storageData = activeView.getData(filterManager);
         addEmptyData(elements, storageData, contentSize.getWidth());
         addStorageData(elements, storageData);
-        AbstractRenderable contentContainer = new Group(elements);
+        Group contentContainer = new Group(elements);
         contentContainer.setSize(contentSize.reduce(new Size(8, 0)));
         contentContainer.setOffset(new Position(5, 0));
-        AbstractRenderable buttonContainer = new Group(buttons);
+        Group buttonContainer = new Group(buttons);
         buttonContainer.setSize(new Size(size.reduce(contentSize).getWidth(), contentSize.getHeight()));
         buttonContainer.setOffset(new Position(8, 0));
-        AbstractRenderable tabContainer = new HorizontalViewContainer(contentContainer, buttonContainer);
+        HorizontalViewContainer tabContainer = new HorizontalViewContainer(contentContainer, buttonContainer);
         tabContainer.setSize(size);
         return tabContainer;
     }
 
-    private void addEmptyData(List<AbstractRenderable> elements, List<StorageData> storageData, float width) {
+    private void addEmptyData(List<Renderable> elements, List<StorageData> storageData, float width) {
         if (storageData.isEmpty()) {
             elements.add(new Paragraph(L10n.get("storageNoStorages"), width));
         }
     }
 
-    private void addStorageData(List<AbstractRenderable> elements, List<StorageData> storageData) {
+    private void addStorageData(List<Renderable> elements, List<StorageData> storageData) {
         for (StorageData data : storageData) {
             LocationData locationData = data.getLocationData();
             elements.add(new Heading(locationData.getName(), locationData.getFgColor(), locationData.getBgColor()));
@@ -93,7 +92,7 @@ public class StorageTabViewFactory {
         removeLastElement(elements);
     }
 
-    private void removeLastElement(List<AbstractRenderable> elements) {
+    private void removeLastElement(List<Renderable> elements) {
         if (elements.size() > 0) {
             elements.remove(elements.size() - 1);
         }

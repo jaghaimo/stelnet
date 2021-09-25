@@ -2,8 +2,8 @@ package stelnet.storage;
 
 import stelnet.L10n;
 import stelnet.storage.data.StorageData;
-import stelnet.ui.AbstractRenderable;
 import stelnet.ui.Cargo;
+import stelnet.ui.Renderable;
 import stelnet.ui.Ships;
 import stelnet.ui.property.Size;
 
@@ -12,14 +12,14 @@ public enum StorageTab {
     ITEMS("Items") {
 
         @Override
-        public AbstractRenderable getStorageRenderer(StorageData data) {
+        public Renderable getStorageRenderer(StorageData data) {
             return new Cargo(data.getItems(), L10n.get("storageNoItems"), new Size(0, 0));
         }
     },
     SHIPS("Ships") {
 
         @Override
-        public AbstractRenderable getStorageRenderer(StorageData data) {
+        public Renderable getStorageRenderer(StorageData data) {
             return new Ships(data.getShips(), L10n.get("storageNoShips"), new Size(0, 0));
         }
     };
@@ -31,7 +31,7 @@ public enum StorageTab {
 
     }
 
-    public AbstractRenderable getStorageRenderer(StorageData data) {
+    public Renderable getStorageRenderer(StorageData data) {
         return null;
     }
 }

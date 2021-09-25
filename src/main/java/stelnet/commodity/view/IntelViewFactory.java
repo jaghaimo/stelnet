@@ -9,7 +9,6 @@ import stelnet.commodity.IntelTracker;
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.commodity.market.MarketRepository;
 import stelnet.ui.Renderable;
-import stelnet.ui.AbstractRenderable;
 import stelnet.ui.HorizontalViewContainer;
 import stelnet.ui.property.Size;
 
@@ -23,7 +22,7 @@ public class IntelViewFactory {
         List<MarketApiWrapper> markets = marketRepository.getMarketsByType(actionTab);
         int numberOfButtons = calcNumberOfButtons(markets, size);
 
-        List<AbstractRenderable> buttons = new LinkedList<>();
+        List<Renderable> buttons = new LinkedList<>();
         for (int i = 0; i < numberOfButtons; i++) {
             MarketApiWrapper market = markets.get(i);
             buttons.add(new IntelButton(i + 1, actionTab, commodityId, market, tracker));

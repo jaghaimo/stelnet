@@ -3,7 +3,7 @@ package stelnet.market.view;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 
 import stelnet.L10n;
-import stelnet.market.MarketViewBoard;
+import stelnet.market.ViewerBoard;
 import stelnet.storage.StorageTab;
 import stelnet.ui.EventHandler;
 import stelnet.ui.TabButton;
@@ -16,7 +16,7 @@ public class ViewerTabButton extends TabButton {
 
             @Override
             public void onConfirm(IntelUIAPI ui) {
-                MarketViewBoard board = MarketViewBoard.getInstance();
+                ViewerBoard board = ViewerBoard.getInstance();
                 board.setActiveTab(storageTab);
             }
         });

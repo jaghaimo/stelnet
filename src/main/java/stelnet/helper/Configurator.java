@@ -7,9 +7,8 @@ import stelnet.commodity.CommodityBoard;
 import stelnet.commodity.CommodityIntel;
 import stelnet.config.BoardConfig;
 import stelnet.config.ModConfig;
-import stelnet.market.MarketViewBoard;
-import stelnet.market_old.MarketQueryBoard;
-import stelnet.market_old.MarketQueryIntel;
+import stelnet.market.QueryBoard;
+import stelnet.market.ViewerBoard;
 import stelnet.storage.StorageBoard;
 import stelnet.storage.StorageIntel;
 import stelnet.storage.StorageListener;
@@ -26,18 +25,19 @@ public class Configurator {
         initCommodity(BoardConfig.hasCommodities);
         initMarket(BoardConfig.hasMarket);
         initStorage(BoardConfig.hasStorage);
-        log.debug("Mod configured");
+        log.info("Stelnet configured");
     }
 
     public static void uninstall() {
         initCommodity(false);
         initMarket(false);
         initStorage(false);
-        log.debug("Mod uninstalled");
+        log.info("Stelnet uninstalled");
     }
 
     public static void purgeIntel(Class<?>... classNames) {
         for (Class<?> className : classNames) {
+            log.debug("Removing intel " + className);
             IntelHelper.purgeIntel(className);
         }
     }
@@ -62,11 +62,11 @@ public class Configurator {
 
     private static void initMarket(boolean hasMarket) {
         if (hasMarket) {
-            MarketQueryBoard.getInstance();
-            MarketViewBoard.getInstance();
+            QueryBoard.getInstance();
+            ViewerBoard.getInstance();
             log.info("Enabled Market plugin");
         } else {
-            purgeIntel(MarketQueryBoard.class, MarketQueryIntel.class, MarketViewBoard.class);
+            purgeIntel(QueryBoard.class, ViewerBoard.class);
             log.info("Disabled Market plugin");
         }
     }
