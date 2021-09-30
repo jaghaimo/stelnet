@@ -1,10 +1,9 @@
-package stelnet.filter.other;
+package stelnet.filter;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 
-import stelnet.filter.Filter;
-
+@Deprecated
 public class IsNotMarket implements Filter<SubmarketAPI> {
 
     private final MarketAPI market;

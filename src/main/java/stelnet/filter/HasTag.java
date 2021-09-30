@@ -1,10 +1,9 @@
-package stelnet.filter.other;
+package stelnet.filter;
 
 import com.fs.starfarer.api.campaign.CommDirectoryEntryAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 
-import stelnet.filter.Filter;
-
+@Deprecated
 public class HasTag implements Filter<CommDirectoryEntryAPI> {
 
     private final String tag;

@@ -1,9 +1,8 @@
-package stelnet.filter.other;
+package stelnet.filter;
 
 import com.fs.starfarer.api.characters.MutableCharacterStatsAPI.SkillLevelAPI;
 
-import stelnet.filter.Filter;
-
+@Deprecated
 public class HasSkill implements Filter<SkillLevelAPI> {
 
     @Override
