@@ -34,10 +34,11 @@ public class StorageTabViewFactory {
 
     public Renderable createContainer(Size size) {
         float width = size.getWidth() - 210;
-        float height = size.getHeight() - 54;
+        float height = size.getHeight() - 40;
         Size contentSize = new Size(width, height);
 
         TabViewContainer tabViewContainer = new TabViewContainer();
+        tabViewContainer.setSize(size);
         tabViewContainer.addTab(
                 getTabButton(StorageTab.ITEMS, Keyboard.KEY_I),
                 getTabPane(size, contentSize, buttonManager.getItemButtons()),
@@ -70,9 +71,9 @@ public class StorageTabViewFactory {
         contentContainer.setOffset(new Position(5, 0));
         Group buttonContainer = new Group(buttons);
         buttonContainer.setSize(new Size(size.reduce(contentSize).getWidth(), contentSize.getHeight()));
-        buttonContainer.setOffset(new Position(8, 0));
+        buttonContainer.setOffset(new Position(16, 0));
         HorizontalViewContainer tabContainer = new HorizontalViewContainer(contentContainer, buttonContainer);
-        tabContainer.setSize(size);
+        tabContainer.setSize(size.reduce(new Size(0, 20)));
         return tabContainer;
     }
 

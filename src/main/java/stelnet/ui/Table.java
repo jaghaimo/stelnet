@@ -19,7 +19,8 @@ public class Table extends AbstractRenderable {
     @Override
     public Size getSize() {
         float tableHeight = ROW_HEIGHT * (tableContent.getRows().size() + 1) + 3;
-        return new Size(width, Math.min(maxHeight, tableHeight));
+        float height = maxHeight == 0 ? tableHeight : Math.min(maxHeight, tableHeight);
+        return new Size(width, height);
     }
 
     @Override

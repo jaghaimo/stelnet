@@ -38,12 +38,14 @@ public class VerticalViewContainer extends Group {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        log.error("Cannot render Stack in small intel. Use Group or prerender in CustomPanel instead.");
+        log.error(
+                "Cannot render VerticalViewContainer in small intel. Use Group or pre-render in CustomPanel instead."
+        );
     }
 
     @Override
     public String toString() {
-        return String.format("Stack(%d) with %s", getElements().size(), getSize());
+        return String.format("VerticalViewContainer(%d) with %s", getElements().size(), getSize());
     }
 
     @Override

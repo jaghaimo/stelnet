@@ -25,39 +25,40 @@ public class TabViewFactory {
         float height = size.getHeight() - 54;
         MarketRepository marketRepository = new MarketRepository(commodityId);
         TabViewContainer tabViewContainer = new TabViewContainer();
+        tabViewContainer.setSize(new Size(width, height));
 
         tabViewContainer.addTab(
                 getTabButton(CommodityTab.BUY, Keyboard.KEY_B),
-                getBuyTable(width, height, marketRepository),
+                getBuyTable(width, marketRepository),
                 isActive(CommodityTab.BUY)
         );
         tabViewContainer.addTab(
                 getTabButton(CommodityTab.SELL, Keyboard.KEY_S),
-                getSellTable(width, height, marketRepository),
+                getSellTable(width, marketRepository),
                 isActive(CommodityTab.SELL)
         );
         tabViewContainer.addTab(
                 getTabButton(CommodityTab.PROFIT, Keyboard.KEY_P),
-                getProfitTable(width, height, marketRepository),
+                getProfitTable(width, marketRepository),
                 isActive(CommodityTab.PROFIT)
         );
 
         return tabViewContainer;
     }
 
-    private Table getBuyTable(float width, float tableHeight, MarketRepository marketRepository) {
+    private Table getBuyTable(float width, MarketRepository marketRepository) {
         TableContent tableContent = new BuyTableContent(commodityId, marketRepository.getBuyMarkets());
-        return new Table(commodityId, width, tableHeight, tableContent);
+        return new Table(commodityId, width, 0, tableContent);
     }
 
-    private Table getSellTable(float width, float tableHeight, MarketRepository marketRepository) {
+    private Table getSellTable(float width, MarketRepository marketRepository) {
         TableContent tableContent = new SellTableContent(commodityId, marketRepository.getSellMarkets());
-        return new Table(commodityId, width, tableHeight, tableContent);
+        return new Table(commodityId, width, 0, tableContent);
     }
 
-    private Table getProfitTable(float width, float tableHeight, MarketRepository marketRepository) {
+    private Table getProfitTable(float width, MarketRepository marketRepository) {
         TableContent tableContent = new ProfitTableContent(commodityId, marketRepository);
-        return new Table(commodityId, width, tableHeight, tableContent);
+        return new Table(commodityId, width, 0, tableContent);
     }
 
     private CommodityTabButton getTabButton(CommodityTab currentTab, int keyboardShortcut) {

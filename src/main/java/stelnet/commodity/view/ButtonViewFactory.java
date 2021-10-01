@@ -28,7 +28,7 @@ public class ButtonViewFactory {
         }
         Group group = new Group(buttons);
         group.setSize(new Size(200, size.getHeight() - 55));
-        group.setOffset(new Position(size.getWidth() - 200, 0));
+        group.setOffset(new Position(size.getWidth() - 200, 24));
         return group;
     }
 
