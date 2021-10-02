@@ -38,12 +38,14 @@ public class HorizontalViewContainer extends Group {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        log.error("Cannot render Stack in small intel. Use Group or prerender in CustomPanel instead.");
+        log.error(
+                "Cannot render HorizontalViewContainer in small intel. Use Group or prerender in CustomPanel instead."
+        );
     }
 
     @Override
     public String toString() {
-        return String.format("Row(%d) with %s", getElements().size(), getSize());
+        return String.format("HorizontalViewContainer(%d) with %s", getElements().size(), getSize());
     }
 
     @Override

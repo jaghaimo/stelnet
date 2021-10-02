@@ -67,14 +67,11 @@ public class StorageTabViewFactory {
         addEmptyData(elements, storageData, contentSize.getWidth());
         addStorageData(elements, storageData);
         Group contentContainer = new Group(elements);
-        contentContainer.setSize(contentSize.reduce(new Size(8, 0)));
-        contentContainer.setOffset(new Position(5, 0));
+        contentContainer.setSize(contentSize);
         Group buttonContainer = new Group(buttons);
         buttonContainer.setSize(new Size(size.reduce(contentSize).getWidth(), contentSize.getHeight()));
-        buttonContainer.setOffset(new Position(16, 0));
-        HorizontalViewContainer tabContainer = new HorizontalViewContainer(contentContainer, buttonContainer);
-        tabContainer.setSize(size.reduce(new Size(0, 20)));
-        return tabContainer;
+        buttonContainer.setOffset(new Position(10, 0));// Could replace magic numbers with actual calculations
+        return new HorizontalViewContainer(contentContainer, buttonContainer);
     }
 
     private void addEmptyData(List<Renderable> elements, List<StorageData> storageData, float width) {
