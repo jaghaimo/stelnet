@@ -28,7 +28,7 @@ public class MarketApiDelegate implements MarketAPI {
         marketApi = market;
     }
 
-    // TODO : Investigate why @Delegate can't work with this
+    // BUG : @Delegate ignores methods belonging to Object
     public MarketAPI clone() {
         return marketApi.clone();
     }

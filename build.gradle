@@ -49,8 +49,8 @@ dependencies {
     implementation group: 'org.codehaus.janino', name: 'janino', version: '3.0.7'
 
     // lombok
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
-    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
     // test only
     testImplementation 'junit:junit:4.12'
