@@ -34,7 +34,7 @@ public class MarketApiDelegate implements MarketAPI {
     }
 
     public boolean isValid() {
-        return marketApiId == marketApi.getId();
+        return marketApiId.equals(marketApi.getId());
     }
 
     public Object readResolve() {
