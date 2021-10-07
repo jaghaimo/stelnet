@@ -1,5 +1,4 @@
 import groovy.json.JsonSlurper
-import org.apache.tools.ant.taskdefs.condition.Os
 
 plugins {
     id 'java'
@@ -31,6 +30,7 @@ targetCompatibility = 1.7
 build {
     doLast {
         copy {
+            from 'assets'
             from jar
             into '.'
         }

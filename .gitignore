@@ -16,4 +16,6 @@ gradle.properties
 # Local copies of mod structure (dev env)
 /*.jar
 /data
+/graphics
+/stelnet*
 /mod_info.json
