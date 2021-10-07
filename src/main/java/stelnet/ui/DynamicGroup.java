@@ -1,35 +1,30 @@
 package stelnet.ui;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import stelnet.ui.property.Position;
 import stelnet.ui.property.Size;
 
 /**
- * Dynamically scalled group that extends up to desired width.
+ * Dynamically scaled group that extends up to desired width.
  * 
  * Adds elements horizontally until desired width, then starts from new line.
  * Only works for same height items (otherwise items may overlap).
  */
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Log4j
 public class DynamicGroup extends AbstractRenderable {
 
-    private float width;
+    private final float width;
     private Size size;
-    private List<Renderable> elements;
-
-    public DynamicGroup(Size size, Renderable... elements) {
-        this.elements = Arrays.asList(elements);
-    }
+    private final List<Renderable> elements;
 
     @Override
     public Size getSize() {

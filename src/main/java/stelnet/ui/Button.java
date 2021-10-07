@@ -11,6 +11,7 @@ import com.fs.starfarer.api.util.Misc;
 
 import lombok.Getter;
 import lombok.Setter;
+import stelnet.helper.StringHelper;
 import stelnet.ui.property.Size;
 
 @Getter
@@ -28,6 +29,9 @@ public class Button extends AbstractRenderable implements ButtonHandler {
         this.title = title;
         this.isEnabled = isEnabled;
         this.color = color;
+        if (size.getWidth() == 0) {
+            size = new Size(StringHelper.getSize(title), size.getHeight());
+        }
         setSize(size);
         setWithScroller(false);
     }

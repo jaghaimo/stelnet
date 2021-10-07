@@ -13,7 +13,7 @@ import stelnet.L10n;
 import stelnet.helper.GlobalSettingsHelper;
 import stelnet.helper.IntelHelper;
 import stelnet.helper.Tagger;
-import stelnet.market.view.QueriesTabViewFactory;
+import stelnet.market.view.QueryTabViewFactory;
 import stelnet.ui.Renderable;
 import stelnet.ui.property.Size;
 
@@ -51,7 +51,7 @@ public class QueryBoard extends BaseBoard {
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
-        return Collections.singletonList(new QueriesTabViewFactory(activeTab).createContainer(size));
+        return Collections.singletonList(new QueryTabViewFactory(activeTab).createContainer(size));
     }
 
     @Override

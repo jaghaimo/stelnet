@@ -18,6 +18,7 @@ public class Paragraph extends AbstractRenderable {
     private Color[] highlightColors = {};
     private String[] highlightStrings = {};
     private Alignment alignment = Alignment.TL;
+    private float padding = 0;
 
     public Paragraph(String text, float width) {
         setSize(new Size(width, 20));
@@ -26,9 +27,15 @@ public class Paragraph extends AbstractRenderable {
         setWithScroller(false);
     }
 
+    public Paragraph(String text, float width, float padding, Alignment alignment) {
+        this(text, width);
+        setPadding(padding);
+        setAlignment(alignment);
+    }
+
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        LabelAPI addedText = tooltip.addPara(text, color, 0);
+        LabelAPI addedText = tooltip.addPara(text, color, padding);
         if (highlightStrings.length > 0) {
             addedText.setHighlight(highlightStrings);
         }
