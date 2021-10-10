@@ -1,5 +1,5 @@
 {
-    ## In order to modify Stelnet settings save this file as stelnet.json
+    ## In order to modify Stelnet settings save this file as stelnet.hjson
 
     # Mod settings
     "language": "en", # set to a supported language, missing translations will default to English
