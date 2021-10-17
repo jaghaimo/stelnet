@@ -26,6 +26,7 @@ public class Table extends AbstractRenderable {
     @Override
     public void render(TooltipMakerAPI tooltip) {
         boolean hasRows = false;
+        // TODO : Externalise faction
         tooltip.beginTable(Sector.getPlayerFaction(), ROW_HEIGHT, tableContent.getHeaders(width));
         for (TableContentRow row : tableContent.getRows()) {
             tooltip.addRow(row.buildObjectArray());
