@@ -8,13 +8,16 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.campaign.listeners.EconomyTickListener;
 import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
 
-import stelnet.helper.GlobalSectorHelper;
-import stelnet.helper.StorageHelper;
+import stelnet.util.IntelManager;
+import stelnet.util.Sector;
+import stelnet.util.StorageUtils;
 
+@Deprecated
+// Rewrite using on market close / listener
 public class StorageListener implements EconomyTickListener {
 
     public static void register() {
-        ListenerManagerAPI listenerManager = GlobalSectorHelper.getListenerManager();
+        ListenerManagerAPI listenerManager = Sector.getListenerManager();
         List<StorageListener> listeners = listenerManager.getListeners(StorageListener.class);
         if (listeners.isEmpty()) {
             StorageListener listener = new StorageListener();
@@ -28,7 +31,7 @@ public class StorageListener implements EconomyTickListener {
 
     @Override
     public void reportEconomyTick(int iterIndex) {
-        IntelManagerAPI intelManager = GlobalSectorHelper.getIntelManager();
+        IntelManagerAPI intelManager = IntelManager.getIntelManager();
         removeAll(intelManager);
         addAll(intelManager);
     }
@@ -42,7 +45,7 @@ public class StorageListener implements EconomyTickListener {
     }
 
     private static void addAll(IntelManagerAPI intelManager) {
-        for (SubmarketAPI submarket : StorageHelper.getAllWithAccess()) {
+        for (SubmarketAPI submarket : StorageUtils.getAllWithAccess()) {
             IntelInfoPlugin plugin = new StorageIntel(submarket);
             intelManager.addIntel(plugin, true);
         }

@@ -9,18 +9,18 @@ import lombok.Getter;
 import lombok.Setter;
 import stelnet.BaseBoard;
 import stelnet.BoardInfo;
-import stelnet.L10n;
-import stelnet.helper.GlobalSettingsHelper;
-import stelnet.helper.IntelHelper;
-import stelnet.helper.Tagger;
 import stelnet.market.data.MarketProvider;
 import stelnet.market.view.MarketSelectButton;
 import stelnet.market.view.ViewerTabViewFactory;
 import stelnet.storage.ButtonManager;
 import stelnet.storage.FilterManager;
 import stelnet.storage.StorageTab;
-import stelnet.ui.Renderable;
-import stelnet.ui.property.Size;
+import stelnet.util.IntelManager;
+import stelnet.util.L10n;
+import stelnet.util.Settings;
+import stelnet.util.Tagger;
+import uilib.Renderable;
+import uilib.property.Size;
 
 @Getter
 @Setter
@@ -32,17 +32,17 @@ public class ViewerBoard extends BaseBoard {
     private MarketProvider marketProvider = new MarketProvider(null);
 
     public static ViewerBoard getInstance() {
-        IntelInfoPlugin intel = IntelHelper.getFirstIntel(ViewerBoard.class);
+        IntelInfoPlugin intel = IntelManager.getFirstIntel(ViewerBoard.class);
         if (intel == null) {
             ViewerBoard board = new ViewerBoard();
-            IntelHelper.addIntel(board, true);
+            IntelManager.addIntel(board, true);
         }
         return (ViewerBoard) intel;
     }
 
     @Override
     public String getIcon() {
-        return GlobalSettingsHelper.getSpriteName("viewer");
+        return Settings.getSpriteName("viewer");
     }
 
     @Override
@@ -58,14 +58,8 @@ public class ViewerBoard extends BaseBoard {
     @Override
     protected List<Renderable> getRenderables(Size size) {
         return Arrays.<Renderable>asList(
-                new ViewerTabViewFactory(
-                        buttonManager,
-                        filterManager,
-                        activeTab,
-                        marketProvider
-                ).createContainer(size),
-                new MarketSelectButton()
-        );
+                new ViewerTabViewFactory(buttonManager, filterManager, activeTab, marketProvider).createContainer(size),
+                new MarketSelectButton());
     }
 
     @Override

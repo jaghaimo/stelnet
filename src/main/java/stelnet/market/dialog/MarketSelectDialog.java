@@ -13,10 +13,10 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
 import lombok.RequiredArgsConstructor;
-import stelnet.L10n;
-import stelnet.helper.MarketHelper;
 import stelnet.market.ViewerBoard;
 import stelnet.market.data.MarketProvider;
+import stelnet.util.L10n;
+import stelnet.util.MarketUtils;
 
 @RequiredArgsConstructor
 public class MarketSelectDialog implements InteractionDialogPlugin {
@@ -26,13 +26,9 @@ public class MarketSelectDialog implements InteractionDialogPlugin {
     @Override
     public void init(final InteractionDialogAPI dialog) {
         final ViewerBoard board = ViewerBoard.getInstance();
-        dialog.showCampaignEntityPicker(
-                L10n.get("marketViewDialogSelect"),
-                L10n.get("marketViewDialogSelected"),
-                L10n.get("marketViewDialogConfirm"),
-                Global.getSector().getPlayerFaction(),
-                MarketHelper.convertMarkets(MarketHelper.getMarkets()),
-                new CampaignEntityPickerListener() {
+        dialog.showCampaignEntityPicker(L10n.get("marketViewDialogSelect"), L10n.get("marketViewDialogSelected"),
+                L10n.get("marketViewDialogConfirm"), Global.getSector().getPlayerFaction(),
+                MarketUtils.convertMarketsToTokens(MarketUtils.getMarkets()), new CampaignEntityPickerListener() {
 
                     @Override
                     public String getMenuItemNameOverrideFor(SectorEntityToken entity) {
@@ -54,11 +50,8 @@ public class MarketSelectDialog implements InteractionDialogPlugin {
 
                     @Override
                     public String getSelectedTextOverrideFor(SectorEntityToken entity) {
-                        return L10n.get(
-                                "marketViewDialogSelection",
-                                entity.getName(),
-                                entity.getContainingLocation().getNameWithTypeShort()
-                        );
+                        return L10n.get("marketViewDialogSelection", entity.getName(),
+                                entity.getContainingLocation().getNameWithTypeShort());
                     }
 
                     @Override

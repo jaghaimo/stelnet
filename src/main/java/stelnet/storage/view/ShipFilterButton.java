@@ -4,7 +4,7 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 
 import stelnet.filter.fleetmember.FleetMemberFilter;
 import stelnet.storage.FilterManager;
-import stelnet.ui.EventHandler;
+import uilib.EventHandler;
 
 public class ShipFilterButton extends FilteringButton {
 

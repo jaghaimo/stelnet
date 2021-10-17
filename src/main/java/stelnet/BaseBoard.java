@@ -5,7 +5,7 @@ import java.util.Set;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
-import stelnet.ui.RenderableIntel;
+import uilib.RenderableIntel;
 
 public abstract class BaseBoard extends RenderableIntel {
 

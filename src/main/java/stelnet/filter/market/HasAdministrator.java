@@ -7,7 +7,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 
 import stelnet.filter.person.IsFreelanceAdmin;
 import stelnet.filter.person.PersonFilter;
-import stelnet.helper.CollectionHelper;
+import stelnet.util.CollectionReducer;
 
 public class HasAdministrator implements MarketFilter {
 
@@ -19,7 +19,7 @@ public class HasAdministrator implements MarketFilter {
 
     public boolean accept(MarketAPI market) {
         List<CommDirectoryEntryAPI> people = market.getCommDirectory().getEntriesCopy();
-        CollectionHelper.reduce(people, filter);
+        CollectionReducer.reduce(people, filter);
         return !people.isEmpty();
     }
 }

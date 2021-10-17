@@ -6,28 +6,17 @@ import com.fs.starfarer.api.util.Misc;
 import stelnet.commodity.CommodityTab;
 import stelnet.commodity.IntelTracker;
 import stelnet.commodity.market.MarketApiWrapper;
-import stelnet.ui.AreaCheckbox;
-import stelnet.ui.EventHandler;
-import stelnet.ui.property.Location;
-import stelnet.ui.property.Size;
+import uilib.AreaCheckbox;
+import uilib.EventHandler;
+import uilib.property.Location;
+import uilib.property.Size;
 
 public class IntelButton extends AreaCheckbox {
 
-    public IntelButton(
-            int i,
-            final CommodityTab commodityTab,
-            final String commodityId,
-            final MarketApiWrapper market,
-            final IntelTracker tracker
-    ) {
-        super(
-                new Size(28f, 24f),
-                String.valueOf(i),
-                true,
-                tracker.has(commodityTab.title, commodityId, market),
-                Misc.getTextColor(),
-                Misc.getGrayColor()
-        );
+    public IntelButton(int i, final CommodityTab commodityTab, final String commodityId, final MarketApiWrapper market,
+            final IntelTracker tracker) {
+        super(new Size(28f, 24f), String.valueOf(i), true, tracker.has(commodityTab.title, commodityId, market),
+                Misc.getTextColor(), Misc.getGrayColor());
         setLocation(Location.BOTTOM_LEFT);
         setHandler(new EventHandler() {
 

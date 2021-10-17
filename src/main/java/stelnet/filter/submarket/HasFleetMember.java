@@ -7,7 +7,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 
 import stelnet.filter.fleetmember.FleetMemberFilter;
 import stelnet.filter.fleetmember.HasMember;
-import stelnet.helper.CollectionHelper;
+import stelnet.util.CollectionReducer;
 
 public class HasFleetMember implements SubmarketFilter {
 
@@ -19,7 +19,7 @@ public class HasFleetMember implements SubmarketFilter {
 
     public boolean accept(SubmarketAPI submarket) {
         List<FleetMemberAPI> fleetMembers = submarket.getCargo().getMothballedShips().getMembersListCopy();
-        CollectionHelper.reduce(fleetMembers, filter);
+        CollectionReducer.reduce(fleetMembers, filter);
         return !fleetMembers.isEmpty();
     }
 }

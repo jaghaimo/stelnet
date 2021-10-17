@@ -9,14 +9,14 @@ import lombok.Getter;
 import lombok.Setter;
 import stelnet.BaseBoard;
 import stelnet.BoardInfo;
-import stelnet.L10n;
-import stelnet.helper.GlobalSettingsHelper;
-import stelnet.helper.IntelHelper;
-import stelnet.helper.StorageHelper;
-import stelnet.helper.Tagger;
 import stelnet.storage.view.StorageTabViewFactory;
-import stelnet.ui.Renderable;
-import stelnet.ui.property.Size;
+import stelnet.util.IntelManager;
+import stelnet.util.L10n;
+import stelnet.util.Settings;
+import stelnet.util.StorageUtils;
+import stelnet.util.Tagger;
+import uilib.Renderable;
+import uilib.property.Size;
 
 @Getter
 @Setter
@@ -28,25 +28,24 @@ public class StorageBoard extends BaseBoard {
     private StorageView activeView = StorageView.UNIFIED;
 
     public static StorageBoard getInstance() {
-        IntelInfoPlugin intel = IntelHelper.getFirstIntel(StorageBoard.class);
+        IntelInfoPlugin intel = IntelManager.getFirstIntel(StorageBoard.class);
         if (intel == null) {
             StorageBoard board = new StorageBoard();
-            IntelHelper.addIntel(board, true);
+            IntelManager.addIntel(board, true);
         }
         return (StorageBoard) intel;
     }
 
     @Override
     public String getIcon() {
-        return GlobalSettingsHelper.getSpriteName("storage");
+        return Settings.getSpriteName("storage");
     }
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
         return Arrays.<Renderable>asList(
                 new StorageTabViewFactory(buttonManager, filterManager, activeTab, activeView).createContainer(size),
-                activeView.getNextButton()
-        );
+                activeView.getNextButton());
     }
 
     @Override
@@ -60,8 +59,8 @@ public class StorageBoard extends BaseBoard {
     }
 
     private String getDescription() {
-        int itemCount = StorageHelper.getAllItemCount();
-        int shipCount = StorageHelper.getAllShipCount();
+        int itemCount = StorageUtils.getAllItemCount();
+        int shipCount = StorageUtils.getAllShipCount();
         if (itemCount == 0 && shipCount == 0) {
             return L10n.get("storageBoardNoContent");
         }

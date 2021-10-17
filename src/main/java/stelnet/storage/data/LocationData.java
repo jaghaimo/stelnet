@@ -8,7 +8,7 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import stelnet.L10n;
+import stelnet.util.L10n;
 
 @Data
 @AllArgsConstructor
@@ -27,12 +27,8 @@ public class LocationData {
     public LocationData(SubmarketAPI submarket) {
         MarketAPI market = submarket.getMarket();
         FactionAPI faction = market.getFaction();
-        name = L10n.get(
-                "locationDataSubmarket",
-                submarket.getNameOneLine(),
-                market.getName(),
-                faction.getDisplayName()
-        );
+        name = L10n.get("locationDataSubmarket", submarket.getNameOneLine(), market.getName(),
+                faction.getDisplayName());
         fgColor = submarket.getFaction().getBaseUIColor();
         bgColor = submarket.getFaction().getDarkUIColor();
     }

@@ -10,15 +10,15 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 
 import stelnet.BaseIntel;
 import stelnet.IntelInfo;
-import stelnet.L10n;
-import stelnet.helper.CargoHelper;
-import stelnet.helper.Tagger;
-import stelnet.ui.Cargo;
-import stelnet.ui.Heading;
-import stelnet.ui.Renderable;
-import stelnet.ui.Ships;
-import stelnet.ui.Spacer;
-import stelnet.ui.property.Size;
+import stelnet.util.CargoUtils;
+import stelnet.util.L10n;
+import stelnet.util.Tagger;
+import uilib.Cargo;
+import uilib.Heading;
+import uilib.Renderable;
+import uilib.Ships;
+import uilib.Spacer;
+import uilib.property.Size;
 
 public class StorageIntel extends BaseIntel {
 
@@ -36,13 +36,8 @@ public class StorageIntel extends BaseIntel {
 
     @Override
     protected IntelInfo getIntelInfo() {
-        return new IntelInfo(
-                getLocationNameWithSystem(),
-                L10n.get("intelLocation"),
-                getStorageContent(),
-                L10n.get("intelFaction"),
-                getFactionWithRel()
-        );
+        return new IntelInfo(getLocationNameWithSystem(), L10n.get("intelLocation"), getStorageContent(),
+                L10n.get("intelFaction"), getFactionWithRel());
     }
 
     @Override
@@ -53,13 +48,9 @@ public class StorageIntel extends BaseIntel {
         List<FleetMemberAPI> ships = storage.getCargo().getMothballedShips().getMembersListCopy();
         return Arrays.<Renderable>asList(
                 new Heading(L10n.get("storageIntelHeaderItems", getLocationName()), baseColor, darkColor),
-                new Spacer(10),
-                new Cargo(cargo, L10n.get("storageIntelNoCargo"), size),
-                new Spacer(10),
+                new Spacer(10), new Cargo(cargo, L10n.get("storageIntelNoCargo"), size), new Spacer(10),
                 new Heading(L10n.get("storageIntelHeaderShips", getLocationName()), baseColor, darkColor),
-                new Spacer(10),
-                new Ships(ships, L10n.get("storageIntelNoShips"), size)
-        );
+                new Spacer(10), new Ships(ships, L10n.get("storageIntelNoShips"), size));
     }
 
     @Override
@@ -69,8 +60,8 @@ public class StorageIntel extends BaseIntel {
 
     private String getStorageContent() {
         CargoAPI cargo = storage.getCargo();
-        int itemCount = CargoHelper.calculateItemQuantity(cargo.createCopy());
-        int shipCount = CargoHelper.calculateShipQuantity(cargo.getMothballedShips().getMembersListCopy());
+        int itemCount = CargoUtils.calculateItemQuantity(cargo.createCopy());
+        int shipCount = CargoUtils.calculateShipQuantity(cargo.getMothballedShips().getMembersListCopy());
         return L10n.get("storageIntelContent", itemCount, shipCount);
     }
 }

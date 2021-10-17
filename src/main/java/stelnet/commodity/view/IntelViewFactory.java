@@ -8,9 +8,9 @@ import stelnet.commodity.CommodityTab;
 import stelnet.commodity.IntelTracker;
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.commodity.market.MarketRepository;
-import stelnet.ui.Renderable;
-import stelnet.ui.HorizontalViewContainer;
-import stelnet.ui.property.Size;
+import uilib.HorizontalViewContainer;
+import uilib.Renderable;
+import uilib.property.Size;
 
 @AllArgsConstructor
 public class IntelViewFactory {

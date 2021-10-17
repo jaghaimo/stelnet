@@ -1,11 +1,11 @@
 package stelnet.storage;
 
-import stelnet.L10n;
 import stelnet.storage.data.StorageData;
-import stelnet.ui.Cargo;
-import stelnet.ui.Renderable;
-import stelnet.ui.Ships;
-import stelnet.ui.property.Size;
+import stelnet.util.L10n;
+import uilib.Cargo;
+import uilib.Renderable;
+import uilib.Ships;
+import uilib.property.Size;
 
 public enum StorageTab {
 

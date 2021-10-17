@@ -9,10 +9,10 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 
 import lombok.extern.log4j.Log4j;
-import stelnet.helper.CargoHelper;
-import stelnet.helper.CollectionHelper;
-import stelnet.helper.StorageHelper;
 import stelnet.storage.FilterManager;
+import stelnet.util.CargoUtils;
+import stelnet.util.CollectionReducer;
+import stelnet.util.StorageUtils;
 
 @Log4j
 public class PerLocationProvider implements DataProvider {
@@ -20,19 +20,15 @@ public class PerLocationProvider implements DataProvider {
     @Override
     public List<StorageData> getData(FilterManager filterManager) {
         List<StorageData> data = new LinkedList<>();
-        List<SubmarketAPI> storages = StorageHelper.getAllSortedWithAccess();
+        List<SubmarketAPI> storages = StorageUtils.getAllSortedWithAccess();
         for (SubmarketAPI storage : storages) {
             processSubmarket(new LocationData(storage.getMarket()), storage, filterManager, data);
         }
         return data;
     }
 
-    protected void processSubmarket(
-            LocationData locationData,
-            SubmarketAPI storage,
-            FilterManager filterManager,
-            List<StorageData> data
-    ) {
+    protected void processSubmarket(LocationData locationData, SubmarketAPI storage, FilterManager filterManager,
+            List<StorageData> data) {
         CargoAPI storageCargo = storage.getCargo();
         CargoAPI items = getItems(filterManager, storageCargo);
         List<FleetMemberAPI> ships = getShips(filterManager, storageCargo);
@@ -45,14 +41,14 @@ public class PerLocationProvider implements DataProvider {
     private CargoAPI getItems(FilterManager filterManager, CargoAPI storageCargo) {
         CargoAPI items = storageCargo.createCopy();
         List<CargoStackAPI> cargoStacks = storageCargo.getStacksCopy();
-        CollectionHelper.reduce(cargoStacks, filterManager.getItemFilters());
-        CargoHelper.replaceCargoStacks(items, cargoStacks);
+        CollectionReducer.reduce(cargoStacks, filterManager.getItemFilters());
+        CargoUtils.replaceCargoStacks(items, cargoStacks);
         return items;
     }
 
     private List<FleetMemberAPI> getShips(FilterManager filterManager, CargoAPI storageCargo) {
         List<FleetMemberAPI> ships = storageCargo.getMothballedShips().getMembersInPriorityOrder();
-        CollectionHelper.reduce(ships, filterManager.getShipFilters());
+        CollectionReducer.reduce(ships, filterManager.getShipFilters());
         return ships;
     }
 }

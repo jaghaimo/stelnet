@@ -2,9 +2,9 @@ package stelnet.storage.view;
 
 import com.fs.starfarer.api.util.Misc;
 
-import stelnet.L10n;
-import stelnet.ui.AreaCheckbox;
-import stelnet.ui.property.Size;
+import stelnet.util.L10n;
+import uilib.AreaCheckbox;
+import uilib.property.Size;
 
 public abstract class FilteringButton extends AreaCheckbox {
 

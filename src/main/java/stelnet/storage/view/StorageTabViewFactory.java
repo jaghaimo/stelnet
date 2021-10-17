@@ -6,23 +6,23 @@ import java.util.List;
 import org.lwjgl.input.Keyboard;
 
 import lombok.RequiredArgsConstructor;
-import stelnet.L10n;
 import stelnet.storage.ButtonManager;
 import stelnet.storage.FilterManager;
 import stelnet.storage.StorageTab;
 import stelnet.storage.data.DataProvider;
 import stelnet.storage.data.LocationData;
 import stelnet.storage.data.StorageData;
-import stelnet.ui.Group;
-import stelnet.ui.Heading;
-import stelnet.ui.HorizontalViewContainer;
-import stelnet.ui.Paragraph;
-import stelnet.ui.Renderable;
-import stelnet.ui.Spacer;
-import stelnet.ui.TabButton;
-import stelnet.ui.TabViewContainer;
-import stelnet.ui.property.Position;
-import stelnet.ui.property.Size;
+import stelnet.util.L10n;
+import uilib.Group;
+import uilib.Heading;
+import uilib.HorizontalViewContainer;
+import uilib.Paragraph;
+import uilib.Renderable;
+import uilib.Spacer;
+import uilib.TabButton;
+import uilib.TabViewContainer;
+import uilib.property.Position;
+import uilib.property.Size;
 
 @RequiredArgsConstructor
 public class StorageTabViewFactory {
@@ -39,16 +39,10 @@ public class StorageTabViewFactory {
 
         TabViewContainer tabViewContainer = new TabViewContainer();
         tabViewContainer.setSize(size);
-        tabViewContainer.addTab(
-                getTabButton(StorageTab.ITEMS, Keyboard.KEY_I),
-                getTabPane(size, contentSize, buttonManager.getItemButtons()),
-                isActive(StorageTab.ITEMS)
-        );
-        tabViewContainer.addTab(
-                getTabButton(StorageTab.SHIPS, Keyboard.KEY_S),
-                getTabPane(size, contentSize, buttonManager.getShipButtons()),
-                isActive(StorageTab.SHIPS)
-        );
+        tabViewContainer.addTab(getTabButton(StorageTab.ITEMS, Keyboard.KEY_I),
+                getTabPane(size, contentSize, buttonManager.getItemButtons()), isActive(StorageTab.ITEMS));
+        tabViewContainer.addTab(getTabButton(StorageTab.SHIPS, Keyboard.KEY_S),
+                getTabPane(size, contentSize, buttonManager.getShipButtons()), isActive(StorageTab.SHIPS));
 
         return tabViewContainer;
     }

@@ -9,7 +9,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import stelnet.commodity.market.price.DemandPrice;
 import stelnet.commodity.market.price.Price;
 import stelnet.filter.market.CommodityDemandFilter;
-import stelnet.helper.CollectionHelper;
+import stelnet.util.CollectionReducer;
 
 public class SellMarketFactory extends MarketFactory {
 
@@ -22,7 +22,7 @@ public class SellMarketFactory extends MarketFactory {
 
     @Override
     protected void filterMarkets(List<MarketAPI> markets) {
-        CollectionHelper.reduce(markets, new CommodityDemandFilter(commodityId));
+        CollectionReducer.reduce(markets, new CommodityDemandFilter(commodityId));
     }
 
     @Override

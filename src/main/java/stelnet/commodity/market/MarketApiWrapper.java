@@ -10,7 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import stelnet.commodity.data.TableCellHelper;
 import stelnet.commodity.market.price.Price;
-import stelnet.helper.DistanceHelper;
+import stelnet.util.DistanceCalculator;
 
 @Data
 @Builder
@@ -64,7 +64,7 @@ public class MarketApiWrapper {
     }
 
     public float getDistanceToPlayer() {
-        return DistanceHelper.getDistanceToPlayerLY(marketAPI.getPrimaryEntity());
+        return DistanceCalculator.getDistanceToPlayerLY(marketAPI.getPrimaryEntity());
     }
 
     public String getMarketAndFactionDisplayName() {

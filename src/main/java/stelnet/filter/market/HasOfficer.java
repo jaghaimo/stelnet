@@ -9,7 +9,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import stelnet.filter.person.HasPersonality;
 import stelnet.filter.person.IsOfficer;
 import stelnet.filter.person.PersonFilter;
-import stelnet.helper.CollectionHelper;
+import stelnet.util.CollectionReducer;
 
 public class HasOfficer implements MarketFilter {
 
@@ -21,7 +21,7 @@ public class HasOfficer implements MarketFilter {
 
     public boolean accept(MarketAPI market) {
         List<CommDirectoryEntryAPI> people = market.getCommDirectory().getEntriesCopy();
-        CollectionHelper.reduce(people, filters);
+        CollectionReducer.reduce(people, filters);
         return !people.isEmpty();
     }
 }

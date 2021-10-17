@@ -8,8 +8,8 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.RequiredArgsConstructor;
 import stelnet.commodity.market.price.Price;
 import stelnet.filter.market.MarketNotHidden;
-import stelnet.helper.CollectionHelper;
-import stelnet.helper.GlobalSectorHelper;
+import stelnet.util.CollectionReducer;
+import stelnet.util.Economy;
 
 @RequiredArgsConstructor
 public abstract class MarketFactory {
@@ -17,8 +17,8 @@ public abstract class MarketFactory {
     protected final String commodityId;
 
     public List<MarketApiWrapper> createMarkets() {
-        List<MarketAPI> markets = GlobalSectorHelper.getMarkets();
-        CollectionHelper.reduce(markets, new MarketNotHidden());
+        List<MarketAPI> markets = Economy.getMarkets();
+        CollectionReducer.reduce(markets, new MarketNotHidden());
         filterMarkets(markets);
         sortMarkets(markets);
         return mapToWrapper(markets);
@@ -27,10 +27,8 @@ public abstract class MarketFactory {
     private List<MarketApiWrapper> mapToWrapper(List<MarketAPI> entities) {
         List<MarketApiWrapper> list = new ArrayList<>();
         for (MarketAPI marketAPI : entities) {
-            MarketApiWrapper marketApiWrapper = MarketApiWrapper.builder()
-                .marketAPI(marketAPI)
-                .price(getPrice())
-                .build();
+            MarketApiWrapper marketApiWrapper = MarketApiWrapper.builder().marketAPI(marketAPI).price(getPrice())
+                    .build();
             list.add(marketApiWrapper);
         }
         return list;

@@ -2,11 +2,11 @@ package stelnet.market.view;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
 
-import stelnet.L10n;
 import stelnet.market.ViewerBoard;
 import stelnet.storage.StorageTab;
-import stelnet.ui.EventHandler;
-import stelnet.ui.TabButton;
+import stelnet.util.L10n;
+import uilib.EventHandler;
+import uilib.TabButton;
 
 public class ViewerTabButton extends TabButton {
 

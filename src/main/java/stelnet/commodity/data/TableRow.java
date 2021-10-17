@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
 
-import stelnet.ui.TableContentRow;
+import uilib.TableContentRow;
 
 public class TableRow implements TableContentRow {
 

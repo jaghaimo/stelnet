@@ -4,12 +4,12 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
-import stelnet.L10n;
 import stelnet.commodity.CommodityBoard;
-import stelnet.ui.Button;
-import stelnet.ui.EventHandler;
-import stelnet.ui.property.Location;
-import stelnet.ui.property.Size;
+import stelnet.util.L10n;
+import uilib.Button;
+import uilib.EventHandler;
+import uilib.property.Location;
+import uilib.property.Size;
 
 public class DeleteCommodityIntel extends Button {
 

@@ -11,17 +11,17 @@ import com.fs.starfarer.api.util.Misc;
 import lombok.Getter;
 import stelnet.BaseIntel;
 import stelnet.IntelInfo;
-import stelnet.L10n;
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.commodity.market.price.Price;
 import stelnet.commodity.view.DeleteIntel;
-import stelnet.helper.Tagger;
-import stelnet.ui.Heading;
-import stelnet.ui.Image;
-import stelnet.ui.Paragraph;
-import stelnet.ui.Renderable;
-import stelnet.ui.Spacer;
-import stelnet.ui.property.Size;
+import stelnet.util.L10n;
+import stelnet.util.Tagger;
+import uilib.Heading;
+import uilib.Image;
+import uilib.Paragraph;
+import uilib.Renderable;
+import uilib.Spacer;
+import uilib.property.Size;
 
 @Getter
 public class CommodityIntel extends BaseIntel {
@@ -68,13 +68,8 @@ public class CommodityIntel extends BaseIntel {
 
     @Override
     protected IntelInfo getIntelInfo() {
-        return new IntelInfo(
-                getTitle(),
-                L10n.get("intelLocation"),
-                getLocationNameWithSystem(),
-                L10n.get("intelFaction"),
-                getFactionWithRel()
-        );
+        return new IntelInfo(getTitle(), L10n.get("intelLocation"), getLocationNameWithSystem(),
+                L10n.get("intelFaction"), getFactionWithRel());
     }
 
     @Override

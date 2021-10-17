@@ -8,11 +8,11 @@ import stelnet.commodity.data.BuyTableContent;
 import stelnet.commodity.data.ProfitTableContent;
 import stelnet.commodity.data.SellTableContent;
 import stelnet.commodity.market.MarketRepository;
-import stelnet.ui.Renderable;
-import stelnet.ui.TabViewContainer;
-import stelnet.ui.Table;
-import stelnet.ui.TableContent;
-import stelnet.ui.property.Size;
+import uilib.Renderable;
+import uilib.TabViewContainer;
+import uilib.Table;
+import uilib.TableContent;
+import uilib.property.Size;
 
 @RequiredArgsConstructor
 public class TabViewFactory {
@@ -27,21 +27,12 @@ public class TabViewFactory {
         TabViewContainer tabViewContainer = new TabViewContainer();
         tabViewContainer.setSize(new Size(width, height));
 
-        tabViewContainer.addTab(
-                getTabButton(CommodityTab.BUY, Keyboard.KEY_B),
-                getBuyTable(width, marketRepository),
-                isActive(CommodityTab.BUY)
-        );
-        tabViewContainer.addTab(
-                getTabButton(CommodityTab.SELL, Keyboard.KEY_S),
-                getSellTable(width, marketRepository),
-                isActive(CommodityTab.SELL)
-        );
-        tabViewContainer.addTab(
-                getTabButton(CommodityTab.PROFIT, Keyboard.KEY_P),
-                getProfitTable(width, marketRepository),
-                isActive(CommodityTab.PROFIT)
-        );
+        tabViewContainer.addTab(getTabButton(CommodityTab.BUY, Keyboard.KEY_B), getBuyTable(width, marketRepository),
+                isActive(CommodityTab.BUY));
+        tabViewContainer.addTab(getTabButton(CommodityTab.SELL, Keyboard.KEY_S), getSellTable(width, marketRepository),
+                isActive(CommodityTab.SELL));
+        tabViewContainer.addTab(getTabButton(CommodityTab.PROFIT, Keyboard.KEY_P),
+                getProfitTable(width, marketRepository), isActive(CommodityTab.PROFIT));
 
         return tabViewContainer;
     }

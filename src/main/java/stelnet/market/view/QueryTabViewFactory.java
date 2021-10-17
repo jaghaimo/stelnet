@@ -12,14 +12,14 @@ import org.lwjgl.input.Keyboard;
 
 import lombok.RequiredArgsConstructor;
 import stelnet.market.QueryTab;
-import stelnet.ui.DynamicGroup;
-import stelnet.ui.HorizontalViewContainer;
-import stelnet.ui.Paragraph;
-import stelnet.ui.Renderable;
-import stelnet.ui.TabViewContainer;
-import stelnet.ui.ToggleButton;
-import stelnet.ui.VerticalViewContainer;
-import stelnet.ui.property.Size;
+import uilib.DynamicGroup;
+import uilib.HorizontalViewContainer;
+import uilib.Paragraph;
+import uilib.Renderable;
+import uilib.TabViewContainer;
+import uilib.ToggleButton;
+import uilib.VerticalViewContainer;
+import uilib.property.Size;
 
 @RequiredArgsConstructor
 public class QueryTabViewFactory {
@@ -32,17 +32,11 @@ public class QueryTabViewFactory {
         TabViewContainer tabViewContainer = new TabViewContainer();
         tabViewContainer.setSize(size);
 
-        tabViewContainer.addTab(
-                getTabButton(QueryTab.LIST, Keyboard.KEY_L),
-                getQueryListTab(width, height),
-                isActive(QueryTab.LIST)
-        );
+        tabViewContainer.addTab(getTabButton(QueryTab.LIST, Keyboard.KEY_L), getQueryListTab(width, height),
+                isActive(QueryTab.LIST));
 
-        tabViewContainer.addTab(
-                getTabButton(QueryTab.NEW, Keyboard.KEY_N),
-                getNewQueryTab(width, height),
-                isActive(QueryTab.NEW)
-        );
+        tabViewContainer.addTab(getTabButton(QueryTab.NEW, Keyboard.KEY_N), getNewQueryTab(width, height),
+                isActive(QueryTab.NEW));
 
         return tabViewContainer;
     }
@@ -55,18 +49,12 @@ public class QueryTabViewFactory {
         float textWidth = Math.max(width / 4, 200);
         float groupWidth = width - textWidth;
         List<Renderable> elements = new LinkedList<>();
-        elements.add(
-                new HorizontalViewContainer(
-                        new Paragraph("What would you like to search for?", textWidth, 4, Alignment.RMID),
-                        new DynamicGroup(groupWidth, getButtons1())
-                )
-        );
-        elements.add(
-                new HorizontalViewContainer(
-                        new Paragraph("What type of items to look for?", textWidth, 4, Alignment.RMID),
-                        new DynamicGroup(groupWidth, getButtons2())
-                )
-        );
+        elements.add(new HorizontalViewContainer(
+                new Paragraph("What would you like to search for?", textWidth, 4, Alignment.RMID),
+                new DynamicGroup(groupWidth, getButtons1())));
+        elements.add(new HorizontalViewContainer(
+                new Paragraph("What type of items to look for?", textWidth, 4, Alignment.RMID),
+                new DynamicGroup(groupWidth, getButtons2())));
         return new VerticalViewContainer(elements);
     }
 
@@ -84,8 +72,7 @@ public class QueryTabViewFactory {
         return Arrays.<Renderable>asList(
                 new ToggleButton(new Size(0, 20), "Officers", "Officers", true, colorOn, colorOff, false),
                 new ToggleButton(new Size(0, 20), "Items", "Items", true, colorOn, colorOff, true),
-                new ToggleButton(new Size(0, 20), "Ships", "Ships", true, colorOn, colorOff, false)
-        );
+                new ToggleButton(new Size(0, 20), "Ships", "Ships", true, colorOn, colorOff, false));
     }
 
     private List<Renderable> getButtons2() {
@@ -94,8 +81,7 @@ public class QueryTabViewFactory {
         return Arrays.<Renderable>asList(
                 new ToggleButton(new Size(0, 20), "Weapons", "Weapons", true, colorOn, colorOff, true),
                 new ToggleButton(new Size(0, 20), "LPC", "LPC", true, colorOn, colorOff, false),
-                new ToggleButton(new Size(0, 20), "Modspecs", "Modspecs", true, colorOn, colorOff, false)
-        );
+                new ToggleButton(new Size(0, 20), "Modspecs", "Modspecs", true, colorOn, colorOff, false));
     }
 
     private List<Renderable> getButtons3() {

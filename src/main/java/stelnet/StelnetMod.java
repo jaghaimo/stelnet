@@ -6,7 +6,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 
 import stelnet.config.ModConfig;
-import stelnet.helper.Configurator;
+import stelnet.util.Configurator;
 
 public class StelnetMod extends BaseModPlugin {
 

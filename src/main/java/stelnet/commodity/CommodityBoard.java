@@ -11,16 +11,16 @@ import lombok.Getter;
 import lombok.Setter;
 import stelnet.BaseBoard;
 import stelnet.BoardInfo;
-import stelnet.L10n;
 import stelnet.commodity.view.ButtonViewFactory;
 import stelnet.commodity.view.DeleteViewFactory;
 import stelnet.commodity.view.IntelViewFactory;
 import stelnet.commodity.view.TabViewFactory;
-import stelnet.helper.GlobalSettingsHelper;
-import stelnet.helper.IntelHelper;
-import stelnet.helper.Tagger;
-import stelnet.ui.Renderable;
-import stelnet.ui.property.Size;
+import stelnet.util.IntelManager;
+import stelnet.util.L10n;
+import stelnet.util.Settings;
+import stelnet.util.Tagger;
+import uilib.Renderable;
+import uilib.property.Size;
 
 @Setter
 @Getter
@@ -31,17 +31,17 @@ public class CommodityBoard extends BaseBoard {
     private final IntelTracker intelTracker = new IntelTracker();
 
     public static CommodityBoard getInstance() {
-        IntelInfoPlugin intel = IntelHelper.getFirstIntel(CommodityBoard.class);
+        IntelInfoPlugin intel = IntelManager.getFirstIntel(CommodityBoard.class);
         if (intel == null) {
             BaseIntelPlugin board = new CommodityBoard();
-            IntelHelper.addIntel(board, true);
+            IntelManager.addIntel(board, true);
         }
         return (CommodityBoard) intel;
     }
 
     @Override
     public String getIcon() {
-        return GlobalSettingsHelper.getSpriteName("commodity");
+        return Settings.getSpriteName("commodity");
     }
 
     public void deleteIntel() {
@@ -58,12 +58,10 @@ public class CommodityBoard extends BaseBoard {
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
-        return Arrays.<Renderable>asList(
-                new TabViewFactory(commodityId, activeTab).createContainer(size),
+        return Arrays.<Renderable>asList(new TabViewFactory(commodityId, activeTab).createContainer(size),
                 new IntelViewFactory(intelTracker).createContainer(commodityId, activeTab, size),
                 new ButtonViewFactory().createContainer(commodityId, size),
-                new DeleteViewFactory().createContainer(commodityId, size)
-        );
+                new DeleteViewFactory().createContainer(commodityId, size));
     }
 
     @Override

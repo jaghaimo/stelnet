@@ -8,19 +8,19 @@ import java.util.List;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 
 import stelnet.filter.commodityspec.HasNotTag;
-import stelnet.helper.CollectionHelper;
-import stelnet.helper.GlobalSectorHelper;
-import stelnet.ui.Button;
-import stelnet.ui.Group;
-import stelnet.ui.Renderable;
-import stelnet.ui.property.Position;
-import stelnet.ui.property.Size;
+import stelnet.util.CollectionReducer;
+import stelnet.util.Economy;
+import uilib.Button;
+import uilib.Group;
+import uilib.Renderable;
+import uilib.property.Position;
+import uilib.property.Size;
 
 public class ButtonViewFactory {
 
     public Renderable createContainer(String activeId, Size size) {
         List<Renderable> buttons = new LinkedList<>();
-        List<CommoditySpecAPI> commodities = GlobalSectorHelper.getAllCommodities();
+        List<CommoditySpecAPI> commodities = Economy.getAllCommodities();
         filterCommodities(commodities);
         sortCommodities(commodities);
         for (CommoditySpecAPI commodity : commodities) {
@@ -38,8 +38,8 @@ public class ButtonViewFactory {
     }
 
     private void filterCommodities(List<CommoditySpecAPI> commodities) {
-        CollectionHelper.reduce(commodities, new HasNotTag("nonecon"));
-        CollectionHelper.reduce(commodities, new HasNotTag("meta"));
+        CollectionReducer.reduce(commodities, new HasNotTag("nonecon"));
+        CollectionReducer.reduce(commodities, new HasNotTag("meta"));
     }
 
     private void sortCommodities(List<CommoditySpecAPI> commodities) {

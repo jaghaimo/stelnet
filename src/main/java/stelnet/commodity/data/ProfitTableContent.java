@@ -7,11 +7,11 @@ import java.util.List;
 
 import com.fs.starfarer.api.util.Misc;
 
-import stelnet.L10n;
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.commodity.market.MarketRepository;
-import stelnet.helper.DistanceHelper;
-import stelnet.ui.TableContent;
+import stelnet.util.DistanceCalculator;
+import stelnet.util.L10n;
+import uilib.TableContent;
 
 public class ProfitTableContent implements TableContent {
 
@@ -28,15 +28,10 @@ public class ProfitTableContent implements TableContent {
     @Override
     public Object[] getHeaders(float maxWidth) {
         float width = maxWidth - 22;
-        return new Object[] {
-                "#", .05f * width,
-                L10n.get("commodityHeaderProfit"), .12f * width,
-                L10n.get("commodityHeaderBuyLocation"), .2f * width,
-                L10n.get("commodityHeaderSellLocation"), .2f * width,
-                L10n.get("commodityHeaderBuyAvailable"), .165f * width,
-                L10n.get("commodityHeaderSellDemand"), .165f * width,
-                L10n.get("commodityHeaderTrip"), .1f * width
-        };
+        return new Object[] { "#", .05f * width, L10n.get("commodityHeaderProfit"), .12f * width,
+                L10n.get("commodityHeaderBuyLocation"), .2f * width, L10n.get("commodityHeaderSellLocation"),
+                .2f * width, L10n.get("commodityHeaderBuyAvailable"), .165f * width,
+                L10n.get("commodityHeaderSellDemand"), .165f * width, L10n.get("commodityHeaderTrip"), .1f * width };
     }
 
     @Override
@@ -66,37 +61,21 @@ public class ProfitTableContent implements TableContent {
     protected SortableRow createRowData(int i, MarketApiWrapper buyMarket, MarketApiWrapper sellMarket) {
         Color color = getRowColor(buyMarket, sellMarket);
         float profit = getPotentialProfit(buyMarket, sellMarket);
-        float buyToSellDistance = DistanceHelper.getDistanceLY(
-                buyMarket.getPrimaryEntity(),
-                sellMarket.getPrimaryEntity()
-        );
+        float buyToSellDistance = DistanceCalculator.getDistanceLY(buyMarket.getPrimaryEntity(),
+                sellMarket.getPrimaryEntity());
         float totalDistance = buyMarket.getDistanceToPlayer() + buyToSellDistance;
         SortableRow sortableRow = new SortableRow(profit);
         sortableRow.addRowNumberCell(i);
-        sortableRow.addDGSCreditsCell(
-                color,
-                profit
-        );
-        sortableRow.addRow(
-                TableCellHelper.getFactionColor(buyMarket.getMarketAPI().getFaction()),
-                TableCellHelper.getLocation(buyMarket.getMarketAPI())
-        );
-        sortableRow.addRow(
-                TableCellHelper.getFactionColor(sellMarket.getMarketAPI().getFaction()),
-                TableCellHelper.getLocation(sellMarket.getMarketAPI())
-        );
-        sortableRow.addRow(
-                color,
-                Misc.getDGSCredits(buyMarket.getPriceAmount()) + " / " + buyMarket.getAvailable(commodityId)
-        );
-        sortableRow.addRow(
-                color,
-                Misc.getDGSCredits(sellMarket.getPriceAmount()) + " / " + sellMarket.getDemand(commodityId)
-        );
-        sortableRow.addRow(
-                color,
-                String.format("%.1f", totalDistance)
-        );
+        sortableRow.addDGSCreditsCell(color, profit);
+        sortableRow.addRow(TableCellHelper.getFactionColor(buyMarket.getMarketAPI().getFaction()),
+                TableCellHelper.getLocation(buyMarket.getMarketAPI()));
+        sortableRow.addRow(TableCellHelper.getFactionColor(sellMarket.getMarketAPI().getFaction()),
+                TableCellHelper.getLocation(sellMarket.getMarketAPI()));
+        sortableRow.addRow(color,
+                Misc.getDGSCredits(buyMarket.getPriceAmount()) + " / " + buyMarket.getAvailable(commodityId));
+        sortableRow.addRow(color,
+                Misc.getDGSCredits(sellMarket.getPriceAmount()) + " / " + sellMarket.getDemand(commodityId));
+        sortableRow.addRow(color, String.format("%.1f", totalDistance));
         return sortableRow;
     }
 

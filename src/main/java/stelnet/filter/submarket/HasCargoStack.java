@@ -7,7 +7,7 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 
 import stelnet.filter.cargostack.CargoStackFilter;
 import stelnet.filter.cargostack.HasStack;
-import stelnet.helper.CollectionHelper;
+import stelnet.util.CollectionReducer;
 
 public class HasCargoStack implements SubmarketFilter {
 
@@ -19,7 +19,7 @@ public class HasCargoStack implements SubmarketFilter {
 
     public boolean accept(SubmarketAPI submarket) {
         List<CargoStackAPI> cargoStacks = submarket.getCargo().getStacksCopy();
-        CollectionHelper.reduce(cargoStacks, filter);
+        CollectionReducer.reduce(cargoStacks, filter);
         return !cargoStacks.isEmpty();
     }
 }

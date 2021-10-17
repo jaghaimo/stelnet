@@ -5,6 +5,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 
 import lombok.Getter;
 import lombok.experimental.Delegate;
+import stelnet.util.Economy;
 
 /**
  * Serializable, version agnostic, drop in replacement for MarketAPI.
@@ -19,7 +20,7 @@ public class MarketApiDelegate implements MarketAPI {
 
     public MarketApiDelegate(String id) {
         marketApiId = id;
-        MarketAPI market = Global.getSector().getEconomy().getMarket(id);
+        MarketAPI market = Economy.getMarket(id);
         marketApi = market == null ? new MarketApiDummy() : market;
     }
 

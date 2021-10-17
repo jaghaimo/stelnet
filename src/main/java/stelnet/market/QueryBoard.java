@@ -9,13 +9,13 @@ import lombok.Getter;
 import lombok.Setter;
 import stelnet.BaseBoard;
 import stelnet.BoardInfo;
-import stelnet.L10n;
-import stelnet.helper.GlobalSettingsHelper;
-import stelnet.helper.IntelHelper;
-import stelnet.helper.Tagger;
 import stelnet.market.view.QueryTabViewFactory;
-import stelnet.ui.Renderable;
-import stelnet.ui.property.Size;
+import stelnet.util.IntelManager;
+import stelnet.util.L10n;
+import stelnet.util.Settings;
+import stelnet.util.Tagger;
+import uilib.Renderable;
+import uilib.property.Size;
 
 /**
  * Information board for managing displayed information intel.
@@ -30,17 +30,17 @@ public class QueryBoard extends BaseBoard {
     private QueryTab activeTab = QueryTab.LIST;
 
     public static QueryBoard getInstance() {
-        IntelInfoPlugin intel = IntelHelper.getFirstIntel(QueryBoard.class);
+        IntelInfoPlugin intel = IntelManager.getFirstIntel(QueryBoard.class);
         if (intel == null) {
             QueryBoard board = new QueryBoard();
-            IntelHelper.addIntel(board, true);
+            IntelManager.addIntel(board, true);
         }
         return (QueryBoard) intel;
     }
 
     @Override
     public String getIcon() {
-        return GlobalSettingsHelper.getSpriteName("market");
+        return Settings.getSpriteName("market");
     }
 
     @Override

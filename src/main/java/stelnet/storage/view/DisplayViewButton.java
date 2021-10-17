@@ -5,14 +5,14 @@ import com.fs.starfarer.api.util.Misc;
 
 import org.lwjgl.input.Keyboard;
 
-import stelnet.L10n;
 import stelnet.storage.StorageBoard;
 import stelnet.storage.StorageView;
-import stelnet.ui.Button;
-import stelnet.ui.EventHandler;
-import stelnet.ui.property.Location;
-import stelnet.ui.property.Position;
-import stelnet.ui.property.Size;
+import stelnet.util.L10n;
+import uilib.Button;
+import uilib.EventHandler;
+import uilib.property.Location;
+import uilib.property.Position;
+import uilib.property.Size;
 
 public class DisplayViewButton extends Button {
 

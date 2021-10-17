@@ -5,16 +5,12 @@ import stelnet.storage.FilterManager;
 import stelnet.storage.StorageTab;
 import stelnet.storage.data.DataProvider;
 import stelnet.storage.view.StorageTabViewFactory;
-import stelnet.ui.TabButton;
+import uilib.TabButton;
 
 public class ViewerTabViewFactory extends StorageTabViewFactory {
 
-    public ViewerTabViewFactory(
-            ButtonManager buttonManager,
-            FilterManager filterManager,
-            StorageTab activeTab,
-            DataProvider activeView
-    ) {
+    public ViewerTabViewFactory(ButtonManager buttonManager, FilterManager filterManager, StorageTab activeTab,
+            DataProvider activeView) {
         super(buttonManager, filterManager, activeTab, activeView);
     }
 
