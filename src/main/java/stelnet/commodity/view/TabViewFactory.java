@@ -26,15 +26,31 @@ public class TabViewFactory {
         MarketRepository marketRepository = new MarketRepository(commodityId);
         TabViewContainer tabViewContainer = new TabViewContainer();
         tabViewContainer.setSize(new Size(width, height));
-
-        tabViewContainer.addTab(getTabButton(CommodityTab.BUY, Keyboard.KEY_B), getBuyTable(width, marketRepository),
-                isActive(CommodityTab.BUY));
-        tabViewContainer.addTab(getTabButton(CommodityTab.SELL, Keyboard.KEY_S), getSellTable(width, marketRepository),
-                isActive(CommodityTab.SELL));
-        tabViewContainer.addTab(getTabButton(CommodityTab.PROFIT, Keyboard.KEY_P),
-                getProfitTable(width, marketRepository), isActive(CommodityTab.PROFIT));
-
+        addBuyTab(tabViewContainer, width, marketRepository);
+        addSellTab(tabViewContainer, width, marketRepository);
+        addProfitTab(tabViewContainer, width, marketRepository);
         return tabViewContainer;
+    }
+
+    private void addBuyTab(TabViewContainer tabViewContainer, float width, MarketRepository marketRepository) {
+        CommodityTabButton tabButton = getTabButton(CommodityTab.BUY, Keyboard.KEY_B);
+        Table table = getBuyTable(width, marketRepository);
+        boolean isActive = isActive(CommodityTab.BUY);
+        tabViewContainer.addTab(tabButton, table, isActive);
+    }
+
+    private void addSellTab(TabViewContainer tabViewContainer, float width, MarketRepository marketRepository) {
+        CommodityTabButton tabButton = getTabButton(CommodityTab.SELL, Keyboard.KEY_S);
+        Table table = getSellTable(width, marketRepository);
+        boolean isActive = isActive(CommodityTab.SELL);
+        tabViewContainer.addTab(tabButton, table, isActive);
+    }
+
+    private void addProfitTab(TabViewContainer tabViewContainer, float width, MarketRepository marketRepository) {
+        CommodityTabButton tabButton = getTabButton(CommodityTab.PROFIT, Keyboard.KEY_P);
+        Table table = getProfitTable(width, marketRepository);
+        boolean isActive = isActive(CommodityTab.PROFIT);
+        tabViewContainer.addTab(tabButton, table, isActive);
     }
 
     private Table getBuyTable(float width, MarketRepository marketRepository) {
