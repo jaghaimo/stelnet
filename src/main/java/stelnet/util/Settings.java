@@ -7,7 +7,7 @@ import com.fs.starfarer.api.SettingsAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 
 /**
- * Provides easy access to Global.getSettings() methods
+ * Provides easy access to Global.getSettings() methods.
  */
 public class Settings {
 
