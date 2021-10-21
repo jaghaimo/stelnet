@@ -4,11 +4,14 @@ import java.util.List;
 
 import stelnet.storage.data.DataProvider;
 import stelnet.storage.data.PerLocationProvider;
-import stelnet.storage.data.StorageData;
+import stelnet.storage.data.SubmarketData;
 import stelnet.storage.data.UnifiedProvider;
 import stelnet.storage.view.DisplayViewButton;
 
-public enum StorageView implements DataProvider {
+/**
+ * Provides submarket data using various grouping logic.
+ */
+public enum SubmarketDataProvider implements DataProvider {
 
     PER_LOCATION("PerLocation") {
 
@@ -18,7 +21,7 @@ public enum StorageView implements DataProvider {
         }
 
         @Override
-        public List<StorageData> getData(FilterManager filterManager) {
+        public List<SubmarketData> getData(FilterManager filterManager) {
             return new PerLocationProvider().getData(filterManager);
         }
     },
@@ -30,14 +33,14 @@ public enum StorageView implements DataProvider {
         }
 
         @Override
-        public List<StorageData> getData(FilterManager filterManager) {
+        public List<SubmarketData> getData(FilterManager filterManager) {
             return new UnifiedProvider().getData(filterManager);
         }
     };
 
     private final String title;
 
-    private StorageView(String title) {
+    private SubmarketDataProvider(String title) {
         this.title = title;
     }
 
@@ -45,7 +48,7 @@ public enum StorageView implements DataProvider {
         return null;
     }
 
-    public List<StorageData> getData(FilterManager filterManager) {
+    public List<SubmarketData> getData(FilterManager filterManager) {
         return null;
     }
 

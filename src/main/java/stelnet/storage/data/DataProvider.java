@@ -6,5 +6,5 @@ import stelnet.storage.FilterManager;
 
 public interface DataProvider {
 
-    public List<StorageData> getData(FilterManager filterManager);
+    public List<SubmarketData> getData(FilterManager filterManager);
 }

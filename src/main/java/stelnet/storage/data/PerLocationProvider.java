@@ -18,8 +18,8 @@ import stelnet.util.StorageUtils;
 public class PerLocationProvider implements DataProvider {
 
     @Override
-    public List<StorageData> getData(FilterManager filterManager) {
-        List<StorageData> data = new LinkedList<>();
+    public List<SubmarketData> getData(FilterManager filterManager) {
+        List<SubmarketData> data = new LinkedList<>();
         List<SubmarketAPI> storages = StorageUtils.getAllSortedWithAccess();
         for (SubmarketAPI storage : storages) {
             processSubmarket(new LocationData(storage.getMarket()), storage, filterManager, data);
@@ -27,15 +27,15 @@ public class PerLocationProvider implements DataProvider {
         return data;
     }
 
-    protected void processSubmarket(LocationData locationData, SubmarketAPI storage, FilterManager filterManager,
-            List<StorageData> data) {
+    protected void processSubmarket(LocationData locationData, SubmarketAPI storage,
+            FilterManager filterManager, List<SubmarketData> data) {
         CargoAPI storageCargo = storage.getCargo();
         CargoAPI items = getItems(filterManager, storageCargo);
         List<FleetMemberAPI> ships = getShips(filterManager, storageCargo);
         String name = storage.getMarket().getName();
         log.debug("Found " + items.getStacksCopy().size() + " items in " + name);
         log.debug("Found " + ships.size() + " ships in " + name);
-        data.add(new StorageData(locationData, items, ships));
+        data.add(new SubmarketData(locationData, items, ships));
     }
 
     private CargoAPI getItems(FilterManager filterManager, CargoAPI storageCargo) {

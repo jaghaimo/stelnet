@@ -14,7 +14,7 @@ import stelnet.market.view.MarketSelectButton;
 import stelnet.market.view.ViewerTabViewFactory;
 import stelnet.storage.ButtonManager;
 import stelnet.storage.FilterManager;
-import stelnet.storage.StorageTab;
+import stelnet.storage.SubmarketDataRenderer;
 import stelnet.util.IntelManager;
 import stelnet.util.L10n;
 import stelnet.util.Settings;
@@ -28,7 +28,7 @@ public class ViewerBoard extends BaseBoard {
 
     private final FilterManager filterManager = new FilterManager();
     private final ButtonManager buttonManager = new ButtonManager(filterManager);
-    private StorageTab activeTab = StorageTab.ITEMS;
+    private SubmarketDataRenderer activeTab = SubmarketDataRenderer.ITEMS;
     private MarketProvider marketProvider = new MarketProvider(null);
 
     public static ViewerBoard getInstance() {
@@ -58,7 +58,8 @@ public class ViewerBoard extends BaseBoard {
     @Override
     protected List<Renderable> getRenderables(Size size) {
         return Arrays.<Renderable>asList(
-                new ViewerTabViewFactory(buttonManager, filterManager, activeTab, marketProvider).createContainer(size),
+                new ViewerTabViewFactory(buttonManager, filterManager, activeTab, marketProvider)
+                        .createContainer(size),
                 new MarketSelectButton());
     }
 

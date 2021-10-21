@@ -16,7 +16,7 @@ import lombok.extern.log4j.Log4j;
 import stelnet.storage.FilterManager;
 import stelnet.storage.data.LocationData;
 import stelnet.storage.data.PerLocationProvider;
-import stelnet.storage.data.StorageData;
+import stelnet.storage.data.SubmarketData;
 import stelnet.util.L10n;
 
 @Log4j
@@ -26,13 +26,13 @@ public class MarketProvider extends PerLocationProvider {
     private final MarketAPI market;
 
     @Override
-    public List<StorageData> getData(FilterManager filterManager) {
+    public List<SubmarketData> getData(FilterManager filterManager) {
         if (market == null) {
             log.debug("No market set, returning empty data.");
             return getEmptyData();
         }
         log.debug("Adding data for market " + market.getName());
-        List<StorageData> data = new LinkedList<>();
+        List<SubmarketData> data = new LinkedList<>();
         for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
             if (Submarkets.SUBMARKET_STORAGE.equals(submarket.getSpecId())) {
                 log.debug("Skipping storage");
@@ -44,9 +44,10 @@ public class MarketProvider extends PerLocationProvider {
         return data;
     }
 
-    private List<StorageData> getEmptyData() {
-        return Collections.singletonList(new StorageData(
-                new LocationData(L10n.get("marketViewNoMarket"), Misc.getTextColor(), Misc.getGrayColor()),
+    private List<SubmarketData> getEmptyData() {
+        return Collections.singletonList(new SubmarketData(
+                new LocationData(L10n.get("marketViewNoMarket"), Misc.getTextColor(),
+                        Misc.getGrayColor()),
                 Global.getFactory().createCargo(true), Collections.<FleetMemberAPI>emptyList()));
     }
 }

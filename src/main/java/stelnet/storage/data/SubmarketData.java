@@ -8,7 +8,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import lombok.Data;
 
 @Data
-public class StorageData {
+public class SubmarketData {
 
     private final LocationData locationData;
     private final CargoAPI items;
