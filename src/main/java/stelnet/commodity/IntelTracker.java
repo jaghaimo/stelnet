@@ -13,11 +13,7 @@ public class IntelTracker extends HashMap<String, CommodityIntel> {
 
     private static final long serialVersionUID = 1L;
 
-    public boolean has(
-        String action,
-        String commodityId,
-        MarketApiWrapper market
-    ) {
+    public boolean has(String action, String commodityId, MarketApiWrapper market) {
         String key = getKey(action, commodityId, market);
         CommodityIntel intel = get(key);
         return intel != null;
@@ -39,20 +35,12 @@ public class IntelTracker extends HashMap<String, CommodityIntel> {
     }
 
     public void remove(CommodityIntel intel) {
-        String key = getKey(
-            intel.getAction(),
-            intel.getCommodityId(),
-            intel.getMarketWrapper()
-        );
+        String key = getKey(intel.getAction(), intel.getCommodityId(), intel.getMarketWrapper());
         IntelManager.removeIntel(intel);
         remove(key);
     }
 
-    public void toggle(
-        String commodityId,
-        CommodityTab commodityTab,
-        MarketApiWrapper market
-    ) {
+    public void toggle(String commodityId, CommodityTab commodityTab, MarketApiWrapper market) {
         String action = commodityTab.title;
         String key = getKey(action, commodityId, market);
         CommodityIntel intel = get(key);
@@ -70,11 +58,7 @@ public class IntelTracker extends HashMap<String, CommodityIntel> {
         }
     }
 
-    private String getKey(
-        String action,
-        String commodityId,
-        MarketApiWrapper market
-    ) {
+    private String getKey(String action, String commodityId, MarketApiWrapper market) {
         return action + ":" + commodityId + ":" + market.getName();
     }
 }

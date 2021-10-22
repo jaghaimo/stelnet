@@ -16,23 +16,15 @@ public class IntelViewFactory {
 
     private final IntelTracker tracker;
 
-    public Renderable createContainer(
-        String commodityId,
-        CommodityTab actionTab,
-        Size size
-    ) {
+    public Renderable createContainer(String commodityId, CommodityTab actionTab, Size size) {
         MarketRepository marketRepository = new MarketRepository(commodityId);
-        List<MarketApiWrapper> markets = marketRepository.getMarketsByType(
-            actionTab
-        );
+        List<MarketApiWrapper> markets = marketRepository.getMarketsByType(actionTab);
         int numberOfButtons = calcNumberOfButtons(markets, size);
 
         List<Renderable> buttons = new LinkedList<>();
         for (int i = 0; i < numberOfButtons; i++) {
             MarketApiWrapper market = markets.get(i);
-            buttons.add(
-                new IntelButton(i + 1, actionTab, commodityId, market, tracker)
-            );
+            buttons.add(new IntelButton(i + 1, actionTab, commodityId, market, tracker));
         }
 
         HorizontalViewContainer rows = new HorizontalViewContainer(buttons);

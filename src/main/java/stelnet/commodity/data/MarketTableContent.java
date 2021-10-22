@@ -17,11 +17,7 @@ public abstract class MarketTableContent implements TableContent {
     protected final List<MarketApiWrapper> markets;
     protected List<TableRow> rows = new ArrayList<>();
 
-    protected Object[] getHeader(
-        float maxWidth,
-        String availableOrDemand,
-        String excessOrDeficit
-    ) {
+    protected Object[] getHeader(float maxWidth, String availableOrDemand, String excessOrDeficit) {
         float width = maxWidth - 24;
         Object header[] = {
             "#",
@@ -54,12 +50,7 @@ public abstract class MarketTableContent implements TableContent {
 
     protected abstract TableRow createRowData(int i, MarketApiWrapper market);
 
-    protected TableRow createRowData(
-        int i,
-        MarketApiWrapper market,
-        int demandOrAvailability,
-        int excessOrDeficit
-    ) {
+    protected TableRow createRowData(int i, MarketApiWrapper market, int demandOrAvailability, int excessOrDeficit) {
         TableRow rowDataElement = new TableRow();
         rowDataElement.addRowNumberCell(i);
         rowDataElement.addDGSCreditsCell(market.getPriceAmount());
@@ -69,14 +60,8 @@ public abstract class MarketTableContent implements TableContent {
             TableCellHelper.getFactionColor(market.getMarketAPI().getFaction()),
             market.getMarketAndFactionDisplayName()
         );
-        rowDataElement.addRow(
-            TableCellHelper.getClaimingFactionColor(market.getMarketAPI()),
-            market.getStarSystem()
-        );
-        rowDataElement.addRow(
-            Misc.getTextColor(),
-            String.format("%.1f", market.getDistanceToPlayer())
-        );
+        rowDataElement.addRow(TableCellHelper.getClaimingFactionColor(market.getMarketAPI()), market.getStarSystem());
+        rowDataElement.addRow(Misc.getTextColor(), String.format("%.1f", market.getDistanceToPlayer()));
         return rowDataElement;
     }
 }

@@ -21,10 +21,7 @@ public class BuyMarketFactory extends MarketFactory {
 
     @Override
     protected void filterMarkets(List<MarketAPI> markets) {
-        CollectionReducer.reduce(
-            markets,
-            new CommodityAvailableFilter(commodityId)
-        );
+        CollectionReducer.reduce(markets, new CommodityAvailableFilter(commodityId));
     }
 
     @Override

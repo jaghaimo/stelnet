@@ -84,13 +84,7 @@ public class CommodityIntel extends BaseIntel {
         float width = size.getWidth();
         FactionAPI faction = marketWrapper.getFaction();
         List<Renderable> renderables = new ArrayList<>();
-        renderables.add(
-            new Heading(
-                marketWrapper.getName(),
-                faction.getBaseUIColor(),
-                faction.getDarkUIColor()
-            )
-        );
+        renderables.add(new Heading(marketWrapper.getName(), faction.getBaseUIColor(), faction.getDarkUIColor()));
         renderables.add(new Image(faction.getLogo(), width, 128));
         renderables.add(new Spacer(10f));
         addPriceChange(renderables, width);
@@ -112,18 +106,12 @@ public class CommodityIntel extends BaseIntel {
                 Misc.getDGSCredits(price),
                 Misc.getDGSCredits(marketWrapper.getPriceAmount())
             );
-            Paragraph priceChangeRenderable = new Paragraph(
-                priceChangeText,
-                width
-            );
+            Paragraph priceChangeRenderable = new Paragraph(priceChangeText, width);
             priceChangeRenderable.setHighlightStrings(
                 Misc.getDGSCredits(price),
                 Misc.getDGSCredits(marketWrapper.getPriceAmount())
             );
-            priceChangeRenderable.setHighlightColors(
-                Misc.getHighlightColor(),
-                Misc.getHighlightColor()
-            );
+            priceChangeRenderable.setHighlightColors(Misc.getHighlightColor(), Misc.getHighlightColor());
             renderables.add(priceChangeRenderable);
             renderables.add(new Spacer(10f));
         }
@@ -134,21 +122,13 @@ public class CommodityIntel extends BaseIntel {
         RelationshipAPI relationship = faction.getRelToPlayer();
         String reputation = relationship.getLevel().getDisplayName();
         String translatedRep = L10n.get("reputation" + reputation);
-        Paragraph relationshipRenderable = new Paragraph(
-            L10n.get("intelOwnerRelationship", translatedRep),
-            width
-        );
+        Paragraph relationshipRenderable = new Paragraph(L10n.get("intelOwnerRelationship", translatedRep), width);
         relationshipRenderable.setHighlightStrings(translatedRep);
         relationshipRenderable.setHighlightColors(relationship.getRelColor());
         renderables.add(relationshipRenderable);
     }
 
     private String getTitle() {
-        return L10n.get(
-            "commodityIntelTitle",
-            action,
-            commodity.getName(),
-            Misc.getDGSCredits(price)
-        );
+        return L10n.get("commodityIntelTitle", action, commodity.getName(), Misc.getDGSCredits(price));
     }
 }

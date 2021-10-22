@@ -17,10 +17,7 @@ public class ProfitTableContent implements TableContent {
     private final MarketRepository marketRepository;
     private final String commodityId;
 
-    public ProfitTableContent(
-        String commodityId,
-        MarketRepository marketRepository
-    ) {
+    public ProfitTableContent(String commodityId, MarketRepository marketRepository) {
         this.commodityId = commodityId;
         this.marketRepository = marketRepository;
         createRows();
@@ -71,54 +68,38 @@ public class ProfitTableContent implements TableContent {
         rows = rows.subList(0, maxRows);
     }
 
-    protected SortableRow createRowData(
-        int i,
-        MarketApiWrapper buyMarket,
-        MarketApiWrapper sellMarket
-    ) {
+    protected SortableRow createRowData(int i, MarketApiWrapper buyMarket, MarketApiWrapper sellMarket) {
         Color color = getRowColor(buyMarket, sellMarket);
         float profit = getPotentialProfit(buyMarket, sellMarket);
         float buyToSellDistance = DistanceCalculator.getDistanceLY(
             buyMarket.getPrimaryEntity(),
             sellMarket.getPrimaryEntity()
         );
-        float totalDistance =
-            buyMarket.getDistanceToPlayer() + buyToSellDistance;
+        float totalDistance = buyMarket.getDistanceToPlayer() + buyToSellDistance;
         SortableRow sortableRow = new SortableRow(profit);
         sortableRow.addRowNumberCell(i);
         sortableRow.addDGSCreditsCell(color, profit);
         sortableRow.addRow(
-            TableCellHelper.getFactionColor(
-                buyMarket.getMarketAPI().getFaction()
-            ),
+            TableCellHelper.getFactionColor(buyMarket.getMarketAPI().getFaction()),
             TableCellHelper.getLocation(buyMarket.getMarketAPI())
         );
         sortableRow.addRow(
-            TableCellHelper.getFactionColor(
-                sellMarket.getMarketAPI().getFaction()
-            ),
+            TableCellHelper.getFactionColor(sellMarket.getMarketAPI().getFaction()),
             TableCellHelper.getLocation(sellMarket.getMarketAPI())
         );
         sortableRow.addRow(
             color,
-            Misc.getDGSCredits(buyMarket.getPriceAmount()) +
-            " / " +
-            buyMarket.getAvailable(commodityId)
+            Misc.getDGSCredits(buyMarket.getPriceAmount()) + " / " + buyMarket.getAvailable(commodityId)
         );
         sortableRow.addRow(
             color,
-            Misc.getDGSCredits(sellMarket.getPriceAmount()) +
-            " / " +
-            sellMarket.getDemand(commodityId)
+            Misc.getDGSCredits(sellMarket.getPriceAmount()) + " / " + sellMarket.getDemand(commodityId)
         );
         sortableRow.addRow(color, String.format("%.1f", totalDistance));
         return sortableRow;
     }
 
-    private float getPotentialProfit(
-        MarketApiWrapper buyFromMarket,
-        MarketApiWrapper sellToMarket
-    ) {
+    private float getPotentialProfit(MarketApiWrapper buyFromMarket, MarketApiWrapper sellToMarket) {
         int available = buyFromMarket.getAvailable(commodityId);
         int demand = sellToMarket.getDemand(commodityId);
         int quantity = Math.min(available, demand);
@@ -132,10 +113,7 @@ public class ProfitTableContent implements TableContent {
         return Math.max(0, sold - bought);
     }
 
-    private Color getRowColor(
-        MarketApiWrapper buyMarket,
-        MarketApiWrapper sellMarket
-    ) {
+    private Color getRowColor(MarketApiWrapper buyMarket, MarketApiWrapper sellMarket) {
         String buySystemName = buyMarket.getStarSystem();
         String sellSystemName = sellMarket.getStarSystem();
         Color color = Misc.getTextColor();

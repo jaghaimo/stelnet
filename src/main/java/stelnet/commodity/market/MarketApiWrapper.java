@@ -63,17 +63,11 @@ public class MarketApiWrapper {
     }
 
     public float getDistanceToPlayer() {
-        return DistanceCalculator.getDistanceToPlayerLY(
-            marketAPI.getPrimaryEntity()
-        );
+        return DistanceCalculator.getDistanceToPlayerLY(marketAPI.getPrimaryEntity());
     }
 
     public String getMarketAndFactionDisplayName() {
-        return (
-            marketAPI.getName() +
-            " - " +
-            marketAPI.getFaction().getDisplayName()
-        );
+        return (marketAPI.getName() + " - " + marketAPI.getFaction().getDisplayName());
     }
 
     public String getName() {

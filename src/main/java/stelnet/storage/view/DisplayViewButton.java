@@ -15,12 +15,7 @@ import uilib.property.Size;
 public class DisplayViewButton extends Button {
 
     public DisplayViewButton(final SubmarketDataProvider view) {
-        super(
-            new Size(180, 24),
-            L10n.get("storageView" + view.getTitle()),
-            true,
-            Misc.getButtonTextColor()
-        );
+        super(new Size(180, 24), L10n.get("storageView" + view.getTitle()), true, Misc.getButtonTextColor());
         setShortcut(Keyboard.KEY_G);
         setLocation(Location.BOTTOM_RIGHT);
         setOffset(new Position(16, 8));

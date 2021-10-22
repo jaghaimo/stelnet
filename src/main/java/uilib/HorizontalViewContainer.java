@@ -43,11 +43,7 @@ public class HorizontalViewContainer extends Group {
 
     @Override
     public String toString() {
-        return String.format(
-            "HorizontalViewContainer(%d) with %s",
-            getElements().size(),
-            getSize()
-        );
+        return String.format("HorizontalViewContainer(%d) with %s", getElements().size(), getSize());
     }
 
     @Override

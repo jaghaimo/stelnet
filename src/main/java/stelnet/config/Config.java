@@ -29,9 +29,7 @@ public abstract class Config {
             return (T) value;
         } catch (Exception e) {
             log.error(e);
-            log.warn(
-                "Returning default value for '" + key + "' - " + defaultValue
-            );
+            log.warn("Returning default value for '" + key + "' - " + defaultValue);
             return defaultValue;
         }
     }

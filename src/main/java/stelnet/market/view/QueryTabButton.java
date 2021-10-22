@@ -9,16 +9,8 @@ import uilib.TabButton;
 
 public class QueryTabButton extends TabButton {
 
-    public QueryTabButton(
-        final QueryTab currentTab,
-        QueryTab activeTab,
-        int shortcut
-    ) {
-        super(
-            L10n.get("marketQueryTab" + currentTab.title),
-            currentTab.equals(activeTab),
-            shortcut
-        );
+    public QueryTabButton(final QueryTab currentTab, QueryTab activeTab, int shortcut) {
+        super(L10n.get("marketQueryTab" + currentTab.title), currentTab.equals(activeTab), shortcut);
         setHandler(
             new EventHandler() {
                 @Override

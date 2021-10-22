@@ -55,22 +55,11 @@ public class StorageTabViewFactory {
         return currentTab.equals(activeTab);
     }
 
-    protected TabButton getTabButton(
-        SubmarketDataRenderer currentTab,
-        int keyboardShortcut
-    ) {
-        return new StorageTabButton(
-            currentTab,
-            isActive(currentTab),
-            keyboardShortcut
-        );
+    protected TabButton getTabButton(SubmarketDataRenderer currentTab, int keyboardShortcut) {
+        return new StorageTabButton(currentTab, isActive(currentTab), keyboardShortcut);
     }
 
-    private Renderable getTabPane(
-        Size size,
-        Size contentSize,
-        Renderable[] buttons
-    ) {
+    private Renderable getTabPane(Size size, Size contentSize, Renderable[] buttons) {
         List<Renderable> elements = new ArrayList<>();
         List<SubmarketData> storageData = activeView.getData(filterManager);
         addEmptyData(elements, storageData, contentSize.getWidth());
@@ -78,40 +67,22 @@ public class StorageTabViewFactory {
         Group contentContainer = new Group(elements);
         contentContainer.setSize(contentSize);
         Group buttonContainer = new Group(buttons);
-        buttonContainer.setSize(
-            new Size(
-                size.reduce(contentSize).getWidth(),
-                contentSize.getHeight()
-            )
-        );
+        buttonContainer.setSize(new Size(size.reduce(contentSize).getWidth(), contentSize.getHeight()));
         buttonContainer.setOffset(new Position(10, 0)); // Could replace magic numbers with actual
         // calculations
         return new HorizontalViewContainer(contentContainer, buttonContainer);
     }
 
-    private void addEmptyData(
-        List<Renderable> elements,
-        List<SubmarketData> storageData,
-        float width
-    ) {
+    private void addEmptyData(List<Renderable> elements, List<SubmarketData> storageData, float width) {
         if (storageData.isEmpty()) {
             elements.add(new Paragraph(L10n.get("storageNoStorages"), width));
         }
     }
 
-    private void addStorageData(
-        List<Renderable> elements,
-        List<SubmarketData> storageData
-    ) {
+    private void addStorageData(List<Renderable> elements, List<SubmarketData> storageData) {
         for (SubmarketData data : storageData) {
             LocationData locationData = data.getLocationData();
-            elements.add(
-                new Heading(
-                    locationData.getName(),
-                    locationData.getFgColor(),
-                    locationData.getBgColor()
-                )
-            );
+            elements.add(new Heading(locationData.getName(), locationData.getFgColor(), locationData.getBgColor()));
             elements.add(activeTab.getStorageRenderer(data));
             elements.add(new Spacer(8));
         }

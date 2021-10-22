@@ -27,20 +27,8 @@ public abstract class BaseIntel extends RenderableIntel {
         Color bulletColor = getBulletColorForMode(mode);
         info.addPara(intelInfo.getTitle(), getTitleColor(mode), 0);
         info.beginGridFlipped(300, 1, Misc.getTextColor(), 80, 10);
-        info.addToGrid(
-            0,
-            0,
-            info.shortenString(intelInfo.getContent1(), 200),
-            intelInfo.getHeader1(),
-            bulletColor
-        );
-        info.addToGrid(
-            0,
-            1,
-            info.shortenString(intelInfo.getContent2(), 200),
-            intelInfo.getHeader2(),
-            bulletColor
-        );
+        info.addToGrid(0, 0, info.shortenString(intelInfo.getContent1(), 200), intelInfo.getHeader1(), bulletColor);
+        info.addToGrid(0, 1, info.shortenString(intelInfo.getContent2(), 200), intelInfo.getHeader2(), bulletColor);
         info.addGrid(3);
     }
 
@@ -63,10 +51,7 @@ public abstract class BaseIntel extends RenderableIntel {
 
     @Override
     public String getSortString() {
-        return String.format(
-            "%07.2f",
-            Misc.getDistanceToPlayerLY(sectorEntityToken)
-        );
+        return String.format("%07.2f", Misc.getDistanceToPlayerLY(sectorEntityToken));
     }
 
     @Override
@@ -80,16 +65,9 @@ public abstract class BaseIntel extends RenderableIntel {
     }
 
     protected String getFactionWithRel() {
-        String reputation = faction
-            .getRelToPlayer()
-            .getLevel()
-            .getDisplayName();
+        String reputation = faction.getRelToPlayer().getLevel().getDisplayName();
         String translatedRep = L10n.get("reputation" + reputation);
-        return L10n.get(
-            "intelFactionWithRel",
-            faction.getDisplayName(),
-            translatedRep
-        );
+        return L10n.get("intelFactionWithRel", faction.getDisplayName(), translatedRep);
     }
 
     protected String getLocationName() {

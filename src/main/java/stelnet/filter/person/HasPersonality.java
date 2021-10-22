@@ -17,9 +17,7 @@ public class HasPersonality implements PersonFilter {
     public boolean accept(CommDirectoryEntryAPI entry) {
         PersonAPI person = (PersonAPI) entry.getEntryData();
         String p = person.getPersonalityAPI().getId();
-        log.debug(
-            String.format("Considering %s (%s)", person.getNameString(), p)
-        );
+        log.debug(String.format("Considering %s (%s)", person.getNameString(), p));
         return personality.equals(p);
     }
 }

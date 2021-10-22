@@ -19,14 +19,7 @@ public class ViewerTabViewFactory extends StorageTabViewFactory {
     }
 
     @Override
-    protected TabButton getTabButton(
-        SubmarketDataRenderer currentTab,
-        int keyboardShortcut
-    ) {
-        return new ViewerTabButton(
-            currentTab,
-            isActive(currentTab),
-            keyboardShortcut
-        );
+    protected TabButton getTabButton(SubmarketDataRenderer currentTab, int keyboardShortcut) {
+        return new ViewerTabButton(currentTab, isActive(currentTab), keyboardShortcut);
     }
 }

@@ -14,14 +14,11 @@ public class HasOfficer implements MarketFilter {
     private final List<PersonFilter> filters;
 
     public HasOfficer(String personality) {
-        filters =
-            Arrays.asList(new IsOfficer(), new HasPersonality(personality));
+        filters = Arrays.asList(new IsOfficer(), new HasPersonality(personality));
     }
 
     public boolean accept(MarketAPI market) {
-        List<CommDirectoryEntryAPI> people = market
-            .getCommDirectory()
-            .getEntriesCopy();
+        List<CommDirectoryEntryAPI> people = market.getCommDirectory().getEntriesCopy();
         CollectionReducer.reduce(people, filters);
         return !people.isEmpty();
     }

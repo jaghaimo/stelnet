@@ -16,14 +16,7 @@ public class AreaCheckbox extends Button implements TwoStateButton {
     private boolean isStateOn;
     private Color offColor;
 
-    public AreaCheckbox(
-        Size size,
-        String title,
-        boolean isEnabled,
-        boolean isStateOn,
-        Color onColor,
-        Color offColor
-    ) {
+    public AreaCheckbox(Size size, String title, boolean isEnabled, boolean isStateOn, Color onColor, Color offColor) {
         super(size, title, isEnabled, onColor);
         this.isStateOn = isStateOn;
         this.offColor = offColor;

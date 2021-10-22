@@ -20,12 +20,7 @@ public class PerLocationProvider implements DataProvider {
         List<SubmarketData> data = new LinkedList<>();
         List<SubmarketAPI> storages = StorageUtils.getAllSortedWithAccess();
         for (SubmarketAPI storage : storages) {
-            processSubmarket(
-                new LocationData(storage.getMarket()),
-                storage,
-                filterManager,
-                data
-            );
+            processSubmarket(new LocationData(storage.getMarket()), storage, filterManager, data);
         }
         return data;
     }
@@ -40,17 +35,12 @@ public class PerLocationProvider implements DataProvider {
         CargoAPI items = getItems(filterManager, storageCargo);
         List<FleetMemberAPI> ships = getShips(filterManager, storageCargo);
         String name = storage.getMarket().getName();
-        log.debug(
-            "Found " + items.getStacksCopy().size() + " items in " + name
-        );
+        log.debug("Found " + items.getStacksCopy().size() + " items in " + name);
         log.debug("Found " + ships.size() + " ships in " + name);
         data.add(new SubmarketData(locationData, items, ships));
     }
 
-    private CargoAPI getItems(
-        FilterManager filterManager,
-        CargoAPI storageCargo
-    ) {
+    private CargoAPI getItems(FilterManager filterManager, CargoAPI storageCargo) {
         CargoAPI items = storageCargo.createCopy();
         List<CargoStackAPI> cargoStacks = storageCargo.getStacksCopy();
         CollectionReducer.reduce(cargoStacks, filterManager.getItemFilters());
@@ -58,13 +48,8 @@ public class PerLocationProvider implements DataProvider {
         return items;
     }
 
-    private List<FleetMemberAPI> getShips(
-        FilterManager filterManager,
-        CargoAPI storageCargo
-    ) {
-        List<FleetMemberAPI> ships = storageCargo
-            .getMothballedShips()
-            .getMembersInPriorityOrder();
+    private List<FleetMemberAPI> getShips(FilterManager filterManager, CargoAPI storageCargo) {
+        List<FleetMemberAPI> ships = storageCargo.getMothballedShips().getMembersInPriorityOrder();
         CollectionReducer.reduce(ships, filterManager.getShipFilters());
         return ships;
     }

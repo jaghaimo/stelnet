@@ -11,11 +11,7 @@ public abstract class BaseBoard extends RenderableIntel {
     public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
         BoardInfo boardInfo = getBoardInfo();
         info.addPara(boardInfo.getTitle(), getTitleColor(mode), 0);
-        info.addPara(
-            boardInfo.getDescription(),
-            getBulletColorForMode(mode),
-            1
-        );
+        info.addPara(boardInfo.getDescription(), getBulletColorForMode(mode), 1);
         // info.addPara("", 0);
     }
 

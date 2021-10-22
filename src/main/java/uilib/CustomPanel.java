@@ -18,8 +18,7 @@ public class CustomPanel extends AbstractRenderable {
     public void render(CustomPanelAPI panel, float x, float y) {
         log(new Position(x, y));
         Size size = getSize();
-        customPanel =
-            panel.createCustomPanel(size.getWidth(), size.getHeight(), null);
+        customPanel = panel.createCustomPanel(size.getWidth(), size.getHeight(), null);
         renderable.render(customPanel, x, y);
     }
 

@@ -16,10 +16,7 @@ public class HasFleetMember implements SubmarketFilter {
     }
 
     public boolean accept(SubmarketAPI submarket) {
-        List<FleetMemberAPI> fleetMembers = submarket
-            .getCargo()
-            .getMothballedShips()
-            .getMembersListCopy();
+        List<FleetMemberAPI> fleetMembers = submarket.getCargo().getMothballedShips().getMembersListCopy();
         CollectionReducer.reduce(fleetMembers, filter);
         return !fleetMembers.isEmpty();
     }

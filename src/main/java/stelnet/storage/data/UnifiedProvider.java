@@ -15,24 +15,14 @@ public class UnifiedProvider implements DataProvider {
 
     @Override
     public List<SubmarketData> getData(FilterManager filterManager) {
-        CargoAPI items = StorageUtils.getAllItems(
-            filterManager.getItemFilters()
-        );
-        List<FleetMemberAPI> ships = StorageUtils.getAllShips(
-            filterManager.getShipFilters()
-        );
+        CargoAPI items = StorageUtils.getAllItems(filterManager.getItemFilters());
+        List<FleetMemberAPI> ships = StorageUtils.getAllShips(filterManager.getShipFilters());
         log.debug("Found " + items.getStacksCopy().size() + " items");
         log.debug("Found " + ships.size() + " ships");
-        return Collections.singletonList(
-            new SubmarketData(getLocationData(), items, ships)
-        );
+        return Collections.singletonList(new SubmarketData(getLocationData(), items, ships));
     }
 
     private LocationData getLocationData() {
-        return new LocationData(
-            L10n.get("storageUnifiedView"),
-            Misc.getBasePlayerColor(),
-            Misc.getDarkPlayerColor()
-        );
+        return new LocationData(L10n.get("storageUnifiedView"), Misc.getBasePlayerColor(), Misc.getDarkPlayerColor());
     }
 }

@@ -25,12 +25,7 @@ public class Paragraph extends AbstractRenderable {
         setWithScroller(false);
     }
 
-    public Paragraph(
-        String text,
-        float width,
-        float padding,
-        Alignment alignment
-    ) {
+    public Paragraph(String text, float width, float padding, Alignment alignment) {
         this(text, width);
         setPadding(padding);
         setAlignment(alignment);

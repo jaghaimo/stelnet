@@ -43,15 +43,11 @@ public class StorageUtils {
         return getAllShips(filters);
     }
 
-    public static List<FleetMemberAPI> getAllShips(
-        Set<FleetMemberFilter> filters
-    ) {
+    public static List<FleetMemberAPI> getAllShips(Set<FleetMemberFilter> filters) {
         List<FleetMemberAPI> ships = new ArrayList<>();
         List<SubmarketAPI> submarkets = getAllWithAccess();
         for (SubmarketAPI submarket : submarkets) {
-            ships.addAll(
-                submarket.getCargo().getMothballedShips().getMembersListCopy()
-            );
+            ships.addAll(submarket.getCargo().getMothballedShips().getMembersListCopy());
         }
         CollectionReducer.reduce(ships, filters);
         return ships;
@@ -65,9 +61,7 @@ public class StorageUtils {
         List<SubmarketAPI> availableStorages = new ArrayList<>();
         for (MarketAPI market : Economy.getMarkets()) {
             if (Misc.playerHasStorageAccess(market)) {
-                SubmarketAPI storage = market.getSubmarket(
-                    Submarkets.SUBMARKET_STORAGE
-                );
+                SubmarketAPI storage = market.getSubmarket(Submarkets.SUBMARKET_STORAGE);
                 availableStorages.add(storage);
             }
         }
@@ -81,12 +75,8 @@ public class StorageUtils {
             new Comparator<SubmarketAPI>() {
                 @Override
                 public int compare(SubmarketAPI s1, SubmarketAPI s2) {
-                    float s1distance = DistanceCalculator.getDistanceToPlayerLY(
-                        s1.getMarket().getPrimaryEntity()
-                    );
-                    float s2distance = DistanceCalculator.getDistanceToPlayerLY(
-                        s2.getMarket().getPrimaryEntity()
-                    );
+                    float s1distance = DistanceCalculator.getDistanceToPlayerLY(s1.getMarket().getPrimaryEntity());
+                    float s2distance = DistanceCalculator.getDistanceToPlayerLY(s2.getMarket().getPrimaryEntity());
                     return Math.round(s1distance - s2distance);
                 }
             }

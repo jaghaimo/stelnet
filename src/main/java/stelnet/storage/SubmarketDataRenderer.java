@@ -14,21 +14,13 @@ public enum SubmarketDataRenderer {
     ITEMS("Items") {
         @Override
         public Renderable getStorageRenderer(SubmarketData data) {
-            return new Cargo(
-                data.getItems(),
-                L10n.get("storageNoItems"),
-                new Size(0, 0)
-            );
+            return new Cargo(data.getItems(), L10n.get("storageNoItems"), new Size(0, 0));
         }
     },
     SHIPS("Ships") {
         @Override
         public Renderable getStorageRenderer(SubmarketData data) {
-            return new Ships(
-                data.getShips(),
-                L10n.get("storageNoShips"),
-                new Size(0, 0)
-            );
+            return new Ships(data.getShips(), L10n.get("storageNoShips"), new Size(0, 0));
         }
     };
 

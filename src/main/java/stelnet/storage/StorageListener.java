@@ -16,9 +16,7 @@ public class StorageListener implements EconomyTickListener {
 
     public static void register() {
         ListenerManagerAPI listenerManager = Sector.getListenerManager();
-        List<StorageListener> listeners = listenerManager.getListeners(
-            StorageListener.class
-        );
+        List<StorageListener> listeners = listenerManager.getListeners(StorageListener.class);
         if (listeners.isEmpty()) {
             StorageListener listener = new StorageListener();
             listenerManager.addListener(listener);

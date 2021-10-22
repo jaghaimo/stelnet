@@ -10,16 +10,10 @@ public class NeedsRefresh implements SubmarketFilter {
     @Override
     public boolean accept(SubmarketAPI object) {
         try {
-            return (
-                (BaseSubmarketPlugin) object.getPlugin()
-            ).okToUpdateShipsAndWeapons();
+            return ((BaseSubmarketPlugin) object.getPlugin()).okToUpdateShipsAndWeapons();
         } catch (Exception exception) {
             log.warn(
-                String.format(
-                    "Failed to cast submarket %s of %s",
-                    object.getName(),
-                    object.getMarket().getName()
-                )
+                String.format("Failed to cast submarket %s of %s", object.getName(), object.getMarket().getName())
             );
             return false;
         }

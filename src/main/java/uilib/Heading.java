@@ -20,12 +20,6 @@ public class Heading extends AbstractRenderable {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        tooltip.addSectionHeading(
-            title,
-            foregroundColor,
-            backgroundColor,
-            Alignment.MID,
-            10f
-        );
+        tooltip.addSectionHeading(title, foregroundColor, backgroundColor, Alignment.MID, 10f);
     }
 }

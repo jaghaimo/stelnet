@@ -7,11 +7,7 @@ import uilib.EventHandler;
 
 public class ItemFilterButton extends FilteringButton {
 
-    public ItemFilterButton(
-        final FilterManager filterManager,
-        String translationId,
-        final CargoStackFilter filter
-    ) {
+    public ItemFilterButton(final FilterManager filterManager, String translationId, final CargoStackFilter filter) {
         super(translationId);
         setHandler(
             new EventHandler() {

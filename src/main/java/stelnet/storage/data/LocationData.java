@@ -26,12 +26,7 @@ public class LocationData {
         MarketAPI market = submarket.getMarket();
         FactionAPI faction = market.getFaction();
         name =
-            L10n.get(
-                "locationDataSubmarket",
-                submarket.getNameOneLine(),
-                market.getName(),
-                faction.getDisplayName()
-            );
+            L10n.get("locationDataSubmarket", submarket.getNameOneLine(), market.getName(), faction.getDisplayName());
         fgColor = submarket.getFaction().getBaseUIColor();
         bgColor = submarket.getFaction().getDarkUIColor();
     }

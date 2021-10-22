@@ -10,11 +10,7 @@ public class Ships extends AbstractRenderable {
     private final List<FleetMemberAPI> ships;
     private final String emptyDescription;
 
-    public Ships(
-        List<FleetMemberAPI> ships,
-        String emptyDescription,
-        Size size
-    ) {
+    public Ships(List<FleetMemberAPI> ships, String emptyDescription, Size size) {
         this.ships = ships;
         this.emptyDescription = emptyDescription;
         setSize(size);

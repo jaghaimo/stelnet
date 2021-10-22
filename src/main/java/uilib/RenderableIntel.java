@@ -29,21 +29,14 @@ public class RenderableIntel extends BaseIntelPlugin {
     }
 
     @Override
-    public void createConfirmationPrompt(
-        Object buttonId,
-        TooltipMakerAPI prompt
-    ) {
+    public void createConfirmationPrompt(Object buttonId, TooltipMakerAPI prompt) {
         log.debug("Calling prompt()");
         ButtonHandler handler = (ButtonHandler) buttonId;
         handler.onPrompt(prompt);
     }
 
     @Override
-    public void createSmallDescription(
-        TooltipMakerAPI info,
-        float width,
-        float height
-    ) {
+    public void createSmallDescription(TooltipMakerAPI info, float width, float height) {
         Size size = new Size(width, height);
         for (Renderable view : getRenderables(size)) {
             view.render(info);
@@ -51,11 +44,7 @@ public class RenderableIntel extends BaseIntelPlugin {
     }
 
     @Override
-    public void createLargeDescription(
-        CustomPanelAPI panel,
-        float width,
-        float height
-    ) {
+    public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
         Size size = new Size(width, height);
         for (Renderable view : getRenderables(size)) {
             view.render(panel, 0, 0);

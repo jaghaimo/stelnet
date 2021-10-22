@@ -12,9 +12,7 @@ public class IsMercenary implements PersonFilter {
     public boolean accept(CommDirectoryEntryAPI entry) {
         PersonAPI person = (PersonAPI) entry.getEntryData();
         String postId = person.getPostId();
-        log.debug(
-            String.format("Considering %s (%s)", person.getNameString(), postId)
-        );
+        log.debug(String.format("Considering %s (%s)", person.getNameString(), postId));
         return postId.equals(Ranks.POST_MERCENARY);
     }
 }

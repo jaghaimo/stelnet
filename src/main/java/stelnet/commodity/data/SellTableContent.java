@@ -5,21 +5,14 @@ import stelnet.commodity.market.MarketApiWrapper;
 
 public class SellTableContent extends MarketTableContent {
 
-    public SellTableContent(
-        String commodityId,
-        List<MarketApiWrapper> sellMarket
-    ) {
+    public SellTableContent(String commodityId, List<MarketApiWrapper> sellMarket) {
         super(commodityId, sellMarket);
         createRows();
     }
 
     @Override
     public Object[] getHeaders(float width) {
-        return getHeader(
-            width,
-            "commodityHeaderDemand",
-            "commodityHeaderDeficit"
-        );
+        return getHeader(width, "commodityHeaderDemand", "commodityHeaderDeficit");
     }
 
     @Override

@@ -58,11 +58,7 @@ public class DynamicGroup extends AbstractRenderable {
             finalOffset = advanceOffset(finalOffset, renderable.getSize());
             finalSize = renderable.getSize();
         }
-        size =
-            new Size(
-                Math.max(width, finalOffset.getX()),
-                finalOffset.getY() + finalSize.getHeight()
-            );
+        size = new Size(Math.max(width, finalOffset.getX()), finalOffset.getY() + finalSize.getHeight());
         log.debug("Calculated size as " + size);
     }
 

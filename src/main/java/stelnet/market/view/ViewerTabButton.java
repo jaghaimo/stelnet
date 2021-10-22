@@ -9,11 +9,7 @@ import uilib.TabButton;
 
 public class ViewerTabButton extends TabButton {
 
-    public ViewerTabButton(
-        final SubmarketDataRenderer storageTab,
-        boolean isActive,
-        int shortcut
-    ) {
+    public ViewerTabButton(final SubmarketDataRenderer storageTab, boolean isActive, int shortcut) {
         super(L10n.get("storageTab" + storageTab.title), isActive, shortcut);
         setHandler(
             new EventHandler() {

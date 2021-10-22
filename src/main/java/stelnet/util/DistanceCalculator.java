@@ -9,17 +9,11 @@ import org.lwjgl.util.vector.Vector2f;
 
 public class DistanceCalculator {
 
-    public static float getDistanceLY(
-        SectorEntityToken entity1,
-        SectorEntityToken entity2
-    ) {
+    public static float getDistanceLY(SectorEntityToken entity1, SectorEntityToken entity2) {
         if (isInSameLocation(entity1, entity2)) {
             return getDistanceLY(entity1.getLocation(), entity2.getLocation());
         }
-        float distance = Misc.getDistanceLY(
-            entity1.getLocationInHyperspace(),
-            entity2.getLocationInHyperspace()
-        );
+        float distance = Misc.getDistanceLY(entity1.getLocationInHyperspace(), entity2.getLocationInHyperspace());
         if (!entity1.isInHyperspace()) {
             distance += getDistanceToClosestJumpPoint(entity1);
         }
@@ -34,10 +28,7 @@ public class DistanceCalculator {
         return getDistanceLY(player, entity);
     }
 
-    private static boolean isInSameLocation(
-        SectorEntityToken entity1,
-        SectorEntityToken entity2
-    ) {
+    private static boolean isInSameLocation(SectorEntityToken entity1, SectorEntityToken entity2) {
         LocationAPI entity1Location = entity1.getContainingLocation();
         LocationAPI entity2Location = entity2.getContainingLocation();
         if (entity1Location == null || entity2Location == null) {
@@ -50,9 +41,7 @@ public class DistanceCalculator {
         return Misc.getDistance(from, to) / Misc.getUnitsPerLightYear();
     }
 
-    private static float getDistanceToClosestJumpPoint(
-        SectorEntityToken entity
-    ) {
+    private static float getDistanceToClosestJumpPoint(SectorEntityToken entity) {
         JumpPointAPI jumpPoint = Misc.findNearestJumpPointTo(entity);
         if (jumpPoint == null) {
             return 0;

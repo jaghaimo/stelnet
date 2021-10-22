@@ -37,12 +37,7 @@ public class MarketProvider extends PerLocationProvider {
                 continue;
             }
             log.debug("Processing submarket " + submarket.getNameOneLine());
-            processSubmarket(
-                new LocationData(submarket),
-                submarket,
-                filterManager,
-                data
-            );
+            processSubmarket(new LocationData(submarket), submarket, filterManager, data);
         }
         return data;
     }
@@ -50,11 +45,7 @@ public class MarketProvider extends PerLocationProvider {
     private List<SubmarketData> getEmptyData() {
         return Collections.singletonList(
             new SubmarketData(
-                new LocationData(
-                    L10n.get("marketViewNoMarket"),
-                    Misc.getTextColor(),
-                    Misc.getGrayColor()
-                ),
+                new LocationData(L10n.get("marketViewNoMarket"), Misc.getTextColor(), Misc.getGrayColor()),
                 Global.getFactory().createCargo(true),
                 Collections.<FleetMemberAPI>emptyList()
             )

@@ -44,17 +44,12 @@ public class QueryBoard extends BaseBoard {
     @Override
     protected BoardInfo getBoardInfo() {
         int queriesPresent = 0;
-        return new BoardInfo(
-            L10n.get("marketQueryTitle"),
-            L10n.get("marketQueryDescription", queriesPresent)
-        );
+        return new BoardInfo(L10n.get("marketQueryTitle"), L10n.get("marketQueryDescription", queriesPresent));
     }
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
-        return Collections.singletonList(
-            new QueryTabViewFactory(activeTab).createContainer(size)
-        );
+        return Collections.singletonList(new QueryTabViewFactory(activeTab).createContainer(size));
     }
 
     @Override

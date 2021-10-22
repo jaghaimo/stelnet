@@ -29,9 +29,7 @@ public class CommodityBoard extends BaseBoard {
     private final IntelTracker intelTracker = new IntelTracker();
 
     public static CommodityBoard getInstance() {
-        IntelInfoPlugin intel = IntelManager.getFirstIntel(
-            CommodityBoard.class
-        );
+        IntelInfoPlugin intel = IntelManager.getFirstIntel(CommodityBoard.class);
         if (intel == null) {
             BaseIntelPlugin board = new CommodityBoard();
             IntelManager.addIntel(board, true);
@@ -60,8 +58,7 @@ public class CommodityBoard extends BaseBoard {
     protected List<Renderable> getRenderables(Size size) {
         return Arrays.<Renderable>asList(
             new TabViewFactory(commodityId, activeTab).createContainer(size),
-            new IntelViewFactory(intelTracker)
-                .createContainer(commodityId, activeTab, size),
+            new IntelViewFactory(intelTracker).createContainer(commodityId, activeTab, size),
             new ButtonViewFactory().createContainer(commodityId, size),
             new DeleteViewFactory().createContainer(commodityId, size)
         );
@@ -69,10 +66,7 @@ public class CommodityBoard extends BaseBoard {
 
     @Override
     protected BoardInfo getBoardInfo() {
-        return new BoardInfo(
-            L10n.get("commodityBoardTitle"),
-            L10n.get("commodityBoardDescription")
-        );
+        return new BoardInfo(L10n.get("commodityBoardTitle"), L10n.get("commodityBoardDescription"));
     }
 
     @Override

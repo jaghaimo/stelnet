@@ -13,12 +13,7 @@ import uilib.property.Size;
 public class DeleteCommodityIntel extends Button {
 
     public DeleteCommodityIntel(final String commodityId) {
-        super(
-            new Size(200, 24),
-            L10n.get("commodityDeleteThis"),
-            true,
-            Misc.getButtonTextColor()
-        );
+        super(new Size(200, 24), L10n.get("commodityDeleteThis"), true, Misc.getButtonTextColor());
         setLocation(Location.BOTTOM_RIGHT);
         setHandler(
             new EventHandler() {
@@ -34,11 +29,7 @@ public class DeleteCommodityIntel extends Button {
 
                 @Override
                 public void onPrompt(TooltipMakerAPI tooltipMaker) {
-                    tooltipMaker.addPara(
-                        L10n.get("commodityDeleteThisConfirmation"),
-                        Misc.getTextColor(),
-                        0f
-                    );
+                    tooltipMaker.addPara(L10n.get("commodityDeleteThisConfirmation"), Misc.getTextColor(), 0f);
                 }
             }
         );

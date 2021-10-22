@@ -16,9 +16,7 @@ public class HasAdministrator implements MarketFilter {
     }
 
     public boolean accept(MarketAPI market) {
-        List<CommDirectoryEntryAPI> people = market
-            .getCommDirectory()
-            .getEntriesCopy();
+        List<CommDirectoryEntryAPI> people = market.getCommDirectory().getEntriesCopy();
         CollectionReducer.reduce(people, filter);
         return !people.isEmpty();
     }

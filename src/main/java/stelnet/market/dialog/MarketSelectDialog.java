@@ -32,17 +32,13 @@ public class MarketSelectDialog implements InteractionDialogPlugin {
             MarketUtils.convertMarketsToTokens(MarketUtils.getMarkets()),
             new CampaignEntityPickerListener() {
                 @Override
-                public String getMenuItemNameOverrideFor(
-                    SectorEntityToken entity
-                ) {
+                public String getMenuItemNameOverrideFor(SectorEntityToken entity) {
                     return null;
                 }
 
                 @Override
                 public void pickedEntity(SectorEntityToken entity) {
-                    board.setMarketProvider(
-                        new MarketProvider(entity.getMarket())
-                    );
+                    board.setMarketProvider(new MarketProvider(entity.getMarket()));
                     ui.updateUIForItem(board);
                     dialog.dismiss();
                 }
@@ -54,9 +50,7 @@ public class MarketSelectDialog implements InteractionDialogPlugin {
                 }
 
                 @Override
-                public String getSelectedTextOverrideFor(
-                    SectorEntityToken entity
-                ) {
+                public String getSelectedTextOverrideFor(SectorEntityToken entity) {
                     return L10n.get(
                         "marketViewDialogSelection",
                         entity.getName(),
@@ -65,10 +59,7 @@ public class MarketSelectDialog implements InteractionDialogPlugin {
                 }
 
                 @Override
-                public void createInfoText(
-                    TooltipMakerAPI info,
-                    SectorEntityToken entity
-                ) {}
+                public void createInfoText(TooltipMakerAPI info, SectorEntityToken entity) {}
 
                 @Override
                 public boolean canConfirmSelection(SectorEntityToken entity) {

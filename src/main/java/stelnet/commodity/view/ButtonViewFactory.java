@@ -30,10 +30,7 @@ public class ButtonViewFactory {
         return group;
     }
 
-    private Button createContainer(
-        CommoditySpecAPI commodity,
-        String activeId
-    ) {
+    private Button createContainer(CommoditySpecAPI commodity, String activeId) {
         boolean isOn = commodity.getId().equals(activeId);
         return new CommodityButton(commodity, isOn);
     }
@@ -48,13 +45,8 @@ public class ButtonViewFactory {
             commodities,
             new Comparator<CommoditySpecAPI>() {
                 @Override
-                public int compare(
-                    CommoditySpecAPI commodityA,
-                    CommoditySpecAPI commodityB
-                ) {
-                    return commodityA
-                        .getName()
-                        .compareToIgnoreCase(commodityB.getName());
+                public int compare(CommoditySpecAPI commodityA, CommoditySpecAPI commodityB) {
+                    return commodityA.getName().compareToIgnoreCase(commodityB.getName());
                 }
             }
         );

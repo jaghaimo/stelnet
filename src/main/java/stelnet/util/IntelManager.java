@@ -15,10 +15,7 @@ public class IntelManager {
         addIntel(plugin, false);
     }
 
-    public static void addIntel(
-        BaseIntelPlugin plugin,
-        boolean forceNoMessage
-    ) {
+    public static void addIntel(BaseIntelPlugin plugin, boolean forceNoMessage) {
         getIntelManager().addIntel(plugin, forceNoMessage);
     }
 
