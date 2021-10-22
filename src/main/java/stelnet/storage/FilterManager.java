@@ -2,7 +2,6 @@ package stelnet.storage;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import lombok.Getter;
 import stelnet.filter.cargostack.CargoStackFilter;
 import stelnet.filter.fleetmember.FleetMemberFilter;

@@ -6,7 +6,7 @@ package stelnet.util;
  */
 public class Tagger {
 
-    public final static String COMMODITY = "stelnetCommodity";
-    public final static String MARKET = "stelnetMarket";
-    public final static String STORAGE = "stelnetStorage";
+    public static final String COMMODITY = "stelnetCommodity";
+    public static final String MARKET = "stelnetMarket";
+    public static final String STORAGE = "stelnetStorage";
 }

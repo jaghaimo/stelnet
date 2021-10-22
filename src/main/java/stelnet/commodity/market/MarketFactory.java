@@ -1,10 +1,8 @@
 package stelnet.commodity.market;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.fs.starfarer.api.campaign.econ.MarketAPI;
-
 import lombok.RequiredArgsConstructor;
 import stelnet.commodity.market.price.Price;
 import stelnet.filter.market.MarketNotHidden;
@@ -27,8 +25,11 @@ public abstract class MarketFactory {
     private List<MarketApiWrapper> mapToWrapper(List<MarketAPI> entities) {
         List<MarketApiWrapper> list = new ArrayList<>();
         for (MarketAPI marketAPI : entities) {
-            MarketApiWrapper marketApiWrapper = MarketApiWrapper.builder().marketAPI(marketAPI).price(getPrice())
-                    .build();
+            MarketApiWrapper marketApiWrapper = MarketApiWrapper
+                .builder()
+                .marketAPI(marketAPI)
+                .price(getPrice())
+                .build();
             list.add(marketApiWrapper);
         }
         return list;

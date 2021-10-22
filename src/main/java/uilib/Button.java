@@ -1,14 +1,12 @@
 package uilib;
 
-import java.awt.Color;
-
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.ButtonAPI;
 import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-
+import java.awt.Color;
 import lombok.Getter;
 import lombok.Setter;
 import uilib.property.Size;
@@ -74,8 +72,17 @@ public class Button extends AbstractRenderable implements ButtonHandler {
         Size size = getSize();
         Color foregroundColor = getColor();
         Color backgroundColor = Misc.scaleColor(foregroundColor, 0.5f);
-        ButtonAPI button = tooltip.addButton(getTitle(), this, foregroundColor, backgroundColor, Alignment.MID,
-                cutStyle, size.getWidth() - 4f, size.getHeight() - 4f, 4f);
+        ButtonAPI button = tooltip.addButton(
+            getTitle(),
+            this,
+            foregroundColor,
+            backgroundColor,
+            Alignment.MID,
+            cutStyle,
+            size.getWidth() - 4f,
+            size.getHeight() - 4f,
+            4f
+        );
         button.setEnabled(isEnabled);
         if (shortcut > 0) {
             button.setShortcut(shortcut, false);

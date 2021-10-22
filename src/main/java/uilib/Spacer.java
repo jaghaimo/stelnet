@@ -1,7 +1,6 @@
 package uilib;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-
 import uilib.property.Size;
 
 public class Spacer extends AbstractRenderable {

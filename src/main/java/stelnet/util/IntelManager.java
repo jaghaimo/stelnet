@@ -1,11 +1,10 @@
 package stelnet.util;
 
-import java.util.List;
-
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.campaign.comm.IntelManagerAPI;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
+import java.util.List;
 
 /**
  * Provides easy access to Global.getSector().getIntelManager() methods.
@@ -16,7 +15,10 @@ public class IntelManager {
         addIntel(plugin, false);
     }
 
-    public static void addIntel(BaseIntelPlugin plugin, boolean forceNoMessage) {
+    public static void addIntel(
+        BaseIntelPlugin plugin,
+        boolean forceNoMessage
+    ) {
         getIntelManager().addIntel(plugin, forceNoMessage);
     }
 

@@ -12,7 +12,6 @@ public class KeyboardHelper {
             Robot robot = new Robot();
             robot.keyPress(key);
             robot.keyRelease(key);
-        } catch (AWTException exception) {
-        }
+        } catch (AWTException exception) {}
     }
 }

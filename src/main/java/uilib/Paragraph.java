@@ -1,12 +1,10 @@
 package uilib;
 
-import java.awt.Color;
-
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.LabelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-
+import java.awt.Color;
 import lombok.Setter;
 import uilib.property.Size;
 
@@ -27,7 +25,12 @@ public class Paragraph extends AbstractRenderable {
         setWithScroller(false);
     }
 
-    public Paragraph(String text, float width, float padding, Alignment alignment) {
+    public Paragraph(
+        String text,
+        float width,
+        float padding,
+        Alignment alignment
+    ) {
         this(text, width);
         setPadding(padding);
         setAlignment(alignment);

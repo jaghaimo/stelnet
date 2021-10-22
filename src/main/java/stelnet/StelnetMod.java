@@ -1,10 +1,8 @@
 package stelnet;
 
 import com.fs.starfarer.api.BaseModPlugin;
-
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
-
 import stelnet.config.ModConfig;
 import stelnet.util.Configurator;
 

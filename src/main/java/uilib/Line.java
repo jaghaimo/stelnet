@@ -1,7 +1,6 @@
 package uilib;
 
 import java.awt.Color;
-
 import uilib.property.Size;
 
 public class Line extends Button {

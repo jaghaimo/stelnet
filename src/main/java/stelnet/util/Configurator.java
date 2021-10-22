@@ -1,7 +1,6 @@
 package stelnet.util;
 
 import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
-
 import lombok.extern.log4j.Log4j;
 import stelnet.commodity.CommodityBoard;
 import stelnet.commodity.CommodityIntel;

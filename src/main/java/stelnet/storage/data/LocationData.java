@@ -1,11 +1,9 @@
 package stelnet.storage.data;
 
-import java.awt.Color;
-
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
-
+import java.awt.Color;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import stelnet.util.L10n;
@@ -27,8 +25,13 @@ public class LocationData {
     public LocationData(SubmarketAPI submarket) {
         MarketAPI market = submarket.getMarket();
         FactionAPI faction = market.getFaction();
-        name = L10n.get("locationDataSubmarket", submarket.getNameOneLine(), market.getName(),
-                faction.getDisplayName());
+        name =
+            L10n.get(
+                "locationDataSubmarket",
+                submarket.getNameOneLine(),
+                market.getName(),
+                faction.getDisplayName()
+            );
         fgColor = submarket.getFaction().getBaseUIColor();
         bgColor = submarket.getFaction().getDarkUIColor();
     }

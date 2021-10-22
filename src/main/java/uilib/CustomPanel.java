@@ -2,7 +2,6 @@ package uilib;
 
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import uilib.property.Position;
@@ -19,7 +18,8 @@ public class CustomPanel extends AbstractRenderable {
     public void render(CustomPanelAPI panel, float x, float y) {
         log(new Position(x, y));
         Size size = getSize();
-        customPanel = panel.createCustomPanel(size.getWidth(), size.getHeight(), null);
+        customPanel =
+            panel.createCustomPanel(size.getWidth(), size.getHeight(), null);
         renderable.render(customPanel, x, y);
     }
 
@@ -27,7 +27,8 @@ public class CustomPanel extends AbstractRenderable {
     public void render(TooltipMakerAPI tooltip) {
         if (customPanel == null) {
             log.error(
-                    "Cannot render CustomPanel in small intel. Create CustomPanelAPI and call `render(CustomPanelAPI panel, float x, float y)` to pre-render it first.");
+                "Cannot render CustomPanel in small intel. Create CustomPanelAPI and call `render(CustomPanelAPI panel, float x, float y)` to pre-render it first."
+            );
             return;
         }
         tooltip.addCustom(customPanel, 0);

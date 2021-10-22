@@ -13,6 +13,8 @@ public class CanAcquireFleetMember implements SubmarketFilter {
     }
 
     public boolean accept(SubmarketAPI submarket) {
-        return !submarket.getPlugin().isIllegalOnSubmarket(fleetMember, TransferAction.PLAYER_BUY);
+        return !submarket
+            .getPlugin()
+            .isIllegalOnSubmarket(fleetMember, TransferAction.PLAYER_BUY);
     }
 }

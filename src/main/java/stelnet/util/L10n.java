@@ -4,7 +4,6 @@ import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-
 import lombok.extern.log4j.Log4j;
 import stelnet.config.ModConfig;
 

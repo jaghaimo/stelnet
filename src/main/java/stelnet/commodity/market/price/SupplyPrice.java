@@ -1,7 +1,6 @@
 package stelnet.commodity.market.price;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-
 import stelnet.util.Economy;
 
 public class SupplyPrice implements Price {

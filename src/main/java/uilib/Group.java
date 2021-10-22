@@ -1,10 +1,8 @@
 package uilib;
 
+import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import java.util.Arrays;
 import java.util.List;
-
-import com.fs.starfarer.api.ui.TooltipMakerAPI;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

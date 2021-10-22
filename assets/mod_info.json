@@ -7,7 +7,5 @@
     "description": "Stellar Networks - a collection of intel boards",
     "gameVersion": "0.95a-RC15",
     "modPlugin": "stelnet.StelnetMod",
-    "jars": [
-        "stelnet.jar"
-    ]
+    "jars": ["stelnet.jar"]
 }

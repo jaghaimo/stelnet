@@ -1,13 +1,11 @@
 package stelnet.commodity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.characters.RelationshipAPI;
 import com.fs.starfarer.api.util.Misc;
-
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import stelnet.BaseIntel;
 import stelnet.IntelInfo;
@@ -32,8 +30,12 @@ public class CommodityIntel extends BaseIntel {
     private final Price priceProvider;
     private final float price;
 
-    public CommodityIntel(String action, CommoditySpecAPI commodity, MarketApiWrapper marketWrapper,
-            Price priceProvider) {
+    public CommodityIntel(
+        String action,
+        CommoditySpecAPI commodity,
+        MarketApiWrapper marketWrapper,
+        Price priceProvider
+    ) {
         super(marketWrapper.getFaction(), marketWrapper.getPrimaryEntity());
         this.action = action;
         this.commodity = commodity;
@@ -68,8 +70,13 @@ public class CommodityIntel extends BaseIntel {
 
     @Override
     protected IntelInfo getIntelInfo() {
-        return new IntelInfo(getTitle(), L10n.get("intelLocation"), getLocationNameWithSystem(),
-                L10n.get("intelFaction"), getFactionWithRel());
+        return new IntelInfo(
+            getTitle(),
+            L10n.get("intelLocation"),
+            getLocationNameWithSystem(),
+            L10n.get("intelFaction"),
+            getFactionWithRel()
+        );
     }
 
     @Override
@@ -77,7 +84,13 @@ public class CommodityIntel extends BaseIntel {
         float width = size.getWidth();
         FactionAPI faction = marketWrapper.getFaction();
         List<Renderable> renderables = new ArrayList<>();
-        renderables.add(new Heading(marketWrapper.getName(), faction.getBaseUIColor(), faction.getDarkUIColor()));
+        renderables.add(
+            new Heading(
+                marketWrapper.getName(),
+                faction.getBaseUIColor(),
+                faction.getDarkUIColor()
+            )
+        );
         renderables.add(new Image(faction.getLogo(), width, 128));
         renderables.add(new Spacer(10f));
         addPriceChange(renderables, width);
@@ -94,12 +107,23 @@ public class CommodityIntel extends BaseIntel {
 
     private void addPriceChange(List<Renderable> renderables, float width) {
         if (isEnding()) {
-            String priceChangeText = L10n.get("commodityPriceChanged", Misc.getDGSCredits(price),
-                    Misc.getDGSCredits(marketWrapper.getPriceAmount()));
-            Paragraph priceChangeRenderable = new Paragraph(priceChangeText, width);
-            priceChangeRenderable.setHighlightStrings(Misc.getDGSCredits(price),
-                    Misc.getDGSCredits(marketWrapper.getPriceAmount()));
-            priceChangeRenderable.setHighlightColors(Misc.getHighlightColor(), Misc.getHighlightColor());
+            String priceChangeText = L10n.get(
+                "commodityPriceChanged",
+                Misc.getDGSCredits(price),
+                Misc.getDGSCredits(marketWrapper.getPriceAmount())
+            );
+            Paragraph priceChangeRenderable = new Paragraph(
+                priceChangeText,
+                width
+            );
+            priceChangeRenderable.setHighlightStrings(
+                Misc.getDGSCredits(price),
+                Misc.getDGSCredits(marketWrapper.getPriceAmount())
+            );
+            priceChangeRenderable.setHighlightColors(
+                Misc.getHighlightColor(),
+                Misc.getHighlightColor()
+            );
             renderables.add(priceChangeRenderable);
             renderables.add(new Spacer(10f));
         }
@@ -110,13 +134,21 @@ public class CommodityIntel extends BaseIntel {
         RelationshipAPI relationship = faction.getRelToPlayer();
         String reputation = relationship.getLevel().getDisplayName();
         String translatedRep = L10n.get("reputation" + reputation);
-        Paragraph relationshipRenderable = new Paragraph(L10n.get("intelOwnerRelationship", translatedRep), width);
+        Paragraph relationshipRenderable = new Paragraph(
+            L10n.get("intelOwnerRelationship", translatedRep),
+            width
+        );
         relationshipRenderable.setHighlightStrings(translatedRep);
         relationshipRenderable.setHighlightColors(relationship.getRelColor());
         renderables.add(relationshipRenderable);
     }
 
     private String getTitle() {
-        return L10n.get("commodityIntelTitle", action, commodity.getName(), Misc.getDGSCredits(price));
+        return L10n.get(
+            "commodityIntelTitle",
+            action,
+            commodity.getName(),
+            Misc.getDGSCredits(price)
+        );
     }
 }

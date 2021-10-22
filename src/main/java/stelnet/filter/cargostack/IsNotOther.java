@@ -6,6 +6,10 @@ public class IsNotOther implements CargoStackFilter {
 
     @Override
     public boolean accept(CargoStackAPI object) {
-        return object.isCommodityStack() || object.isWeaponStack() || object.isFighterWingStack();
+        return (
+            object.isCommodityStack() ||
+            object.isWeaponStack() ||
+            object.isFighterWingStack()
+        );
     }
 }

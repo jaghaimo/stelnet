@@ -1,7 +1,6 @@
 package stelnet.filter.commodityspec;
 
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
-
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

@@ -1,10 +1,8 @@
 package stelnet.storage;
 
+import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import java.util.Arrays;
 import java.util.List;
-
-import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
-
 import lombok.Getter;
 import lombok.Setter;
 import stelnet.BaseBoard;
@@ -23,7 +21,9 @@ import uilib.property.Size;
 public class StorageBoard extends BaseBoard {
 
     private final FilterManager filterManager = new FilterManager();
-    private final ButtonManager buttonManager = new ButtonManager(filterManager);
+    private final ButtonManager buttonManager = new ButtonManager(
+        filterManager
+    );
     private SubmarketDataRenderer activeTab = SubmarketDataRenderer.ITEMS;
     private SubmarketDataProvider activeView = SubmarketDataProvider.UNIFIED;
 
@@ -44,9 +44,15 @@ public class StorageBoard extends BaseBoard {
     @Override
     protected List<Renderable> getRenderables(Size size) {
         return Arrays.<Renderable>asList(
-                new StorageTabViewFactory(buttonManager, filterManager, activeTab, activeView)
-                        .createContainer(size),
-                activeView.getNextButton());
+            new StorageTabViewFactory(
+                buttonManager,
+                filterManager,
+                activeTab,
+                activeView
+            )
+                .createContainer(size),
+            activeView.getNextButton()
+        );
     }
 
     @Override

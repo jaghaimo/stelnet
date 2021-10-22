@@ -1,12 +1,10 @@
 package stelnet.commodity.view;
 
+import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-
-import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
-
 import stelnet.filter.commodityspec.HasNotTag;
 import stelnet.util.CollectionReducer;
 import stelnet.util.Economy;
@@ -32,7 +30,10 @@ public class ButtonViewFactory {
         return group;
     }
 
-    private Button createContainer(CommoditySpecAPI commodity, String activeId) {
+    private Button createContainer(
+        CommoditySpecAPI commodity,
+        String activeId
+    ) {
         boolean isOn = commodity.getId().equals(activeId);
         return new CommodityButton(commodity, isOn);
     }
@@ -43,12 +44,19 @@ public class ButtonViewFactory {
     }
 
     private void sortCommodities(List<CommoditySpecAPI> commodities) {
-        Collections.sort(commodities, new Comparator<CommoditySpecAPI>() {
-
-            @Override
-            public int compare(CommoditySpecAPI commodityA, CommoditySpecAPI commodityB) {
-                return commodityA.getName().compareToIgnoreCase(commodityB.getName());
+        Collections.sort(
+            commodities,
+            new Comparator<CommoditySpecAPI>() {
+                @Override
+                public int compare(
+                    CommoditySpecAPI commodityA,
+                    CommoditySpecAPI commodityB
+                ) {
+                    return commodityA
+                        .getName()
+                        .compareToIgnoreCase(commodityB.getName());
+                }
             }
-        });
+        );
     }
 }

@@ -7,7 +7,9 @@ public class IsWeaponSize implements CargoStackFilter {
 
     // TODO: Temporary implementation
     public enum Size {
-        SIZE_SMALL, SIZE_MEDIUM, SIZE_LARGE;
+        SIZE_SMALL,
+        SIZE_MEDIUM,
+        SIZE_LARGE,
     }
 
     private final Size option;
@@ -26,13 +28,10 @@ public class IsWeaponSize implements CargoStackFilter {
         switch (option) {
             case SIZE_SMALL:
                 return weaponSize.equals(WeaponSize.SMALL);
-
             case SIZE_MEDIUM:
                 return weaponSize.equals(WeaponSize.MEDIUM);
-
             case SIZE_LARGE:
                 return weaponSize.equals(WeaponSize.LARGE);
-
             default:
                 return true;
         }

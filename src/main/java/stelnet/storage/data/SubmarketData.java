@@ -1,10 +1,8 @@
 package stelnet.storage.data;
 
-import java.util.List;
-
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
-
+import java.util.List;
 import lombok.Data;
 
 @Data

@@ -1,9 +1,7 @@
-
 package uilib;
 
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-
 import uilib.property.Size;
 
 public class Cargo extends AbstractRenderable {

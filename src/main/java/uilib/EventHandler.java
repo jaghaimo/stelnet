@@ -9,12 +9,9 @@ public class EventHandler implements ButtonHandler {
         return false;
     }
 
-    public void onCancel(IntelUIAPI ui) {
-    }
+    public void onCancel(IntelUIAPI ui) {}
 
-    public void onConfirm(IntelUIAPI ui) {
-    }
+    public void onConfirm(IntelUIAPI ui) {}
 
-    public void onPrompt(TooltipMakerAPI tooltipMaker) {
-    }
+    public void onPrompt(TooltipMakerAPI tooltipMaker) {}
 }

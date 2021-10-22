@@ -1,10 +1,8 @@
 package stelnet.market;
 
+import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import java.util.Arrays;
 import java.util.List;
-
-import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
-
 import lombok.Getter;
 import lombok.Setter;
 import stelnet.BaseBoard;
@@ -27,7 +25,9 @@ import uilib.property.Size;
 public class ViewerBoard extends BaseBoard {
 
     private final FilterManager filterManager = new FilterManager();
-    private final ButtonManager buttonManager = new ButtonManager(filterManager);
+    private final ButtonManager buttonManager = new ButtonManager(
+        filterManager
+    );
     private SubmarketDataRenderer activeTab = SubmarketDataRenderer.ITEMS;
     private MarketProvider marketProvider = new MarketProvider(null);
 
@@ -52,15 +52,24 @@ public class ViewerBoard extends BaseBoard {
 
     @Override
     protected BoardInfo getBoardInfo() {
-        return new BoardInfo(L10n.get("marketViewTitle"), L10n.get("marketViewDescription"));
+        return new BoardInfo(
+            L10n.get("marketViewTitle"),
+            L10n.get("marketViewDescription")
+        );
     }
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
         return Arrays.<Renderable>asList(
-                new ViewerTabViewFactory(buttonManager, filterManager, activeTab, marketProvider)
-                        .createContainer(size),
-                new MarketSelectButton());
+            new ViewerTabViewFactory(
+                buttonManager,
+                filterManager,
+                activeTab,
+                marketProvider
+            )
+                .createContainer(size),
+            new MarketSelectButton()
+        );
     }
 
     @Override

@@ -1,10 +1,8 @@
 package stelnet.filter.submarket;
 
-import java.util.List;
-
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
-
+import java.util.List;
 import stelnet.filter.fleetmember.FleetMemberFilter;
 import stelnet.filter.fleetmember.HasMember;
 import stelnet.util.CollectionReducer;
@@ -18,7 +16,10 @@ public class HasFleetMember implements SubmarketFilter {
     }
 
     public boolean accept(SubmarketAPI submarket) {
-        List<FleetMemberAPI> fleetMembers = submarket.getCargo().getMothballedShips().getMembersListCopy();
+        List<FleetMemberAPI> fleetMembers = submarket
+            .getCargo()
+            .getMothballedShips()
+            .getMembersListCopy();
         CollectionReducer.reduce(fleetMembers, filter);
         return !fleetMembers.isEmpty();
     }

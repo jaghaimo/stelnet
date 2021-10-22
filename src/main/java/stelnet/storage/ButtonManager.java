@@ -2,7 +2,6 @@ package stelnet.storage;
 
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.loading.WingRole;
-
 import lombok.Getter;
 import stelnet.filter.cargostack.IsNotCommodity;
 import stelnet.filter.cargostack.IsNotFighterWing;
@@ -31,27 +30,99 @@ public class ButtonManager {
 
     public ButtonManager(FilterManager filterManager) {
         this.filterManager = filterManager;
-        this.itemButtons = new Renderable[] {
-                new ItemFilterButton(filterManager, "storageFilterCommodities", new IsNotCommodity()),
-                new ItemFilterButton(filterManager, "storageFilterWeapons", new IsNotWeapon()),
-                new ItemFilterButton(filterManager, "storageFilterFighterWings", new IsNotFighterWing()),
-                new ItemFilterButton(filterManager, "storageFilterOthers", new IsNotOther()), new Spacer(20f),
-                new ItemFilterButton(filterManager, "storageFilterSmallMount", new IsNotMountSize(WeaponSize.SMALL)),
-                new ItemFilterButton(filterManager, "storageFilterMediumMount", new IsNotMountSize(WeaponSize.MEDIUM)),
-                new ItemFilterButton(filterManager, "storageFilterLargeMount", new IsNotMountSize(WeaponSize.LARGE)),
+        this.itemButtons =
+            new Renderable[] {
+                new ItemFilterButton(
+                    filterManager,
+                    "storageFilterCommodities",
+                    new IsNotCommodity()
+                ),
+                new ItemFilterButton(
+                    filterManager,
+                    "storageFilterWeapons",
+                    new IsNotWeapon()
+                ),
+                new ItemFilterButton(
+                    filterManager,
+                    "storageFilterFighterWings",
+                    new IsNotFighterWing()
+                ),
+                new ItemFilterButton(
+                    filterManager,
+                    "storageFilterOthers",
+                    new IsNotOther()
+                ),
                 new Spacer(20f),
-                new ItemFilterButton(filterManager, "storageFilterFighters",
-                        new IsNotFighterWingRole(WingRole.FIGHTER)),
-                new ItemFilterButton(filterManager, "storageFilterBombers", new IsNotFighterWingRole(WingRole.BOMBER)),
-                new ItemFilterButton(filterManager, "storageFilterInterceptors",
-                        new IsNotFighterWingRole(WingRole.INTERCEPTOR)) };
-        this.shipButtons = new Renderable[] {
-                new ShipFilterButton(filterManager, "storageFilterFrigates", new IsNotFrigate()),
-                new ShipFilterButton(filterManager, "storageFilterDestroyers", new IsNotDestroyer()),
-                new ShipFilterButton(filterManager, "storageFilterCruisers", new IsNotCruiser()),
-                new ShipFilterButton(filterManager, "storageFilterCapitals", new IsNotCapital()), new Spacer(20f),
-                new ShipFilterButton(filterManager, "storageFilterWarships", new IsNotWarship()),
-                new ShipFilterButton(filterManager, "storageFilterCarriers", new IsNotCarrier()),
-                new ShipFilterButton(filterManager, "storageFilterCivilians", new IsNotCivilian()) };
+                new ItemFilterButton(
+                    filterManager,
+                    "storageFilterSmallMount",
+                    new IsNotMountSize(WeaponSize.SMALL)
+                ),
+                new ItemFilterButton(
+                    filterManager,
+                    "storageFilterMediumMount",
+                    new IsNotMountSize(WeaponSize.MEDIUM)
+                ),
+                new ItemFilterButton(
+                    filterManager,
+                    "storageFilterLargeMount",
+                    new IsNotMountSize(WeaponSize.LARGE)
+                ),
+                new Spacer(20f),
+                new ItemFilterButton(
+                    filterManager,
+                    "storageFilterFighters",
+                    new IsNotFighterWingRole(WingRole.FIGHTER)
+                ),
+                new ItemFilterButton(
+                    filterManager,
+                    "storageFilterBombers",
+                    new IsNotFighterWingRole(WingRole.BOMBER)
+                ),
+                new ItemFilterButton(
+                    filterManager,
+                    "storageFilterInterceptors",
+                    new IsNotFighterWingRole(WingRole.INTERCEPTOR)
+                ),
+            };
+        this.shipButtons =
+            new Renderable[] {
+                new ShipFilterButton(
+                    filterManager,
+                    "storageFilterFrigates",
+                    new IsNotFrigate()
+                ),
+                new ShipFilterButton(
+                    filterManager,
+                    "storageFilterDestroyers",
+                    new IsNotDestroyer()
+                ),
+                new ShipFilterButton(
+                    filterManager,
+                    "storageFilterCruisers",
+                    new IsNotCruiser()
+                ),
+                new ShipFilterButton(
+                    filterManager,
+                    "storageFilterCapitals",
+                    new IsNotCapital()
+                ),
+                new Spacer(20f),
+                new ShipFilterButton(
+                    filterManager,
+                    "storageFilterWarships",
+                    new IsNotWarship()
+                ),
+                new ShipFilterButton(
+                    filterManager,
+                    "storageFilterCarriers",
+                    new IsNotCarrier()
+                ),
+                new ShipFilterButton(
+                    filterManager,
+                    "storageFilterCivilians",
+                    new IsNotCivilian()
+                ),
+            };
     }
 }

@@ -1,8 +1,8 @@
 package stelnet.market;
 
 public enum QueryTab {
-
-    LIST("List"), NEW("New");
+    LIST("List"),
+    NEW("New");
 
     public final String title;
 

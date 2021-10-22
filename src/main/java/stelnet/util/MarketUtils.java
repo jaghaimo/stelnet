@@ -1,22 +1,22 @@
 package stelnet.util;
 
+import com.fs.starfarer.api.campaign.SectorEntityToken;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
+import com.fs.starfarer.api.campaign.listeners.ListenerUtil;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
-import com.fs.starfarer.api.campaign.SectorEntityToken;
-import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
-import com.fs.starfarer.api.campaign.listeners.ListenerUtil;
-
 import stelnet.filter.market.IsNotHidden;
 import stelnet.filter.market.MarketFilter;
 
 public class MarketUtils {
 
-    public static List<SectorEntityToken> convertMarketsToTokens(List<MarketAPI> markets) {
+    public static List<SectorEntityToken> convertMarketsToTokens(
+        List<MarketAPI> markets
+    ) {
         List<SectorEntityToken> tokens = new LinkedList<>();
         for (MarketAPI market : markets) {
             tokens.add(market.getPrimaryEntity());
@@ -24,7 +24,9 @@ public class MarketUtils {
         return tokens;
     }
 
-    public static Set<MarketAPI> extractMarketsFromSubmarkets(List<SubmarketAPI> submarkets) {
+    public static Set<MarketAPI> extractMarketsFromSubmarkets(
+        List<SubmarketAPI> submarkets
+    ) {
         Set<MarketAPI> markets = new HashSet<>();
         for (SubmarketAPI submarket : submarkets) {
             markets.add(submarket.getMarket());
@@ -60,7 +62,9 @@ public class MarketUtils {
         return submarkets;
     }
 
-    private static void updateMarketPrePlayerInteraction(List<MarketAPI> markets) {
+    private static void updateMarketPrePlayerInteraction(
+        List<MarketAPI> markets
+    ) {
         for (MarketAPI market : markets) {
             updateSubmarketsPrePlayerInteraction(market);
             ListenerUtil.reportPlayerOpenedMarket(market);

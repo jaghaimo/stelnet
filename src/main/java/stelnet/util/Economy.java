@@ -1,12 +1,11 @@
 package stelnet.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.campaign.econ.EconomyAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Provides easy access to Global.getSector().getEconomy() methods.

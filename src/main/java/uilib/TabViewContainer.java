@@ -1,13 +1,11 @@
 package uilib;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import lombok.Setter;
 import uilib.property.Position;
 import uilib.property.Size;
@@ -18,7 +16,11 @@ public class TabViewContainer extends AbstractRenderable {
     private final Map<Button, Renderable> tabs = new LinkedHashMap<>();
     private Button activeTab;
 
-    public void addTab(Button tabButton, Renderable tabPanel, boolean isActive) {
+    public void addTab(
+        Button tabButton,
+        Renderable tabPanel,
+        boolean isActive
+    ) {
         tabs.put(tabButton, tabPanel);
         if (isActive) {
             setActiveTab(tabButton);
@@ -36,11 +38,22 @@ public class TabViewContainer extends AbstractRenderable {
             return;
         }
         Renderable tabToDisplay = getTabToDisplay(panel);
-        HorizontalViewContainer tabButtons = new HorizontalViewContainer(new ArrayList<Renderable>(tabs.keySet()));
-        Line separatorLine = new Line(tabToDisplay.getSize().getWidth(), Misc.getButtonTextColor());
+        HorizontalViewContainer tabButtons = new HorizontalViewContainer(
+            new ArrayList<Renderable>(tabs.keySet())
+        );
+        Line separatorLine = new Line(
+            tabToDisplay.getSize().getWidth(),
+            Misc.getButtonTextColor()
+        );
         separatorLine.setOffset(new Position(0, -4));
         Spacer spacer = new Spacer(2);
-        new VerticalViewContainer(tabButtons, separatorLine, spacer, tabToDisplay).render(panel, x, y);
+        new VerticalViewContainer(
+            tabButtons,
+            separatorLine,
+            spacer,
+            tabToDisplay
+        )
+            .render(panel, x, y);
     }
 
     private Renderable getTabToDisplay(CustomPanelAPI panel) {

@@ -1,10 +1,9 @@
 package stelnet.util;
 
-import java.util.List;
-
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.SettingsAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
+import java.util.List;
 
 /**
  * Provides easy access to Global.getSettings() methods.

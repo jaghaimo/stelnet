@@ -2,7 +2,6 @@ package uilib;
 
 import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.util.Misc;
-
 import uilib.property.Size;
 
 public class TabButton extends Button {

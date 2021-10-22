@@ -3,7 +3,6 @@ package uilib;
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.PositionAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -30,14 +29,20 @@ public abstract class AbstractRenderable implements Renderable {
     private Size size;
 
     protected void log(Position position) {
-        log.debug(String.format("Rendering %s in %s at %s", this, position, location));
+        log.debug(
+            String.format("Rendering %s in %s at %s", this, position, location)
+        );
     }
 
     @Override
     public void render(CustomPanelAPI panel, float x, float y) {
         log(new Position(x, y));
         Size size = getSize();
-        TooltipMakerAPI inner = panel.createUIElement(size.getWidth(), size.getHeight(), withScroller);
+        TooltipMakerAPI inner = panel.createUIElement(
+            size.getWidth(),
+            size.getHeight(),
+            withScroller
+        );
         render(inner);
         PositionAPI element = panel.addUIElement(inner);
         location.render(element, x + offset.getX(), y + offset.getY());
@@ -45,11 +50,12 @@ public abstract class AbstractRenderable implements Renderable {
 
     /**
      * Guestimate size of the string.
-     * 
+     *
      * @link https://stackoverflow.com/a/60643245
      */
     protected float getTextWidth(String s) {
-        String lookup = " .:,;'^`!|jl/\\i-()JfIt[]?{}sr*a\"ce_gFzxk+0123456789<=>~qvy$opnSbduEhTBXY#VRKZN%GUAHD@OQ&wmWLPCM";
+        String lookup =
+            " .:,;'^`!|jl/\\i-()JfIt[]?{}sr*a\"ce_gFzxk+0123456789<=>~qvy$opnSbduEhTBXY#VRKZN%GUAHD@OQ&wmWLPCM";
         int result = 0;
         for (int i = 0; i < s.length(); ++i) {
             int c = lookup.indexOf(s.charAt(i));

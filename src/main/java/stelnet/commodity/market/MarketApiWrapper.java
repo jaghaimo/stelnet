@@ -5,7 +5,6 @@ import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-
 import lombok.Builder;
 import lombok.Data;
 import stelnet.commodity.data.TableCellHelper;
@@ -64,11 +63,17 @@ public class MarketApiWrapper {
     }
 
     public float getDistanceToPlayer() {
-        return DistanceCalculator.getDistanceToPlayerLY(marketAPI.getPrimaryEntity());
+        return DistanceCalculator.getDistanceToPlayerLY(
+            marketAPI.getPrimaryEntity()
+        );
     }
 
     public String getMarketAndFactionDisplayName() {
-        return marketAPI.getName() + " - " + marketAPI.getFaction().getDisplayName();
+        return (
+            marketAPI.getName() +
+            " - " +
+            marketAPI.getFaction().getDisplayName()
+        );
     }
 
     public String getName() {

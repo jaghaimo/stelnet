@@ -1,9 +1,7 @@
 package uilib;
 
-import java.awt.Color;
-
 import com.fs.starfarer.api.ui.IntelUIAPI;
-
+import java.awt.Color;
 import lombok.Getter;
 import lombok.Setter;
 import uilib.property.Size;
@@ -16,8 +14,15 @@ public class ToggleButton extends Button implements TwoStateButton {
     private final Color colorOff;
     private boolean isStateOn;
 
-    public ToggleButton(Size size, String toggledOnTitle, String toggledOffTitle, boolean isEnabled, Color colorOn,
-            Color colorOff, boolean isStateOn) {
+    public ToggleButton(
+        Size size,
+        String toggledOnTitle,
+        String toggledOffTitle,
+        boolean isEnabled,
+        Color colorOn,
+        Color colorOff,
+        boolean isStateOn
+    ) {
         super(size, toggledOnTitle, isEnabled, colorOn);
         this.titleOff = toggledOffTitle;
         this.colorOff = colorOff;

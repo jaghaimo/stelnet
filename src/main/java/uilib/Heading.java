@@ -1,10 +1,8 @@
 package uilib;
 
-import java.awt.Color;
-
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-
+import java.awt.Color;
 import uilib.property.Size;
 
 public class Heading extends AbstractRenderable {
@@ -22,6 +20,12 @@ public class Heading extends AbstractRenderable {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        tooltip.addSectionHeading(title, foregroundColor, backgroundColor, Alignment.MID, 10f);
+        tooltip.addSectionHeading(
+            title,
+            foregroundColor,
+            backgroundColor,
+            Alignment.MID,
+            10f
+        );
     }
 }

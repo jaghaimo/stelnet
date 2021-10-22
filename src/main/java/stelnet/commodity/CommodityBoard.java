@@ -1,12 +1,10 @@
 package stelnet.commodity;
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.impl.campaign.ids.Commodities;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
-
+import java.util.Arrays;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import stelnet.BaseBoard;
@@ -31,7 +29,9 @@ public class CommodityBoard extends BaseBoard {
     private final IntelTracker intelTracker = new IntelTracker();
 
     public static CommodityBoard getInstance() {
-        IntelInfoPlugin intel = IntelManager.getFirstIntel(CommodityBoard.class);
+        IntelInfoPlugin intel = IntelManager.getFirstIntel(
+            CommodityBoard.class
+        );
         if (intel == null) {
             BaseIntelPlugin board = new CommodityBoard();
             IntelManager.addIntel(board, true);
@@ -58,15 +58,21 @@ public class CommodityBoard extends BaseBoard {
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
-        return Arrays.<Renderable>asList(new TabViewFactory(commodityId, activeTab).createContainer(size),
-                new IntelViewFactory(intelTracker).createContainer(commodityId, activeTab, size),
-                new ButtonViewFactory().createContainer(commodityId, size),
-                new DeleteViewFactory().createContainer(commodityId, size));
+        return Arrays.<Renderable>asList(
+            new TabViewFactory(commodityId, activeTab).createContainer(size),
+            new IntelViewFactory(intelTracker)
+                .createContainer(commodityId, activeTab, size),
+            new ButtonViewFactory().createContainer(commodityId, size),
+            new DeleteViewFactory().createContainer(commodityId, size)
+        );
     }
 
     @Override
     protected BoardInfo getBoardInfo() {
-        return new BoardInfo(L10n.get("commodityBoardTitle"), L10n.get("commodityBoardDescription"));
+        return new BoardInfo(
+            L10n.get("commodityBoardTitle"),
+            L10n.get("commodityBoardDescription")
+        );
     }
 
     @Override

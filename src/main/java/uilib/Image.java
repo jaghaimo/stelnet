@@ -1,7 +1,6 @@
 package uilib;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

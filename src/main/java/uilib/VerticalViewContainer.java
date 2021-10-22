@@ -1,10 +1,8 @@
 package uilib;
 
-import java.util.List;
-
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-
+import java.util.List;
 import lombok.extern.log4j.Log4j;
 import uilib.property.Position;
 import uilib.property.Size;
@@ -39,12 +37,17 @@ public class VerticalViewContainer extends Group {
     @Override
     public void render(TooltipMakerAPI tooltip) {
         log.error(
-                "Cannot render VerticalViewContainer in small intel. Use Group or pre-render in CustomPanel instead.");
+            "Cannot render VerticalViewContainer in small intel. Use Group or pre-render in CustomPanel instead."
+        );
     }
 
     @Override
     public String toString() {
-        return String.format("VerticalViewContainer(%d) with %s", getElements().size(), getSize());
+        return String.format(
+            "VerticalViewContainer(%d) with %s",
+            getElements().size(),
+            getSize()
+        );
     }
 
     @Override

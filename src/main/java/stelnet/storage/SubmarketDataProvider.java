@@ -1,7 +1,6 @@
 package stelnet.storage;
 
 import java.util.List;
-
 import stelnet.storage.data.DataProvider;
 import stelnet.storage.data.PerLocationProvider;
 import stelnet.storage.data.SubmarketData;
@@ -12,9 +11,7 @@ import stelnet.storage.view.DisplayViewButton;
  * Provides submarket data using various grouping logic.
  */
 public enum SubmarketDataProvider implements DataProvider {
-
     PER_LOCATION("PerLocation") {
-
         @Override
         public DisplayViewButton getNextButton() {
             return new DisplayViewButton(UNIFIED);
@@ -26,7 +23,6 @@ public enum SubmarketDataProvider implements DataProvider {
         }
     },
     UNIFIED("Unified") {
-
         @Override
         public DisplayViewButton getNextButton() {
             return new DisplayViewButton(PER_LOCATION);

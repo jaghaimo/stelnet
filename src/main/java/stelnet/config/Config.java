@@ -1,19 +1,16 @@
 package stelnet.config;
 
-import java.io.IOException;
-
 import com.fs.starfarer.api.Global;
-
+import java.io.IOException;
+import lombok.extern.log4j.Log4j;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import lombok.extern.log4j.Log4j;
 
 @Log4j
 public abstract class Config {
 
-    private static transient final String MOD = "stelnet";
-    private static transient final String FILE = "stelnet.hjson";
+    private static final transient String MOD = "stelnet";
+    private static final transient String FILE = "stelnet.hjson";
     private static transient JSONObject cachedSettings = null;
 
     protected static JSONObject load() throws JSONException, IOException {
@@ -32,7 +29,9 @@ public abstract class Config {
             return (T) value;
         } catch (Exception e) {
             log.error(e);
-            log.warn("Returning default value for '" + key + "' - " + defaultValue);
+            log.warn(
+                "Returning default value for '" + key + "' - " + defaultValue
+            );
             return defaultValue;
         }
     }

@@ -9,7 +9,7 @@
             "request": "attach",
             "hostName": "localhost",
             "port": 5005,
-            "preLaunchTask": "gradle: build",
-        },
+            "preLaunchTask": "gradle: build"
+        }
     ]
 }

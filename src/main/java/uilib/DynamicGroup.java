@@ -1,10 +1,8 @@
 package uilib;
 
-import java.util.List;
-
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-
+import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -13,7 +11,7 @@ import uilib.property.Size;
 
 /**
  * Dynamically scaled group that extends up to desired width.
- * 
+ *
  * Adds elements horizontally until desired width, then starts from new line.
  * Only works for same height items (otherwise items may overlap).
  */
@@ -60,7 +58,11 @@ public class DynamicGroup extends AbstractRenderable {
             finalOffset = advanceOffset(finalOffset, renderable.getSize());
             finalSize = renderable.getSize();
         }
-        size = new Size(Math.max(width, finalOffset.getX()), finalOffset.getY() + finalSize.getHeight());
+        size =
+            new Size(
+                Math.max(width, finalOffset.getX()),
+                finalOffset.getY() + finalSize.getHeight()
+            );
         log.debug("Calculated size as " + size);
     }
 

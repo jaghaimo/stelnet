@@ -13,6 +13,8 @@ public class CanAcquireCargoStack implements SubmarketFilter {
     }
 
     public boolean accept(SubmarketAPI submarket) {
-        return !submarket.getPlugin().isIllegalOnSubmarket(cargoStack, TransferAction.PLAYER_BUY);
+        return !submarket
+            .getPlugin()
+            .isIllegalOnSubmarket(cargoStack, TransferAction.PLAYER_BUY);
     }
 }

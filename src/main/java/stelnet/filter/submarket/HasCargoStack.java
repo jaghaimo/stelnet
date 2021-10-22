@@ -1,10 +1,8 @@
 package stelnet.filter.submarket;
 
-import java.util.List;
-
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
-
+import java.util.List;
 import stelnet.filter.cargostack.CargoStackFilter;
 import stelnet.filter.cargostack.HasStack;
 import stelnet.util.CollectionReducer;

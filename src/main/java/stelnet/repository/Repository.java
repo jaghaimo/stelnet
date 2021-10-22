@@ -40,5 +40,4 @@ public abstract class Repository<T> extends PersistableMap<T> {
     private MemoryAPI getMemory() {
         return Global.getSector().getMemoryWithoutUpdate();
     }
-
 }

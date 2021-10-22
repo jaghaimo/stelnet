@@ -7,7 +7,9 @@ public class IsWeaponType implements CargoStackFilter {
 
     // TODO: Temporary implementation
     public enum Type {
-        BALLISTIC, ENERGY, MISSILE;
+        BALLISTIC,
+        ENERGY,
+        MISSILE,
     }
 
     private final Type option;
@@ -26,13 +28,10 @@ public class IsWeaponType implements CargoStackFilter {
         switch (option) {
             case BALLISTIC:
                 return weaponType.equals(WeaponType.BALLISTIC);
-
             case ENERGY:
                 return weaponType.equals(WeaponType.ENERGY);
-
             case MISSILE:
                 return weaponType.equals(WeaponType.MISSILE);
-
             default:
                 return true;
         }
