@@ -28,7 +28,7 @@ public class CommodityButton extends ToggleButton {
                 public void onConfirm(IntelUIAPI ui) {
                     String commodityId = commodity.getId();
                     CommodityBoard board = CommodityBoard.getInstance();
-                    board.setCommodityId(commodityId);
+                    board.getState().setCommodityId(commodityId);
                 }
             }
         );

@@ -4,7 +4,6 @@ import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import java.util.Collections;
 import java.util.List;
 import lombok.Getter;
-import lombok.Setter;
 import stelnet.BaseBoard;
 import stelnet.BoardInfo;
 import stelnet.market.view.QueryTabViewFactory;
@@ -21,11 +20,10 @@ import uilib.property.Size;
  * Use this board to add, remove, refresh, disable, or enable intel queries to
  * dynamically update displayed intel.
  */
-@Setter
 @Getter
 public class QueryBoard extends BaseBoard {
 
-    private QueryTab activeTab = QueryTab.LIST;
+    private final QueryState state = new QueryState();
 
     public static QueryBoard getInstance() {
         IntelInfoPlugin intel = IntelManager.getFirstIntel(QueryBoard.class);
@@ -49,7 +47,7 @@ public class QueryBoard extends BaseBoard {
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
-        return Collections.singletonList(new QueryTabViewFactory(activeTab).createContainer(size));
+        return Collections.singletonList(new QueryTabViewFactory(state).createContainer(size));
     }
 
     @Override

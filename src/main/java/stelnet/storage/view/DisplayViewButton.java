@@ -24,7 +24,7 @@ public class DisplayViewButton extends Button {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
                     StorageBoard board = StorageBoard.getInstance();
-                    board.setActiveView(view);
+                    board.getState().setActiveView(view);
                 }
             }
         );

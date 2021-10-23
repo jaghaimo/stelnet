@@ -16,7 +16,7 @@ public class QueryTabButton extends TabButton {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
                     QueryBoard board = QueryBoard.getInstance();
-                    board.setActiveTab(currentTab);
+                    board.getState().setActiveTab(currentTab);
                 }
             }
         );

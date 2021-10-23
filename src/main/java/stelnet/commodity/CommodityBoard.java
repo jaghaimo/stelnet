@@ -1,7 +1,6 @@
 package stelnet.commodity;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
-import com.fs.starfarer.api.impl.campaign.ids.Commodities;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import java.util.Arrays;
 import java.util.List;
@@ -24,9 +23,7 @@ import uilib.property.Size;
 @Getter
 public class CommodityBoard extends BaseBoard {
 
-    private String commodityId = Commodities.SUPPLIES;
-    private CommodityTab activeTab = CommodityTab.BUY;
-    private final IntelTracker intelTracker = new IntelTracker();
+    private final CommodityState state = new CommodityState();
 
     public static CommodityBoard getInstance() {
         IntelInfoPlugin intel = IntelManager.getFirstIntel(CommodityBoard.class);
@@ -42,25 +39,13 @@ public class CommodityBoard extends BaseBoard {
         return Settings.getSpriteName("commodity");
     }
 
-    public void deleteIntel() {
-        intelTracker.removeAll();
-    }
-
-    public void deleteIntel(CommodityIntel intel) {
-        intelTracker.remove(intel);
-    }
-
-    public void deleteIntel(String commodityId) {
-        intelTracker.removeCommodity(commodityId);
-    }
-
     @Override
     protected List<Renderable> getRenderables(Size size) {
         return Arrays.<Renderable>asList(
-            new TabViewFactory(commodityId, activeTab).createContainer(size),
-            new IntelViewFactory(intelTracker).createContainer(commodityId, activeTab, size),
-            new ButtonViewFactory().createContainer(commodityId, size),
-            new DeleteViewFactory().createContainer(commodityId, size)
+            new TabViewFactory(state).createContainer(size),
+            new IntelViewFactory(state).createContainer(size),
+            new ButtonViewFactory(state).createContainer(size),
+            new DeleteViewFactory(state).createContainer(size)
         );
     }
 

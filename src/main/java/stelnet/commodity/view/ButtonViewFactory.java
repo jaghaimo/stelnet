@@ -5,18 +5,29 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import stelnet.commodity.CommodityState;
 import stelnet.filter.commodityspec.HasNotTag;
 import stelnet.util.CollectionReducer;
 import stelnet.util.Economy;
 import uilib.Button;
 import uilib.Group;
 import uilib.Renderable;
+import uilib.ViewContainerFactory;
 import uilib.property.Position;
 import uilib.property.Size;
 
-public class ButtonViewFactory {
+@RequiredArgsConstructor
+public class ButtonViewFactory implements ViewContainerFactory {
 
-    public Renderable createContainer(String activeId, Size size) {
+    private final String activeId;
+
+    public ButtonViewFactory(CommodityState commodityState) {
+        this(commodityState.getCommodityId());
+    }
+
+    @Override
+    public Renderable createContainer(Size size) {
         List<Renderable> buttons = new LinkedList<>();
         List<CommoditySpecAPI> commodities = Economy.getAllCommodities();
         filterCommodities(commodities);

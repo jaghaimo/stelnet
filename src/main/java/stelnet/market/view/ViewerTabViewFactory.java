@@ -1,21 +1,19 @@
 package stelnet.market.view;
 
-import stelnet.storage.ButtonManager;
-import stelnet.storage.FilterManager;
+import stelnet.market.ViewerState;
 import stelnet.storage.SubmarketDataRenderer;
-import stelnet.storage.data.DataProvider;
 import stelnet.storage.view.StorageTabViewFactory;
 import uilib.TabButton;
 
 public class ViewerTabViewFactory extends StorageTabViewFactory {
 
-    public ViewerTabViewFactory(
-        ButtonManager buttonManager,
-        FilterManager filterManager,
-        SubmarketDataRenderer activeTab,
-        DataProvider activeView
-    ) {
-        super(buttonManager, filterManager, activeTab, activeView);
+    public ViewerTabViewFactory(ViewerState viewerState) {
+        super(
+            viewerState.getButtonManager(),
+            viewerState.getFilterManager(),
+            viewerState.getActiveTab(),
+            viewerState.getMarketProvider()
+        );
     }
 
     @Override

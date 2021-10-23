@@ -38,7 +38,7 @@ public class MarketSelectDialog implements InteractionDialogPlugin {
 
                 @Override
                 public void pickedEntity(SectorEntityToken entity) {
-                    board.setMarketProvider(new MarketProvider(entity.getMarket()));
+                    board.getState().setMarketProvider(new MarketProvider(entity.getMarket()));
                     ui.updateUIForItem(board);
                     dialog.dismiss();
                 }

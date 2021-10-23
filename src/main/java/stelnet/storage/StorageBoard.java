@@ -20,10 +20,7 @@ import uilib.property.Size;
 @Setter
 public class StorageBoard extends BaseBoard {
 
-    private final FilterManager filterManager = new FilterManager();
-    private final ButtonManager buttonManager = new ButtonManager(filterManager);
-    private SubmarketDataRenderer activeTab = SubmarketDataRenderer.ITEMS;
-    private SubmarketDataProvider activeView = SubmarketDataProvider.UNIFIED;
+    private final StorageState state = new StorageState();
 
     public static StorageBoard getInstance() {
         IntelInfoPlugin intel = IntelManager.getFirstIntel(StorageBoard.class);
@@ -42,8 +39,8 @@ public class StorageBoard extends BaseBoard {
     @Override
     protected List<Renderable> getRenderables(Size size) {
         return Arrays.<Renderable>asList(
-            new StorageTabViewFactory(buttonManager, filterManager, activeTab, activeView).createContainer(size),
-            activeView.getNextButton()
+            new StorageTabViewFactory(state).createContainer(size),
+            state.getActiveView().getNextButton()
         );
     }
 

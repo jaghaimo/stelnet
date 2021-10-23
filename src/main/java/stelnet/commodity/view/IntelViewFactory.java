@@ -3,20 +3,29 @@ package stelnet.commodity.view;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import stelnet.commodity.CommodityState;
 import stelnet.commodity.CommodityTab;
 import stelnet.commodity.IntelTracker;
 import stelnet.commodity.market.MarketApiWrapper;
 import stelnet.commodity.market.MarketRepository;
 import uilib.HorizontalViewContainer;
 import uilib.Renderable;
+import uilib.ViewContainerFactory;
 import uilib.property.Size;
 
 @AllArgsConstructor
-public class IntelViewFactory {
+public class IntelViewFactory implements ViewContainerFactory {
 
+    private final String commodityId;
+    private final CommodityTab actionTab;
     private final IntelTracker tracker;
 
-    public Renderable createContainer(String commodityId, CommodityTab actionTab, Size size) {
+    public IntelViewFactory(CommodityState commodityState) {
+        this(commodityState.getCommodityId(), commodityState.getActiveTab(), commodityState.getIntelTracker());
+    }
+
+    @Override
+    public Renderable createContainer(Size size) {
         MarketRepository marketRepository = new MarketRepository(commodityId);
         List<MarketApiWrapper> markets = marketRepository.getMarketsByType(actionTab);
         int numberOfButtons = calcNumberOfButtons(markets, size);

@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.lwjgl.input.Keyboard;
 import stelnet.storage.ButtonManager;
 import stelnet.storage.FilterManager;
+import stelnet.storage.StorageState;
 import stelnet.storage.SubmarketDataRenderer;
 import stelnet.storage.data.DataProvider;
 import stelnet.storage.data.LocationData;
@@ -19,17 +20,23 @@ import uilib.Renderable;
 import uilib.Spacer;
 import uilib.TabButton;
 import uilib.TabViewContainer;
+import uilib.ViewContainerFactory;
 import uilib.property.Position;
 import uilib.property.Size;
 
 @RequiredArgsConstructor
-public class StorageTabViewFactory {
+public class StorageTabViewFactory implements ViewContainerFactory {
 
     private final ButtonManager buttonManager;
     private final FilterManager filterManager;
     private final SubmarketDataRenderer activeTab;
     private final DataProvider activeView;
 
+    public StorageTabViewFactory(StorageState state) {
+        this(state.getButtonManager(), state.getFilterManager(), state.getActiveTab(), state.getActiveView());
+    }
+
+    @Override
     public Renderable createContainer(Size size) {
         float width = size.getWidth() - 210;
         float height = size.getHeight() - 40;
@@ -68,8 +75,7 @@ public class StorageTabViewFactory {
         contentContainer.setSize(contentSize);
         Group buttonContainer = new Group(buttons);
         buttonContainer.setSize(new Size(size.reduce(contentSize).getWidth(), contentSize.getHeight()));
-        buttonContainer.setOffset(new Position(10, 0)); // Could replace magic numbers with actual
-        // calculations
+        buttonContainer.setOffset(new Position(10, 0)); // Could replace magic numbers with actual calculations
         return new HorizontalViewContainer(contentContainer, buttonContainer);
     }
 

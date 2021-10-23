@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.lwjgl.input.Keyboard;
+import stelnet.market.QueryState;
 import stelnet.market.QueryTab;
 import uilib.DynamicGroup;
 import uilib.HorizontalViewContainer;
@@ -16,13 +17,19 @@ import uilib.Renderable;
 import uilib.TabViewContainer;
 import uilib.ToggleButton;
 import uilib.VerticalViewContainer;
+import uilib.ViewContainerFactory;
 import uilib.property.Size;
 
 @RequiredArgsConstructor
-public class QueryTabViewFactory {
+public class QueryTabViewFactory implements ViewContainerFactory {
 
     private final QueryTab activeTab;
 
+    public QueryTabViewFactory(QueryState queryState) {
+        activeTab = queryState.getActiveTab();
+    }
+
+    @Override
     public Renderable createContainer(Size size) {
         float width = size.getWidth() - 10;
         float height = size.getHeight();

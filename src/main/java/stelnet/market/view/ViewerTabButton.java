@@ -16,7 +16,7 @@ public class ViewerTabButton extends TabButton {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
                     ViewerBoard board = ViewerBoard.getInstance();
-                    board.setActiveTab(storageTab);
+                    board.getState().setActiveTab(storageTab);
                 }
             }
         );

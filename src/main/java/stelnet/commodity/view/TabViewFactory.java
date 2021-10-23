@@ -2,6 +2,7 @@ package stelnet.commodity.view;
 
 import lombok.RequiredArgsConstructor;
 import org.lwjgl.input.Keyboard;
+import stelnet.commodity.CommodityState;
 import stelnet.commodity.CommodityTab;
 import stelnet.commodity.data.BuyTableContent;
 import stelnet.commodity.data.ProfitTableContent;
@@ -11,14 +12,20 @@ import uilib.Renderable;
 import uilib.TabViewContainer;
 import uilib.Table;
 import uilib.TableContent;
+import uilib.ViewContainerFactory;
 import uilib.property.Size;
 
 @RequiredArgsConstructor
-public class TabViewFactory {
+public class TabViewFactory implements ViewContainerFactory {
 
     private final String commodityId;
     private final CommodityTab activeTab;
 
+    public TabViewFactory(CommodityState commodityState) {
+        this(commodityState.getCommodityId(), commodityState.getActiveTab());
+    }
+
+    @Override
     public Renderable createContainer(Size size) {
         float width = size.getWidth() - 210;
         float height = size.getHeight() - 54;
