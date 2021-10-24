@@ -2,8 +2,11 @@ package stelnet;
 
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
+import java.util.List;
 import java.util.Set;
+import uilib.Renderable;
 import uilib.RenderableIntel;
+import uilib.property.Size;
 
 public abstract class BaseBoard extends RenderableIntel {
 
@@ -12,7 +15,6 @@ public abstract class BaseBoard extends RenderableIntel {
         BoardInfo boardInfo = getBoardInfo();
         info.addPara(boardInfo.getTitle(), getTitleColor(mode), 0);
         info.addPara(boardInfo.getDescription(), getBulletColorForMode(mode), 1);
-        // info.addPara("", 0);
     }
 
     @Override
@@ -37,7 +39,14 @@ public abstract class BaseBoard extends RenderableIntel {
         return false;
     }
 
+    @Override
+    protected List<Renderable> getRenderables(Size size) {
+        return getRenderableState().toRenderables(size);
+    }
+
     protected abstract BoardInfo getBoardInfo();
+
+    protected abstract RenderableState getRenderableState();
 
     protected abstract String getTag();
 }

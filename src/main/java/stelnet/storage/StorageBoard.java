@@ -1,20 +1,16 @@
 package stelnet.storage;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
-import java.util.Arrays;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import stelnet.BaseBoard;
 import stelnet.BoardInfo;
-import stelnet.storage.view.StorageTabViewFactory;
+import stelnet.RenderableState;
 import stelnet.util.IntelManager;
 import stelnet.util.L10n;
 import stelnet.util.Settings;
 import stelnet.util.StorageUtils;
 import stelnet.util.Tagger;
-import uilib.Renderable;
-import uilib.property.Size;
 
 @Getter
 @Setter
@@ -37,16 +33,13 @@ public class StorageBoard extends BaseBoard {
     }
 
     @Override
-    protected List<Renderable> getRenderables(Size size) {
-        return Arrays.<Renderable>asList(
-            new StorageTabViewFactory(state).createContainer(size),
-            state.getActiveView().getNextButton()
-        );
+    protected BoardInfo getBoardInfo() {
+        return new BoardInfo(L10n.get("storageBoardTitle"), getDescription());
     }
 
     @Override
-    protected BoardInfo getBoardInfo() {
-        return new BoardInfo(L10n.get("storageBoardTitle"), getDescription());
+    protected RenderableState getRenderableState() {
+        return state;
     }
 
     @Override

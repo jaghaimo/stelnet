@@ -1,19 +1,14 @@
 package stelnet.market;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
-import java.util.Arrays;
-import java.util.List;
 import lombok.Getter;
 import stelnet.BaseBoard;
 import stelnet.BoardInfo;
-import stelnet.market.view.MarketSelectButton;
-import stelnet.market.view.ViewerTabViewFactory;
+import stelnet.RenderableState;
 import stelnet.util.IntelManager;
 import stelnet.util.L10n;
 import stelnet.util.Settings;
 import stelnet.util.Tagger;
-import uilib.Renderable;
-import uilib.property.Size;
 
 @Getter
 public class ViewerBoard extends BaseBoard {
@@ -45,11 +40,8 @@ public class ViewerBoard extends BaseBoard {
     }
 
     @Override
-    protected List<Renderable> getRenderables(Size size) {
-        return Arrays.<Renderable>asList(
-            new ViewerTabViewFactory(state).createContainer(size),
-            new MarketSelectButton()
-        );
+    protected RenderableState getRenderableState() {
+        return state;
     }
 
     @Override

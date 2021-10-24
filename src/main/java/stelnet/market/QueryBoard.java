@@ -1,18 +1,14 @@
 package stelnet.market;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
-import java.util.Collections;
-import java.util.List;
 import lombok.Getter;
 import stelnet.BaseBoard;
 import stelnet.BoardInfo;
-import stelnet.market.view.QueryTabViewFactory;
+import stelnet.RenderableState;
 import stelnet.util.IntelManager;
 import stelnet.util.L10n;
 import stelnet.util.Settings;
 import stelnet.util.Tagger;
-import uilib.Renderable;
-import uilib.property.Size;
 
 /**
  * Information board for managing displayed information intel.
@@ -46,8 +42,8 @@ public class QueryBoard extends BaseBoard {
     }
 
     @Override
-    protected List<Renderable> getRenderables(Size size) {
-        return Collections.singletonList(new QueryTabViewFactory(state).createContainer(size));
+    protected RenderableState getRenderableState() {
+        return state;
     }
 
     @Override
