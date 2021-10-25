@@ -57,6 +57,7 @@ public class MarketApiWrapper {
     public String getStarSystem() {
         StarSystemAPI starSystemAPI = marketAPI.getStarSystem();
         if (starSystemAPI == null) {
+            // TODO : L18n this, also duplicate code
             return "Hyperspace";
         }
         return starSystemAPI.getBaseName();
