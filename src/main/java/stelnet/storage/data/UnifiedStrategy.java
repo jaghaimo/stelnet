@@ -11,7 +11,10 @@ import stelnet.util.L10n;
 import stelnet.util.StorageUtils;
 
 @Log4j
-public class UnifiedProvider implements DataProvider {
+/**
+ * Puts cargo and ships in one "Unified" group.
+ */
+public class UnifiedStrategy implements DisplayStrategy {
 
     @Override
     public List<SubmarketData> getData(FilterManager filterManager) {

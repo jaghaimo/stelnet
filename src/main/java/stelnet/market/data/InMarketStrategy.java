@@ -13,13 +13,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import stelnet.storage.FilterManager;
 import stelnet.storage.data.LocationData;
-import stelnet.storage.data.PerLocationProvider;
+import stelnet.storage.data.PerMarketStrategy;
 import stelnet.storage.data.SubmarketData;
 import stelnet.util.L10n;
 
 @Log4j
 @RequiredArgsConstructor
-public class MarketProvider extends PerLocationProvider {
+/**
+ * Variation of `PerMarketStrategy` that groups cargo and ships per submarket of one one market.
+ */
+public class InMarketStrategy extends PerMarketStrategy {
 
     private final MarketAPI market;
 

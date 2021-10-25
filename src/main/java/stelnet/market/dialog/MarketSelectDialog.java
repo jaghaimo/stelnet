@@ -12,7 +12,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import stelnet.market.ViewerBoard;
-import stelnet.market.data.MarketProvider;
+import stelnet.market.data.InMarketStrategy;
 import stelnet.util.L10n;
 import stelnet.util.MarketUtils;
 
@@ -38,7 +38,7 @@ public class MarketSelectDialog implements InteractionDialogPlugin {
 
                 @Override
                 public void pickedEntity(SectorEntityToken entity) {
-                    board.getState().setMarketProvider(new MarketProvider(entity.getMarket()));
+                    board.getState().setMarketProvider(new InMarketStrategy(entity.getMarket()));
                     ui.updateUIForItem(board);
                     dialog.dismiss();
                 }

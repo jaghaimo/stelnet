@@ -13,7 +13,10 @@ import stelnet.util.CollectionReducer;
 import stelnet.util.StorageUtils;
 
 @Log4j
-public class PerLocationProvider implements DataProvider {
+/**
+ * Displays storage content grouped by the market it is located at.
+ */
+public class PerMarketStrategy implements DisplayStrategy {
 
     @Override
     public List<SubmarketData> getData(FilterManager filterManager) {

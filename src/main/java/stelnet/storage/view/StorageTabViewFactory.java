@@ -8,7 +8,7 @@ import stelnet.storage.ButtonManager;
 import stelnet.storage.FilterManager;
 import stelnet.storage.StorageState;
 import stelnet.storage.SubmarketDataRenderer;
-import stelnet.storage.data.DataProvider;
+import stelnet.storage.data.DisplayStrategy;
 import stelnet.storage.data.LocationData;
 import stelnet.storage.data.SubmarketData;
 import stelnet.util.L10n;
@@ -30,7 +30,7 @@ public class StorageTabViewFactory implements ViewContainerFactory {
     private final ButtonManager buttonManager;
     private final FilterManager filterManager;
     private final SubmarketDataRenderer activeTab;
-    private final DataProvider activeView;
+    private final DisplayStrategy activeView;
 
     public StorageTabViewFactory(StorageState state) {
         this(state.getButtonManager(), state.getFilterManager(), state.getActiveTab(), state.getActiveView());

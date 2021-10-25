@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import stelnet.RenderableState;
-import stelnet.market.data.MarketProvider;
+import stelnet.market.data.InMarketStrategy;
 import stelnet.market.view.MarketSelectButton;
 import stelnet.market.view.ViewerTabViewFactory;
 import stelnet.storage.ButtonManager;
@@ -21,7 +21,7 @@ public class ViewerState implements RenderableState {
     private final FilterManager filterManager = new FilterManager();
     private final ButtonManager buttonManager = new ButtonManager(filterManager);
     private SubmarketDataRenderer activeTab = SubmarketDataRenderer.ITEMS;
-    private MarketProvider marketProvider = new MarketProvider(null);
+    private InMarketStrategy marketProvider = new InMarketStrategy(null);
 
     @Override
     public List<Renderable> toRenderables(Size size) {
