@@ -34,10 +34,10 @@ public enum SubmarketDataStrategy implements DisplayStrategy {
         }
     };
 
-    private final String title;
+    public final String id;
 
-    private SubmarketDataStrategy(String title) {
-        this.title = title;
+    private SubmarketDataStrategy(String id) {
+        this.id = id;
     }
 
     public DisplayViewButton getNextButton() {
@@ -46,9 +46,5 @@ public enum SubmarketDataStrategy implements DisplayStrategy {
 
     public List<SubmarketData> getData(FilterManager filterManager) {
         return null;
-    }
-
-    public String getTitle() {
-        return title;
     }
 }

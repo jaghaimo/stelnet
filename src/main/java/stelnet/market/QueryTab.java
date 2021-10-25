@@ -4,9 +4,9 @@ public enum QueryTab {
     LIST("List"),
     NEW("New");
 
-    public final String title;
+    public final String id;
 
-    private QueryTab(String title) {
-        this.title = title;
+    private QueryTab(String id) {
+        this.id = id;
     }
 }

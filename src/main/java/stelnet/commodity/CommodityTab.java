@@ -5,9 +5,9 @@ public enum CommodityTab {
     SELL("Sell"),
     PROFIT("Profit");
 
-    public final String title;
+    public final String id;
 
-    private CommodityTab(String title) {
-        this.title = title;
+    private CommodityTab(String id) {
+        this.id = id;
     }
 }

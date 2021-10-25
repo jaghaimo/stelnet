@@ -24,10 +24,10 @@ public enum SubmarketDataRenderer {
         }
     };
 
-    public final String title;
+    public final String id;
 
-    private SubmarketDataRenderer(String title) {
-        this.title = title;
+    private SubmarketDataRenderer(String id) {
+        this.id = id;
     }
 
     public Renderable getStorageRenderer(SubmarketData data) {
