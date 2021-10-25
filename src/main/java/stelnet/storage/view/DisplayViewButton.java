@@ -4,7 +4,7 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.util.Misc;
 import org.lwjgl.input.Keyboard;
 import stelnet.storage.StorageBoard;
-import stelnet.storage.SubmarketDataProvider;
+import stelnet.storage.SubmarketDataStrategy;
 import stelnet.util.L10n;
 import uilib.Button;
 import uilib.EventHandler;
@@ -14,7 +14,7 @@ import uilib.property.Size;
 
 public class DisplayViewButton extends Button {
 
-    public DisplayViewButton(final SubmarketDataProvider view) {
+    public DisplayViewButton(final SubmarketDataStrategy view) {
         super(new Size(180, 24), L10n.get("storageView" + view.getTitle()), true, Misc.getButtonTextColor());
         setShortcut(Keyboard.KEY_G);
         setLocation(Location.BOTTOM_RIGHT);

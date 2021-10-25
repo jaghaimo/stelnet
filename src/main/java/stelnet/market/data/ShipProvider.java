@@ -1,4 +1,4 @@
-package stelnet.market;
+package stelnet.market.data;
 
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;

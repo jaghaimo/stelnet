@@ -10,7 +10,7 @@ import stelnet.storage.view.DisplayViewButton;
 /**
  * Provides submarket data using various grouping logic.
  */
-public enum SubmarketDataProvider implements DisplayStrategy {
+public enum SubmarketDataStrategy implements DisplayStrategy {
     PER_LOCATION("PerLocation") {
         @Override
         public DisplayViewButton getNextButton() {
@@ -36,7 +36,7 @@ public enum SubmarketDataProvider implements DisplayStrategy {
 
     private final String title;
 
-    private SubmarketDataProvider(String title) {
+    private SubmarketDataStrategy(String title) {
         this.title = title;
     }
 

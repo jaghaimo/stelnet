@@ -16,7 +16,7 @@ public class StorageState implements RenderableState {
     private final FilterManager filterManager = new FilterManager();
     private final ButtonManager buttonManager = new ButtonManager(filterManager);
     private SubmarketDataRenderer activeTab = SubmarketDataRenderer.ITEMS;
-    private SubmarketDataProvider activeView = SubmarketDataProvider.UNIFIED;
+    private SubmarketDataStrategy activeView = SubmarketDataStrategy.UNIFIED;
 
     @Override
     public List<Renderable> toRenderables(Size size) {
