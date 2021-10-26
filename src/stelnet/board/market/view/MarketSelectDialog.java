@@ -9,17 +9,18 @@ import com.fs.starfarer.api.campaign.rules.MemoryAPI;
 import com.fs.starfarer.api.combat.EngagementResultAPI;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
+import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.market.ViewerBoard;
 import stelnet.util.L10n;
-import stelnet.util.MarketUtils;
 import stelnet.view.market.InMarketStrategy;
 
 @RequiredArgsConstructor
 public class MarketSelectDialog implements InteractionDialogPlugin {
 
     private final IntelUIAPI ui;
+    private final List<SectorEntityToken> entities;
 
     @Override
     public void init(final InteractionDialogAPI dialog) {
@@ -29,7 +30,7 @@ public class MarketSelectDialog implements InteractionDialogPlugin {
             L10n.get("marketViewDialogSelected"),
             L10n.get("marketViewDialogConfirm"),
             Global.getSector().getPlayerFaction(),
-            MarketUtils.convertMarketsToTokens(MarketUtils.getMarkets()),
+            entities,
             new CampaignEntityPickerListener() {
                 @Override
                 public String getMenuItemNameOverrideFor(SectorEntityToken entity) {
