@@ -1,4 +1,4 @@
-package stelnet.board.storage;
+package stelnet.view.market;
 
 import java.util.HashSet;
 import java.util.Set;

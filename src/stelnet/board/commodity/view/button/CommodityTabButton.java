@@ -1,4 +1,4 @@
-package stelnet.board.commodity.view;
+package stelnet.board.commodity.view.button;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import stelnet.board.commodity.CommodityBoard;

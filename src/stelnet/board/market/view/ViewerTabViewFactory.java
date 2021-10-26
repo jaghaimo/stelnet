@@ -1,8 +1,8 @@
 package stelnet.board.market.view;
 
 import stelnet.board.market.ViewerState;
-import stelnet.board.storage.SubmarketDataRenderer;
 import stelnet.board.storage.view.StorageTabViewFactory;
+import stelnet.view.market.ContentRenderer;
 import uilib.TabButton;
 
 public class ViewerTabViewFactory extends StorageTabViewFactory {
@@ -11,13 +11,13 @@ public class ViewerTabViewFactory extends StorageTabViewFactory {
         super(
             viewerState.getButtonManager(),
             viewerState.getFilterManager(),
-            viewerState.getActiveTab(),
+            viewerState.getActiveRenderer(),
             viewerState.getMarketProvider()
         );
     }
 
     @Override
-    protected TabButton getTabButton(SubmarketDataRenderer currentTab, int keyboardShortcut) {
+    protected TabButton getTabButton(ContentRenderer currentTab, int keyboardShortcut) {
         return new ViewerTabButton(currentTab, isActive(currentTab), keyboardShortcut);
     }
 }

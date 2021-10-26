@@ -5,6 +5,10 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import stelnet.board.storage.view.StorageTabViewFactory;
+import stelnet.view.market.ButtonManager;
+import stelnet.view.market.ContentRenderer;
+import stelnet.view.market.FilterManager;
+import stelnet.view.market.GroupingStrategy;
 import uilib.Renderable;
 import uilib.RenderableState;
 import uilib.property.Size;
@@ -15,8 +19,8 @@ public class StorageState implements RenderableState {
 
     private final FilterManager filterManager = new FilterManager();
     private final ButtonManager buttonManager = new ButtonManager(filterManager);
-    private SubmarketDataRenderer activeRenderer = SubmarketDataRenderer.ITEMS;
-    private SubmarketDataStrategy activeStrategy = SubmarketDataStrategy.UNIFIED;
+    private ContentRenderer activeRenderer = ContentRenderer.ITEMS;
+    private GroupingStrategy activeStrategy = GroupingStrategy.UNIFIED;
 
     @Override
     public List<Renderable> toRenderables(Size size) {

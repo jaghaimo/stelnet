@@ -1,4 +1,4 @@
-package stelnet.board.market.dialog;
+package stelnet.board.market.view;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignEntityPickerListener;
@@ -12,9 +12,9 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.market.ViewerBoard;
-import stelnet.board.market.data.InMarketStrategy;
 import stelnet.util.L10n;
 import stelnet.util.MarketUtils;
+import stelnet.view.market.InMarketStrategy;
 
 @RequiredArgsConstructor
 public class MarketSelectDialog implements InteractionDialogPlugin {

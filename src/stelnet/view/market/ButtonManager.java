@@ -1,4 +1,4 @@
-package stelnet.board.storage;
+package stelnet.view.market;
 
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.loading.WingRole;

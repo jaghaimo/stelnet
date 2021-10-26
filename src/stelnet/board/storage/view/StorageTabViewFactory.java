@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.lwjgl.input.Keyboard;
-import stelnet.board.storage.ButtonManager;
-import stelnet.board.storage.FilterManager;
 import stelnet.board.storage.StorageState;
-import stelnet.board.storage.SubmarketDataRenderer;
-import stelnet.board.storage.data.DisplayStrategy;
-import stelnet.board.storage.data.LocationData;
-import stelnet.board.storage.data.SubmarketData;
 import stelnet.util.L10n;
+import stelnet.view.market.ButtonManager;
+import stelnet.view.market.ContentRenderer;
+import stelnet.view.market.DisplayStrategy;
+import stelnet.view.market.FilterManager;
+import stelnet.view.market.LocationContent;
+import stelnet.view.market.LocationInfo;
 import uilib.Group;
 import uilib.Heading;
 import uilib.HorizontalViewContainer;
@@ -29,7 +29,7 @@ public class StorageTabViewFactory implements ViewContainerFactory {
 
     private final ButtonManager buttonManager;
     private final FilterManager filterManager;
-    private final SubmarketDataRenderer activeTab;
+    private final ContentRenderer activeTab;
     private final DisplayStrategy activeView;
 
     public StorageTabViewFactory(StorageState state) {
@@ -45,30 +45,30 @@ public class StorageTabViewFactory implements ViewContainerFactory {
         TabViewContainer tabViewContainer = new TabViewContainer();
         tabViewContainer.setSize(size);
         tabViewContainer.addTab(
-            getTabButton(SubmarketDataRenderer.ITEMS, Keyboard.KEY_I),
+            getTabButton(ContentRenderer.ITEMS, Keyboard.KEY_I),
             getTabPane(size, contentSize, buttonManager.getItemButtons()),
-            isActive(SubmarketDataRenderer.ITEMS)
+            isActive(ContentRenderer.ITEMS)
         );
         tabViewContainer.addTab(
-            getTabButton(SubmarketDataRenderer.SHIPS, Keyboard.KEY_S),
+            getTabButton(ContentRenderer.SHIPS, Keyboard.KEY_S),
             getTabPane(size, contentSize, buttonManager.getShipButtons()),
-            isActive(SubmarketDataRenderer.SHIPS)
+            isActive(ContentRenderer.SHIPS)
         );
 
         return tabViewContainer;
     }
 
-    protected boolean isActive(SubmarketDataRenderer currentTab) {
+    protected boolean isActive(ContentRenderer currentTab) {
         return currentTab.equals(activeTab);
     }
 
-    protected TabButton getTabButton(SubmarketDataRenderer currentTab, int keyboardShortcut) {
+    protected TabButton getTabButton(ContentRenderer currentTab, int keyboardShortcut) {
         return new StorageTabButton(currentTab, isActive(currentTab), keyboardShortcut);
     }
 
     private Renderable getTabPane(Size size, Size contentSize, Renderable[] buttons) {
         List<Renderable> elements = new ArrayList<>();
-        List<SubmarketData> storageData = activeView.getData(filterManager);
+        List<LocationContent> storageData = activeView.getData(filterManager);
         addEmptyData(elements, storageData, contentSize.getWidth());
         addStorageData(elements, storageData);
         Group contentContainer = new Group(elements);
@@ -79,15 +79,15 @@ public class StorageTabViewFactory implements ViewContainerFactory {
         return new HorizontalViewContainer(contentContainer, buttonContainer);
     }
 
-    private void addEmptyData(List<Renderable> elements, List<SubmarketData> storageData, float width) {
+    private void addEmptyData(List<Renderable> elements, List<LocationContent> storageData, float width) {
         if (storageData.isEmpty()) {
             elements.add(new Paragraph(L10n.get("storageNoStorages"), width));
         }
     }
 
-    private void addStorageData(List<Renderable> elements, List<SubmarketData> storageData) {
-        for (SubmarketData data : storageData) {
-            LocationData locationData = data.getLocationData();
+    private void addStorageData(List<Renderable> elements, List<LocationContent> storageData) {
+        for (LocationContent data : storageData) {
+            LocationInfo locationData = data.getLocationData();
             elements.add(new Heading(locationData.getName(), locationData.getFgColor(), locationData.getBgColor()));
             elements.add(activeTab.getStorageRenderer(data));
             elements.add(new Spacer(8));

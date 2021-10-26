@@ -7,8 +7,8 @@ import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.Builder;
 import lombok.Data;
-import stelnet.board.commodity.data.TableCellHelper;
 import stelnet.board.commodity.market.price.Price;
+import stelnet.board.commodity.market.table.TableCellHelper;
 import stelnet.util.DistanceCalculator;
 
 @Data

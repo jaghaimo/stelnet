@@ -1,16 +1,12 @@
-package stelnet.board.storage;
+package stelnet.view.market;
 
 import java.util.List;
-import stelnet.board.storage.data.DisplayStrategy;
-import stelnet.board.storage.data.PerMarketStrategy;
-import stelnet.board.storage.data.SubmarketData;
-import stelnet.board.storage.data.UnifiedStrategy;
 import stelnet.board.storage.view.DisplayViewButton;
 
 /**
- * Provides submarket data using various grouping logic.
+ * Provides market content using various grouping logic.
  */
-public enum SubmarketDataStrategy implements DisplayStrategy {
+public enum GroupingStrategy implements DisplayStrategy {
     PER_LOCATION("PerLocation") {
         @Override
         public DisplayViewButton getNextButton() {
@@ -18,7 +14,7 @@ public enum SubmarketDataStrategy implements DisplayStrategy {
         }
 
         @Override
-        public List<SubmarketData> getData(FilterManager filterManager) {
+        public List<LocationContent> getData(FilterManager filterManager) {
             return new PerMarketStrategy().getData(filterManager);
         }
     },
@@ -29,14 +25,14 @@ public enum SubmarketDataStrategy implements DisplayStrategy {
         }
 
         @Override
-        public List<SubmarketData> getData(FilterManager filterManager) {
+        public List<LocationContent> getData(FilterManager filterManager) {
             return new UnifiedStrategy().getData(filterManager);
         }
     };
 
     public final String id;
 
-    private SubmarketDataStrategy(String id) {
+    private GroupingStrategy(String id) {
         this.id = id;
     }
 
@@ -44,7 +40,7 @@ public enum SubmarketDataStrategy implements DisplayStrategy {
         return null;
     }
 
-    public List<SubmarketData> getData(FilterManager filterManager) {
+    public List<LocationContent> getData(FilterManager filterManager) {
         return null;
     }
 }

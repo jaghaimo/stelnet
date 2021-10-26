@@ -1,4 +1,4 @@
-package stelnet.board.commodity.data;
+package stelnet.board.commodity.market.table;
 
 import java.util.List;
 import stelnet.board.commodity.market.MarketApiWrapper;

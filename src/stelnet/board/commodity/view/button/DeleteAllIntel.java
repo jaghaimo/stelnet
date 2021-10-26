@@ -1,4 +1,4 @@
-package stelnet.board.commodity.view;
+package stelnet.board.commodity.view.button;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
@@ -10,10 +10,10 @@ import uilib.EventHandler;
 import uilib.property.Location;
 import uilib.property.Size;
 
-public class DeleteCommodityIntel extends Button {
+public class DeleteAllIntel extends Button {
 
-    public DeleteCommodityIntel(final String commodityId) {
-        super(new Size(200, 24), L10n.get("commodityDeleteThis"), true, Misc.getButtonTextColor());
+    public DeleteAllIntel() {
+        super(new Size(200, 24), L10n.get("commodityDeleteAll"), true, Misc.getNegativeHighlightColor());
         setLocation(Location.BOTTOM_RIGHT);
         setHandler(
             new EventHandler() {
@@ -25,12 +25,12 @@ public class DeleteCommodityIntel extends Button {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
                     CommodityBoard board = CommodityBoard.getInstance();
-                    board.getState().deleteIntel(commodityId);
+                    board.getState().deleteIntel();
                 }
 
                 @Override
                 public void onPrompt(TooltipMakerAPI tooltipMaker) {
-                    tooltipMaker.addPara(L10n.get("commodityDeleteThisConfirmation"), Misc.getTextColor(), 0f);
+                    tooltipMaker.addPara(L10n.get("commodityDeleteAllConfirmation"), Misc.getTextColor(), 0f);
                 }
             }
         );

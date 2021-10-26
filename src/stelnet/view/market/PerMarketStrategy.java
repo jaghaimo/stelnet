@@ -1,4 +1,4 @@
-package stelnet.board.storage.data;
+package stelnet.view.market;
 
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
@@ -7,7 +7,6 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.extern.log4j.Log4j;
-import stelnet.board.storage.FilterManager;
 import stelnet.util.CargoUtils;
 import stelnet.util.CollectionReducer;
 import stelnet.util.StorageUtils;
@@ -19,20 +18,20 @@ import stelnet.util.StorageUtils;
 public class PerMarketStrategy implements DisplayStrategy {
 
     @Override
-    public List<SubmarketData> getData(FilterManager filterManager) {
-        List<SubmarketData> data = new LinkedList<>();
+    public List<LocationContent> getData(FilterManager filterManager) {
+        List<LocationContent> data = new LinkedList<>();
         List<SubmarketAPI> storages = StorageUtils.getAllSortedWithAccess();
         for (SubmarketAPI storage : storages) {
-            processSubmarket(new LocationData(storage.getMarket()), storage, filterManager, data);
+            processSubmarket(new LocationInfo(storage.getMarket()), storage, filterManager, data);
         }
         return data;
     }
 
     protected void processSubmarket(
-        LocationData locationData,
+        LocationInfo locationData,
         SubmarketAPI storage,
         FilterManager filterManager,
-        List<SubmarketData> data
+        List<LocationContent> data
     ) {
         CargoAPI storageCargo = storage.getCargo();
         CargoAPI items = getItems(filterManager, storageCargo);
@@ -40,7 +39,7 @@ public class PerMarketStrategy implements DisplayStrategy {
         String name = storage.getMarket().getName();
         log.debug("Found " + items.getStacksCopy().size() + " items in " + name);
         log.debug("Found " + ships.size() + " ships in " + name);
-        data.add(new SubmarketData(locationData, items, ships));
+        data.add(new LocationContent(locationData, items, ships));
     }
 
     private CargoAPI getItems(FilterManager filterManager, CargoAPI storageCargo) {

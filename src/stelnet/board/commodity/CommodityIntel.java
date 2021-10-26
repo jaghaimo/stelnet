@@ -11,7 +11,7 @@ import stelnet.BaseIntel;
 import stelnet.IntelInfo;
 import stelnet.board.commodity.market.MarketApiWrapper;
 import stelnet.board.commodity.market.price.Price;
-import stelnet.board.commodity.view.DeleteIntel;
+import stelnet.board.commodity.view.button.DeleteIntel;
 import stelnet.util.L10n;
 import stelnet.util.Tagger;
 import uilib.Heading;

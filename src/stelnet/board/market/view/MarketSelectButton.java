@@ -3,7 +3,6 @@ package stelnet.board.market.view;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.util.Misc;
 import org.lwjgl.input.Keyboard;
-import stelnet.board.market.dialog.MarketSelectDialog;
 import stelnet.util.L10n;
 import uilib.Button;
 import uilib.EventHandler;

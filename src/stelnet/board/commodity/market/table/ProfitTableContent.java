@@ -1,4 +1,4 @@
-package stelnet.board.commodity.data;
+package stelnet.board.commodity.market.table;
 
 import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;

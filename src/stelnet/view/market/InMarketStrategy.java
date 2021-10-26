@@ -1,4 +1,4 @@
-package stelnet.board.market.data;
+package stelnet.view.market;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
@@ -11,10 +11,6 @@ import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import stelnet.board.storage.FilterManager;
-import stelnet.board.storage.data.LocationData;
-import stelnet.board.storage.data.PerMarketStrategy;
-import stelnet.board.storage.data.SubmarketData;
 import stelnet.util.L10n;
 
 @Log4j
@@ -27,28 +23,28 @@ public class InMarketStrategy extends PerMarketStrategy {
     private final MarketAPI market;
 
     @Override
-    public List<SubmarketData> getData(FilterManager filterManager) {
+    public List<LocationContent> getData(FilterManager filterManager) {
         if (market == null) {
             log.debug("No market set, returning empty data.");
             return getEmptyData();
         }
         log.debug("Adding data for market " + market.getName());
-        List<SubmarketData> data = new LinkedList<>();
+        List<LocationContent> data = new LinkedList<>();
         for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
             if (Submarkets.SUBMARKET_STORAGE.equals(submarket.getSpecId())) {
                 log.debug("Skipping storage");
                 continue;
             }
             log.debug("Processing submarket " + submarket.getNameOneLine());
-            processSubmarket(new LocationData(submarket), submarket, filterManager, data);
+            processSubmarket(new LocationInfo(submarket), submarket, filterManager, data);
         }
         return data;
     }
 
-    private List<SubmarketData> getEmptyData() {
+    private List<LocationContent> getEmptyData() {
         return Collections.singletonList(
-            new SubmarketData(
-                new LocationData(L10n.get("marketViewNoMarket"), Misc.getTextColor(), Misc.getGrayColor()),
+            new LocationContent(
+                new LocationInfo(L10n.get("marketViewNoMarket"), Misc.getTextColor(), Misc.getGrayColor()),
                 Global.getFactory().createCargo(true),
                 Collections.<FleetMemberAPI>emptyList()
             )

@@ -8,6 +8,7 @@ import stelnet.board.commodity.CommodityState.CommodityTab;
 import stelnet.board.commodity.IntelTracker;
 import stelnet.board.commodity.market.MarketApiWrapper;
 import stelnet.board.commodity.market.MarketRepository;
+import stelnet.board.commodity.view.button.IntelButton;
 import uilib.HorizontalViewContainer;
 import uilib.Renderable;
 import uilib.ViewContainerFactory;

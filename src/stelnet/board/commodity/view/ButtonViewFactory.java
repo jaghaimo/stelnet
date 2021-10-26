@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.commodity.CommodityState;
+import stelnet.board.commodity.view.button.CommodityButton;
 import stelnet.filter.commodityspec.HasNotTag;
 import stelnet.util.CollectionReducer;
 import stelnet.util.Economy;

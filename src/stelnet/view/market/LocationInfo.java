@@ -1,4 +1,4 @@
-package stelnet.board.storage.data;
+package stelnet.view.market;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
@@ -10,19 +10,19 @@ import stelnet.util.L10n;
 
 @Data
 @AllArgsConstructor
-public class LocationData {
+public class LocationInfo {
 
     private final String name;
     private final Color fgColor;
     private final Color bgColor;
 
-    public LocationData(MarketAPI market) {
+    public LocationInfo(MarketAPI market) {
         name = market.getName();
         fgColor = market.getFaction().getBaseUIColor();
         bgColor = market.getFaction().getDarkUIColor();
     }
 
-    public LocationData(SubmarketAPI submarket) {
+    public LocationInfo(SubmarketAPI submarket) {
         MarketAPI market = submarket.getMarket();
         FactionAPI faction = market.getFaction();
         name =
