@@ -33,7 +33,7 @@ public class StorageTabViewFactory implements ViewContainerFactory {
     private final DisplayStrategy activeView;
 
     public StorageTabViewFactory(StorageState state) {
-        this(state.getButtonManager(), state.getFilterManager(), state.getActiveTab(), state.getActiveView());
+        this(state.getButtonManager(), state.getFilterManager(), state.getActiveRenderer(), state.getActiveStrategy());
     }
 
     @Override

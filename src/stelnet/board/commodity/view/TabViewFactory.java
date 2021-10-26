@@ -3,7 +3,7 @@ package stelnet.board.commodity.view;
 import lombok.RequiredArgsConstructor;
 import org.lwjgl.input.Keyboard;
 import stelnet.board.commodity.CommodityState;
-import stelnet.board.commodity.CommodityTab;
+import stelnet.board.commodity.CommodityState.CommodityTab;
 import stelnet.board.commodity.data.BuyTableContent;
 import stelnet.board.commodity.data.ProfitTableContent;
 import stelnet.board.commodity.data.SellTableContent;

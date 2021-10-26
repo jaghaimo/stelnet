@@ -3,6 +3,7 @@ package stelnet.board.commodity;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import java.util.HashMap;
 import lombok.extern.log4j.Log4j;
+import stelnet.board.commodity.CommodityState.CommodityTab;
 import stelnet.board.commodity.market.MarketApiWrapper;
 import stelnet.board.commodity.market.price.Price;
 import stelnet.util.Economy;

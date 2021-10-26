@@ -9,7 +9,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.lwjgl.input.Keyboard;
 import stelnet.board.market.QueryState;
-import stelnet.board.market.QueryTab;
+import stelnet.board.market.QueryState.QueryBoardTab;
 import uilib.DynamicGroup;
 import uilib.HorizontalViewContainer;
 import uilib.Paragraph;
@@ -23,7 +23,7 @@ import uilib.property.Size;
 @RequiredArgsConstructor
 public class QueryTabViewFactory implements ViewContainerFactory {
 
-    private final QueryTab activeTab;
+    private final QueryBoardTab activeTab;
 
     public QueryTabViewFactory(QueryState queryState) {
         activeTab = queryState.getActiveTab();
@@ -36,15 +36,15 @@ public class QueryTabViewFactory implements ViewContainerFactory {
         TabViewContainer tabViewContainer = new TabViewContainer();
         tabViewContainer.setSize(size);
         tabViewContainer.addTab(
-            getTabButton(QueryTab.LIST, Keyboard.KEY_L),
+            getTabButton(QueryBoardTab.LIST, Keyboard.KEY_L),
             getQueryListTab(width, height),
-            isActive(QueryTab.LIST)
+            isActive(QueryBoardTab.LIST)
         );
 
         tabViewContainer.addTab(
-            getTabButton(QueryTab.NEW, Keyboard.KEY_N),
+            getTabButton(QueryBoardTab.NEW, Keyboard.KEY_N),
             getNewQueryTab(width, height),
-            isActive(QueryTab.NEW)
+            isActive(QueryBoardTab.NEW)
         );
 
         return tabViewContainer;
@@ -73,11 +73,11 @@ public class QueryTabViewFactory implements ViewContainerFactory {
         return new VerticalViewContainer(elements);
     }
 
-    private QueryTabButton getTabButton(QueryTab currentTab, int keyboardShortcut) {
+    private QueryTabButton getTabButton(QueryBoardTab currentTab, int keyboardShortcut) {
         return new QueryTabButton(currentTab, activeTab, keyboardShortcut);
     }
 
-    private boolean isActive(QueryTab currentTab) {
+    private boolean isActive(QueryBoardTab currentTab) {
         return currentTab.equals(activeTab);
     }
 

@@ -2,7 +2,7 @@ package stelnet.board.commodity.market;
 
 import java.util.List;
 import lombok.Getter;
-import stelnet.board.commodity.CommodityTab;
+import stelnet.board.commodity.CommodityState.CommodityTab;
 
 @Getter
 public class MarketRepository {

@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import stelnet.board.commodity.CommodityState;
-import stelnet.board.commodity.CommodityTab;
+import stelnet.board.commodity.CommodityState.CommodityTab;
 import stelnet.board.commodity.IntelTracker;
 import stelnet.board.commodity.market.MarketApiWrapper;
 import stelnet.board.commodity.market.MarketRepository;

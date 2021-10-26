@@ -14,8 +14,8 @@ import uilib.property.Size;
 
 public class DisplayViewButton extends Button {
 
-    public DisplayViewButton(final SubmarketDataStrategy view) {
-        super(new Size(180, 24), L10n.get("storageView" + view.id), true, Misc.getButtonTextColor());
+    public DisplayViewButton(final SubmarketDataStrategy newStrategy) {
+        super(new Size(180, 24), L10n.get("storageView" + newStrategy.id), true, Misc.getButtonTextColor());
         setShortcut(Keyboard.KEY_G);
         setLocation(Location.BOTTOM_RIGHT);
         setOffset(new Position(16, 8));
@@ -24,7 +24,7 @@ public class DisplayViewButton extends Button {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
                     StorageBoard board = StorageBoard.getInstance();
-                    board.getState().setActiveView(view);
+                    board.getState().setActiveStrategy(newStrategy);
                 }
             }
         );

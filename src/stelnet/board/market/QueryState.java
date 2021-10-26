@@ -13,7 +13,18 @@ import uilib.property.Size;
 @Setter
 public class QueryState implements RenderableState {
 
-    private QueryTab activeTab = QueryTab.LIST;
+    public static enum QueryBoardTab {
+        LIST("List"),
+        NEW("New");
+
+        public final String id;
+
+        private QueryBoardTab(String id) {
+            this.id = id;
+        }
+    }
+
+    private QueryBoardTab activeTab = QueryBoardTab.LIST;
 
     @Override
     public List<Renderable> toRenderables(Size size) {

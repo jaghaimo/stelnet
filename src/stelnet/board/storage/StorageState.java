@@ -15,14 +15,14 @@ public class StorageState implements RenderableState {
 
     private final FilterManager filterManager = new FilterManager();
     private final ButtonManager buttonManager = new ButtonManager(filterManager);
-    private SubmarketDataRenderer activeTab = SubmarketDataRenderer.ITEMS;
-    private SubmarketDataStrategy activeView = SubmarketDataStrategy.UNIFIED;
+    private SubmarketDataRenderer activeRenderer = SubmarketDataRenderer.ITEMS;
+    private SubmarketDataStrategy activeStrategy = SubmarketDataStrategy.UNIFIED;
 
     @Override
     public List<Renderable> toRenderables(Size size) {
         return Arrays.<Renderable>asList(
             new StorageTabViewFactory(this).createContainer(size),
-            activeView.getNextButton()
+            activeStrategy.getNextButton()
         );
     }
 }
