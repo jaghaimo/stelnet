@@ -2,15 +2,15 @@ package stelnet.util;
 
 import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
 import lombok.extern.log4j.Log4j;
-import stelnet.commodity.CommodityBoard;
-import stelnet.commodity.CommodityIntel;
+import stelnet.board.commodity.CommodityBoard;
+import stelnet.board.commodity.CommodityIntel;
+import stelnet.board.market.QueryBoard;
+import stelnet.board.market.ViewerBoard;
+import stelnet.board.storage.StorageBoard;
+import stelnet.board.storage.StorageIntel;
+import stelnet.board.storage.StorageListener;
 import stelnet.config.BoardConfig;
 import stelnet.config.ModConfig;
-import stelnet.market.QueryBoard;
-import stelnet.market.ViewerBoard;
-import stelnet.storage.StorageBoard;
-import stelnet.storage.StorageIntel;
-import stelnet.storage.StorageListener;
 
 @Log4j
 public class Configurator {
