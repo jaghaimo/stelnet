@@ -9,6 +9,7 @@ import stelnet.board.commodity.market.MarketApiWrapper;
 import stelnet.board.commodity.market.MarketRepository;
 import stelnet.util.DistanceCalculator;
 import stelnet.util.L10n;
+import stelnet.util.TableCellHelper;
 import uilib.TableContent;
 
 public class ProfitTableContent implements TableContent {

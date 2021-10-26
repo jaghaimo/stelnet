@@ -2,10 +2,7 @@ package stelnet.view.market;
 
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.loading.WingRole;
-
 import lombok.Getter;
-import stelnet.board.storage.view.ItemFilterButton;
-import stelnet.board.storage.view.ShipFilterButton;
 import stelnet.filter.cargostack.IsNotCommodity;
 import stelnet.filter.cargostack.IsNotFighterWing;
 import stelnet.filter.cargostack.IsNotFighterWingRole;

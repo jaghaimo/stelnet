@@ -2,7 +2,7 @@ package stelnet.filter.market;
 
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import stelnet.board.commodity.market.table.TableCellHelper;
+import stelnet.util.TableCellHelper;
 
 public class CommodityDemandFilter implements MarketFilter {
 

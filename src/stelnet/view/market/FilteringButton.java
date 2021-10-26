@@ -1,4 +1,4 @@
-package stelnet.board.storage.view;
+package stelnet.view.market;
 
 import com.fs.starfarer.api.util.Misc;
 import stelnet.util.L10n;

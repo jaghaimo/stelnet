@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.commodity.market.MarketApiWrapper;
 import stelnet.util.L10n;
+import stelnet.util.TableCellHelper;
 import uilib.TableContent;
 
 @RequiredArgsConstructor

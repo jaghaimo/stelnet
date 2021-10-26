@@ -1,8 +1,7 @@
-package stelnet.board.storage.view;
+package stelnet.view.market;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import stelnet.filter.cargostack.CargoStackFilter;
-import stelnet.view.market.FilterManager;
 import uilib.EventHandler;
 
 public class ItemFilterButton extends FilteringButton {

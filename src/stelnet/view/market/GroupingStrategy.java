@@ -1,7 +1,6 @@
 package stelnet.view.market;
 
 import java.util.List;
-import stelnet.board.storage.view.DisplayViewButton;
 
 /**
  * Provides market content using various grouping logic.
@@ -9,8 +8,8 @@ import stelnet.board.storage.view.DisplayViewButton;
 public enum GroupingStrategy implements DisplayStrategy {
     PER_LOCATION("PerLocation") {
         @Override
-        public DisplayViewButton getNextButton() {
-            return new DisplayViewButton(UNIFIED);
+        public GroupingStrategy getNext() {
+            return UNIFIED;
         }
 
         @Override
@@ -20,8 +19,8 @@ public enum GroupingStrategy implements DisplayStrategy {
     },
     UNIFIED("Unified") {
         @Override
-        public DisplayViewButton getNextButton() {
-            return new DisplayViewButton(PER_LOCATION);
+        public GroupingStrategy getNext() {
+            return PER_LOCATION;
         }
 
         @Override
@@ -36,7 +35,7 @@ public enum GroupingStrategy implements DisplayStrategy {
         this.id = id;
     }
 
-    public DisplayViewButton getNextButton() {
+    public GroupingStrategy getNext() {
         return null;
     }
 
