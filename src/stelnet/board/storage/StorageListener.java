@@ -1,18 +1,18 @@
 package stelnet.board.storage;
 
+import com.fs.starfarer.api.campaign.PlayerMarketTransaction;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.campaign.comm.IntelManagerAPI;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
-import com.fs.starfarer.api.campaign.listeners.EconomyTickListener;
+import com.fs.starfarer.api.campaign.listeners.ColonyInteractionListener;
 import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
 import java.util.List;
 import stelnet.util.IntelManager;
 import stelnet.util.Sector;
 import stelnet.util.StorageUtils;
 
-@Deprecated
-// Rewrite using on market close / listener
-public class StorageListener implements EconomyTickListener {
+public class StorageListener implements ColonyInteractionListener {
 
     public static void register() {
         ListenerManagerAPI listenerManager = Sector.getListenerManager();
@@ -24,16 +24,22 @@ public class StorageListener implements EconomyTickListener {
     }
 
     @Override
-    public void reportEconomyMonthEnd() {}
+    public void reportPlayerOpenedMarket(MarketAPI market) {}
 
     @Override
-    public void reportEconomyTick(int iterIndex) {
+    public void reportPlayerClosedMarket(MarketAPI market) {
         IntelManagerAPI intelManager = IntelManager.getIntelManager();
         removeAll(intelManager);
         addAll(intelManager);
     }
 
-    private static void removeAll(IntelManagerAPI intelManager) {
+    @Override
+    public void reportPlayerOpenedMarketAndCargoUpdated(MarketAPI market) {}
+
+    @Override
+    public void reportPlayerMarketTransaction(PlayerMarketTransaction transaction) {}
+
+    private void removeAll(IntelManagerAPI intelManager) {
         IntelInfoPlugin intel = intelManager.getFirstIntel(StorageIntel.class);
         while (intel != null) {
             intelManager.removeIntel(intel);
