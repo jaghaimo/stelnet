@@ -26,6 +26,12 @@ eclipse {
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
+// where to find source and resources (defaults)
+sourceSets {
+    main.java.srcDirs = ['src/']
+    main.resources.srcDirs = ['resources/']
+}
+
 // build everything and make a jar
 build {
     doLast {
