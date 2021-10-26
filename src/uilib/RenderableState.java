@@ -1,7 +1,6 @@
-package stelnet;
+package uilib;
 
 import java.util.List;
-import uilib.Renderable;
 import uilib.property.Size;
 
 public interface RenderableState {

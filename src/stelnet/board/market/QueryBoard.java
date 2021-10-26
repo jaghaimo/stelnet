@@ -4,11 +4,11 @@ import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import lombok.Getter;
 import stelnet.BaseBoard;
 import stelnet.BoardInfo;
-import stelnet.RenderableState;
 import stelnet.util.IntelManager;
 import stelnet.util.L10n;
 import stelnet.util.Settings;
 import stelnet.util.Tagger;
+import uilib.RenderableState;
 
 /**
  * Information board for managing displayed information intel.

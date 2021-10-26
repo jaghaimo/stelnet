@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import stelnet.RenderableState;
 import stelnet.board.market.data.InMarketStrategy;
 import stelnet.board.market.view.MarketSelectButton;
 import stelnet.board.market.view.ViewerTabViewFactory;
@@ -12,6 +11,7 @@ import stelnet.board.storage.ButtonManager;
 import stelnet.board.storage.FilterManager;
 import stelnet.board.storage.SubmarketDataRenderer;
 import uilib.Renderable;
+import uilib.RenderableState;
 import uilib.property.Size;
 
 @Getter

@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import stelnet.RenderableState;
 import stelnet.board.storage.view.StorageTabViewFactory;
 import uilib.Renderable;
+import uilib.RenderableState;
 import uilib.property.Size;
 
 @Getter

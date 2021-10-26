@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import uilib.Renderable;
 import uilib.RenderableIntel;
+import uilib.RenderableState;
 import uilib.property.Size;
 
 public abstract class BaseBoard extends RenderableIntel {

@@ -5,12 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import stelnet.RenderableState;
 import stelnet.board.commodity.view.ButtonViewFactory;
 import stelnet.board.commodity.view.DeleteViewFactory;
 import stelnet.board.commodity.view.IntelViewFactory;
 import stelnet.board.commodity.view.TabViewFactory;
 import uilib.Renderable;
+import uilib.RenderableState;
 import uilib.property.Size;
 
 @Getter
