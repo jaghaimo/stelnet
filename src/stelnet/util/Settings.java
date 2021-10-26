@@ -3,6 +3,7 @@ package stelnet.util;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.SettingsAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
+import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import java.util.List;
 
 /**
@@ -12,6 +13,10 @@ public class Settings {
 
     public static List<ShipHullSpecAPI> getAllShipHullSpecs() {
         return getSettings().getAllShipHullSpecs();
+    }
+
+    public static List<WeaponSpecAPI> getAllWeaponSpecs() {
+        return getSettings().getAllWeaponSpecs();
     }
 
     public static int getEconomyIterPerMonth() {
