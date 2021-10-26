@@ -44,7 +44,7 @@ public class InMarketStrategy extends PerMarketStrategy {
     private List<LocationContent> getEmptyData() {
         return Collections.singletonList(
             new LocationContent(
-                new LocationInfo(L10n.get("marketViewNoMarket"), Misc.getTextColor(), Misc.getGrayColor()),
+                new LocationInfo(L10n.get("viewNoMarket"), Misc.getTextColor(), Misc.getGrayColor()),
                 Global.getFactory().createCargo(true),
                 Collections.<FleetMemberAPI>emptyList()
             )

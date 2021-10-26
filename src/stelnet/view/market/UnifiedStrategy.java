@@ -25,6 +25,6 @@ public class UnifiedStrategy implements DisplayStrategy {
     }
 
     private LocationInfo getLocationData() {
-        return new LocationInfo(L10n.get("storageUnifiedView"), Misc.getBasePlayerColor(), Misc.getDarkPlayerColor());
+        return new LocationInfo(L10n.get("viewUnifiedView"), Misc.getBasePlayerColor(), Misc.getDarkPlayerColor());
     }
 }

@@ -13,13 +13,13 @@ public enum ContentRenderer {
     ITEMS("Items") {
         @Override
         public Renderable getStorageRenderer(LocationContent data) {
-            return new Cargo(data.getItems(), L10n.get("storageNoItems"), new Size(0, 0));
+            return new Cargo(data.getItems(), L10n.get("viewNoItems"), new Size(0, 0));
         }
     },
     SHIPS("Ships") {
         @Override
         public Renderable getStorageRenderer(LocationContent data) {
-            return new Ships(data.getShips(), L10n.get("storageNoShips"), new Size(0, 0));
+            return new Ships(data.getShips(), L10n.get("viewNoShips"), new Size(0, 0));
         }
     };
 

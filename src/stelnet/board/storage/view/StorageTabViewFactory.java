@@ -87,7 +87,7 @@ public class StorageTabViewFactory implements ViewContainerFactory {
 
     private void addStorageData(List<Renderable> elements, List<LocationContent> storageData) {
         for (LocationContent data : storageData) {
-            LocationInfo locationData = data.getLocationData();
+            LocationInfo locationData = data.getLocationInfo();
             elements.add(new Heading(locationData.getName(), locationData.getFgColor(), locationData.getBgColor()));
             elements.add(activeTab.getStorageRenderer(data));
             elements.add(new Spacer(8));

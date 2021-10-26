@@ -2,6 +2,7 @@ package stelnet.view.market;
 
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.loading.WingRole;
+
 import lombok.Getter;
 import stelnet.board.storage.view.ItemFilterButton;
 import stelnet.board.storage.view.ShipFilterButton;
@@ -32,37 +33,33 @@ public class ButtonManager {
         this.filterManager = filterManager;
         this.itemButtons =
             new Renderable[] {
-                new ItemFilterButton(filterManager, "storageFilterCommodities", new IsNotCommodity()),
-                new ItemFilterButton(filterManager, "storageFilterWeapons", new IsNotWeapon()),
-                new ItemFilterButton(filterManager, "storageFilterFighterWings", new IsNotFighterWing()),
-                new ItemFilterButton(filterManager, "storageFilterOthers", new IsNotOther()),
+                new ItemFilterButton(filterManager, "viewFilterCommodities", new IsNotCommodity()),
+                new ItemFilterButton(filterManager, "viewFilterWeapons", new IsNotWeapon()),
+                new ItemFilterButton(filterManager, "viewFilterFighterWings", new IsNotFighterWing()),
+                new ItemFilterButton(filterManager, "viewFilterOthers", new IsNotOther()),
                 new Spacer(20f),
-                new ItemFilterButton(filterManager, "storageFilterSmallMount", new IsNotMountSize(WeaponSize.SMALL)),
-                new ItemFilterButton(filterManager, "storageFilterMediumMount", new IsNotMountSize(WeaponSize.MEDIUM)),
-                new ItemFilterButton(filterManager, "storageFilterLargeMount", new IsNotMountSize(WeaponSize.LARGE)),
+                new ItemFilterButton(filterManager, "viewFilterSmallMount", new IsNotMountSize(WeaponSize.SMALL)),
+                new ItemFilterButton(filterManager, "viewFilterMediumMount", new IsNotMountSize(WeaponSize.MEDIUM)),
+                new ItemFilterButton(filterManager, "viewFilterLargeMount", new IsNotMountSize(WeaponSize.LARGE)),
                 new Spacer(20f),
+                new ItemFilterButton(filterManager, "viewFilterFighters", new IsNotFighterWingRole(WingRole.FIGHTER)),
+                new ItemFilterButton(filterManager, "viewFilterBombers", new IsNotFighterWingRole(WingRole.BOMBER)),
                 new ItemFilterButton(
                     filterManager,
-                    "storageFilterFighters",
-                    new IsNotFighterWingRole(WingRole.FIGHTER)
-                ),
-                new ItemFilterButton(filterManager, "storageFilterBombers", new IsNotFighterWingRole(WingRole.BOMBER)),
-                new ItemFilterButton(
-                    filterManager,
-                    "storageFilterInterceptors",
+                    "viewFilterInterceptors",
                     new IsNotFighterWingRole(WingRole.INTERCEPTOR)
                 ),
             };
         this.shipButtons =
             new Renderable[] {
-                new ShipFilterButton(filterManager, "storageFilterFrigates", new IsNotFrigate()),
-                new ShipFilterButton(filterManager, "storageFilterDestroyers", new IsNotDestroyer()),
-                new ShipFilterButton(filterManager, "storageFilterCruisers", new IsNotCruiser()),
-                new ShipFilterButton(filterManager, "storageFilterCapitals", new IsNotCapital()),
+                new ShipFilterButton(filterManager, "viewFilterFrigates", new IsNotFrigate()),
+                new ShipFilterButton(filterManager, "viewFilterDestroyers", new IsNotDestroyer()),
+                new ShipFilterButton(filterManager, "viewFilterCruisers", new IsNotCruiser()),
+                new ShipFilterButton(filterManager, "viewFilterCapitals", new IsNotCapital()),
                 new Spacer(20f),
-                new ShipFilterButton(filterManager, "storageFilterWarships", new IsNotWarship()),
-                new ShipFilterButton(filterManager, "storageFilterCarriers", new IsNotCarrier()),
-                new ShipFilterButton(filterManager, "storageFilterCivilians", new IsNotCivilian()),
+                new ShipFilterButton(filterManager, "viewFilterWarships", new IsNotWarship()),
+                new ShipFilterButton(filterManager, "viewFilterCarriers", new IsNotCarrier()),
+                new ShipFilterButton(filterManager, "viewFilterCivilians", new IsNotCivilian()),
             };
     }
 }

@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class LocationContent {
 
-    private final LocationInfo locationData;
+    private final LocationInfo locationInfo;
     private final CargoAPI items;
     private final List<FleetMemberAPI> ships;
 }
