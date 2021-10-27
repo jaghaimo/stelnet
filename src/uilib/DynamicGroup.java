@@ -2,6 +2,7 @@ package uilib;
 
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
+import java.util.Arrays;
 import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,10 @@ public class DynamicGroup extends AbstractRenderable {
     private Size size;
     private final List<Renderable> elements;
 
+    public DynamicGroup(float width, Renderable... elements) {
+        this(width, Arrays.asList(elements));
+    }
+
     @Override
     public Size getSize() {
         if (size == null) {
@@ -37,10 +42,10 @@ public class DynamicGroup extends AbstractRenderable {
         Position offset = new Position(x, y);
         for (Renderable renderable : getElements()) {
             // the element might not fit
-            offset = verifyOffset(offset, renderable.getSize());
+            offset = verifyOffset(offset, renderable.getSize(), x);
             renderable.render(panel, offset.getX(), offset.getY());
             // set offset for next element
-            offset = advanceOffset(offset, renderable.getSize());
+            offset = advanceOffset(offset, renderable.getSize(), x);
         }
     }
 
@@ -55,25 +60,25 @@ public class DynamicGroup extends AbstractRenderable {
         Position finalOffset = new Position(0, 0);
         Size finalSize = new Size(0, 0);
         for (Renderable renderable : getElements()) {
-            finalOffset = advanceOffset(finalOffset, renderable.getSize());
+            finalOffset = advanceOffset(finalOffset, renderable.getSize(), 0);
             finalSize = renderable.getSize();
         }
         size = new Size(Math.max(width, finalOffset.getX()), finalOffset.getY() + finalSize.getHeight());
         log.debug("Calculated size as " + size);
     }
 
-    private Position verifyOffset(Position startingPosition, Size elementSize) {
+    private Position verifyOffset(Position startingPosition, Size elementSize, float startX) {
         Position elementEnds = startingPosition.shift(elementSize);
-        if (elementEnds.getX() > width) {
-            return new Position(0, elementEnds.getY());
+        if (elementEnds.getX() > startX + width) {
+            return new Position(startX, elementEnds.getY());
         }
         return startingPosition;
     }
 
-    private Position advanceOffset(Position startingPosition, Size shiftSize) {
+    private Position advanceOffset(Position startingPosition, Size shiftSize, float startX) {
         Position newPosition = startingPosition.shift(shiftSize);
-        if (newPosition.getX() > width) {
-            return new Position(0, newPosition.getY());
+        if (newPosition.getX() > startX + width) {
+            return new Position(startX, newPosition.getY());
         }
         return new Position(newPosition.getX(), startingPosition.getY());
     }
