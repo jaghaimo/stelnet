@@ -6,10 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.lwjgl.input.Keyboard;
 import stelnet.board.storage.StorageState;
 import stelnet.util.L10n;
-import stelnet.view.market.ButtonManager;
 import stelnet.view.market.ContentRenderer;
 import stelnet.view.market.DisplayStrategy;
 import stelnet.view.market.FilterManager;
+import stelnet.view.market.FilteringButtonFactory;
 import stelnet.view.market.LocationContent;
 import stelnet.view.market.LocationInfo;
 import uilib.Group;
@@ -27,13 +27,13 @@ import uilib.property.Size;
 @RequiredArgsConstructor
 public class StorageTabViewFactory implements ViewContainerFactory {
 
-    private final ButtonManager buttonManager;
+    private final FilteringButtonFactory buttonManager;
     private final FilterManager filterManager;
     private final ContentRenderer activeTab;
     private final DisplayStrategy activeView;
 
     public StorageTabViewFactory(StorageState state) {
-        this(state.getButtonManager(), state.getFilterManager(), state.getActiveRenderer(), state.getActiveStrategy());
+        this(state.getButtonFactory(), state.getFilterManager(), state.getActiveRenderer(), state.getActiveStrategy());
     }
 
     @Override

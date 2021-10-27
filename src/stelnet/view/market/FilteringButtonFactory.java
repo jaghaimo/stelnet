@@ -20,13 +20,13 @@ import uilib.Renderable;
 import uilib.Spacer;
 
 @Getter
-public class ButtonManager {
+public class FilteringButtonFactory {
 
     private final FilterManager filterManager;
     private final Renderable[] itemButtons;
     private final Renderable[] shipButtons;
 
-    public ButtonManager(FilterManager filterManager) {
+    public FilteringButtonFactory(FilterManager filterManager) {
         this.filterManager = filterManager;
         this.itemButtons =
             new Renderable[] {

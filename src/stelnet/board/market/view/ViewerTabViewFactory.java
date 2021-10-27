@@ -9,7 +9,7 @@ public class ViewerTabViewFactory extends StorageTabViewFactory {
 
     public ViewerTabViewFactory(ViewerState viewerState) {
         super(
-            viewerState.getButtonManager(),
+            viewerState.getButtonFactory(),
             viewerState.getFilterManager(),
             viewerState.getActiveRenderer(),
             viewerState.getMarketProvider()
