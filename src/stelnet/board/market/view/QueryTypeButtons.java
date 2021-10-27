@@ -31,11 +31,10 @@ public class QueryTypeButtons implements ViewContainerFactory {
         defaultFactory = new SelectQueryTypeFactory();
     }
 
-    public void setStateOn(QueryTypeButton active) {
+    public void setQueryType(QueryTypeButton active) {
         for (QueryTypeButton button : buttons) {
-            button.setStateOn(false);
-            if (active.equals(button)) {
-                button.setStateOn(true);
+            if (!active.equals(button)) {
+                button.setStateOn(false);
             }
         }
     }

@@ -41,7 +41,12 @@ public class ToggleButton extends Button implements TwoStateButton {
 
     @Override
     public void onConfirm(IntelUIAPI ui) {
-        setStateOn(!isStateOn);
+        toggle();
         super.onConfirm(ui);
+    }
+
+    @Override
+    public void toggle() {
+        setStateOn(!isStateOn);
     }
 }

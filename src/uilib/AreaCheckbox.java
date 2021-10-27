@@ -24,7 +24,7 @@ public class AreaCheckbox extends Button implements TwoStateButton {
 
     @Override
     public void onConfirm(IntelUIAPI ui) {
-        setStateOn(!isStateOn);
+        toggle();
         super.onConfirm(ui);
     }
 
@@ -48,6 +48,11 @@ public class AreaCheckbox extends Button implements TwoStateButton {
         if (getShortcut() > 0) {
             button.setShortcut(getShortcut(), false);
         }
+    }
+
+    @Override
+    public void toggle() {
+        setStateOn(!isStateOn);
     }
 
     private Color getForegroundColor() {

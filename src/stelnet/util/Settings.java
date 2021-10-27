@@ -2,6 +2,7 @@ package stelnet.util;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.SettingsAPI;
+import com.fs.starfarer.api.characters.SkillSpecAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import java.util.List;
@@ -15,12 +16,24 @@ public class Settings {
         return getSettings().getAllShipHullSpecs();
     }
 
+    public static List<String> getAllSkillIds() {
+        return getSettings().getSkillIds();
+    }
+
     public static List<WeaponSpecAPI> getAllWeaponSpecs() {
         return getSettings().getAllWeaponSpecs();
     }
 
     public static int getEconomyIterPerMonth() {
         return getSettings().getInt("economyIterPerMonth");
+    }
+
+    public static int getOfficerMaxLevel() {
+        return getSettings().getInt("officerMaxLevel");
+    }
+
+    public static SkillSpecAPI getSkill(String skillId) {
+        return getSettings().getSkillSpec(skillId);
     }
 
     public static String getSpriteName(String sprite) {
@@ -31,7 +44,7 @@ public class Settings {
         return getSettings().isDevMode();
     }
 
-    public static SettingsAPI getSettings() {
+    private static SettingsAPI getSettings() {
         return Global.getSettings();
     }
 }

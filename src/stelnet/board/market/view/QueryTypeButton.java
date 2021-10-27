@@ -21,7 +21,7 @@ public class QueryTypeButton extends AreaCheckbox {
             new EventHandler() {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
-                    factory.setStateOn(button);
+                    factory.setQueryType(button);
                 }
             }
         );
