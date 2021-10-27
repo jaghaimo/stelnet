@@ -20,8 +20,6 @@ public class AreaCheckbox extends Button implements TwoStateButton {
         super(size, title, isEnabled, onColor);
         this.isStateOn = isStateOn;
         this.offColor = offColor;
-        setSize(size);
-        setWithScroller(false);
     }
 
     @Override
