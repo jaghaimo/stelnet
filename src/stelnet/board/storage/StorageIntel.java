@@ -6,6 +6,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import java.awt.Color;
 import java.util.Arrays;
 import java.util.List;
+import lombok.Getter;
 import stelnet.BaseIntel;
 import stelnet.IntelInfo;
 import stelnet.util.CargoUtils;
@@ -18,6 +19,7 @@ import uilib.Ships;
 import uilib.Spacer;
 import uilib.property.Size;
 
+@Getter
 public class StorageIntel extends BaseIntel {
 
     private final SubmarketAPI storage;
@@ -25,6 +27,15 @@ public class StorageIntel extends BaseIntel {
     public StorageIntel(SubmarketAPI storage) {
         super(storage.getMarket().getFaction(), storage.getMarket().getPrimaryEntity());
         this.storage = storage;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof StorageIntel) {
+            StorageIntel objIntel = (StorageIntel) obj;
+            return getStorage().equals(objIntel.getStorage());
+        }
+        return super.equals(obj);
     }
 
     @Override

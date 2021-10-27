@@ -8,11 +8,15 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.campaign.listeners.ColonyInteractionListener;
 import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
 import java.util.List;
+import lombok.extern.log4j.Log4j;
 import stelnet.util.IntelManager;
 import stelnet.util.Sector;
 import stelnet.util.StorageUtils;
 
+@Log4j
 public class StorageListener implements ColonyInteractionListener {
+
+    private transient IntelManagerAPI intelManager;
 
     public static void register() {
         ListenerManagerAPI listenerManager = Sector.getListenerManager();
@@ -28,9 +32,10 @@ public class StorageListener implements ColonyInteractionListener {
 
     @Override
     public void reportPlayerClosedMarket(MarketAPI market) {
-        IntelManagerAPI intelManager = IntelManager.getIntelManager();
-        removeAll(intelManager);
-        addAll(intelManager);
+        intelManager = IntelManager.getIntelManager();
+        List<IntelInfoPlugin> existingIntel = intelManager.getIntel(StorageIntel.class);
+        List<SubmarketAPI> storageSubmarkets = StorageUtils.getAllWithAccess();
+        updateIntelList(existingIntel, storageSubmarkets);
     }
 
     @Override
@@ -39,18 +44,36 @@ public class StorageListener implements ColonyInteractionListener {
     @Override
     public void reportPlayerMarketTransaction(PlayerMarketTransaction transaction) {}
 
-    private void removeAll(IntelManagerAPI intelManager) {
-        IntelInfoPlugin intel = intelManager.getFirstIntel(StorageIntel.class);
-        while (intel != null) {
-            intelManager.removeIntel(intel);
-            intel = intelManager.getFirstIntel(StorageIntel.class);
+    private void updateIntelList(List<IntelInfoPlugin> existingIntel, List<SubmarketAPI> storageSubmarkets) {
+        for (SubmarketAPI storage : storageSubmarkets) {
+            addMissing(existingIntel, storage);
+        }
+        for (IntelInfoPlugin intel : existingIntel) {
+            removeObsolete(storageSubmarkets, intel);
         }
     }
 
-    private static void addAll(IntelManagerAPI intelManager) {
-        for (SubmarketAPI submarket : StorageUtils.getAllWithAccess()) {
-            IntelInfoPlugin plugin = new StorageIntel(submarket);
+    private void addMissing(List<IntelInfoPlugin> existingIntel, SubmarketAPI storage) {
+        IntelInfoPlugin plugin = new StorageIntel(storage);
+        if (!existingIntel.contains(plugin)) {
             intelManager.addIntel(plugin, true);
         }
+    }
+
+    private void removeObsolete(List<SubmarketAPI> storageSubmarkets, IntelInfoPlugin intel) {
+        SubmarketAPI storage = extractStorage(intel);
+        if (!storageSubmarkets.contains(storage)) {
+            intelManager.removeIntel(intel);
+        }
+    }
+
+    private SubmarketAPI extractStorage(IntelInfoPlugin intel) {
+        try {
+            StorageIntel storageIntel = (StorageIntel) intel;
+            return storageIntel.getStorage();
+        } catch (Exception exception) {
+            log.warn("Could not extract storage from intel", exception);
+        }
+        return null;
     }
 }
