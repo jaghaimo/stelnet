@@ -23,7 +23,7 @@ public class StorageListener implements ColonyInteractionListener {
         List<StorageListener> listeners = listenerManager.getListeners(StorageListener.class);
         if (listeners.isEmpty()) {
             StorageListener listener = new StorageListener();
-            listenerManager.addListener(listener);
+            listenerManager.addListener(listener, true);
         }
     }
 

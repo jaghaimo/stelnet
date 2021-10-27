@@ -11,7 +11,7 @@ public class StelnetMod extends BaseModPlugin {
     @Override
     public void beforeGameSave() {
         if (ModConfig.uninstallMod) {
-            Configurator.uninstall();
+            Configurator.deactivate();
         }
     }
 
@@ -25,11 +25,11 @@ public class StelnetMod extends BaseModPlugin {
 
     @Override
     public void onNewGame() {
-        Configurator.install();
+        onGameLoad(true);
     }
 
     @Override
     public void onGameLoad(boolean newGame) {
-        Configurator.install();
+        Configurator.activate();
     }
 }

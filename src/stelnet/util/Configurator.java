@@ -1,6 +1,5 @@
 package stelnet.util;
 
-import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.commodity.CommodityBoard;
 import stelnet.board.commodity.CommodityIntel;
@@ -20,32 +19,24 @@ public class Configurator {
         BoardConfig.configure();
     }
 
-    public static void install() {
+    public static void activate() {
         initCommodity(BoardConfig.hasCommodities);
         initMarket(BoardConfig.hasMarket);
         initStorage(BoardConfig.hasStorage);
-        log.info("Stelnet configured");
+        log.info("Stelnet activated");
     }
 
-    public static void uninstall() {
+    public static void deactivate() {
         initCommodity(false);
         initMarket(false);
         initStorage(false);
-        log.info("Stelnet uninstalled");
+        log.info("Stelnet deactivated");
     }
 
-    public static void purgeIntel(Class<?>... classNames) {
+    private static void purgeIntel(Class<?>... classNames) {
         for (Class<?> className : classNames) {
             log.debug("Removing intel " + className);
             IntelManager.purgeIntel(className);
-        }
-    }
-
-    public static void purgeListeners(Class<?>... classNames) {
-        ListenerManagerAPI listenerManagerAPI = Sector.getListenerManager();
-        for (Class<?> className : classNames) {
-            log.debug("Removing listener " + className);
-            listenerManagerAPI.removeListenerOfClass(className);
         }
     }
 
@@ -77,7 +68,6 @@ public class Configurator {
             log.info("Enabled Storage plugin");
         } else {
             purgeIntel(StorageBoard.class, StorageIntel.class);
-            purgeListeners(StorageListener.class);
             log.info("Disabled Storage plugin");
         }
     }
