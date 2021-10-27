@@ -13,7 +13,7 @@ public class QueryTypeButton extends AreaCheckbox {
     @Getter
     private final HorizontalViewFactory nextFactory;
 
-    public QueryTypeButton(final QueryTypeFactory factory, String translationId, HorizontalViewFactory nextFactory) {
+    public QueryTypeButton(final QueryTypeButtons factory, String translationId, HorizontalViewFactory nextFactory) {
         super(new Size(0, 24), L10n.get(translationId), true, false, Misc.getButtonTextColor(), Misc.getGrayColor());
         this.nextFactory = nextFactory;
         final QueryTypeButton button = this;

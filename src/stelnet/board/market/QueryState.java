@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import stelnet.board.market.view.QueryTabViewFactory;
-import stelnet.board.market.view.QueryTypeFactory;
+import stelnet.board.market.view.QueryTypeButtons;
 import uilib.Renderable;
 import uilib.RenderableState;
 import uilib.property.Size;
@@ -26,7 +26,7 @@ public class QueryState implements RenderableState {
     }
 
     private QueryBoardTab activeTab = QueryBoardTab.LIST;
-    private final QueryTypeFactory queryTypeFactory = new QueryTypeFactory();
+    private final QueryTypeButtons queryTypeFactory = new QueryTypeButtons();
 
     @Override
     public List<Renderable> toRenderables(Size size) {

@@ -13,16 +13,16 @@ import uilib.ViewContainerFactory;
 import uilib.property.Size;
 
 @Getter
-public class QueryTypeFactory implements ViewContainerFactory {
+public class QueryTypeButtons implements ViewContainerFactory {
 
     private final QueryTypeButton[] buttons;
     private final HorizontalViewFactory defaultFactory;
 
-    public QueryTypeFactory() {
+    public QueryTypeButtons() {
         HorizontalViewFactory emptyFactory = new EmptyHorizontalViewFactory();
         buttons =
             new QueryTypeButton[] {
-                new QueryTypeButton(this, "Personnel", new PersonnelHorizontalViewFactory()),
+                new QueryTypeButton(this, "Personnel", new PersonnelButtons()),
                 new QueryTypeButton(this, "Weapons", emptyFactory),
                 new QueryTypeButton(this, "Fighters", emptyFactory),
                 new QueryTypeButton(this, "Modspecs", emptyFactory),

@@ -15,7 +15,7 @@ import uilib.property.Size;
 public class QueryTabViewFactory implements ViewContainerFactory {
 
     private final QueryBoardTab activeTab;
-    private final QueryTypeFactory queryTypeFactory;
+    private final QueryTypeButtons queryTypeFactory;
 
     public QueryTabViewFactory(QueryState queryState) {
         activeTab = queryState.getActiveTab();

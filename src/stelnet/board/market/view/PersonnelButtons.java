@@ -3,23 +3,24 @@ package stelnet.board.market.view;
 import com.fs.starfarer.api.ui.Alignment;
 import java.util.LinkedList;
 import java.util.List;
+import stelnet.filter.market.person.IsPostedAs;
 import uilib.AreaCheckbox;
 import uilib.DynamicGroup;
 import uilib.HorizontalViewContainer;
 import uilib.Paragraph;
 import uilib.property.Size;
 
-public class PersonnelHorizontalViewFactory implements HorizontalViewFactory {
+public class PersonnelButtons implements HorizontalViewFactory {
 
     private final AreaCheckbox[] buttons;
 
-    public PersonnelHorizontalViewFactory() {
+    public PersonnelButtons() {
         buttons =
             new AreaCheckbox[] {
-                new PersonnelButton(this, "Administrator", new EmptyHorizontalViewFactory()),
-                new PersonnelButton(this, "Officer", new EmptyHorizontalViewFactory()),
-                new PersonnelButton(this, "Mercenary", new EmptyHorizontalViewFactory()),
-                new PersonnelButton(this, "Agent", new EmptyHorizontalViewFactory()),
+                new PersonnelButton(this, "Administrator", IsPostedAs.admin()),
+                new PersonnelButton(this, "Officer", IsPostedAs.officer()),
+                new PersonnelButton(this, "Mercenary", IsPostedAs.mercenary()),
+                new PersonnelButton(this, "Agent", IsPostedAs.agent()),
             };
     }
 
