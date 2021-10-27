@@ -8,8 +8,7 @@ import stelnet.board.storage.StorageState;
 import stelnet.util.L10n;
 import stelnet.view.market.ContentRenderer;
 import stelnet.view.market.DisplayStrategy;
-import stelnet.view.market.FilterManager;
-import stelnet.view.market.FilteringButtonFactory;
+import stelnet.view.market.FilteringButtons;
 import stelnet.view.market.LocationContent;
 import stelnet.view.market.LocationInfo;
 import uilib.Group;
@@ -27,13 +26,12 @@ import uilib.property.Size;
 @RequiredArgsConstructor
 public class StorageTabViewFactory implements ViewContainerFactory {
 
-    private final FilteringButtonFactory buttonManager;
-    private final FilterManager filterManager;
+    private final FilteringButtons buttonManager;
     private final ContentRenderer activeTab;
     private final DisplayStrategy activeView;
 
     public StorageTabViewFactory(StorageState state) {
-        this(state.getButtonFactory(), state.getFilterManager(), state.getActiveRenderer(), state.getActiveStrategy());
+        this(state.getFilteringButtons(), state.getActiveRenderer(), state.getActiveStrategy());
     }
 
     @Override
@@ -68,7 +66,7 @@ public class StorageTabViewFactory implements ViewContainerFactory {
 
     private Renderable getTabPane(Size size, Size contentSize, Renderable[] buttons) {
         List<Renderable> elements = new ArrayList<>();
-        List<LocationContent> storageData = activeView.getData(filterManager);
+        List<LocationContent> storageData = activeView.getData(buttonManager);
         addEmptyData(elements, storageData, contentSize.getWidth());
         addStorageData(elements, storageData);
         Group contentContainer = new Group(elements);

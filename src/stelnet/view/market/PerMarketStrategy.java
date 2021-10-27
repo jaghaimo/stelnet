@@ -18,11 +18,11 @@ import stelnet.util.StorageUtils;
 public class PerMarketStrategy implements DisplayStrategy {
 
     @Override
-    public List<LocationContent> getData(FilterManager filterManager) {
+    public List<LocationContent> getData(FilteringButtons filteringButtons) {
         List<LocationContent> data = new LinkedList<>();
         List<SubmarketAPI> storages = StorageUtils.getAllSortedWithAccess();
         for (SubmarketAPI storage : storages) {
-            processSubmarket(new LocationInfo(storage.getMarket()), storage, filterManager, data);
+            processSubmarket(new LocationInfo(storage.getMarket()), storage, filteringButtons, data);
         }
         return data;
     }
@@ -30,29 +30,29 @@ public class PerMarketStrategy implements DisplayStrategy {
     protected void processSubmarket(
         LocationInfo locationData,
         SubmarketAPI storage,
-        FilterManager filterManager,
+        FilteringButtons filteringButtons,
         List<LocationContent> data
     ) {
         CargoAPI storageCargo = storage.getCargo();
-        CargoAPI items = getItems(filterManager, storageCargo);
-        List<FleetMemberAPI> ships = getShips(filterManager, storageCargo);
+        CargoAPI items = getItems(filteringButtons, storageCargo);
+        List<FleetMemberAPI> ships = getShips(filteringButtons, storageCargo);
         String name = storage.getMarket().getName();
         log.debug("Found " + items.getStacksCopy().size() + " items in " + name);
         log.debug("Found " + ships.size() + " ships in " + name);
         data.add(new LocationContent(locationData, items, ships));
     }
 
-    private CargoAPI getItems(FilterManager filterManager, CargoAPI storageCargo) {
+    private CargoAPI getItems(FilteringButtons filteringButtons, CargoAPI storageCargo) {
         CargoAPI items = storageCargo.createCopy();
         List<CargoStackAPI> cargoStacks = storageCargo.getStacksCopy();
-        CollectionReducer.reduce(cargoStacks, filterManager.getItemFilters());
+        CollectionReducer.reduce(cargoStacks, filteringButtons.getItemFilters());
         CargoUtils.replaceCargoStacks(items, cargoStacks);
         return items;
     }
 
-    private List<FleetMemberAPI> getShips(FilterManager filterManager, CargoAPI storageCargo) {
+    private List<FleetMemberAPI> getShips(FilteringButtons filteringButtons, CargoAPI storageCargo) {
         List<FleetMemberAPI> ships = storageCargo.getMothballedShips().getMembersInPriorityOrder();
-        CollectionReducer.reduce(ships, filterManager.getShipFilters());
+        CollectionReducer.reduce(ships, filteringButtons.getShipFilters());
         return ships;
     }
 }

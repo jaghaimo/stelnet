@@ -16,9 +16,9 @@ import stelnet.util.StorageUtils;
 public class UnifiedStrategy implements DisplayStrategy {
 
     @Override
-    public List<LocationContent> getData(FilterManager filterManager) {
-        CargoAPI items = StorageUtils.getAllItems(filterManager.getItemFilters());
-        List<FleetMemberAPI> ships = StorageUtils.getAllShips(filterManager.getShipFilters());
+    public List<LocationContent> getData(FilteringButtons filteringButtons) {
+        CargoAPI items = StorageUtils.getAllItems(filteringButtons.getItemFilters());
+        List<FleetMemberAPI> ships = StorageUtils.getAllShips(filteringButtons.getShipFilters());
         log.debug("Found " + items.getStacksCopy().size() + " items");
         log.debug("Found " + ships.size() + " ships");
         return Collections.singletonList(new LocationContent(getLocationData(), items, ships));

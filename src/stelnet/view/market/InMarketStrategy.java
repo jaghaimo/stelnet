@@ -23,7 +23,7 @@ public class InMarketStrategy extends PerMarketStrategy {
     private final MarketAPI market;
 
     @Override
-    public List<LocationContent> getData(FilterManager filterManager) {
+    public List<LocationContent> getData(FilteringButtons filteringButtons) {
         if (market == null) {
             log.debug("No market set, returning empty data.");
             return getEmptyData();
@@ -36,7 +36,7 @@ public class InMarketStrategy extends PerMarketStrategy {
                 continue;
             }
             log.debug("Processing submarket " + submarket.getNameOneLine());
-            processSubmarket(new LocationInfo(submarket), submarket, filterManager, data);
+            processSubmarket(new LocationInfo(submarket), submarket, filteringButtons, data);
         }
         return data;
     }

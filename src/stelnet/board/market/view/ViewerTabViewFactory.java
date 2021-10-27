@@ -8,12 +8,7 @@ import uilib.TabButton;
 public class ViewerTabViewFactory extends StorageTabViewFactory {
 
     public ViewerTabViewFactory(ViewerState viewerState) {
-        super(
-            viewerState.getButtonFactory(),
-            viewerState.getFilterManager(),
-            viewerState.getActiveRenderer(),
-            viewerState.getMarketProvider()
-        );
+        super(viewerState.getFilteringButtons(), viewerState.getActiveRenderer(), viewerState.getMarketProvider());
     }
 
     @Override

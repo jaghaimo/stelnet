@@ -8,8 +8,7 @@ import lombok.Setter;
 import stelnet.board.storage.view.StorageTabViewFactory;
 import stelnet.view.market.ContentRenderer;
 import stelnet.view.market.DisplayStrategyButton;
-import stelnet.view.market.FilterManager;
-import stelnet.view.market.FilteringButtonFactory;
+import stelnet.view.market.FilteringButtons;
 import stelnet.view.market.GroupingStrategy;
 import uilib.EventHandler;
 import uilib.Renderable;
@@ -20,8 +19,7 @@ import uilib.property.Size;
 @Setter
 public class StorageState implements RenderableState {
 
-    private final FilterManager filterManager = new FilterManager();
-    private final FilteringButtonFactory buttonFactory = new FilteringButtonFactory(filterManager);
+    private final FilteringButtons filteringButtons = new FilteringButtons();
     private ContentRenderer activeRenderer = ContentRenderer.ITEMS;
     private GroupingStrategy activeStrategy = GroupingStrategy.UNIFIED;
 

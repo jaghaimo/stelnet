@@ -13,8 +13,8 @@ public enum GroupingStrategy implements DisplayStrategy {
         }
 
         @Override
-        public List<LocationContent> getData(FilterManager filterManager) {
-            return new PerMarketStrategy().getData(filterManager);
+        public List<LocationContent> getData(FilteringButtons filteringButtons) {
+            return new PerMarketStrategy().getData(filteringButtons);
         }
     },
     UNIFIED("Unified") {
@@ -24,8 +24,8 @@ public enum GroupingStrategy implements DisplayStrategy {
         }
 
         @Override
-        public List<LocationContent> getData(FilterManager filterManager) {
-            return new UnifiedStrategy().getData(filterManager);
+        public List<LocationContent> getData(FilteringButtons filteringButtons) {
+            return new UnifiedStrategy().getData(filteringButtons);
         }
     };
 
@@ -39,7 +39,7 @@ public enum GroupingStrategy implements DisplayStrategy {
         return null;
     }
 
-    public List<LocationContent> getData(FilterManager filterManager) {
+    public List<LocationContent> getData(FilteringButtons filterButtons) {
         return null;
     }
 }

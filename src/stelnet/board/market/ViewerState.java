@@ -9,8 +9,7 @@ import stelnet.board.market.view.MarketSelectButton;
 import stelnet.board.market.view.ViewerTabViewFactory;
 import stelnet.util.MarketUtils;
 import stelnet.view.market.ContentRenderer;
-import stelnet.view.market.FilterManager;
-import stelnet.view.market.FilteringButtonFactory;
+import stelnet.view.market.FilteringButtons;
 import stelnet.view.market.InMarketStrategy;
 import uilib.Renderable;
 import uilib.RenderableState;
@@ -20,8 +19,7 @@ import uilib.property.Size;
 @Setter
 public class ViewerState implements RenderableState {
 
-    private final FilterManager filterManager = new FilterManager();
-    private final FilteringButtonFactory buttonFactory = new FilteringButtonFactory(filterManager);
+    private final FilteringButtons filteringButtons = new FilteringButtons();
     private ContentRenderer activeRenderer = ContentRenderer.ITEMS;
     private InMarketStrategy marketProvider = new InMarketStrategy(null);
 
