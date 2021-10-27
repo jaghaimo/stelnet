@@ -19,13 +19,14 @@ public class QueryTypeFactory implements ViewContainerFactory {
     private final HorizontalViewFactory defaultFactory;
 
     public QueryTypeFactory() {
+        HorizontalViewFactory emptyFactory = new EmptyHorizontalViewFactory();
         buttons =
             new QueryTypeButton[] {
-                new QueryTypeButton(this, "Personnel"),
-                new QueryTypeButton(this, "Weapons"),
-                new QueryTypeButton(this, "Fighters"),
-                new QueryTypeButton(this, "Modspecs"),
-                new QueryTypeButton(this, "Ships"),
+                new QueryTypeButton(this, "Personnel", new PersonnelHorizontalViewFactory()),
+                new QueryTypeButton(this, "Weapons", emptyFactory),
+                new QueryTypeButton(this, "Fighters", emptyFactory),
+                new QueryTypeButton(this, "Modspecs", emptyFactory),
+                new QueryTypeButton(this, "Ships", emptyFactory),
             };
         defaultFactory = new SelectQueryTypeFactory();
     }
