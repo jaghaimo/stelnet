@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.lwjgl.input.Keyboard;
-import stelnet.board.storage.StorageTabButton;
 import stelnet.util.L10n;
 import uilib.Group;
 import uilib.Heading;
@@ -25,6 +24,7 @@ public class MarketView implements RenderableFactory {
     private final FilteringButtons buttonManager;
     private final ContentRenderer activeTab;
     private final DisplayStrategy activeView;
+    private final RendererAwareState state;
 
     @Override
     public List<Renderable> create(Size size) {
@@ -57,7 +57,7 @@ public class MarketView implements RenderableFactory {
     }
 
     protected TabButton getTabButton(ContentRenderer currentTab, int keyboardShortcut) {
-        return new StorageTabButton(currentTab, isActive(currentTab), keyboardShortcut);
+        return new ViewerTabButton(currentTab, state, isActive(currentTab), keyboardShortcut);
     }
 
     private Renderable getTabPane(Size size, Size contentSize, Renderable[] buttons) {

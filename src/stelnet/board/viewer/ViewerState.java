@@ -8,13 +8,14 @@ import stelnet.util.MarketUtils;
 import stelnet.widget.viewer.ContentRenderer;
 import stelnet.widget.viewer.FilteringButtons;
 import stelnet.widget.viewer.InMarketStrategy;
+import stelnet.widget.viewer.RendererAwareState;
 import uilib.Renderable;
 import uilib.RenderableState;
 import uilib.property.Size;
 
 @Getter
 @Setter
-public class ViewerState implements RenderableState {
+public class ViewerState implements RenderableState, RendererAwareState {
 
     private final FilteringButtons filteringButtons = new FilteringButtons();
     private ContentRenderer activeRenderer = ContentRenderer.ITEMS;

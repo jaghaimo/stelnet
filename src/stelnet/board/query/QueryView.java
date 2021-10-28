@@ -22,8 +22,8 @@ public class QueryView implements RenderableFactory {
 
     public QueryView(QueryState queryState) {
         activeTab = queryState.getActiveTab();
-        addQueryFactory = queryState.getQueryTypeFactory();
-        queryListFactory = new QueryListFactory();
+        addQueryFactory = queryState.getAddQueryFactory();
+        queryListFactory = queryState.getQueryListFactory();
     }
 
     @Override

@@ -23,7 +23,8 @@ public class ViewerView implements RenderableFactory {
             new MarketView(
                 viewerState.getFilteringButtons(),
                 viewerState.getActiveRenderer(),
-                (DisplayStrategy) viewerState.getMarketProvider()
+                (DisplayStrategy) viewerState.getMarketProvider(),
+                viewerState
             )
                 .create(size)
         );
