@@ -6,28 +6,28 @@ import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import stelnet.filter.cargostack.CargoStackFilter;
-import stelnet.filter.weaponspec.ShowInCodex;
+import stelnet.filter2.Filter;
+import stelnet.filter2.ShowInCodex;
 import stelnet.util.CargoUtils;
-import stelnet.util.CollectionReducer;
+import stelnet.util.CollectionUtils;
 import stelnet.util.Factory;
 import stelnet.util.Settings;
 
 public class WeaponProvider {
 
     public CargoAPI getWeapons() {
-        return getWeapons(Collections.<CargoStackFilter>emptyList());
+        return getWeapons(Collections.<Filter>emptyList());
     }
 
-    public CargoAPI getWeapons(List<CargoStackFilter> filters) {
+    public CargoAPI getWeapons(List<Filter> filters) {
         List<WeaponSpecAPI> allWeaponSpecs = Settings.getAllWeaponSpecs();
-        CollectionReducer.reduce(allWeaponSpecs, new ShowInCodex());
+        CollectionUtils.reduce(allWeaponSpecs, new ShowInCodex());
         return convertToCargo(allWeaponSpecs, filters);
     }
 
-    private CargoAPI convertToCargo(List<WeaponSpecAPI> weaponSpecs, List<CargoStackFilter> filters) {
+    private CargoAPI convertToCargo(List<WeaponSpecAPI> weaponSpecs, List<Filter> filters) {
         List<CargoStackAPI> cargoStacks = makeCargoStacks(weaponSpecs);
-        CollectionReducer.reduce(cargoStacks, filters);
+        CollectionUtils.reduce(cargoStacks, filters);
         return CargoUtils.makeCargoFromStacks(cargoStacks);
     }
 
