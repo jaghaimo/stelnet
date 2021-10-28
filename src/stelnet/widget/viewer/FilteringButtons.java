@@ -1,4 +1,4 @@
-package stelnet.widget.market;
+package stelnet.widget.viewer;
 
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.loading.WingRole;

@@ -2,7 +2,7 @@ package stelnet.board.storage;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import stelnet.util.L10n;
-import stelnet.widget.market.ContentRenderer;
+import stelnet.widget.viewer.ContentRenderer;
 import uilib.EventHandler;
 import uilib.TabButton;
 

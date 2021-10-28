@@ -1,4 +1,4 @@
-package stelnet.widget.market;
+package stelnet.widget.viewer;
 
 import com.fs.starfarer.api.util.Misc;
 import stelnet.util.L10n;

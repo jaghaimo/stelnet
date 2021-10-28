@@ -1,4 +1,4 @@
-package stelnet.widget.market;
+package stelnet.widget.viewer;
 
 import stelnet.util.L10n;
 import uilib.Cargo;

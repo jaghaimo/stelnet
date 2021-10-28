@@ -1,4 +1,4 @@
-package stelnet.widget.market;
+package stelnet.widget.viewer;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;

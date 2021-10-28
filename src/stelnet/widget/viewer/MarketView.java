@@ -1,4 +1,4 @@
-package stelnet.widget.market;
+package stelnet.widget.viewer;
 
 import java.util.ArrayList;
 import java.util.Collections;
