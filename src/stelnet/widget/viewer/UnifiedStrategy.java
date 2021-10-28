@@ -1,4 +1,4 @@
-package stelnet.view.market;
+package stelnet.widget.market;
 
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;

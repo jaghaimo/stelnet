@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import stelnet.util.L10n;
-import stelnet.view.market.InMarketStrategy;
+import stelnet.widget.market.InMarketStrategy;
 
 @RequiredArgsConstructor
 public class MarketSelectDialog implements InteractionDialogPlugin {

@@ -1,15 +1,15 @@
-package stelnet.view.market;
+package stelnet.widget.market;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
-import stelnet.filter.fleetmember.FleetMemberFilter;
+import stelnet.filter.cargostack.CargoStackFilter;
 import uilib.EventHandler;
 
-public class ShipFilterButton extends FilteringButton {
+public class ItemFilterButton extends FilteringButton {
 
-    public ShipFilterButton(
+    public ItemFilterButton(
         final FilteringButtons filteringButtons,
         String translationId,
-        final FleetMemberFilter filter
+        final CargoStackFilter filter
     ) {
         super(translationId);
         setHandler(
