@@ -1,10 +1,9 @@
-package stelnet.filter.skillspec;
+package stelnet.filter2;
 
 import com.fs.starfarer.api.characters.SkillSpecAPI;
 
-public class IsCombatOfficer implements SkillSpecFilter {
+public class SkillIsCombatOfficer extends Filter {
 
-    @Override
     public boolean accept(SkillSpecAPI object) {
         return object.isCombatOfficerSkill();
     }

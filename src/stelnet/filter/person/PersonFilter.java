@@ -1,4 +1,4 @@
-package stelnet.filter.market.person;
+package stelnet.filter.person;
 
 import com.fs.starfarer.api.campaign.CommDirectoryEntryAPI;
 import stelnet.filter.Filter;

@@ -5,23 +5,23 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-import stelnet.filter.skillspec.SkillSpecFilter;
-import stelnet.util.CollectionReducer;
+import stelnet.filter2.Filter;
+import stelnet.util.CollectionUtils;
 import stelnet.util.Settings;
 
 public class SkillProvider {
 
     public List<SkillSpecAPI> getSkills() {
-        return getSkills(Collections.<SkillSpecFilter>emptyList());
+        return getSkills(Collections.<Filter>emptyList());
     }
 
-    public List<SkillSpecAPI> getSkills(SkillSpecFilter filter) {
+    public List<SkillSpecAPI> getSkills(Filter filter) {
         return getSkills(Collections.singletonList(filter));
     }
 
-    public List<SkillSpecAPI> getSkills(List<SkillSpecFilter> filters) {
+    public List<SkillSpecAPI> getSkills(List<Filter> filters) {
         List<SkillSpecAPI> skills = getAllSkillSpecs();
-        CollectionReducer.reduce(skills, filters);
+        CollectionUtils.reduce(skills, filters);
         Collections.sort(
             skills,
             new Comparator<SkillSpecAPI>() {

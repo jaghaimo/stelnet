@@ -1,12 +1,16 @@
 package stelnet.board.query.view.add;
 
 import com.fs.starfarer.api.characters.SkillSpecAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Personalities;
+import com.fs.starfarer.api.impl.campaign.ids.Ranks;
 import com.fs.starfarer.api.ui.Alignment;
 import java.util.LinkedList;
 import java.util.List;
 import stelnet.board.query.provider.SkillProvider;
-import stelnet.filter.market.person.IsPostedAs;
-import stelnet.filter.skillspec.IsCombatOfficer;
+import stelnet.filter2.PersonHasPersonality;
+import stelnet.filter2.PersonHasSkill;
+import stelnet.filter2.PersonIsPostedAs;
+import stelnet.filter2.SkillIsCombatOfficer;
 import stelnet.util.Settings;
 import uilib.DynamicGroup;
 import uilib.HorizontalViewContainer;
@@ -112,28 +116,28 @@ public class PersonnelButtonFactory implements RenderableFactory {
 
     private PersonalityButton[] getPersonalityButtons() {
         return new PersonalityButton[] {
-            new PersonalityButton(this, "officerTimid", null),
-            new PersonalityButton(this, "officerCautious", null),
-            new PersonalityButton(this, "officerSteady", null),
-            new PersonalityButton(this, "officerAggressive", null),
-            new PersonalityButton(this, "officerReckless", null),
+            new PersonalityButton(this, "officerTimid", new PersonHasPersonality(Personalities.TIMID)),
+            new PersonalityButton(this, "officerCautious", new PersonHasPersonality(Personalities.CAUTIOUS)),
+            new PersonalityButton(this, "officerSteady", new PersonHasPersonality(Personalities.STEADY)),
+            new PersonalityButton(this, "officerAggressive", new PersonHasPersonality(Personalities.AGGRESSIVE)),
+            new PersonalityButton(this, "officerReckless", new PersonHasPersonality(Personalities.RECKLESS)),
         };
     }
 
     private PostTypeButton[] getPostTypeButtons() {
         return new PostTypeButton[] {
-            new PostTypeButton(this, "typeAdministrator", IsPostedAs.admin()),
-            new PostTypeButton(this, "typeOfficer", IsPostedAs.officer()),
-            new PostTypeButton(this, "typeMercenary", IsPostedAs.mercenary()),
-            new PostTypeButton(this, "typeAgent", IsPostedAs.agent()),
+            new PostTypeButton(this, "typeAdministrator", new PersonIsPostedAs(Ranks.POST_FREELANCE_ADMIN)),
+            new PostTypeButton(this, "typeOfficer", new PersonIsPostedAs(Ranks.POST_OFFICER_FOR_HIRE)),
+            new PostTypeButton(this, "typeMercenary", new PersonIsPostedAs(Ranks.POST_MERCENARY)),
+            new PostTypeButton(this, "typeAgent", new PersonIsPostedAs(Ranks.POST_AGENT)),
         };
     }
 
     private SkillButton[] getSkillButtons() {
         List<SkillButton> skillButtons = new LinkedList<>();
-        List<SkillSpecAPI> skills = (new SkillProvider()).getSkills(new IsCombatOfficer());
+        List<SkillSpecAPI> skills = (new SkillProvider()).getSkills(new SkillIsCombatOfficer());
         for (SkillSpecAPI skill : skills) {
-            skillButtons.add(new SkillButton(this, skill.getName(), null));
+            skillButtons.add(new SkillButton(this, skill.getName(), new PersonHasSkill(skill.getId())));
         }
         return skillButtons.toArray(new SkillButton[] {});
     }
