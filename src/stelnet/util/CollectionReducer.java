@@ -3,6 +3,7 @@ package stelnet.util;
 import java.util.Iterator;
 import stelnet.filter.Filter;
 
+@Deprecated
 public class CollectionReducer {
 
     public static <E, F extends Filter<E>> void reduce(Iterable<E> entities, Iterable<F> filters) {
