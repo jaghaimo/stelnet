@@ -1,4 +1,4 @@
-package stelnet.board.market.view;
+package stelnet.board.viewer;
 
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.ui.IntelUIAPI;

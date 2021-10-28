@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import stelnet.board.commodity.CommodityState;
 import stelnet.board.commodity.view.button.CommodityButton;
 import stelnet.filter.commodityspec.HasNotTag;
 import stelnet.util.CollectionReducer;
@@ -14,32 +13,28 @@ import stelnet.util.Economy;
 import uilib.Button;
 import uilib.Group;
 import uilib.Renderable;
-import uilib.ViewContainerFactory;
+import uilib.RenderableFactory;
 import uilib.property.Position;
 import uilib.property.Size;
 
 @RequiredArgsConstructor
-public class ButtonViewFactory implements ViewContainerFactory {
+public class ButtonViewFactory implements RenderableFactory {
 
-    private final String activeId;
-
-    public ButtonViewFactory(CommodityState commodityState) {
-        this(commodityState.getCommodityId());
-    }
+    private final String commodityId;
 
     @Override
-    public Renderable create(Size size) {
+    public List<Renderable> create(Size size) {
         List<Renderable> buttons = new LinkedList<>();
         List<CommoditySpecAPI> commodities = Economy.getAllCommodities();
         filterCommodities(commodities);
         sortCommodities(commodities);
         for (CommoditySpecAPI commodity : commodities) {
-            buttons.add(createContainer(commodity, activeId));
+            buttons.add(createContainer(commodity, commodityId));
         }
         Group group = new Group(buttons);
         group.setSize(new Size(200, size.getHeight() - 55));
         group.setOffset(new Position(size.getWidth() - 200, 24));
-        return group;
+        return Collections.<Renderable>singletonList(group);
     }
 
     private Button createContainer(CommoditySpecAPI commodity, String activeId) {

@@ -1,7 +1,6 @@
-package stelnet.board.storage.view;
+package stelnet.board.storage;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
-import stelnet.board.storage.StorageBoard;
 import stelnet.util.L10n;
 import stelnet.view.market.ContentRenderer;
 import uilib.EventHandler;

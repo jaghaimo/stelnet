@@ -1,30 +1,27 @@
 package stelnet.board.commodity.view;
 
+import java.util.Collections;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
-import stelnet.board.commodity.CommodityState;
 import stelnet.board.commodity.view.button.DeleteAllIntel;
 import stelnet.board.commodity.view.button.DeleteCommodityIntel;
 import uilib.Renderable;
+import uilib.RenderableFactory;
 import uilib.VerticalViewContainer;
-import uilib.ViewContainerFactory;
 import uilib.property.Size;
 
 @RequiredArgsConstructor
-public class DeleteViewFactory implements ViewContainerFactory {
+public class DeleteViewFactory implements RenderableFactory {
 
-    private final String activeId;
-
-    public DeleteViewFactory(CommodityState commodityState) {
-        this(commodityState.getCommodityId());
-    }
+    private final String commodityId;
 
     @Override
-    public Renderable create(Size size) {
+    public List<Renderable> create(Size size) {
         VerticalViewContainer verticalContainer = new VerticalViewContainer(
             new DeleteAllIntel(),
-            new DeleteCommodityIntel(activeId)
+            new DeleteCommodityIntel(commodityId)
         );
         verticalContainer.setSize(size);
-        return verticalContainer;
+        return Collections.<Renderable>singletonList(verticalContainer);
     }
 }

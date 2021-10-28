@@ -1,9 +1,9 @@
 package stelnet.board.commodity.view;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import stelnet.board.commodity.CommodityState;
 import stelnet.board.commodity.CommodityState.CommodityTab;
 import stelnet.board.commodity.IntelTracker;
 import stelnet.board.commodity.market.MarketApiWrapper;
@@ -11,35 +11,31 @@ import stelnet.board.commodity.market.MarketRepository;
 import stelnet.board.commodity.view.button.IntelButton;
 import uilib.HorizontalViewContainer;
 import uilib.Renderable;
-import uilib.ViewContainerFactory;
+import uilib.RenderableFactory;
 import uilib.property.Size;
 
 @AllArgsConstructor
-public class IntelViewFactory implements ViewContainerFactory {
+public class IntelViewFactory implements RenderableFactory {
 
     private final String commodityId;
-    private final CommodityTab actionTab;
+    private final CommodityTab commodityTab;
     private final IntelTracker tracker;
 
-    public IntelViewFactory(CommodityState commodityState) {
-        this(commodityState.getCommodityId(), commodityState.getActiveTab(), commodityState.getIntelTracker());
-    }
-
     @Override
-    public Renderable create(Size size) {
+    public List<Renderable> create(Size size) {
         MarketRepository marketRepository = new MarketRepository(commodityId);
-        List<MarketApiWrapper> markets = marketRepository.getMarketsByType(actionTab);
+        List<MarketApiWrapper> markets = marketRepository.getMarketsByType(commodityTab);
         int numberOfButtons = calcNumberOfButtons(markets, size);
 
         List<Renderable> buttons = new LinkedList<>();
         for (int i = 0; i < numberOfButtons; i++) {
             MarketApiWrapper market = markets.get(i);
-            buttons.add(new IntelButton(i + 1, actionTab, commodityId, market, tracker));
+            buttons.add(new IntelButton(i + 1, commodityTab, commodityId, market, tracker));
         }
 
         HorizontalViewContainer rows = new HorizontalViewContainer(buttons);
         rows.setSize(size);
-        return rows;
+        return Collections.<Renderable>singletonList(rows);
     }
 
     private int calcNumberOfButtons(List<MarketApiWrapper> markets, Size size) {

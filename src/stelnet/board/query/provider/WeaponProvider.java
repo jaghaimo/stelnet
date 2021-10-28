@@ -1,4 +1,4 @@
-package stelnet.board.market.provider;
+package stelnet.board.query.provider;
 
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CargoStackAPI;

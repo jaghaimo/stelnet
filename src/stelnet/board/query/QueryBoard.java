@@ -1,4 +1,4 @@
-package stelnet.board.market;
+package stelnet.board.query;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package stelnet.board.market.view.newquery;
+package stelnet.board.query.view.add;
 
 import com.fs.starfarer.api.ui.Alignment;
 import java.util.LinkedList;
@@ -10,17 +10,15 @@ import uilib.HorizontalViewContainer;
 import uilib.Paragraph;
 import uilib.Renderable;
 import uilib.RenderableFactory;
-import uilib.VerticalViewContainer;
-import uilib.ViewContainerFactory;
 import uilib.property.Size;
 
 @Getter
-public class QueryTypeContainer implements ViewContainerFactory {
+public class AddQueryFactory implements RenderableFactory {
 
     private final QueryTypeButton[] buttons;
     private final RenderableFactory defaultFactory;
 
-    public QueryTypeContainer() {
+    public AddQueryFactory() {
         RenderableFactory emptyFactory = new DummyRenderableFactory();
         buttons =
             new QueryTypeButton[] {
@@ -34,7 +32,7 @@ public class QueryTypeContainer implements ViewContainerFactory {
     }
 
     @Override
-    public Renderable create(Size size) {
+    public List<Renderable> create(Size size) {
         float width = size.getWidth();
         float textWidth = Math.max(width / 4, 200);
         float groupWidth = width - textWidth;
@@ -46,7 +44,7 @@ public class QueryTypeContainer implements ViewContainerFactory {
             )
         );
         elements.addAll(nextFactory().create(size));
-        return new VerticalViewContainer(elements);
+        return elements;
     }
 
     public void setQueryType(QueryTypeButton active) {

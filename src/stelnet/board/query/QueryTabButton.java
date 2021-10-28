@@ -1,8 +1,7 @@
-package stelnet.board.market.view;
+package stelnet.board.query;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
-import stelnet.board.market.QueryBoard;
-import stelnet.board.market.QueryState.QueryBoardTab;
+import stelnet.board.query.QueryState.QueryBoardTab;
 import stelnet.util.L10n;
 import uilib.EventHandler;
 import uilib.TabButton;

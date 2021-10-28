@@ -1,7 +1,6 @@
-package stelnet.board.market.view;
+package stelnet.board.viewer;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
-import stelnet.board.market.ViewerBoard;
 import stelnet.util.L10n;
 import stelnet.view.market.ContentRenderer;
 import uilib.EventHandler;

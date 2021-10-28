@@ -1,51 +1,50 @@
-package stelnet.board.market.view;
+package stelnet.board.query;
 
+import java.util.Collections;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.lwjgl.input.Keyboard;
-import stelnet.board.market.QueryState;
-import stelnet.board.market.QueryState.QueryBoardTab;
-import stelnet.board.market.view.newquery.QueryTypeContainer;
-import uilib.Paragraph;
+import stelnet.board.query.QueryState.QueryBoardTab;
+import stelnet.board.query.view.add.AddQueryFactory;
+import stelnet.board.query.view.list.QueryListFactory;
 import uilib.Renderable;
+import uilib.RenderableFactory;
 import uilib.TabViewContainer;
 import uilib.VerticalViewContainer;
-import uilib.ViewContainerFactory;
 import uilib.property.Size;
 
 @RequiredArgsConstructor
-public class QueryTabContainer implements ViewContainerFactory {
+public class QueryView implements RenderableFactory {
 
     private final QueryBoardTab activeTab;
-    private final QueryTypeContainer queryTypeFactory;
+    private final AddQueryFactory addQueryFactory;
+    private final QueryListFactory queryListFactory;
 
-    public QueryTabContainer(QueryState queryState) {
+    public QueryView(QueryState queryState) {
         activeTab = queryState.getActiveTab();
-        queryTypeFactory = queryState.getQueryTypeFactory();
+        addQueryFactory = queryState.getQueryTypeFactory();
+        queryListFactory = new QueryListFactory();
     }
 
     @Override
-    public Renderable create(Size size) {
+    public List<Renderable> create(Size size) {
         float width = size.getWidth() - 10;
         float height = size.getHeight();
         TabViewContainer tabViewContainer = new TabViewContainer();
         tabViewContainer.setSize(size);
         tabViewContainer.addTab(
             getTabButton(QueryBoardTab.LIST, Keyboard.KEY_L),
-            getQueryListTab(width, height),
+            new VerticalViewContainer(queryListFactory.create(new Size(width, height))),
             isActive(QueryBoardTab.LIST)
         );
 
         tabViewContainer.addTab(
             getTabButton(QueryBoardTab.NEW, Keyboard.KEY_N),
-            queryTypeFactory.create(new Size(width, height)),
+            new VerticalViewContainer(addQueryFactory.create(new Size(width, height))),
             isActive(QueryBoardTab.NEW)
         );
 
-        return tabViewContainer;
-    }
-
-    private Renderable getQueryListTab(float width, float tableHeight) {
-        return new VerticalViewContainer(new Paragraph("No queries to be shown.", width));
+        return Collections.<Renderable>singletonList(tabViewContainer);
     }
 
     private QueryTabButton getTabButton(QueryBoardTab currentTab, int keyboardShortcut) {

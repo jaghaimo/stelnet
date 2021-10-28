@@ -1,4 +1,4 @@
-package stelnet.board.market.view.newquery;
+package stelnet.board.query.view.add;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.util.Misc;

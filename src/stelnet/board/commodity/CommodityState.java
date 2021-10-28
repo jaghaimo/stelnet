@@ -1,14 +1,9 @@
 package stelnet.board.commodity;
 
 import com.fs.starfarer.api.impl.campaign.ids.Commodities;
-import java.util.Arrays;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import stelnet.board.commodity.view.ButtonViewFactory;
-import stelnet.board.commodity.view.DeleteViewFactory;
-import stelnet.board.commodity.view.IntelViewFactory;
-import stelnet.board.commodity.view.TabViewFactory;
 import uilib.Renderable;
 import uilib.RenderableState;
 import uilib.property.Size;
@@ -47,11 +42,6 @@ public class CommodityState implements RenderableState {
 
     @Override
     public List<Renderable> toRenderables(Size size) {
-        return Arrays.<Renderable>asList(
-            new TabViewFactory(this).create(size),
-            new IntelViewFactory(this).create(size),
-            new ButtonViewFactory(this).create(size),
-            new DeleteViewFactory(this).create(size)
-        );
+        return new CommodityView(commodityId, activeTab, intelTracker).create(size);
     }
 }

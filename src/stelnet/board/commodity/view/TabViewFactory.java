@@ -1,8 +1,9 @@
 package stelnet.board.commodity.view;
 
+import java.util.Collections;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.lwjgl.input.Keyboard;
-import stelnet.board.commodity.CommodityState;
 import stelnet.board.commodity.CommodityState.CommodityTab;
 import stelnet.board.commodity.market.MarketRepository;
 import stelnet.board.commodity.market.table.BuyTableContent;
@@ -10,24 +11,20 @@ import stelnet.board.commodity.market.table.ProfitTableContent;
 import stelnet.board.commodity.market.table.SellTableContent;
 import stelnet.board.commodity.view.button.CommodityTabButton;
 import uilib.Renderable;
+import uilib.RenderableFactory;
 import uilib.TabViewContainer;
 import uilib.Table;
 import uilib.TableContent;
-import uilib.ViewContainerFactory;
 import uilib.property.Size;
 
 @RequiredArgsConstructor
-public class TabViewFactory implements ViewContainerFactory {
+public class TabViewFactory implements RenderableFactory {
 
     private final String commodityId;
-    private final CommodityTab activeTab;
-
-    public TabViewFactory(CommodityState commodityState) {
-        this(commodityState.getCommodityId(), commodityState.getActiveTab());
-    }
+    private final CommodityTab commodityTab;
 
     @Override
-    public Renderable create(Size size) {
+    public List<Renderable> create(Size size) {
         float width = size.getWidth() - 210;
         float height = size.getHeight() - 54;
         MarketRepository marketRepository = new MarketRepository(commodityId);
@@ -36,7 +33,7 @@ public class TabViewFactory implements ViewContainerFactory {
         addBuyTab(tabViewContainer, width, marketRepository);
         addSellTab(tabViewContainer, width, marketRepository);
         addProfitTab(tabViewContainer, width, marketRepository);
-        return tabViewContainer;
+        return Collections.<Renderable>singletonList(tabViewContainer);
     }
 
     private void addBuyTab(TabViewContainer tabViewContainer, float width, MarketRepository marketRepository) {
@@ -76,10 +73,10 @@ public class TabViewFactory implements ViewContainerFactory {
     }
 
     private CommodityTabButton getTabButton(CommodityTab currentTab, int keyboardShortcut) {
-        return new CommodityTabButton(currentTab, activeTab, keyboardShortcut);
+        return new CommodityTabButton(currentTab, commodityTab, keyboardShortcut);
     }
 
     private boolean isActive(CommodityTab currentTab) {
-        return currentTab.equals(activeTab);
+        return currentTab.equals(commodityTab);
     }
 }

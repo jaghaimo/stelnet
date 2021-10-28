@@ -3,11 +3,11 @@ package stelnet.util;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.commodity.CommodityBoard;
 import stelnet.board.commodity.CommodityIntel;
-import stelnet.board.market.QueryBoard;
-import stelnet.board.market.ViewerBoard;
+import stelnet.board.query.QueryBoard;
 import stelnet.board.storage.StorageBoard;
 import stelnet.board.storage.StorageIntel;
 import stelnet.board.storage.StorageListener;
+import stelnet.board.viewer.ViewerBoard;
 import stelnet.config.BoardConfig;
 import stelnet.config.ModConfig;
 

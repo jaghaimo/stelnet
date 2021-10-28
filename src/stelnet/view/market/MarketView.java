@@ -1,41 +1,37 @@
-package stelnet.board.storage.view;
+package stelnet.view.market;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.lwjgl.input.Keyboard;
-import stelnet.board.storage.StorageState;
+import stelnet.board.storage.StorageTabButton;
 import stelnet.util.L10n;
-import stelnet.view.market.ContentRenderer;
-import stelnet.view.market.DisplayStrategy;
-import stelnet.view.market.FilteringButtons;
-import stelnet.view.market.LocationContent;
-import stelnet.view.market.LocationInfo;
 import uilib.Group;
 import uilib.Heading;
 import uilib.HorizontalViewContainer;
 import uilib.Paragraph;
 import uilib.Renderable;
+import uilib.RenderableFactory;
 import uilib.Spacer;
 import uilib.TabButton;
 import uilib.TabViewContainer;
-import uilib.ViewContainerFactory;
 import uilib.property.Position;
 import uilib.property.Size;
 
 @RequiredArgsConstructor
-public class StorageTabContainer implements ViewContainerFactory {
+public class MarketView implements RenderableFactory {
 
     private final FilteringButtons buttonManager;
     private final ContentRenderer activeTab;
     private final DisplayStrategy activeView;
 
-    public StorageTabContainer(StorageState state) {
-        this(state.getFilteringButtons(), state.getActiveRenderer(), state.getActiveStrategy());
+    @Override
+    public List<Renderable> create(Size size) {
+        return Collections.<Renderable>singletonList(getTabViewContainer(size));
     }
 
-    @Override
-    public Renderable create(Size size) {
+    private Renderable getTabViewContainer(Size size) {
         float width = size.getWidth() - 210;
         float height = size.getHeight() - 40;
         Size contentSize = new Size(width, height);
