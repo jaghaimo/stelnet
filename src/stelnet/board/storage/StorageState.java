@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import stelnet.board.storage.view.StorageTabViewFactory;
+import stelnet.board.storage.view.StorageTabContainer;
 import stelnet.view.market.ContentRenderer;
 import stelnet.view.market.DisplayStrategyButton;
 import stelnet.view.market.FilteringButtons;
@@ -36,6 +36,6 @@ public class StorageState implements RenderableState {
                 }
             }
         );
-        return Arrays.<Renderable>asList(new StorageTabViewFactory(this).createContainer(size), button);
+        return Arrays.<Renderable>asList(new StorageTabContainer(this).create(size), button);
     }
 }

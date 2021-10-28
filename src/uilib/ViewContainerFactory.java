@@ -3,5 +3,5 @@ package uilib;
 import uilib.property.Size;
 
 public interface ViewContainerFactory {
-    public Renderable createContainer(Size size);
+    public Renderable create(Size size);
 }

@@ -1,4 +1,4 @@
-package stelnet.board.market.view;
+package stelnet.board.market.view.newquery;
 
 import com.fs.starfarer.api.characters.SkillSpecAPI;
 import com.fs.starfarer.api.ui.Alignment;
@@ -11,15 +11,17 @@ import stelnet.util.Settings;
 import uilib.DynamicGroup;
 import uilib.HorizontalViewContainer;
 import uilib.Paragraph;
+import uilib.Renderable;
+import uilib.RenderableFactory;
 import uilib.property.Size;
 
-public class PersonnelButtons implements HorizontalViewFactory {
+public class PersonnelButtonFactory implements RenderableFactory {
 
     private final PostTypeButton[] postType;
     private final LevelButton[] level;
     private final SkillButton[] skill;
 
-    public PersonnelButtons() {
+    public PersonnelButtonFactory() {
         postType =
             new PostTypeButton[] {
                 new PostTypeButton(this, "Administrator", IsPostedAs.admin()),
@@ -32,11 +34,11 @@ public class PersonnelButtons implements HorizontalViewFactory {
     }
 
     @Override
-    public List<HorizontalViewContainer> getAll(Size size) {
+    public List<Renderable> create(Size size) {
         float width = size.getWidth();
         float textWidth = Math.max(width / 4, 200);
         float groupWidth = width - textWidth;
-        List<HorizontalViewContainer> containers = new LinkedList<>();
+        List<Renderable> containers = new LinkedList<>();
         addPostTypes(containers, textWidth, groupWidth);
         addLevels(containers, textWidth, groupWidth);
         addSkills(containers, textWidth, groupWidth);
@@ -52,7 +54,7 @@ public class PersonnelButtons implements HorizontalViewFactory {
         }
     }
 
-    private void addPostTypes(List<HorizontalViewContainer> containers, float textWidth, float groupWidth) {
+    private void addPostTypes(List<Renderable> containers, float textWidth, float groupWidth) {
         containers.add(
             new HorizontalViewContainer(
                 new Paragraph("What type of personnel are you after?", textWidth, 4, Alignment.RMID),
@@ -61,7 +63,7 @@ public class PersonnelButtons implements HorizontalViewFactory {
         );
     }
 
-    private void addLevels(List<HorizontalViewContainer> containers, float textWidth, float groupWidth) {
+    private void addLevels(List<Renderable> containers, float textWidth, float groupWidth) {
         containers.add(
             new HorizontalViewContainer(
                 new Paragraph("What should be the minimal level?", textWidth, 4, Alignment.RMID),
@@ -70,7 +72,7 @@ public class PersonnelButtons implements HorizontalViewFactory {
         );
     }
 
-    private void addSkills(List<HorizontalViewContainer> containers, float textWidth, float groupWidth) {
+    private void addSkills(List<Renderable> containers, float textWidth, float groupWidth) {
         containers.add(
             new HorizontalViewContainer(
                 new Paragraph("What skills should the officer have?", textWidth, 4, Alignment.RMID),

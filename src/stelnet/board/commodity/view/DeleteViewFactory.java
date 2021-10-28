@@ -19,7 +19,7 @@ public class DeleteViewFactory implements ViewContainerFactory {
     }
 
     @Override
-    public Renderable createContainer(Size size) {
+    public Renderable create(Size size) {
         VerticalViewContainer verticalContainer = new VerticalViewContainer(
             new DeleteAllIntel(),
             new DeleteCommodityIntel(activeId)

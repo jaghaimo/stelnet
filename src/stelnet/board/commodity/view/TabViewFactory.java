@@ -27,7 +27,7 @@ public class TabViewFactory implements ViewContainerFactory {
     }
 
     @Override
-    public Renderable createContainer(Size size) {
+    public Renderable create(Size size) {
         float width = size.getWidth() - 210;
         float height = size.getHeight() - 54;
         MarketRepository marketRepository = new MarketRepository(commodityId);

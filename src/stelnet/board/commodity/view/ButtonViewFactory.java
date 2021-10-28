@@ -28,7 +28,7 @@ public class ButtonViewFactory implements ViewContainerFactory {
     }
 
     @Override
-    public Renderable createContainer(Size size) {
+    public Renderable create(Size size) {
         List<Renderable> buttons = new LinkedList<>();
         List<CommoditySpecAPI> commodities = Economy.getAllCommodities();
         filterCommodities(commodities);

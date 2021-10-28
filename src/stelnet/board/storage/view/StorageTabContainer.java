@@ -24,18 +24,18 @@ import uilib.property.Position;
 import uilib.property.Size;
 
 @RequiredArgsConstructor
-public class StorageTabViewFactory implements ViewContainerFactory {
+public class StorageTabContainer implements ViewContainerFactory {
 
     private final FilteringButtons buttonManager;
     private final ContentRenderer activeTab;
     private final DisplayStrategy activeView;
 
-    public StorageTabViewFactory(StorageState state) {
+    public StorageTabContainer(StorageState state) {
         this(state.getFilteringButtons(), state.getActiveRenderer(), state.getActiveStrategy());
     }
 
     @Override
-    public Renderable createContainer(Size size) {
+    public Renderable create(Size size) {
         float width = size.getWidth() - 210;
         float height = size.getHeight() - 40;
         Size contentSize = new Size(width, height);

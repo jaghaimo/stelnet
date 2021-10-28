@@ -48,10 +48,10 @@ public class CommodityState implements RenderableState {
     @Override
     public List<Renderable> toRenderables(Size size) {
         return Arrays.<Renderable>asList(
-            new TabViewFactory(this).createContainer(size),
-            new IntelViewFactory(this).createContainer(size),
-            new ButtonViewFactory(this).createContainer(size),
-            new DeleteViewFactory(this).createContainer(size)
+            new TabViewFactory(this).create(size),
+            new IntelViewFactory(this).create(size),
+            new ButtonViewFactory(this).create(size),
+            new DeleteViewFactory(this).create(size)
         );
     }
 }

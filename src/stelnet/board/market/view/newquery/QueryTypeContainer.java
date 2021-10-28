@@ -1,55 +1,40 @@
-package stelnet.board.market.view;
+package stelnet.board.market.view.newquery;
 
 import com.fs.starfarer.api.ui.Alignment;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.Getter;
+import uilib.DummyRenderableFactory;
 import uilib.DynamicGroup;
 import uilib.HorizontalViewContainer;
 import uilib.Paragraph;
 import uilib.Renderable;
+import uilib.RenderableFactory;
 import uilib.VerticalViewContainer;
 import uilib.ViewContainerFactory;
 import uilib.property.Size;
 
 @Getter
-public class QueryTypeButtons implements ViewContainerFactory {
+public class QueryTypeContainer implements ViewContainerFactory {
 
     private final QueryTypeButton[] buttons;
-    private final HorizontalViewFactory defaultFactory;
+    private final RenderableFactory defaultFactory;
 
-    public QueryTypeButtons() {
-        HorizontalViewFactory emptyFactory = new EmptyHorizontalViewFactory();
+    public QueryTypeContainer() {
+        RenderableFactory emptyFactory = new DummyRenderableFactory();
         buttons =
             new QueryTypeButton[] {
-                new QueryTypeButton(this, "Personnel", new PersonnelButtons()),
+                new QueryTypeButton(this, "Personnel", new PersonnelButtonFactory()),
                 new QueryTypeButton(this, "Weapons", emptyFactory),
                 new QueryTypeButton(this, "Fighters", emptyFactory),
                 new QueryTypeButton(this, "Modspecs", emptyFactory),
                 new QueryTypeButton(this, "Ships", emptyFactory),
             };
-        defaultFactory = new SelectQueryTypeFactory();
-    }
-
-    public void setQueryType(QueryTypeButton active) {
-        for (QueryTypeButton button : buttons) {
-            if (!active.equals(button)) {
-                button.setStateOn(false);
-            }
-        }
-    }
-
-    private HorizontalViewFactory nextFactory() {
-        for (QueryTypeButton button : buttons) {
-            if (button.isStateOn()) {
-                return button.getNextFactory();
-            }
-        }
-        return defaultFactory;
+        defaultFactory = new QueryTypeFactory();
     }
 
     @Override
-    public Renderable createContainer(Size size) {
+    public Renderable create(Size size) {
         float width = size.getWidth();
         float textWidth = Math.max(width / 4, 200);
         float groupWidth = width - textWidth;
@@ -60,7 +45,24 @@ public class QueryTypeButtons implements ViewContainerFactory {
                 new DynamicGroup(groupWidth, buttons)
             )
         );
-        elements.addAll(nextFactory().getAll(size));
+        elements.addAll(nextFactory().create(size));
         return new VerticalViewContainer(elements);
+    }
+
+    public void setQueryType(QueryTypeButton active) {
+        for (QueryTypeButton button : buttons) {
+            if (!active.equals(button)) {
+                button.setStateOn(false);
+            }
+        }
+    }
+
+    private RenderableFactory nextFactory() {
+        for (QueryTypeButton button : buttons) {
+            if (button.isStateOn()) {
+                return button.getNextFactory();
+            }
+        }
+        return defaultFactory;
     }
 }

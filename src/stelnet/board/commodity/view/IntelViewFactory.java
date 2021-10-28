@@ -26,7 +26,7 @@ public class IntelViewFactory implements ViewContainerFactory {
     }
 
     @Override
-    public Renderable createContainer(Size size) {
+    public Renderable create(Size size) {
         MarketRepository marketRepository = new MarketRepository(commodityId);
         List<MarketApiWrapper> markets = marketRepository.getMarketsByType(actionTab);
         int numberOfButtons = calcNumberOfButtons(markets, size);
