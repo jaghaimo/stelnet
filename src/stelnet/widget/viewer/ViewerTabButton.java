@@ -9,7 +9,7 @@ public class ViewerTabButton extends TabButton {
 
     public ViewerTabButton(
         final ContentRenderer newRenderer,
-        final RendererAwareState state,
+        final MarketViewState state,
         boolean isActive,
         int shortcut
     ) {
@@ -18,7 +18,7 @@ public class ViewerTabButton extends TabButton {
             new EventHandler() {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
-                    state.setActiveRenderer(newRenderer);
+                    state.setContentRenderer(newRenderer);
                 }
             }
         );

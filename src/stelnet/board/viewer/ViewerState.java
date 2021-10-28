@@ -8,18 +8,18 @@ import stelnet.util.MarketUtils;
 import stelnet.widget.viewer.ContentRenderer;
 import stelnet.widget.viewer.FilteringButtons;
 import stelnet.widget.viewer.InMarketStrategy;
-import stelnet.widget.viewer.RendererAwareState;
+import stelnet.widget.viewer.MarketViewState;
 import uilib.Renderable;
 import uilib.RenderableState;
 import uilib.property.Size;
 
 @Getter
 @Setter
-public class ViewerState implements RenderableState, RendererAwareState {
+public class ViewerState implements RenderableState, MarketViewState {
 
     private final FilteringButtons filteringButtons = new FilteringButtons();
-    private ContentRenderer activeRenderer = ContentRenderer.ITEMS;
-    private InMarketStrategy marketProvider = new InMarketStrategy(null);
+    private ContentRenderer contentRenderer = ContentRenderer.ITEMS;
+    private InMarketStrategy displayStrategy = new InMarketStrategy(null);
 
     @Override
     public List<Renderable> toRenderables(Size size) {

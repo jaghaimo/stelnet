@@ -3,7 +3,6 @@ package stelnet.widget.viewer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
 import org.lwjgl.input.Keyboard;
 import stelnet.util.L10n;
 import uilib.Group;
@@ -18,13 +17,19 @@ import uilib.TabViewContainer;
 import uilib.property.Position;
 import uilib.property.Size;
 
-@RequiredArgsConstructor
 public class MarketView implements RenderableFactory {
 
     private final FilteringButtons buttonManager;
     private final ContentRenderer activeTab;
     private final DisplayStrategy activeView;
-    private final RendererAwareState state;
+    private final MarketViewState state;
+
+    public MarketView(MarketViewState state) {
+        buttonManager = state.getFilteringButtons();
+        activeTab = state.getContentRenderer();
+        activeView = state.getDisplayStrategy();
+        this.state = state;
+    }
 
     @Override
     public List<Renderable> create(Size size) {

@@ -4,7 +4,6 @@ import com.fs.starfarer.api.campaign.SectorEntityToken;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import stelnet.widget.viewer.DisplayStrategy;
 import stelnet.widget.viewer.MarketView;
 import uilib.Renderable;
 import uilib.RenderableFactory;
@@ -19,15 +18,7 @@ public class ViewerView implements RenderableFactory {
     @Override
     public List<Renderable> create(Size size) {
         List<Renderable> renderables = new LinkedList<>();
-        renderables.addAll(
-            new MarketView(
-                viewerState.getFilteringButtons(),
-                viewerState.getActiveRenderer(),
-                (DisplayStrategy) viewerState.getMarketProvider(),
-                viewerState
-            )
-                .create(size)
-        );
+        renderables.addAll(new MarketView(viewerState).create(size));
         renderables.add(new MarketSelectButton(entities));
         return renderables;
     }
