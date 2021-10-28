@@ -126,7 +126,7 @@ public class PersonnelButtonFactory implements RenderableFactory {
 
     private PostTypeButton[] getPostTypeButtons() {
         return new PostTypeButton[] {
-            new PostTypeButton(this, "typeAdministrator", new PersonIsPostedAs(Ranks.POST_FREELANCE_ADMIN)),
+            new PostTypeButton(this, "typeAdmin", new PersonIsPostedAs(Ranks.POST_FREELANCE_ADMIN)),
             new PostTypeButton(this, "typeOfficer", new PersonIsPostedAs(Ranks.POST_OFFICER_FOR_HIRE)),
             new PostTypeButton(this, "typeMercenary", new PersonIsPostedAs(Ranks.POST_MERCENARY)),
             new PostTypeButton(this, "typeAgent", new PersonIsPostedAs(Ranks.POST_AGENT)),
