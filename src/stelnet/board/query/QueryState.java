@@ -1,7 +1,5 @@
 package stelnet.board.query;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.List;
 import lombok.Getter;
@@ -34,14 +32,5 @@ public class QueryState implements RenderableState, Serializable {
     @Override
     public List<Renderable> toRenderables(Size size) {
         return new QueryView(this).create(size);
-    }
-
-    private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
-        try {
-            stream.defaultReadObject();
-        } catch (Exception exception) {
-            activeTab = QueryBoardTab.LIST;
-            addQueryFactory = new AddQueryFactory();
-        }
     }
 }
