@@ -2,7 +2,7 @@ package stelnet.board.query.provider;
 
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
-import com.fs.starfarer.api.campaign.SpecialItemSpecAPI;
+import com.fs.starfarer.api.loading.HullModSpecAPI;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,27 +21,29 @@ public class ModspecProvider {
     }
 
     public CargoAPI getModspecs(List<Filter> filters) {
-        List<SpecialItemSpecAPI> specialItems = Settings.getAllSpecialItemSpecs();
+        List<HullModSpecAPI> specialItems = Settings.getAllHullModSpecs();
         CollectionUtils.reduce(specialItems, new AnyShowInCodex());
         return convertToCargo(specialItems, filters);
     }
 
-    private CargoAPI convertToCargo(List<SpecialItemSpecAPI> specialItemSpecs, List<Filter> filters) {
-        List<CargoStackAPI> cargoStacks = makeCargoStacks(specialItemSpecs);
+    private CargoAPI convertToCargo(List<HullModSpecAPI> hullModSpecs, List<Filter> filters) {
+        List<CargoStackAPI> cargoStacks = makeCargoStacks(hullModSpecs);
         CollectionUtils.reduce(cargoStacks, new CargoStackIsType(CargoStackIsType.Type.MODSPEC));
         CollectionUtils.reduce(cargoStacks, filters);
         return CargoUtils.makeCargoFromStacks(cargoStacks);
     }
 
-    private List<CargoStackAPI> makeCargoStacks(List<SpecialItemSpecAPI> specialItemSpecs) {
+    private List<CargoStackAPI> makeCargoStacks(List<HullModSpecAPI> hullModSpecs) {
         List<CargoStackAPI> cargoStacks = new LinkedList<>();
-        for (SpecialItemSpecAPI weaponSpec : specialItemSpecs) {
+        for (HullModSpecAPI weaponSpec : hullModSpecs) {
             cargoStacks.add(makeCargoStack(weaponSpec));
         }
         return cargoStacks;
     }
 
-    private CargoStackAPI makeCargoStack(SpecialItemSpecAPI specialItemSpec) {
-        return Factory.createModspecItem(specialItemSpec);
+    private CargoStackAPI makeCargoStack(HullModSpecAPI hullModSpec) {
+        CargoStackAPI stack = Factory.createModspecItem(hullModSpec.getId());
+        stack.setSize(1);
+        return stack;
     }
 }

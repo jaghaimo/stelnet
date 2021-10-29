@@ -6,6 +6,7 @@ import com.fs.starfarer.api.campaign.SpecialItemSpecAPI;
 import com.fs.starfarer.api.characters.SkillSpecAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.loading.FighterWingSpecAPI;
+import com.fs.starfarer.api.loading.HullModSpecAPI;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import java.util.List;
 
@@ -16,6 +17,10 @@ public class Settings {
 
     public static List<FighterWingSpecAPI> getAllFighterWingSpecs() {
         return getSettings().getAllFighterWingSpecs();
+    }
+
+    public static List<HullModSpecAPI> getAllHullModSpecs() {
+        return getSettings().getAllHullModSpecs();
     }
 
     public static List<ShipHullSpecAPI> getAllShipHullSpecs() {

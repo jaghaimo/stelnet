@@ -9,6 +9,8 @@ import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.characters.SkillSpecAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
+import com.fs.starfarer.api.loading.FighterWingSpecAPI;
+import com.fs.starfarer.api.loading.HullModSpecAPI;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
 
 public abstract class Filter {
@@ -23,8 +25,14 @@ public abstract class Filter {
         if (object instanceof CommoditySpecAPI) {
             return accept((CommoditySpecAPI) object);
         }
+        if (object instanceof FighterWingSpecAPI) {
+            return accept((FighterWingSpecAPI) object);
+        }
         if (object instanceof FleetMemberAPI) {
             return accept((FleetMemberAPI) object);
+        }
+        if (object instanceof HullModSpecAPI) {
+            return accept((HullModSpecAPI) object);
         }
         if (object instanceof MarketAPI) {
             return accept((MarketAPI) object);
@@ -59,7 +67,15 @@ public abstract class Filter {
         return false;
     }
 
+    public boolean accept(FighterWingSpecAPI fighterWing) {
+        return false;
+    }
+
     public boolean accept(FleetMemberAPI fleetMember) {
+        return false;
+    }
+
+    public boolean accept(HullModSpecAPI fleetMember) {
         return false;
     }
 

@@ -40,6 +40,8 @@ public class WeaponProvider {
     }
 
     private CargoStackAPI makeCargoStack(WeaponSpecAPI weaponSpec) {
-        return Factory.createWeaponItem(weaponSpec.getWeaponId());
+        CargoStackAPI stack = Factory.createWeaponItem(weaponSpec.getWeaponId());
+        stack.setSize(1);
+        return stack;
     }
 }
