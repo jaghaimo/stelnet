@@ -6,8 +6,8 @@ import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import stelnet.filter.AnyShowInCodex;
 import stelnet.filter.Filter;
-import stelnet.filter.ShowInCodex;
 import stelnet.util.CargoUtils;
 import stelnet.util.CollectionUtils;
 import stelnet.util.Factory;
@@ -21,7 +21,7 @@ public class WeaponProvider {
 
     public CargoAPI getWeapons(List<Filter> filters) {
         List<WeaponSpecAPI> allWeaponSpecs = Settings.getAllWeaponSpecs();
-        CollectionUtils.reduce(allWeaponSpecs, new ShowInCodex());
+        CollectionUtils.reduce(allWeaponSpecs, new AnyShowInCodex());
         return convertToCargo(allWeaponSpecs, filters);
     }
 

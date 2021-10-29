@@ -7,8 +7,8 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import stelnet.filter.AnyShowInCodex;
 import stelnet.filter.Filter;
-import stelnet.filter.ShowInCodex;
 import stelnet.util.CollectionUtils;
 import stelnet.util.Factory;
 import stelnet.util.Settings;
@@ -23,7 +23,7 @@ public class ShipProvider {
 
     public List<FleetMemberAPI> getShips(List<Filter> filters) {
         List<ShipHullSpecAPI> allShipHullSpecs = Settings.getAllShipHullSpecs();
-        CollectionUtils.reduce(allShipHullSpecs, new ShowInCodex());
+        CollectionUtils.reduce(allShipHullSpecs, new AnyShowInCodex());
         Set<String> allHullIds = getHullIds(allShipHullSpecs);
         return convertToFleetMembers(allHullIds, filters);
     }

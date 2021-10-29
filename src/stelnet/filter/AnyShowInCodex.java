@@ -3,7 +3,7 @@ package stelnet.filter;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
 
-public class ShowInCodex extends Filter {
+public class AnyShowInCodex extends Filter {
 
     @Override
     public boolean accept(ShipHullSpecAPI object) {
