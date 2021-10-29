@@ -2,8 +2,10 @@ package stelnet.util;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.SettingsAPI;
+import com.fs.starfarer.api.campaign.SpecialItemSpecAPI;
 import com.fs.starfarer.api.characters.SkillSpecAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
+import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import java.util.List;
 
@@ -12,12 +14,20 @@ import java.util.List;
  */
 public class Settings {
 
+    public static List<FighterWingSpecAPI> getAllFighterWingSpecs() {
+        return getSettings().getAllFighterWingSpecs();
+    }
+
     public static List<ShipHullSpecAPI> getAllShipHullSpecs() {
         return getSettings().getAllShipHullSpecs();
     }
 
     public static List<String> getAllSkillIds() {
         return getSettings().getSkillIds();
+    }
+
+    public static List<SpecialItemSpecAPI> getAllSpecialItemSpecs() {
+        return getSettings().getAllSpecialItemSpecs();
     }
 
     public static List<WeaponSpecAPI> getAllWeaponSpecs() {

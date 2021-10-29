@@ -47,6 +47,6 @@ public class ShipProvider {
     }
 
     private FleetMemberAPI makeFleetMember(String hullId) {
-        return Factory.createShip(hullId + SUFFIX);
+        return Factory.createFleetMember(hullId + SUFFIX);
     }
 }
