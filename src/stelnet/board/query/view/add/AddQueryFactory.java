@@ -4,7 +4,6 @@ import com.fs.starfarer.api.ui.Alignment;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.Getter;
-import uilib.DummyRenderableFactory;
 import uilib.DynamicGroup;
 import uilib.HorizontalViewContainer;
 import uilib.Paragraph;
@@ -19,14 +18,13 @@ public class AddQueryFactory implements RenderableFactory {
     private final RenderableFactory defaultFactory;
 
     public AddQueryFactory() {
-        RenderableFactory emptyFactory = new DummyRenderableFactory();
         buttons =
             new QueryTypeButton[] {
                 new QueryTypeButton(this, "Personnel", new PersonnelButtonFactory()),
-                new QueryTypeButton(this, "Weapons", emptyFactory),
-                new QueryTypeButton(this, "Fighters", emptyFactory),
-                new QueryTypeButton(this, "Modspecs", emptyFactory),
-                new QueryTypeButton(this, "Ships", emptyFactory),
+                new QueryTypeButton(this, "Weapons", new WeaponButtonFactory()),
+                new QueryTypeButton(this, "Fighters", new FighterButtonFactory()),
+                new QueryTypeButton(this, "Modspecs", new ModspecButtonFactory()),
+                new QueryTypeButton(this, "Ships", new ShipButtonFactory()),
             };
         defaultFactory = new QueryTypeFactory();
     }
