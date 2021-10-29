@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-import stelnet.filter2.Filter;
+import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.Settings;
 

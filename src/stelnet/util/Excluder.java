@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import stelnet.filter.market.IsNotFaction;
-import stelnet.filter.market.IsNotId;
-import stelnet.filter.market.IsNotInSystem;
-import stelnet.filter.market.IsNotTagged;
-import stelnet.filter.market.MarketFilter;
+import stelnet.filter.MarketFilter;
+import stelnet.filter.MarketIsNotFaction;
+import stelnet.filter.MarketIsNotId;
+import stelnet.filter.MarketIsNotInSystem;
+import stelnet.filter.MarketIsNotTagged;
 
 /**
  * Provides access to user/mod exclusions in the form of a relevant filter
@@ -33,28 +33,28 @@ public class Excluder {
 
     private static List<MarketFilter> getFactionFilters(List<MarketFilter> filters) {
         for (String factionId : getStrings(FACTIONS)) {
-            filters.add(new IsNotFaction(factionId));
+            filters.add(new MarketIsNotFaction(factionId));
         }
         return filters;
     }
 
     private static List<MarketFilter> getMarketFilters(List<MarketFilter> filters) {
         for (String marketId : getStrings(MARKETS)) {
-            filters.add(new IsNotId(marketId));
+            filters.add(new MarketIsNotId(marketId));
         }
         return filters;
     }
 
     private static List<MarketFilter> getSystemFilters(List<MarketFilter> filters) {
         for (String systemId : getStrings(SYSTEMS)) {
-            filters.add(new IsNotInSystem(systemId));
+            filters.add(new MarketIsNotInSystem(systemId));
         }
         return filters;
     }
 
     private static List<MarketFilter> getTagFilters(List<MarketFilter> filters) {
         for (String tag : getStrings(TAGS)) {
-            filters.add(new IsNotTagged(tag));
+            filters.add(new MarketIsNotTagged(tag));
         }
         return filters;
     }

@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import lombok.extern.log4j.Log4j;
 import stelnet.util.CargoUtils;
-import stelnet.util.CollectionReducer;
+import stelnet.util.CollectionUtils;
 import stelnet.util.StorageUtils;
 
 @Log4j
@@ -45,14 +45,14 @@ public class PerMarketStrategy implements DisplayStrategy {
     private CargoAPI getItems(FilteringButtons filteringButtons, CargoAPI storageCargo) {
         CargoAPI items = storageCargo.createCopy();
         List<CargoStackAPI> cargoStacks = storageCargo.getStacksCopy();
-        CollectionReducer.reduce(cargoStacks, filteringButtons.getItemFilters());
+        CollectionUtils.reduce(cargoStacks, filteringButtons.getItemFilters());
         CargoUtils.replaceCargoStacks(items, cargoStacks);
         return items;
     }
 
     private List<FleetMemberAPI> getShips(FilteringButtons filteringButtons, CargoAPI storageCargo) {
         List<FleetMemberAPI> ships = storageCargo.getMothballedShips().getMembersInPriorityOrder();
-        CollectionReducer.reduce(ships, filteringButtons.getShipFilters());
+        CollectionUtils.reduce(ships, filteringButtons.getShipFilters());
         return ships;
     }
 }

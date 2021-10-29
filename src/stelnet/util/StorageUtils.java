@@ -10,26 +10,23 @@ import com.fs.starfarer.api.util.Misc;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import stelnet.filter.cargostack.CargoStackFilter;
-import stelnet.filter.fleetmember.FleetMemberFilter;
+import stelnet.filter.Filter;
 
 public class StorageUtils {
 
     public static CargoAPI getAllItems() {
-        Set<CargoStackFilter> filters = new HashSet<>();
-        return getAllItems(filters);
+        return getAllItems(Collections.<Filter>emptySet());
     }
 
-    public static CargoAPI getAllItems(Set<CargoStackFilter> filters) {
+    public static CargoAPI getAllItems(Set<Filter> filters) {
         List<CargoStackAPI> cargoStacks = new ArrayList<>();
         List<SubmarketAPI> submarkets = getAllWithAccess();
         for (SubmarketAPI submarket : submarkets) {
             cargoStacks.addAll(submarket.getCargo().getStacksCopy());
         }
-        CollectionReducer.reduce(cargoStacks, filters);
+        CollectionUtils.reduce(cargoStacks, filters);
         return CargoUtils.makeCargoFromStacks(cargoStacks);
     }
 
@@ -39,17 +36,16 @@ public class StorageUtils {
     }
 
     public static List<FleetMemberAPI> getAllShips() {
-        Set<FleetMemberFilter> filters = new HashSet<>();
-        return getAllShips(filters);
+        return getAllShips(Collections.<Filter>emptySet());
     }
 
-    public static List<FleetMemberAPI> getAllShips(Set<FleetMemberFilter> filters) {
+    public static List<FleetMemberAPI> getAllShips(Set<Filter> filters) {
         List<FleetMemberAPI> ships = new ArrayList<>();
         List<SubmarketAPI> submarkets = getAllWithAccess();
         for (SubmarketAPI submarket : submarkets) {
             ships.addAll(submarket.getCargo().getMothballedShips().getMembersListCopy());
         }
-        CollectionReducer.reduce(ships, filters);
+        CollectionUtils.reduce(ships, filters);
         return ships;
     }
 

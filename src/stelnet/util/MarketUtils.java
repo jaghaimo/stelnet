@@ -9,8 +9,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import stelnet.filter.market.IsNotHidden;
-import stelnet.filter.market.MarketFilter;
+import stelnet.filter.MarketFilter;
+import stelnet.filter.MarketNotHidden;
 
 public class MarketUtils {
 
@@ -37,8 +37,8 @@ public class MarketUtils {
     public static List<MarketAPI> getMarkets(boolean refreshContent) {
         List<MarketAPI> markets = Economy.getMarkets();
         List<MarketFilter> filters = Excluder.getMarketFilters();
-        filters.add(new IsNotHidden());
-        CollectionReducer.reduce(markets, filters);
+        filters.add(new MarketNotHidden());
+        CollectionUtils.reduce(markets, filters);
         if (refreshContent) {
             updateMarketPrePlayerInteraction(markets);
         }

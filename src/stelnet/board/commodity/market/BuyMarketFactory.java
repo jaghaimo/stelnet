@@ -6,8 +6,8 @@ import java.util.Comparator;
 import java.util.List;
 import lombok.Getter;
 import stelnet.board.commodity.market.price.SupplyPrice;
-import stelnet.filter.market.CommodityAvailableFilter;
-import stelnet.util.CollectionReducer;
+import stelnet.filter.MarketCommodityAvailableFilter;
+import stelnet.util.CollectionUtils;
 
 public class BuyMarketFactory extends MarketFactory {
 
@@ -21,7 +21,7 @@ public class BuyMarketFactory extends MarketFactory {
 
     @Override
     protected void filterMarkets(List<MarketAPI> markets) {
-        CollectionReducer.reduce(markets, new CommodityAvailableFilter(commodityId));
+        CollectionUtils.reduce(markets, new MarketCommodityAvailableFilter(commodityId));
     }
 
     @Override

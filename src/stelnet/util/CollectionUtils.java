@@ -1,7 +1,7 @@
 package stelnet.util;
 
 import java.util.Iterator;
-import stelnet.filter2.Filter;
+import stelnet.filter.Filter;
 
 public class CollectionUtils {
 

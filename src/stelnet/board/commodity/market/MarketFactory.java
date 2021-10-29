@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.commodity.market.price.Price;
-import stelnet.filter.market.MarketNotHidden;
-import stelnet.util.CollectionReducer;
+import stelnet.filter.MarketNotHidden;
+import stelnet.util.CollectionUtils;
 import stelnet.util.Economy;
 
 @RequiredArgsConstructor
@@ -16,7 +16,7 @@ public abstract class MarketFactory {
 
     public List<MarketApiWrapper> createMarkets() {
         List<MarketAPI> markets = Economy.getMarkets();
-        CollectionReducer.reduce(markets, new MarketNotHidden());
+        CollectionUtils.reduce(markets, new MarketNotHidden());
         filterMarkets(markets);
         sortMarkets(markets);
         return mapToWrapper(markets);

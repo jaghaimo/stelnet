@@ -13,7 +13,7 @@ public class ViewerTabButton extends TabButton {
         boolean isActive,
         int shortcut
     ) {
-        super(L10n.get("viewerTab" + newRenderer.id), isActive, shortcut);
+        super(L10n.get("viewTab" + newRenderer.id), isActive, shortcut);
         setHandler(
             new EventHandler() {
                 @Override
