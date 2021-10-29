@@ -2,6 +2,8 @@ package stelnet.board.commodity;
 
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.commodity.CommodityState.CommodityTab;
 import stelnet.board.commodity.market.MarketApiWrapper;
@@ -28,7 +30,9 @@ public class IntelTracker extends HashMap<String, CommodityIntel> {
     }
 
     public void removeCommodity(String commodityId) {
-        for (CommodityIntel intel : values()) {
+        Set<String> keys = new HashSet<>(keySet());
+        for (String key : keys) {
+            CommodityIntel intel = get(key);
             if (intel.getCommodityId().equals(commodityId)) {
                 remove(intel);
             }
