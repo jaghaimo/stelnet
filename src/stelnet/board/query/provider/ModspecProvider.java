@@ -21,9 +21,9 @@ public class ModspecProvider {
     }
 
     public CargoAPI getModspecs(List<Filter> filters) {
-        List<HullModSpecAPI> specialItems = Settings.getAllHullModSpecs();
-        CollectionUtils.reduce(specialItems, new AnyShowInCodex());
-        return convertToCargo(specialItems, filters);
+        List<HullModSpecAPI> hullModSpecs = Settings.getAllHullModSpecs();
+        CollectionUtils.reduce(hullModSpecs, new AnyShowInCodex());
+        return convertToCargo(hullModSpecs, filters);
     }
 
     private CargoAPI convertToCargo(List<HullModSpecAPI> hullModSpecs, List<Filter> filters) {
@@ -35,14 +35,14 @@ public class ModspecProvider {
 
     private List<CargoStackAPI> makeCargoStacks(List<HullModSpecAPI> hullModSpecs) {
         List<CargoStackAPI> cargoStacks = new LinkedList<>();
-        for (HullModSpecAPI weaponSpec : hullModSpecs) {
-            cargoStacks.add(makeCargoStack(weaponSpec));
+        for (HullModSpecAPI hullModSpec : hullModSpecs) {
+            cargoStacks.add(makeCargoStack(hullModSpec.getId()));
         }
         return cargoStacks;
     }
 
-    private CargoStackAPI makeCargoStack(HullModSpecAPI hullModSpec) {
-        CargoStackAPI stack = Factory.createModspecItem(hullModSpec.getId());
+    private CargoStackAPI makeCargoStack(String hullModId) {
+        CargoStackAPI stack = Factory.createModspecItem(hullModId);
         stack.setSize(1);
         return stack;
     }
