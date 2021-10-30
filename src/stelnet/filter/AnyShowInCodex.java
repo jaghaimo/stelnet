@@ -21,7 +21,7 @@ public class AnyShowInCodex extends Filter {
 
     @Override
     public boolean accept(ShipHullSpecAPI shipHull) {
-        return !shipHull.hasTag("HIDE_IN_CODEX");
+        return !shipHull.getHints().contains(ShipHullSpecAPI.ShipTypeHints.HIDE_IN_CODEX);
     }
 
     @Override

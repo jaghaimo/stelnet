@@ -1,5 +1,6 @@
 package stelnet.board.query.provider;
 
+import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import java.util.Collections;
@@ -9,6 +10,8 @@ import java.util.List;
 import java.util.Set;
 import stelnet.filter.AnyShowInCodex;
 import stelnet.filter.Filter;
+import stelnet.filter.NotFilter;
+import stelnet.filter.ShipHullIsSize;
 import stelnet.util.CollectionUtils;
 import stelnet.util.Factory;
 import stelnet.util.Settings;
@@ -24,6 +27,7 @@ public class ShipProvider {
     public List<FleetMemberAPI> getShips(List<Filter> filters) {
         List<ShipHullSpecAPI> allShipHullSpecs = Settings.getAllShipHullSpecs();
         CollectionUtils.reduce(allShipHullSpecs, new AnyShowInCodex());
+        CollectionUtils.reduce(allShipHullSpecs, new NotFilter(new ShipHullIsSize(ShipAPI.HullSize.FIGHTER)));
         Set<String> allHullIds = getHullIds(allShipHullSpecs);
         return convertToFleetMembers(allHullIds, filters);
     }
@@ -31,7 +35,6 @@ public class ShipProvider {
     private Set<String> getHullIds(List<ShipHullSpecAPI> shipHullSpecs) {
         Set<String> hullIds = new LinkedHashSet<>();
         for (ShipHullSpecAPI shipHullSpec : shipHullSpecs) {
-            hullIds.add(shipHullSpec.getHullId());
             hullIds.add(shipHullSpec.getBaseHullId());
         }
         return hullIds;
