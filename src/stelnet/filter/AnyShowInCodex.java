@@ -24,21 +24,21 @@ public class AnyShowInCodex extends Filter {
         return super.accept(object);
     }
 
-    private boolean acceptFighterWing(FighterWingSpecAPI fighterWing) {
+    protected boolean acceptFighterWing(FighterWingSpecAPI fighterWing) {
         boolean hideInCodex = fighterWing.hasTag("HIDE_IN_CODEX");
         boolean noSell = fighterWing.hasTag("no_sell");
         return !hideInCodex && !noSell;
     }
 
-    private boolean acceptHullMod(HullModSpecAPI hullMod) {
+    protected boolean acceptHullMod(HullModSpecAPI hullMod) {
         return !hullMod.isHidden();
     }
 
-    private boolean acceptShipHull(ShipHullSpecAPI shipHull) {
+    protected boolean acceptShipHull(ShipHullSpecAPI shipHull) {
         return !shipHull.getHints().contains(ShipHullSpecAPI.ShipTypeHints.HIDE_IN_CODEX);
     }
 
-    public boolean acceptWeapon(WeaponSpecAPI weapon) {
+    protected boolean acceptWeapon(WeaponSpecAPI weapon) {
         boolean isNoDrop = weapon.hasTag("no_drop");
         boolean isOmega = weapon.hasTag("omega");
         boolean isRestricted = weapon.hasTag("restricted");

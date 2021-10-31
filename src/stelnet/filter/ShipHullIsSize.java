@@ -22,7 +22,7 @@ public class ShipHullIsSize extends FleetMemberFilter {
         return accept(fleetMember.getHullSpec());
     }
 
-    private boolean acceptShipHull(ShipHullSpecAPI shipHull) {
+    protected boolean acceptShipHull(ShipHullSpecAPI shipHull) {
         return hullSize.equals(shipHull.getHullSize());
     }
 }

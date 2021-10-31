@@ -32,14 +32,14 @@ public class CargoStackIsType extends CargoStackFilter {
         }
     }
 
-    private boolean isModspec(CargoStackAPI c) {
+    protected boolean isModspec(CargoStackAPI c) {
         if (!c.isSpecialStack()) {
             return false;
         }
         return c.getSpecialDataIfSpecial().getId().equals("modspec");
     }
 
-    private boolean isBlueprint(CargoStackAPI c) {
+    protected boolean isBlueprint(CargoStackAPI c) {
         if (!c.isSpecialStack()) {
             return false;
         }

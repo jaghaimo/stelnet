@@ -12,7 +12,7 @@ public class SkillIsCombatOfficer extends Filter {
         return super.accept(object);
     }
 
-    private boolean acceptSkill(SkillSpecAPI object) {
+    protected boolean acceptSkill(SkillSpecAPI object) {
         return object.isCombatOfficerSkill();
     }
 }

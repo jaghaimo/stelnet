@@ -13,30 +13,27 @@ public class AnyHasTag extends Filter {
     @Override
     public boolean accept(Object object) {
         if (object instanceof CommDirectoryEntryAPI) {
-            return acceptCommDirectoryEntry(object);
+            return acceptCommDirectoryEntry((CommDirectoryEntryAPI) object);
         }
         if (object instanceof CommoditySpecAPI) {
-            return acceptCommodity(object);
+            return acceptCommodity((CommoditySpecAPI) object);
         }
         if (object instanceof PersonAPI) {
-            return acceptPerson(object);
+            return acceptPerson((PersonAPI) object);
         }
         return super.accept(object);
     }
 
-    protected boolean acceptCommDirectoryEntry(Object object) {
-        CommDirectoryEntryAPI entry = (CommDirectoryEntryAPI) object;
+    protected boolean acceptCommDirectoryEntry(CommDirectoryEntryAPI entry) {
         PersonAPI person = (PersonAPI) entry.getEntryData();
         return acceptPerson(person);
     }
 
-    protected boolean acceptCommodity(Object object) {
-        CommoditySpecAPI commodity = (CommoditySpecAPI) object;
+    protected boolean acceptCommodity(CommoditySpecAPI commodity) {
         return commodity.hasTag(tag);
     }
 
-    protected boolean acceptPerson(Object object) {
-        PersonAPI person = (PersonAPI) object;
+    protected boolean acceptPerson(PersonAPI person) {
         return person.getTags().contains(tag);
     }
 }
