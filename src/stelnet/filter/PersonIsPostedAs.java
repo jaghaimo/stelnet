@@ -9,7 +9,7 @@ public class PersonIsPostedAs extends PersonFilter {
     private final String post;
 
     @Override
-    public boolean accept(PersonAPI person) {
+    protected boolean acceptPerson(PersonAPI person) {
         String postId = person.getPostId();
         return postId.equals(post);
     }

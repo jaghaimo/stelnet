@@ -12,7 +12,7 @@ public class CargoStackIsNotMountSize extends CargoStackFilter {
     }
 
     @Override
-    public boolean accept(CargoStackAPI object) {
+    protected boolean acceptCargoStack(CargoStackAPI object) {
         if (!object.isWeaponStack()) {
             return true;
         }

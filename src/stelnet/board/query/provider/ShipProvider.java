@@ -1,15 +1,13 @@
 package stelnet.board.query.provider;
 
+import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.ShipHullSpecAPI;
+import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
-import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.combat.ShipHullSpecAPI;
-import com.fs.starfarer.api.fleet.FleetMemberAPI;
-
 import stelnet.filter.AnyShowInCodex;
 import stelnet.filter.Filter;
 import stelnet.filter.NotFilter;

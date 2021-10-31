@@ -6,17 +6,23 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class ShipHullIsSize extends Filter {
+public class ShipHullIsSize extends FleetMemberFilter {
 
     private final ShipAPI.HullSize hullSize;
 
     @Override
-    public boolean accept(FleetMemberAPI fleetMember) {
+    public boolean accept(Object object) {
+        if (object instanceof ShipHullIsSize) {
+            return acceptShipHull((ShipHullSpecAPI) object);
+        }
+        return super.accept(object);
+    }
+
+    protected boolean acceptFleetMember(FleetMemberAPI fleetMember) {
         return accept(fleetMember.getHullSpec());
     }
 
-    @Override
-    public boolean accept(ShipHullSpecAPI shipHull) {
+    private boolean acceptShipHull(ShipHullSpecAPI shipHull) {
         return hullSize.equals(shipHull.getHullSize());
     }
 }

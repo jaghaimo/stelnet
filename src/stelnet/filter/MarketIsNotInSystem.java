@@ -12,7 +12,7 @@ public class MarketIsNotInSystem extends MarketFilter {
     }
 
     @Override
-    public boolean accept(MarketAPI market) {
+    protected boolean acceptMarket(MarketAPI market) {
         StarSystemAPI starSystem = market.getStarSystem();
         if (starSystem == null) {
             return true;

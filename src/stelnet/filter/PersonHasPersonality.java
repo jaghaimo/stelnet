@@ -9,7 +9,7 @@ public class PersonHasPersonality extends PersonFilter {
     private final String personality;
 
     @Override
-    public boolean accept(PersonAPI person) {
+    public boolean acceptPerson(PersonAPI person) {
         String p = person.getPersonalityAPI().getId();
         return personality.equals(p);
     }

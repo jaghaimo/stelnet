@@ -5,7 +5,14 @@ import com.fs.starfarer.api.characters.SkillSpecAPI;
 public class SkillIsCombatOfficer extends Filter {
 
     @Override
-    public boolean accept(SkillSpecAPI object) {
+    public boolean accept(Object object) {
+        if (object instanceof SkillSpecAPI) {
+            return acceptSkill((SkillSpecAPI) object);
+        }
+        return super.accept(object);
+    }
+
+    private boolean acceptSkill(SkillSpecAPI object) {
         return object.isCombatOfficerSkill();
     }
 }

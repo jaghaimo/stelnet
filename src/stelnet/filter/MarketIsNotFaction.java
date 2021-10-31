@@ -11,7 +11,7 @@ public class MarketIsNotFaction extends MarketFilter {
     }
 
     @Override
-    public boolean accept(MarketAPI market) {
+    protected boolean acceptMarket(MarketAPI market) {
         return !market.getFactionId().equalsIgnoreCase(factionId);
     }
 }

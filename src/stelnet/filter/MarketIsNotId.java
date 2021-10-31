@@ -11,7 +11,7 @@ public class MarketIsNotId extends MarketFilter {
     }
 
     @Override
-    public boolean accept(MarketAPI market) {
+    protected boolean acceptMarket(MarketAPI market) {
         return !market.getId().equalsIgnoreCase(marketId);
     }
 }

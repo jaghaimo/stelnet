@@ -8,7 +8,7 @@ public class NotFilter extends Filter {
     private final Filter filter;
 
     @Override
-    protected boolean acceptImpl(Object object) {
-        return !filter.acceptImpl(object);
+    public boolean accept(Object object) {
+        return !filter.accept(object);
     }
 }

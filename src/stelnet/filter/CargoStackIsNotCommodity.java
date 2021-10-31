@@ -5,7 +5,7 @@ import com.fs.starfarer.api.campaign.CargoStackAPI;
 public class CargoStackIsNotCommodity extends CargoStackFilter {
 
     @Override
-    public boolean accept(CargoStackAPI object) {
+    protected boolean acceptCargoStack(CargoStackAPI object) {
         return !object.isCommodityStack();
     }
 }

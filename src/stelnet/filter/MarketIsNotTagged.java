@@ -12,7 +12,7 @@ public class MarketIsNotTagged extends MarketFilter {
     }
 
     @Override
-    public boolean accept(MarketAPI market) {
+    protected boolean acceptMarket(MarketAPI market) {
         if (market.hasTag(tag)) {
             return false;
         }

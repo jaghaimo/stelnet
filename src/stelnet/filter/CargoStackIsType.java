@@ -17,7 +17,7 @@ public class CargoStackIsType extends CargoStackFilter {
     private final Type type;
 
     @Override
-    public boolean accept(CargoStackAPI c) {
+    protected boolean acceptCargoStack(CargoStackAPI c) {
         switch (type) {
             case WEAPON:
                 return c.isWeaponStack();

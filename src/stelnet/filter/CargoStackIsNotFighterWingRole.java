@@ -12,7 +12,7 @@ public class CargoStackIsNotFighterWingRole extends CargoStackFilter {
     }
 
     @Override
-    public boolean accept(CargoStackAPI object) {
+    protected boolean acceptCargoStack(CargoStackAPI object) {
         if (!object.isFighterWingStack()) {
             return true;
         }

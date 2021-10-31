@@ -5,7 +5,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 public class FleetMemberIsNotFrigate extends FleetMemberFilter {
 
     @Override
-    public boolean accept(FleetMemberAPI object) {
+    protected boolean acceptFleetMember(FleetMemberAPI object) {
         return !object.isFrigate();
     }
 }

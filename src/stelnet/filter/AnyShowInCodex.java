@@ -8,10 +8,7 @@ import com.fs.starfarer.api.loading.WeaponSpecAPI;
 public class AnyShowInCodex extends Filter {
 
     @Override
-    protected <T> boolean acceptImpl(T object) {
-        if (super.acceptImpl(object)) {
-            return true;
-        }
+    public boolean accept(Object object) {
         if (object instanceof FighterWingSpecAPI) {
             return acceptFighterWing((FighterWingSpecAPI) object);
         }
@@ -24,17 +21,7 @@ public class AnyShowInCodex extends Filter {
         if (object instanceof WeaponSpecAPI) {
             return acceptWeapon((WeaponSpecAPI) object);
         }
-        return false;
-    }
-
-    @Override
-    protected Class<?>[] supports() {
-        return new Class<?>[] {
-            FighterWingSpecAPI.class,
-            HullModSpecAPI.class,
-            ShipHullSpecAPI.class,
-            WeaponSpecAPI.class,
-        };
+        return super.accept(object);
     }
 
     private boolean acceptFighterWing(FighterWingSpecAPI fighterWing) {
