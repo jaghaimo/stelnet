@@ -14,7 +14,7 @@ public class LevelButton extends AreaCheckbox {
     @Getter
     private final PersonFilter filter;
 
-    public LevelButton(final PersonnelButtonFactory factory, String translationId, PersonFilter filter) {
+    public LevelButton(final PersonnelQueryFactory factory, String translationId, PersonFilter filter) {
         super(new Size(30, 24), L10n.get(translationId), true, false, Misc.getButtonTextColor(), Misc.getGrayColor());
         this.filter = filter;
         final LevelButton button = this;

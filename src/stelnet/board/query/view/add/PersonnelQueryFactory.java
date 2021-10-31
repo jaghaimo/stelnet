@@ -19,14 +19,14 @@ import uilib.Renderable;
 import uilib.RenderableFactory;
 import uilib.property.Size;
 
-public class PersonnelButtonFactory implements RenderableFactory {
+public class PersonnelQueryFactory implements RenderableFactory {
 
     private final PostTypeButton[] postType;
     private final LevelButton[] level;
     private final PersonalityButton[] personality;
     private final SkillButton[] skill;
 
-    public PersonnelButtonFactory() {
+    public PersonnelQueryFactory() {
         postType = getPostTypeButtons();
         level = getLevelButtons();
         personality = getPersonalityButtons();

@@ -20,11 +20,11 @@ public class AddQueryFactory implements RenderableFactory {
     public AddQueryFactory() {
         buttons =
             new QueryTypeButton[] {
-                new QueryTypeButton(this, "Personnel", new PersonnelButtonFactory()),
-                new QueryTypeButton(this, "Weapons", new WeaponButtonFactory()),
-                new QueryTypeButton(this, "Fighters", new FighterButtonFactory()),
-                new QueryTypeButton(this, "Modspecs", new ModspecButtonFactory()),
-                new QueryTypeButton(this, "Ships", new ShipButtonFactory()),
+                new QueryTypeButton(this, "Personnel", new PersonnelQueryFactory()),
+                new QueryTypeButton(this, "Weapons", new WeaponQueryFactory()),
+                new QueryTypeButton(this, "Fighters", new FighterQueryFactory()),
+                new QueryTypeButton(this, "Modspecs", new ModspecQueryFactory()),
+                new QueryTypeButton(this, "Ships", new ShipQueryFactory()),
             };
         defaultFactory = new QueryTypeFactory();
     }
@@ -41,7 +41,8 @@ public class AddQueryFactory implements RenderableFactory {
                 new DynamicGroup(groupWidth, buttons)
             )
         );
-        elements.addAll(nextFactory().create(size));
+        Size currentSize = elements.get(0).getSize();
+        elements.addAll(nextFactory().create(size.reduce(new Size(0, currentSize.getHeight()))));
         return elements;
     }
 

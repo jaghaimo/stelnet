@@ -8,17 +8,22 @@ import uilib.Renderable;
 import uilib.RenderableFactory;
 import uilib.property.Size;
 
-public class WeaponButtonFactory implements RenderableFactory {
+public class WeaponQueryFactory implements RenderableFactory {
 
-    public WeaponButtonFactory() {}
+    private PreviewHelper previewHelper = new PreviewHelper();
 
     @Override
     public List<Renderable> create(Size size) {
         float width = size.getWidth();
         float textWidth = Math.max(width / 4, 200);
-        float groupWidth = width - textWidth;
+        // float groupWidth = width - 2 * textWidth;
         List<Renderable> containers = new LinkedList<>();
-        containers.add(new Cargo(new WeaponProvider().getWeapons(), "No weapons", new Size(width, 500)));
+        addPreview(containers, new Size(textWidth, size.getHeight()));
         return containers;
+    }
+
+    private void addPreview(List<Renderable> containers, Size size) {
+        Cargo cargo = new Cargo(new WeaponProvider().getWeapons(), "No matching weapons found.", size);
+        previewHelper.addPreview(containers, cargo, size);
     }
 }

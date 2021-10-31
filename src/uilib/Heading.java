@@ -11,6 +11,10 @@ public class Heading extends AbstractRenderable {
     private final Color foregroundColor;
     private final Color backgroundColor;
 
+    public Heading(String title) {
+        this(title, null, null);
+    }
+
     public Heading(String title, Color foregroundColor, Color backgroundColor) {
         this.title = title;
         this.foregroundColor = foregroundColor;
@@ -20,6 +24,10 @@ public class Heading extends AbstractRenderable {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        tooltip.addSectionHeading(title, foregroundColor, backgroundColor, Alignment.MID, 10f);
+        if (foregroundColor == null || backgroundColor == null) {
+            tooltip.addSectionHeading(title, Alignment.MID, 0);
+        } else {
+            tooltip.addSectionHeading(title, foregroundColor, backgroundColor, Alignment.MID, 0);
+        }
     }
 }

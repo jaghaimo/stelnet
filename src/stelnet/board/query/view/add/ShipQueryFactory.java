@@ -8,17 +8,22 @@ import uilib.RenderableFactory;
 import uilib.Ships;
 import uilib.property.Size;
 
-public class ShipButtonFactory implements RenderableFactory {
+public class ShipQueryFactory implements RenderableFactory {
 
-    public ShipButtonFactory() {}
+    private PreviewHelper previewHelper = new PreviewHelper();
 
     @Override
     public List<Renderable> create(Size size) {
         float width = size.getWidth();
         float textWidth = Math.max(width / 4, 200);
-        float groupWidth = width - textWidth;
+        // float groupWidth = width - 2 * textWidth;
         List<Renderable> containers = new LinkedList<>();
-        containers.add(new Ships(new ShipProvider().getShips(), "No ships", new Size(width, 500)));
+        addPreview(containers, new Size(textWidth, size.getHeight()));
         return containers;
+    }
+
+    private void addPreview(List<Renderable> containers, Size size) {
+        Ships cargo = new Ships(new ShipProvider().getShips(), "No matching ships found.", size);
+        previewHelper.addPreview(containers, cargo, size);
     }
 }
