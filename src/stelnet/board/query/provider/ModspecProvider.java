@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import stelnet.filter.AnyShowInCodex;
-import stelnet.filter.CargoStackIsType;
 import stelnet.filter.Filter;
 import stelnet.util.CargoUtils;
 import stelnet.util.CollectionUtils;
@@ -28,7 +27,7 @@ public class ModspecProvider {
 
     private CargoAPI convertToCargo(List<HullModSpecAPI> hullModSpecs, List<Filter> filters) {
         List<CargoStackAPI> cargoStacks = makeCargoStacks(hullModSpecs);
-        CollectionUtils.reduce(cargoStacks, new CargoStackIsType(CargoStackIsType.Type.MODSPEC));
+        // CollectionUtils.reduce(cargoStacks, new NotFilter(new CargoStackIsType(CargoStackIsType.Type.MODSPEC)));
         CollectionUtils.reduce(cargoStacks, filters);
         return CargoUtils.makeCargoFromStacks(cargoStacks);
     }

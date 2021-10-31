@@ -2,6 +2,7 @@ package stelnet.filter;
 
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.CommDirectoryEntryAPI;
+import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
@@ -13,48 +14,26 @@ import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
 
-public abstract class Filter {
+public class Filter {
 
-    public boolean accept(Object object) {
-        if (object instanceof CargoStackAPI) {
-            return accept((CargoStackAPI) object);
-        }
-        if (object instanceof CommDirectoryEntryAPI) {
-            return accept((CommDirectoryEntryAPI) object);
-        }
-        if (object instanceof CommoditySpecAPI) {
-            return accept((CommoditySpecAPI) object);
-        }
-        if (object instanceof FighterWingSpecAPI) {
-            return accept((FighterWingSpecAPI) object);
-        }
-        if (object instanceof FleetMemberAPI) {
-            return accept((FleetMemberAPI) object);
-        }
-        if (object instanceof HullModSpecAPI) {
-            return accept((HullModSpecAPI) object);
-        }
-        if (object instanceof MarketAPI) {
-            return accept((MarketAPI) object);
-        }
-        if (object instanceof PersonAPI) {
-            return accept((PersonAPI) object);
-        }
-        if (object instanceof ShipHullSpecAPI) {
-            return accept((ShipHullSpecAPI) object);
-        }
-        if (object instanceof SkillSpecAPI) {
-            return accept((SkillSpecAPI) object);
-        }
-        if (object instanceof SubmarketAPI) {
-            return accept((SubmarketAPI) object);
-        }
-        if (object instanceof WeaponSpecAPI) {
-            return accept((WeaponSpecAPI) object);
+    public final boolean accept(Object object) {
+        for (Class<?> supportedClass : supports()) {
+            if (supportedClass.isInstance(object)) {
+                return acceptImpl(object);
+            }
         }
         return false;
     }
 
+    protected <T> boolean acceptImpl(T object) {
+        return false;
+    }
+
+    protected Class<?>[] supports() {
+        return new Class<?>[] { Object.class };
+    }
+
+    // Deprecated
     public boolean accept(CargoStackAPI cargoStack) {
         return false;
     }
@@ -64,6 +43,10 @@ public abstract class Filter {
     }
 
     public boolean accept(CommoditySpecAPI commodity) {
+        return false;
+    }
+
+    public boolean accept(FactionAPI faction) {
         return false;
     }
 
