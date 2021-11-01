@@ -10,15 +10,14 @@ import uilib.property.Size;
 
 public class FighterQueryFactory implements RenderableFactory {
 
+    private SizeHelper sizeHelper;
     private final PreviewHelper previewHelper = new PreviewHelper();
 
     @Override
     public List<Renderable> create(Size size) {
-        float width = size.getWidth();
-        float textWidth = Math.max(width / 4, 200);
-        // float groupWidth = width - 2 * textWidth;
+        sizeHelper = new SizeHelper(size);
         List<Renderable> containers = new LinkedList<>();
-        addPreview(containers, new Size(textWidth, size.getHeight()));
+        addPreview(containers, new Size(sizeHelper.getTextWidth(), size.getHeight()));
         return containers;
     }
 

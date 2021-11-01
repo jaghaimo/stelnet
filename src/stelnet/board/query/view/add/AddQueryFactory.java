@@ -1,6 +1,7 @@
 package stelnet.board.query.view.add;
 
 import com.fs.starfarer.api.ui.Alignment;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.Getter;
@@ -15,7 +16,6 @@ import uilib.property.Size;
 public class AddQueryFactory implements RenderableFactory {
 
     private final QueryTypeButton[] buttons;
-    private final RenderableFactory defaultFactory;
 
     public AddQueryFactory() {
         buttons =
@@ -26,7 +26,6 @@ public class AddQueryFactory implements RenderableFactory {
                 new QueryTypeButton(this, "Modspecs", new ModspecQueryFactory()),
                 new QueryTypeButton(this, "Ships", new ShipQueryFactory()),
             };
-        defaultFactory = new QueryTypeFactory();
     }
 
     @Override
@@ -60,6 +59,20 @@ public class AddQueryFactory implements RenderableFactory {
                 return button.getNextFactory();
             }
         }
-        return defaultFactory;
+        return new RenderableFactory() {
+            @Override
+            public List<Renderable> create(Size size) {
+                return Collections.<Renderable>singletonList(
+                    new HorizontalViewContainer(
+                        new Paragraph(
+                            "Select a type of query you would like to perform.",
+                            size.getWidth(),
+                            10,
+                            Alignment.MID
+                        )
+                    )
+                );
+            }
+        };
     }
 }
