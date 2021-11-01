@@ -10,7 +10,7 @@ import uilib.property.Size;
 
 public class ShipQueryFactory implements RenderableFactory {
 
-    private PreviewHelper previewHelper = new PreviewHelper();
+    private final PreviewHelper previewHelper = new PreviewHelper();
 
     @Override
     public List<Renderable> create(Size size) {

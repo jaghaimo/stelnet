@@ -6,6 +6,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Ranks;
 import com.fs.starfarer.api.ui.Alignment;
 import java.util.LinkedList;
 import java.util.List;
+import stelnet.board.query.provider.PeopleProvider;
 import stelnet.board.query.provider.SkillProvider;
 import stelnet.filter.PersonHasPersonality;
 import stelnet.filter.PersonHasSkill;
@@ -15,12 +16,15 @@ import stelnet.util.Settings;
 import uilib.DynamicGroup;
 import uilib.HorizontalViewContainer;
 import uilib.Paragraph;
+import uilib.People;
 import uilib.Renderable;
 import uilib.RenderableFactory;
+import uilib.property.Position;
 import uilib.property.Size;
 
 public class PersonnelQueryFactory implements RenderableFactory {
 
+    private final PreviewHelper previewHelper = new PreviewHelper();
     private final PostTypeButton[] postType;
     private final LevelButton[] level;
     private final PersonalityButton[] personality;
@@ -37,12 +41,14 @@ public class PersonnelQueryFactory implements RenderableFactory {
     public List<Renderable> create(Size size) {
         float width = size.getWidth();
         float textWidth = Math.max(width / 4, 200);
-        float groupWidth = width - textWidth;
+        float groupWidth = width - 2 * textWidth;
+        float height = size.getHeight();
         List<Renderable> containers = new LinkedList<>();
-        addPostTypes(containers, textWidth, groupWidth);
-        addLevels(containers, textWidth, groupWidth);
-        addPersonalities(containers, textWidth, groupWidth);
-        addSkills(containers, textWidth, groupWidth);
+        addPreview(containers, new Size(textWidth, height));
+        addPostTypes(containers, textWidth, groupWidth, height);
+        addLevels(containers, textWidth, groupWidth, height);
+        addPersonalities(containers, textWidth, groupWidth, height);
+        addSkills(containers, textWidth, groupWidth, height);
         return containers;
     }
 
@@ -55,19 +61,19 @@ public class PersonnelQueryFactory implements RenderableFactory {
         }
     }
 
-    private void addLevels(List<Renderable> containers, float textWidth, float groupWidth) {
+    private void addLevels(List<Renderable> containers, float textWidth, float groupWidth, float height) {
         if (level.length == 0) {
             return;
         }
-        containers.add(
-            new HorizontalViewContainer(
-                new Paragraph("What should be the minimal level?", textWidth, 4, Alignment.RMID),
-                new DynamicGroup(groupWidth, level)
-            )
+        HorizontalViewContainer container = new HorizontalViewContainer(
+            new Paragraph("What should be the minimal level?", textWidth, 4, Alignment.RMID),
+            new DynamicGroup(groupWidth, level)
         );
+        container.setOffset(new Position(0, height));
+        containers.add(container);
     }
 
-    private void addPersonalities(List<Renderable> containers, float textWidth, float groupWidth) {
+    private void addPersonalities(List<Renderable> containers, float textWidth, float groupWidth, float height) {
         if (personality.length == 0) {
             return;
         }
@@ -79,7 +85,7 @@ public class PersonnelQueryFactory implements RenderableFactory {
         );
     }
 
-    private void addPostTypes(List<Renderable> containers, float textWidth, float groupWidth) {
+    private void addPostTypes(List<Renderable> containers, float textWidth, float groupWidth, float height) {
         if (postType.length == 0) {
             return;
         }
@@ -91,7 +97,7 @@ public class PersonnelQueryFactory implements RenderableFactory {
         );
     }
 
-    private void addSkills(List<Renderable> containers, float textWidth, float groupWidth) {
+    private void addSkills(List<Renderable> containers, float textWidth, float groupWidth, float height) {
         if (skill.length == 0) {
             return;
         }
@@ -101,6 +107,11 @@ public class PersonnelQueryFactory implements RenderableFactory {
                 new DynamicGroup(groupWidth, skill)
             )
         );
+    }
+
+    private void addPreview(List<Renderable> containers, Size size) {
+        People people = new People(new PeopleProvider().getPeople(), "No matching people found.", size);
+        previewHelper.addPreview(containers, people, size);
     }
 
     private LevelButton[] getLevelButtons() {
