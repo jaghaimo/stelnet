@@ -8,7 +8,6 @@ public class SizeHelper {
 
     private final float width;
     private final float height;
-
     private final float textWidth;
     private final float groupWidth;
     private final float previewWidth;

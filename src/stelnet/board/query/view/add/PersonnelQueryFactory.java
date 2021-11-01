@@ -1,14 +1,12 @@
 package stelnet.board.query.view.add;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
 import com.fs.starfarer.api.characters.SkillSpecAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.campaign.ids.Ranks;
 import com.fs.starfarer.api.ui.Alignment;
-
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import stelnet.board.query.provider.PeopleProvider;
 import stelnet.board.query.provider.SkillProvider;
 import stelnet.filter.PersonHasPersonality;

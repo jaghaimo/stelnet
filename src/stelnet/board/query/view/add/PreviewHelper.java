@@ -19,13 +19,10 @@ public class PreviewHelper {
         Heading heading = new Heading("Preview");
         heading.setSize(new Size(size.getWidth(), 25));
         heading.setOffset(offset);
-        // heading.setLocation(Location.TOP_RIGHT);
         previewContent.setSize(size.reduce(new Size(0, 25)));
         previewContent.setOffset(offset);
-        // previewContent.setLocation(Location.TOP_RIGHT);
         VerticalViewContainer verticalView = new VerticalViewContainer(heading, previewContent);
         verticalView.setSize(size.reduce(new Size(0, 25)));
-        // verticalView.setLocation(Location.TOP_RIGHT);
         return verticalView;
     }
 }
