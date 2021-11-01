@@ -3,6 +3,8 @@ package uilib;
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.PositionAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
+import java.awt.Font;
+import java.awt.font.FontRenderContext;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -43,18 +45,14 @@ public abstract class AbstractRenderable implements Renderable {
     }
 
     /**
-     * Guestimate size of the string.
+     * Calculate the width of a string.
      *
-     * @link https://stackoverflow.com/a/60643245
+     * @link https://stackoverflow.com/a/14832962
      */
-    protected float getTextWidth(String s) {
-        String lookup =
-            " .:,;'^`!|jl/\\i-()JfIt[]?{}sr*a\"ce_gFzxk+0123456789<=>~qvy$opnSbduEhTBXY#VRKZN%GUAHD@OQ&wmWLPCM";
-        int result = 0;
-        for (int i = 0; i < s.length(); ++i) {
-            int c = lookup.indexOf(s.charAt(i));
-            result += (c < 0 ? 60 : c) * 9 + 200;
-        }
-        return (float) result / 40;
+    protected float getTextWidth(String text) {
+        Font font = new Font("Insignia", Font.PLAIN, 12);
+        FontRenderContext frc = new FontRenderContext(font.getTransform(), true, true);
+        double longTextAdjustment = 40 + text.length() * 0.5;
+        return (float) (font.getStringBounds(text, frc).getWidth() + longTextAdjustment);
     }
 }
