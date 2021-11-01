@@ -1,11 +1,14 @@
 package stelnet.board.query.view.add;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
 import com.fs.starfarer.api.characters.SkillSpecAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.campaign.ids.Ranks;
 import com.fs.starfarer.api.ui.Alignment;
-import java.util.LinkedList;
-import java.util.List;
+
 import stelnet.board.query.provider.PeopleProvider;
 import stelnet.board.query.provider.SkillProvider;
 import stelnet.filter.PersonHasPersonality;
@@ -19,11 +22,12 @@ import uilib.Paragraph;
 import uilib.People;
 import uilib.Renderable;
 import uilib.RenderableFactory;
-import uilib.property.Position;
+import uilib.VerticalViewContainer;
 import uilib.property.Size;
 
 public class PersonnelQueryFactory implements RenderableFactory {
 
+    private SizeHelper sizeHelper;
     private final PreviewHelper previewHelper = new PreviewHelper();
     private final PostTypeButton[] postType;
     private final LevelButton[] level;
@@ -39,17 +43,10 @@ public class PersonnelQueryFactory implements RenderableFactory {
 
     @Override
     public List<Renderable> create(Size size) {
-        float width = size.getWidth();
-        float textWidth = Math.max(width / 4, 200);
-        float groupWidth = width - 2 * textWidth;
-        float height = size.getHeight();
-        List<Renderable> containers = new LinkedList<>();
-        addPreview(containers, new Size(textWidth, height));
-        addPostTypes(containers, textWidth, groupWidth, height);
-        addLevels(containers, textWidth, groupWidth, height);
-        addPersonalities(containers, textWidth, groupWidth, height);
-        addSkills(containers, textWidth, groupWidth, height);
-        return containers;
+        sizeHelper = new SizeHelper(size);
+        Renderable container = getContainer();
+        Renderable preview = getPreview(new Size(sizeHelper.getPreviewWidth(), sizeHelper.getHeight()));
+        return Collections.<Renderable>singletonList(new HorizontalViewContainer(container, preview));
     }
 
     public void setLevel(LevelButton active) {
@@ -61,57 +58,66 @@ public class PersonnelQueryFactory implements RenderableFactory {
         }
     }
 
-    private void addLevels(List<Renderable> containers, float textWidth, float groupWidth, float height) {
+    private void addLevels(List<Renderable> containers) {
         if (level.length == 0) {
             return;
         }
         HorizontalViewContainer container = new HorizontalViewContainer(
-            new Paragraph("What should be the minimal level?", textWidth, 4, Alignment.RMID),
-            new DynamicGroup(groupWidth, level)
+            new Paragraph("Minimal level", sizeHelper.getTextWidth(), 4, Alignment.RMID),
+            new DynamicGroup(sizeHelper.getGroupWidth(), level)
         );
-        container.setOffset(new Position(0, height));
         containers.add(container);
     }
 
-    private void addPersonalities(List<Renderable> containers, float textWidth, float groupWidth, float height) {
+    private void addPersonalities(List<Renderable> containers) {
         if (personality.length == 0) {
             return;
         }
         containers.add(
             new HorizontalViewContainer(
-                new Paragraph("What personality should the officer have?", textWidth, 4, Alignment.RMID),
-                new DynamicGroup(groupWidth, personality)
+                new Paragraph("Personality of the officer", sizeHelper.getTextWidth(), 4, Alignment.RMID),
+                new DynamicGroup(sizeHelper.getGroupWidth(), personality)
             )
         );
     }
 
-    private void addPostTypes(List<Renderable> containers, float textWidth, float groupWidth, float height) {
+    private void addPostTypes(List<Renderable> containers) {
         if (postType.length == 0) {
             return;
         }
         containers.add(
             new HorizontalViewContainer(
-                new Paragraph("What type of personnel are you after?", textWidth, 4, Alignment.RMID),
-                new DynamicGroup(groupWidth, postType)
+                new Paragraph("Type of personnel", sizeHelper.getTextWidth(), 4, Alignment.RMID),
+                new DynamicGroup(sizeHelper.getGroupWidth(), postType)
             )
         );
     }
 
-    private void addSkills(List<Renderable> containers, float textWidth, float groupWidth, float height) {
+    private void addSkills(List<Renderable> containers) {
         if (skill.length == 0) {
             return;
         }
         containers.add(
             new HorizontalViewContainer(
-                new Paragraph("What skills should the officer have?", textWidth, 4, Alignment.RMID),
-                new DynamicGroup(groupWidth, skill)
+                new Paragraph("Skills of the officer", sizeHelper.getTextWidth(), 4, Alignment.RMID),
+                new DynamicGroup(sizeHelper.getGroupWidth(), skill)
             )
         );
     }
 
-    private void addPreview(List<Renderable> containers, Size size) {
+    private Renderable getContainer() {
+        List<Renderable> elements = new LinkedList<>();
+        addPostTypes(elements);
+        addLevels(elements);
+        addPersonalities(elements);
+        addSkills(elements);
+        VerticalViewContainer container = new VerticalViewContainer(elements);
+        return container;
+    }
+
+    private Renderable getPreview(Size size) {
         People people = new People(new PeopleProvider().getPeople(), "No matching people found.", size);
-        previewHelper.addPreview(containers, people, size);
+        return previewHelper.getPreview(people, size);
     }
 
     private LevelButton[] getLevelButtons() {

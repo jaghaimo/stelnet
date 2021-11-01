@@ -5,20 +5,27 @@ import uilib.AbstractRenderable;
 import uilib.Heading;
 import uilib.Renderable;
 import uilib.VerticalViewContainer;
-import uilib.property.Location;
+import uilib.property.Position;
 import uilib.property.Size;
 
 public class PreviewHelper {
 
-    public void addPreview(List<Renderable> containers, AbstractRenderable cargo, Size size) {
+    public void addPreview(List<Renderable> containers, AbstractRenderable previewContent, Size size) {
+        containers.add(getPreview(previewContent, size));
+    }
+
+    public Renderable getPreview(AbstractRenderable previewContent, Size size) {
+        Position offset = new Position(0, -20);
         Heading heading = new Heading("Preview");
         heading.setSize(new Size(size.getWidth(), 25));
-        heading.setLocation(Location.TOP_RIGHT);
-        cargo.setSize(size.reduce(new Size(0, 25)));
-        cargo.setLocation(Location.TOP_RIGHT);
-        VerticalViewContainer verticalView = new VerticalViewContainer(heading, cargo);
+        heading.setOffset(offset);
+        // heading.setLocation(Location.TOP_RIGHT);
+        previewContent.setSize(size.reduce(new Size(0, 25)));
+        previewContent.setOffset(offset);
+        // previewContent.setLocation(Location.TOP_RIGHT);
+        VerticalViewContainer verticalView = new VerticalViewContainer(heading, previewContent);
         verticalView.setSize(size.reduce(new Size(0, 25)));
-        verticalView.setLocation(Location.TOP_RIGHT);
-        containers.add(verticalView);
+        // verticalView.setLocation(Location.TOP_RIGHT);
+        return verticalView;
     }
 }

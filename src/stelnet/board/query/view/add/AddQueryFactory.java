@@ -32,12 +32,12 @@ public class AddQueryFactory implements RenderableFactory {
     @Override
     public List<Renderable> create(Size size) {
         float width = size.getWidth();
-        float textWidth = Math.max(width / 4, 200);
+        float textWidth = Math.min(width / 4, 200);
         float groupWidth = width - textWidth;
         List<Renderable> elements = new LinkedList<>();
         elements.add(
             new HorizontalViewContainer(
-                new Paragraph("What would you like to search for?", textWidth, 4, Alignment.RMID),
+                new Paragraph("Type of query", textWidth, 4, Alignment.RMID),
                 new DynamicGroup(groupWidth, buttons)
             )
         );
