@@ -1,4 +1,4 @@
-name: Continuous Integration
+name: Prettier
 
 on:
     pull_request:
@@ -7,7 +7,9 @@ on:
             - master
 
 jobs:
-    prettier:
+    check:
+        name: Check
+
         runs-on: ubuntu-latest
 
         steps:
