@@ -1,6 +1,7 @@
 {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": false,
     "java.configuration.updateBuildConfiguration": "automatic",
-    "prettier.printWidth": 120,
-    "prettier.tabWidth": 4
+    "prettier.prettierPath": "node_modules/prettier"
 }

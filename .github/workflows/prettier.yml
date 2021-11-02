@@ -1,0 +1,4 @@
+- name: actionsx/prettier
+  uses: actionsx/prettier@v2
+  with:
+      args: --check src/
