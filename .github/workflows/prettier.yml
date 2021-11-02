@@ -1,4 +1,23 @@
-- name: actionsx/prettier
-  uses: actionsx/prettier@v2
-  with:
-      args: --check src/
+name: Continuous Integration
+
+on:
+    pull_request:
+    push:
+        branches:
+            - master
+
+jobs:
+    prettier:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+              with:
+                  ref: ${{ github.head_ref }}
+
+            - name: Install Prettier
+              run: npm install
+
+            - name: Check code using Prettier
+              run: npm run check
