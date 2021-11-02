@@ -1,8 +1,4 @@
 version: "2"
 checks:
     similar-code:
-        config:
-            threshold: 80
-    identical-code:
-        config:
-            threshold: 40
+        enabled: false
