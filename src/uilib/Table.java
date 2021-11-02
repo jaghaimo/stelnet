@@ -2,12 +2,12 @@ package uilib;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import stelnet.util.Sector;
 import uilib.property.Size;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Setter
 public class Table extends AbstractRenderable {
 

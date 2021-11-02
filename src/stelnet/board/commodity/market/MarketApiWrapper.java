@@ -2,7 +2,6 @@ package stelnet.board.commodity.market;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
-import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import lombok.Builder;
@@ -52,15 +51,6 @@ public class MarketApiWrapper {
 
     public SectorEntityToken getPrimaryEntity() {
         return marketAPI.getPrimaryEntity();
-    }
-
-    public String getStarSystem() {
-        StarSystemAPI starSystemAPI = marketAPI.getStarSystem();
-        if (starSystemAPI == null) {
-            // TODO : L18n this, also duplicate code
-            return "Hyperspace";
-        }
-        return starSystemAPI.getBaseName();
     }
 
     public float getDistanceToPlayer() {

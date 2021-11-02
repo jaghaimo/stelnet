@@ -2,7 +2,6 @@ package stelnet;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
-import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
@@ -12,6 +11,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import stelnet.util.L10n;
+import stelnet.util.StringUtils;
 import uilib.RenderableIntel;
 
 @RequiredArgsConstructor
@@ -75,16 +75,7 @@ public abstract class BaseIntel extends RenderableIntel {
     }
 
     protected String getLocationNameWithSystem() {
-        return getStarSystemName() + " - " + getLocationName();
-    }
-
-    protected String getStarSystemName() {
-        StarSystemAPI starSystem = sectorEntityToken.getStarSystem();
-        if (starSystem == null) {
-            // TODO : L18n
-            return "Hyperspace";
-        }
-        return starSystem.getBaseName();
+        return StringUtils.getStarSystem(sectorEntityToken) + " - " + getLocationName();
     }
 
     protected abstract IntelInfo getIntelInfo();

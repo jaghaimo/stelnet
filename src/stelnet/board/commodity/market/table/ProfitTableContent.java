@@ -9,6 +9,7 @@ import stelnet.board.commodity.market.MarketApiWrapper;
 import stelnet.board.commodity.market.MarketRepository;
 import stelnet.util.DistanceCalculator;
 import stelnet.util.L10n;
+import stelnet.util.StringUtils;
 import stelnet.util.TableCellHelper;
 import uilib.TableContent;
 
@@ -115,8 +116,8 @@ public class ProfitTableContent implements TableContent {
     }
 
     private Color getRowColor(MarketApiWrapper buyMarket, MarketApiWrapper sellMarket) {
-        String buySystemName = buyMarket.getStarSystem();
-        String sellSystemName = sellMarket.getStarSystem();
+        String buySystemName = StringUtils.getStarSystem(buyMarket.getMarketAPI());
+        String sellSystemName = StringUtils.getStarSystem(sellMarket.getMarketAPI());
         Color color = Misc.getTextColor();
         if (buySystemName.equals(sellSystemName)) {
             color = Misc.getHighlightColor();
