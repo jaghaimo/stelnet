@@ -1,11 +1,9 @@
 package stelnet.board.storage;
 
-import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import lombok.Getter;
 import lombok.Setter;
 import stelnet.BaseBoard;
 import stelnet.BoardInfo;
-import stelnet.util.IntelManager;
 import stelnet.util.L10n;
 import stelnet.util.Settings;
 import stelnet.util.StorageUtils;
@@ -17,15 +15,6 @@ import uilib.RenderableState;
 public class StorageBoard extends BaseBoard {
 
     private final StorageState state = new StorageState();
-
-    public static StorageBoard getInstance() {
-        IntelInfoPlugin intel = IntelManager.getFirstIntel(StorageBoard.class);
-        if (intel == null) {
-            StorageBoard board = new StorageBoard();
-            IntelManager.addIntel(board, true);
-        }
-        return (StorageBoard) intel;
-    }
 
     @Override
     public String getIcon() {

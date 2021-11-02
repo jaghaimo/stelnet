@@ -24,7 +24,7 @@ public class DeleteAllIntel extends Button {
 
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
-                    CommodityBoard board = CommodityBoard.getInstance();
+                    CommodityBoard board = CommodityBoard.getInstance(CommodityBoard.class);
                     board.getState().deleteIntel();
                 }
 

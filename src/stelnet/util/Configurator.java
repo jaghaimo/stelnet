@@ -42,7 +42,7 @@ public class Configurator {
 
     private static void initCommodity(boolean hasCommodities) {
         if (hasCommodities) {
-            CommodityBoard.getInstance();
+            CommodityBoard.getInstance(CommodityBoard.class);
             log.info("Enabled Commodity plugin");
         } else {
             purgeIntel(CommodityBoard.class, CommodityIntel.class);
@@ -52,8 +52,8 @@ public class Configurator {
 
     private static void initMarket(boolean hasMarket) {
         if (hasMarket) {
-            QueryBoard.getInstance();
-            ViewerBoard.getInstance();
+            QueryBoard.getInstance(QueryBoard.class);
+            ViewerBoard.getInstance(ViewerBoard.class);
             log.info("Enabled Market plugin");
         } else {
             purgeIntel(QueryBoard.class, ViewerBoard.class);
@@ -63,7 +63,7 @@ public class Configurator {
 
     private static void initStorage(boolean hasStorage) {
         if (hasStorage) {
-            StorageBoard.getInstance();
+            StorageBoard.getInstance(StorageBoard.class);
             StorageListener.register();
             log.info("Enabled Storage plugin");
         } else {

@@ -15,7 +15,7 @@ public class CommodityTabButton extends TabButton {
             new EventHandler() {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
-                    CommodityBoard board = CommodityBoard.getInstance();
+                    CommodityBoard board = CommodityBoard.getInstance(CommodityBoard.class);
                     board.getState().setActiveTab(currentTab);
                 }
             }

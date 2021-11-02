@@ -23,7 +23,7 @@ public class MarketSelectDialog implements InteractionDialogPlugin {
 
     @Override
     public void init(final InteractionDialogAPI dialog) {
-        final ViewerBoard board = ViewerBoard.getInstance();
+        final ViewerBoard board = ViewerBoard.getInstance(ViewerBoard.class);
         dialog.showCampaignEntityPicker(
             L10n.get("marketViewDialogSelect"),
             L10n.get("marketViewDialogSelected"),

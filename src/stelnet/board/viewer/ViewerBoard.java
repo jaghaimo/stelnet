@@ -1,10 +1,8 @@
 package stelnet.board.viewer;
 
-import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import lombok.Getter;
 import stelnet.BaseBoard;
 import stelnet.BoardInfo;
-import stelnet.util.IntelManager;
 import stelnet.util.L10n;
 import stelnet.util.Settings;
 import stelnet.util.Tagger;
@@ -14,15 +12,6 @@ import uilib.RenderableState;
 public class ViewerBoard extends BaseBoard {
 
     private final ViewerState state = new ViewerState();
-
-    public static ViewerBoard getInstance() {
-        IntelInfoPlugin intel = IntelManager.getFirstIntel(ViewerBoard.class);
-        if (intel == null) {
-            ViewerBoard board = new ViewerBoard();
-            IntelManager.addIntel(board, true);
-        }
-        return (ViewerBoard) intel;
-    }
 
     @Override
     public String getIcon() {
