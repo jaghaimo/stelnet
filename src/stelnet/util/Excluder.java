@@ -3,6 +3,7 @@ package stelnet.util;
 import com.fs.starfarer.api.Global;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.log4j.Log4j;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import stelnet.filter.MarketFilter;
@@ -15,6 +16,7 @@ import stelnet.filter.MarketIsNotTagged;
  * Provides access to user/mod exclusions in the form of a relevant filter
  * objects.
  */
+@Log4j
 public class Excluder {
 
     private static final String FACTIONS = "data/config/stelnet/factions.csv";
@@ -25,7 +27,7 @@ public class Excluder {
     public static List<MarketFilter> getMarketFilters() {
         List<MarketFilter> filters = new ArrayList<>();
         filters = getFactionFilters(filters);
-        filters = getMarketFilters(filters);
+        filters = getMarketIdFilters(filters);
         filters = getSystemFilters(filters);
         filters = getTagFilters(filters);
         return filters;
@@ -38,7 +40,7 @@ public class Excluder {
         return filters;
     }
 
-    private static List<MarketFilter> getMarketFilters(List<MarketFilter> filters) {
+    private static List<MarketFilter> getMarketIdFilters(List<MarketFilter> filters) {
         for (String marketId : getStrings(MARKETS)) {
             filters.add(new MarketIsNotId(marketId));
         }
@@ -67,7 +69,9 @@ public class Excluder {
                 JSONObject row = config.getJSONObject(i);
                 strings.add(row.getString("id"));
             }
-        } catch (Throwable throwable) {}
+        } catch (Throwable throwable) {
+            log.warn("Skipping invalid file " + path, throwable);
+        }
         return strings;
     }
 }
