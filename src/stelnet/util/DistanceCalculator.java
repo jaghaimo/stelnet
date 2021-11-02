@@ -5,13 +5,12 @@ import com.fs.starfarer.api.campaign.JumpPointAPI;
 import com.fs.starfarer.api.campaign.LocationAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.util.Misc;
-import org.lwjgl.util.vector.Vector2f;
 
 public class DistanceCalculator {
 
     public static float getDistanceLY(SectorEntityToken entity1, SectorEntityToken entity2) {
         if (isInSameLocation(entity1, entity2)) {
-            return getDistanceLY(entity1.getLocation(), entity2.getLocation());
+            return Misc.getDistanceLY(entity1.getLocation(), entity2.getLocation());
         }
         float distance = Misc.getDistanceLY(entity1.getLocationInHyperspace(), entity2.getLocationInHyperspace());
         if (!entity1.isInHyperspace()) {
@@ -25,7 +24,7 @@ public class DistanceCalculator {
 
     public static float getDistanceToPlayerLY(SectorEntityToken entity) {
         CampaignFleetAPI player = Sector.getPlayerFleet();
-        return getDistanceLY(player, entity);
+        return Misc.getDistanceLY(player, entity);
     }
 
     private static boolean isInSameLocation(SectorEntityToken entity1, SectorEntityToken entity2) {
@@ -37,15 +36,11 @@ public class DistanceCalculator {
         return entity1Location == entity2Location;
     }
 
-    private static float getDistanceLY(Vector2f from, Vector2f to) {
-        return Misc.getDistance(from, to) / Misc.getUnitsPerLightYear();
-    }
-
     private static float getDistanceToClosestJumpPoint(SectorEntityToken entity) {
         JumpPointAPI jumpPoint = Misc.findNearestJumpPointTo(entity);
         if (jumpPoint == null) {
             return 0;
         }
-        return getDistanceLY(jumpPoint.getLocation(), entity.getLocation());
+        return Misc.getDistanceLY(jumpPoint.getLocation(), entity.getLocation());
     }
 }
