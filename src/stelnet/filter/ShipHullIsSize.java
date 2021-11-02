@@ -2,7 +2,6 @@ package stelnet.filter;
 
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
-
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
