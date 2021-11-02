@@ -1,6 +1,7 @@
 package stelnet.board.storage;
 
 import com.fs.starfarer.api.campaign.CargoAPI;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import java.awt.Color;
@@ -27,6 +28,15 @@ public class StorageIntel extends BaseIntel {
     public StorageIntel(SubmarketAPI storage) {
         super(storage.getMarket().getFaction(), storage.getMarket().getPrimaryEntity());
         this.storage = storage;
+    }
+
+    @Override
+    public int hashCode() {
+        MarketAPI market = storage.getMarket();
+        if (market != null) {
+            return market.getId().hashCode();
+        }
+        return 0;
     }
 
     @Override
