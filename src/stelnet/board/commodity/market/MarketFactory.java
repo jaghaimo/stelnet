@@ -2,6 +2,8 @@ package stelnet.board.commodity.market;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.commodity.market.price.Price;
@@ -22,6 +24,20 @@ public abstract class MarketFactory {
         return mapToWrapper(markets);
     }
 
+    protected void sortMarkets(List<MarketAPI> markets) {
+        Collections.sort(
+            markets,
+            new Comparator<MarketAPI>() {
+                @Override
+                public int compare(MarketAPI marketA, MarketAPI marketB) {
+                    float priceA = getPriceAmount(marketA);
+                    float priceB = getPriceAmount(marketB);
+                    return (int) Math.signum(priceB - priceA);
+                }
+            }
+        );
+    }
+
     private List<MarketApiWrapper> mapToWrapper(List<MarketAPI> entities) {
         List<MarketApiWrapper> list = new ArrayList<>();
         for (MarketAPI marketAPI : entities) {
@@ -35,9 +51,9 @@ public abstract class MarketFactory {
         return list;
     }
 
-    protected abstract void filterMarkets(List<MarketAPI> markets);
-
-    protected abstract void sortMarkets(List<MarketAPI> markets);
-
     protected abstract Price getPrice();
+
+    protected abstract float getPriceAmount(MarketAPI market);
+
+    protected abstract void filterMarkets(List<MarketAPI> markets);
 }
