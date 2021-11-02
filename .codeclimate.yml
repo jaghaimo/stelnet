@@ -2,7 +2,7 @@ version: "2"
 checks:
     similar-code:
         config:
-            threshold: 8
+            threshold: 80
     identical-code:
         config:
-            threshold: 4
+            threshold: 40
