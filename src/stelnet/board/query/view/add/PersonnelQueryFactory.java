@@ -9,6 +9,8 @@ import java.util.LinkedList;
 import java.util.List;
 import stelnet.board.query.provider.PeopleProvider;
 import stelnet.board.query.provider.SkillProvider;
+import stelnet.filter.Filter;
+import stelnet.filter.LogicalOrFilter;
 import stelnet.filter.PersonHasPersonality;
 import stelnet.filter.PersonHasSkill;
 import stelnet.filter.PersonIsPostedAs;
@@ -113,8 +115,15 @@ public class PersonnelQueryFactory implements RenderableFactory {
         return container;
     }
 
+    private List<Filter> getFilters() {
+        List<Filter> filters = new LinkedList<>();
+        filters.add(new LogicalOrFilter(getPostTypeFilters()));
+        return filters;
+    }
+
     private Renderable getPreview(Size size) {
-        People people = new People(new PeopleProvider().getPeople(), "No matching people found.", size);
+        List<Filter> filters = getFilters();
+        People people = new People(new PeopleProvider().getPeople(filters), "No matching people found.", size);
         return previewHelper.getPreview(people, size);
     }
 
@@ -146,6 +155,18 @@ public class PersonnelQueryFactory implements RenderableFactory {
             new PostTypeButton(this, "typeMercenary", new PersonIsPostedAs(Ranks.POST_MERCENARY)),
             new PostTypeButton(this, "typeAgent", new PersonIsPostedAs(Ranks.POST_AGENT)),
         };
+    }
+
+    private List<Filter> getPostTypeFilters() {
+        List<Filter> allFilters = new LinkedList<>();
+        List<Filter> selectedFilters = new LinkedList<>();
+        for (PostTypeButton type : postType) {
+            allFilters.add(type.getFilter());
+            if (type.isStateOn()) {
+                selectedFilters.add(type.getFilter());
+            }
+        }
+        return selectedFilters.isEmpty() ? allFilters : selectedFilters;
     }
 
     private SkillButton[] getSkillButtons() {
