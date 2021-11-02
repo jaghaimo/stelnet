@@ -1,11 +1,14 @@
 package uilib;
 
+import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import lombok.AllArgsConstructor;
+import lombok.Setter;
 import stelnet.util.Sector;
 import uilib.property.Size;
 
 @AllArgsConstructor
+@Setter
 public class Table extends AbstractRenderable {
 
     private static final int ROW_HEIGHT = 20;
@@ -14,6 +17,9 @@ public class Table extends AbstractRenderable {
     private final float width;
     private final float maxHeight;
     private final TableContent tableContent;
+
+    private FactionAPI faction = Sector.getPlayerFaction();
+    private String noRowsDescription = "No rows present.";
 
     @Override
     public Size getSize() {
@@ -25,8 +31,7 @@ public class Table extends AbstractRenderable {
     @Override
     public void render(TooltipMakerAPI tooltip) {
         boolean hasRows = false;
-        // TODO : Externalise faction
-        tooltip.beginTable(Sector.getPlayerFaction(), ROW_HEIGHT, tableContent.getHeaders(width));
+        tooltip.beginTable(faction, ROW_HEIGHT, tableContent.getHeaders(width));
         for (TableContentRow row : tableContent.getRows()) {
             tooltip.addRow(row.buildObjectArray());
             hasRows = true;
@@ -34,7 +39,7 @@ public class Table extends AbstractRenderable {
         if (hasRows) {
             tooltip.addTable(title, 0, 0);
         } else {
-            tooltip.addPara("No rows present.", 0);
+            tooltip.addPara(noRowsDescription, 0);
         }
     }
 }
