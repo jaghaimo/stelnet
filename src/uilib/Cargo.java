@@ -4,7 +4,7 @@ import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import uilib.property.Size;
 
-public class Cargo extends AbstractRenderable {
+public class Cargo extends RenderableComponent {
 
     private final CargoAPI cargo;
     private final String emptyDescription;

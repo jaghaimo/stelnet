@@ -7,7 +7,7 @@ import java.util.List;
 import uilib.property.Size;
 import uilib.tooltip.PersonTooltip;
 
-public class People extends AbstractRenderable {
+public class People extends RenderableComponent {
 
     private final List<PersonAPI> people;
     private final String emptyDescription;

@@ -9,7 +9,7 @@ import uilib.property.Size;
 
 @RequiredArgsConstructor
 @Log4j
-public class CustomPanel extends AbstractRenderable {
+public class CustomPanel extends RenderableComponent {
 
     private final Renderable renderable;
     private CustomPanelAPI customPanel;

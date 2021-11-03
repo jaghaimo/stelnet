@@ -11,7 +11,7 @@ import uilib.property.Position;
 import uilib.property.Size;
 
 @Setter
-public class TabViewContainer extends AbstractRenderable {
+public class TabViewContainer extends RenderableComponent {
 
     private final Map<Button, Renderable> tabs = new LinkedHashMap<>();
     private Button activeTab;

@@ -15,7 +15,7 @@ import uilib.property.Position;
 import uilib.property.Size;
 
 @Getter
-public class AddQueryFactory implements RenderableFactory {
+public class AddQueryFactory extends PreviewableQueryFactory {
 
     private final QueryTypeButton[] buttons;
 
@@ -28,61 +28,63 @@ public class AddQueryFactory implements RenderableFactory {
                 new QueryTypeButton(this, "Modspecs", new ModspecQueryFactory()),
                 new QueryTypeButton(this, "Ships", new ShipQueryFactory()),
             };
+        buttons[0].setStateOn(true);
     }
 
     @Override
     public List<Renderable> create(Size size) {
-        float width = size.getWidth();
-        float textWidth = Math.min(width / 4, 200);
-        float groupWidth = width - textWidth;
+        initSizeHelper(size);
         List<Renderable> elements = new LinkedList<>();
-        elements.add(
-            new HorizontalViewContainer(
-                new Paragraph("Type of query", textWidth, 4, Alignment.RMID),
-                new DynamicGroup(groupWidth, buttons)
-            )
-        );
-        Size currentSize = elements.get(0).getSize();
-        addFromNextFactory(elements, size.reduce(new Size(0, currentSize.getHeight() - 24)));
+        addQueryTypes(elements);
+        addFromNextFactory(elements, size.reduce(new Size(0, FIRST_ROW_HEIGHT)));
         return elements;
     }
 
     public void setQueryType(QueryTypeButton active) {
         for (QueryTypeButton button : buttons) {
-            if (!active.equals(button)) {
-                button.setStateOn(false);
-            }
+            button.setStateOn(active.equals(button));
         }
+    }
+
+    private void addQueryTypes(List<Renderable> elements) {
+        Paragraph label = new Paragraph("Type of query", sizeHelper.getTextWidth(), 4, Alignment.RMID);
+        DynamicGroup group = new DynamicGroup(sizeHelper.getGroupWidth(), buttons);
+        FIRST_ROW_HEIGHT = group.getSize().getHeight();
+        elements.add(new HorizontalViewContainer(label, group));
     }
 
     private void addFromNextFactory(List<Renderable> elements, Size size) {
-        for (QueryTypeButton button : buttons) {
-            if (button.isStateOn()) {
-                elements.addAll(button.getNextFactory().create(size));
-                addQueryButtons(elements);
-                return;
-            }
+        RenderableFactory nextFactory = getNextFactory();
+        if (nextFactory == null) {
+            setQueryType(buttons[0]);
+            nextFactory = getNextFactory();
         }
-        addInitial(elements, size);
-    }
-
-    private void addInitial(List<Renderable> elements, Size size) {
-        elements.add(
-            new HorizontalViewContainer(
-                new Paragraph("Select a type of query you would like to perform.", size.getWidth(), 10, Alignment.MID)
-            )
-        );
+        elements.addAll(nextFactory.create(size));
+        addQueryButtons(elements);
     }
 
     private void addQueryButtons(List<Renderable> elements) {
-        Size buttonSize = new Size(0, QueryTypeFactory.FIRST_ROW_HEIGHT);
+        final float BUTTON_HEIGHT = 30;
+        Position offset = new Position(0, -PreviewableQueryFactory.FIRST_ROW_HEIGHT);
+        Size buttonSize = new Size(0, BUTTON_HEIGHT);
+        Paragraph label = new Paragraph("", sizeHelper.getTextWidth());
         Button search = new Button(buttonSize, "Search", true, Misc.getButtonTextColor());
         Button selectAndSearch = new Button(buttonSize, "Select and Search", true, Misc.getButtonTextColor());
-        search.setOffset(new Position(0, -QueryTypeFactory.FIRST_ROW_HEIGHT));
-        selectAndSearch.setOffset(new Position(0, -QueryTypeFactory.FIRST_ROW_HEIGHT));
-        HorizontalViewContainer horizontalViewContainer = new HorizontalViewContainer(search, selectAndSearch);
-        horizontalViewContainer.setSize(new Size(400, QueryTypeFactory.FIRST_ROW_HEIGHT));
-        horizontalViewContainer.setOffset(new Position(0, -QueryTypeFactory.FIRST_ROW_HEIGHT));
+        label.setOffset(offset);
+        search.setOffset(offset);
+        selectAndSearch.setOffset(offset);
+        HorizontalViewContainer horizontalViewContainer = new HorizontalViewContainer(label, search, selectAndSearch);
+        horizontalViewContainer.setSize(new Size(sizeHelper.getGroupWidth(), BUTTON_HEIGHT));
+        horizontalViewContainer.setOffset(new Position(0, -PreviewableQueryFactory.FIRST_ROW_HEIGHT));
         elements.add(horizontalViewContainer);
+    }
+
+    private RenderableFactory getNextFactory() {
+        for (QueryTypeButton button : buttons) {
+            if (button.isStateOn()) {
+                return button.getNextFactory();
+            }
+        }
+        return null;
     }
 }

@@ -9,7 +9,7 @@ import lombok.Setter;
 import uilib.property.Size;
 
 @Setter
-public class Paragraph extends AbstractRenderable {
+public class Paragraph extends RenderableComponent {
 
     private String text;
     private Color color;
@@ -25,9 +25,13 @@ public class Paragraph extends AbstractRenderable {
         setWithScroller(false);
     }
 
-    public Paragraph(String text, float width, float padding, Alignment alignment) {
+    public Paragraph(String text, float width, float padding) {
         this(text, width);
         setPadding(padding);
+    }
+
+    public Paragraph(String text, float width, float padding, Alignment alignment) {
+        this(text, width, padding);
         setAlignment(alignment);
     }
 

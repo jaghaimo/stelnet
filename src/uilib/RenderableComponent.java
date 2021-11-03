@@ -23,7 +23,7 @@ import uilib.property.Size;
 @Getter
 @Setter
 @Log4j
-public abstract class AbstractRenderable implements Renderable {
+public abstract class RenderableComponent implements Renderable {
 
     private Location location = Location.TOP_LEFT;
     private Position offset = new Position(0, 0);

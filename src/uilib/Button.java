@@ -13,7 +13,7 @@ import uilib.property.Size;
 
 @Getter
 @Setter
-public class Button extends AbstractRenderable implements ButtonHandler {
+public class Button extends RenderableComponent implements ButtonHandler {
 
     private String title;
     private Color color;

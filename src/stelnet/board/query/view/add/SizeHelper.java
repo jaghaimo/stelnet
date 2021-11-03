@@ -12,6 +12,14 @@ public class SizeHelper {
     private final float groupWidth;
     private final float previewWidth;
 
+    public SizeHelper() {
+        width = 0;
+        height = 0;
+        textWidth = 0;
+        groupWidth = 0;
+        previewWidth = 0;
+    }
+
     public SizeHelper(Size size) {
         width = size.getWidth();
         height = size.getHeight();

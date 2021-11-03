@@ -18,7 +18,7 @@ import uilib.property.Size;
 @AllArgsConstructor
 @Getter(AccessLevel.PROTECTED)
 @Log4j
-public class Group extends AbstractRenderable {
+public class Group extends RenderableComponent {
 
     private List<Renderable> elements;
 

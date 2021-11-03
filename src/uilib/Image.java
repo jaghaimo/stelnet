@@ -4,7 +4,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class Image extends AbstractRenderable {
+public class Image extends RenderableComponent {
 
     private final String spriteName;
     private final float width;

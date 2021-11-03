@@ -5,7 +5,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import java.util.List;
 import uilib.property.Size;
 
-public class Ships extends AbstractRenderable {
+public class Ships extends RenderableComponent {
 
     private final List<FleetMemberAPI> ships;
     private final String emptyDescription;

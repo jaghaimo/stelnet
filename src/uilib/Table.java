@@ -9,7 +9,7 @@ import uilib.property.Size;
 
 @RequiredArgsConstructor
 @Setter
-public class Table extends AbstractRenderable {
+public class Table extends RenderableComponent {
 
     private static final int ROW_HEIGHT = 20;
 

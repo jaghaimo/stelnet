@@ -19,7 +19,7 @@ import uilib.property.Size;
 @RequiredArgsConstructor
 @Getter
 @Log4j
-public class DynamicGroup extends AbstractRenderable {
+public class DynamicGroup extends RenderableComponent {
 
     private final float width;
     private final List<Renderable> elements;

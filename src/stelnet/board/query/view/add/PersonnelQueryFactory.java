@@ -20,10 +20,11 @@ import uilib.HorizontalViewContainer;
 import uilib.Paragraph;
 import uilib.People;
 import uilib.Renderable;
+import uilib.RenderableComponent;
 import uilib.VerticalViewContainer;
 import uilib.property.Size;
 
-public class PersonnelQueryFactory extends QueryTypeFactory {
+public class PersonnelQueryFactory extends PreviewableQueryFactory {
 
     private final PostTypeButton[] postType;
     private final LevelButton[] level;
@@ -39,10 +40,7 @@ public class PersonnelQueryFactory extends QueryTypeFactory {
 
     public void setLevel(LevelButton active) {
         for (LevelButton button : level) {
-            button.setStateOn(false);
-            if (active.equals(button)) {
-                button.setStateOn(true);
-            }
+            button.setStateOn(active.equals(button));
         }
     }
 
@@ -58,16 +56,12 @@ public class PersonnelQueryFactory extends QueryTypeFactory {
     }
 
     @Override
-    protected Renderable getPreview(Size size) {
+    protected RenderableComponent getPreviewContent(Size size) {
         List<Filter> filters = getFilters();
-        People people = new People(new PeopleProvider().getPeople(filters), "No matching people found.", size);
-        return getPreview(people, size);
+        return new People(new PeopleProvider().getPeople(filters), "No matching people found.", size);
     }
 
     private void addLevels(List<Renderable> containers) {
-        if (level.length == 0) {
-            return;
-        }
         HorizontalViewContainer container = new HorizontalViewContainer(
             new Paragraph("Minimal level", sizeHelper.getTextWidth(), 4, Alignment.RMID),
             new DynamicGroup(sizeHelper.getGroupWidth(), level)
@@ -76,9 +70,6 @@ public class PersonnelQueryFactory extends QueryTypeFactory {
     }
 
     private void addPersonalities(List<Renderable> containers) {
-        if (personality.length == 0) {
-            return;
-        }
         containers.add(
             new HorizontalViewContainer(
                 new Paragraph("Personality of the officer", sizeHelper.getTextWidth(), 4, Alignment.RMID),
@@ -88,9 +79,6 @@ public class PersonnelQueryFactory extends QueryTypeFactory {
     }
 
     private void addPostTypes(List<Renderable> containers) {
-        if (postType.length == 0) {
-            return;
-        }
         containers.add(
             new HorizontalViewContainer(
                 new Paragraph("Type of personnel", sizeHelper.getTextWidth(), 4, Alignment.RMID),
@@ -100,9 +88,6 @@ public class PersonnelQueryFactory extends QueryTypeFactory {
     }
 
     private void addSkills(List<Renderable> containers) {
-        if (skill.length == 0) {
-            return;
-        }
         containers.add(
             new HorizontalViewContainer(
                 new Paragraph("Skills of the officer", sizeHelper.getTextWidth(), 4, Alignment.RMID),

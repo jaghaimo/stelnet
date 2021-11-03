@@ -5,7 +5,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import java.awt.Color;
 import uilib.property.Size;
 
-public class Heading extends AbstractRenderable {
+public class Heading extends RenderableComponent {
 
     private final String title;
     private final Color foregroundColor;
