@@ -140,20 +140,20 @@ public class PersonnelQueryFactory implements RenderableFactory {
 
     private PersonalityButton[] getPersonalityButtons() {
         return new PersonalityButton[] {
-            new PersonalityButton(this, "officerTimid", new PersonHasPersonality(Personalities.TIMID)),
-            new PersonalityButton(this, "officerCautious", new PersonHasPersonality(Personalities.CAUTIOUS)),
-            new PersonalityButton(this, "officerSteady", new PersonHasPersonality(Personalities.STEADY)),
-            new PersonalityButton(this, "officerAggressive", new PersonHasPersonality(Personalities.AGGRESSIVE)),
-            new PersonalityButton(this, "officerReckless", new PersonHasPersonality(Personalities.RECKLESS)),
+            new PersonalityButton("officerTimid", new PersonHasPersonality(Personalities.TIMID)),
+            new PersonalityButton("officerCautious", new PersonHasPersonality(Personalities.CAUTIOUS)),
+            new PersonalityButton("officerSteady", new PersonHasPersonality(Personalities.STEADY)),
+            new PersonalityButton("officerAggressive", new PersonHasPersonality(Personalities.AGGRESSIVE)),
+            new PersonalityButton("officerReckless", new PersonHasPersonality(Personalities.RECKLESS)),
         };
     }
 
     private PostTypeButton[] getPostTypeButtons() {
         return new PostTypeButton[] {
-            new PostTypeButton(this, "typeAdmin", new PersonIsPostedAs(Ranks.POST_FREELANCE_ADMIN)),
-            new PostTypeButton(this, "typeOfficer", new PersonIsPostedAs(Ranks.POST_OFFICER_FOR_HIRE)),
-            new PostTypeButton(this, "typeMercenary", new PersonIsPostedAs(Ranks.POST_MERCENARY)),
-            new PostTypeButton(this, "typeAgent", new PersonIsPostedAs(Ranks.POST_AGENT)),
+            new PostTypeButton("typeAdmin", new PersonIsPostedAs(Ranks.POST_FREELANCE_ADMIN)),
+            new PostTypeButton("typeOfficer", new PersonIsPostedAs(Ranks.POST_OFFICER_FOR_HIRE)),
+            new PostTypeButton("typeMercenary", new PersonIsPostedAs(Ranks.POST_MERCENARY)),
+            new PostTypeButton("typeAgent", new PersonIsPostedAs(Ranks.POST_AGENT)),
         };
     }
 
@@ -173,7 +173,7 @@ public class PersonnelQueryFactory implements RenderableFactory {
         List<SkillButton> skillButtons = new LinkedList<>();
         List<SkillSpecAPI> skills = (new SkillProvider()).getSkills(new SkillIsCombatOfficer());
         for (SkillSpecAPI skill : skills) {
-            skillButtons.add(new SkillButton(this, skill.getName(), new PersonHasSkill(skill.getId())));
+            skillButtons.add(new SkillButton(skill.getName(), new PersonHasSkill(skill.getId())));
         }
         return skillButtons.toArray(new SkillButton[] {});
     }

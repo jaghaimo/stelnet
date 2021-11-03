@@ -26,11 +26,11 @@ public class StorageView implements RenderableFactory {
     public List<Renderable> create(Size size) {
         List<Renderable> renderables = new LinkedList<>();
         renderables.addAll(new MarketView(state).create(size));
-        renderables.add(getNextStrategyButton(size));
+        renderables.add(getNextStrategyButton());
         return renderables;
     }
 
-    private Renderable getNextStrategyButton(Size size) {
+    private Renderable getNextStrategyButton() {
         final GroupingStrategy nextStrategy = groupingStrategy.getNext();
         DisplayStrategyButton button = new DisplayStrategyButton(nextStrategy);
         button.setHandler(
