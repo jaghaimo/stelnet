@@ -6,7 +6,7 @@ import com.fs.starfarer.api.loading.HullModSpecAPI;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import stelnet.filter.AnyShowInCodex;
+import stelnet.filter.AnyShowInCodexFilter;
 import stelnet.filter.Filter;
 import stelnet.util.CargoUtils;
 import stelnet.util.CollectionUtils;
@@ -21,7 +21,7 @@ public class ModspecProvider {
 
     public CargoAPI getModspecs(List<Filter> filters) {
         List<HullModSpecAPI> hullModSpecs = Settings.getAllHullModSpecs();
-        CollectionUtils.reduce(hullModSpecs, new AnyShowInCodex());
+        CollectionUtils.reduce(hullModSpecs, new AnyShowInCodexFilter());
         return convertToCargo(hullModSpecs, filters);
     }
 

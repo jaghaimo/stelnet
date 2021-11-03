@@ -5,7 +5,7 @@ import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
 
-public class AnyShowInCodex extends Filter {
+public class AnyShowInCodexFilter extends Filter {
 
     @Override
     public boolean accept(Object object) {

@@ -6,7 +6,7 @@ import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import stelnet.filter.AnyShowInCodex;
+import stelnet.filter.AnyShowInCodexFilter;
 import stelnet.filter.Filter;
 import stelnet.util.CargoUtils;
 import stelnet.util.CollectionUtils;
@@ -21,7 +21,7 @@ public class FighterProvider {
 
     public CargoAPI getFighters(List<Filter> filters) {
         List<FighterWingSpecAPI> fighterWings = Settings.getAllFighterWingSpecs();
-        CollectionUtils.reduce(fighterWings, new AnyShowInCodex());
+        CollectionUtils.reduce(fighterWings, new AnyShowInCodexFilter());
         return convertToCargo(fighterWings, filters);
     }
 

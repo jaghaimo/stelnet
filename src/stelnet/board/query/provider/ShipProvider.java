@@ -9,9 +9,9 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import stelnet.filter.AnyShowInCodex;
+import stelnet.filter.AnyShowInCodexFilter;
 import stelnet.filter.Filter;
-import stelnet.filter.NotFilter;
+import stelnet.filter.LogicalNotFilter;
 import stelnet.filter.ShipBaseHullId;
 import stelnet.filter.ShipHullIsSize;
 import stelnet.util.CollectionUtils;
@@ -35,11 +35,11 @@ public class ShipProvider {
 
     private List<Filter> getCommonFilters() {
         return Arrays.asList(
-            new AnyShowInCodex(),
-            new NotFilter(new ShipHullIsSize(ShipAPI.HullSize.FIGHTER)),
-            new NotFilter(new ShipBaseHullId("gargoyle")),
-            new NotFilter(new ShipBaseHullId("merlon")),
-            new NotFilter(new ShipBaseHullId("ravelin"))
+            new AnyShowInCodexFilter(),
+            new LogicalNotFilter(new ShipHullIsSize(ShipAPI.HullSize.FIGHTER)),
+            new LogicalNotFilter(new ShipBaseHullId("gargoyle")),
+            new LogicalNotFilter(new ShipBaseHullId("merlon")),
+            new LogicalNotFilter(new ShipBaseHullId("ravelin"))
         );
     }
 

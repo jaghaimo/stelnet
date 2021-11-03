@@ -6,7 +6,7 @@ import com.fs.starfarer.api.characters.PersonAPI;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class AnyHasTag extends Filter {
+public class AnyHasTagFilter extends Filter {
 
     private final String tag;
 
