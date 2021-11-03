@@ -2,7 +2,7 @@ package stelnet.board.query.view.add;
 
 import java.util.LinkedList;
 import java.util.List;
-import stelnet.board.query.provider.WeaponProvider;
+import stelnet.board.query.provider.CargoProvider;
 import uilib.Cargo;
 import uilib.Renderable;
 import uilib.RenderableFactory;
@@ -22,7 +22,7 @@ public class WeaponQueryFactory implements RenderableFactory {
     }
 
     private void addPreview(List<Renderable> containers, Size size) {
-        Cargo cargo = new Cargo(new WeaponProvider().getWeapons(), "No matching weapons found.", size);
+        Cargo cargo = new Cargo(new CargoProvider().getWeapons(), "No matching weapons found.", size);
         previewHelper.addPreview(containers, cargo, size);
     }
 }

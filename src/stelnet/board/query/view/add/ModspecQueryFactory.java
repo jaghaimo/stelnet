@@ -2,7 +2,7 @@ package stelnet.board.query.view.add;
 
 import java.util.LinkedList;
 import java.util.List;
-import stelnet.board.query.provider.ModspecProvider;
+import stelnet.board.query.provider.CargoProvider;
 import uilib.Cargo;
 import uilib.Renderable;
 import uilib.RenderableFactory;
@@ -22,7 +22,7 @@ public class ModspecQueryFactory implements RenderableFactory {
     }
 
     private void addPreview(List<Renderable> containers, Size size) {
-        Cargo cargo = new Cargo(new ModspecProvider().getModspecs(), "No matching modspecs found.", size);
+        Cargo cargo = new Cargo(new CargoProvider().getModspecs(), "No matching modspecs found.", size);
         previewHelper.addPreview(containers, cargo, size);
     }
 }
