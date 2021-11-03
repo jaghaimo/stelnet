@@ -1,19 +1,16 @@
 package stelnet.board.viewer;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.CampaignEntityPickerListener;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.InteractionDialogPlugin;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
 import com.fs.starfarer.api.combat.EngagementResultAPI;
 import com.fs.starfarer.api.ui.IntelUIAPI;
-import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import stelnet.util.L10n;
-import stelnet.widget.viewer.InMarketStrategy;
 
 @RequiredArgsConstructor
 public class MarketSelectDialog implements InteractionDialogPlugin {
@@ -23,59 +20,13 @@ public class MarketSelectDialog implements InteractionDialogPlugin {
 
     @Override
     public void init(final InteractionDialogAPI dialog) {
-        final ViewerBoard board = ViewerBoard.getInstance(ViewerBoard.class);
         dialog.showCampaignEntityPicker(
             L10n.get("marketViewDialogSelect"),
             L10n.get("marketViewDialogSelected"),
             L10n.get("marketViewDialogConfirm"),
             Global.getSector().getPlayerFaction(),
             entities,
-            new CampaignEntityPickerListener() {
-                @Override
-                public String getMenuItemNameOverrideFor(SectorEntityToken entity) {
-                    return null;
-                }
-
-                @Override
-                public void pickedEntity(SectorEntityToken entity) {
-                    board.getState().setDisplayStrategy(new InMarketStrategy(entity.getMarket()));
-                    ui.updateUIForItem(board);
-                    dialog.dismiss();
-                }
-
-                @Override
-                public void cancelledEntityPicking() {
-                    ui.updateUIForItem(board);
-                    dialog.dismiss();
-                }
-
-                @Override
-                public String getSelectedTextOverrideFor(SectorEntityToken entity) {
-                    return L10n.get(
-                        "marketViewDialogSelection",
-                        entity.getName(),
-                        entity.getContainingLocation().getNameWithTypeShort()
-                    );
-                }
-
-                @Override
-                public void createInfoText(TooltipMakerAPI info, SectorEntityToken entity) {}
-
-                @Override
-                public boolean canConfirmSelection(SectorEntityToken entity) {
-                    return true;
-                }
-
-                @Override
-                public float getFuelColorAlphaMult() {
-                    return 0;
-                }
-
-                @Override
-                public float getFuelRangeMult() {
-                    return 0;
-                }
-            }
+            new MarketSelectPicker(dialog, ui)
         );
     }
 

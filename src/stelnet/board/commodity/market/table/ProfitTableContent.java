@@ -99,11 +99,9 @@ public class ProfitTableContent implements TableContent {
         int available = buyFromMarket.getAvailable(commodityId);
         int demand = sellToMarket.getDemand(commodityId);
         int quantity = Math.min(available, demand);
-
         if (quantity <= 0) {
             return 0;
         }
-
         float bought = buyFromMarket.getPriceAmount(quantity);
         float sold = sellToMarket.getPriceAmount(quantity);
         return Math.max(0, sold - bought);
