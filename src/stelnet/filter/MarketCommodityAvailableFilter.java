@@ -16,9 +16,6 @@ public class MarketCommodityAvailableFilter extends MarketFilter {
     protected boolean acceptMarket(MarketAPI market) {
         CommodityOnMarketAPI commodity = market.getCommodityData(commodityId);
         int available = TableCellHelper.getAvailable(commodity);
-        if (available <= 0) {
-            return false;
-        }
-        return true;
+        return available > 0;
     }
 }

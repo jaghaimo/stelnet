@@ -22,7 +22,6 @@ import uilib.property.Size;
 public class DynamicGroup extends AbstractRenderable {
 
     private final float width;
-    private Size size;
     private final List<Renderable> elements;
 
     public DynamicGroup(float width, Renderable... elements) {
@@ -31,10 +30,10 @@ public class DynamicGroup extends AbstractRenderable {
 
     @Override
     public Size getSize() {
-        if (size == null) {
+        if (super.getSize() == null) {
             calculateSize();
         }
-        return size;
+        return super.getSize();
     }
 
     @Override
@@ -63,8 +62,9 @@ public class DynamicGroup extends AbstractRenderable {
             finalOffset = advanceOffset(finalOffset, renderable.getSize(), 0);
             finalSize = renderable.getSize();
         }
-        size = new Size(Math.max(width, finalOffset.getX()), finalOffset.getY() + finalSize.getHeight());
+        Size size = new Size(Math.max(width, finalOffset.getX()), finalOffset.getY() + finalSize.getHeight());
         log.debug("Calculated size as " + size);
+        super.setSize(size);
     }
 
     private Position verifyOffset(Position startingPosition, Size elementSize, float startX) {
