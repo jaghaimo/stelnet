@@ -1,15 +1,17 @@
 package stelnet.board.query.view.add;
 
 import com.fs.starfarer.api.ui.Alignment;
-import java.util.Collections;
+import com.fs.starfarer.api.util.Misc;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.Getter;
+import uilib.Button;
 import uilib.DynamicGroup;
 import uilib.HorizontalViewContainer;
 import uilib.Paragraph;
 import uilib.Renderable;
 import uilib.RenderableFactory;
+import uilib.property.Position;
 import uilib.property.Size;
 
 @Getter
@@ -41,7 +43,7 @@ public class AddQueryFactory implements RenderableFactory {
             )
         );
         Size currentSize = elements.get(0).getSize();
-        elements.addAll(nextFactory().create(size.reduce(new Size(0, currentSize.getHeight()))));
+        addFromNextFactory(elements, size.reduce(new Size(0, currentSize.getHeight() - 24)));
         return elements;
     }
 
@@ -53,26 +55,34 @@ public class AddQueryFactory implements RenderableFactory {
         }
     }
 
-    private RenderableFactory nextFactory() {
+    private void addFromNextFactory(List<Renderable> elements, Size size) {
         for (QueryTypeButton button : buttons) {
             if (button.isStateOn()) {
-                return button.getNextFactory();
+                elements.addAll(button.getNextFactory().create(size));
+                addQueryButtons(elements);
+                return;
             }
         }
-        return new RenderableFactory() {
-            @Override
-            public List<Renderable> create(Size size) {
-                return Collections.<Renderable>singletonList(
-                    new HorizontalViewContainer(
-                        new Paragraph(
-                            "Select a type of query you would like to perform.",
-                            size.getWidth(),
-                            10,
-                            Alignment.MID
-                        )
-                    )
-                );
-            }
-        };
+        addInitial(elements, size);
+    }
+
+    private void addInitial(List<Renderable> elements, Size size) {
+        elements.add(
+            new HorizontalViewContainer(
+                new Paragraph("Select a type of query you would like to perform.", size.getWidth(), 10, Alignment.MID)
+            )
+        );
+    }
+
+    private void addQueryButtons(List<Renderable> elements) {
+        Size buttonSize = new Size(0, QueryTypeFactory.FIRST_ROW_HEIGHT);
+        Button search = new Button(buttonSize, "Search", true, Misc.getButtonTextColor());
+        Button selectAndSearch = new Button(buttonSize, "Select and Search", true, Misc.getButtonTextColor());
+        search.setOffset(new Position(0, -QueryTypeFactory.FIRST_ROW_HEIGHT));
+        selectAndSearch.setOffset(new Position(0, -QueryTypeFactory.FIRST_ROW_HEIGHT));
+        HorizontalViewContainer horizontalViewContainer = new HorizontalViewContainer(search, selectAndSearch);
+        horizontalViewContainer.setSize(new Size(400, QueryTypeFactory.FIRST_ROW_HEIGHT));
+        horizontalViewContainer.setOffset(new Position(0, -QueryTypeFactory.FIRST_ROW_HEIGHT));
+        elements.add(horizontalViewContainer);
     }
 }

@@ -11,17 +11,9 @@ import stelnet.util.SettingsUtils;
 
 public class SkillProvider {
 
-    public List<SkillSpecAPI> getSkills() {
-        return getSkills(Collections.<Filter>emptyList());
-    }
-
     public List<SkillSpecAPI> getSkills(Filter filter) {
-        return getSkills(Collections.singletonList(filter));
-    }
-
-    public List<SkillSpecAPI> getSkills(List<Filter> filters) {
         List<SkillSpecAPI> skills = getAllSkillSpecs();
-        CollectionUtils.reduce(skills, filters);
+        CollectionUtils.reduce(skills, filter);
         Collections.sort(
             skills,
             new Comparator<SkillSpecAPI>() {
