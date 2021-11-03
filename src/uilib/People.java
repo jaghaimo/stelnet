@@ -11,6 +11,9 @@ import uilib.property.Size;
 
 public class People extends AbstractRenderable {
 
+    private final List<PersonAPI> people;
+    private final String emptyDescription;
+
     @RequiredArgsConstructor
     public static class PersonTooltip implements TooltipCreator {
 
@@ -35,9 +38,6 @@ public class People extends AbstractRenderable {
             tooltip.addPara("Level " + String.valueOf(person.getStats().getLevel()), 2);
         }
     }
-
-    private final List<PersonAPI> people;
-    private final String emptyDescription;
 
     public People(List<PersonAPI> people, String emptyDescription, Size size) {
         this.people = people;
