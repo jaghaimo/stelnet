@@ -5,8 +5,8 @@ import lombok.Setter;
 import stelnet.BaseBoard;
 import stelnet.BoardInfo;
 import stelnet.util.L10n;
-import stelnet.util.Settings;
-import stelnet.util.Tagger;
+import stelnet.util.SettingsUtils;
+import stelnet.util.TagContants;
 import uilib.RenderableState;
 
 @Setter
@@ -17,7 +17,7 @@ public class CommodityBoard extends BaseBoard {
 
     @Override
     public String getIcon() {
-        return Settings.getSpriteName("commodity");
+        return SettingsUtils.getSpriteName("commodity");
     }
 
     @Override
@@ -32,6 +32,6 @@ public class CommodityBoard extends BaseBoard {
 
     @Override
     protected String getTag() {
-        return Tagger.COMMODITY;
+        return TagContants.COMMODITY;
     }
 }

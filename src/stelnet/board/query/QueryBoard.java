@@ -4,8 +4,8 @@ import lombok.Getter;
 import stelnet.BaseBoard;
 import stelnet.BoardInfo;
 import stelnet.util.L10n;
-import stelnet.util.Settings;
-import stelnet.util.Tagger;
+import stelnet.util.SettingsUtils;
+import stelnet.util.TagContants;
 import uilib.RenderableState;
 
 /**
@@ -21,7 +21,7 @@ public class QueryBoard extends BaseBoard {
 
     @Override
     public String getIcon() {
-        return Settings.getSpriteName("market");
+        return SettingsUtils.getSpriteName("market");
     }
 
     @Override
@@ -37,6 +37,6 @@ public class QueryBoard extends BaseBoard {
 
     @Override
     protected String getTag() {
-        return Tagger.MARKET;
+        return TagContants.MARKET;
     }
 }

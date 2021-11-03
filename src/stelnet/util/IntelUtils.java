@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Provides easy access to Global.getSector().getIntelManager() methods.
  */
-public class IntelManager {
+public class IntelUtils {
 
     public static void addIntel(BaseIntelPlugin plugin) {
         addIntel(plugin, false);

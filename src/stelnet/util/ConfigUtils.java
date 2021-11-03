@@ -12,7 +12,7 @@ import stelnet.config.BoardConfig;
 import stelnet.config.ModConfig;
 
 @Log4j
-public class Configurator {
+public class ConfigUtils {
 
     public static void configure() {
         ModConfig.configure();
@@ -36,7 +36,7 @@ public class Configurator {
     private static void purgeIntel(Class<?>... classNames) {
         for (Class<?> className : classNames) {
             log.debug("Removing intel " + className);
-            IntelManager.purgeIntel(className);
+            IntelUtils.purgeIntel(className);
         }
     }
 

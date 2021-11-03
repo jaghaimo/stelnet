@@ -7,7 +7,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import java.util.List;
 import java.util.Set;
 import lombok.extern.log4j.Log4j;
-import stelnet.util.IntelManager;
+import stelnet.util.IntelUtils;
 import uilib.Renderable;
 import uilib.RenderableIntel;
 import uilib.RenderableState;
@@ -17,12 +17,12 @@ import uilib.property.Size;
 public abstract class BaseBoard extends RenderableIntel {
 
     public static <T extends BaseIntelPlugin> T getInstance(Class<T> className) {
-        IntelInfoPlugin intel = IntelManager.getFirstIntel(className);
+        IntelInfoPlugin intel = IntelUtils.getFirstIntel(className);
         if (intel == null) {
             try {
                 @SuppressWarnings("deprecation")
                 BaseIntelPlugin board = className.newInstance();
-                IntelManager.addIntel(board, true);
+                IntelUtils.addIntel(board, true);
                 intel = board;
             } catch (Exception exception) {
                 log.warn("Couldn't create board for " + className.getName(), exception);

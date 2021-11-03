@@ -35,7 +35,7 @@ public class MarketUtils {
     }
 
     public static List<MarketAPI> getMarkets(boolean refreshContent) {
-        List<MarketAPI> markets = Economy.getMarkets();
+        List<MarketAPI> markets = EconomyUtils.getMarkets();
         List<MarketFilter> filters = Excluder.getMarketFilters();
         filters.add(new MarketNotHidden());
         CollectionUtils.reduce(markets, filters);

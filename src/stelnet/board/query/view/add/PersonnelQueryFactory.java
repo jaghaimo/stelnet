@@ -15,7 +15,7 @@ import stelnet.filter.PersonHasPersonality;
 import stelnet.filter.PersonHasSkill;
 import stelnet.filter.PersonIsPostedAs;
 import stelnet.filter.SkillIsCombatOfficer;
-import stelnet.util.Settings;
+import stelnet.util.SettingsUtils;
 import uilib.DynamicGroup;
 import uilib.HorizontalViewContainer;
 import uilib.Paragraph;
@@ -129,7 +129,7 @@ public class PersonnelQueryFactory implements RenderableFactory {
 
     private LevelButton[] getLevelButtons() {
         List<LevelButton> levelButtons = new LinkedList<>();
-        for (int i = 1; i <= Settings.getOfficerMaxLevel(); i++) {
+        for (int i = 1; i <= SettingsUtils.getOfficerMaxLevel(); i++) {
             levelButtons.add(new LevelButton(this, String.valueOf(i), null));
         }
         if (levelButtons.size() > 0) {

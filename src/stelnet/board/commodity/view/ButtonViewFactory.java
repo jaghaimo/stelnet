@@ -10,7 +10,7 @@ import stelnet.board.commodity.view.button.CommodityButton;
 import stelnet.filter.AnyHasTagFilter;
 import stelnet.filter.LogicalNotFilter;
 import stelnet.util.CollectionUtils;
-import stelnet.util.Economy;
+import stelnet.util.EconomyUtils;
 import uilib.Button;
 import uilib.Group;
 import uilib.Renderable;
@@ -26,7 +26,7 @@ public class ButtonViewFactory implements RenderableFactory {
     @Override
     public List<Renderable> create(Size size) {
         List<Renderable> buttons = new LinkedList<>();
-        List<CommoditySpecAPI> commodities = Economy.getAllCommodities();
+        List<CommoditySpecAPI> commodities = EconomyUtils.getAllCommodities();
         filterCommodities(commodities);
         sortCommodities(commodities);
         for (CommoditySpecAPI commodity : commodities) {

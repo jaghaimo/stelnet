@@ -15,8 +15,8 @@ import stelnet.filter.LogicalNotFilter;
 import stelnet.filter.ShipBaseHullId;
 import stelnet.filter.ShipHullIsSize;
 import stelnet.util.CollectionUtils;
-import stelnet.util.Factory;
-import stelnet.util.Settings;
+import stelnet.util.FactoryUtils;
+import stelnet.util.SettingsUtils;
 
 public class ShipProvider {
 
@@ -27,7 +27,7 @@ public class ShipProvider {
     }
 
     public List<FleetMemberAPI> getShips(List<Filter> filters) {
-        List<ShipHullSpecAPI> allShipHullSpecs = Settings.getAllShipHullSpecs();
+        List<ShipHullSpecAPI> allShipHullSpecs = SettingsUtils.getAllShipHullSpecs();
         CollectionUtils.reduce(allShipHullSpecs, getCommonFilters());
         Set<String> allHullIds = getHullIds(allShipHullSpecs);
         return convertToFleetMembers(allHullIds, filters);
@@ -61,6 +61,6 @@ public class ShipProvider {
     }
 
     private FleetMemberAPI makeFleetMember(String hullId) {
-        return Factory.createFleetMember(hullId + SUFFIX);
+        return FactoryUtils.createFleetMember(hullId + SUFFIX);
     }
 }

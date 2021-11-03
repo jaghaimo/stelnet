@@ -4,8 +4,8 @@ import lombok.Getter;
 import stelnet.BaseBoard;
 import stelnet.BoardInfo;
 import stelnet.util.L10n;
-import stelnet.util.Settings;
-import stelnet.util.Tagger;
+import stelnet.util.SettingsUtils;
+import stelnet.util.TagContants;
 import uilib.RenderableState;
 
 @Getter
@@ -15,7 +15,7 @@ public class ViewerBoard extends BaseBoard {
 
     @Override
     public String getIcon() {
-        return Settings.getSpriteName("viewer");
+        return SettingsUtils.getSpriteName("viewer");
     }
 
     @Override
@@ -35,6 +35,6 @@ public class ViewerBoard extends BaseBoard {
 
     @Override
     protected String getTag() {
-        return Tagger.MARKET;
+        return TagContants.MARKET;
     }
 }

@@ -9,7 +9,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.fleet.FleetMemberType;
 import com.fs.starfarer.api.impl.campaign.ids.Items;
 
-public class Factory {
+public class FactoryUtils {
 
     public static CargoStackAPI createFighterItem(String variant) {
         return getFactory().createCargoStack(CargoItemType.FIGHTER_CHIP, variant, null);

@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
-import stelnet.util.Settings;
+import stelnet.util.SettingsUtils;
 
 public class SkillProvider {
 
@@ -35,10 +35,10 @@ public class SkillProvider {
     }
 
     private List<SkillSpecAPI> getAllSkillSpecs() {
-        List<String> skillIds = Settings.getAllSkillIds();
+        List<String> skillIds = SettingsUtils.getAllSkillIds();
         List<SkillSpecAPI> skillSpecs = new LinkedList<>();
         for (String skillId : skillIds) {
-            skillSpecs.add(Settings.getSkill(skillId));
+            skillSpecs.add(SettingsUtils.getSkill(skillId));
         }
         return skillSpecs;
     }

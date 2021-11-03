@@ -10,8 +10,8 @@ import stelnet.filter.AnyShowInCodexFilter;
 import stelnet.filter.Filter;
 import stelnet.util.CargoUtils;
 import stelnet.util.CollectionUtils;
-import stelnet.util.Factory;
-import stelnet.util.Settings;
+import stelnet.util.FactoryUtils;
+import stelnet.util.SettingsUtils;
 
 public class FighterProvider {
 
@@ -20,7 +20,7 @@ public class FighterProvider {
     }
 
     public CargoAPI getFighters(List<Filter> filters) {
-        List<FighterWingSpecAPI> fighterWings = Settings.getAllFighterWingSpecs();
+        List<FighterWingSpecAPI> fighterWings = SettingsUtils.getAllFighterWingSpecs();
         CollectionUtils.reduce(fighterWings, new AnyShowInCodexFilter());
         return convertToCargo(fighterWings, filters);
     }
@@ -40,7 +40,7 @@ public class FighterProvider {
     }
 
     private CargoStackAPI makeCargoStack(String fighterId) {
-        CargoStackAPI stack = Factory.createFighterItem(fighterId);
+        CargoStackAPI stack = FactoryUtils.createFighterItem(fighterId);
         stack.setSize(1);
         return stack;
     }

@@ -23,7 +23,7 @@ public class DistanceCalculator {
     }
 
     public static float getDistanceToPlayerLY(SectorEntityToken entity) {
-        CampaignFleetAPI player = Sector.getPlayerFleet();
+        CampaignFleetAPI player = SectorUtils.getPlayerFleet();
         return Misc.getDistanceLY(player, entity);
     }
 

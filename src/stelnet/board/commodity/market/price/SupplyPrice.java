@@ -1,7 +1,7 @@
 package stelnet.board.commodity.market.price;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import stelnet.util.Economy;
+import stelnet.util.EconomyUtils;
 
 public class SupplyPrice implements Price {
 
@@ -10,7 +10,7 @@ public class SupplyPrice implements Price {
 
     public SupplyPrice(String commodityId) {
         this.commodityId = commodityId;
-        this.econUnit = Economy.getCommoditySpec(commodityId).getEconUnit();
+        this.econUnit = EconomyUtils.getCommoditySpec(commodityId).getEconUnit();
     }
 
     @Override

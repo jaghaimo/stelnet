@@ -5,9 +5,9 @@ import lombok.Setter;
 import stelnet.BaseBoard;
 import stelnet.BoardInfo;
 import stelnet.util.L10n;
-import stelnet.util.Settings;
+import stelnet.util.SettingsUtils;
 import stelnet.util.StorageUtils;
-import stelnet.util.Tagger;
+import stelnet.util.TagContants;
 import uilib.RenderableState;
 
 @Getter
@@ -18,7 +18,7 @@ public class StorageBoard extends BaseBoard {
 
     @Override
     public String getIcon() {
-        return Settings.getSpriteName("storage");
+        return SettingsUtils.getSpriteName("storage");
     }
 
     @Override
@@ -33,7 +33,7 @@ public class StorageBoard extends BaseBoard {
 
     @Override
     protected String getTag() {
-        return Tagger.STORAGE;
+        return TagContants.STORAGE;
     }
 
     private String getDescription() {

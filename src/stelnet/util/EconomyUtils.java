@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Provides easy access to Global.getSector().getEconomy() methods.
  */
-public class Economy {
+public class EconomyUtils {
 
     public static List<CommoditySpecAPI> getAllCommodities() {
         List<CommoditySpecAPI> commodities = new ArrayList<>();

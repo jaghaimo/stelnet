@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Provides easy access to Global.getSettings() methods.
  */
-public class Settings {
+public class SettingsUtils {
 
     public static List<FighterWingSpecAPI> getAllFighterWingSpecs() {
         return getSettings().getAllFighterWingSpecs();

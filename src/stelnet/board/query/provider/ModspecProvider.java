@@ -10,8 +10,8 @@ import stelnet.filter.AnyShowInCodexFilter;
 import stelnet.filter.Filter;
 import stelnet.util.CargoUtils;
 import stelnet.util.CollectionUtils;
-import stelnet.util.Factory;
-import stelnet.util.Settings;
+import stelnet.util.FactoryUtils;
+import stelnet.util.SettingsUtils;
 
 public class ModspecProvider {
 
@@ -20,7 +20,7 @@ public class ModspecProvider {
     }
 
     public CargoAPI getModspecs(List<Filter> filters) {
-        List<HullModSpecAPI> hullModSpecs = Settings.getAllHullModSpecs();
+        List<HullModSpecAPI> hullModSpecs = SettingsUtils.getAllHullModSpecs();
         CollectionUtils.reduce(hullModSpecs, new AnyShowInCodexFilter());
         return convertToCargo(hullModSpecs, filters);
     }
@@ -41,7 +41,7 @@ public class ModspecProvider {
     }
 
     private CargoStackAPI makeCargoStack(String hullModId) {
-        CargoStackAPI stack = Factory.createModspecItem(hullModId);
+        CargoStackAPI stack = FactoryUtils.createModspecItem(hullModId);
         stack.setSize(1);
         return stack;
     }

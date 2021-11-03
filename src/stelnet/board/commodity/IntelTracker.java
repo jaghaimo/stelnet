@@ -8,8 +8,8 @@ import lombok.extern.log4j.Log4j;
 import stelnet.board.commodity.CommodityState.CommodityTab;
 import stelnet.board.commodity.market.MarketApiWrapper;
 import stelnet.board.commodity.market.price.Price;
-import stelnet.util.Economy;
-import stelnet.util.IntelManager;
+import stelnet.util.EconomyUtils;
+import stelnet.util.IntelUtils;
 
 @Log4j
 public class IntelTracker extends HashMap<String, CommodityIntel> {
@@ -24,7 +24,7 @@ public class IntelTracker extends HashMap<String, CommodityIntel> {
 
     public void removeAll() {
         for (CommodityIntel intel : values()) {
-            IntelManager.removeIntel(intel);
+            IntelUtils.removeIntel(intel);
         }
         clear();
     }
@@ -41,7 +41,7 @@ public class IntelTracker extends HashMap<String, CommodityIntel> {
 
     public void remove(CommodityIntel intel) {
         String key = getKey(intel.getAction(), intel.getCommodityId(), intel.getMarketWrapper());
-        IntelManager.removeIntel(intel);
+        IntelUtils.removeIntel(intel);
         remove(key);
     }
 
@@ -51,14 +51,14 @@ public class IntelTracker extends HashMap<String, CommodityIntel> {
         CommodityIntel intel = get(key);
         if (intel == null) {
             log.debug("Adding new intel with key " + key);
-            CommoditySpecAPI commodity = Economy.getCommoditySpec(commodityId);
+            CommoditySpecAPI commodity = EconomyUtils.getCommoditySpec(commodityId);
             Price price = market.getPrice();
             intel = new CommodityIntel(action, commodity, market, price);
-            IntelManager.addIntel(intel, true);
+            IntelUtils.addIntel(intel, true);
             put(key, intel);
         } else {
             log.debug("Removing existing intel with key " + key);
-            IntelManager.removeIntel(intel);
+            IntelUtils.removeIntel(intel);
             remove(key);
         }
     }

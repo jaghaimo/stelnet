@@ -10,7 +10,7 @@ import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
 /**
  * Provides easy access to Global.getSector() methods.
  */
-public class Sector {
+public class SectorUtils {
 
     public static CampaignClockAPI getCurrentClock() {
         return getSector().getClock();

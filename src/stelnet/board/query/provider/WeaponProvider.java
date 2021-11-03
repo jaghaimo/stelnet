@@ -10,8 +10,8 @@ import stelnet.filter.AnyShowInCodexFilter;
 import stelnet.filter.Filter;
 import stelnet.util.CargoUtils;
 import stelnet.util.CollectionUtils;
-import stelnet.util.Factory;
-import stelnet.util.Settings;
+import stelnet.util.FactoryUtils;
+import stelnet.util.SettingsUtils;
 
 public class WeaponProvider {
 
@@ -20,7 +20,7 @@ public class WeaponProvider {
     }
 
     public CargoAPI getWeapons(List<Filter> filters) {
-        List<WeaponSpecAPI> allWeaponSpecs = Settings.getAllWeaponSpecs();
+        List<WeaponSpecAPI> allWeaponSpecs = SettingsUtils.getAllWeaponSpecs();
         CollectionUtils.reduce(allWeaponSpecs, new AnyShowInCodexFilter());
         return convertToCargo(allWeaponSpecs, filters);
     }
@@ -40,7 +40,7 @@ public class WeaponProvider {
     }
 
     private CargoStackAPI makeCargoStack(WeaponSpecAPI weaponSpec) {
-        CargoStackAPI stack = Factory.createWeaponItem(weaponSpec.getWeaponId());
+        CargoStackAPI stack = FactoryUtils.createWeaponItem(weaponSpec.getWeaponId());
         stack.setSize(1);
         return stack;
     }

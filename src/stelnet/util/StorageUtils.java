@@ -55,7 +55,7 @@ public class StorageUtils {
 
     public static List<SubmarketAPI> getAllWithAccess() {
         List<SubmarketAPI> availableStorages = new ArrayList<>();
-        for (MarketAPI market : Economy.getMarkets()) {
+        for (MarketAPI market : EconomyUtils.getMarkets()) {
             if (Misc.playerHasStorageAccess(market)) {
                 SubmarketAPI storage = market.getSubmarket(Submarkets.SUBMARKET_STORAGE);
                 availableStorages.add(storage);
