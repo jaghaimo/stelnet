@@ -20,6 +20,7 @@ public abstract class BaseBoard extends RenderableIntel {
         IntelInfoPlugin intel = IntelManager.getFirstIntel(className);
         if (intel == null) {
             try {
+                @SuppressWarnings("deprecation")
                 BaseIntelPlugin board = className.newInstance();
                 IntelManager.addIntel(board, true);
                 intel = board;

@@ -54,20 +54,9 @@ public class ProfitTableContent implements TableContent {
     public void createRows() {
         List<MarketApiWrapper> buyMarkets = marketRepository.getBuyMarkets();
         List<MarketApiWrapper> sellMarkets = marketRepository.getSellMarkets();
-        int i = 1;
-        for (MarketApiWrapper buyMarket : buyMarkets) {
-            for (MarketApiWrapper sellMarket : sellMarkets) {
-                if (getPotentialProfit(buyMarket, sellMarket) <= 0) {
-                    continue;
-                }
-                SortableRow row = createRowData(i, buyMarket, sellMarket);
-                rows.add(row);
-            }
-            i++;
-        }
+        addRows(buyMarkets, sellMarkets);
         Collections.sort(rows);
-        int maxRows = Math.min(rows.size(), 30);
-        rows = rows.subList(0, maxRows);
+        trimRows();
     }
 
     protected SortableRow createRowData(int i, MarketApiWrapper buyMarket, MarketApiWrapper sellMarket) {
@@ -101,6 +90,20 @@ public class ProfitTableContent implements TableContent {
         return sortableRow;
     }
 
+    private void addRows(List<MarketApiWrapper> buyMarkets, List<MarketApiWrapper> sellMarkets) {
+        int i = 1;
+        for (MarketApiWrapper buyMarket : buyMarkets) {
+            for (MarketApiWrapper sellMarket : sellMarkets) {
+                if (getPotentialProfit(buyMarket, sellMarket) <= 0) {
+                    continue;
+                }
+                SortableRow row = createRowData(i, buyMarket, sellMarket);
+                rows.add(row);
+            }
+            i++;
+        }
+    }
+
     private float getPotentialProfit(MarketApiWrapper buyFromMarket, MarketApiWrapper sellToMarket) {
         int available = buyFromMarket.getAvailable(commodityId);
         int demand = sellToMarket.getDemand(commodityId);
@@ -123,5 +126,10 @@ public class ProfitTableContent implements TableContent {
             color = Misc.getHighlightColor();
         }
         return color;
+    }
+
+    private void trimRows() {
+        int maxRows = Math.min(rows.size(), 30);
+        rows = rows.subList(0, maxRows);
     }
 }
