@@ -10,7 +10,6 @@ import stelnet.board.commodity.market.MarketRepository;
 import stelnet.util.DistanceCalculator;
 import stelnet.util.L10n;
 import stelnet.util.StringUtils;
-import stelnet.util.TableCellHelper;
 import uilib.TableContent;
 
 public class ProfitTableContent implements TableContent {
@@ -59,7 +58,7 @@ public class ProfitTableContent implements TableContent {
         trimRows();
     }
 
-    protected SortableRow createRowData(int i, MarketApiWrapper buyMarket, MarketApiWrapper sellMarket) {
+    private SortableRow createRowData(int i, MarketApiWrapper buyMarket, MarketApiWrapper sellMarket) {
         Color color = getRowColor(buyMarket, sellMarket);
         float profit = getPotentialProfit(buyMarket, sellMarket);
         float buyToSellDistance = DistanceCalculator.getDistanceLY(
@@ -70,23 +69,11 @@ public class ProfitTableContent implements TableContent {
         SortableRow sortableRow = new SortableRow(profit);
         sortableRow.addRowNumberCell(i);
         sortableRow.addDGSCreditsCell(color, profit);
-        sortableRow.addRow(
-            TableCellHelper.getFactionColor(buyMarket.getMarketAPI().getFaction()),
-            TableCellHelper.getLocation(buyMarket.getMarketAPI())
-        );
-        sortableRow.addRow(
-            TableCellHelper.getFactionColor(sellMarket.getMarketAPI().getFaction()),
-            TableCellHelper.getLocation(sellMarket.getMarketAPI())
-        );
-        sortableRow.addRow(
-            color,
-            Misc.getDGSCredits(buyMarket.getPriceAmount()) + " / " + buyMarket.getAvailable(commodityId)
-        );
-        sortableRow.addRow(
-            color,
-            Misc.getDGSCredits(sellMarket.getPriceAmount()) + " / " + sellMarket.getDemand(commodityId)
-        );
-        sortableRow.addRow(color, String.format("%.1f", totalDistance));
+        sortableRow.addLocation(buyMarket.getMarketAPI());
+        sortableRow.addLocation(sellMarket.getMarketAPI());
+        sortableRow.addPriceAndQuantity(color, buyMarket.getPriceAmount(), buyMarket.getAvailable(commodityId));
+        sortableRow.addPriceAndQuantity(color, sellMarket.getPriceAmount(), sellMarket.getDemand(commodityId));
+        sortableRow.addCell(color, String.format("%.1f", totalDistance));
         return sortableRow;
     }
 

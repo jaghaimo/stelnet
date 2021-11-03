@@ -15,7 +15,7 @@ public class TableRow implements TableContentRow {
     }
 
     public void addRowNumberCell(Color color, Integer i) {
-        addRow(color, i + ".");
+        addCell(color, i + ".");
     }
 
     public void addDGSCreditsCell(float value) {
@@ -23,7 +23,7 @@ public class TableRow implements TableContentRow {
     }
 
     public void addDGSCreditsCell(Color color, float value) {
-        addRow(color, Misc.getDGSCredits(value));
+        addCell(color, Misc.getDGSCredits(value));
     }
 
     public void addDGSCell(int value) {
@@ -31,14 +31,14 @@ public class TableRow implements TableContentRow {
     }
 
     public void addDGSCell(Color color, int value) {
-        addRow(color, Misc.getWithDGS(value));
+        addCell(color, Misc.getWithDGS(value));
     }
 
     public void addExcessDemandCell(int value) {
-        addRow(getExcessDemandColor(value), getExcessDemandValue(value));
+        addCell(getExcessDemandColor(value), getExcessDemandValue(value));
     }
 
-    public void addRow(Color color, Object element) {
+    protected void addCell(Color color, Object element) {
         elements.add(Alignment.MID);
         elements.add(color);
         elements.add(element.toString());
