@@ -6,7 +6,7 @@ import stelnet.BaseBoard;
 import stelnet.BoardInfo;
 import stelnet.util.L10n;
 import stelnet.util.SettingsUtils;
-import stelnet.util.TagContants;
+import stelnet.util.TagConstants;
 import uilib.RenderableState;
 
 @Setter
@@ -32,6 +32,6 @@ public class CommodityBoard extends BaseBoard {
 
     @Override
     protected String getTag() {
-        return TagContants.COMMODITY;
+        return TagConstants.COMMODITY;
     }
 }

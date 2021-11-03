@@ -4,7 +4,7 @@ package stelnet.util;
  * Centralised location for intel tags. These have to match
  * `assets/data/config/tag_data.json` entries.
  */
-public class TagContants {
+public class TagConstants {
 
     public static final String COMMODITY = "stelnetCommodity";
     public static final String MARKET = "stelnetMarket";

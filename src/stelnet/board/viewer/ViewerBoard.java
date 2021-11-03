@@ -5,7 +5,7 @@ import stelnet.BaseBoard;
 import stelnet.BoardInfo;
 import stelnet.util.L10n;
 import stelnet.util.SettingsUtils;
-import stelnet.util.TagContants;
+import stelnet.util.TagConstants;
 import uilib.RenderableState;
 
 @Getter
@@ -35,6 +35,6 @@ public class ViewerBoard extends BaseBoard {
 
     @Override
     protected String getTag() {
-        return TagContants.MARKET;
+        return TagConstants.MARKET;
     }
 }

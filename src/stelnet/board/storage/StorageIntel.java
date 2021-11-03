@@ -12,7 +12,7 @@ import stelnet.BaseIntel;
 import stelnet.IntelInfo;
 import stelnet.util.CargoUtils;
 import stelnet.util.L10n;
-import stelnet.util.TagContants;
+import stelnet.util.TagConstants;
 import uilib.Cargo;
 import uilib.Heading;
 import uilib.Renderable;
@@ -83,7 +83,7 @@ public class StorageIntel extends BaseIntel {
 
     @Override
     protected String getTag() {
-        return TagContants.STORAGE;
+        return TagConstants.STORAGE;
     }
 
     private String getStorageContent() {

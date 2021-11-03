@@ -7,7 +7,7 @@ import stelnet.BoardInfo;
 import stelnet.util.L10n;
 import stelnet.util.SettingsUtils;
 import stelnet.util.StorageUtils;
-import stelnet.util.TagContants;
+import stelnet.util.TagConstants;
 import uilib.RenderableState;
 
 @Getter
@@ -33,7 +33,7 @@ public class StorageBoard extends BaseBoard {
 
     @Override
     protected String getTag() {
-        return TagContants.STORAGE;
+        return TagConstants.STORAGE;
     }
 
     private String getDescription() {

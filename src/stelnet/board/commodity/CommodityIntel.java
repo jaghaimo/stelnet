@@ -13,7 +13,7 @@ import stelnet.board.commodity.market.MarketApiWrapper;
 import stelnet.board.commodity.market.price.Price;
 import stelnet.board.commodity.view.button.DeleteIntel;
 import stelnet.util.L10n;
-import stelnet.util.TagContants;
+import stelnet.util.TagConstants;
 import uilib.Heading;
 import uilib.Image;
 import uilib.Paragraph;
@@ -96,7 +96,7 @@ public class CommodityIntel extends BaseIntel {
 
     @Override
     protected String getTag() {
-        return TagContants.COMMODITY;
+        return TagConstants.COMMODITY;
     }
 
     private void addPriceChange(List<Renderable> renderables, float width) {
