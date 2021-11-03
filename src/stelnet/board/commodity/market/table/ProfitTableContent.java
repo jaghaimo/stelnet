@@ -81,14 +81,18 @@ public class ProfitTableContent implements TableContent {
         int i = 1;
         for (MarketApiWrapper buyMarket : buyMarkets) {
             for (MarketApiWrapper sellMarket : sellMarkets) {
-                if (getPotentialProfit(buyMarket, sellMarket) <= 0) {
-                    continue;
-                }
-                SortableRow row = createRowData(i, buyMarket, sellMarket);
-                rows.add(row);
+                addRow(i, buyMarket, sellMarket);
             }
             i++;
         }
+    }
+
+    private void addRow(int i, MarketApiWrapper buyMarket, MarketApiWrapper sellMarket) {
+        if (getPotentialProfit(buyMarket, sellMarket) <= 0) {
+            return;
+        }
+        SortableRow row = createRowData(i, buyMarket, sellMarket);
+        rows.add(row);
     }
 
     private float getPotentialProfit(MarketApiWrapper buyFromMarket, MarketApiWrapper sellToMarket) {
