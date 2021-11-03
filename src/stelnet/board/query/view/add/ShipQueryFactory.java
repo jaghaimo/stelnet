@@ -1,28 +1,15 @@
 package stelnet.board.query.view.add;
 
-import java.util.LinkedList;
-import java.util.List;
 import stelnet.board.query.provider.ShipProvider;
 import uilib.Renderable;
-import uilib.RenderableFactory;
 import uilib.Ships;
 import uilib.property.Size;
 
-public class ShipQueryFactory implements RenderableFactory {
-
-    private SizeHelper sizeHelper;
-    private final PreviewHelper previewHelper = new PreviewHelper();
+public class ShipQueryFactory extends QueryTypeFactory {
 
     @Override
-    public List<Renderable> create(Size size) {
-        sizeHelper = new SizeHelper(size);
-        List<Renderable> containers = new LinkedList<>();
-        addPreview(containers, new Size(sizeHelper.getTextWidth(), size.getHeight()));
-        return containers;
-    }
-
-    private void addPreview(List<Renderable> containers, Size size) {
+    protected Renderable getPreview(Size size) {
         Ships cargo = new Ships(new ShipProvider().getShips(), "No matching ships found.", size);
-        previewHelper.addPreview(containers, cargo, size);
+        return getPreview(cargo, size);
     }
 }

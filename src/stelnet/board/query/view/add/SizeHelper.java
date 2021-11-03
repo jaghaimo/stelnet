@@ -19,4 +19,8 @@ public class SizeHelper {
         previewWidth = Math.min(width / 4, 300);
         groupWidth = width - textWidth - previewWidth;
     }
+
+    public float getGroupAndTextWidth() {
+        return groupWidth + textWidth;
+    }
 }
