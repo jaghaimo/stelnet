@@ -47,9 +47,9 @@ public abstract class RenderableComponent implements Renderable {
     /**
      * Calculate the width of a string.
      *
+     * @deprecated Alex will add new method to TooltipMakerAPI in 0.95.1
      * @link https://stackoverflow.com/a/14832962
      */
-    @Deprecated(since = "0.95.1")
     protected float getTextWidth(String text) {
         Font font = new Font("Insignia", Font.PLAIN, 12);
         FontRenderContext frc = new FontRenderContext(font.getTransform(), true, true);

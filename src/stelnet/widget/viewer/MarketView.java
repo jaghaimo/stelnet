@@ -14,6 +14,7 @@ import uilib.RenderableFactory;
 import uilib.Spacer;
 import uilib.TabButton;
 import uilib.TabViewContainer;
+import uilib.property.Position;
 import uilib.property.Size;
 
 public class MarketView implements RenderableFactory {
@@ -73,7 +74,7 @@ public class MarketView implements RenderableFactory {
         contentContainer.setSize(contentSize);
         Group buttonContainer = new Group(buttons);
         buttonContainer.setSize(new Size(size.reduce(contentSize).getWidth(), contentSize.getHeight()));
-        // buttonContainer.setOffset(new Position(10, 0)); // Could replace magic numbers with actual calculations
+        buttonContainer.setOffset(new Position(8, 0));
         return new HorizontalViewContainer(contentContainer, buttonContainer);
     }
 

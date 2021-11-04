@@ -29,8 +29,9 @@ public class HorizontalViewContainer extends Group {
         log(new Position(x, y));
         for (Renderable renderable : getElements()) {
             Size size = renderable.getSize();
+            Position offset = renderable.getOffset();
             renderable.render(panel, x, y);
-            x += size.getWidth() * getLocation().getHorizontalDirection();
+            x += (offset.getX() + size.getWidth()) * getLocation().getHorizontalDirection();
         }
     }
 

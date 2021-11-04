@@ -15,10 +15,6 @@ public class Heading extends RenderableComponent {
         this(title, null, null);
     }
 
-    public Heading(String title, Color color) {
-        this(title, color, color);
-    }
-
     public Heading(String title, Color foregroundColor, Color backgroundColor) {
         this.title = title;
         this.foregroundColor = foregroundColor;
