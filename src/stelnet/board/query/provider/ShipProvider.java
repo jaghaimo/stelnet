@@ -10,8 +10,9 @@ import java.util.Set;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.FactoryUtils;
+import stelnet.util.SettingsUtils;
 
-public class ShipProvider extends QueryProvider {
+public class ShipProvider extends FilterableProvider {
 
     private static final String SUFFIX = "_Hull";
 
@@ -23,6 +24,12 @@ public class ShipProvider extends QueryProvider {
         List<ShipHullSpecAPI> allShipHullSpecs = getShipHulls();
         Set<String> allHullIds = getHullIds(allShipHullSpecs);
         return convertToFleetMembers(allHullIds, filters);
+    }
+
+    protected List<ShipHullSpecAPI> getShipHulls() {
+        List<ShipHullSpecAPI> allShipHullSpecs = SettingsUtils.getAllShipHullSpecs();
+        filter(allShipHullSpecs);
+        return allShipHullSpecs;
     }
 
     private Set<String> getHullIds(List<ShipHullSpecAPI> shipHullSpecs) {

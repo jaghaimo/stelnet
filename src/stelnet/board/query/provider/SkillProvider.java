@@ -9,7 +9,7 @@ import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.SettingsUtils;
 
-public class SkillProvider implements Comparator<SkillSpecAPI> {
+public class SkillProvider extends FilterableProvider implements Comparator<SkillSpecAPI> {
 
     public List<SkillSpecAPI> getSkills(Filter filter) {
         List<SkillSpecAPI> skills = getAllSkillSpecs();

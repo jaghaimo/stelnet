@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class ManufacturerProvider extends QueryProvider {
+public class ManufacturerProvider extends ShipProvider {
 
     public Set<String> getManufacturers() {
         List<ShipHullSpecAPI> allShipHullSpecs = getShipHulls();

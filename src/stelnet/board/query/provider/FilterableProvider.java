@@ -1,7 +1,6 @@
 package stelnet.board.query.provider;
 
 import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import java.util.Arrays;
 import java.util.List;
 import stelnet.filter.AnyShowInCodexFilter;
@@ -10,18 +9,11 @@ import stelnet.filter.LogicalNotFilter;
 import stelnet.filter.ShipBaseHullId;
 import stelnet.filter.ShipHullIsSize;
 import stelnet.util.CollectionUtils;
-import stelnet.util.SettingsUtils;
 
-public class QueryProvider {
+public abstract class FilterableProvider {
 
     protected <T> void filter(List<T> elements) {
         CollectionUtils.reduce(elements, getCommonFilters());
-    }
-
-    protected List<ShipHullSpecAPI> getShipHulls() {
-        List<ShipHullSpecAPI> allShipHullSpecs = SettingsUtils.getAllShipHullSpecs();
-        filter(allShipHullSpecs);
-        return allShipHullSpecs;
     }
 
     private List<Filter> getCommonFilters() {
