@@ -9,14 +9,13 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.experimental.ExtensionMethod;
-import stelnet.filter.AnyShowInCodexFilter;
 import stelnet.filter.Filter;
 import stelnet.util.CargoUtils;
 import stelnet.util.CollectionUtils;
 import stelnet.util.SettingsUtils;
 
 @ExtensionMethod({ CargoStackExtension.class })
-public class CargoProvider {
+public class CargoProvider extends QueryProvider {
 
     public CargoAPI getFighters() {
         return getFighters(Collections.<Filter>emptyList());
@@ -46,7 +45,7 @@ public class CargoProvider {
     }
 
     private <T> CargoAPI convertToCargo(List<T> elements, List<Filter> filters) {
-        CollectionUtils.reduce(elements, new AnyShowInCodexFilter());
+        filter(elements);
         List<CargoStackAPI> cargoStacks = makeCargoStacks(elements);
         CollectionUtils.reduce(cargoStacks, filters);
         return CargoUtils.makeCargoFromStacks(cargoStacks);

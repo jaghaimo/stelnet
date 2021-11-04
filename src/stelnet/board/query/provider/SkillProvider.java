@@ -9,20 +9,12 @@ import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.SettingsUtils;
 
-public class SkillProvider {
+public class SkillProvider implements Comparator<SkillSpecAPI> {
 
     public List<SkillSpecAPI> getSkills(Filter filter) {
         List<SkillSpecAPI> skills = getAllSkillSpecs();
         CollectionUtils.reduce(skills, filter);
-        Collections.sort(
-            skills,
-            new Comparator<SkillSpecAPI>() {
-                @Override
-                public int compare(SkillSpecAPI o1, SkillSpecAPI o2) {
-                    return o1.getName().compareTo(o2.getName());
-                }
-            }
-        );
+        Collections.sort(skills, this);
         return skills;
     }
 
@@ -33,5 +25,10 @@ public class SkillProvider {
             skillSpecs.add(SettingsUtils.getSkill(skillId));
         }
         return skillSpecs;
+    }
+
+    @Override
+    public int compare(SkillSpecAPI o1, SkillSpecAPI o2) {
+        return o1.getName().compareTo(o2.getName());
     }
 }

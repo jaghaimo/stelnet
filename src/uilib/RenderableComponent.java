@@ -49,6 +49,7 @@ public abstract class RenderableComponent implements Renderable {
      *
      * @link https://stackoverflow.com/a/14832962
      */
+    @Deprecated(since = "0.95.1")
     protected float getTextWidth(String text) {
         Font font = new Font("Insignia", Font.PLAIN, 12);
         FontRenderContext frc = new FontRenderContext(font.getTransform(), true, true);

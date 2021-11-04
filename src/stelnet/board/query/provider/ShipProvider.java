@@ -1,24 +1,17 @@
 package stelnet.board.query.provider;
 
-import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import stelnet.filter.AnyShowInCodexFilter;
 import stelnet.filter.Filter;
-import stelnet.filter.LogicalNotFilter;
-import stelnet.filter.ShipBaseHullId;
-import stelnet.filter.ShipHullIsSize;
 import stelnet.util.CollectionUtils;
 import stelnet.util.FactoryUtils;
-import stelnet.util.SettingsUtils;
 
-public class ShipProvider {
+public class ShipProvider extends QueryProvider {
 
     private static final String SUFFIX = "_Hull";
 
@@ -27,20 +20,9 @@ public class ShipProvider {
     }
 
     public List<FleetMemberAPI> getShips(List<Filter> filters) {
-        List<ShipHullSpecAPI> allShipHullSpecs = SettingsUtils.getAllShipHullSpecs();
-        CollectionUtils.reduce(allShipHullSpecs, getCommonFilters());
+        List<ShipHullSpecAPI> allShipHullSpecs = getShipHulls();
         Set<String> allHullIds = getHullIds(allShipHullSpecs);
         return convertToFleetMembers(allHullIds, filters);
-    }
-
-    private List<Filter> getCommonFilters() {
-        return Arrays.asList(
-            new AnyShowInCodexFilter(),
-            new LogicalNotFilter(new ShipHullIsSize(ShipAPI.HullSize.FIGHTER)),
-            new LogicalNotFilter(new ShipBaseHullId("gargoyle")),
-            new LogicalNotFilter(new ShipBaseHullId("merlon")),
-            new LogicalNotFilter(new ShipBaseHullId("ravelin"))
-        );
     }
 
     private Set<String> getHullIds(List<ShipHullSpecAPI> shipHullSpecs) {
