@@ -37,7 +37,7 @@ public class TabViewContainer extends RenderableComponent {
         HorizontalViewContainer tabButtons = new HorizontalViewContainer(new ArrayList<Renderable>(tabs.keySet()));
         Line separatorLine = new Line(tabToDisplay.getSize().getWidth(), Misc.getButtonTextColor());
         separatorLine.setOffset(new Position(0, -4));
-        Spacer spacer = new Spacer(2);
+        Spacer spacer = new Spacer(10);
         new VerticalViewContainer(tabButtons, separatorLine, spacer, tabToDisplay).render(panel, x, y);
     }
 

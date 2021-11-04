@@ -2,10 +2,8 @@ package uilib;
 
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import com.fs.starfarer.api.ui.TooltipMakerAPI.TooltipLocation;
 import java.util.List;
 import uilib.property.Size;
-import uilib.tooltip.PersonTooltip;
 
 public class People extends RenderableComponent {
 
@@ -24,10 +22,10 @@ public class People extends RenderableComponent {
             tooltip.addPara(emptyDescription, 0);
         }
         for (PersonAPI person : people) {
-            TooltipMakerAPI inner = tooltip.beginImageWithText(person.getPortraitSprite(), 20);
-            inner.addPara(person.getNameString(), 0);
-            tooltip.addImageWithText(2);
-            tooltip.addTooltipToPrevious(new PersonTooltip(person), TooltipLocation.LEFT);
+            TooltipMakerAPI inner = tooltip.beginImageWithText(person.getPortraitSprite(), 40);
+            inner.addPara(person.getNameString(), 2);
+            inner.addPara(person.getPost(), 2);
+            tooltip.addImageWithText(4);
         }
     }
 }

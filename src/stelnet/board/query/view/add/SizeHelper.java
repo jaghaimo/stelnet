@@ -25,7 +25,7 @@ public class SizeHelper {
         height = size.getHeight();
         textWidth = Math.min(width / 4, 200);
         previewWidth = Math.min(width / 4, 300);
-        groupWidth = width - textWidth - previewWidth;
+        groupWidth = width - textWidth - previewWidth - 10;
     }
 
     public float getGroupAndTextWidth() {

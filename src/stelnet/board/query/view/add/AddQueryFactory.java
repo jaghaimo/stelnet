@@ -65,14 +65,10 @@ public class AddQueryFactory extends PreviewableQueryFactory {
 
     private void addQueryButtons(List<Renderable> elements) {
         final float BUTTON_HEIGHT = 30;
-        Position offset = new Position(0, -PreviewableQueryFactory.FIRST_ROW_HEIGHT);
         Size buttonSize = new Size(0, BUTTON_HEIGHT);
         Paragraph label = new Paragraph("", sizeHelper.getTextWidth());
         Button search = new Button(buttonSize, "Search", true, Misc.getButtonTextColor());
         Button selectAndSearch = new Button(buttonSize, "Select and Search", true, Misc.getButtonTextColor());
-        label.setOffset(offset);
-        search.setOffset(offset);
-        selectAndSearch.setOffset(offset);
         HorizontalViewContainer horizontalViewContainer = new HorizontalViewContainer(label, search, selectAndSearch);
         horizontalViewContainer.setSize(new Size(sizeHelper.getGroupWidth(), BUTTON_HEIGHT));
         horizontalViewContainer.setOffset(new Position(0, -PreviewableQueryFactory.FIRST_ROW_HEIGHT));

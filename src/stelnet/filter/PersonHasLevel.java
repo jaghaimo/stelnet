@@ -5,14 +5,14 @@ import com.fs.starfarer.api.characters.PersonAPI;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class PersonHasSkill extends PersonFilter {
+public class PersonHasLevel extends PersonFilter {
 
-    private final String skillId;
+    private final int level;
 
     @Override
     public boolean acceptPerson(PersonAPI person) {
         MutableCharacterStatsAPI characterStats = person.getStats();
-        float skillLevel = characterStats.getSkillLevel(skillId);
-        return skillLevel > 0;
+        int personLevel = characterStats.getLevel();
+        return personLevel >= level;
     }
 }

@@ -10,6 +10,7 @@ import stelnet.board.query.provider.PeopleProvider;
 import stelnet.board.query.provider.SkillProvider;
 import stelnet.filter.Filter;
 import stelnet.filter.LogicalOrFilter;
+import stelnet.filter.PersonHasLevel;
 import stelnet.filter.PersonHasPersonality;
 import stelnet.filter.PersonHasSkill;
 import stelnet.filter.PersonIsPostedAs;
@@ -21,6 +22,7 @@ import uilib.Paragraph;
 import uilib.People;
 import uilib.Renderable;
 import uilib.RenderableComponent;
+import uilib.Spacer;
 import uilib.VerticalViewContainer;
 import uilib.property.Size;
 
@@ -28,8 +30,8 @@ public class PersonnelQueryFactory extends PreviewableQueryFactory {
 
     private final PostTypeButton[] postType;
     private final LevelButton[] level;
-    private final PersonalityButton[] personality;
-    private final SkillButton[] skill;
+    private final OfficerButton[] personality;
+    private final OfficerButton[] skill;
 
     public PersonnelQueryFactory() {
         postType = getPostTypeButtons();
@@ -48,6 +50,7 @@ public class PersonnelQueryFactory extends PreviewableQueryFactory {
     protected Renderable getContainer() {
         List<Renderable> elements = new LinkedList<>();
         addPostTypes(elements);
+        elements.add(new Spacer(10));
         addLevels(elements);
         addPersonalities(elements);
         addSkills(elements);
@@ -63,7 +66,7 @@ public class PersonnelQueryFactory extends PreviewableQueryFactory {
 
     private void addLevels(List<Renderable> containers) {
         HorizontalViewContainer container = new HorizontalViewContainer(
-            new Paragraph("Minimal level", sizeHelper.getTextWidth(), 4, Alignment.RMID),
+            new Paragraph("Officer minimal level", sizeHelper.getTextWidth(), 4, Alignment.RMID),
             new DynamicGroup(sizeHelper.getGroupWidth(), level)
         );
         containers.add(container);
@@ -72,7 +75,7 @@ public class PersonnelQueryFactory extends PreviewableQueryFactory {
     private void addPersonalities(List<Renderable> containers) {
         containers.add(
             new HorizontalViewContainer(
-                new Paragraph("Personality of the officer", sizeHelper.getTextWidth(), 4, Alignment.RMID),
+                new Paragraph("Officer personality", sizeHelper.getTextWidth(), 4, Alignment.RMID),
                 new DynamicGroup(sizeHelper.getGroupWidth(), personality)
             )
         );
@@ -90,7 +93,7 @@ public class PersonnelQueryFactory extends PreviewableQueryFactory {
     private void addSkills(List<Renderable> containers) {
         containers.add(
             new HorizontalViewContainer(
-                new Paragraph("Skills of the officer", sizeHelper.getTextWidth(), 4, Alignment.RMID),
+                new Paragraph("Officer skills", sizeHelper.getTextWidth(), 4, Alignment.RMID),
                 new DynamicGroup(sizeHelper.getGroupWidth(), skill)
             )
         );
@@ -98,14 +101,29 @@ public class PersonnelQueryFactory extends PreviewableQueryFactory {
 
     private List<Filter> getFilters() {
         List<Filter> filters = new LinkedList<>();
-        filters.add(new LogicalOrFilter(getPostTypeFilters()));
+        filters.add(new LogicalOrFilter(getFilters(postType)));
+        filters.add(new LogicalOrFilter(getFilters(level)));
+        filters.add(new LogicalOrFilter(getFilters(personality)));
+        filters.add(new LogicalOrFilter(getFilters(skill)));
         return filters;
+    }
+
+    private List<Filter> getFilters(FilteringButton buttons[]) {
+        List<Filter> allFilters = new LinkedList<>();
+        List<Filter> selectedFilters = new LinkedList<>();
+        for (FilteringButton button : buttons) {
+            allFilters.add(button.getFilter());
+            if (button.isStateOn()) {
+                selectedFilters.add(button.getFilter());
+            }
+        }
+        return selectedFilters.isEmpty() ? allFilters : selectedFilters;
     }
 
     private LevelButton[] getLevelButtons() {
         List<LevelButton> levelButtons = new LinkedList<>();
         for (int i = 1; i <= SettingsUtils.getOfficerMaxLevel(); i++) {
-            levelButtons.add(new LevelButton(this, String.valueOf(i), null));
+            levelButtons.add(new LevelButton(this, String.valueOf(i), new PersonHasLevel(i)));
         }
         if (levelButtons.size() > 0) {
             levelButtons.get(0).setStateOn(true);
@@ -113,13 +131,13 @@ public class PersonnelQueryFactory extends PreviewableQueryFactory {
         return levelButtons.toArray(new LevelButton[] {});
     }
 
-    private PersonalityButton[] getPersonalityButtons() {
-        return new PersonalityButton[] {
-            new PersonalityButton("officerTimid", new PersonHasPersonality(Personalities.TIMID)),
-            new PersonalityButton("officerCautious", new PersonHasPersonality(Personalities.CAUTIOUS)),
-            new PersonalityButton("officerSteady", new PersonHasPersonality(Personalities.STEADY)),
-            new PersonalityButton("officerAggressive", new PersonHasPersonality(Personalities.AGGRESSIVE)),
-            new PersonalityButton("officerReckless", new PersonHasPersonality(Personalities.RECKLESS)),
+    private OfficerButton[] getPersonalityButtons() {
+        return new OfficerButton[] {
+            new OfficerButton("officerTimid", new PersonHasPersonality(Personalities.TIMID)),
+            new OfficerButton("officerCautious", new PersonHasPersonality(Personalities.CAUTIOUS)),
+            new OfficerButton("officerSteady", new PersonHasPersonality(Personalities.STEADY)),
+            new OfficerButton("officerAggressive", new PersonHasPersonality(Personalities.AGGRESSIVE)),
+            new OfficerButton("officerReckless", new PersonHasPersonality(Personalities.RECKLESS)),
         };
     }
 
@@ -132,24 +150,12 @@ public class PersonnelQueryFactory extends PreviewableQueryFactory {
         };
     }
 
-    private List<Filter> getPostTypeFilters() {
-        List<Filter> allFilters = new LinkedList<>();
-        List<Filter> selectedFilters = new LinkedList<>();
-        for (PostTypeButton type : postType) {
-            allFilters.add(type.getFilter());
-            if (type.isStateOn()) {
-                selectedFilters.add(type.getFilter());
-            }
-        }
-        return selectedFilters.isEmpty() ? allFilters : selectedFilters;
-    }
-
-    private SkillButton[] getSkillButtons() {
-        List<SkillButton> skillButtons = new LinkedList<>();
+    private OfficerButton[] getSkillButtons() {
+        List<OfficerButton> skillButtons = new LinkedList<>();
         List<SkillSpecAPI> skills = (new SkillProvider()).getSkills(new SkillIsCombatOfficer());
         for (SkillSpecAPI skill : skills) {
-            skillButtons.add(new SkillButton(skill.getName(), new PersonHasSkill(skill.getId())));
+            skillButtons.add(new OfficerButton(skill.getName(), new PersonHasSkill(skill.getId())));
         }
-        return skillButtons.toArray(new SkillButton[] {});
+        return skillButtons.toArray(new OfficerButton[] {});
     }
 }

@@ -6,7 +6,7 @@ import lombok.extern.log4j.Log4j;
 
 @Log4j
 @RequiredArgsConstructor
-public class LogicalOrFilter extends Filter {
+public class LogicalAndFilter extends Filter {
 
     private final List<Filter> filters;
 
@@ -17,10 +17,10 @@ public class LogicalOrFilter extends Filter {
                 log.warn("Skipping null filter!");
                 continue;
             }
-            if (filter.accept(object)) {
-                return true;
+            if (!filter.accept(object)) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 }

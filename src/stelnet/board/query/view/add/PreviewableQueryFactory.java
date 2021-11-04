@@ -42,12 +42,10 @@ public abstract class PreviewableQueryFactory implements RenderableFactory {
     protected Renderable getPreview(RenderableComponent previewContent, Size size) {
         final float MOVE_UP = 20;
         final float HEADING_HEIGHT = 25;
-        Position offset = new Position(0, -MOVE_UP);
         Heading heading = new Heading("Preview");
         heading.setSize(new Size(size.getWidth(), HEADING_HEIGHT));
-        heading.setOffset(offset);
-        previewContent.setSize(size.reduce(new Size(0, MOVE_UP + HEADING_HEIGHT)));
-        previewContent.setOffset(offset);
+        heading.setOffset(new Position(0, -MOVE_UP));
+        previewContent.setSize(size.reduce(new Size(0, HEADING_HEIGHT)));
         VerticalViewContainer verticalView = new VerticalViewContainer(heading, previewContent);
         verticalView.setSize(size.reduce(new Size(0, MOVE_UP + HEADING_HEIGHT)));
         return verticalView;

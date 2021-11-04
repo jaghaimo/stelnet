@@ -25,8 +25,7 @@ public class ProfitTableContent implements TableContent {
     }
 
     @Override
-    public Object[] getHeaders(float maxWidth) {
-        float width = maxWidth - 22;
+    public Object[] getHeaders(float width) {
         return new Object[] {
             "#",
             .05f * width,

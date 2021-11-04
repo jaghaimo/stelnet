@@ -7,7 +7,7 @@ import stelnet.util.L10n;
 import uilib.AreaCheckbox;
 import uilib.property.Size;
 
-public class PostTypeButton extends AreaCheckbox {
+public class PostTypeButton extends AreaCheckbox implements FilteringButton {
 
     @Getter
     private final PersonIsPostedAs filter;

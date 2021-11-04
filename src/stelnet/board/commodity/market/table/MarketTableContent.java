@@ -19,8 +19,7 @@ public abstract class MarketTableContent implements TableContent {
     protected final List<MarketApiWrapper> markets;
     protected List<TableRow> rows = new ArrayList<>();
 
-    protected Object[] getHeader(float maxWidth, String availableOrDemand, String excessOrDeficit) {
-        float width = maxWidth - 24;
+    protected Object[] getHeader(float width, String availableOrDemand, String excessOrDeficit) {
         Object header[] = {
             "#",
             .05f * width,

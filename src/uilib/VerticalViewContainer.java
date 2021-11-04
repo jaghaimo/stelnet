@@ -29,8 +29,9 @@ public class VerticalViewContainer extends Group {
         log(new Position(x, y));
         for (Renderable renderable : getElements()) {
             Size size = renderable.getSize();
+            Position offset = renderable.getOffset();
             renderable.render(panel, x, y);
-            y += size.getHeight() * getLocation().getVerticalDirection();
+            y += (offset.getY() + size.getHeight()) * getLocation().getVerticalDirection();
         }
     }
 

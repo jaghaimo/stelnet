@@ -1,16 +1,18 @@
 package stelnet.filter;
 
 import com.fs.starfarer.api.characters.PersonAPI;
+import com.fs.starfarer.api.characters.PersonalityAPI;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class PersonHasPersonality extends PersonFilter {
 
-    private final String personality;
+    private final String personalityId;
 
     @Override
     public boolean acceptPerson(PersonAPI person) {
-        String p = person.getPersonalityAPI().getId();
-        return personality.equals(p);
+        PersonalityAPI personality = person.getPersonalityAPI();
+        String p = personality.getId();
+        return personalityId.equals(p);
     }
 }
