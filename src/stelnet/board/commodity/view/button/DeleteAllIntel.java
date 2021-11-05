@@ -9,13 +9,15 @@ import stelnet.util.L10n;
 import uilib.Button;
 import uilib.EventHandler;
 import uilib.property.Location;
+import uilib.property.Position;
 import uilib.property.Size;
 
 public class DeleteAllIntel extends Button {
 
     public DeleteAllIntel() {
-        super(new Size(200, 24), L10n.get(CommodityL10n.DELETE_ALL), true, Misc.getNegativeHighlightColor());
+        super(new Size(190, 24), L10n.get(CommodityL10n.DELETE_ALL), true, Misc.getNegativeHighlightColor());
         setLocation(Location.BOTTOM_RIGHT);
+        setOffset(new Position(8, 1));
         setHandler(
             new EventHandler() {
                 @Override

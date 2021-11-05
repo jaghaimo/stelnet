@@ -8,6 +8,7 @@ import stelnet.board.commodity.market.MarketApiWrapper;
 import uilib.AreaCheckbox;
 import uilib.EventHandler;
 import uilib.property.Location;
+import uilib.property.Position;
 import uilib.property.Size;
 
 public class IntelButton extends AreaCheckbox {
@@ -28,6 +29,7 @@ public class IntelButton extends AreaCheckbox {
             Misc.getGrayColor()
         );
         setLocation(Location.BOTTOM_LEFT);
+        setOffset(new Position(0, 1));
         setHandler(
             new EventHandler() {
                 @Override
