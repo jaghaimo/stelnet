@@ -23,7 +23,7 @@ public class StorageBoard extends BaseBoard {
 
     @Override
     protected BoardInfo getBoardInfo() {
-        return new BoardInfo(L10n.get("storageBoardTitle"), getDescription());
+        return new BoardInfo(L10n.get(StorageL10n.BOARD_TITLE), getDescription());
     }
 
     @Override
@@ -40,8 +40,8 @@ public class StorageBoard extends BaseBoard {
         int itemCount = StorageUtils.getAllItemCount();
         int shipCount = StorageUtils.getAllShipCount();
         if (itemCount == 0 && shipCount == 0) {
-            return L10n.get("storageBoardNoContent");
+            return L10n.get(StorageL10n.BOARD_NO_CONTENT);
         }
-        return L10n.get("storageBoardContent", itemCount, shipCount);
+        return L10n.get(StorageL10n.BOARD_CONTENT, itemCount, shipCount);
     }
 }

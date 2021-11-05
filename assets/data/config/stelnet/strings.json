@@ -66,5 +66,13 @@
     "WIDGET_VIEWER_NO_MARKETS": "Please select a market to view.",
     "WIDGET_VIEWER_NO_SHIPS": "There are no matching ships to display.",
     "WIDGET_VIEWER_NO_STORAGES": "You do not have any storages.",
-    "WIDGET_VIEWER_UNIFIED_VIEW_TITLE": "Unified View"
+    "WIDGET_VIEWER_UNIFIED_VIEW_TITLE": "Unified View",
+    "STORAGE_BOARD_TITLE": "Storage Contents",
+    "STORAGE_BOARD_NO_CONTENT": "You do not have anything in your storage.",
+    "STORAGE_BOARD_CONTENT": "You have {0, choice, 0#no items|1#one item|1<{0, number, integer} items} and {1, choice, 0#no ships|1#one ship|1<{1, number, integer} ships} stored.",
+    "STORAGE_INTEL_CONTENT": "{0, choice, 0#no items|1#one item|1<{0, number, integer} items} and {1, choice, 0#no ships|1#one ship|1<{1, number, integer} ships}",
+    "STORAGE_INTEL_NO_ITEMS": "There are no items in this storage.",
+    "STORAGE_INTEL_NO_SHIPS": "There are no ships in this storage.",
+    "STORAGE_INTEL_HEADER_ITEMS": "{0} Items",
+    "STORAGE_INTEL_HEADER_SHIPS": "{0} Ships"
 }
