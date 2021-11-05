@@ -27,7 +27,7 @@ public class QueryBoard extends BaseBoard {
     @Override
     protected BoardInfo getBoardInfo() {
         int queriesPresent = 0; // TODO : Implement this
-        return new BoardInfo(L10n.get("marketQueryTitle"), L10n.get("marketQueryDescription", queriesPresent));
+        return new BoardInfo(L10n.get(QueryL10n.TITLE), L10n.get(QueryL10n.DESCRIPTION, queriesPresent));
     }
 
     @Override

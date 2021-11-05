@@ -8,7 +8,6 @@ import stelnet.filter.Filter;
 import stelnet.filter.LogicalNotFilter;
 import stelnet.filter.LogicalOrFilter;
 import stelnet.filter.PersonIsPostedAs;
-import stelnet.util.L10n;
 import uilib.AreaCheckbox;
 import uilib.property.Size;
 
@@ -17,8 +16,8 @@ public class OfficerButton extends AreaCheckbox implements FilteringButton {
     @Getter
     private final Filter filter;
 
-    public OfficerButton(String translationId, Filter filter) {
-        super(new Size(0, 24), L10n.get(translationId), true, false, Misc.getButtonTextColor(), Misc.getGrayColor());
+    public OfficerButton(String translatedString, Filter filter) {
+        super(new Size(0, 24), translatedString, true, false, Misc.getButtonTextColor(), Misc.getGrayColor());
         this.filter = getOfficerFilter(filter);
     }
 

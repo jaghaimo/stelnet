@@ -12,7 +12,7 @@ public class PostTypeButton extends AreaCheckbox implements FilteringButton {
     @Getter
     private final PersonIsPostedAs filter;
 
-    public PostTypeButton(String translationId, PersonIsPostedAs filter) {
+    public PostTypeButton(Enum<?> translationId, PersonIsPostedAs filter) {
         super(new Size(0, 24), L10n.get(translationId), true, false, Misc.getButtonTextColor(), Misc.getGrayColor());
         this.filter = filter;
     }

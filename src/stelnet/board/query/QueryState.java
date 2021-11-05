@@ -15,14 +15,8 @@ import uilib.property.Size;
 public class QueryState implements RenderableState, Serializable {
 
     public static enum QueryBoardTab {
-        LIST("List"),
-        NEW("New");
-
-        public final String id;
-
-        private QueryBoardTab(String id) {
-            this.id = id;
-        }
+        LIST,
+        NEW,
     }
 
     private QueryBoardTab activeTab = QueryBoardTab.LIST;

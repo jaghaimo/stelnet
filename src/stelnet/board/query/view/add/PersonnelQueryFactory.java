@@ -6,6 +6,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Ranks;
 import com.fs.starfarer.api.ui.Alignment;
 import java.util.LinkedList;
 import java.util.List;
+import stelnet.CommonL10n;
 import stelnet.board.query.provider.PeopleProvider;
 import stelnet.board.query.provider.SkillProvider;
 import stelnet.filter.Filter;
@@ -15,6 +16,7 @@ import stelnet.filter.PersonHasPersonality;
 import stelnet.filter.PersonHasSkill;
 import stelnet.filter.PersonIsPostedAs;
 import stelnet.filter.SkillIsCombatOfficer;
+import stelnet.util.L10n;
 import stelnet.util.SettingsUtils;
 import uilib.DynamicGroup;
 import uilib.HorizontalViewContainer;
@@ -133,20 +135,20 @@ public class PersonnelQueryFactory extends PreviewableQueryFactory {
 
     private OfficerButton[] getPersonalityButtons() {
         return new OfficerButton[] {
-            new OfficerButton("officerTimid", new PersonHasPersonality(Personalities.TIMID)),
-            new OfficerButton("officerCautious", new PersonHasPersonality(Personalities.CAUTIOUS)),
-            new OfficerButton("officerSteady", new PersonHasPersonality(Personalities.STEADY)),
-            new OfficerButton("officerAggressive", new PersonHasPersonality(Personalities.AGGRESSIVE)),
-            new OfficerButton("officerReckless", new PersonHasPersonality(Personalities.RECKLESS)),
+            new OfficerButton(L10n.get(CommonL10n.TIMID), new PersonHasPersonality(Personalities.TIMID)),
+            new OfficerButton(L10n.get(CommonL10n.CAUTIOUS), new PersonHasPersonality(Personalities.CAUTIOUS)),
+            new OfficerButton(L10n.get(CommonL10n.STEADY), new PersonHasPersonality(Personalities.STEADY)),
+            new OfficerButton(L10n.get(CommonL10n.AGGRESSIVE), new PersonHasPersonality(Personalities.AGGRESSIVE)),
+            new OfficerButton(L10n.get(CommonL10n.RECKLESS), new PersonHasPersonality(Personalities.RECKLESS)),
         };
     }
 
     private PostTypeButton[] getPostTypeButtons() {
         return new PostTypeButton[] {
-            new PostTypeButton("typeAdmin", new PersonIsPostedAs(Ranks.POST_FREELANCE_ADMIN)),
-            new PostTypeButton("typeOfficer", new PersonIsPostedAs(Ranks.POST_OFFICER_FOR_HIRE)),
-            new PostTypeButton("typeMercenary", new PersonIsPostedAs(Ranks.POST_MERCENARY)),
-            new PostTypeButton("typeAgent", new PersonIsPostedAs(Ranks.POST_AGENT)),
+            new PostTypeButton(CommonL10n.ADMIN, new PersonIsPostedAs(Ranks.POST_FREELANCE_ADMIN)),
+            new PostTypeButton(CommonL10n.OFFICER, new PersonIsPostedAs(Ranks.POST_OFFICER_FOR_HIRE)),
+            new PostTypeButton(CommonL10n.MERCENARY, new PersonIsPostedAs(Ranks.POST_MERCENARY)),
+            new PostTypeButton(CommonL10n.AGENT, new PersonIsPostedAs(Ranks.POST_AGENT)),
         };
     }
 

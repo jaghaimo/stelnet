@@ -5,6 +5,7 @@ import com.fs.starfarer.api.util.Misc;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.Getter;
+import stelnet.CommonL10n;
 import uilib.Button;
 import uilib.DynamicGroup;
 import uilib.HorizontalViewContainer;
@@ -22,11 +23,11 @@ public class AddQueryFactory extends PreviewableQueryFactory {
     public AddQueryFactory() {
         buttons =
             new QueryTypeButton[] {
-                new QueryTypeButton(this, "Personnel", new PersonnelQueryFactory()),
-                new QueryTypeButton(this, "Weapons", new WeaponQueryFactory()),
-                new QueryTypeButton(this, "Fighters", new FighterQueryFactory()),
-                new QueryTypeButton(this, "Modspecs", new ModspecQueryFactory()),
-                new QueryTypeButton(this, "Ships", new ShipQueryFactory()),
+                new QueryTypeButton(this, CommonL10n.PERSONNEL, new PersonnelQueryFactory()),
+                new QueryTypeButton(this, CommonL10n.WEAPONS, new WeaponQueryFactory()),
+                new QueryTypeButton(this, CommonL10n.FIGHTER_WINGS, new FighterQueryFactory()),
+                new QueryTypeButton(this, CommonL10n.MODSPECS, new ModspecQueryFactory()),
+                new QueryTypeButton(this, CommonL10n.SHIPS, new ShipQueryFactory()),
             };
         buttons[0].setStateOn(true);
     }
