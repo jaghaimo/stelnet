@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import stelnet.board.commodity.CommodityL10n;
 import stelnet.board.commodity.market.MarketApiWrapper;
 import stelnet.board.commodity.market.MarketRepository;
 import stelnet.util.DistanceCalculator;
@@ -29,17 +30,17 @@ public class ProfitTableContent implements TableContent {
         return new Object[] {
             "#",
             .05f * width,
-            L10n.get("commodityHeaderProfit"),
+            L10n.get(CommodityL10n.HEADER_PROFIT),
             .12f * width,
-            L10n.get("commodityHeaderBuyLocation"),
+            L10n.get(CommodityL10n.HEADER_BUY_LOCATION),
             .2f * width,
-            L10n.get("commodityHeaderSellLocation"),
+            L10n.get(CommodityL10n.HEADER_SELL_LOCATION),
             .2f * width,
-            L10n.get("commodityHeaderBuyAvailable"),
+            L10n.get(CommodityL10n.HEADER_BUY_AVAILABLE),
             .165f * width,
-            L10n.get("commodityHeaderSellDemand"),
+            L10n.get(CommodityL10n.HEADER_SELL_DEMAND),
             .165f * width,
-            L10n.get("commodityHeaderTrip"),
+            L10n.get(CommodityL10n.HEADER_TRIP),
             .1f * width,
         };
     }

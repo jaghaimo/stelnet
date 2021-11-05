@@ -1,6 +1,7 @@
 package stelnet.board.commodity.market.table;
 
 import java.util.List;
+import stelnet.board.commodity.CommodityL10n;
 import stelnet.board.commodity.market.MarketApiWrapper;
 
 public class SellTableContent extends MarketTableContent {
@@ -12,7 +13,7 @@ public class SellTableContent extends MarketTableContent {
 
     @Override
     public Object[] getHeaders(float width) {
-        return getHeader(width, "commodityHeaderDemand", "commodityHeaderDeficit");
+        return getHeader(width, CommodityL10n.HEADER_DEMAND, CommodityL10n.HEADER_DEFICIT);
     }
 
     @Override

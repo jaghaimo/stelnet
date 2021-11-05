@@ -22,7 +22,7 @@ public class CommodityBoard extends BaseBoard {
 
     @Override
     protected BoardInfo getBoardInfo() {
-        return new BoardInfo(L10n.get("commodityBoardTitle"), L10n.get("commodityBoardDescription"));
+        return new BoardInfo(L10n.get(CommodityL10n.BOARD_TITLE), L10n.get(CommodityL10n.BOARD_DESCRIPTION));
     }
 
     @Override

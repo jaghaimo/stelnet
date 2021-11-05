@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import lombok.Getter;
 import stelnet.BaseIntel;
+import stelnet.CommonL10n;
 import stelnet.IntelInfo;
 import stelnet.util.CargoUtils;
 import stelnet.util.L10n;
@@ -57,9 +58,9 @@ public class StorageIntel extends BaseIntel {
     protected IntelInfo getIntelInfo() {
         return new IntelInfo(
             getLocationNameWithSystem(),
-            L10n.get("intelLocation"),
+            L10n.get(CommonL10n.INTEL_LOCATION),
             getStorageContent(),
-            L10n.get("intelFaction"),
+            L10n.get(CommonL10n.INTEL_FACTION),
             getFactionWithRel()
         );
     }

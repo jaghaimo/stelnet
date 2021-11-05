@@ -64,7 +64,7 @@ public class Excluder {
     private static List<String> getStrings(String path) {
         List<String> strings = new ArrayList<>();
         try {
-            JSONArray config = Global.getSettings().getMergedSpreadsheetDataForMod("id", path, "stelnet");
+            JSONArray config = Global.getSettings().getMergedSpreadsheetDataForMod("id", path, TagConstants.STELNET);
             for (int i = 0; i < config.length(); i++) {
                 JSONObject row = config.getJSONObject(i);
                 strings.add(row.getString("id"));

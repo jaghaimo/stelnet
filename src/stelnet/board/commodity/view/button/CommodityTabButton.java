@@ -10,7 +10,7 @@ import uilib.TabButton;
 public class CommodityTabButton extends TabButton {
 
     public CommodityTabButton(final CommodityTab currentTab, CommodityTab activeTab, int shortcut) {
-        super(L10n.get("commodityTab" + currentTab.id), currentTab.equals(activeTab), shortcut);
+        super(L10n.get(currentTab), currentTab.equals(activeTab), shortcut);
         setHandler(
             new EventHandler() {
                 @Override

@@ -1,0 +1,9 @@
+package stelnet;
+
+public enum CommonL10n {
+    INTEL_FACTION,
+    INTEL_FACTION_WITH_REL,
+    INTEL_LOCATION,
+    INTEL_OWNER_RELATIONSHIP,
+    HYPERSPACE,
+}

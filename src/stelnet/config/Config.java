@@ -5,18 +5,17 @@ import java.io.IOException;
 import lombok.extern.log4j.Log4j;
 import org.json.JSONException;
 import org.json.JSONObject;
+import stelnet.util.TagConstants;
 
 @Log4j
 public abstract class Config {
 
-    private static final transient String MOD = "stelnet";
-    private static final transient String FILE = "stelnet.hjson";
     private static transient JSONObject cachedSettings = null;
 
     protected static JSONObject load() throws JSONException, IOException {
         if (cachedSettings == null) {
             log.debug("Reading config file");
-            cachedSettings = Global.getSettings().loadJSON(FILE, MOD);
+            cachedSettings = Global.getSettings().loadJSON(TagConstants.STELNET_JSON, TagConstants.STELNET);
         }
         return cachedSettings;
     }

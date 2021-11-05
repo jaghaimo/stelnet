@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import stelnet.BaseIntel;
+import stelnet.CommonL10n;
 import stelnet.IntelInfo;
 import stelnet.board.commodity.market.MarketApiWrapper;
 import stelnet.board.commodity.market.price.Price;
@@ -72,9 +73,9 @@ public class CommodityIntel extends BaseIntel {
     protected IntelInfo getIntelInfo() {
         return new IntelInfo(
             getTitle(),
-            L10n.get("intelLocation"),
+            L10n.get(CommonL10n.INTEL_LOCATION),
             getLocationNameWithSystem(),
-            L10n.get("intelFaction"),
+            L10n.get(CommonL10n.INTEL_FACTION),
             getFactionWithRel()
         );
     }
@@ -102,7 +103,7 @@ public class CommodityIntel extends BaseIntel {
     private void addPriceChange(List<Renderable> renderables, float width) {
         if (isEnding()) {
             String priceChangeText = L10n.get(
-                "commodityPriceChanged",
+                CommodityL10n.PRICE_CHANGED,
                 Misc.getDGSCredits(price),
                 Misc.getDGSCredits(marketWrapper.getPriceAmount())
             );
@@ -120,15 +121,17 @@ public class CommodityIntel extends BaseIntel {
     private void addRelationship(List<Renderable> renderables, float width) {
         FactionAPI faction = marketWrapper.getFaction();
         RelationshipAPI relationship = faction.getRelToPlayer();
-        String reputation = relationship.getLevel().getDisplayName();
-        String translatedRep = L10n.get("reputation" + reputation);
-        Paragraph relationshipRenderable = new Paragraph(L10n.get("intelOwnerRelationship", translatedRep), width);
+        String translatedRep = L10n.get(relationship.getLevel());
+        Paragraph relationshipRenderable = new Paragraph(
+            L10n.get(CommonL10n.INTEL_OWNER_RELATIONSHIP, translatedRep),
+            width
+        );
         relationshipRenderable.setHighlightStrings(translatedRep);
         relationshipRenderable.setHighlightColors(relationship.getRelColor());
         renderables.add(relationshipRenderable);
     }
 
     private String getTitle() {
-        return L10n.get("commodityIntelTitle", action, commodity.getName(), Misc.getDGSCredits(price));
+        return L10n.get(CommodityL10n.INTEL_TITLE, action, commodity.getName(), Misc.getDGSCredits(price));
     }
 }
