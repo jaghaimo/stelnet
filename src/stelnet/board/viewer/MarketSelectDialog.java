@@ -21,9 +21,9 @@ public class MarketSelectDialog implements InteractionDialogPlugin {
     @Override
     public void init(final InteractionDialogAPI dialog) {
         dialog.showCampaignEntityPicker(
-            L10n.get("marketViewDialogSelect"),
-            L10n.get("marketViewDialogSelected"),
-            L10n.get("marketViewDialogConfirm"),
+            L10n.get(ViewerL10n.DIALOG_SELECT_MARKET),
+            L10n.get(ViewerL10n.DIALOG_SELECTED),
+            L10n.get(ViewerL10n.DIALOG_CONFIRM),
             Global.getSector().getPlayerFaction(),
             entities,
             new MarketSelectPicker(dialog, ui)

@@ -15,7 +15,7 @@ import uilib.property.Size;
 public class MarketSelectButton extends Button {
 
     public MarketSelectButton(final List<SectorEntityToken> entities) {
-        super(new Size(180, 24), L10n.get("marketViewSelectMarket"), true, Misc.getButtonTextColor());
+        super(new Size(180, 24), L10n.get(ViewerL10n.SELECT_MARKET), true, Misc.getButtonTextColor());
         setShortcut(Keyboard.KEY_M);
         setLocation(Location.BOTTOM_RIGHT);
         setOffset(new Position(16, 8));

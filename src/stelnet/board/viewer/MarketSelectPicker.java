@@ -37,7 +37,7 @@ public class MarketSelectPicker implements CampaignEntityPickerListener {
     @Override
     public String getSelectedTextOverrideFor(SectorEntityToken entity) {
         return L10n.get(
-            "marketViewDialogSelection",
+            ViewerL10n.DIALOG_SELECTION,
             entity.getName(),
             entity.getContainingLocation().getNameWithTypeShort()
         );

@@ -25,7 +25,7 @@ public class ViewerBoard extends BaseBoard {
 
     @Override
     protected BoardInfo getBoardInfo() {
-        return new BoardInfo(L10n.get("marketViewTitle"), L10n.get("marketViewDescription"));
+        return new BoardInfo(L10n.get(ViewerL10n.TITLE), L10n.get(ViewerL10n.DESCRIPTION));
     }
 
     @Override
