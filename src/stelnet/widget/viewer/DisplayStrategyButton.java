@@ -11,7 +11,7 @@ import uilib.property.Size;
 public class DisplayStrategyButton extends Button {
 
     public DisplayStrategyButton(final GroupingStrategy newStrategy) {
-        super(new Size(180, 24), L10n.get("viewStrategy" + newStrategy.id), true, Misc.getButtonTextColor());
+        super(new Size(180, 24), L10n.get(newStrategy), true, Misc.getButtonTextColor());
         setShortcut(Keyboard.KEY_G);
         setLocation(Location.BOTTOM_RIGHT);
         setOffset(new Position(16, 8));

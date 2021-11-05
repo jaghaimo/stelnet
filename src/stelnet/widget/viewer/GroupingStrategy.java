@@ -6,7 +6,7 @@ import java.util.List;
  * Provides market content using various grouping logic.
  */
 public enum GroupingStrategy implements DisplayStrategy {
-    PER_LOCATION("PerLocation") {
+    PER_LOCATION {
         @Override
         public GroupingStrategy getNext() {
             return UNIFIED;
@@ -17,7 +17,7 @@ public enum GroupingStrategy implements DisplayStrategy {
             return new PerMarketStrategy().getData(filteringButtons);
         }
     },
-    UNIFIED("Unified") {
+    UNIFIED {
         @Override
         public GroupingStrategy getNext() {
             return PER_LOCATION;
@@ -28,12 +28,6 @@ public enum GroupingStrategy implements DisplayStrategy {
             return new UnifiedStrategy().getData(filteringButtons);
         }
     };
-
-    public final String id;
-
-    private GroupingStrategy(String id) {
-        this.id = id;
-    }
 
     public GroupingStrategy getNext() {
         return null;

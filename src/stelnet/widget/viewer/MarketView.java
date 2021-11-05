@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import org.lwjgl.input.Keyboard;
 import stelnet.util.L10n;
+import stelnet.widget.WidgetL10n;
 import uilib.Group;
 import uilib.Heading;
 import uilib.HorizontalViewContainer;
@@ -80,7 +81,7 @@ public class MarketView implements RenderableFactory {
 
     private void addEmptyData(List<Renderable> elements, List<LocationContent> storageData, float width) {
         if (storageData.isEmpty()) {
-            elements.add(new Paragraph(L10n.get("storageNoStorages"), width));
+            elements.add(new Paragraph(L10n.get(WidgetL10n.VIEWER_NO_STORAGES), width));
         }
     }
 

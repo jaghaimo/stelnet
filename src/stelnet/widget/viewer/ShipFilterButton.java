@@ -8,7 +8,7 @@ public class ShipFilterButton extends FilteringButton {
 
     public ShipFilterButton(
         final FilteringButtons filteringButtons,
-        String translationId,
+        Enum<?> translationId,
         final FleetMemberFilter filter
     ) {
         super(translationId);

@@ -12,6 +12,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import stelnet.util.L10n;
+import stelnet.widget.WidgetL10n;
 
 @Log4j
 @RequiredArgsConstructor
@@ -44,7 +45,7 @@ public class InMarketStrategy extends PerMarketStrategy {
     private List<LocationContent> getEmptyData() {
         return Collections.singletonList(
             new LocationContent(
-                new LocationInfo(L10n.get("viewNoMarket"), Misc.getTextColor(), Misc.getGrayColor()),
+                new LocationInfo(L10n.get(WidgetL10n.VIEWER_NO_MARKETS), Misc.getTextColor(), Misc.getGrayColor()),
                 Global.getFactory().createCargo(true),
                 Collections.<FleetMemberAPI>emptyList()
             )

@@ -7,7 +7,7 @@ import uilib.property.Size;
 
 public abstract class FilteringButton extends AreaCheckbox {
 
-    public FilteringButton(String translationId) {
+    public FilteringButton(Enum<?> translationId) {
         super(new Size(180, 24), L10n.get(translationId), true, true, Misc.getHighlightColor(), Misc.getGrayColor());
     }
 }

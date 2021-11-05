@@ -9,7 +9,7 @@ import uilib.TabButton;
 public class StorageTabButton extends TabButton {
 
     public StorageTabButton(final ContentRenderer newRenderer, boolean isActive, int shortcut) {
-        super(L10n.get("storageTab" + newRenderer.id), isActive, shortcut);
+        super(L10n.get(newRenderer), isActive, shortcut);
         setHandler(
             new EventHandler() {
                 @Override

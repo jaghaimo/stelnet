@@ -5,6 +5,7 @@ import com.fs.starfarer.api.loading.WingRole;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.Getter;
+import stelnet.CommonL10n;
 import stelnet.filter.CargoStackFilter;
 import stelnet.filter.CargoStackIsNotCommodity;
 import stelnet.filter.CargoStackIsNotFighterWing;
@@ -37,33 +38,41 @@ public class FilteringButtons {
         shipFilters = new HashSet<>();
         itemButtons =
             new Renderable[] {
-                new ItemFilterButton(this, "viewFilterCommodities", new CargoStackIsNotCommodity()),
-                new ItemFilterButton(this, "viewFilterWeapons", new CargoStackIsNotWeapon()),
-                new ItemFilterButton(this, "viewFilterFighterWings", new CargoStackIsNotFighterWing()),
-                new ItemFilterButton(this, "viewFilterOthers", new CargoStackIsNotOther()),
+                new ItemFilterButton(this, CommonL10n.COMMODITIES, new CargoStackIsNotCommodity()),
+                new ItemFilterButton(this, CommonL10n.WEAPONS, new CargoStackIsNotWeapon()),
+                new ItemFilterButton(this, CommonL10n.FIGHTER_WINGS, new CargoStackIsNotFighterWing()),
+                new ItemFilterButton(this, CommonL10n.OTHERS, new CargoStackIsNotOther()),
                 new Spacer(20f),
-                new ItemFilterButton(this, "viewFilterSmallMount", new CargoStackIsNotMountSize(WeaponSize.SMALL)),
-                new ItemFilterButton(this, "viewFilterMediumMount", new CargoStackIsNotMountSize(WeaponSize.MEDIUM)),
-                new ItemFilterButton(this, "viewFilterLargeMount", new CargoStackIsNotMountSize(WeaponSize.LARGE)),
+                new ItemFilterButton(this, CommonL10n.MOUNT_SMALL, new CargoStackIsNotMountSize(WeaponSize.SMALL)),
+                new ItemFilterButton(this, CommonL10n.MOUNT_MEDIUM, new CargoStackIsNotMountSize(WeaponSize.MEDIUM)),
+                new ItemFilterButton(this, CommonL10n.MOUNT_LARGE, new CargoStackIsNotMountSize(WeaponSize.LARGE)),
                 new Spacer(20f),
-                new ItemFilterButton(this, "viewFilterFighters", new CargoStackIsNotFighterWingRole(WingRole.FIGHTER)),
-                new ItemFilterButton(this, "viewFilterBombers", new CargoStackIsNotFighterWingRole(WingRole.BOMBER)),
                 new ItemFilterButton(
                     this,
-                    "viewFilterInterceptors",
+                    CommonL10n.WING_FIGHTERS,
+                    new CargoStackIsNotFighterWingRole(WingRole.FIGHTER)
+                ),
+                new ItemFilterButton(
+                    this,
+                    CommonL10n.WING_BOMBERS,
+                    new CargoStackIsNotFighterWingRole(WingRole.BOMBER)
+                ),
+                new ItemFilterButton(
+                    this,
+                    CommonL10n.WING_INTERCEPTORS,
                     new CargoStackIsNotFighterWingRole(WingRole.INTERCEPTOR)
                 ),
             };
         shipButtons =
             new Renderable[] {
-                new ShipFilterButton(this, "viewFilterFrigates", new FleetMemberIsNotFrigate()),
-                new ShipFilterButton(this, "viewFilterDestroyers", new FleetMemberIsNotDestroyer()),
-                new ShipFilterButton(this, "viewFilterCruisers", new FleetMemberIsNotCruiser()),
-                new ShipFilterButton(this, "viewFilterCapitals", new FleetMemberIsNotCapital()),
+                new ShipFilterButton(this, CommonL10n.FRIGATES, new FleetMemberIsNotFrigate()),
+                new ShipFilterButton(this, CommonL10n.DESTROYERS, new FleetMemberIsNotDestroyer()),
+                new ShipFilterButton(this, CommonL10n.CRUISERS, new FleetMemberIsNotCruiser()),
+                new ShipFilterButton(this, CommonL10n.CAPITALS, new FleetMemberIsNotCapital()),
                 new Spacer(20f),
-                new ShipFilterButton(this, "viewFilterWarships", new FleetMemberIsNotWarship()),
-                new ShipFilterButton(this, "viewFilterCarriers", new FleetMemberIsNotCarrier()),
-                new ShipFilterButton(this, "viewFilterCivilians", new FleetMemberIsNotCivilian()),
+                new ShipFilterButton(this, CommonL10n.WARSHIPS, new FleetMemberIsNotWarship()),
+                new ShipFilterButton(this, CommonL10n.CARRIERS, new FleetMemberIsNotCarrier()),
+                new ShipFilterButton(this, CommonL10n.CIVILIANS, new FleetMemberIsNotCivilian()),
             };
     }
 

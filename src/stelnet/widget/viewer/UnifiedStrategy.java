@@ -8,6 +8,7 @@ import java.util.List;
 import lombok.extern.log4j.Log4j;
 import stelnet.util.L10n;
 import stelnet.util.StorageUtils;
+import stelnet.widget.WidgetL10n;
 
 @Log4j
 /**
@@ -25,6 +26,10 @@ public class UnifiedStrategy implements DisplayStrategy {
     }
 
     private LocationInfo getLocationData() {
-        return new LocationInfo(L10n.get("viewUnifiedViewTitle"), Misc.getBasePlayerColor(), Misc.getDarkPlayerColor());
+        return new LocationInfo(
+            L10n.get(WidgetL10n.VIEWER_UNIFIED_VIEW_TITLE),
+            Misc.getBasePlayerColor(),
+            Misc.getDarkPlayerColor()
+        );
     }
 }
