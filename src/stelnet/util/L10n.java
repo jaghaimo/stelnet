@@ -8,7 +8,7 @@ import org.json.JSONObject;
 @Log4j
 public class L10n {
 
-    protected static JSONObject translations;
+    private static JSONObject translations;
 
     public static void init() {
         if (translations == null) {
@@ -16,19 +16,8 @@ public class L10n {
         }
     }
 
-    @Deprecated
-    public static String get(String key, Object... args) {
-        init();
-        try {
-            String translation = translations.getString(key);
-            return MessageFormat.format(translation, args);
-        } catch (JSONException e) {
-            log.warn("Missing translation for key " + key);
-            return key;
-        }
-    }
-
     public static String get(Enum<?> enumKey, Object... args) {
+        init();
         String key = enumToKey(enumKey);
         return get(key, args);
     }
@@ -40,6 +29,16 @@ public class L10n {
         enumPrefix = removeHead(enumPrefix);
         enumPrefix = removeTail(enumPrefix);
         return enumPrefix + "_" + enumKey.name();
+    }
+
+    private static String get(String key, Object... args) {
+        try {
+            String translation = translations.getString(key);
+            return MessageFormat.format(translation, args);
+        } catch (JSONException e) {
+            log.warn("Missing translation for key " + key);
+            return key;
+        }
     }
 
     private static String removeHead(String string) {
