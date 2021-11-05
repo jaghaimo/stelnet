@@ -64,9 +64,21 @@ public class SettingsUtils {
         return getSettings().isDevMode();
     }
 
+    @Deprecated
+    // workaround for bug in json reader, remove in 0.95.1
+    public static JSONObject loadRawJson(String filename) {
+        try {
+            String jsonText = getSettings().loadText(filename, TagConstants.STELNET);
+            return new JSONObject(jsonText);
+        } catch (IOException | JSONException e) {
+            log.warn("Failed to read " + filename, e);
+            return new JSONObject();
+        }
+    }
+
     public static JSONObject load(String filename) {
         try {
-            return getSettings().loadJSON(filename, TagConstants.STELNET);
+            return getSettings().getMergedJSONForMod(filename, TagConstants.STELNET);
         } catch (IOException | JSONException e) {
             log.warn("Failed to read " + filename, e);
             return new JSONObject();

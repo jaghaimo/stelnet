@@ -66,6 +66,8 @@
     "GROUPINGSTRATEGY_UNIFIED": "Disable Grouping",
     "QUERY_DESCRIPTION": "{0, choice, 0#No intel queries present|1#Managing one intel query|1<Managing {0, number, integer} intel queries}.",
     "QUERY_TITLE": "Market Queries",
+    "QUERYSTATE_ADD": "Add a New Query",
+    "QUERYSTATE_LIST": "List Queries",
     "REPLEVEL_COOPERATIVE": "cooperative",
     "REPLEVEL_FAVORABLE": "favorable",
     "REPLEVEL_FRIENDLY": "friendly",

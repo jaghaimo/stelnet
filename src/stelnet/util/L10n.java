@@ -12,7 +12,7 @@ public class L10n {
 
     public static void init() {
         if (translations == null) {
-            translations = SettingsUtils.load("data/config/stelnet/strings.json");
+            translations = SettingsUtils.loadRawJson("data/config/stelnet/strings.json");
         }
     }
 
