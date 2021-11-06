@@ -23,8 +23,8 @@ public class SizeHelper {
     public SizeHelper(Size size) {
         width = size.getWidth();
         height = size.getHeight();
-        textWidth = Math.min(width / 4, 200);
-        previewWidth = Math.min(width / 4, 300);
+        textWidth = 175;
+        previewWidth = 250;
         groupWidth = width - textWidth - previewWidth - 10;
     }
 

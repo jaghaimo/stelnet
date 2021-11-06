@@ -15,7 +15,7 @@ import stelnet.util.CollectionUtils;
 import stelnet.util.SettingsUtils;
 
 @ExtensionMethod({ CargoStackExtension.class })
-public class CargoProvider extends FilterableProvider {
+public class ItemProvider extends FilterableProvider {
 
     public CargoAPI getFighters() {
         return getFighters(Collections.<Filter>emptyList());

@@ -1,6 +1,5 @@
 package stelnet.board.query.view.add;
 
-import com.fs.starfarer.api.util.Misc;
 import lombok.Getter;
 import stelnet.filter.PersonIsPostedAs;
 import stelnet.util.L10n;
@@ -13,7 +12,7 @@ public class PostTypeButton extends AreaCheckbox implements FilteringButton {
     private final PersonIsPostedAs filter;
 
     public PostTypeButton(Enum<?> translationId, PersonIsPostedAs filter) {
-        super(new Size(0, 24), L10n.get(translationId), true, false, Misc.getButtonTextColor(), Misc.getGrayColor());
+        super(new Size(0, 24), L10n.get(translationId), true, false);
         this.filter = filter;
     }
 }

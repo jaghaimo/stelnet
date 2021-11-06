@@ -2,25 +2,16 @@ package stelnet.board.commodity.view.button;
 
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.ui.IntelUIAPI;
-import com.fs.starfarer.api.util.Misc;
 import stelnet.board.commodity.CommodityBoard;
+import uilib.AreaCheckbox;
 import uilib.EventHandler;
-import uilib.ToggleButton;
 import uilib.property.Location;
 import uilib.property.Size;
 
-public class CommodityButton extends ToggleButton {
+public class CommodityButton extends AreaCheckbox {
 
     public CommodityButton(final CommoditySpecAPI commodity, boolean isOn) {
-        super(
-            new Size(190, 24),
-            commodity.getName(),
-            commodity.getName(),
-            true,
-            Misc.getHighlightColor(),
-            Misc.getGrayColor(),
-            isOn
-        );
+        super(new Size(190, 24), commodity.getName(), true, isOn);
         setLocation(Location.TOP_RIGHT);
         setHandler(
             new EventHandler() {

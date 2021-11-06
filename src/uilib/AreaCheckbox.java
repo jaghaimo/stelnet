@@ -3,7 +3,6 @@ package uilib;
 import com.fs.starfarer.api.ui.ButtonAPI;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,12 +13,10 @@ import uilib.property.Size;
 public class AreaCheckbox extends Button implements TwoStateButton {
 
     private boolean isStateOn;
-    private Color offColor;
 
-    public AreaCheckbox(Size size, String title, boolean isEnabled, boolean isStateOn, Color onColor, Color offColor) {
-        super(size, title, isEnabled, onColor);
+    public AreaCheckbox(Size size, String title, boolean isEnabled, boolean isStateOn) {
+        super(size, title, isEnabled);
         this.isStateOn = isStateOn;
-        this.offColor = offColor;
     }
 
     @Override
@@ -31,12 +28,12 @@ public class AreaCheckbox extends Button implements TwoStateButton {
     @Override
     public void render(TooltipMakerAPI tooltip) {
         Size size = getSize();
-        Color foregroundColor = getForegroundColor();
-        Color backgroundColor = Misc.scaleColor(foregroundColor, 0.7f);
+        Color foregroundColor = getTextColor();
+        Color backgroundColor = getBackgroundColor();
         ButtonAPI button = tooltip.addAreaCheckbox(
             getTitle(),
             this,
-            Misc.getGrayColor(),
+            foregroundColor,
             backgroundColor,
             foregroundColor,
             size.getWidth() - 4,
@@ -53,12 +50,5 @@ public class AreaCheckbox extends Button implements TwoStateButton {
     @Override
     public void toggle() {
         setStateOn(!isStateOn);
-    }
-
-    private Color getForegroundColor() {
-        if (isStateOn) {
-            return getColor();
-        }
-        return offColor;
     }
 }

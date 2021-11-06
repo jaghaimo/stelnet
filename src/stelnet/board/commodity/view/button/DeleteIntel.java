@@ -14,7 +14,7 @@ import uilib.property.Size;
 public class DeleteIntel extends Button {
 
     public DeleteIntel(float width, final CommodityIntel intel) {
-        super(new Size(width, 24), L10n.get(CommodityL10n.DELETE), true, Misc.getButtonTextColor());
+        super(new Size(width, 24), L10n.get(CommodityL10n.DELETE), true);
         setHandler(
             new EventHandler() {
                 @Override

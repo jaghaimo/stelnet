@@ -16,16 +16,26 @@ import uilib.property.Size;
 public class Button extends RenderableComponent implements ButtonHandler {
 
     private String title;
-    private Color color;
+    private Color textColor;
+    private Color backgroundColor;
     private boolean isEnabled;
     private ButtonHandler handler;
     private CutStyle cutStyle = CutStyle.ALL;
     private int shortcut = 0;
 
+    public Button(Size size, String title, boolean isEnabled) {
+        this(size, title, isEnabled, Misc.getButtonTextColor(), Misc.getDarkPlayerColor());
+    }
+
     public Button(Size size, String title, boolean isEnabled, Color color) {
+        this(size, title, isEnabled, color, Misc.scaleColor(color, 0.5f));
+    }
+
+    public Button(Size size, String title, boolean isEnabled, Color textColor, Color backgroundColor) {
         this.title = title;
         this.isEnabled = isEnabled;
-        this.color = color;
+        this.textColor = textColor;
+        this.backgroundColor = backgroundColor;
         if (size.getWidth() == 0) {
             size = new Size(getTextWidth(title), size.getHeight());
         }
@@ -70,8 +80,8 @@ public class Button extends RenderableComponent implements ButtonHandler {
     @Override
     public void render(TooltipMakerAPI tooltip) {
         Size size = getSize();
-        Color foregroundColor = getColor();
-        Color backgroundColor = Misc.scaleColor(foregroundColor, 0.5f);
+        Color foregroundColor = getTextColor();
+        Color backgroundColor = getBackgroundColor();
         ButtonAPI button = tooltip.addButton(
             getTitle(),
             this,

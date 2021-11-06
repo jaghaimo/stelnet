@@ -2,7 +2,6 @@ package uilib;
 
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import com.fs.starfarer.api.util.Misc;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -21,6 +20,9 @@ public class TabViewContainer extends RenderableComponent {
         if (isActive) {
             setActiveTab(tabButton);
         }
+        if (tabs.size() > 1) {
+            tabButton.setOffset(new Position(-3, 0));
+        }
     }
 
     @Override
@@ -35,7 +37,7 @@ public class TabViewContainer extends RenderableComponent {
         }
         Renderable tabToDisplay = getTabToDisplay(panel);
         HorizontalViewContainer tabButtons = new HorizontalViewContainer(new ArrayList<Renderable>(tabs.keySet()));
-        Line separatorLine = new Line(tabToDisplay.getSize().getWidth(), Misc.getButtonTextColor());
+        Line separatorLine = new Line(tabToDisplay.getSize().getWidth());
         separatorLine.setOffset(new Position(0, -4));
         Spacer spacer = new Spacer(10);
         new VerticalViewContainer(tabButtons, separatorLine, spacer, tabToDisplay).render(panel, x, y);

@@ -1,7 +1,6 @@
 package stelnet.board.query.view.add;
 
 import com.fs.starfarer.api.impl.campaign.ids.Ranks;
-import com.fs.starfarer.api.util.Misc;
 import java.util.Arrays;
 import lombok.Getter;
 import stelnet.filter.Filter;
@@ -17,7 +16,7 @@ public class OfficerButton extends AreaCheckbox implements FilteringButton {
     private final Filter filter;
 
     public OfficerButton(String translatedString, Filter filter) {
-        super(new Size(0, 24), translatedString, true, false, Misc.getButtonTextColor(), Misc.getGrayColor());
+        super(new Size(0, 24), translatedString, true, false);
         this.filter = getOfficerFilter(filter);
     }
 

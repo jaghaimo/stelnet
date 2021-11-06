@@ -59,6 +59,7 @@ public class DynamicGroup extends RenderableComponent {
         Position finalOffset = new Position(0, 0);
         Size finalSize = new Size(0, 0);
         for (Renderable renderable : getElements()) {
+            finalOffset = verifyOffset(finalOffset, renderable.getSize(), 0);
             finalOffset = advanceOffset(finalOffset, renderable.getSize(), 0);
             finalSize = renderable.getSize();
         }

@@ -2,12 +2,15 @@ package stelnet.board.query.view.add;
 
 import java.util.Collections;
 import java.util.List;
+import stelnet.util.L10n;
 import uilib.Heading;
 import uilib.HorizontalViewContainer;
+import uilib.Line;
 import uilib.Paragraph;
 import uilib.Renderable;
 import uilib.RenderableComponent;
 import uilib.RenderableFactory;
+import uilib.Spacer;
 import uilib.VerticalViewContainer;
 import uilib.property.Position;
 import uilib.property.Size;
@@ -28,8 +31,24 @@ public abstract class PreviewableQueryFactory implements RenderableFactory {
         return Collections.<Renderable>singletonList(horizontalViewContainer);
     }
 
-    protected void addPreview(List<Renderable> containers, RenderableComponent previewContent, Size size) {
-        containers.add(getPreview(previewContent, size));
+    protected void addPreview(List<Renderable> elements, RenderableComponent previewContent, Size size) {
+        elements.add(getPreview(previewContent, size));
+    }
+
+    protected void beginSection(List<Renderable> elements, Enum<?> translationId) {
+        float width = sizeHelper.getGroupAndTextWidth();
+        elements.add(new Spacer(10));
+        elements.add(new Paragraph(L10n.get(translationId), width));
+        Line line = new Line(width);
+        line.setOffset(new Position(0, -6));
+        elements.add(line);
+        elements.add(new Spacer(2));
+    }
+
+    protected void endSection(List<Renderable> elements) {
+        Line line = new Line(sizeHelper.getGroupAndTextWidth());
+        // line.setOffset(new Position(0, -2));
+        elements.add(line);
     }
 
     protected Renderable getContainer() {

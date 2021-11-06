@@ -1,7 +1,6 @@
 package stelnet.board.query.view.add;
 
 import com.fs.starfarer.api.ui.Alignment;
-import com.fs.starfarer.api.util.Misc;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.Getter;
@@ -24,9 +23,7 @@ public class AddQueryFactory extends PreviewableQueryFactory {
         buttons =
             new QueryTypeButton[] {
                 new QueryTypeButton(this, CommonL10n.PERSONNEL, new PersonnelQueryFactory()),
-                new QueryTypeButton(this, CommonL10n.WEAPONS, new WeaponQueryFactory()),
-                new QueryTypeButton(this, CommonL10n.FIGHTER_WINGS, new FighterQueryFactory()),
-                new QueryTypeButton(this, CommonL10n.MODSPECS, new ModspecQueryFactory()),
+                new QueryTypeButton(this, CommonL10n.ITEMS, new ItemQueryFactory()),
                 new QueryTypeButton(this, CommonL10n.SHIPS, new ShipQueryFactory()),
             };
         buttons[0].setStateOn(true);
@@ -68,8 +65,8 @@ public class AddQueryFactory extends PreviewableQueryFactory {
         final float BUTTON_HEIGHT = 30;
         Size buttonSize = new Size(0, BUTTON_HEIGHT);
         Paragraph label = new Paragraph("", sizeHelper.getTextWidth());
-        Button search = new Button(buttonSize, "Search", true, Misc.getButtonTextColor());
-        Button selectAndSearch = new Button(buttonSize, "Select and Search", true, Misc.getButtonTextColor());
+        Button search = new Button(buttonSize, "Search", true);
+        Button selectAndSearch = new Button(buttonSize, "Select and Search", true);
         HorizontalViewContainer horizontalViewContainer = new HorizontalViewContainer(label, search, selectAndSearch);
         horizontalViewContainer.setSize(new Size(sizeHelper.getGroupWidth(), BUTTON_HEIGHT));
         horizontalViewContainer.setOffset(new Position(0, -PreviewableQueryFactory.FIRST_ROW_HEIGHT));

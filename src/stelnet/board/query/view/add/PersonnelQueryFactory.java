@@ -24,7 +24,6 @@ import uilib.Paragraph;
 import uilib.People;
 import uilib.Renderable;
 import uilib.RenderableComponent;
-import uilib.Spacer;
 import uilib.VerticalViewContainer;
 import uilib.property.Size;
 
@@ -52,10 +51,11 @@ public class PersonnelQueryFactory extends PreviewableQueryFactory {
     protected Renderable getContainer() {
         List<Renderable> elements = new LinkedList<>();
         addPostTypes(elements);
-        elements.add(new Spacer(10));
-        addLevels(elements);
-        addPersonalities(elements);
-        addSkills(elements);
+        beginSection(elements, CommonL10n.OFFICER);
+        addOfficerLevels(elements);
+        addOfficerPersonalities(elements);
+        addOfficerSkills(elements);
+        endSection(elements);
         VerticalViewContainer container = new VerticalViewContainer(elements);
         return container;
     }
@@ -66,18 +66,18 @@ public class PersonnelQueryFactory extends PreviewableQueryFactory {
         return new People(new PeopleProvider().getPeople(filters), "No matching people found.", size);
     }
 
-    private void addLevels(List<Renderable> containers) {
+    private void addOfficerLevels(List<Renderable> containers) {
         HorizontalViewContainer container = new HorizontalViewContainer(
-            new Paragraph("Officer minimal level", sizeHelper.getTextWidth(), 4, Alignment.RMID),
+            new Paragraph("Minimal level", sizeHelper.getTextWidth(), 4, Alignment.RMID),
             new DynamicGroup(sizeHelper.getGroupWidth(), level)
         );
         containers.add(container);
     }
 
-    private void addPersonalities(List<Renderable> containers) {
+    private void addOfficerPersonalities(List<Renderable> containers) {
         containers.add(
             new HorizontalViewContainer(
-                new Paragraph("Officer personality", sizeHelper.getTextWidth(), 4, Alignment.RMID),
+                new Paragraph("Personality", sizeHelper.getTextWidth(), 4, Alignment.RMID),
                 new DynamicGroup(sizeHelper.getGroupWidth(), personality)
             )
         );
@@ -92,10 +92,10 @@ public class PersonnelQueryFactory extends PreviewableQueryFactory {
         );
     }
 
-    private void addSkills(List<Renderable> containers) {
+    private void addOfficerSkills(List<Renderable> containers) {
         containers.add(
             new HorizontalViewContainer(
-                new Paragraph("Officer skills", sizeHelper.getTextWidth(), 4, Alignment.RMID),
+                new Paragraph("Skills", sizeHelper.getTextWidth(), 4, Alignment.RMID),
                 new DynamicGroup(sizeHelper.getGroupWidth(), skill)
             )
         );
