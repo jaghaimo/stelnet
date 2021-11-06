@@ -1,7 +1,6 @@
 package stelnet.board.query.view.add;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
-
 import lombok.Getter;
 import stelnet.util.L10n;
 import uilib.AreaCheckbox;
