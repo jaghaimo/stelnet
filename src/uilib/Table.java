@@ -1,6 +1,7 @@
 package uilib;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
+import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -29,9 +30,14 @@ public class Table extends RenderableComponent {
     }
 
     @Override
+    public void render(CustomPanelAPI panel, float x, float y) {
+        super.render(panel, x - 4, y);
+    }
+
+    @Override
     public void render(TooltipMakerAPI tooltip) {
         boolean hasRows = false;
-        tooltip.beginTable(faction, ROW_HEIGHT, tableContent.getHeaders(width - 31));
+        tooltip.beginTable(faction, ROW_HEIGHT, tableContent.getHeaders(width - 22));
         for (TableContentRow row : tableContent.getRows()) {
             tooltip.addRow(row.buildObjectArray());
             hasRows = true;

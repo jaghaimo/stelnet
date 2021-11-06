@@ -26,8 +26,9 @@ public abstract class PreviewableQueryFactory implements RenderableFactory {
         initSizeHelper(size);
         Renderable container = getContainer();
         Size previewSize = new Size(sizeHelper.getPreviewWidth(), sizeHelper.getHeight() - FIRST_ROW_HEIGHT);
+        Renderable padding = new Spacer(12);
         Renderable preview = getPreview(getPreviewContent(previewSize), previewSize);
-        HorizontalViewContainer horizontalViewContainer = new HorizontalViewContainer(container, preview);
+        HorizontalViewContainer horizontalViewContainer = new HorizontalViewContainer(container, padding, preview);
         return Collections.<Renderable>singletonList(horizontalViewContainer);
     }
 
