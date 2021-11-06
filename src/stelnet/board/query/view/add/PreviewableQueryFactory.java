@@ -48,7 +48,6 @@ public abstract class PreviewableQueryFactory implements RenderableFactory {
 
     protected void endSection(List<Renderable> elements) {
         Line line = new Line(sizeHelper.getGroupAndTextWidth());
-        // line.setOffset(new Position(0, -2));
         elements.add(line);
     }
 

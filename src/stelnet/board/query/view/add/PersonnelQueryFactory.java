@@ -7,6 +7,7 @@ import com.fs.starfarer.api.ui.Alignment;
 import java.util.LinkedList;
 import java.util.List;
 import stelnet.CommonL10n;
+import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.PeopleProvider;
 import stelnet.board.query.provider.SkillProvider;
 import stelnet.filter.Filter;
@@ -51,7 +52,7 @@ public class PersonnelQueryFactory extends PreviewableQueryFactory {
     protected Renderable getContainer() {
         List<Renderable> elements = new LinkedList<>();
         addPostTypes(elements);
-        beginSection(elements, CommonL10n.OFFICER);
+        beginSection(elements, QueryL10n.OFFICERS_AND_MERCENARIES);
         addOfficerLevels(elements);
         addOfficerPersonalities(elements);
         addOfficerSkills(elements);

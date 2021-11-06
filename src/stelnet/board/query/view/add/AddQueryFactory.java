@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import lombok.Getter;
 import stelnet.CommonL10n;
+import stelnet.board.query.QueryL10n;
 import uilib.Button;
 import uilib.DynamicGroup;
 import uilib.HorizontalViewContainer;
@@ -65,9 +66,13 @@ public class AddQueryFactory extends PreviewableQueryFactory {
         final float BUTTON_HEIGHT = 30;
         Size buttonSize = new Size(0, BUTTON_HEIGHT);
         Paragraph label = new Paragraph("", sizeHelper.getTextWidth());
-        Button search = new Button(buttonSize, "Search", true);
-        Button selectAndSearch = new Button(buttonSize, "Select and Search", true);
-        HorizontalViewContainer horizontalViewContainer = new HorizontalViewContainer(label, search, selectAndSearch);
+        Button searchMatching = new SearchButton(buttonSize, QueryL10n.SEARCH_MATCHING, true);
+        Button searchSelected = new SearchButton(buttonSize, QueryL10n.SEARCH_SELECTED, true);
+        HorizontalViewContainer horizontalViewContainer = new HorizontalViewContainer(
+            label,
+            searchMatching,
+            searchSelected
+        );
         horizontalViewContainer.setSize(new Size(sizeHelper.getGroupWidth(), BUTTON_HEIGHT));
         horizontalViewContainer.setOffset(new Position(0, -PreviewableQueryFactory.FIRST_ROW_HEIGHT));
         elements.add(horizontalViewContainer);

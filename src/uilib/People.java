@@ -2,6 +2,7 @@ package uilib;
 
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
+import com.fs.starfarer.api.util.Misc;
 import java.util.List;
 import uilib.property.Size;
 
@@ -24,7 +25,7 @@ public class People extends RenderableComponent {
         for (PersonAPI person : people) {
             TooltipMakerAPI inner = tooltip.beginImageWithText(person.getPortraitSprite(), 40);
             inner.addPara(person.getNameString(), 2);
-            inner.addPara(person.getPost(), 2);
+            inner.addPara(person.getPost(), Misc.getGrayColor(), 2);
             tooltip.addImageWithText(4);
         }
     }
