@@ -37,7 +37,7 @@ public class Table extends RenderableComponent {
     @Override
     public void render(TooltipMakerAPI tooltip) {
         boolean hasRows = false;
-        tooltip.beginTable(faction, ROW_HEIGHT, tableContent.getHeaders(width - 22));
+        tooltip.beginTable(faction, ROW_HEIGHT, tableContent.getHeaders(width - 24));
         for (TableContentRow row : tableContent.getRows()) {
             tooltip.addRow(row.buildObjectArray());
             hasRows = true;
