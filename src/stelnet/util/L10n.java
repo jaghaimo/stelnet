@@ -22,15 +22,6 @@ public class L10n {
         return get(key, args);
     }
 
-    private static String enumToKey(Enum<?> enumKey) {
-        String enumPrefix = enumKey.getClass().getName().toUpperCase();
-        enumPrefix = enumPrefix.replaceAll("L10N", "");
-        enumPrefix = enumPrefix.replaceAll("\\.", "\\_");
-        enumPrefix = removeHead(enumPrefix);
-        enumPrefix = removeTail(enumPrefix);
-        return enumPrefix + "_" + enumKey.name();
-    }
-
     private static String get(String key, Object... args) {
         try {
             String translation = translations.getString(key);
@@ -39,6 +30,15 @@ public class L10n {
             log.warn("Missing translation for key " + key);
             return key;
         }
+    }
+
+    private static String enumToKey(Enum<?> enumKey) {
+        String enumPrefix = enumKey.getClass().getName().toUpperCase();
+        enumPrefix = enumPrefix.replaceAll("L10N", "");
+        enumPrefix = enumPrefix.replaceAll("\\.", "\\_");
+        enumPrefix = removeHead(enumPrefix);
+        enumPrefix = removeTail(enumPrefix);
+        return enumPrefix + "_" + enumKey.name();
     }
 
     private static String removeHead(String string) {
