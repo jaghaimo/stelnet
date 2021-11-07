@@ -8,22 +8,20 @@ import stelnet.board.query.provider.ItemProvider;
 import uilib.Cargo;
 import uilib.Renderable;
 import uilib.RenderableComponent;
-import uilib.VerticalViewContainer;
 import uilib.property.Size;
 
-public class ItemQueryFactory extends PreviewableQueryFactory {
+public class ItemQueryFactory extends QueryFactory {
 
     @Override
-    protected Renderable getContainer() {
+    protected List<Renderable> getQueryBuilder() {
         List<Renderable> elements = new LinkedList<>();
         beginSection(elements, CommonL10n.WEAPONS);
         beginSection(elements, CommonL10n.FIGHTER_WINGS);
-        VerticalViewContainer container = new VerticalViewContainer(elements);
-        return container;
+        return elements;
     }
 
     @Override
-    protected RenderableComponent getPreviewContent(Size size) {
+    protected RenderableComponent getPreview(Size size) {
         ItemProvider itemProvider = new ItemProvider();
         CargoAPI cargo = itemProvider.getWeapons();
         cargo.addAll(itemProvider.getFighters());

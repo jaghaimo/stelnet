@@ -1,87 +1,103 @@
 package stelnet.board.query.view.add;
 
-import com.fs.starfarer.api.ui.Alignment;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.Getter;
 import stelnet.CommonL10n;
 import stelnet.board.query.QueryL10n;
-import uilib.Button;
-import uilib.DynamicGroup;
+import uilib.Heading;
 import uilib.HorizontalViewContainer;
-import uilib.Paragraph;
 import uilib.Renderable;
+import uilib.RenderableComponent;
 import uilib.RenderableFactory;
-import uilib.property.Position;
+import uilib.Spacer;
+import uilib.VerticalViewContainer;
 import uilib.property.Size;
 
 @Getter
-public class AddQueryFactory extends PreviewableQueryFactory {
+public class AddQueryFactory extends QueryFactory implements RenderableFactory {
 
-    private final QueryTypeButton[] buttons;
+    private final QueryTypeButton[] queryType;
+    private final SearchButton[] searchButton;
 
     public AddQueryFactory() {
-        buttons =
+        queryType =
             new QueryTypeButton[] {
                 new QueryTypeButton(this, CommonL10n.PERSONNEL, new PersonnelQueryFactory()),
                 new QueryTypeButton(this, CommonL10n.ITEMS, new ItemQueryFactory()),
                 new QueryTypeButton(this, CommonL10n.SHIPS, new ShipQueryFactory()),
             };
-        buttons[0].setStateOn(true);
+        queryType[0].setStateOn(true);
+        searchButton =
+            new SearchButton[] {
+                new SearchButton(new Size(0, 30), QueryL10n.SEARCH_MATCHING, true),
+                new SearchButton(new Size(0, 30), QueryL10n.SEARCH_SELECTED, true),
+            };
     }
 
     @Override
     public List<Renderable> create(Size size) {
-        initSizeHelper(size);
-        List<Renderable> elements = new LinkedList<>();
-        addQueryTypes(elements);
-        addFromNextFactory(elements, size.reduce(new Size(0, FIRST_ROW_HEIGHT)));
-        return elements;
+        setSizeHelper(new SizeHelper(size));
+        Renderable container = new VerticalViewContainer(getQueryBuilder());
+        Size previewSize = new Size(sizeHelper.getPreviewWidth(), sizeHelper.getHeight());
+        Renderable padding = new Spacer(12);
+        Renderable preview = buildPreview(getPreview(previewSize), previewSize);
+        HorizontalViewContainer horizontalViewContainer = new HorizontalViewContainer(container, padding, preview);
+        return Collections.<Renderable>singletonList(horizontalViewContainer);
     }
 
     public void setQueryType(QueryTypeButton active) {
-        for (QueryTypeButton button : buttons) {
+        for (QueryTypeButton button : queryType) {
             button.setStateOn(active.equals(button));
         }
     }
 
-    private void addQueryTypes(List<Renderable> elements) {
-        Paragraph label = new Paragraph("Type of query", sizeHelper.getTextWidth(), 4, Alignment.RMID);
-        DynamicGroup group = new DynamicGroup(sizeHelper.getGroupWidth(), buttons);
-        FIRST_ROW_HEIGHT = group.getSize().getHeight();
-        elements.add(new HorizontalViewContainer(label, group));
+    @Override
+    protected List<Renderable> getQueryBuilder() {
+        List<Renderable> elements = new LinkedList<>();
+        addLabeledGroup(elements, QueryL10n.QUERY_TYPE, Arrays.<Renderable>asList(queryType));
+        addFromNextFactory(elements);
+        addSpacer(elements, 10);
+        addLabeledGroup(elements, null, Arrays.<Renderable>asList(searchButton));
+        return elements;
     }
 
-    private void addFromNextFactory(List<Renderable> elements, Size size) {
-        RenderableFactory nextFactory = getNextFactory();
-        if (nextFactory == null) {
-            setQueryType(buttons[0]);
-            nextFactory = getNextFactory();
+    @Override
+    protected RenderableComponent getPreview(Size size) {
+        QueryFactory queryFactory = findNextFactory();
+        if (queryFactory == null) {
+            return null;
         }
-        elements.addAll(nextFactory.create(size));
-        addQueryButtons(elements);
+        return queryFactory.getPreview(size);
     }
 
-    private void addQueryButtons(List<Renderable> elements) {
-        final float BUTTON_HEIGHT = 30;
-        Size buttonSize = new Size(0, BUTTON_HEIGHT);
-        Paragraph label = new Paragraph("", sizeHelper.getTextWidth());
-        Button searchMatching = new SearchButton(buttonSize, QueryL10n.SEARCH_MATCHING, true);
-        Button searchSelected = new SearchButton(buttonSize, QueryL10n.SEARCH_SELECTED, true);
-        HorizontalViewContainer horizontalViewContainer = new HorizontalViewContainer(
-            label,
-            searchMatching,
-            searchSelected
-        );
-        horizontalViewContainer.setSize(new Size(sizeHelper.getGroupWidth(), BUTTON_HEIGHT));
-        horizontalViewContainer.setOffset(new Position(0, -PreviewableQueryFactory.FIRST_ROW_HEIGHT));
-        elements.add(horizontalViewContainer);
+    private void addFromNextFactory(List<Renderable> elements) {
+        QueryFactory nextFactory = findNextFactory();
+        if (nextFactory == null) {
+            setQueryType(queryType[0]);
+            nextFactory = findNextFactory();
+        }
+        elements.addAll(nextFactory.getQueryBuilder());
     }
 
-    private RenderableFactory getNextFactory() {
-        for (QueryTypeButton button : buttons) {
+    private Renderable buildPreview(RenderableComponent content, Size size) {
+        final float HEADING_HEIGHT = 25;
+        Heading heading = new Heading("Preview");
+        heading.setSize(new Size(size.getWidth(), HEADING_HEIGHT));
+        content.setSize(size.reduce(new Size(0, HEADING_HEIGHT)));
+        VerticalViewContainer verticalView = new VerticalViewContainer(heading, content);
+        verticalView.setSize(size.reduce(new Size(0, HEADING_HEIGHT)));
+        return verticalView;
+    }
+
+    private QueryFactory findNextFactory() {
+        for (QueryTypeButton button : queryType) {
             if (button.isStateOn()) {
-                return button.getNextFactory();
+                QueryFactory queryFactory = button.getNextFactory();
+                queryFactory.setSizeHelper(sizeHelper);
+                return queryFactory;
             }
         }
         return null;

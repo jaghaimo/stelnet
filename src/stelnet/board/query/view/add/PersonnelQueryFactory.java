@@ -3,7 +3,7 @@ package stelnet.board.query.view.add;
 import com.fs.starfarer.api.characters.SkillSpecAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.campaign.ids.Ranks;
-import com.fs.starfarer.api.ui.Alignment;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import stelnet.CommonL10n;
@@ -19,16 +19,12 @@ import stelnet.filter.PersonIsPostedAs;
 import stelnet.filter.SkillIsCombatOfficer;
 import stelnet.util.L10n;
 import stelnet.util.SettingsUtils;
-import uilib.DynamicGroup;
-import uilib.HorizontalViewContainer;
-import uilib.Paragraph;
 import uilib.People;
 import uilib.Renderable;
 import uilib.RenderableComponent;
-import uilib.VerticalViewContainer;
 import uilib.property.Size;
 
-public class PersonnelQueryFactory extends PreviewableQueryFactory {
+public class PersonnelQueryFactory extends QueryFactory {
 
     private final PostTypeButton[] postType;
     private final LevelButton[] level;
@@ -36,10 +32,10 @@ public class PersonnelQueryFactory extends PreviewableQueryFactory {
     private final OfficerButton[] skill;
 
     public PersonnelQueryFactory() {
-        postType = getPostTypeButtons();
-        level = getLevelButtons();
-        personality = getPersonalityButtons();
-        skill = getSkillButtons();
+        postType = createPostTypeButtons();
+        level = createLevelButtons();
+        personality = createPersonalityButtons();
+        skill = createSkillButtons();
     }
 
     public void setLevel(LevelButton active) {
@@ -49,57 +45,21 @@ public class PersonnelQueryFactory extends PreviewableQueryFactory {
     }
 
     @Override
-    protected Renderable getContainer() {
+    protected List<Renderable> getQueryBuilder() {
         List<Renderable> elements = new LinkedList<>();
-        addPostTypes(elements);
+        addLabeledGroup(elements, QueryL10n.PERSONNEL_POST_TYPES, Arrays.<Renderable>asList(postType));
         beginSection(elements, QueryL10n.OFFICERS_AND_MERCENARIES);
-        addOfficerLevels(elements);
-        addOfficerPersonalities(elements);
-        addOfficerSkills(elements);
+        addLabeledGroup(elements, QueryL10n.PERSONNEL_MIN_LEVEL, Arrays.<Renderable>asList(level));
+        addLabeledGroup(elements, QueryL10n.PERSONNEL_PERSONALITY, Arrays.<Renderable>asList(personality));
+        addLabeledGroup(elements, QueryL10n.PERSONNEL_SKILLS, Arrays.<Renderable>asList(skill));
         endSection(elements);
-        VerticalViewContainer container = new VerticalViewContainer(elements);
-        return container;
+        return elements;
     }
 
     @Override
-    protected RenderableComponent getPreviewContent(Size size) {
+    protected RenderableComponent getPreview(Size size) {
         List<Filter> filters = getFilters();
         return new People(new PeopleProvider().getPeople(filters), "No matching people found.", size);
-    }
-
-    private void addOfficerLevels(List<Renderable> containers) {
-        HorizontalViewContainer container = new HorizontalViewContainer(
-            new Paragraph("Minimal level", sizeHelper.getTextWidth(), 4, Alignment.RMID),
-            new DynamicGroup(sizeHelper.getGroupWidth(), level)
-        );
-        containers.add(container);
-    }
-
-    private void addOfficerPersonalities(List<Renderable> containers) {
-        containers.add(
-            new HorizontalViewContainer(
-                new Paragraph("Personality", sizeHelper.getTextWidth(), 4, Alignment.RMID),
-                new DynamicGroup(sizeHelper.getGroupWidth(), personality)
-            )
-        );
-    }
-
-    private void addPostTypes(List<Renderable> containers) {
-        containers.add(
-            new HorizontalViewContainer(
-                new Paragraph("Type of personnel", sizeHelper.getTextWidth(), 4, Alignment.RMID),
-                new DynamicGroup(sizeHelper.getGroupWidth(), postType)
-            )
-        );
-    }
-
-    private void addOfficerSkills(List<Renderable> containers) {
-        containers.add(
-            new HorizontalViewContainer(
-                new Paragraph("Skills", sizeHelper.getTextWidth(), 4, Alignment.RMID),
-                new DynamicGroup(sizeHelper.getGroupWidth(), skill)
-            )
-        );
     }
 
     private List<Filter> getFilters() {
@@ -111,19 +71,7 @@ public class PersonnelQueryFactory extends PreviewableQueryFactory {
         return filters;
     }
 
-    private List<Filter> getFilters(FilteringButton buttons[]) {
-        List<Filter> allFilters = new LinkedList<>();
-        List<Filter> selectedFilters = new LinkedList<>();
-        for (FilteringButton button : buttons) {
-            allFilters.add(button.getFilter());
-            if (button.isStateOn()) {
-                selectedFilters.add(button.getFilter());
-            }
-        }
-        return selectedFilters.isEmpty() ? allFilters : selectedFilters;
-    }
-
-    private LevelButton[] getLevelButtons() {
+    private LevelButton[] createLevelButtons() {
         List<LevelButton> levelButtons = new LinkedList<>();
         for (int i = 1; i <= SettingsUtils.getOfficerMaxLevel(); i++) {
             levelButtons.add(new LevelButton(this, String.valueOf(i), new PersonHasLevel(i)));
@@ -134,7 +82,7 @@ public class PersonnelQueryFactory extends PreviewableQueryFactory {
         return levelButtons.toArray(new LevelButton[] {});
     }
 
-    private OfficerButton[] getPersonalityButtons() {
+    private OfficerButton[] createPersonalityButtons() {
         return new OfficerButton[] {
             new OfficerButton(L10n.get(CommonL10n.TIMID), new PersonHasPersonality(Personalities.TIMID)),
             new OfficerButton(L10n.get(CommonL10n.CAUTIOUS), new PersonHasPersonality(Personalities.CAUTIOUS)),
@@ -144,7 +92,7 @@ public class PersonnelQueryFactory extends PreviewableQueryFactory {
         };
     }
 
-    private PostTypeButton[] getPostTypeButtons() {
+    private PostTypeButton[] createPostTypeButtons() {
         return new PostTypeButton[] {
             new PostTypeButton(CommonL10n.ADMIN, new PersonIsPostedAs(Ranks.POST_FREELANCE_ADMIN)),
             new PostTypeButton(CommonL10n.OFFICER, new PersonIsPostedAs(Ranks.POST_OFFICER_FOR_HIRE)),
@@ -153,7 +101,7 @@ public class PersonnelQueryFactory extends PreviewableQueryFactory {
         };
     }
 
-    private OfficerButton[] getSkillButtons() {
+    private OfficerButton[] createSkillButtons() {
         List<OfficerButton> skillButtons = new LinkedList<>();
         List<SkillSpecAPI> skills = (new SkillProvider()).getSkills(new SkillIsCombatOfficer());
         for (SkillSpecAPI skill : skills) {
