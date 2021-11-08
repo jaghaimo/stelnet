@@ -3,6 +3,7 @@ package stelnet.board.query.provider;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,7 +14,7 @@ import stelnet.util.CollectionUtils;
 import stelnet.util.FactoryUtils;
 import stelnet.util.SettingsUtils;
 
-public class ShipProvider extends FilterableProvider {
+public class ShipProvider extends FilterableProvider implements Comparator<ShipHullSpecAPI> {
 
     private static final String SUFFIX = "_Hull";
     private transient List<ShipHullSpecAPI> allShipHulls;
@@ -25,7 +26,8 @@ public class ShipProvider extends FilterableProvider {
     public List<FleetMemberAPI> getShips(List<Filter> filters) {
         List<ShipHullSpecAPI> allShipHullSpecs = getShipHulls();
         Set<String> allHullIds = getHullIds(allShipHullSpecs);
-        return convertToFleetMembers(allHullIds, filters);
+        List<FleetMemberAPI> fleetMembers = convertToFleetMembers(allHullIds, filters);
+        return fleetMembers;
     }
 
     public Set<String> getManufacturers() {
@@ -45,6 +47,7 @@ public class ShipProvider extends FilterableProvider {
         if (allShipHulls == null) {
             allShipHulls = SettingsUtils.getAllShipHullSpecs();
             filter(allShipHulls);
+            Collections.sort(allShipHulls, this);
         }
         return allShipHulls;
     }
@@ -68,5 +71,10 @@ public class ShipProvider extends FilterableProvider {
 
     private FleetMemberAPI makeFleetMember(String hullId) {
         return FactoryUtils.createFleetMember(hullId + SUFFIX);
+    }
+
+    @Override
+    public int compare(ShipHullSpecAPI o1, ShipHullSpecAPI o2) {
+        return o1.getHullNameWithDashClass().compareTo(o2.getHullNameWithDashClass());
     }
 }
