@@ -20,6 +20,7 @@ public enum CommonL10n {
     INTEL_OWNER_RELATIONSHIP,
     ITEMS,
     MERCENARY,
+    MODSPECS,
     MOUNT_LARGE,
     MOUNT_MEDIUM,
     MOUNT_SMALL,

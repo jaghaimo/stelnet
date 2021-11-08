@@ -23,7 +23,7 @@ public class People extends RenderableComponent {
             tooltip.addPara(emptyDescription, 0);
         }
         for (PersonAPI person : people) {
-            TooltipMakerAPI inner = tooltip.beginImageWithText(person.getPortraitSprite(), 40);
+            TooltipMakerAPI inner = tooltip.beginImageWithText(person.getPortraitSprite(), 32);
             inner.addPara(person.getNameString(), 2);
             inner.addPara(person.getPost(), Misc.getGrayColor(), 2);
             tooltip.addImageWithText(4);

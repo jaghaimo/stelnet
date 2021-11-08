@@ -12,6 +12,8 @@ import stelnet.CommonL10n;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.ItemProvider;
 import stelnet.filter.CargoStackIsManufacturer;
+import stelnet.filter.CargoStackIsType;
+import stelnet.filter.CargoStackIsType.Type;
 import stelnet.filter.CargoStackKnownModspec;
 import stelnet.filter.CargoStackWingIsRole;
 import stelnet.filter.Filter;
@@ -29,6 +31,7 @@ import uilib.property.Size;
 public class ItemQueryFactory extends QueryFactory {
 
     private transient ItemProvider itemProvider = new ItemProvider();
+    private transient ItemButton[] itemTypes = createItemTypes();
     private transient ItemButton[] manufacturers = createManufacturers();
     private transient ItemButton[] weaponDamageTypes = createWeaponDamageType();
     private transient ItemButton[] weaponMountSizes = createWeaponMountSize();
@@ -37,6 +40,7 @@ public class ItemQueryFactory extends QueryFactory {
 
     public void readResolve() {
         itemProvider = new ItemProvider();
+        itemTypes = createItemTypes();
         manufacturers = createManufacturers();
         weaponDamageTypes = createWeaponDamageType();
         weaponMountSizes = createWeaponMountSize();
@@ -47,6 +51,7 @@ public class ItemQueryFactory extends QueryFactory {
     @Override
     protected List<Renderable> getQueryBuilder() {
         List<Renderable> elements = new LinkedList<>();
+        addLabeledGroup(elements, QueryL10n.ITEM_TYPES, Arrays.<Renderable>asList(itemTypes));
         addSection(elements, CommonL10n.WEAPONS);
         addLabeledGroup(elements, QueryL10n.WEAPON_DAMAGE, Arrays.<Renderable>asList(weaponDamageTypes));
         addLabeledGroup(elements, QueryL10n.MOUNT_TYPE, Arrays.<Renderable>asList(weaponMountTypes));
@@ -67,6 +72,7 @@ public class ItemQueryFactory extends QueryFactory {
 
     private List<Filter> getFilters() {
         List<Filter> filters = new LinkedList<>();
+        filters.add(new LogicalOrFilter(getFilters(itemTypes)));
         filters.add(new LogicalOrFilter(getFilters(manufacturers)));
         filters.add(new LogicalOrFilter(getFilters(weaponDamageTypes)));
         filters.add(new LogicalOrFilter(getFilters(weaponMountSizes)));
@@ -74,6 +80,14 @@ public class ItemQueryFactory extends QueryFactory {
         filters.add(new LogicalOrFilter(getFilters(wingRoles)));
         filters.add(new LogicalNotFilter(new CargoStackKnownModspec()));
         return filters;
+    }
+
+    private ItemButton[] createItemTypes() {
+        return new ItemButton[] {
+            new ItemButton(L10n.get(CommonL10n.WEAPONS), new CargoStackIsType(Type.WEAPON)),
+            new ItemButton(L10n.get(CommonL10n.FIGHTER_WINGS), new CargoStackIsType(Type.FIGHTER)),
+            new ItemButton(L10n.get(CommonL10n.MODSPECS), new CargoStackIsType(Type.MODSPEC)),
+        };
     }
 
     private ItemButton[] createWeaponDamageType() {
