@@ -15,8 +15,8 @@ public class ItemQueryFactory extends QueryFactory {
     @Override
     protected List<Renderable> getQueryBuilder() {
         List<Renderable> elements = new LinkedList<>();
-        beginSection(elements, CommonL10n.WEAPONS);
-        beginSection(elements, CommonL10n.FIGHTER_WINGS);
+        addSection(elements, CommonL10n.WEAPONS);
+        addSection(elements, CommonL10n.FIGHTER_WINGS);
         return elements;
     }
 

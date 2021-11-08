@@ -48,7 +48,7 @@ public class PersonnelQueryFactory extends QueryFactory {
     protected List<Renderable> getQueryBuilder() {
         List<Renderable> elements = new LinkedList<>();
         addLabeledGroup(elements, QueryL10n.PERSONNEL_POST_TYPES, Arrays.<Renderable>asList(postType));
-        beginSection(elements, QueryL10n.OFFICERS_AND_MERCENARIES);
+        addSection(elements, QueryL10n.OFFICERS_AND_MERCENARIES);
         addLabeledGroup(elements, QueryL10n.PERSONNEL_MIN_LEVEL, Arrays.<Renderable>asList(level));
         addLabeledGroup(elements, QueryL10n.PERSONNEL_PERSONALITY, Arrays.<Renderable>asList(personality));
         addLabeledGroup(elements, QueryL10n.PERSONNEL_SKILLS, Arrays.<Renderable>asList(skill));

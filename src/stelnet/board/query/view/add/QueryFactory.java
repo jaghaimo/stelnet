@@ -38,11 +38,7 @@ public abstract class QueryFactory {
         elements.add(new HorizontalViewContainer(new DynamicGroup(sizeHelper.getGroupAndTextWidth(), groupElements)));
     }
 
-    protected void addSpacer(List<Renderable> elements, float size) {
-        elements.add(new Spacer(size));
-    }
-
-    protected void beginSection(List<Renderable> elements, Enum<?> translationId) {
+    protected void addSection(List<Renderable> elements, Enum<?> translationId) {
         float width = sizeHelper.getGroupAndTextWidth();
         addSpacer(elements, 10);
         elements.add(new Paragraph(L10n.get(translationId), width));
@@ -50,6 +46,10 @@ public abstract class QueryFactory {
         line.setOffset(new Position(0, -6));
         elements.add(line);
         addSpacer(elements, 2);
+    }
+
+    protected void addSpacer(List<Renderable> elements, float size) {
+        elements.add(new Spacer(size));
     }
 
     protected List<Filter> getFilters(FilteringButton buttons[]) {
