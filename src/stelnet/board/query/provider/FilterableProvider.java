@@ -24,7 +24,8 @@ public abstract class FilterableProvider {
             new LogicalNotFilter(new ShipHullIsDamaged()),
             new LogicalNotFilter(new ShipBaseHullId("gargoyle")),
             new LogicalNotFilter(new ShipBaseHullId("merlon")),
-            new LogicalNotFilter(new ShipBaseHullId("ravelin"))
+            new LogicalNotFilter(new ShipBaseHullId("ravelin")),
+            new LogicalNotFilter(new ShipBaseHullId("shuttlepod"))
         );
     }
 }

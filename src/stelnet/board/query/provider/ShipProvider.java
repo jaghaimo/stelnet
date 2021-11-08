@@ -17,6 +17,7 @@ import stelnet.util.SettingsUtils;
 public class ShipProvider extends FilterableProvider implements Comparator<ShipHullSpecAPI> {
 
     private static final String SUFFIX = "_Hull";
+    private transient List<FleetMemberAPI> allFleetMembers;
     private transient List<ShipHullSpecAPI> allShipHulls;
 
     public List<FleetMemberAPI> getShips() {
@@ -32,7 +33,8 @@ public class ShipProvider extends FilterableProvider implements Comparator<ShipH
 
     public Set<String> getManufacturers() {
         List<ShipHullSpecAPI> allShipHullSpecs = getShipHulls();
-        return extractManufacturers(allShipHullSpecs);
+        Set<String> manufacturers = extractManufacturers(allShipHullSpecs);
+        return manufacturers;
     }
 
     protected Set<String> extractManufacturers(List<ShipHullSpecAPI> shipHulls) {
@@ -61,12 +63,15 @@ public class ShipProvider extends FilterableProvider implements Comparator<ShipH
     }
 
     private List<FleetMemberAPI> convertToFleetMembers(Set<String> hullIds, List<Filter> filters) {
-        List<FleetMemberAPI> members = new LinkedList<>();
-        for (String hullId : hullIds) {
-            members.add(makeFleetMember(hullId));
+        if (allFleetMembers == null) {
+            allFleetMembers = new LinkedList<>();
+            for (String hullId : hullIds) {
+                allFleetMembers.add(makeFleetMember(hullId));
+            }
         }
-        CollectionUtils.reduce(members, filters);
-        return members;
+        List<FleetMemberAPI> fleetMembers = new LinkedList<FleetMemberAPI>(allFleetMembers);
+        CollectionUtils.reduce(fleetMembers, filters);
+        return fleetMembers;
     }
 
     private FleetMemberAPI makeFleetMember(String hullId) {
@@ -75,6 +80,10 @@ public class ShipProvider extends FilterableProvider implements Comparator<ShipH
 
     @Override
     public int compare(ShipHullSpecAPI o1, ShipHullSpecAPI o2) {
+        int sizeDifference = o2.getHullSize().ordinal() - o1.getHullSize().ordinal();
+        if (sizeDifference != 0) {
+            return sizeDifference;
+        }
         return o1.getHullNameWithDashClass().compareTo(o2.getHullNameWithDashClass());
     }
 }

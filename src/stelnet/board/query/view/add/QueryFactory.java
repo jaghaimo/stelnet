@@ -40,7 +40,7 @@ public abstract class QueryFactory {
 
     protected void addSection(List<Renderable> elements, Enum<?> translationId) {
         float width = sizeHelper.getGroupAndTextWidth();
-        addSpacer(elements, 10);
+        addSpacer(elements, 16);
         elements.add(new Paragraph(L10n.get(translationId), width));
         Line line = new Line(width);
         line.setOffset(new Position(0, -6));
