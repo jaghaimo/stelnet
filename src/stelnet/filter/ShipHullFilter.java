@@ -13,6 +13,7 @@ public abstract class ShipHullFilter extends FleetMemberFilter {
         return super.accept(object);
     }
 
+    @Override
     protected boolean acceptFleetMember(FleetMemberAPI fleetMember) {
         return accept(fleetMember.getHullSpec());
     }

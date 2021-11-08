@@ -7,6 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.FactoryUtils;
@@ -15,6 +16,7 @@ import stelnet.util.SettingsUtils;
 public class ShipProvider extends FilterableProvider {
 
     private static final String SUFFIX = "_Hull";
+    private transient List<ShipHullSpecAPI> allShipHulls;
 
     public List<FleetMemberAPI> getShips() {
         return getShips(Collections.<Filter>emptyList());
@@ -26,16 +28,31 @@ public class ShipProvider extends FilterableProvider {
         return convertToFleetMembers(allHullIds, filters);
     }
 
+    public Set<String> getManufacturers() {
+        List<ShipHullSpecAPI> allShipHullSpecs = getShipHulls();
+        return extractManufacturers(allShipHullSpecs);
+    }
+
+    protected Set<String> extractManufacturers(List<ShipHullSpecAPI> shipHulls) {
+        Set<String> manufacturers = new TreeSet<>();
+        for (ShipHullSpecAPI shipHull : shipHulls) {
+            manufacturers.add(shipHull.getManufacturer());
+        }
+        return manufacturers;
+    }
+
     protected List<ShipHullSpecAPI> getShipHulls() {
-        List<ShipHullSpecAPI> allShipHullSpecs = SettingsUtils.getAllShipHullSpecs();
-        filter(allShipHullSpecs);
-        return allShipHullSpecs;
+        if (allShipHulls == null) {
+            allShipHulls = SettingsUtils.getAllShipHullSpecs();
+            filter(allShipHulls);
+        }
+        return allShipHulls;
     }
 
     private Set<String> getHullIds(List<ShipHullSpecAPI> shipHullSpecs) {
         Set<String> hullIds = new LinkedHashSet<>();
         for (ShipHullSpecAPI shipHullSpec : shipHullSpecs) {
-            hullIds.add(shipHullSpec.getBaseHullId());
+            hullIds.add(shipHullSpec.getHullId());
         }
         return hullIds;
     }

@@ -19,22 +19,12 @@ import uilib.property.Size;
 @Getter
 public class AddQueryFactory extends QueryFactory implements RenderableFactory {
 
-    private final QueryTypeButton[] queryType;
-    private final SearchButton[] searchButton;
+    private transient QueryTypeButton[] queryType = createQueryTypeButtons();
+    private transient SearchButton[] searchButton = createSearchButtons();
 
-    public AddQueryFactory() {
-        queryType =
-            new QueryTypeButton[] {
-                new QueryTypeButton(this, CommonL10n.PERSONNEL, new PersonnelQueryFactory()),
-                new QueryTypeButton(this, CommonL10n.ITEMS, new ItemQueryFactory()),
-                new QueryTypeButton(this, CommonL10n.SHIPS, new ShipQueryFactory()),
-            };
-        queryType[0].setStateOn(true);
-        searchButton =
-            new SearchButton[] {
-                new SearchButton(new Size(0, 30), QueryL10n.SEARCH_MATCHING, true),
-                new SearchButton(new Size(0, 30), QueryL10n.SEARCH_SELECTED, true),
-            };
+    public void readResolve() {
+        queryType = createQueryTypeButtons();
+        searchButton = createSearchButtons();
     }
 
     @Override
@@ -86,10 +76,27 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
         final float HEADING_HEIGHT = 25;
         Heading heading = new Heading("Preview");
         heading.setSize(new Size(size.getWidth(), HEADING_HEIGHT));
-        content.setSize(size.reduce(new Size(0, HEADING_HEIGHT)));
+        content.setSize(size.reduce(new Size(0, 2 * HEADING_HEIGHT)));
         VerticalViewContainer verticalView = new VerticalViewContainer(heading, content);
         verticalView.setSize(size.reduce(new Size(0, HEADING_HEIGHT)));
         return verticalView;
+    }
+
+    private QueryTypeButton[] createQueryTypeButtons() {
+        QueryTypeButton[] queryType = new QueryTypeButton[] {
+            new QueryTypeButton(this, CommonL10n.PERSONNEL, new PersonnelQueryFactory()),
+            new QueryTypeButton(this, CommonL10n.ITEMS, new ItemQueryFactory()),
+            new QueryTypeButton(this, CommonL10n.SHIPS, new ShipQueryFactory()),
+        };
+        queryType[0].setStateOn(true);
+        return queryType;
+    }
+
+    private SearchButton[] createSearchButtons() {
+        return new SearchButton[] {
+            new SearchButton(QueryL10n.SEARCH_MATCHING),
+            new SearchButton(QueryL10n.SEARCH_SELECTED),
+        };
     }
 
     private QueryFactory findNextFactory() {

@@ -6,7 +6,7 @@ import uilib.property.Size;
 
 public class SearchButton extends Button {
 
-    public SearchButton(Size size, Enum<?> translationId, boolean isEnabled) {
-        super(size, L10n.get(translationId), isEnabled);
+    public SearchButton(Enum<?> translationId) {
+        super(new Size(0, 30), L10n.get(translationId), true);
     }
 }

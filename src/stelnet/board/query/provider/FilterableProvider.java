@@ -7,6 +7,7 @@ import stelnet.filter.AnyShowInCodexFilter;
 import stelnet.filter.Filter;
 import stelnet.filter.LogicalNotFilter;
 import stelnet.filter.ShipBaseHullId;
+import stelnet.filter.ShipHullIsDamaged;
 import stelnet.filter.ShipHullIsSize;
 import stelnet.util.CollectionUtils;
 
@@ -20,6 +21,7 @@ public abstract class FilterableProvider {
         return Arrays.asList(
             new AnyShowInCodexFilter(),
             new LogicalNotFilter(new ShipHullIsSize(ShipAPI.HullSize.FIGHTER)),
+            new LogicalNotFilter(new ShipHullIsDamaged()),
             new LogicalNotFilter(new ShipBaseHullId("gargoyle")),
             new LogicalNotFilter(new ShipBaseHullId("merlon")),
             new LogicalNotFilter(new ShipBaseHullId("ravelin"))

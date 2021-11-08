@@ -3,6 +3,7 @@ package stelnet.board.query;
 public enum QueryL10n {
     DESCRIPTION,
     OFFICERS_AND_MERCENARIES,
+    MANUFACTURERS,
     PERSONNEL_MIN_LEVEL,
     PERSONNEL_PERSONALITY,
     PERSONNEL_POST_TYPES,
@@ -10,5 +11,9 @@ public enum QueryL10n {
     QUERY_TYPE,
     SEARCH_MATCHING,
     SEARCH_SELECTED,
+    SHIP_CLASS_SIZE,
+    SHIP_MOUNT_SIZE,
+    SHIP_MOUNT_TYPE,
+    WEAPON_MOUNTS,
     TITLE,
 }

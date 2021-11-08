@@ -26,20 +26,20 @@ import uilib.property.Size;
 
 public class PersonnelQueryFactory extends QueryFactory {
 
-    private final PostTypeButton[] postType;
-    private final LevelButton[] level;
-    private final OfficerButton[] personality;
-    private final OfficerButton[] skill;
+    private transient PersonnelButton[] postType = createPostTypeButtons();
+    private transient OfficerButton[] level = createLevelButtons();
+    private transient OfficerButton[] personality = createPersonalityButtons();
+    private transient OfficerButton[] skill = createSkillButtons();
 
-    public PersonnelQueryFactory() {
+    public void readResolve() {
         postType = createPostTypeButtons();
         level = createLevelButtons();
         personality = createPersonalityButtons();
         skill = createSkillButtons();
     }
 
-    public void setLevel(LevelButton active) {
-        for (LevelButton button : level) {
+    public void setLevel(OfficerLevelButton active) {
+        for (OfficerButton button : level) {
             button.setStateOn(active.equals(button));
         }
     }
@@ -52,7 +52,6 @@ public class PersonnelQueryFactory extends QueryFactory {
         addLabeledGroup(elements, QueryL10n.PERSONNEL_MIN_LEVEL, Arrays.<Renderable>asList(level));
         addLabeledGroup(elements, QueryL10n.PERSONNEL_PERSONALITY, Arrays.<Renderable>asList(personality));
         addLabeledGroup(elements, QueryL10n.PERSONNEL_SKILLS, Arrays.<Renderable>asList(skill));
-        endSection(elements);
         return elements;
     }
 
@@ -71,15 +70,15 @@ public class PersonnelQueryFactory extends QueryFactory {
         return filters;
     }
 
-    private LevelButton[] createLevelButtons() {
-        List<LevelButton> levelButtons = new LinkedList<>();
+    private OfficerLevelButton[] createLevelButtons() {
+        List<OfficerLevelButton> levelButtons = new LinkedList<>();
         for (int i = 1; i <= SettingsUtils.getOfficerMaxLevel(); i++) {
-            levelButtons.add(new LevelButton(this, String.valueOf(i), new PersonHasLevel(i)));
+            levelButtons.add(new OfficerLevelButton(this, String.valueOf(i), new PersonHasLevel(i)));
         }
         if (levelButtons.size() > 0) {
             levelButtons.get(0).setStateOn(true);
         }
-        return levelButtons.toArray(new LevelButton[] {});
+        return levelButtons.toArray(new OfficerLevelButton[] {});
     }
 
     private OfficerButton[] createPersonalityButtons() {
@@ -92,12 +91,12 @@ public class PersonnelQueryFactory extends QueryFactory {
         };
     }
 
-    private PostTypeButton[] createPostTypeButtons() {
-        return new PostTypeButton[] {
-            new PostTypeButton(CommonL10n.ADMIN, new PersonIsPostedAs(Ranks.POST_FREELANCE_ADMIN)),
-            new PostTypeButton(CommonL10n.OFFICER, new PersonIsPostedAs(Ranks.POST_OFFICER_FOR_HIRE)),
-            new PostTypeButton(CommonL10n.MERCENARY, new PersonIsPostedAs(Ranks.POST_MERCENARY)),
-            new PostTypeButton(CommonL10n.AGENT, new PersonIsPostedAs(Ranks.POST_AGENT)),
+    private PersonnelButton[] createPostTypeButtons() {
+        return new PersonnelButton[] {
+            new PersonnelButton(CommonL10n.ADMIN, new PersonIsPostedAs(Ranks.POST_FREELANCE_ADMIN)),
+            new PersonnelButton(CommonL10n.OFFICER, new PersonIsPostedAs(Ranks.POST_OFFICER_FOR_HIRE)),
+            new PersonnelButton(CommonL10n.MERCENARY, new PersonIsPostedAs(Ranks.POST_MERCENARY)),
+            new PersonnelButton(CommonL10n.AGENT, new PersonIsPostedAs(Ranks.POST_AGENT)),
         };
     }
 
