@@ -11,12 +11,15 @@ import java.util.List;
 import stelnet.CommonL10n;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.ItemProvider;
+import stelnet.filter.CargoStackIsManufacturer;
+import stelnet.filter.CargoStackKnownModspec;
+import stelnet.filter.CargoStackWingIsRole;
 import stelnet.filter.Filter;
+import stelnet.filter.LogicalNotFilter;
 import stelnet.filter.LogicalOrFilter;
 import stelnet.filter.WeaponIsDamage;
 import stelnet.filter.WeaponIsSize;
 import stelnet.filter.WeaponIsType;
-import stelnet.filter.WingIsRole;
 import stelnet.util.L10n;
 import uilib.Cargo;
 import uilib.Renderable;
@@ -25,18 +28,20 @@ import uilib.property.Size;
 
 public class ItemQueryFactory extends QueryFactory {
 
+    private transient ItemProvider itemProvider = new ItemProvider();
+    private transient ItemButton[] manufacturers = createManufacturers();
     private transient ItemButton[] weaponDamageTypes = createWeaponDamageType();
     private transient ItemButton[] weaponMountSizes = createWeaponMountSize();
     private transient ItemButton[] weaponMountTypes = createWeaponMountType();
     private transient ItemButton[] wingRoles = createWingRole();
-    private transient ItemButton[] wingDamageTypes = createWingDamageType();
 
     public void readResolve() {
+        itemProvider = new ItemProvider();
+        manufacturers = createManufacturers();
         weaponDamageTypes = createWeaponDamageType();
         weaponMountSizes = createWeaponMountSize();
         weaponMountTypes = createWeaponMountType();
         wingRoles = createWingRole();
-        wingDamageTypes = createWingDamageType();
     }
 
     @Override
@@ -48,25 +53,26 @@ public class ItemQueryFactory extends QueryFactory {
         addLabeledGroup(elements, QueryL10n.MOUNT_SIZE, Arrays.<Renderable>asList(weaponMountSizes));
         addSection(elements, CommonL10n.FIGHTER_WINGS);
         addLabeledGroup(elements, QueryL10n.WING_ROLES, Arrays.<Renderable>asList(wingRoles));
-        addLabeledGroup(elements, QueryL10n.WEAPON_DAMAGE, Arrays.<Renderable>asList(wingDamageTypes));
+        addSection(elements, QueryL10n.MANUFACTURERS);
+        addUnlabelledGroup(elements, Arrays.<Renderable>asList(manufacturers));
         return elements;
     }
 
     @Override
     protected RenderableComponent getPreview(Size size) {
         List<Filter> filters = getFilters();
-        ItemProvider itemProvider = new ItemProvider();
-        CargoAPI cargo = itemProvider.getWeapons(filters);
-        cargo.addAll(itemProvider.getFighters(filters));
-        cargo.addAll(itemProvider.getModspecs());
+        CargoAPI cargo = itemProvider.getItems(filters);
         return new Cargo(cargo, "No matching items found.", size);
     }
 
     private List<Filter> getFilters() {
         List<Filter> filters = new LinkedList<>();
+        filters.add(new LogicalOrFilter(getFilters(manufacturers)));
         filters.add(new LogicalOrFilter(getFilters(weaponDamageTypes)));
         filters.add(new LogicalOrFilter(getFilters(weaponMountSizes)));
         filters.add(new LogicalOrFilter(getFilters(weaponMountTypes)));
+        filters.add(new LogicalOrFilter(getFilters(wingRoles)));
+        filters.add(new LogicalNotFilter(new CargoStackKnownModspec()));
         return filters;
     }
 
@@ -96,19 +102,19 @@ public class ItemQueryFactory extends QueryFactory {
 
     private ItemButton[] createWingRole() {
         return new ItemButton[] {
-            new ItemButton(L10n.get(WingRole.ASSAULT), new WingIsRole(WingRole.ASSAULT)),
-            new ItemButton(L10n.get(WingRole.BOMBER), new WingIsRole(WingRole.BOMBER)),
-            new ItemButton(L10n.get(WingRole.FIGHTER), new WingIsRole(WingRole.FIGHTER)),
-            new ItemButton(L10n.get(WingRole.INTERCEPTOR), new WingIsRole(WingRole.INTERCEPTOR)),
-            new ItemButton(L10n.get(WingRole.SUPPORT), new WingIsRole(WingRole.SUPPORT)),
+            new ItemButton(L10n.get(WingRole.ASSAULT), new CargoStackWingIsRole(WingRole.ASSAULT)),
+            new ItemButton(L10n.get(WingRole.BOMBER), new CargoStackWingIsRole(WingRole.BOMBER)),
+            new ItemButton(L10n.get(WingRole.FIGHTER), new CargoStackWingIsRole(WingRole.FIGHTER)),
+            new ItemButton(L10n.get(WingRole.INTERCEPTOR), new CargoStackWingIsRole(WingRole.INTERCEPTOR)),
+            new ItemButton(L10n.get(WingRole.SUPPORT), new CargoStackWingIsRole(WingRole.SUPPORT)),
         };
     }
 
-    private ItemButton[] createWingDamageType() {
-        return new ItemButton[] {
-            new ItemButton(DamageType.KINETIC.getDisplayName(), new WeaponIsDamage(DamageType.KINETIC)),
-            new ItemButton(DamageType.HIGH_EXPLOSIVE.getDisplayName(), new WeaponIsDamage(DamageType.HIGH_EXPLOSIVE)),
-            new ItemButton(DamageType.ENERGY.getDisplayName(), new WeaponIsDamage(DamageType.ENERGY)),
-        };
+    private ItemButton[] createManufacturers() {
+        List<ItemButton> manufacturers = new LinkedList<>();
+        for (String manufacturer : itemProvider.getManufacturers()) {
+            manufacturers.add(new ItemButton(manufacturer, new CargoStackIsManufacturer(manufacturer)));
+        }
+        return manufacturers.toArray(new ItemButton[] {});
     }
 }

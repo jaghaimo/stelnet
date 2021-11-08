@@ -2,14 +2,12 @@ package stelnet.filter;
 
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.loading.WingRole;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class CargoStackIsNotFighterWingRole extends CargoStackFilter {
 
     private final WingRole wingRole;
-
-    public CargoStackIsNotFighterWingRole(WingRole wingRole) {
-        this.wingRole = wingRole;
-    }
 
     @Override
     protected boolean acceptCargoStack(CargoStackAPI object) {

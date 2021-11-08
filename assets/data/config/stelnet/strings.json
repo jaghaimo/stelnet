@@ -107,5 +107,10 @@
     "WIDGET_VIEWER_NO_MARKETS": "Please select a market to view.",
     "WIDGET_VIEWER_NO_SHIPS": "There are no matching ships to display.",
     "WIDGET_VIEWER_NO_STORAGES": "You do not have any storages.",
-    "WIDGET_VIEWER_UNIFIED_VIEW_TITLE": "Unified View"
+    "WIDGET_VIEWER_UNIFIED_VIEW_TITLE": "Unified View",
+    "WINGROLE_ASSAULT": "Assault",
+    "WINGROLE_BOMBER": "Bomber",
+    "WINGROLE_FIGHTER": "Fighter",
+    "WINGROLE_INTERCEPTOR": "Interceptor",
+    "WINGROLE_SUPPORT": "Support"
 }
