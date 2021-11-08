@@ -17,4 +17,5 @@ public enum QueryL10n {
     TITLE,
     WEAPON_DAMAGE,
     WEAPON_MOUNTS,
+    WING_ROLES,
 }
