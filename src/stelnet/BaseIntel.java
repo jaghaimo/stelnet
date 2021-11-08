@@ -1,7 +1,6 @@
 package stelnet;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.RepLevel;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
@@ -66,9 +65,8 @@ public abstract class BaseIntel extends RenderableIntel {
     }
 
     protected String getFactionWithRel() {
-        RepLevel reputation = faction.getRelToPlayer().getLevel();
-        String translatedRep = L10n.get(reputation);
-        return L10n.get(CommonL10n.INTEL_FACTION_WITH_REL, faction.getDisplayName(), translatedRep);
+        String reputation = faction.getRelToPlayer().getLevel().getDisplayName();
+        return L10n.get(CommonL10n.INTEL_FACTION_WITH_REL, faction.getDisplayName(), reputation);
     }
 
     protected String getLocationName() {
