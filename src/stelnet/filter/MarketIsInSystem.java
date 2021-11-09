@@ -2,21 +2,19 @@ package stelnet.filter;
 
 import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import lombok.RequiredArgsConstructor;
 
-public class MarketIsNotInSystem extends MarketFilter {
+@RequiredArgsConstructor
+public class MarketIsInSystem extends MarketFilter {
 
     private final String systemId;
-
-    public MarketIsNotInSystem(String systemId) {
-        this.systemId = systemId;
-    }
 
     @Override
     protected boolean acceptMarket(MarketAPI market) {
         StarSystemAPI starSystem = market.getStarSystem();
         if (starSystem == null) {
-            return true;
+            return false;
         }
-        return !starSystem.getId().equalsIgnoreCase(systemId);
+        return systemId.equalsIgnoreCase(starSystem.getId());
     }
 }

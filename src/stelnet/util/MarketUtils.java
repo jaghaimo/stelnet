@@ -5,11 +5,12 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.campaign.listeners.ListenerUtil;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import stelnet.filter.MarketFilter;
+import stelnet.filter.Filter;
 import stelnet.filter.MarketNotHidden;
 
 public class MarketUtils {
@@ -36,8 +37,7 @@ public class MarketUtils {
 
     public static List<MarketAPI> getMarkets(boolean refreshContent) {
         List<MarketAPI> markets = EconomyUtils.getMarkets();
-        List<MarketFilter> filters = Excluder.getMarketFilters();
-        filters.add(new MarketNotHidden());
+        List<Filter> filters = Arrays.<Filter>asList(Excluder.getMarketFilters(), new MarketNotHidden());
         CollectionUtils.reduce(markets, filters);
         if (refreshContent) {
             updateMarketPrePlayerInteraction(markets);

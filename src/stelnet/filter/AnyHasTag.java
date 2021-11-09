@@ -1,7 +1,9 @@
 package stelnet.filter;
 
 import com.fs.starfarer.api.campaign.CommDirectoryEntryAPI;
+import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.characters.SkillSpecAPI;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,9 @@ public class AnyHasTag extends Filter {
         if (object instanceof CommoditySpecAPI) {
             return acceptCommodity((CommoditySpecAPI) object);
         }
+        if (object instanceof MarketAPI) {
+            return acceptMarket((MarketAPI) object);
+        }
         if (object instanceof PersonAPI) {
             return acceptPerson((PersonAPI) object);
         }
@@ -35,6 +40,17 @@ public class AnyHasTag extends Filter {
 
     protected boolean acceptCommodity(CommoditySpecAPI commodity) {
         return commodity.hasTag(tag);
+    }
+
+    protected boolean acceptMarket(MarketAPI market) {
+        if (market.hasTag(tag)) {
+            return true;
+        }
+        StarSystemAPI starSystem = market.getStarSystem();
+        if (starSystem != null) {
+            return starSystem.hasTag(tag);
+        }
+        return false;
     }
 
     protected boolean acceptPerson(PersonAPI person) {
