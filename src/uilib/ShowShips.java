@@ -5,12 +5,12 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import java.util.List;
 import uilib.property.Size;
 
-public class Ships extends RenderableComponent {
+public class ShowShips extends RenderableComponent {
 
     private final List<FleetMemberAPI> ships;
     private final String emptyDescription;
 
-    public Ships(List<FleetMemberAPI> ships, String emptyDescription, Size size) {
+    public ShowShips(List<FleetMemberAPI> ships, String emptyDescription, Size size) {
         this.ships = ships;
         this.emptyDescription = emptyDescription;
         setSize(size);
@@ -21,7 +21,7 @@ public class Ships extends RenderableComponent {
         if (ships.isEmpty()) {
             tooltip.addPara(emptyDescription, 10f);
         } else {
-            tooltip.showShips(ships, ships.size(), false, 5f);
+            tooltip.showShips(ships, ships.size(), true, 5f);
         }
     }
 }

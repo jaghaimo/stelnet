@@ -19,9 +19,9 @@ import stelnet.filter.PersonIsPostedAs;
 import stelnet.filter.SkillIsCombatOfficer;
 import stelnet.util.L10n;
 import stelnet.util.SettingsUtils;
-import uilib.People;
 import uilib.Renderable;
 import uilib.RenderableComponent;
+import uilib.ShowPeople;
 import uilib.property.Size;
 
 public class PersonnelQueryFactory extends QueryFactory {
@@ -58,7 +58,7 @@ public class PersonnelQueryFactory extends QueryFactory {
     @Override
     protected RenderableComponent getPreview(Size size) {
         List<Filter> filters = getFilters();
-        return new People(new PeopleProvider().getPeople(filters), "No matching people found.", size);
+        return new ShowPeople(new PeopleProvider().getPeople(filters), "No matching people found.", size);
     }
 
     private List<Filter> getFilters() {

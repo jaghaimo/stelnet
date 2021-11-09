@@ -1,6 +1,5 @@
 package stelnet.board.query.provider;
 
-import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
@@ -11,20 +10,19 @@ import java.util.Set;
 import java.util.TreeSet;
 import lombok.experimental.ExtensionMethod;
 import stelnet.filter.Filter;
-import stelnet.util.CargoUtils;
 import stelnet.util.CollectionUtils;
 import stelnet.util.SettingsUtils;
 
 @ExtensionMethod({ CargoStackExtension.class })
 public class ItemProvider extends FilterableProvider {
 
-    public CargoAPI getItems(List<Filter> filters) {
+    public List<CargoStackAPI> getItems(List<Filter> filters) {
         List<CargoStackAPI> cargoStacks = new LinkedList<>();
         addAsCargoStacks(cargoStacks, getFighters());
         addAsCargoStacks(cargoStacks, getModspecs());
         addAsCargoStacks(cargoStacks, getWeapons());
         CollectionUtils.reduce(cargoStacks, filters);
-        return CargoUtils.makeCargoFromStacks(cargoStacks);
+        return cargoStacks;
     }
 
     public Set<String> getManufacturers() {

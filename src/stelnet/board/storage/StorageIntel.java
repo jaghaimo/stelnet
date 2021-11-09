@@ -14,10 +14,10 @@ import stelnet.IntelInfo;
 import stelnet.util.CargoUtils;
 import stelnet.util.L10n;
 import stelnet.util.TagConstants;
-import uilib.Cargo;
 import uilib.Heading;
 import uilib.Renderable;
-import uilib.Ships;
+import uilib.ShowCargo;
+import uilib.ShowShips;
 import uilib.Spacer;
 import uilib.property.Size;
 
@@ -74,11 +74,11 @@ public class StorageIntel extends BaseIntel {
         return Arrays.<Renderable>asList(
             new Heading(L10n.get(StorageL10n.INTEL_HEADER_ITEMS, getLocationName()), baseColor, darkColor),
             new Spacer(10),
-            new Cargo(cargo, L10n.get(StorageL10n.INTEL_NO_ITEMS), size),
+            new ShowCargo(cargo, L10n.get(StorageL10n.INTEL_NO_ITEMS), size),
             new Spacer(10),
             new Heading(L10n.get(StorageL10n.INTEL_HEADER_SHIPS, getLocationName()), baseColor, darkColor),
             new Spacer(10),
-            new Ships(ships, L10n.get(StorageL10n.INTEL_NO_SHIPS), size)
+            new ShowShips(ships, L10n.get(StorageL10n.INTEL_NO_SHIPS), size)
         );
     }
 

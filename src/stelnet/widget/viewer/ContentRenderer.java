@@ -2,9 +2,9 @@ package stelnet.widget.viewer;
 
 import stelnet.util.L10n;
 import stelnet.widget.WidgetL10n;
-import uilib.Cargo;
 import uilib.Renderable;
-import uilib.Ships;
+import uilib.ShowCargo;
+import uilib.ShowShips;
 import uilib.property.Size;
 
 /**
@@ -14,13 +14,13 @@ public enum ContentRenderer {
     ITEMS {
         @Override
         public Renderable getStorageRenderer(LocationContent data) {
-            return new Cargo(data.getItems(), L10n.get(WidgetL10n.VIEWER_NO_ITEMS), new Size(0, 0));
+            return new ShowCargo(data.getItems(), L10n.get(WidgetL10n.VIEWER_NO_ITEMS), new Size(0, 0));
         }
     },
     SHIPS {
         @Override
         public Renderable getStorageRenderer(LocationContent data) {
-            return new Ships(data.getShips(), L10n.get(WidgetL10n.VIEWER_NO_SHIPS), new Size(0, 0));
+            return new ShowShips(data.getShips(), L10n.get(WidgetL10n.VIEWER_NO_SHIPS), new Size(0, 0));
         }
     };
 

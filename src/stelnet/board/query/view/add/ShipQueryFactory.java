@@ -17,7 +17,7 @@ import stelnet.filter.WeaponSlotIsType;
 import stelnet.util.L10n;
 import uilib.Renderable;
 import uilib.RenderableComponent;
-import uilib.Ships;
+import uilib.ShowShips;
 import uilib.property.Size;
 
 public class ShipQueryFactory extends QueryFactory {
@@ -51,7 +51,7 @@ public class ShipQueryFactory extends QueryFactory {
     @Override
     protected RenderableComponent getPreview(Size size) {
         List<Filter> filters = getFilters();
-        return new Ships(shipProvider.getShips(filters), "No matching ships found.", size);
+        return new ShowShips(shipProvider.getShips(filters), "No matching ships found.", size);
     }
 
     private List<Filter> getFilters() {
