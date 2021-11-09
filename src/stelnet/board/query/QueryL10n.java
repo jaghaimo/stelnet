@@ -3,10 +3,10 @@ package stelnet.board.query;
 public enum QueryL10n {
     CLASS_SIZE,
     DESCRIPTION,
+    ITEM_TYPES,
     MANUFACTURERS,
     MOUNT_SIZE,
     MOUNT_TYPE,
-    ITEM_TYPES,
     OFFICERS_AND_MERCENARIES,
     PERSONNEL_MIN_LEVEL,
     PERSONNEL_PERSONALITY,
