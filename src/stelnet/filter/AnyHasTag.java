@@ -3,10 +3,11 @@ package stelnet.filter;
 import com.fs.starfarer.api.campaign.CommDirectoryEntryAPI;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
+import com.fs.starfarer.api.characters.SkillSpecAPI;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class AnyHasTagFilter extends Filter {
+public class AnyHasTag extends Filter {
 
     private final String tag;
 
@@ -20,6 +21,9 @@ public class AnyHasTagFilter extends Filter {
         }
         if (object instanceof PersonAPI) {
             return acceptPerson((PersonAPI) object);
+        }
+        if (object instanceof SkillSpecAPI) {
+            return acceptSkill((SkillSpecAPI) object);
         }
         return super.accept(object);
     }
@@ -35,5 +39,9 @@ public class AnyHasTagFilter extends Filter {
 
     protected boolean acceptPerson(PersonAPI person) {
         return person.getTags().contains(tag);
+    }
+
+    protected boolean acceptSkill(SkillSpecAPI skill) {
+        return skill.getTags().contains(tag);
     }
 }

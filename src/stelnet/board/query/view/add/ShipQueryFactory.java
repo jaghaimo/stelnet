@@ -9,7 +9,7 @@ import java.util.List;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.ShipProvider;
 import stelnet.filter.Filter;
-import stelnet.filter.LogicalOrFilter;
+import stelnet.filter.LogicalOr;
 import stelnet.filter.ShipHullIsManufacturer;
 import stelnet.filter.ShipHullIsSize;
 import stelnet.filter.WeaponSlotIsSize;
@@ -56,10 +56,10 @@ public class ShipQueryFactory extends QueryFactory {
 
     private List<Filter> getFilters() {
         List<Filter> filters = new LinkedList<>();
-        filters.add(new LogicalOrFilter(getFilters(classSizes)));
-        filters.add(new LogicalOrFilter(getFilters(mountSizes)));
-        filters.add(new LogicalOrFilter(getFilters(mountTypes)));
-        filters.add(new LogicalOrFilter(getFilters(manufacturers)));
+        filters.add(new LogicalOr(getFilters(classSizes)));
+        filters.add(new LogicalOr(getFilters(mountSizes)));
+        filters.add(new LogicalOr(getFilters(mountTypes)));
+        filters.add(new LogicalOr(getFilters(manufacturers)));
         return filters;
     }
 

@@ -74,11 +74,12 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
 
     private Renderable buildPreview(RenderableComponent content, Size size) {
         final float HEADING_HEIGHT = 25;
+        final float TAB_HEIGHT = 40;
         Heading heading = new Heading("Preview");
         heading.setSize(new Size(size.getWidth(), HEADING_HEIGHT));
-        content.setSize(size.reduce(new Size(0, 2 * HEADING_HEIGHT)));
+        content.setSize(size.reduce(new Size(0, HEADING_HEIGHT + TAB_HEIGHT)));
         VerticalViewContainer verticalView = new VerticalViewContainer(heading, content);
-        verticalView.setSize(size.reduce(new Size(0, HEADING_HEIGHT)));
+        verticalView.setSize(size.reduce(new Size(0, TAB_HEIGHT)));
         return verticalView;
     }
 

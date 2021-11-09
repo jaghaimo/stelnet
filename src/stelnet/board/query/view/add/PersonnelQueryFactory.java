@@ -10,8 +10,10 @@ import stelnet.CommonL10n;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.PeopleProvider;
 import stelnet.board.query.provider.SkillProvider;
+import stelnet.filter.AnyHasTag;
 import stelnet.filter.Filter;
-import stelnet.filter.LogicalOrFilter;
+import stelnet.filter.LogicalNot;
+import stelnet.filter.LogicalOr;
 import stelnet.filter.PersonHasLevel;
 import stelnet.filter.PersonHasPersonality;
 import stelnet.filter.PersonHasSkill;
@@ -26,12 +28,14 @@ import uilib.property.Size;
 
 public class PersonnelQueryFactory extends QueryFactory {
 
+    private transient SkillProvider skillProvider = new SkillProvider();
     private transient PersonnelButton[] postType = createPostTypeButtons();
     private transient OfficerButton[] level = createLevelButtons();
     private transient OfficerButton[] personality = createPersonalityButtons();
     private transient OfficerButton[] skill = createSkillButtons();
 
     public void readResolve() {
+        skillProvider = new SkillProvider();
         postType = createPostTypeButtons();
         level = createLevelButtons();
         personality = createPersonalityButtons();
@@ -63,10 +67,10 @@ public class PersonnelQueryFactory extends QueryFactory {
 
     private List<Filter> getFilters() {
         List<Filter> filters = new LinkedList<>();
-        filters.add(new LogicalOrFilter(getFilters(postType)));
-        filters.add(new LogicalOrFilter(getFilters(level)));
-        filters.add(new LogicalOrFilter(getFilters(personality)));
-        filters.add(new LogicalOrFilter(getFilters(skill)));
+        filters.add(new LogicalOr(getFilters(postType)));
+        filters.add(new LogicalOr(getFilters(level)));
+        filters.add(new LogicalOr(getFilters(personality)));
+        filters.add(new LogicalOr(getFilters(skill)));
         return filters;
     }
 
@@ -102,7 +106,9 @@ public class PersonnelQueryFactory extends QueryFactory {
 
     private OfficerButton[] createSkillButtons() {
         List<OfficerButton> skillButtons = new LinkedList<>();
-        List<SkillSpecAPI> skills = (new SkillProvider()).getSkills(new SkillIsCombatOfficer());
+        List<SkillSpecAPI> skills = skillProvider.getSkills(
+            Arrays.<Filter>asList(new LogicalNot(new AnyHasTag("npc_only")), new SkillIsCombatOfficer())
+        );
         for (SkillSpecAPI skill : skills) {
             skillButtons.add(new OfficerButton(skill.getName(), new PersonHasSkill(skill.getId())));
         }

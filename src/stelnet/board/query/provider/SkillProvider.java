@@ -11,7 +11,7 @@ import stelnet.util.SettingsUtils;
 
 public class SkillProvider extends FilterableProvider implements Comparator<SkillSpecAPI> {
 
-    public List<SkillSpecAPI> getSkills(Filter filter) {
+    public List<SkillSpecAPI> getSkills(List<Filter> filter) {
         List<SkillSpecAPI> skills = getAllSkillSpecs();
         CollectionUtils.reduce(skills, filter);
         Collections.sort(skills, this);

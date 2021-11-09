@@ -16,8 +16,8 @@ import stelnet.filter.CargoStackIsType.Type;
 import stelnet.filter.CargoStackKnownModspec;
 import stelnet.filter.CargoStackWingIsRole;
 import stelnet.filter.Filter;
-import stelnet.filter.LogicalNotFilter;
-import stelnet.filter.LogicalOrFilter;
+import stelnet.filter.LogicalNot;
+import stelnet.filter.LogicalOr;
 import stelnet.filter.WeaponIsDamage;
 import stelnet.filter.WeaponIsSize;
 import stelnet.filter.WeaponIsType;
@@ -70,13 +70,13 @@ public class ItemQueryFactory extends QueryFactory {
 
     private List<Filter> getFilters() {
         List<Filter> filters = new LinkedList<>();
-        filters.add(new LogicalOrFilter(getFilters(itemTypes)));
-        filters.add(new LogicalOrFilter(getFilters(manufacturers)));
-        filters.add(new LogicalOrFilter(getFilters(weaponDamageTypes)));
-        filters.add(new LogicalOrFilter(getFilters(weaponMountSizes)));
-        filters.add(new LogicalOrFilter(getFilters(weaponMountTypes)));
-        filters.add(new LogicalOrFilter(getFilters(wingRoles)));
-        filters.add(new LogicalNotFilter(new CargoStackKnownModspec()));
+        filters.add(new LogicalOr(getFilters(itemTypes)));
+        filters.add(new LogicalOr(getFilters(manufacturers)));
+        filters.add(new LogicalOr(getFilters(weaponDamageTypes)));
+        filters.add(new LogicalOr(getFilters(weaponMountSizes)));
+        filters.add(new LogicalOr(getFilters(weaponMountTypes)));
+        filters.add(new LogicalOr(getFilters(wingRoles)));
+        filters.add(new LogicalNot(new CargoStackKnownModspec()));
         return filters;
     }
 

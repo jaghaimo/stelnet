@@ -6,7 +6,7 @@ import lombok.extern.log4j.Log4j;
 
 @Log4j
 @RequiredArgsConstructor
-public class LogicalOrFilter extends Filter {
+public class LogicalOr extends Filter {
 
     private final List<Filter> filters;
 

@@ -3,7 +3,7 @@ package stelnet.filter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class LogicalNotFilter extends Filter {
+public class LogicalNot extends Filter {
 
     private final Filter filter;
 

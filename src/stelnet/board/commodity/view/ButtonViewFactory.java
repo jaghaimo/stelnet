@@ -7,8 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.commodity.view.button.CommodityButton;
-import stelnet.filter.AnyHasTagFilter;
-import stelnet.filter.LogicalNotFilter;
+import stelnet.filter.AnyHasTag;
+import stelnet.filter.LogicalNot;
 import stelnet.util.CollectionUtils;
 import stelnet.util.EconomyUtils;
 import uilib.Button;
@@ -44,8 +44,8 @@ public class ButtonViewFactory implements RenderableFactory {
     }
 
     private void filterCommodities(List<CommoditySpecAPI> commodities) {
-        CollectionUtils.reduce(commodities, new LogicalNotFilter(new AnyHasTagFilter("nonecon")));
-        CollectionUtils.reduce(commodities, new LogicalNotFilter(new AnyHasTagFilter("meta")));
+        CollectionUtils.reduce(commodities, new LogicalNot(new AnyHasTag("nonecon")));
+        CollectionUtils.reduce(commodities, new LogicalNot(new AnyHasTag("meta")));
     }
 
     private void sortCommodities(List<CommoditySpecAPI> commodities) {
