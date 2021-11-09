@@ -14,7 +14,7 @@ import stelnet.util.L10n;
 import uilib.property.Size;
 
 /**
- * Unified list display. Can display
+ * Unified list display. Can display CargoStackAPI, FleetMemberAPI, or PersonAPI objects.
  */
 @RequiredArgsConstructor
 public class ShowAny extends RenderableComponent {
