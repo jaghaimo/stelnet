@@ -2,15 +2,13 @@ package stelnet.filter;
 
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import lombok.RequiredArgsConstructor;
 import stelnet.util.TableCellHelper;
 
+@RequiredArgsConstructor
 public class MarketCommodityAvailable extends MarketFilter {
 
     private final String commodityId;
-
-    public MarketCommodityAvailable(String commodityId) {
-        this.commodityId = commodityId;
-    }
 
     @Override
     protected boolean acceptMarket(MarketAPI market) {

@@ -7,15 +7,12 @@ import com.fs.starfarer.api.loading.WingRole;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class CargoStackWingIsRole extends Filter {
+public class CargoStackWingIsRole extends CargoStackFilter {
 
     private final WingRole wingRole;
 
     @Override
     public boolean accept(Object object) {
-        if (object instanceof CargoStackAPI) {
-            return acceptCargoStack((CargoStackAPI) object);
-        }
         if (object instanceof FighterWingAPI) {
             return acceptWing((FighterWingAPI) object);
         }
@@ -25,6 +22,7 @@ public class CargoStackWingIsRole extends Filter {
         return super.accept(object);
     }
 
+    @Override
     protected boolean acceptCargoStack(CargoStackAPI cargoStack) {
         if (cargoStack.isFighterWingStack()) {
             return acceptWingSpec(cargoStack.getFighterWingSpecIfWing());

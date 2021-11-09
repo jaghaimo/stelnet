@@ -2,14 +2,17 @@ package stelnet.filter;
 
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.SpecialItemSpecAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Items;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class CargoStackIsType extends CargoStackFilter {
 
     public static enum Type {
+        COMMODITY,
         WEAPON,
         FIGHTER,
+        SPECIAL,
         MODSPEC,
         BLUEPRINT,
     }
@@ -19,10 +22,14 @@ public class CargoStackIsType extends CargoStackFilter {
     @Override
     protected boolean acceptCargoStack(CargoStackAPI c) {
         switch (type) {
+            case COMMODITY:
+                return c.isCommodityStack();
             case WEAPON:
                 return c.isWeaponStack();
             case FIGHTER:
                 return c.isFighterWingStack();
+            case SPECIAL:
+                return c.isSpecialStack();
             case MODSPEC:
                 return isModspec(c);
             case BLUEPRINT:
@@ -36,7 +43,7 @@ public class CargoStackIsType extends CargoStackFilter {
         if (!c.isSpecialStack()) {
             return false;
         }
-        return c.getSpecialDataIfSpecial().getId().equals("modspec");
+        return c.getSpecialDataIfSpecial().getId().equals(Items.MODSPEC);
     }
 
     protected boolean isBlueprint(CargoStackAPI c) {

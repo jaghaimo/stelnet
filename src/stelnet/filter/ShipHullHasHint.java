@@ -1,15 +1,15 @@
 package stelnet.filter;
 
-import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
+import com.fs.starfarer.api.combat.ShipHullSpecAPI.ShipTypeHints;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class ShipHullIsSize extends ShipHullFilter {
+public class ShipHullHasHint extends ShipHullFilter {
 
-    private final HullSize hullSize;
+    private final ShipTypeHints typeHint;
 
     protected boolean acceptShipHull(ShipHullSpecAPI shipHull) {
-        return hullSize.equals(shipHull.getHullSize());
+        return shipHull.getHints().contains(typeHint);
     }
 }

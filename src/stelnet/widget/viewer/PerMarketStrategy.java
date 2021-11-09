@@ -45,14 +45,14 @@ public class PerMarketStrategy implements DisplayStrategy {
     private CargoAPI getItems(FilteringButtons filteringButtons, CargoAPI storageCargo) {
         CargoAPI items = storageCargo.createCopy();
         List<CargoStackAPI> cargoStacks = storageCargo.getStacksCopy();
-        CollectionUtils.reduce(cargoStacks, filteringButtons.getItemFilters());
+        CollectionUtils.reduce(cargoStacks, filteringButtons.getFilters());
         CargoUtils.replaceCargoStacks(items, cargoStacks);
         return items;
     }
 
     private List<FleetMemberAPI> getShips(FilteringButtons filteringButtons, CargoAPI storageCargo) {
         List<FleetMemberAPI> ships = storageCargo.getMothballedShips().getMembersInPriorityOrder();
-        CollectionUtils.reduce(ships, filteringButtons.getShipFilters());
+        CollectionUtils.reduce(ships, filteringButtons.getFilters());
         return ships;
     }
 }
