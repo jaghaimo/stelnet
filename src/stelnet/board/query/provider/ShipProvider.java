@@ -3,7 +3,6 @@ package stelnet.board.query.provider;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +13,7 @@ import stelnet.util.CollectionUtils;
 import stelnet.util.FactoryUtils;
 import stelnet.util.SettingsUtils;
 
-public class ShipProvider extends FilterableProvider implements Comparator<ShipHullSpecAPI> {
+public class ShipProvider extends FilterableProvider {
 
     private static final String SUFFIX = "_Hull";
     private transient List<FleetMemberAPI> allFleetMembers;
@@ -49,7 +48,6 @@ public class ShipProvider extends FilterableProvider implements Comparator<ShipH
         if (allShipHulls == null) {
             allShipHulls = SettingsUtils.getAllShipHullSpecs();
             filter(allShipHulls);
-            Collections.sort(allShipHulls, this);
         }
         return allShipHulls;
     }
@@ -76,14 +74,5 @@ public class ShipProvider extends FilterableProvider implements Comparator<ShipH
 
     private FleetMemberAPI makeFleetMember(String hullId) {
         return FactoryUtils.createFleetMember(hullId + SUFFIX);
-    }
-
-    @Override
-    public int compare(ShipHullSpecAPI o1, ShipHullSpecAPI o2) {
-        int sizeDifference = o2.getHullSize().ordinal() - o1.getHullSize().ordinal();
-        if (sizeDifference != 0) {
-            return sizeDifference;
-        }
-        return o1.getHullNameWithDashClass().compareTo(o2.getHullNameWithDashClass());
     }
 }
