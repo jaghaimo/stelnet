@@ -21,24 +21,6 @@ public class CargoStackExtension {
         return null;
     }
 
-    public static String getManufacturer(Object object) {
-        if (object instanceof FighterWingSpecAPI) {
-            return getManufacturer((FighterWingSpecAPI) object);
-        }
-        if (object instanceof WeaponSpecAPI) {
-            return getManufacturer((WeaponSpecAPI) object);
-        }
-        return null;
-    }
-
-    public static String getManufacturer(FighterWingSpecAPI fighterWing) {
-        return fighterWing.getVariant().getHullSpec().getManufacturer();
-    }
-
-    public static String getManufacturer(WeaponSpecAPI weaponSpec) {
-        return weaponSpec.getManufacturer();
-    }
-
     public static CargoStackAPI asCargoStack(FighterWingSpecAPI fighterWing) {
         String fighterId = fighterWing.getId();
         CargoStackAPI stack = FactoryUtils.createFighterItem(fighterId);
@@ -55,6 +37,24 @@ public class CargoStackExtension {
         String weaponId = weaponSpec.getWeaponId();
         CargoStackAPI stack = FactoryUtils.createWeaponItem(weaponId);
         return getValidStack(stack);
+    }
+
+    public static String getManufacturer(Object object) {
+        if (object instanceof FighterWingSpecAPI) {
+            return getManufacturer((FighterWingSpecAPI) object);
+        }
+        if (object instanceof WeaponSpecAPI) {
+            return getManufacturer((WeaponSpecAPI) object);
+        }
+        return null;
+    }
+
+    public static String getManufacturer(FighterWingSpecAPI fighterWing) {
+        return fighterWing.getVariant().getHullSpec().getManufacturer();
+    }
+
+    public static String getManufacturer(WeaponSpecAPI weaponSpec) {
+        return weaponSpec.getManufacturer();
     }
 
     private static CargoStackAPI getValidStack(CargoStackAPI stack) {
