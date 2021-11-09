@@ -4,11 +4,11 @@ import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import stelnet.util.TableCellHelper;
 
-public class MarketCommodityAvailableFilter extends MarketFilter {
+public class MarketCommodityAvailable extends MarketFilter {
 
     private final String commodityId;
 
-    public MarketCommodityAvailableFilter(String commodityId) {
+    public MarketCommodityAvailable(String commodityId) {
         this.commodityId = commodityId;
     }
 

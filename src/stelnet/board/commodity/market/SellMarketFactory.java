@@ -4,7 +4,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import java.util.List;
 import lombok.Getter;
 import stelnet.board.commodity.market.price.DemandPrice;
-import stelnet.filter.MarketCommodityDemandFilter;
+import stelnet.filter.MarketCommodityDemand;
 import stelnet.util.CollectionUtils;
 
 public class SellMarketFactory extends MarketFactory {
@@ -19,7 +19,7 @@ public class SellMarketFactory extends MarketFactory {
 
     @Override
     protected void filterMarkets(List<MarketAPI> markets) {
-        CollectionUtils.reduce(markets, new MarketCommodityDemandFilter(commodityId));
+        CollectionUtils.reduce(markets, new MarketCommodityDemand(commodityId));
     }
 
     @Override
