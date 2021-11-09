@@ -101,7 +101,7 @@ public class ShowAny extends RenderableComponent {
     }
 
     private String getSpriteFromCargoStack(CargoStackAPI cargoStack) {
-        // Might be impossible to correctly render
-        return "";
+        // Might be impossible to correctly render. This is totally wrong.
+        return cargoStack.getDisplayName();
     }
 }
