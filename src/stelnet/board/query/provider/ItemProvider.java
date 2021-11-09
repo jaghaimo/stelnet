@@ -50,7 +50,7 @@ public class ItemProvider extends FilterableProvider {
         return allFighterWings;
     }
 
-    public List<HullModSpecAPI> getModspecs() {
+    private List<HullModSpecAPI> getModspecs() {
         if (allHullModSpecs == null) {
             allHullModSpecs = SettingsUtils.getAllHullModSpecs();
             filter(allHullModSpecs);
@@ -58,7 +58,7 @@ public class ItemProvider extends FilterableProvider {
         return allHullModSpecs;
     }
 
-    public List<WeaponSpecAPI> getWeapons() {
+    private List<WeaponSpecAPI> getWeapons() {
         if (allWeaponSpecs == null) {
             allWeaponSpecs = SettingsUtils.getAllWeaponSpecs();
             filter(allWeaponSpecs);
