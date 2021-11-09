@@ -92,6 +92,7 @@ public class ItemQueryFactory extends QueryFactory {
         return new ItemButton[] {
             new ItemButton(DamageType.KINETIC.getDisplayName(), new WeaponIsDamage(DamageType.KINETIC)),
             new ItemButton(DamageType.HIGH_EXPLOSIVE.getDisplayName(), new WeaponIsDamage(DamageType.HIGH_EXPLOSIVE)),
+            new ItemButton(DamageType.FRAGMENTATION.getDisplayName(), new WeaponIsDamage(DamageType.FRAGMENTATION)),
             new ItemButton(DamageType.ENERGY.getDisplayName(), new WeaponIsDamage(DamageType.ENERGY)),
         };
     }
