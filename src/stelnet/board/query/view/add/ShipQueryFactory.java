@@ -41,8 +41,8 @@ public class ShipQueryFactory extends QueryFactory {
         List<Renderable> elements = new LinkedList<>();
         addLabeledGroup(elements, QueryL10n.CLASS_SIZE, Arrays.<Renderable>asList(classSizes));
         addSection(elements, QueryL10n.WEAPON_MOUNTS);
-        addLabeledGroup(elements, QueryL10n.MOUNT_SIZE, Arrays.<Renderable>asList(mountSizes));
         addLabeledGroup(elements, QueryL10n.MOUNT_TYPE, Arrays.<Renderable>asList(mountTypes));
+        addLabeledGroup(elements, QueryL10n.MOUNT_SIZE, Arrays.<Renderable>asList(mountSizes));
         addSection(elements, QueryL10n.MANUFACTURERS);
         addUnlabelledGroup(elements, Arrays.<Renderable>asList(manufacturers));
         return elements;
