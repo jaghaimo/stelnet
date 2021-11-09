@@ -16,13 +16,21 @@ import stelnet.util.SettingsUtils;
 @ExtensionMethod({ CargoStackExtension.class })
 public class ItemProvider extends FilterableProvider {
 
+    private transient List<CargoStackAPI> allCargoStacks;
+    private transient List<FighterWingSpecAPI> allFighterWings;
+    private transient List<HullModSpecAPI> allHullModSpecs;
+    private transient List<WeaponSpecAPI> allWeaponSpecs;
+
     public List<CargoStackAPI> getItems(List<Filter> filters) {
-        List<CargoStackAPI> cargoStacks = new LinkedList<>();
-        addAsCargoStacks(cargoStacks, getFighters());
-        addAsCargoStacks(cargoStacks, getModspecs());
-        addAsCargoStacks(cargoStacks, getWeapons());
-        CollectionUtils.reduce(cargoStacks, filters);
-        return cargoStacks;
+        if (allCargoStacks == null) {
+            allCargoStacks = new LinkedList<>();
+            addAsCargoStacks(allCargoStacks, getFighters());
+            addAsCargoStacks(allCargoStacks, getModspecs());
+            addAsCargoStacks(allCargoStacks, getWeapons());
+        }
+        List<CargoStackAPI> cargoStacksCopy = new LinkedList<CargoStackAPI>(allCargoStacks);
+        CollectionUtils.reduce(cargoStacksCopy, filters);
+        return cargoStacksCopy;
     }
 
     public Set<String> getManufacturers() {
@@ -35,20 +43,26 @@ public class ItemProvider extends FilterableProvider {
     }
 
     private List<FighterWingSpecAPI> getFighters() {
-        List<FighterWingSpecAPI> allFighterWings = SettingsUtils.getAllFighterWingSpecs();
-        filter(allFighterWings);
+        if (allFighterWings == null) {
+            allFighterWings = SettingsUtils.getAllFighterWingSpecs();
+            filter(allFighterWings);
+        }
         return allFighterWings;
     }
 
     public List<HullModSpecAPI> getModspecs() {
-        List<HullModSpecAPI> allHullModSpecs = SettingsUtils.getAllHullModSpecs();
-        filter(allHullModSpecs);
+        if (allHullModSpecs == null) {
+            allHullModSpecs = SettingsUtils.getAllHullModSpecs();
+            filter(allHullModSpecs);
+        }
         return allHullModSpecs;
     }
 
     public List<WeaponSpecAPI> getWeapons() {
-        List<WeaponSpecAPI> allWeaponSpecs = SettingsUtils.getAllWeaponSpecs();
-        filter(allWeaponSpecs);
+        if (allWeaponSpecs == null) {
+            allWeaponSpecs = SettingsUtils.getAllWeaponSpecs();
+            filter(allWeaponSpecs);
+        }
         return allWeaponSpecs;
     }
 

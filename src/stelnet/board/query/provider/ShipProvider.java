@@ -67,9 +67,9 @@ public class ShipProvider extends FilterableProvider {
                 allFleetMembers.add(makeFleetMember(hullId));
             }
         }
-        List<FleetMemberAPI> fleetMembers = new LinkedList<FleetMemberAPI>(allFleetMembers);
-        CollectionUtils.reduce(fleetMembers, filters);
-        return fleetMembers;
+        List<FleetMemberAPI> fleetMembersCopy = new LinkedList<FleetMemberAPI>(allFleetMembers);
+        CollectionUtils.reduce(fleetMembersCopy, filters);
+        return fleetMembersCopy;
     }
 
     private FleetMemberAPI makeFleetMember(String hullId) {
