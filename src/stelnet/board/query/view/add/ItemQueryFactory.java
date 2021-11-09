@@ -32,7 +32,7 @@ public class ItemQueryFactory extends QueryFactory {
     private transient ItemProvider itemProvider = new ItemProvider();
     private transient ItemButton[] itemTypes = createItemTypes();
     private transient ItemButton[] manufacturers = createManufacturers();
-    private transient ItemButton[] weaponDamageTypes = createWeaponDamageType();
+    private transient ItemButton[] weaponDamageTypes = createDamageType();
     private transient ItemButton[] weaponMountSizes = createWeaponMountSize();
     private transient ItemButton[] weaponMountTypes = createWeaponMountType();
     private transient ItemButton[] wingRoles = createWingRole();
@@ -41,7 +41,7 @@ public class ItemQueryFactory extends QueryFactory {
         itemProvider = new ItemProvider();
         itemTypes = createItemTypes();
         manufacturers = createManufacturers();
-        weaponDamageTypes = createWeaponDamageType();
+        weaponDamageTypes = createDamageType();
         weaponMountSizes = createWeaponMountSize();
         weaponMountTypes = createWeaponMountType();
         wingRoles = createWingRole();
@@ -88,7 +88,7 @@ public class ItemQueryFactory extends QueryFactory {
         };
     }
 
-    private ItemButton[] createWeaponDamageType() {
+    private ItemButton[] createDamageType() {
         return new ItemButton[] {
             new ItemButton(DamageType.KINETIC.getDisplayName(), new WeaponIsDamage(DamageType.KINETIC)),
             new ItemButton(DamageType.HIGH_EXPLOSIVE.getDisplayName(), new WeaponIsDamage(DamageType.HIGH_EXPLOSIVE)),
@@ -110,6 +110,10 @@ public class ItemQueryFactory extends QueryFactory {
             new ItemButton(WeaponType.BALLISTIC.getDisplayName(), new WeaponIsType(WeaponType.BALLISTIC)),
             new ItemButton(WeaponType.MISSILE.getDisplayName(), new WeaponIsType(WeaponType.MISSILE)),
             new ItemButton(WeaponType.ENERGY.getDisplayName(), new WeaponIsType(WeaponType.ENERGY)),
+            new ItemButton(WeaponType.HYBRID.getDisplayName(), new WeaponIsType(WeaponType.HYBRID)),
+            new ItemButton(WeaponType.SYNERGY.getDisplayName(), new WeaponIsType(WeaponType.SYNERGY)),
+            new ItemButton(WeaponType.COMPOSITE.getDisplayName(), new WeaponIsType(WeaponType.COMPOSITE)),
+            new ItemButton(WeaponType.UNIVERSAL.getDisplayName(), new WeaponIsType(WeaponType.UNIVERSAL)),
         };
     }
 
