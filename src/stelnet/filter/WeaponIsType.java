@@ -11,6 +11,8 @@ public class WeaponIsType extends WeaponFilter {
 
     @Override
     protected boolean acceptWeapon(WeaponSpecAPI weapon) {
-        return weapon.getType().equals(weaponType);
+        boolean isType = weapon.getType().equals(weaponType);
+        boolean isMountType = weapon.getMountType().equals(weaponType);
+        return isType || isMountType;
     }
 }
