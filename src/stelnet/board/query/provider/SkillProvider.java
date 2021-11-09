@@ -11,11 +11,16 @@ import stelnet.util.SettingsUtils;
 
 public class SkillProvider extends FilterableProvider implements Comparator<SkillSpecAPI> {
 
+    private transient List<SkillSpecAPI> allSkills;
+
     public List<SkillSpecAPI> getSkills(List<Filter> filter) {
-        List<SkillSpecAPI> skills = getAllSkillSpecs();
-        CollectionUtils.reduce(skills, filter);
-        Collections.sort(skills, this);
-        return skills;
+        if (allSkills == null) {
+            allSkills = getAllSkillSpecs();
+            Collections.sort(allSkills, this);
+        }
+        List<SkillSpecAPI> skillsCopy = new LinkedList<SkillSpecAPI>(allSkills);
+        CollectionUtils.reduce(skillsCopy, filter);
+        return skillsCopy;
     }
 
     private List<SkillSpecAPI> getAllSkillSpecs() {
