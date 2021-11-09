@@ -52,7 +52,7 @@ public class ItemQueryFactory extends QueryFactory {
         List<Renderable> elements = new LinkedList<>();
         addLabeledGroup(elements, QueryL10n.ITEM_TYPES, Arrays.<Renderable>asList(itemTypes));
         addSection(elements, CommonL10n.WEAPONS);
-        addLabeledGroup(elements, QueryL10n.WEAPON_DAMAGE, Arrays.<Renderable>asList(weaponDamageTypes));
+        addLabeledGroup(elements, QueryL10n.DAMAGE_TYPE, Arrays.<Renderable>asList(weaponDamageTypes));
         addLabeledGroup(elements, QueryL10n.MOUNT_TYPE, Arrays.<Renderable>asList(weaponMountTypes));
         addLabeledGroup(elements, QueryL10n.MOUNT_SIZE, Arrays.<Renderable>asList(weaponMountSizes));
         addSection(elements, CommonL10n.FIGHTER_WINGS);

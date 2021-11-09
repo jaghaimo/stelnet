@@ -2,6 +2,7 @@ package stelnet.board.query;
 
 public enum QueryL10n {
     CLASS_SIZE,
+    DAMAGE_TYPE,
     DESCRIPTION,
     ITEM_TYPES,
     MANUFACTURERS,
@@ -16,7 +17,6 @@ public enum QueryL10n {
     SEARCH_MATCHING,
     SEARCH_SELECTED,
     TITLE,
-    WEAPON_DAMAGE,
     WEAPON_MOUNTS,
     WING_ROLES,
 }
