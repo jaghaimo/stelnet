@@ -68,6 +68,11 @@ public class RenderableIntel extends BaseIntelPlugin {
         return false;
     }
 
+    @Override
+    public boolean isNew() {
+        return false;
+    }
+
     protected List<Renderable> getRenderables(Size size) {
         return Collections.<Renderable>emptyList();
     }

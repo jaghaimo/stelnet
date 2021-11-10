@@ -31,6 +31,8 @@ public class CommodityIntel extends BaseIntel {
     private final Price priceProvider;
     private final float price;
 
+    private final String tag = TagConstants.COMMODITY;
+
     public CommodityIntel(
         String action,
         CommoditySpecAPI commodity,
@@ -48,11 +50,6 @@ public class CommodityIntel extends BaseIntel {
     @Override
     public String getIcon() {
         return commodity.getIconName();
-    }
-
-    @Override
-    public IntelSortTier getSortTier() {
-        return IntelSortTier.TIER_1;
     }
 
     @Override
@@ -93,11 +90,6 @@ public class CommodityIntel extends BaseIntel {
         renderables.add(new Spacer(30f));
         renderables.add(new DeleteIntel(size.getWidth(), this));
         return renderables;
-    }
-
-    @Override
-    protected String getTag() {
-        return TagConstants.COMMODITY;
     }
 
     private void addPriceChange(List<Renderable> renderables, float width) {

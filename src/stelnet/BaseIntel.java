@@ -7,19 +7,20 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 import java.util.Set;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import stelnet.util.L10n;
 import stelnet.util.StringUtils;
 import uilib.RenderableIntel;
 
+@Getter
 @RequiredArgsConstructor
-@Getter(AccessLevel.PROTECTED)
 public abstract class BaseIntel extends RenderableIntel {
 
     private final FactionAPI faction;
     private final SectorEntityToken sectorEntityToken;
+
+    private final IntelSortTier sortTier = IntelSortTier.TIER_1;
 
     @Override
     public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
@@ -57,11 +58,6 @@ public abstract class BaseIntel extends RenderableIntel {
     @Override
     public boolean hasSmallDescription() {
         return true;
-    }
-
-    @Override
-    public boolean isNew() {
-        return false;
     }
 
     protected String getFactionWithRel() {

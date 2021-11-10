@@ -3,40 +3,26 @@ package stelnet.board.query;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.experimental.Delegate;
-import stelnet.board.query.provider.QueryProvider;
-import stelnet.filter.Filter;
 
 public class QueryManager {
 
     @Delegate
-    private final List<IntelQuery> queries = new LinkedList<>();
-
-    public void add(QueryProvider queryProvider, List<Filter> filters) {
-        IntelQuery query = new IntelQuery(queryProvider, filters);
-        query.create();
-        add(query);
-    }
+    private final List<Query> queries = new LinkedList<>();
 
     public void disableAll() {
-        for (IntelQuery query : queries) {
+        for (Query query : queries) {
             query.disable();
         }
     }
 
     public void enableAll() {
-        for (IntelQuery query : queries) {
+        for (Query query : queries) {
             query.enable();
         }
     }
 
-    public void refreshAll() {
-        for (IntelQuery query : queries) {
-            query.refresh();
-        }
-    }
-
     public void toggleAll() {
-        for (IntelQuery query : queries) {
+        for (Query query : queries) {
             query.toggle();
         }
     }

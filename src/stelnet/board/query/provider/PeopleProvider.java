@@ -1,27 +1,15 @@
 package stelnet.board.query.provider;
 
-import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import java.util.LinkedList;
 import java.util.List;
+import stelnet.board.query.ResultSystemMap;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.MarketUtils;
-import uilib.Renderable;
-import uilib.property.Size;
 
 public class PeopleProvider extends QueryProvider {
-
-    @Override
-    public List<IntelInfoPlugin> getIntel(List<Filter> filters) {
-        return null;
-    }
-
-    @Override
-    public List<Renderable> getRenderables(Size size) {
-        return null;
-    }
 
     @Override
     public List<PersonAPI> getMatching(List<Filter> filters) {
@@ -29,6 +17,12 @@ public class PeopleProvider extends QueryProvider {
         List<PersonAPI> people = extractPeople(markets);
         CollectionUtils.reduce(people, filters);
         return people;
+    }
+
+    @Override
+    public List<ResultSystemMap> getResults(List<Filter> filters) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     private List<PersonAPI> extractPeople(List<MarketAPI> markets) {

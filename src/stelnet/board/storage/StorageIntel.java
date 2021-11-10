@@ -26,6 +26,8 @@ public class StorageIntel extends BaseIntel {
 
     private final SubmarketAPI storage;
 
+    private final String tag = TagConstants.STORAGE;
+
     public StorageIntel(SubmarketAPI storage) {
         super(storage.getMarket().getFaction(), storage.getMarket().getPrimaryEntity());
         this.storage = storage;
@@ -80,11 +82,6 @@ public class StorageIntel extends BaseIntel {
             new Spacer(10),
             new ShowShips(ships, L10n.get(StorageL10n.INTEL_NO_SHIPS), size)
         );
-    }
-
-    @Override
-    protected String getTag() {
-        return TagConstants.STORAGE;
     }
 
     private String getStorageContent() {

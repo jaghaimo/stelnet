@@ -1,7 +1,6 @@
 package stelnet.board.query.provider;
 
 import com.fs.starfarer.api.campaign.CargoStackAPI;
-import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
@@ -10,11 +9,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import lombok.experimental.ExtensionMethod;
+import stelnet.board.query.ResultSystemMap;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.SettingsUtils;
-import uilib.Renderable;
-import uilib.property.Size;
 
 @ExtensionMethod({ CargoStackExtension.class })
 public class ItemProvider extends QueryProvider {
@@ -23,16 +21,6 @@ public class ItemProvider extends QueryProvider {
     private transient List<FighterWingSpecAPI> allFighterWings;
     private transient List<HullModSpecAPI> allHullModSpecs;
     private transient List<WeaponSpecAPI> allWeaponSpecs;
-
-    @Override
-    public List<IntelInfoPlugin> getIntel(List<Filter> filters) {
-        return null;
-    }
-
-    @Override
-    public List<Renderable> getRenderables(Size size) {
-        return null;
-    }
 
     @Override
     public List<CargoStackAPI> getMatching(List<Filter> filters) {
@@ -45,6 +33,12 @@ public class ItemProvider extends QueryProvider {
         List<CargoStackAPI> cargoStacksCopy = new LinkedList<CargoStackAPI>(allCargoStacks);
         CollectionUtils.reduce(cargoStacksCopy, filters);
         return cargoStacksCopy;
+    }
+
+    @Override
+    public List<ResultSystemMap> getResults(List<Filter> filters) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     public Set<String> getManufacturers() {

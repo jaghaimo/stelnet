@@ -5,6 +5,7 @@ import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import java.util.List;
 import java.util.Set;
+import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 import stelnet.util.IntelUtils;
 import uilib.Renderable;
@@ -12,8 +13,11 @@ import uilib.RenderableIntel;
 import uilib.RenderableState;
 import uilib.property.Size;
 
+@Getter
 @Log4j
 public abstract class BaseBoard extends RenderableIntel {
+
+    private final IntelSortTier sortTier = IntelSortTier.TIER_0;
 
     /**
      * Singleton, creates or gets an existing instance of a class that implements IntelInfoPlugin.
@@ -49,18 +53,8 @@ public abstract class BaseBoard extends RenderableIntel {
     }
 
     @Override
-    public IntelSortTier getSortTier() {
-        return IntelSortTier.TIER_0;
-    }
-
-    @Override
     public boolean hasLargeDescription() {
         return true;
-    }
-
-    @Override
-    public boolean isNew() {
-        return false;
     }
 
     @Override

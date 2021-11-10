@@ -1,6 +1,5 @@
 package stelnet.board.query.provider;
 
-import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import java.util.LinkedHashSet;
@@ -8,12 +7,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import stelnet.board.query.ResultSystemMap;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.FactoryUtils;
 import stelnet.util.SettingsUtils;
-import uilib.Renderable;
-import uilib.property.Size;
 
 public class ShipProvider extends QueryProvider {
 
@@ -22,21 +20,17 @@ public class ShipProvider extends QueryProvider {
     private transient List<ShipHullSpecAPI> allShipHulls;
 
     @Override
-    public List<IntelInfoPlugin> getIntel(List<Filter> filters) {
-        return null;
-    }
-
-    @Override
-    public List<Renderable> getRenderables(Size size) {
-        return null;
-    }
-
-    @Override
     public List<FleetMemberAPI> getMatching(List<Filter> filters) {
         List<ShipHullSpecAPI> allShipHullSpecs = getShipHulls();
         Set<String> allHullIds = getHullIds(allShipHullSpecs);
         List<FleetMemberAPI> fleetMembers = convertToFleetMembers(allHullIds, filters);
         return fleetMembers;
+    }
+
+    @Override
+    public List<ResultSystemMap> getResults(List<Filter> filters) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     public Set<String> getManufacturers() {

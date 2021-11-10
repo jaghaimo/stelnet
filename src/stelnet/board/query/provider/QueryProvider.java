@@ -1,9 +1,9 @@
 package stelnet.board.query.provider;
 
-import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.combat.ShipAPI;
 import java.util.Arrays;
 import java.util.List;
+import stelnet.board.query.ResultSystemMap;
 import stelnet.filter.AnyShowInCodex;
 import stelnet.filter.Filter;
 import stelnet.filter.LogicalNot;
@@ -11,16 +11,12 @@ import stelnet.filter.ShipBaseHullId;
 import stelnet.filter.ShipHullIsDamaged;
 import stelnet.filter.ShipHullIsSize;
 import stelnet.util.CollectionUtils;
-import uilib.Renderable;
-import uilib.property.Size;
 
 public abstract class QueryProvider {
 
     public abstract List<?> getMatching(List<Filter> filters);
 
-    public abstract List<IntelInfoPlugin> getIntel(List<Filter> filters);
-
-    public abstract List<Renderable> getRenderables(Size size);
+    public abstract List<ResultSystemMap> getResults(List<Filter> filters);
 
     protected void filter(List<?> elements) {
         CollectionUtils.reduce(elements, getCommonFilters());
