@@ -13,6 +13,8 @@ import lombok.experimental.ExtensionMethod;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.SettingsUtils;
+import uilib.Renderable;
+import uilib.property.Size;
 
 @ExtensionMethod({ CargoStackExtension.class })
 public class ItemProvider extends QueryProvider {
@@ -24,6 +26,11 @@ public class ItemProvider extends QueryProvider {
 
     @Override
     public List<IntelInfoPlugin> getIntel(List<Filter> filters) {
+        return null;
+    }
+
+    @Override
+    public List<Renderable> getRenderables(Size size) {
         return null;
     }
 

@@ -11,12 +11,16 @@ import stelnet.filter.ShipBaseHullId;
 import stelnet.filter.ShipHullIsDamaged;
 import stelnet.filter.ShipHullIsSize;
 import stelnet.util.CollectionUtils;
+import uilib.Renderable;
+import uilib.property.Size;
 
 public abstract class QueryProvider {
 
     public abstract List<?> getMatching(List<Filter> filters);
 
     public abstract List<IntelInfoPlugin> getIntel(List<Filter> filters);
+
+    public abstract List<Renderable> getRenderables(Size size);
 
     protected void filter(List<?> elements) {
         CollectionUtils.reduce(elements, getCommonFilters());

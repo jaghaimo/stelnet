@@ -8,11 +8,18 @@ import java.util.List;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.MarketUtils;
+import uilib.Renderable;
+import uilib.property.Size;
 
 public class PeopleProvider extends QueryProvider {
 
     @Override
     public List<IntelInfoPlugin> getIntel(List<Filter> filters) {
+        return null;
+    }
+
+    @Override
+    public List<Renderable> getRenderables(Size size) {
         return null;
     }
 

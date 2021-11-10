@@ -1,6 +1,5 @@
 package stelnet.board.query.provider;
 
-import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.characters.SkillSpecAPI;
 import java.util.Collections;
 import java.util.Comparator;
@@ -10,16 +9,10 @@ import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.SettingsUtils;
 
-public class SkillProvider extends QueryProvider implements Comparator<SkillSpecAPI> {
+public class SkillProvider implements Comparator<SkillSpecAPI> {
 
     private transient List<SkillSpecAPI> allSkills;
 
-    @Override
-    public List<IntelInfoPlugin> getIntel(List<Filter> filters) {
-        return null;
-    }
-
-    @Override
     public List<SkillSpecAPI> getMatching(List<Filter> filter) {
         if (allSkills == null) {
             allSkills = getAllSkillSpecs();
