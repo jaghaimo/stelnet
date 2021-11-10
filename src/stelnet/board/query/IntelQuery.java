@@ -1,13 +1,11 @@
 package stelnet.board.query;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
-import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.Delegate;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
 import stelnet.util.IntelUtils;
@@ -17,16 +15,15 @@ import stelnet.util.IntelUtils;
 public class IntelQuery {
 
     private final QueryProvider queryProvider;
-    private final Filter filter;
-
-    @Delegate
-    private List<BaseIntelPlugin> intelList = new LinkedList<>();
+    private final List<Filter> filters;
+    private List<IntelInfoPlugin> intelList = new LinkedList<>();
 
     @Setter
-    private boolean isEnabled = true;
+    private boolean isEnabled = false;
 
     public void create() {
-        // TODO: Implement this
+        intelList.addAll(queryProvider.getIntel(filters));
+        enable();
     }
 
     public void disable() {
@@ -39,7 +36,7 @@ public class IntelQuery {
 
     public void refresh() {
         disable();
-        clear();
+        intelList.clear();
         create();
     }
 
@@ -51,13 +48,13 @@ public class IntelQuery {
         if (isEnabled == state) {
             return;
         }
-        for (BaseIntelPlugin intel : intelList) {
-            change(state, intel);
+        for (IntelInfoPlugin intel : intelList) {
+            changeStateIfNeeded(state, intel);
         }
         setEnabled(state);
     }
 
-    private void change(boolean state, IntelInfoPlugin intel) {
+    private void changeStateIfNeeded(boolean state, IntelInfoPlugin intel) {
         if (IntelUtils.has(intel) == state) {
             return;
         }

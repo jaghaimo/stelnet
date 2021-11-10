@@ -5,7 +5,6 @@ import java.util.List;
 import lombok.experimental.Delegate;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
-import stelnet.filter.LogicalAnd;
 
 public class QueryManager {
 
@@ -13,7 +12,7 @@ public class QueryManager {
     private final List<IntelQuery> queries = new LinkedList<>();
 
     public void add(QueryProvider queryProvider, List<Filter> filters) {
-        IntelQuery query = new IntelQuery(queryProvider, new LogicalAnd(filters));
+        IntelQuery query = new IntelQuery(queryProvider, filters);
         query.create();
         add(query);
     }

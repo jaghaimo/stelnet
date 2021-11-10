@@ -1,6 +1,7 @@
 package stelnet.board.query.provider;
 
 import com.fs.starfarer.api.campaign.CargoStackAPI;
+import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
@@ -21,6 +22,12 @@ public class ItemProvider extends QueryProvider {
     private transient List<HullModSpecAPI> allHullModSpecs;
     private transient List<WeaponSpecAPI> allWeaponSpecs;
 
+    @Override
+    public List<IntelInfoPlugin> getIntel(List<Filter> filters) {
+        return null;
+    }
+
+    @Override
     public List<CargoStackAPI> getMatching(List<Filter> filters) {
         if (allCargoStacks == null) {
             allCargoStacks = new LinkedList<>();

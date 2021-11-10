@@ -1,5 +1,6 @@
 package stelnet.board.query.provider;
 
+import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.combat.ShipAPI;
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +15,8 @@ import stelnet.util.CollectionUtils;
 public abstract class QueryProvider {
 
     public abstract List<?> getMatching(List<Filter> filters);
+
+    public abstract List<IntelInfoPlugin> getIntel(List<Filter> filters);
 
     protected void filter(List<?> elements) {
         CollectionUtils.reduce(elements, getCommonFilters());

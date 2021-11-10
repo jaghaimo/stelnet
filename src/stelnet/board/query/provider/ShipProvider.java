@@ -1,5 +1,6 @@
 package stelnet.board.query.provider;
 
+import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import java.util.LinkedHashSet;
@@ -18,6 +19,12 @@ public class ShipProvider extends QueryProvider {
     private transient List<FleetMemberAPI> allFleetMembers;
     private transient List<ShipHullSpecAPI> allShipHulls;
 
+    @Override
+    public List<IntelInfoPlugin> getIntel(List<Filter> filters) {
+        return null;
+    }
+
+    @Override
     public List<FleetMemberAPI> getMatching(List<Filter> filters) {
         List<ShipHullSpecAPI> allShipHullSpecs = getShipHulls();
         Set<String> allHullIds = getHullIds(allShipHullSpecs);
