@@ -8,13 +8,12 @@ import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
 
 @Getter
+@Setter
 @RequiredArgsConstructor
 public class Query {
 
     private final QueryProvider provider;
     private final List<Filter> filters;
-
-    @Setter
     private boolean isEnabled = false;
 
     public void disable() {
