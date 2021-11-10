@@ -51,7 +51,7 @@ public class ShipQueryFactory extends QueryFactory {
     @Override
     protected RenderableComponent getPreview(Size size) {
         List<Filter> filters = getFilters();
-        return new ShowShips(shipProvider.getShips(filters), "No matching ships found.", size);
+        return new ShowShips(shipProvider.getMatching(filters), "No matching ships found.", size);
     }
 
     private List<Filter> getFilters() {

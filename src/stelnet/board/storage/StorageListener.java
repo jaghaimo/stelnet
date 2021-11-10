@@ -32,8 +32,7 @@ public class StorageListener implements ColonyInteractionListener {
 
     @Override
     public void reportPlayerClosedMarket(MarketAPI market) {
-        intelManager = IntelUtils.getIntelManager();
-        List<IntelInfoPlugin> existingIntel = intelManager.getIntel(StorageIntel.class);
+        List<IntelInfoPlugin> existingIntel = IntelUtils.getAll(StorageIntel.class);
         List<SubmarketAPI> storageSubmarkets = StorageUtils.getAllWithAccess();
         updateIntelList(existingIntel, storageSubmarkets);
     }

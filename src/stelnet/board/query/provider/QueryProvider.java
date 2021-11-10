@@ -11,9 +11,11 @@ import stelnet.filter.ShipHullIsDamaged;
 import stelnet.filter.ShipHullIsSize;
 import stelnet.util.CollectionUtils;
 
-public abstract class FilterableProvider {
+public abstract class QueryProvider {
 
-    protected <T> void filter(List<T> elements) {
+    public abstract List<?> getMatching(List<Filter> filters);
+
+    protected void filter(List<?> elements) {
         CollectionUtils.reduce(elements, getCommonFilters());
     }
 

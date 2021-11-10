@@ -8,9 +8,9 @@ import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.MarketUtils;
 
-public class PeopleProvider {
+public class PeopleProvider extends QueryProvider {
 
-    public List<PersonAPI> getPeople(List<Filter> filters) {
+    public List<PersonAPI> getMatching(List<Filter> filters) {
         List<MarketAPI> markets = MarketUtils.getMarkets();
         List<PersonAPI> people = extractPeople(markets);
         CollectionUtils.reduce(people, filters);

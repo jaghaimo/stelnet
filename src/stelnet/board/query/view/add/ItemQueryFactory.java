@@ -65,7 +65,7 @@ public class ItemQueryFactory extends QueryFactory {
     @Override
     protected RenderableComponent getPreview(Size size) {
         List<Filter> filters = getFilters();
-        return new ShowCargo(itemProvider.getItems(filters), "No matching items found.", size);
+        return new ShowCargo(itemProvider.getMatching(filters), "No matching items found.", size);
     }
 
     private List<Filter> getFilters() {

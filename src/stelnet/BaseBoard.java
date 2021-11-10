@@ -1,7 +1,6 @@
 package stelnet;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
-import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import java.util.List;
@@ -16,13 +15,17 @@ import uilib.property.Size;
 @Log4j
 public abstract class BaseBoard extends RenderableIntel {
 
-    public static <T extends BaseIntelPlugin> T getInstance(Class<T> className) {
-        IntelInfoPlugin intel = IntelUtils.getFirstIntel(className);
+    /**
+     * Singleton, creates or gets an existing instance of a class that implements IntelInfoPlugin.
+     * Requires no-args constructor. Used by all "Boards".
+     */
+    public static <T extends IntelInfoPlugin> T getInstance(Class<T> className) {
+        IntelInfoPlugin intel = IntelUtils.getFirst(className);
         if (intel == null) {
             try {
                 @SuppressWarnings("deprecation")
-                BaseIntelPlugin board = className.newInstance();
-                IntelUtils.addIntel(board, true);
+                IntelInfoPlugin board = className.newInstance();
+                IntelUtils.add(board, true);
                 intel = board;
             } catch (Exception exception) {
                 log.warn("Couldn't create board for " + className.getName(), exception);

@@ -3,7 +3,6 @@ package stelnet.util;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.campaign.comm.IntelManagerAPI;
-import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import java.util.List;
 
 /**
@@ -11,11 +10,11 @@ import java.util.List;
  */
 public class IntelUtils {
 
-    public static void addIntel(BaseIntelPlugin plugin) {
-        addIntel(plugin, false);
+    public static void add(IntelInfoPlugin plugin) {
+        add(plugin, false);
     }
 
-    public static void addIntel(BaseIntelPlugin plugin, boolean forceNoMessage) {
+    public static void add(IntelInfoPlugin plugin, boolean forceNoMessage) {
         getIntelManager().addIntel(plugin, forceNoMessage);
     }
 
@@ -23,23 +22,27 @@ public class IntelUtils {
         return getIntelManager().getIntel(className);
     }
 
-    public static IntelInfoPlugin getFirstIntel(Class<?> className) {
+    public static IntelInfoPlugin getFirst(Class<?> className) {
         return getIntelManager().getFirstIntel(className);
     }
 
+    public static boolean has(IntelInfoPlugin intel) {
+        return getIntelManager().hasIntel(intel);
+    }
+
     public static void purgeIntel(Class<?> className) {
-        IntelInfoPlugin plugin = getFirstIntel(className);
+        IntelInfoPlugin plugin = getFirst(className);
         while (plugin != null) {
-            removeIntel(plugin);
-            plugin = getFirstIntel(className);
+            remove(plugin);
+            plugin = getFirst(className);
         }
     }
 
-    public static void removeIntel(IntelInfoPlugin plugin) {
+    public static void remove(IntelInfoPlugin plugin) {
         getIntelManager().removeIntel(plugin);
     }
 
-    public static IntelManagerAPI getIntelManager() {
+    private static IntelManagerAPI getIntelManager() {
         return Global.getSector().getIntelManager();
     }
 }

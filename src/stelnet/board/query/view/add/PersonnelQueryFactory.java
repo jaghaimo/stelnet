@@ -62,7 +62,7 @@ public class PersonnelQueryFactory extends QueryFactory {
     @Override
     protected RenderableComponent getPreview(Size size) {
         List<Filter> filters = getFilters();
-        return new ShowPeople(new PeopleProvider().getPeople(filters), "No matching people found.", size);
+        return new ShowPeople(new PeopleProvider().getMatching(filters), "No matching people found.", size);
     }
 
     private List<Filter> getFilters() {
@@ -106,7 +106,7 @@ public class PersonnelQueryFactory extends QueryFactory {
 
     private OfficerButton[] createSkillButtons() {
         List<OfficerButton> skillButtons = new LinkedList<>();
-        List<SkillSpecAPI> skills = skillProvider.getSkills(
+        List<SkillSpecAPI> skills = skillProvider.getMatching(
             Arrays.<Filter>asList(new LogicalNot(new AnyHasTag("npc_only")), new SkillIsCombatOfficer())
         );
         for (SkillSpecAPI skill : skills) {

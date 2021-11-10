@@ -2,7 +2,6 @@ package stelnet.board.query.provider;
 
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,17 +12,13 @@ import stelnet.util.CollectionUtils;
 import stelnet.util.FactoryUtils;
 import stelnet.util.SettingsUtils;
 
-public class ShipProvider extends FilterableProvider {
+public class ShipProvider extends QueryProvider {
 
     private static final String SUFFIX = "_Hull";
     private transient List<FleetMemberAPI> allFleetMembers;
     private transient List<ShipHullSpecAPI> allShipHulls;
 
-    public List<FleetMemberAPI> getShips() {
-        return getShips(Collections.<Filter>emptyList());
-    }
-
-    public List<FleetMemberAPI> getShips(List<Filter> filters) {
+    public List<FleetMemberAPI> getMatching(List<Filter> filters) {
         List<ShipHullSpecAPI> allShipHullSpecs = getShipHulls();
         Set<String> allHullIds = getHullIds(allShipHullSpecs);
         List<FleetMemberAPI> fleetMembers = convertToFleetMembers(allHullIds, filters);
