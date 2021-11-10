@@ -26,8 +26,8 @@ public class QueryBoard extends BaseBoard {
 
     @Override
     protected BoardInfo getBoardInfo() {
-        int queriesPresent = 0; // TODO : Implement this
-        return new BoardInfo(L10n.get(QueryL10n.TITLE), L10n.get(QueryL10n.DESCRIPTION, queriesPresent));
+        int queryCount = state.getQueryManger().size();
+        return new BoardInfo(L10n.get(QueryL10n.TITLE), L10n.get(QueryL10n.DESCRIPTION, queryCount));
     }
 
     @Override
