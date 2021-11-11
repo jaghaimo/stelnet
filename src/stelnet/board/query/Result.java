@@ -19,7 +19,7 @@ import uilib.TableContentRow;
 @Getter
 @Setter
 @ToString
-public class Result extends Object implements Comparable<Result>, TableContentRow {
+public class Result implements Comparable<Result>, TableContentRow {
 
     private final String name;
     private final String type;

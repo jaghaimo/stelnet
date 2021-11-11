@@ -109,7 +109,6 @@ public class PersonnelQueryFactory extends QueryFactory {
             new PersonnelButton(CommonL10n.ADMIN, new PersonIsPostedAs(Ranks.POST_FREELANCE_ADMIN)),
             new PersonnelButton(CommonL10n.OFFICER, new PersonIsPostedAs(Ranks.POST_OFFICER_FOR_HIRE)),
             new PersonnelButton(CommonL10n.MERCENARY, new PersonIsPostedAs(Ranks.POST_MERCENARY)),
-            new PersonnelButton(CommonL10n.AGENT, new PersonIsPostedAs(Ranks.POST_AGENT)),
         };
     }
 
