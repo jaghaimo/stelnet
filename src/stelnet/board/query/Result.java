@@ -3,24 +3,35 @@ package stelnet.board.query;
 import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
+import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import uilib.TableContentRow;
 
 @RequiredArgsConstructor
 @Getter
 @Setter
 @ToString
-public class Result extends Object implements Comparable<Result> {
+public class Result extends Object implements Comparable<Result>, TableContentRow {
 
     private final String name;
-    private final String description;
+    private final String type;
     private final StarSystemAPI system;
     private final MarketAPI market;
     private final SubmarketAPI submarket;
     private int quantity = 0;
     private int hashCode = 0;
+
+    public Result(MarketAPI market, SubmarketAPI submarketAPI, FleetMemberAPI fleetMember) {
+        name = fleetMember.getHullSpec().getNameWithDesignationWithDashClass();
+        type = "Ship";
+        system = market.getStarSystem();
+        this.market = market;
+        this.submarket = submarketAPI;
+        hashCode = hashCode();
+    }
 
     public String getMarketName() {
         return market.getName();
@@ -54,8 +65,14 @@ public class Result extends Object implements Comparable<Result> {
     @Override
     public int hashCode() {
         if (hashCode == 0) {
-            hashCode = (name + market.getName() + submarket.getName()).hashCode();
+            hashCode = (getName() + getMarketName() + getSubmarketName()).hashCode();
         }
         return hashCode;
+    }
+
+    @Override
+    public Object[] buildObjectArray() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

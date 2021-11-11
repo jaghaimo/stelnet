@@ -36,7 +36,7 @@ public class ConfigUtils {
     private static void purgeIntel(Class<?>... classNames) {
         for (Class<?> className : classNames) {
             log.debug("Removing intel " + className);
-            IntelUtils.purgeIntel(className);
+            IntelUtils.removeAll(className);
         }
     }
 

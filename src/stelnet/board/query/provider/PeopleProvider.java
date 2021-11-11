@@ -4,7 +4,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import java.util.LinkedList;
 import java.util.List;
-import stelnet.board.query.ResultMap;
+import stelnet.board.query.ResultSet;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.MarketUtils;
@@ -20,9 +20,8 @@ public class PeopleProvider extends QueryProvider {
     }
 
     @Override
-    public List<ResultMap> getResults(List<Filter> filters) {
+    protected void processMarkets(List<ResultSet> resultSets, List<MarketAPI> markets, List<Filter> filters) {
         // TODO Auto-generated method stub
-        return null;
     }
 
     private List<PersonAPI> extractPeople(List<MarketAPI> markets) {

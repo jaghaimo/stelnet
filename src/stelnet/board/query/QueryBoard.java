@@ -26,7 +26,7 @@ public class QueryBoard extends BaseBoard {
 
     @Override
     protected BoardInfo getBoardInfo() {
-        int queryCount = state.getQueryManger().size();
+        int queryCount = state.getQueryManger().numberOfQueries();
         return new BoardInfo(L10n.get(QueryL10n.TITLE), L10n.get(QueryL10n.DESCRIPTION, queryCount));
     }
 

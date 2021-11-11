@@ -1,7 +1,6 @@
 package stelnet.board.query;
 
-import com.fs.starfarer.api.campaign.StarSystemAPI;
-import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import lombok.Getter;
 import stelnet.BaseIntel;
@@ -9,6 +8,7 @@ import stelnet.IntelInfo;
 import stelnet.util.SectorUtils;
 import stelnet.util.TagConstants;
 import uilib.Renderable;
+import uilib.Table;
 import uilib.property.Size;
 
 @Getter
@@ -20,7 +20,7 @@ public class ResultIntel extends BaseIntel {
     @Getter
     private final String tag = TagConstants.MARKET;
 
-    public ResultIntel(QueryManager queryManager, ResultSet resultSet, StarSystemAPI system) {
+    public ResultIntel(QueryManager queryManager, ResultSet resultSet) {
         super(SectorUtils.getPlayerFaction(), resultSet.getSystemToken());
         this.queryManager = queryManager;
         this.resultSet = resultSet;
@@ -39,8 +39,9 @@ public class ResultIntel extends BaseIntel {
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
-        // todo
-        return Collections.emptyList();
+        List<Renderable> renderables = new LinkedList<>();
+        renderables.add(new Table("Results", size.getWidth(), 0, resultSet));
+        return renderables;
     }
 
     @Override

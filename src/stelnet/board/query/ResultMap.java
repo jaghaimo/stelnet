@@ -14,12 +14,19 @@ public class ResultMap {
     private final Map<StarSystemAPI, ResultSet> resultSet = new HashMap<>();
 
     public void add(ResultSet resultSet) {
-        StarSystemAPI system = resultSet.getSystem();
-        if (!containsKey(system)) {
-            put(system, resultSet);
-            return;
-        }
-        ResultSet existingResultSet = get(system);
+        put(resultSet.getSystem(), resultSet);
+    }
+
+    public boolean containsKey(ResultSet resultSet) {
+        return containsKey(resultSet.getSystem());
+    }
+
+    public ResultSet get(ResultSet resultSet) {
+        return get(resultSet.getSystem());
+    }
+
+    public void update(ResultSet resultSet) {
+        ResultSet existingResultSet = get(resultSet);
         existingResultSet.add(resultSet);
     }
 }

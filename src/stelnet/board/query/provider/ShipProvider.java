@@ -1,5 +1,7 @@
 package stelnet.board.query.provider;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import java.util.LinkedHashSet;
@@ -7,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import stelnet.board.query.ResultMap;
+import stelnet.board.query.ResultSet;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.FactoryUtils;
@@ -28,9 +30,14 @@ public class ShipProvider extends QueryProvider {
     }
 
     @Override
-    public List<ResultMap> getResults(List<Filter> filters) {
-        // TODO Auto-generated method stub
-        return null;
+    protected void processMarkets(List<ResultSet> resultSets, List<MarketAPI> markets, List<Filter> filters) {
+        for (MarketAPI market : markets) {
+            for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
+                List<FleetMemberAPI> fleetMembers = submarket.getCargo().getMothballedShips().getMembersListCopy();
+                CollectionUtils.reduce(fleetMembers, filters);
+                resultSets.add(new ResultSet(market, submarket, fleetMembers));
+            }
+        }
     }
 
     public Set<String> getManufacturers() {

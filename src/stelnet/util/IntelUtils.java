@@ -30,16 +30,16 @@ public class IntelUtils {
         return getIntelManager().hasIntel(intel);
     }
 
-    public static void purgeIntel(Class<?> className) {
+    public static void remove(IntelInfoPlugin plugin) {
+        getIntelManager().removeIntel(plugin);
+    }
+
+    public static void removeAll(Class<?> className) {
         IntelInfoPlugin plugin = getFirst(className);
         while (plugin != null) {
             remove(plugin);
             plugin = getFirst(className);
         }
-    }
-
-    public static void remove(IntelInfoPlugin plugin) {
-        getIntelManager().removeIntel(plugin);
     }
 
     private static IntelManagerAPI getIntelManager() {
