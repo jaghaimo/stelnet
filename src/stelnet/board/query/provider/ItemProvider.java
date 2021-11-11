@@ -25,7 +25,7 @@ public class ItemProvider extends QueryProvider {
     private transient List<WeaponSpecAPI> allWeaponSpecs;
 
     @Override
-    public List<CargoStackAPI> getMatching(List<Filter> filters) {
+    public List<CargoStackAPI> getMatching(Set<Filter> filters) {
         if (allCargoStacks == null) {
             allCargoStacks = new LinkedList<>();
             addAsCargoStacks(allCargoStacks, getFighters());
@@ -38,7 +38,7 @@ public class ItemProvider extends QueryProvider {
     }
 
     @Override
-    protected void processMarkets(List<ResultSet> resultSets, List<MarketAPI> markets, List<Filter> filters) {
+    protected void processMarkets(List<ResultSet> resultSets, List<MarketAPI> markets, Set<Filter> filters) {
         for (MarketAPI market : markets) {
             for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
                 List<CargoStackAPI> cargoStacks = submarket.getCargo().getStacksCopy();

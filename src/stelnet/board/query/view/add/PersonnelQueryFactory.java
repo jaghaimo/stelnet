@@ -4,8 +4,10 @@ import com.fs.starfarer.api.characters.SkillSpecAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.campaign.ids.Ranks;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import stelnet.CommonL10n;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.PeopleProvider;
@@ -52,8 +54,8 @@ public class PersonnelQueryFactory extends QueryFactory {
     }
 
     @Override
-    protected List<Filter> getFilters() {
-        List<Filter> filters = new LinkedList<>();
+    protected Set<Filter> getFilters() {
+        Set<Filter> filters = new LinkedHashSet<>();
         filters.add(new LogicalOr(getFilters(postType)));
         filters.add(new LogicalOr(getFilters(level)));
         filters.add(new LogicalOr(getFilters(personality)));
@@ -74,8 +76,8 @@ public class PersonnelQueryFactory extends QueryFactory {
 
     @Override
     protected RenderableComponent getPreview(Size size) {
-        List<Filter> filters = getFilters();
-        return new ShowPeople(new PeopleProvider().getMatching(filters), "No matching people found.", size);
+        Set<Filter> filters = getFilters();
+        return new ShowPeople(peopleProvider.getMatching(filters), "No matching people found.", size);
     }
 
     @Override

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 import stelnet.CommonL10n;
@@ -49,7 +50,7 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
     }
 
     @Override
-    protected List<Filter> getFilters() {
+    protected Set<Filter> getFilters() {
         return findNextFactory().getFilters();
     }
 

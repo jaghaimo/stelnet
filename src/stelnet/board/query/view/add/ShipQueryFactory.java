@@ -4,8 +4,10 @@ import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.board.query.provider.ShipProvider;
@@ -38,8 +40,8 @@ public class ShipQueryFactory extends QueryFactory {
     }
 
     @Override
-    protected List<Filter> getFilters() {
-        List<Filter> filters = new LinkedList<>();
+    protected Set<Filter> getFilters() {
+        Set<Filter> filters = new LinkedHashSet<>();
         filters.add(new LogicalOr(getFilters(classSizes)));
         filters.add(new LogicalOr(getFilters(mountSizes)));
         filters.add(new LogicalOr(getFilters(mountTypes)));
@@ -61,7 +63,7 @@ public class ShipQueryFactory extends QueryFactory {
 
     @Override
     protected RenderableComponent getPreview(Size size) {
-        List<Filter> filters = getFilters();
+        Set<Filter> filters = getFilters();
         return new ShowShips(shipProvider.getMatching(filters), "No matching ships found.", size);
     }
 

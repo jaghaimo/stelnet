@@ -1,12 +1,13 @@
 package stelnet.board.query;
 
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import stelnet.util.IntelUtils;
 
 public class QueryManager {
 
-    private final List<Query> queries = new LinkedList<>();
+    private final Set<Query> queries = new HashSet<>();
     private final ResultMap resultMap = new ResultMap();
 
     public void addQuery(Query query) {

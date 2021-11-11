@@ -22,7 +22,7 @@ public class ShipProvider extends QueryProvider {
     private transient List<ShipHullSpecAPI> allShipHulls;
 
     @Override
-    public List<FleetMemberAPI> getMatching(List<Filter> filters) {
+    public List<FleetMemberAPI> getMatching(Set<Filter> filters) {
         List<ShipHullSpecAPI> allShipHullSpecs = getShipHulls();
         Set<String> allHullIds = getHullIds(allShipHullSpecs);
         List<FleetMemberAPI> fleetMembers = convertToFleetMembers(allHullIds, filters);
@@ -30,7 +30,7 @@ public class ShipProvider extends QueryProvider {
     }
 
     @Override
-    protected void processMarkets(List<ResultSet> resultSets, List<MarketAPI> markets, List<Filter> filters) {
+    protected void processMarkets(List<ResultSet> resultSets, List<MarketAPI> markets, Set<Filter> filters) {
         for (MarketAPI market : markets) {
             for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
                 List<FleetMemberAPI> fleetMembers = submarket.getCargo().getMothballedShips().getMembersListCopy();
@@ -72,7 +72,7 @@ public class ShipProvider extends QueryProvider {
         return hullIds;
     }
 
-    private List<FleetMemberAPI> convertToFleetMembers(Set<String> hullIds, List<Filter> filters) {
+    private List<FleetMemberAPI> convertToFleetMembers(Set<String> hullIds, Set<Filter> filters) {
         if (allFleetMembers == null) {
             allFleetMembers = new LinkedList<>();
             for (String hullId : hullIds) {

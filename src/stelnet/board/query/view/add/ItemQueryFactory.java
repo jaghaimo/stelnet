@@ -5,8 +5,10 @@ import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.loading.WingRole;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import stelnet.CommonL10n;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.ItemProvider;
@@ -64,8 +66,8 @@ public class ItemQueryFactory extends QueryFactory {
     }
 
     @Override
-    protected List<Filter> getFilters() {
-        List<Filter> filters = new LinkedList<>();
+    protected Set<Filter> getFilters() {
+        Set<Filter> filters = new LinkedHashSet<>();
         filters.add(new LogicalOr(getFilters(itemTypes)));
         filters.add(new LogicalOr(getFilters(manufacturers)));
         filters.add(new LogicalOr(getFilters(weaponDamageTypes)));
@@ -78,7 +80,7 @@ public class ItemQueryFactory extends QueryFactory {
 
     @Override
     protected RenderableComponent getPreview(Size size) {
-        List<Filter> filters = getFilters();
+        Set<Filter> filters = getFilters();
         return new ShowCargo(itemProvider.getMatching(filters), "No matching items found.", size);
     }
 

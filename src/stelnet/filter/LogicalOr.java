@@ -1,6 +1,6 @@
 package stelnet.filter;
 
-import java.util.List;
+import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
@@ -8,7 +8,7 @@ import lombok.extern.log4j.Log4j;
 @RequiredArgsConstructor
 public class LogicalOr extends Filter {
 
-    private final List<Filter> filters;
+    private final Collection<Filter> filters;
 
     @Override
     public boolean accept(Object object) {

@@ -5,6 +5,7 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import stelnet.board.query.ResultSet;
 import stelnet.filter.AnyShowInCodex;
 import stelnet.filter.Filter;
@@ -17,9 +18,9 @@ import stelnet.util.MarketUtils;
 
 public abstract class QueryProvider {
 
-    public abstract List<?> getMatching(List<Filter> filters);
+    public abstract List<?> getMatching(Set<Filter> filters);
 
-    public List<ResultSet> getResults(List<Filter> filters) {
+    public List<ResultSet> getResults(Set<Filter> filters) {
         List<MarketAPI> markets = MarketUtils.getMarkets(true);
         CollectionUtils.reduce(markets, filters);
         List<ResultSet> resultSets = new LinkedList<>();
@@ -27,7 +28,7 @@ public abstract class QueryProvider {
         return resultSets;
     }
 
-    protected abstract void processMarkets(List<ResultSet> resultSets, List<MarketAPI> markets, List<Filter> filters);
+    protected abstract void processMarkets(List<ResultSet> resultSets, List<MarketAPI> markets, Set<Filter> filters);
 
     protected void filter(List<?> elements) {
         CollectionUtils.reduce(elements, getCommonFilters());

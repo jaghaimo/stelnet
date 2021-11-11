@@ -1,8 +1,9 @@
 package stelnet.board.query.view.add;
 
 import com.fs.starfarer.api.ui.Alignment;
-import java.util.LinkedList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import lombok.Setter;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
@@ -53,9 +54,9 @@ public abstract class QueryFactory {
         elements.add(new Spacer(size));
     }
 
-    protected List<Filter> getFilters(FilteringButton buttons[]) {
-        List<Filter> allFilters = new LinkedList<>();
-        List<Filter> selectedFilters = new LinkedList<>();
+    protected Set<Filter> getFilters(FilteringButton buttons[]) {
+        Set<Filter> allFilters = new LinkedHashSet<>();
+        Set<Filter> selectedFilters = new LinkedHashSet<>();
         for (FilteringButton button : buttons) {
             allFilters.add(button.getFilter());
             if (button.isStateOn()) {
@@ -65,7 +66,7 @@ public abstract class QueryFactory {
         return selectedFilters.isEmpty() ? allFilters : selectedFilters;
     }
 
-    protected abstract List<Filter> getFilters();
+    protected abstract Set<Filter> getFilters();
 
     protected abstract List<Renderable> getQueryBuilder();
 

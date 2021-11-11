@@ -1,7 +1,7 @@
 package stelnet.board.query.view.add;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
-import java.util.List;
+import java.util.Set;
 import stelnet.board.query.Query;
 import stelnet.board.query.QueryBoard;
 import stelnet.board.query.QueryState;
@@ -22,7 +22,7 @@ public class SearchButton extends Button {
                 public void onConfirm(IntelUIAPI ui) {
                     QueryState state = QueryBoard.getInstance(QueryBoard.class).getState();
                     QueryProvider provider = factory.getProvider();
-                    List<Filter> filters = factory.getFilters();
+                    Set<Filter> filters = factory.getFilters();
                     Query query = new Query(provider, filters);
                     state.getQueryManger().addQuery(query);
                 }

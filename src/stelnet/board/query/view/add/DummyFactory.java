@@ -3,6 +3,7 @@ package stelnet.board.query.view.add;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.query.provider.DummyProvider;
 import stelnet.board.query.provider.QueryProvider;
@@ -15,9 +16,9 @@ import uilib.property.Size;
 public class DummyFactory extends QueryFactory {
 
     @Override
-    protected List<Filter> getFilters() {
+    protected Set<Filter> getFilters() {
         logUsage();
-        return Collections.emptyList();
+        return Collections.emptySet();
     }
 
     @Override
