@@ -1,6 +1,6 @@
 package stelnet.board.query;
 
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 import lombok.Getter;
 import stelnet.BaseIntel;
@@ -10,7 +10,6 @@ import stelnet.util.SettingsUtils;
 import stelnet.util.TagConstants;
 import uilib.Renderable;
 import uilib.RenderableIntelInfo;
-import uilib.Table;
 import uilib.property.Size;
 
 @Getter
@@ -50,18 +49,6 @@ public class ResultIntel extends BaseIntel {
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
-        List<Renderable> renderables = new LinkedList<>();
-        renderables.add(new Table("Results", size.getWidth(), size.getHeight() - 30, resultSet));
-        return renderables;
-    }
-
-    @Override
-    public boolean hasLargeDescription() {
-        return true;
-    }
-
-    @Override
-    public boolean hasSmallDescription() {
-        return false;
+        return Collections.emptyList();
     }
 }

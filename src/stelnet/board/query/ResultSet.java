@@ -9,7 +9,6 @@ import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import java.util.Comparator;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -17,8 +16,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import stelnet.util.StringUtils;
-import uilib.TableContent;
-import uilib.TableContentRow;
 
 /**
  * A set of unique results for a given star system.
@@ -26,7 +23,7 @@ import uilib.TableContentRow;
 @Log4j
 @Getter
 @RequiredArgsConstructor
-public class ResultSet implements TableContent {
+public class ResultSet {
 
     private final StarSystemAPI system;
     private final Set<MarketAPI> marketSet = new HashSet<>();
@@ -98,24 +95,5 @@ public class ResultSet implements TableContent {
             return null;
         }
         return system.getCenter();
-    }
-
-    @Override
-    public Object[] getHeaders(float width) {
-        return new Object[] {
-            "Location",
-            0.3f * width,
-            "Type",
-            0.2f * width,
-            "Name",
-            0.3f * width,
-            "Quantity",
-            0.1f * width,
-        };
-    }
-
-    @Override
-    public List<? extends TableContentRow> getRows() {
-        return new LinkedList<TableContentRow>(resultSet);
     }
 }
