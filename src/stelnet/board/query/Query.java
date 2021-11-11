@@ -7,15 +7,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
+import stelnet.util.CollectionUtils;
 
+@Getter
+@Setter
 @RequiredArgsConstructor
 public class Query {
 
     private final QueryProvider provider;
     private final Set<Filter> filters;
-
-    @Getter
-    @Setter
     private boolean isEnabled = false;
 
     public void disable() {
@@ -36,11 +36,16 @@ public class Query {
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if (obj instanceof Query) {
+            Set<Filter> objFilters = ((Query) obj).getFilters();
+            boolean result = CollectionUtils.equals(filters, objFilters);
+            return result;
+        }
+        return false;
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return 0;
     }
 }

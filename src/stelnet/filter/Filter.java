@@ -1,6 +1,6 @@
 package stelnet.filter;
 
-public class Filter {
+public abstract class Filter {
 
     public boolean accept(Object object) {
         return false;

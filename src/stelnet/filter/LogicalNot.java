@@ -1,7 +1,11 @@
 package stelnet.filter;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+@Getter
+@EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
 public class LogicalNot extends Filter {
 

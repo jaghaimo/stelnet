@@ -1,10 +1,14 @@
 package stelnet.filter;
 
 import java.util.Collection;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
+@Getter
+@EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
 public class LogicalOr extends Filter {
 

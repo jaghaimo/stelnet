@@ -1,14 +1,18 @@
 package stelnet.filter;
 
-import java.util.List;
+import java.util.Collection;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
+@Getter
+@EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
 public class LogicalAnd extends Filter {
 
-    private final List<Filter> filters;
+    private final Collection<Filter> filters;
 
     @Override
     public boolean accept(Object object) {

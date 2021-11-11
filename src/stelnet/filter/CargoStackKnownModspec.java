@@ -2,7 +2,9 @@ package stelnet.filter;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = false)
 public class CargoStackKnownModspec extends CargoStackIsType {
 
     public CargoStackKnownModspec() {
