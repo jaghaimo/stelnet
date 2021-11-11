@@ -43,7 +43,9 @@ public class ItemProvider extends QueryProvider {
             for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
                 List<CargoStackAPI> cargoStacks = submarket.getCargo().getStacksCopy();
                 CollectionUtils.reduce(cargoStacks, filters);
-                resultSets.add(new ResultSet(market, cargoStacks, submarket));
+                ResultSet resultSet = new ResultSet(market);
+                resultSet.addCargoStacks(market, submarket, cargoStacks);
+                resultSets.add(resultSet);
             }
         }
     }

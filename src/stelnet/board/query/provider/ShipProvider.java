@@ -35,7 +35,9 @@ public class ShipProvider extends QueryProvider {
             for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
                 List<FleetMemberAPI> fleetMembers = submarket.getCargo().getMothballedShips().getMembersListCopy();
                 CollectionUtils.reduce(fleetMembers, filters);
-                resultSets.add(new ResultSet(market, submarket, fleetMembers));
+                ResultSet resultSet = new ResultSet(market);
+                resultSet.addFleetMembers(market, submarket, fleetMembers);
+                resultSets.add(resultSet);
             }
         }
     }

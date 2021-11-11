@@ -36,28 +36,9 @@ public class ResultSet {
         }
     );
 
-    public ResultSet(List<PersonAPI> people, MarketAPI market) {
+    public ResultSet(MarketAPI market) {
         system = market.getStarSystem();
         marketSet.add(market);
-        for (PersonAPI person : people) {
-            resultSet.add(new Result(market, person));
-        }
-    }
-
-    public ResultSet(MarketAPI market, List<CargoStackAPI> cargoStacks, SubmarketAPI submarket) {
-        system = market.getStarSystem();
-        marketSet.add(market);
-        for (CargoStackAPI cargoStack : cargoStacks) {
-            resultSet.add(new Result(market, submarket, cargoStack));
-        }
-    }
-
-    public ResultSet(MarketAPI market, SubmarketAPI submarket, List<FleetMemberAPI> fleetMembers) {
-        system = market.getStarSystem();
-        marketSet.add(market);
-        for (FleetMemberAPI fleetMember : fleetMembers) {
-            resultSet.add(new Result(market, submarket, fleetMember));
-        }
     }
 
     public void add(Result result) {
@@ -76,6 +57,24 @@ public class ResultSet {
         }
         marketSet.addAll(newResultSet.getMarketSet());
         resultSet.addAll(newResultSet.getResultSet());
+    }
+
+    public void addCargoStacks(MarketAPI market, SubmarketAPI submarket, List<CargoStackAPI> cargoStacks) {
+        for (CargoStackAPI cargoStack : cargoStacks) {
+            resultSet.add(new Result(market, submarket, cargoStack));
+        }
+    }
+
+    public void addFleetMembers(MarketAPI market, SubmarketAPI submarket, List<FleetMemberAPI> fleetMembers) {
+        for (FleetMemberAPI fleetMember : fleetMembers) {
+            resultSet.add(new Result(market, submarket, fleetMember));
+        }
+    }
+
+    public void addPeople(MarketAPI market, List<PersonAPI> people) {
+        for (PersonAPI person : people) {
+            resultSet.add(new Result(market, person));
+        }
     }
 
     public int getMarketNumber() {

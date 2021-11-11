@@ -24,7 +24,9 @@ public class PeopleProvider extends QueryProvider {
         for (MarketAPI market : markets) {
             List<PersonAPI> people = market.getPeopleCopy();
             CollectionUtils.reduce(people, filters);
-            resultSets.add(new ResultSet(people, market));
+            ResultSet resultSet = new ResultSet(market);
+            resultSet.addPeople(market, people);
+            resultSets.add(resultSet);
         }
     }
 
