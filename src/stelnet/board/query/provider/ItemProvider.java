@@ -1,15 +1,17 @@
 package stelnet.board.query.provider;
 
-import com.fs.starfarer.api.campaign.CargoStackAPI;
-import com.fs.starfarer.api.loading.FighterWingSpecAPI;
-import com.fs.starfarer.api.loading.HullModSpecAPI;
-import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
+import com.fs.starfarer.api.campaign.CargoStackAPI;
+import com.fs.starfarer.api.loading.FighterWingSpecAPI;
+import com.fs.starfarer.api.loading.HullModSpecAPI;
+import com.fs.starfarer.api.loading.WeaponSpecAPI;
+
 import lombok.experimental.ExtensionMethod;
-import stelnet.board.query.ResultSystemMap;
+import stelnet.board.query.ResultMap;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.SettingsUtils;
@@ -36,7 +38,7 @@ public class ItemProvider extends QueryProvider {
     }
 
     @Override
-    public List<ResultSystemMap> getResults(List<Filter> filters) {
+    public List<ResultMap> getResults(List<Filter> filters) {
         // TODO Auto-generated method stub
         return null;
     }

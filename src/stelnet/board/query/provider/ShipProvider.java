@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import stelnet.board.query.ResultSystemMap;
+import stelnet.board.query.ResultMap;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.FactoryUtils;
@@ -28,7 +28,7 @@ public class ShipProvider extends QueryProvider {
     }
 
     @Override
-    public List<ResultSystemMap> getResults(List<Filter> filters) {
+    public List<ResultMap> getResults(List<Filter> filters) {
         // TODO Auto-generated method stub
         return null;
     }

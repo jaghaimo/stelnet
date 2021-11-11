@@ -3,7 +3,7 @@ package stelnet.board.query.provider;
 import com.fs.starfarer.api.combat.ShipAPI;
 import java.util.Arrays;
 import java.util.List;
-import stelnet.board.query.ResultSystemMap;
+import stelnet.board.query.ResultMap;
 import stelnet.filter.AnyShowInCodex;
 import stelnet.filter.Filter;
 import stelnet.filter.LogicalNot;
@@ -16,7 +16,7 @@ public abstract class QueryProvider {
 
     public abstract List<?> getMatching(List<Filter> filters);
 
-    public abstract List<ResultSystemMap> getResults(List<Filter> filters);
+    public abstract List<ResultMap> getResults(List<Filter> filters);
 
     protected void filter(List<?> elements) {
         CollectionUtils.reduce(elements, getCommonFilters());
