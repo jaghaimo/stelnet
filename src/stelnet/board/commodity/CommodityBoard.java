@@ -7,6 +7,7 @@ import stelnet.BoardInfo;
 import stelnet.util.L10n;
 import stelnet.util.SettingsUtils;
 import stelnet.util.TagConstants;
+import uilib.RenderableIntelInfo;
 import uilib.RenderableState;
 
 @Setter
@@ -21,7 +22,7 @@ public class CommodityBoard extends BaseBoard {
     }
 
     @Override
-    protected BoardInfo getBoardInfo() {
+    protected RenderableIntelInfo getIntelInfo() {
         return new BoardInfo(L10n.get(CommodityL10n.BOARD_TITLE), L10n.get(CommodityL10n.BOARD_DESCRIPTION));
     }
 

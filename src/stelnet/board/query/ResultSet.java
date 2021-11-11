@@ -1,9 +1,11 @@
 package stelnet.board.query;
 
+import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
+import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -36,6 +38,22 @@ public class ResultSet implements TableContent {
             }
         }
     );
+
+    public ResultSet(List<PersonAPI> people, MarketAPI market) {
+        system = market.getStarSystem();
+        marketSet.add(market);
+        for (PersonAPI person : people) {
+            resultSet.add(new Result(market, person));
+        }
+    }
+
+    public ResultSet(MarketAPI market, List<CargoStackAPI> cargoStacks, SubmarketAPI submarket) {
+        system = market.getStarSystem();
+        marketSet.add(market);
+        for (CargoStackAPI cargoStack : cargoStacks) {
+            resultSet.add(new Result(market, submarket, cargoStack));
+        }
+    }
 
     public ResultSet(MarketAPI market, SubmarketAPI submarket, List<FleetMemberAPI> fleetMembers) {
         system = market.getStarSystem();
@@ -72,7 +90,7 @@ public class ResultSet implements TableContent {
     }
 
     public String getSystemName() {
-        return StringUtils.getStarSystem(system);
+        return StringUtils.getStarSystem(system, false);
     }
 
     public SectorEntityToken getSystemToken() {
@@ -85,14 +103,14 @@ public class ResultSet implements TableContent {
     @Override
     public Object[] getHeaders(float width) {
         return new Object[] {
-            "Market Name",
-            0.1 * width,
-            "Submarket Name",
-            0.1 * width,
-            "Name",
-            0.1 * width,
+            "Location",
+            0.3f * width,
             "Type",
-            0.1 * width,
+            0.2f * width,
+            "Name",
+            0.3f * width,
+            "Quantity",
+            0.1f * width,
         };
     }
 

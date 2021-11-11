@@ -21,7 +21,11 @@ public class PeopleProvider extends QueryProvider {
 
     @Override
     protected void processMarkets(List<ResultSet> resultSets, List<MarketAPI> markets, List<Filter> filters) {
-        // TODO Auto-generated method stub
+        for (MarketAPI market : markets) {
+            List<PersonAPI> people = market.getPeopleCopy();
+            CollectionUtils.reduce(people, filters);
+            resultSets.add(new ResultSet(people, market));
+        }
     }
 
     private List<PersonAPI> extractPeople(List<MarketAPI> markets) {

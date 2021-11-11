@@ -12,7 +12,7 @@ import uilib.property.Size;
 @Setter
 public class Table extends RenderableComponent {
 
-    private static final int ROW_HEIGHT = 20;
+    private static final float ROW_HEIGHT = 20;
 
     private final String title;
     private final float width;

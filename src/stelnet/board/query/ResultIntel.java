@@ -4,10 +4,12 @@ import java.util.LinkedList;
 import java.util.List;
 import lombok.Getter;
 import stelnet.BaseIntel;
-import stelnet.IntelInfo;
+import stelnet.BoardInfo;
 import stelnet.util.SectorUtils;
+import stelnet.util.SettingsUtils;
 import stelnet.util.TagConstants;
 import uilib.Renderable;
+import uilib.RenderableIntelInfo;
 import uilib.Table;
 import uilib.property.Size;
 
@@ -27,20 +29,29 @@ public class ResultIntel extends BaseIntel {
     }
 
     @Override
-    protected IntelInfo getIntelInfo() {
-        return new IntelInfo(
+    public String getIcon() {
+        int results = resultSet.getResultNumber();
+        if (results > 30) {
+            return SettingsUtils.getSpriteName("high");
+        }
+        if (results > 10) {
+            return SettingsUtils.getSpriteName("medium");
+        }
+        return SettingsUtils.getSpriteName("low");
+    }
+
+    @Override
+    protected RenderableIntelInfo getIntelInfo() {
+        return new BoardInfo(
             resultSet.getSystemName(),
-            "Matching results", // todo l10n
-            String.valueOf(resultSet.getResultNumber()),
-            "Matching markets", // todo l10n
-            String.valueOf(resultSet.getMarketNumber())
+            String.format("Found %d results in %d markets.", resultSet.getResultNumber(), resultSet.getMarketNumber())
         );
     }
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
         List<Renderable> renderables = new LinkedList<>();
-        renderables.add(new Table("Results", size.getWidth(), 0, resultSet));
+        renderables.add(new Table("Results", size.getWidth(), size.getHeight() - 30, resultSet));
         return renderables;
     }
 

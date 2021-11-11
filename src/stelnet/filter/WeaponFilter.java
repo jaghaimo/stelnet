@@ -3,7 +3,7 @@ package stelnet.filter;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
 
-public abstract class WeaponFilter extends Filter {
+public abstract class WeaponFilter extends CargoStackFilter {
 
     @Override
     public boolean accept(Object object) {
@@ -16,6 +16,7 @@ public abstract class WeaponFilter extends Filter {
         return super.accept(object);
     }
 
+    @Override
     protected boolean acceptCargoStack(CargoStackAPI cargoStack) {
         if (!cargoStack.isWeaponStack()) {
             return true;

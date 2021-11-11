@@ -16,9 +16,16 @@ public class StringUtils {
     }
 
     public static String getStarSystem(StarSystemAPI starSystem) {
+        return getStarSystem(starSystem, true);
+    }
+
+    public static String getStarSystem(StarSystemAPI starSystem, boolean shortName) {
         if (starSystem == null) {
             return L10n.get(CommonL10n.HYPERSPACE);
         }
-        return starSystem.getBaseName();
+        if (shortName) {
+            return starSystem.getBaseName();
+        }
+        return starSystem.getName();
     }
 }

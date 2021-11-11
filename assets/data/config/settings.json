@@ -1,11 +1,16 @@
 {
     "graphics": {
         "stelnet": {
+            # boards
             "commodity": "graphics/icons/intel/tutorial_mission.png",
             "dialog": "graphics/illustrations/comm_relay.jpg",
-            "market": "graphics/icons/intel/investigation.png",
+            "query": "graphics/icons/intel/investigation.png",
             "storage": "graphics/icons/intel/all.png",
-            "viewer": "graphics/icons/industry/local_production.png"
+            "viewer": "graphics/icons/industry/local_production.png",
+            # intel
+            "low": "graphics/icons/intel/beacon_low.png",
+            "medium": "graphics/icons/intel/beacon_med.png",
+            "high": "graphics/icons/intel/beacon_high.png",
         }
     }
 }

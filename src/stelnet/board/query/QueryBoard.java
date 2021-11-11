@@ -6,6 +6,7 @@ import stelnet.BoardInfo;
 import stelnet.util.L10n;
 import stelnet.util.SettingsUtils;
 import stelnet.util.TagConstants;
+import uilib.RenderableIntelInfo;
 import uilib.RenderableState;
 
 /**
@@ -21,11 +22,11 @@ public class QueryBoard extends BaseBoard {
 
     @Override
     public String getIcon() {
-        return SettingsUtils.getSpriteName("market");
+        return SettingsUtils.getSpriteName("query");
     }
 
     @Override
-    protected BoardInfo getBoardInfo() {
+    protected RenderableIntelInfo getIntelInfo() {
         int queryCount = state.getQueryManger().numberOfQueries();
         return new BoardInfo(L10n.get(QueryL10n.TITLE), L10n.get(QueryL10n.DESCRIPTION, queryCount));
     }

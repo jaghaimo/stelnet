@@ -1,9 +1,10 @@
 package stelnet.filter;
 
 import com.fs.starfarer.api.campaign.CommDirectoryEntryAPI;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 
-public abstract class PersonFilter extends Filter {
+public abstract class PersonFilter extends MarketFilter {
 
     @Override
     public boolean accept(Object object) {
@@ -14,6 +15,16 @@ public abstract class PersonFilter extends Filter {
             return acceptPerson((PersonAPI) object);
         }
         return super.accept(object);
+    }
+
+    @Override
+    protected boolean acceptMarket(MarketAPI market) {
+        for (PersonAPI person : market.getPeopleCopy()) {
+            if (acceptPerson(person)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     protected boolean acceptCommDirectoryEntry(CommDirectoryEntryAPI entry) {

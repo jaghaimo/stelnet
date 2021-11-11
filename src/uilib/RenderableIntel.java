@@ -4,13 +4,14 @@ import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
+import java.awt.Color;
 import java.util.Collections;
 import java.util.List;
 import lombok.extern.log4j.Log4j;
 import uilib.property.Size;
 
 @Log4j
-public class RenderableIntel extends BaseIntelPlugin {
+public abstract class RenderableIntel extends BaseIntelPlugin {
 
     @Override
     public void buttonPressCancelled(Object buttonId, IntelUIAPI ui) {
@@ -33,6 +34,14 @@ public class RenderableIntel extends BaseIntelPlugin {
         log.debug("Calling prompt()");
         ButtonHandler handler = (ButtonHandler) buttonId;
         handler.onPrompt(prompt);
+    }
+
+    @Override
+    public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
+        RenderableIntelInfo intelInfo = getIntelInfo();
+        Color bulletColor = getBulletColorForMode(mode);
+        Color titleColor = getTitleColor(mode);
+        intelInfo.render(info, bulletColor, titleColor);
     }
 
     @Override
@@ -76,6 +85,8 @@ public class RenderableIntel extends BaseIntelPlugin {
     protected List<Renderable> getRenderables(Size size) {
         return Collections.<Renderable>emptyList();
     }
+
+    protected abstract RenderableIntelInfo getIntelInfo();
 
     private void redraw(IntelUIAPI ui) {
         ui.recreateIntelUI();

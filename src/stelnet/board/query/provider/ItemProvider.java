@@ -2,6 +2,7 @@ package stelnet.board.query.provider;
 
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
@@ -38,7 +39,13 @@ public class ItemProvider extends QueryProvider {
 
     @Override
     protected void processMarkets(List<ResultSet> resultSets, List<MarketAPI> markets, List<Filter> filters) {
-        // TODO Auto-generated method stub
+        for (MarketAPI market : markets) {
+            for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
+                List<CargoStackAPI> cargoStacks = submarket.getCargo().getStacksCopy();
+                CollectionUtils.reduce(cargoStacks, filters);
+                resultSets.add(new ResultSet(market, cargoStacks, submarket));
+            }
+        }
     }
 
     public Set<String> getManufacturers() {

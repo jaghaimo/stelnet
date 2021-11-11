@@ -1,4 +1,7 @@
 {
+    "CARGOAPI_FIGHTER_CHIP": "Fighter Wing",
+    "CARGOAPI_SPECIAL": "Special Item",
+    "CARGOAPI_WEAPONS": "Weapon",
     "COMMODITYSTATE_BUY": "Buy",
     "COMMODITYSTATE_PROFIT": "Profit",
     "COMMODITYSTATE_SELL": "Sell",
