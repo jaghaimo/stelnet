@@ -4,6 +4,8 @@ import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
+import com.fs.starfarer.api.ui.Alignment;
+import com.fs.starfarer.api.util.Misc;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -42,11 +44,15 @@ public class Result extends Object implements Comparable<Result>, TableContentRo
     }
 
     @Override
-    public int compareTo(Result othr) {
-        final String string1[] = new String[] { this.getMarketName(), this.getSubmarketName(), this.getName() };
-        final String string2[] = new String[] { othr.getMarketName(), othr.getSubmarketName(), othr.getName() };
-        for (int i = 0; i < 3; i++) {
-            int compareResult = string1[i].compareTo(string2[i]);
+    public int compareTo(Result o) {
+        final String strings[][] = new String[][] {
+            new String[] { getMarketName(), o.getMarketName() },
+            new String[] { getSubmarketName(), o.getSubmarketName() },
+            new String[] { getType(), o.getType() },
+            new String[] { getName(), o.getName() },
+        };
+        for (String[] compare : strings) {
+            int compareResult = compare[0].compareTo(compare[1]);
             if (compareResult != 0) {
                 return compareResult;
             }
@@ -72,7 +78,22 @@ public class Result extends Object implements Comparable<Result>, TableContentRo
 
     @Override
     public Object[] buildObjectArray() {
-        // TODO Auto-generated method stub
-        return null;
+        return new Object[] {
+            Alignment.MID,
+            market.getFaction().getColor(),
+            getMarketName(),
+            Alignment.MID,
+            submarket.getFaction().getColor(),
+            getSubmarketName(),
+            Alignment.MID,
+            Misc.getTextColor(),
+            getType(),
+            Alignment.MID,
+            Misc.getTextColor(),
+            getName(),
+            Alignment.MID,
+            Misc.getTextColor(),
+            String.valueOf(getQuantity()),
+        };
     }
 }
