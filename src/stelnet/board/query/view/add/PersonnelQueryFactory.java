@@ -9,6 +9,7 @@ import java.util.List;
 import stelnet.CommonL10n;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.PeopleProvider;
+import stelnet.board.query.provider.QueryProvider;
 import stelnet.board.query.provider.SkillProvider;
 import stelnet.filter.AnyHasTag;
 import stelnet.filter.Filter;
@@ -28,6 +29,7 @@ import uilib.property.Size;
 
 public class PersonnelQueryFactory extends QueryFactory {
 
+    private transient PeopleProvider peopleProvider = new PeopleProvider();
     private transient SkillProvider skillProvider = new SkillProvider();
     private transient PersonnelButton[] postType = createPostTypeButtons();
     private transient OfficerButton[] level = createLevelButtons();
@@ -35,6 +37,7 @@ public class PersonnelQueryFactory extends QueryFactory {
     private transient OfficerButton[] skill = createSkillButtons();
 
     public void readResolve() {
+        peopleProvider = new PeopleProvider();
         skillProvider = new SkillProvider();
         postType = createPostTypeButtons();
         level = createLevelButtons();
@@ -46,6 +49,16 @@ public class PersonnelQueryFactory extends QueryFactory {
         for (OfficerButton button : level) {
             button.setStateOn(active.equals(button));
         }
+    }
+
+    @Override
+    protected List<Filter> getFilters() {
+        List<Filter> filters = new LinkedList<>();
+        filters.add(new LogicalOr(getFilters(postType)));
+        filters.add(new LogicalOr(getFilters(level)));
+        filters.add(new LogicalOr(getFilters(personality)));
+        filters.add(new LogicalOr(getFilters(skill)));
+        return filters;
     }
 
     @Override
@@ -65,13 +78,9 @@ public class PersonnelQueryFactory extends QueryFactory {
         return new ShowPeople(new PeopleProvider().getMatching(filters), "No matching people found.", size);
     }
 
-    private List<Filter> getFilters() {
-        List<Filter> filters = new LinkedList<>();
-        filters.add(new LogicalOr(getFilters(postType)));
-        filters.add(new LogicalOr(getFilters(level)));
-        filters.add(new LogicalOr(getFilters(personality)));
-        filters.add(new LogicalOr(getFilters(skill)));
-        return filters;
+    @Override
+    protected QueryProvider getProvider() {
+        return peopleProvider;
     }
 
     private OfficerLevelButton[] createLevelButtons() {

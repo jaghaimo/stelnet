@@ -5,8 +5,11 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.Getter;
+import lombok.extern.log4j.Log4j;
 import stelnet.CommonL10n;
 import stelnet.board.query.QueryL10n;
+import stelnet.board.query.provider.QueryProvider;
+import stelnet.filter.Filter;
 import uilib.Heading;
 import uilib.HorizontalViewContainer;
 import uilib.Renderable;
@@ -17,6 +20,7 @@ import uilib.VerticalViewContainer;
 import uilib.property.Size;
 
 @Getter
+@Log4j
 public class AddQueryFactory extends QueryFactory implements RenderableFactory {
 
     private transient QueryTypeButton[] queryType = createQueryTypeButtons();
@@ -45,6 +49,11 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
     }
 
     @Override
+    protected List<Filter> getFilters() {
+        return findNextFactory().getFilters();
+    }
+
+    @Override
     protected List<Renderable> getQueryBuilder() {
         List<Renderable> elements = new LinkedList<>();
         addLabeledGroup(elements, QueryL10n.QUERY_TYPE, Arrays.<Renderable>asList(queryType));
@@ -57,18 +66,16 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
     @Override
     protected RenderableComponent getPreview(Size size) {
         QueryFactory queryFactory = findNextFactory();
-        if (queryFactory == null) {
-            return null;
-        }
         return queryFactory.getPreview(size);
+    }
+
+    @Override
+    protected QueryProvider getProvider() {
+        return findNextFactory().getProvider();
     }
 
     private void addFromNextFactory(List<Renderable> elements) {
         QueryFactory nextFactory = findNextFactory();
-        if (nextFactory == null) {
-            setQueryType(queryType[0]);
-            nextFactory = findNextFactory();
-        }
         elements.addAll(nextFactory.getQueryBuilder());
     }
 
@@ -95,8 +102,8 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
 
     private SearchButton[] createSearchButtons() {
         return new SearchButton[] {
-            new SearchButton(QueryL10n.SEARCH_MATCHING),
-            new SearchButton(QueryL10n.SEARCH_SELECTED),
+            new SearchButton(this, QueryL10n.SEARCH_MATCHING),
+            new SearchButton(this, QueryL10n.SEARCH_SELECTED),
         };
     }
 
@@ -108,6 +115,7 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
                 return queryFactory;
             }
         }
-        return null;
+        log.error("Did not find any factory to use, returning a DummyFactory!");
+        return new DummyFactory();
     }
 }

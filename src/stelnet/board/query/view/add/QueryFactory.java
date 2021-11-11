@@ -4,6 +4,7 @@ import com.fs.starfarer.api.ui.Alignment;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.Setter;
+import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
 import stelnet.util.L10n;
 import uilib.DynamicGroup;
@@ -64,7 +65,11 @@ public abstract class QueryFactory {
         return selectedFilters.isEmpty() ? allFilters : selectedFilters;
     }
 
+    protected abstract List<Filter> getFilters();
+
     protected abstract List<Renderable> getQueryBuilder();
+
+    protected abstract QueryProvider getProvider();
 
     protected abstract RenderableComponent getPreview(Size size);
 }

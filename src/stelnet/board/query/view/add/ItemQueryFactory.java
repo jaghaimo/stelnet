@@ -10,6 +10,7 @@ import java.util.List;
 import stelnet.CommonL10n;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.ItemProvider;
+import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.CargoStackIsManufacturer;
 import stelnet.filter.CargoStackIsType;
 import stelnet.filter.CargoStackIsType.Type;
@@ -63,12 +64,7 @@ public class ItemQueryFactory extends QueryFactory {
     }
 
     @Override
-    protected RenderableComponent getPreview(Size size) {
-        List<Filter> filters = getFilters();
-        return new ShowCargo(itemProvider.getMatching(filters), "No matching items found.", size);
-    }
-
-    private List<Filter> getFilters() {
+    protected List<Filter> getFilters() {
         List<Filter> filters = new LinkedList<>();
         filters.add(new LogicalOr(getFilters(itemTypes)));
         filters.add(new LogicalOr(getFilters(manufacturers)));
@@ -78,6 +74,17 @@ public class ItemQueryFactory extends QueryFactory {
         filters.add(new LogicalOr(getFilters(wingRoles)));
         filters.add(new LogicalNot(new CargoStackKnownModspec()));
         return filters;
+    }
+
+    @Override
+    protected RenderableComponent getPreview(Size size) {
+        List<Filter> filters = getFilters();
+        return new ShowCargo(itemProvider.getMatching(filters), "No matching items found.", size);
+    }
+
+    @Override
+    protected QueryProvider getProvider() {
+        return itemProvider;
     }
 
     private ItemButton[] createItemTypes() {

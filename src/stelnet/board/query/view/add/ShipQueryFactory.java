@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import stelnet.board.query.QueryL10n;
+import stelnet.board.query.provider.QueryProvider;
 import stelnet.board.query.provider.ShipProvider;
 import stelnet.filter.Filter;
 import stelnet.filter.LogicalOr;
@@ -37,6 +38,16 @@ public class ShipQueryFactory extends QueryFactory {
     }
 
     @Override
+    protected List<Filter> getFilters() {
+        List<Filter> filters = new LinkedList<>();
+        filters.add(new LogicalOr(getFilters(classSizes)));
+        filters.add(new LogicalOr(getFilters(mountSizes)));
+        filters.add(new LogicalOr(getFilters(mountTypes)));
+        filters.add(new LogicalOr(getFilters(manufacturers)));
+        return filters;
+    }
+
+    @Override
     protected List<Renderable> getQueryBuilder() {
         List<Renderable> elements = new LinkedList<>();
         addLabeledGroup(elements, QueryL10n.CLASS_SIZE, Arrays.<Renderable>asList(classSizes));
@@ -54,13 +65,9 @@ public class ShipQueryFactory extends QueryFactory {
         return new ShowShips(shipProvider.getMatching(filters), "No matching ships found.", size);
     }
 
-    private List<Filter> getFilters() {
-        List<Filter> filters = new LinkedList<>();
-        filters.add(new LogicalOr(getFilters(classSizes)));
-        filters.add(new LogicalOr(getFilters(mountSizes)));
-        filters.add(new LogicalOr(getFilters(mountTypes)));
-        filters.add(new LogicalOr(getFilters(manufacturers)));
-        return filters;
+    @Override
+    protected QueryProvider getProvider() {
+        return shipProvider;
     }
 
     private ShipButton[] createClassSizes() {

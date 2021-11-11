@@ -1,8 +1,10 @@
 package stelnet.board.query;
 
+import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
+import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
@@ -10,6 +12,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import stelnet.util.L10n;
 import uilib.TableContentRow;
 
 @RequiredArgsConstructor
@@ -27,8 +30,20 @@ public class Result extends Object implements Comparable<Result>, TableContentRo
     private int hashCode = 0;
 
     public Result(MarketAPI market, SubmarketAPI submarketAPI, FleetMemberAPI fleetMember) {
-        name = fleetMember.getHullSpec().getNameWithDesignationWithDashClass();
-        type = "Ship";
+        ShipHullSpecAPI hullSpec = fleetMember.getHullSpec();
+        name = hullSpec.getNameWithDesignationWithDashClass();
+        quantity = 1;
+        type = L10n.get(hullSpec.getHullSize());
+        system = market.getStarSystem();
+        this.market = market;
+        this.submarket = submarketAPI;
+        hashCode = hashCode();
+    }
+
+    public Result(MarketAPI market, SubmarketAPI submarketAPI, CargoStackAPI cargoStack) {
+        name = cargoStack.getDisplayName();
+        quantity = (int) cargoStack.getSize();
+        type = L10n.get(cargoStack.getType());
         system = market.getStarSystem();
         this.market = market;
         this.submarket = submarketAPI;
