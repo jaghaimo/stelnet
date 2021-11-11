@@ -17,8 +17,6 @@ public class ResultIntel extends BaseIntel {
 
     private final QueryManager queryManager;
     private final ResultSet resultSet;
-
-    @Getter
     private final String tag = TagConstants.MARKET;
 
     public ResultIntel(QueryManager queryManager, ResultSet resultSet) {
