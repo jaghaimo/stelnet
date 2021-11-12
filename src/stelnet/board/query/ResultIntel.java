@@ -1,11 +1,9 @@
 package stelnet.board.query;
 
-import java.util.Collections;
 import java.util.List;
 import lombok.Getter;
 import stelnet.BaseIntel;
 import stelnet.BoardInfo;
-import stelnet.util.SectorUtils;
 import stelnet.util.SettingsUtils;
 import stelnet.util.TagConstants;
 import uilib.Renderable;
@@ -20,7 +18,7 @@ public class ResultIntel extends BaseIntel {
     private final String tag = TagConstants.MARKET;
 
     public ResultIntel(QueryManager queryManager, ResultSet resultSet) {
-        super(SectorUtils.getPlayerFaction(), resultSet.getSystemToken());
+        super(resultSet.getClaimingFaction(), resultSet.getSystemToken());
         this.queryManager = queryManager;
         this.resultSet = resultSet;
     }
@@ -47,6 +45,6 @@ public class ResultIntel extends BaseIntel {
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
-        return Collections.emptyList();
+        return new ResultView(resultSet).create(size);
     }
 }

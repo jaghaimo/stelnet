@@ -1,5 +1,6 @@
 package stelnet.board.query.view.add;
 
+import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.combat.DamageType;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
@@ -24,6 +25,7 @@ import stelnet.filter.LogicalOr;
 import stelnet.filter.WeaponIsDamage;
 import stelnet.filter.WeaponIsSize;
 import stelnet.filter.WeaponIsType;
+import stelnet.util.CargoUtils;
 import stelnet.util.L10n;
 import uilib.Renderable;
 import uilib.RenderableComponent;
@@ -81,7 +83,8 @@ public class ItemQueryFactory extends QueryFactory {
     @Override
     protected RenderableComponent getPreview(Size size) {
         Set<Filter> filters = getFilters();
-        return new ShowCargo(itemProvider.getMatching(filters), "No matching items found.", size);
+        CargoAPI cargo = CargoUtils.makeCargoFromStacks(itemProvider.getMatching(filters));
+        return new ShowCargo(cargo, "No matching items found.", size);
     }
 
     @Override

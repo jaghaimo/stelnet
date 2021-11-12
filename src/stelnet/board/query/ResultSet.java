@@ -1,6 +1,7 @@
 package stelnet.board.query;
 
 import com.fs.starfarer.api.campaign.CargoStackAPI;
+import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
@@ -15,6 +16,7 @@ import java.util.TreeSet;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import stelnet.util.SectorUtils;
 import stelnet.util.StringUtils;
 
 /**
@@ -75,6 +77,10 @@ public class ResultSet {
         for (PersonAPI person : people) {
             resultSet.add(new Result(market, person));
         }
+    }
+
+    public FactionAPI getClaimingFaction() {
+        return SectorUtils.getClaimingFaction(system);
     }
 
     public int getMarketNumber() {

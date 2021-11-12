@@ -20,12 +20,10 @@ public class Result implements Comparable<Result> {
     private final String name;
     private final String type;
     private final Object object;
-    private final String submarketName;
-    private final boolean isBlackMarket;
     private final StarSystemAPI system;
     private final MarketAPI market;
-
-    private int hashCode = 0;
+    private final SubmarketAPI submarket;
+    private final int hashCode;
 
     public Result(MarketAPI market, PersonAPI person) {
         this.name = person.getNameString();
@@ -33,8 +31,7 @@ public class Result implements Comparable<Result> {
         this.object = person;
         this.system = market.getStarSystem();
         this.market = market;
-        this.submarketName = "";
-        this.isBlackMarket = false;
+        this.submarket = null;
         this.hashCode = hashCode();
     }
 
@@ -45,8 +42,7 @@ public class Result implements Comparable<Result> {
         this.object = fleetMember;
         this.system = market.getStarSystem();
         this.market = market;
-        this.submarketName = submarket.getNameOneLine();
-        this.isBlackMarket = submarket.getPlugin().isBlackMarket();
+        this.submarket = submarket;
         this.hashCode = hashCode();
     }
 
@@ -56,16 +52,15 @@ public class Result implements Comparable<Result> {
         this.object = cargoStack;
         this.system = market.getStarSystem();
         this.market = market;
-        this.submarketName = submarket.getNameOneLine();
-        this.isBlackMarket = submarket.getPlugin().isBlackMarket();
+        this.submarket = submarket;
         this.hashCode = hashCode();
     }
 
     public String getLocationName() {
-        if (submarketName.isEmpty()) {
+        if (submarket == null) {
             return market.getName();
         }
-        return String.format("%s - %s", market.getName(), submarketName);
+        return String.format("%s - %s", market.getName(), submarket.getNameOneLine());
     }
 
     public CargoStackAPI getCargoStack() {
@@ -74,6 +69,10 @@ public class Result implements Comparable<Result> {
 
     public FleetMemberAPI getFleetMember() {
         return (FleetMemberAPI) object;
+    }
+
+    public int getSubmarketNumber() {
+        return market.getSubmarketsCopy().indexOf(submarket);
     }
 
     public PersonAPI getPerson() {
@@ -94,12 +93,13 @@ public class Result implements Comparable<Result> {
 
     @Override
     public int compareTo(Result o) {
-        final String strings[][] = new String[][] {
-            new String[] { getLocationName(), o.getLocationName() },
+        final String comparables[][] = new String[][] {
+            new String[] { getMarket().getName(), o.getMarket().getName() },
+            new String[] { String.valueOf(getSubmarketNumber()), String.valueOf(o.getSubmarketNumber()) },
             new String[] { getType(), o.getType() },
             new String[] { getName(), o.getName() },
         };
-        for (String[] compare : strings) {
+        for (String[] compare : comparables) {
             int compareResult = compare[0].compareTo(compare[1]);
             if (compareResult != 0) {
                 return compareResult;
@@ -114,13 +114,5 @@ public class Result implements Comparable<Result> {
             return compareTo((Result) other) == 0;
         }
         return false;
-    }
-
-    @Override
-    public int hashCode() {
-        if (hashCode == 0) {
-            hashCode = (getName() + getType() + getLocationName()).hashCode();
-        }
-        return hashCode;
     }
 }
