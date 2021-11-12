@@ -63,6 +63,7 @@ public class ResultView implements RenderableFactory {
         if (items.isEmpty()) {
             return;
         }
+        renderables.add(new Spacer(10));
         CargoAPI cargo = CargoUtils.makeCargoFromStacks(items);
         renderables.add(new ShowCargo(cargo, "Items", "No items found", new Size(width, 0)));
     }
@@ -72,6 +73,7 @@ public class ResultView implements RenderableFactory {
         if (ships.isEmpty()) {
             return;
         }
+        renderables.add(new Spacer(10));
         renderables.add(new ShowShips(ships, "Ships", "No ships found", new Size(width, 0)));
     }
 }

@@ -2,7 +2,6 @@ package uilib;
 
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import com.fs.starfarer.api.util.Misc;
 import java.util.List;
 import uilib.property.Size;
 
@@ -30,8 +29,9 @@ public class ShowShips extends RenderableComponent {
             return;
         }
         if (optionalTitle != null) {
-            tooltip.addPara(optionalTitle, Misc.getGrayColor(), 10);
+            addSectionTitle(tooltip, optionalTitle);
         }
         tooltip.showShips(ships, ships.size(), true, 5f);
+        setOffsetOfLast(tooltip, -6);
     }
 }

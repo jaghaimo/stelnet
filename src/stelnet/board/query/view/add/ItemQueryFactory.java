@@ -84,7 +84,7 @@ public class ItemQueryFactory extends QueryFactory {
     protected RenderableComponent getPreview(Size size) {
         Set<Filter> filters = getFilters();
         CargoAPI cargo = CargoUtils.makeCargoFromStacks(itemProvider.getMatching(filters));
-        return new ShowCargo(cargo, "No matching items found.", size);
+        return new ShowCargo(cargo, "Matching items", "No matching items found.", size);
     }
 
     @Override

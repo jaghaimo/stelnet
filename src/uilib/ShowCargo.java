@@ -2,7 +2,6 @@ package uilib;
 
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import com.fs.starfarer.api.util.Misc;
 import uilib.property.Size;
 
 public class ShowCargo extends RenderableComponent {
@@ -29,8 +28,9 @@ public class ShowCargo extends RenderableComponent {
             return;
         }
         if (optionalTitle != null) {
-            tooltip.addPara(optionalTitle, Misc.getGrayColor(), 10);
+            addSectionTitle(tooltip, optionalTitle);
         }
         tooltip.showCargo(cargo, cargo.getStacksCopy().size(), false, 5);
+        setOffsetOfLast(tooltip, -6);
     }
 }
