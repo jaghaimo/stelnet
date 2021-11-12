@@ -35,7 +35,7 @@ public class ResultView implements RenderableFactory {
 
     private void addMarkets(List<Renderable> renderables, float width) {
         for (MarketAPI market : resultOrganiser.getMarkets(resultSet)) {
-            addMarket(renderables, market, width);
+            addMarket(renderables, market);
             addPeople(renderables, market, width);
             addItems(renderables, market, width);
             addShips(renderables, market, width);
@@ -43,7 +43,7 @@ public class ResultView implements RenderableFactory {
         }
     }
 
-    private void addMarket(List<Renderable> renderables, MarketAPI market, float width) {
+    private void addMarket(List<Renderable> renderables, MarketAPI market) {
         FactionAPI faction = market.getFaction();
         String heading = String.format("%s - %s", market.getName(), faction.getDisplayName());
         renderables.add(new Heading(heading, faction.getBaseUIColor(), faction.getDarkUIColor()));
