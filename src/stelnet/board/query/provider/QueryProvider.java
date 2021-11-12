@@ -30,6 +30,12 @@ public abstract class QueryProvider {
 
     protected abstract void processMarkets(List<ResultSet> resultSets, List<MarketAPI> markets, Set<Filter> filters);
 
+    protected void addToResultSets(List<ResultSet> resultSets, ResultSet resultSet) {
+        if (resultSet.getResultNumber() > 0) {
+            resultSets.add(resultSet);
+        }
+    }
+
     protected void filter(List<?> elements) {
         CollectionUtils.reduce(elements, getCommonFilters());
     }

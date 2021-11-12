@@ -27,7 +27,7 @@ public class PeopleProvider extends QueryProvider {
             CollectionUtils.reduce(people, filters);
             ResultSet resultSet = new ResultSet(market);
             resultSet.addPeople(market, people);
-            resultSets.add(resultSet);
+            addToResultSets(resultSets, resultSet);
         }
     }
 

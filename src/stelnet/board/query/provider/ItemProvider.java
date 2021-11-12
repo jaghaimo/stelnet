@@ -45,7 +45,7 @@ public class ItemProvider extends QueryProvider {
                 CollectionUtils.reduce(cargoStacks, filters);
                 ResultSet resultSet = new ResultSet(market);
                 resultSet.addCargoStacks(market, submarket, cargoStacks);
-                resultSets.add(resultSet);
+                addToResultSets(resultSets, resultSet);
             }
         }
     }

@@ -37,7 +37,7 @@ public class ShipProvider extends QueryProvider {
                 CollectionUtils.reduce(fleetMembers, filters);
                 ResultSet resultSet = new ResultSet(market);
                 resultSet.addFleetMembers(market, submarket, fleetMembers);
-                resultSets.add(resultSet);
+                addToResultSets(resultSets, resultSet);
             }
         }
     }
