@@ -20,9 +20,9 @@ public class QueryManager {
         IntelUtils.removeAll(ResultIntel.class);
     }
 
-    public void deleteQuery(int i) {
-        if (i < queries.size()) {
-            queries.remove(i);
+    public void deleteQuery(Query query) {
+        if (queries.contains(query)) {
+            queries.remove(query);
             updateIntel();
         }
     }
