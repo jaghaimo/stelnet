@@ -7,31 +7,32 @@ import com.fs.starfarer.api.ui.UIComponentAPI;
 import lombok.Getter;
 import stelnet.board.query.ResultIntel;
 import uilib.RenderableComponent;
-import uilib.property.Size;
 
 @Getter
 public class ControlButtons extends RenderableComponent {
 
-    private final MarketAPI market;
-    private final ResultIntel intel;
+    private final ShowOnMapButton showOnMapButton;
+    private final FullViewButton fullViewButton;
 
     public ControlButtons(MarketAPI market, ResultIntel intel, float width) {
-        this.market = market;
-        this.intel = intel;
-        setSize(new Size(width, 24));
+        this.showOnMapButton = new ShowOnMapButton(intel, market);
+        this.fullViewButton = new FullViewButton(market);
     }
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
         UIComponentAPI header = tooltip.getPrev();
-        new ShowOnMapButton(intel, market).render(tooltip);
+        showOnMapButton.render(tooltip);
         UIComponentAPI showOnMapComponent = tooltip.getPrev();
         showOnMapComponent.getPosition().setYAlignOffset(header.getPosition().getHeight());
-        new FullViewButton(market).render(tooltip);
+        showOnMapComponent.getPosition().setXAlignOffset(-4);
+        fullViewButton.render(tooltip);
         PositionAPI fullViewPosition = tooltip.getPrev().getPosition();
         fullViewPosition.rightOfTop(header, 0);
-        fullViewPosition.setXAlignOffset(-fullViewPosition.getWidth());
+        fullViewPosition.setXAlignOffset(-fullViewPosition.getWidth() + 4);
         tooltip.addSpacer(0);
-        tooltip.getPrev().getPosition().belowLeft(showOnMapComponent, 0);
+        PositionAPI spacerReset = tooltip.getPrev().getPosition();
+        spacerReset.belowLeft(showOnMapComponent, 0);
+        spacerReset.setXAlignOffset(4);
     }
 }

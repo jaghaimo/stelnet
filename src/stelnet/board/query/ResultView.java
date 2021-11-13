@@ -47,8 +47,7 @@ public class ResultView implements RenderableFactory {
 
     private void addMarket(List<Renderable> renderables, MarketAPI market, float width) {
         FactionAPI faction = market.getFaction();
-        String heading = String.format("%s - %s", market.getName(), faction.getDisplayName());
-        renderables.add(new Heading(heading, faction.getBaseUIColor(), faction.getDarkUIColor()));
+        renderables.add(new Heading(market.getName(), faction.getBaseUIColor(), faction.getDarkUIColor()));
         renderables.add(new ControlButtons(market, intel, width));
     }
 
