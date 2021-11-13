@@ -10,9 +10,9 @@ import uilib.Button;
 import uilib.EventHandler;
 import uilib.property.Size;
 
-public class ShowOnMapButton extends Button {
+public class MapButton extends Button {
 
-    public ShowOnMapButton(final ResultIntel intel, final MarketAPI market) {
+    public MapButton(final ResultIntel intel, final MarketAPI market) {
         super(new Size(0, 22), "Map", true);
         setSize(getSize().reduce(new Size(20, 0)));
         setHandler(

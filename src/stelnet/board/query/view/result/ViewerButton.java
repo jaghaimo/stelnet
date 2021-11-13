@@ -10,9 +10,9 @@ import uilib.Button;
 import uilib.EventHandler;
 import uilib.property.Size;
 
-public class FullViewButton extends Button {
+public class ViewerButton extends Button {
 
-    public FullViewButton(final MarketAPI market) {
+    public ViewerButton(final MarketAPI market) {
         super(new Size(0, 22), "Viewer", true);
         setSize(getSize().reduce(new Size(20, 0)));
         setHandler(

@@ -15,19 +15,19 @@ import uilib.RenderableComponent;
 public class MarketHeader extends RenderableComponent {
 
     private final Heading heading;
-    private final ShowOnMapButton showOnMapButton;
-    private final FullViewButton fullViewButton;
+    private final MapButton mapButton;
+    private final ViewerButton viewerButton;
 
     public MarketHeader(MarketAPI market, ResultIntel intel) {
         FactionAPI faction = market.getFaction();
         heading = new Heading(" " + market.getName(), faction.getBaseUIColor(), faction.getDarkUIColor());
         heading.setAlignment(Alignment.LMID);
-        showOnMapButton = new ShowOnMapButton(intel, market);
-        showOnMapButton.setTextColor(faction.getBrightUIColor());
-        showOnMapButton.setBackgroundColor(faction.getGridUIColor());
-        fullViewButton = new FullViewButton(market);
-        fullViewButton.setTextColor(faction.getBrightUIColor());
-        fullViewButton.setBackgroundColor(faction.getGridUIColor());
+        mapButton = new MapButton(intel, market);
+        mapButton.setTextColor(faction.getBrightUIColor());
+        mapButton.setBackgroundColor(faction.getGridUIColor());
+        viewerButton = new ViewerButton(market);
+        viewerButton.setTextColor(faction.getBrightUIColor());
+        viewerButton.setBackgroundColor(faction.getGridUIColor());
     }
 
     @Override
@@ -44,14 +44,14 @@ public class MarketHeader extends RenderableComponent {
 
     private void renderButtons(TooltipMakerAPI tooltip, UIComponentAPI headingComponent) {
         tooltip.setButtonFontVictor10();
-        showOnMapButton.render(tooltip);
-        PositionAPI showOnMapPosition = tooltip.getPrev().getPosition();
-        showOnMapPosition.rightOfTop(headingComponent, 0);
-        showOnMapPosition.setXAlignOffset(-showOnMapPosition.getWidth() + 5);
-        fullViewButton.render(tooltip);
-        PositionAPI fullViewPosition = tooltip.getPrev().getPosition();
-        fullViewPosition.rightOfTop(headingComponent, 0);
-        fullViewPosition.setXAlignOffset(-fullViewPosition.getWidth() + -showOnMapPosition.getWidth() + 3);
+        mapButton.render(tooltip);
+        PositionAPI mapPosition = tooltip.getPrev().getPosition();
+        mapPosition.rightOfTop(headingComponent, 0);
+        mapPosition.setXAlignOffset(-mapPosition.getWidth() + 5);
+        viewerButton.render(tooltip);
+        PositionAPI viewerPosition = tooltip.getPrev().getPosition();
+        viewerPosition.rightOfTop(headingComponent, 0);
+        viewerPosition.setXAlignOffset(-viewerPosition.getWidth() + -mapPosition.getWidth() + 3);
     }
 
     private void resetTooltip(TooltipMakerAPI tooltip, UIComponentAPI headingComponent) {
