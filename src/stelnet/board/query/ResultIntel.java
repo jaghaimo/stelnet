@@ -4,6 +4,7 @@ import java.util.List;
 import lombok.Getter;
 import stelnet.BaseIntel;
 import stelnet.BoardInfo;
+import stelnet.util.SectorUtils;
 import stelnet.util.SettingsUtils;
 import stelnet.util.TagConstants;
 import uilib.Renderable;
@@ -13,6 +14,7 @@ import uilib.property.Size;
 @Getter
 public class ResultIntel extends BaseIntel {
 
+    private float advancedAmount = 0;
     private final QueryManager queryManager;
     private final ResultSet resultSet;
     private final String tag = TagConstants.MARKET;
@@ -21,6 +23,16 @@ public class ResultIntel extends BaseIntel {
         super(resultSet.getClaimingFaction(), resultSet.getSystemToken());
         this.queryManager = queryManager;
         this.resultSet = resultSet;
+    }
+
+    @Override
+    public void advance(float amount) {
+        advancedAmount += amount;
+        if (advancedAmount > 1) {
+            setSectorEntityToken(resultSet.getSystemToken());
+            SectorUtils.removeScript(this);
+            advancedAmount = 0;
+        }
     }
 
     @Override
@@ -36,6 +48,11 @@ public class ResultIntel extends BaseIntel {
     }
 
     @Override
+    public boolean runWhilePaused() {
+        return true;
+    }
+
+    @Override
     protected RenderableIntelInfo getIntelInfo() {
         return new BoardInfo(
             resultSet.getSystemName(),
@@ -45,6 +62,6 @@ public class ResultIntel extends BaseIntel {
 
     @Override
     protected List<Renderable> getRenderables(Size size) {
-        return new ResultView(resultSet).create(size);
+        return new ResultView(this, resultSet).create(size);
     }
 }

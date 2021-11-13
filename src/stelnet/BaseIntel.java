@@ -7,17 +7,24 @@ import com.fs.starfarer.api.util.Misc;
 import java.util.Set;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import stelnet.util.L10n;
 import stelnet.util.StringUtils;
 import uilib.RenderableIntel;
 
 @Getter
+@Setter
 @RequiredArgsConstructor
 public abstract class BaseIntel extends RenderableIntel {
 
     private final FactionAPI faction;
-    private final SectorEntityToken sectorEntityToken;
+    private SectorEntityToken sectorEntityToken;
     private final IntelSortTier sortTier = IntelSortTier.TIER_3;
+
+    public BaseIntel(FactionAPI faction, SectorEntityToken sectorEntityToken) {
+        this(faction);
+        this.sectorEntityToken = sectorEntityToken;
+    }
 
     @Override
     public FactionAPI getFactionForUIColors() {

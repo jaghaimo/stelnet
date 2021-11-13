@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import stelnet.util.IntelUtils;
+import stelnet.util.SectorUtils;
 
 public class QueryManager {
 
@@ -16,8 +17,8 @@ public class QueryManager {
     }
 
     public void deleteAll() {
-        resultMap.clear();
-        IntelUtils.removeAll(ResultIntel.class);
+        queries.clear();
+        updateIntel();
     }
 
     public void deleteQuery(Query query) {
@@ -53,6 +54,9 @@ public class QueryManager {
     }
 
     private void updateIntel() {
+        resultMap.clear();
+        IntelUtils.removeAll(ResultIntel.class);
+        SectorUtils.removeScripts(ResultIntel.class);
         for (Query query : queries) {
             if (query.isEnabled()) {
                 updateIntel(query);
@@ -73,6 +77,8 @@ public class QueryManager {
             return;
         }
         resultMap.add(resultSet);
-        IntelUtils.add(new ResultIntel(this, resultSet));
+        ResultIntel intel = new ResultIntel(this, resultSet);
+        IntelUtils.add(intel);
+        // SectorUtils.addScript(intel);
     }
 }

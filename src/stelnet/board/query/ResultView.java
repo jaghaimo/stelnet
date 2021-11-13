@@ -9,6 +9,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import stelnet.board.query.view.result.ControlButtons;
 import stelnet.util.CargoUtils;
 import uilib.Heading;
 import uilib.Renderable;
@@ -22,6 +23,7 @@ import uilib.property.Size;
 @RequiredArgsConstructor
 public class ResultView implements RenderableFactory {
 
+    private final ResultIntel intel;
     private final ResultSet resultSet;
     private final ResultOrganiser resultOrganiser = new ResultOrganiser();
 
@@ -35,7 +37,7 @@ public class ResultView implements RenderableFactory {
 
     private void addMarkets(List<Renderable> renderables, float width) {
         for (MarketAPI market : resultOrganiser.getMarkets(resultSet)) {
-            addMarket(renderables, market);
+            addMarket(renderables, market, width);
             addPeople(renderables, market, width);
             addItems(renderables, market, width);
             addShips(renderables, market, width);
@@ -43,10 +45,11 @@ public class ResultView implements RenderableFactory {
         }
     }
 
-    private void addMarket(List<Renderable> renderables, MarketAPI market) {
+    private void addMarket(List<Renderable> renderables, MarketAPI market, float width) {
         FactionAPI faction = market.getFaction();
         String heading = String.format("%s - %s", market.getName(), faction.getDisplayName());
         renderables.add(new Heading(heading, faction.getBaseUIColor(), faction.getDarkUIColor()));
+        renderables.add(new ControlButtons(market, intel, width));
     }
 
     private void addPeople(List<Renderable> renderables, MarketAPI market, float width) {
