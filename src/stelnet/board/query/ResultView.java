@@ -37,7 +37,7 @@ public class ResultView implements RenderableFactory {
 
     private void addMarkets(List<Renderable> renderables, float width) {
         for (MarketAPI market : resultOrganiser.getMarkets(resultSet)) {
-            renderables.add(new MarketHeader(market, intel, width));
+            renderables.add(new MarketHeader(market, intel));
             addPeople(renderables, market, width);
             addItems(renderables, market, width);
             addShips(renderables, market, width);

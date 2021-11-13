@@ -18,7 +18,7 @@ public class MarketHeader extends RenderableComponent {
     private final ShowOnMapButton showOnMapButton;
     private final FullViewButton fullViewButton;
 
-    public MarketHeader(MarketAPI market, ResultIntel intel, float width) {
+    public MarketHeader(MarketAPI market, ResultIntel intel) {
         FactionAPI faction = market.getFaction();
         heading = new Heading(" " + market.getName(), faction.getBaseUIColor(), faction.getDarkUIColor());
         heading.setAlignment(Alignment.LMID);
