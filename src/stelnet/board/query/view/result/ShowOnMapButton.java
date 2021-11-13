@@ -1,6 +1,5 @@
 package stelnet.board.query.view.result;
 
-import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import java.awt.event.KeyEvent;
@@ -15,9 +14,6 @@ public class ShowOnMapButton extends Button {
 
     public ShowOnMapButton(final ResultIntel intel, final MarketAPI market) {
         super(new Size(0, 22), "Map", true);
-        FactionAPI faction = market.getFaction();
-        setTextColor(faction.getBaseUIColor());
-        setBackgroundColor(faction.getDarkUIColor());
         setHandler(
             new EventHandler() {
                 @Override

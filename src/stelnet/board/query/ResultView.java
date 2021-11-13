@@ -2,16 +2,14 @@ package stelnet.board.query;
 
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
-import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import stelnet.board.query.view.result.ControlButtons;
+import stelnet.board.query.view.result.MarketHeader;
 import stelnet.util.CargoUtils;
-import uilib.Heading;
 import uilib.Renderable;
 import uilib.RenderableFactory;
 import uilib.ShowCargo;
@@ -37,18 +35,12 @@ public class ResultView implements RenderableFactory {
 
     private void addMarkets(List<Renderable> renderables, float width) {
         for (MarketAPI market : resultOrganiser.getMarkets(resultSet)) {
-            addMarket(renderables, market, width);
+            renderables.add(new MarketHeader(market, intel, width));
             addPeople(renderables, market, width);
             addItems(renderables, market, width);
             addShips(renderables, market, width);
             renderables.add(new Spacer(20));
         }
-    }
-
-    private void addMarket(List<Renderable> renderables, MarketAPI market, float width) {
-        FactionAPI faction = market.getFaction();
-        renderables.add(new Heading(market.getName(), faction.getBaseUIColor(), faction.getDarkUIColor()));
-        renderables.add(new ControlButtons(market, intel, width));
     }
 
     private void addPeople(List<Renderable> renderables, MarketAPI market, float width) {
