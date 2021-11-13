@@ -20,20 +20,29 @@ public class MarketHeader extends RenderableComponent {
 
     public MarketHeader(MarketAPI market, ResultIntel intel, float width) {
         FactionAPI faction = market.getFaction();
-        this.heading = new Heading(" " + market.getName(), faction.getBaseUIColor(), faction.getDarkUIColor());
-        this.heading.setAlignment(Alignment.LMID);
-        this.showOnMapButton = new ShowOnMapButton(intel, market);
-        this.showOnMapButton.setTextColor(faction.getBrightUIColor());
-        this.showOnMapButton.setBackgroundColor(faction.getGridUIColor());
-        this.fullViewButton = new FullViewButton(market);
-        this.fullViewButton.setTextColor(faction.getBrightUIColor());
-        this.fullViewButton.setBackgroundColor(faction.getGridUIColor());
+        heading = new Heading(" " + market.getName(), faction.getBaseUIColor(), faction.getDarkUIColor());
+        heading.setAlignment(Alignment.LMID);
+        showOnMapButton = new ShowOnMapButton(intel, market);
+        showOnMapButton.setTextColor(faction.getBrightUIColor());
+        showOnMapButton.setBackgroundColor(faction.getGridUIColor());
+        fullViewButton = new FullViewButton(market);
+        fullViewButton.setTextColor(faction.getBrightUIColor());
+        fullViewButton.setBackgroundColor(faction.getGridUIColor());
     }
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
+        UIComponentAPI headingComponent = renderHeading(tooltip);
+        renderButtons(tooltip, headingComponent);
+        resetTooltip(tooltip, headingComponent);
+    }
+
+    private UIComponentAPI renderHeading(TooltipMakerAPI tooltip) {
         heading.render(tooltip);
-        UIComponentAPI headingComponent = tooltip.getPrev();
+        return tooltip.getPrev();
+    }
+
+    private void renderButtons(TooltipMakerAPI tooltip, UIComponentAPI headingComponent) {
         tooltip.setButtonFontVictor10();
         showOnMapButton.render(tooltip);
         PositionAPI showOnMapPosition = tooltip.getPrev().getPosition();
@@ -43,7 +52,9 @@ public class MarketHeader extends RenderableComponent {
         PositionAPI fullViewPosition = tooltip.getPrev().getPosition();
         fullViewPosition.rightOfTop(headingComponent, 0);
         fullViewPosition.setXAlignOffset(-fullViewPosition.getWidth() + -showOnMapPosition.getWidth() + 3);
-        // reset tooltip
+    }
+
+    private void resetTooltip(TooltipMakerAPI tooltip, UIComponentAPI headingComponent) {
         tooltip.setButtonFontDefault();
         tooltip.addSpacer(0);
         PositionAPI spacerReset = tooltip.getPrev().getPosition();
