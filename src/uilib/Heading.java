@@ -3,13 +3,16 @@ package uilib;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import java.awt.Color;
+import lombok.Setter;
 import uilib.property.Size;
 
+@Setter
 public class Heading extends RenderableComponent {
 
     private final String title;
     private final Color foregroundColor;
     private final Color backgroundColor;
+    private Alignment alignment = Alignment.MID;
 
     public Heading(String title) {
         this(title, null, null);
@@ -25,9 +28,9 @@ public class Heading extends RenderableComponent {
     @Override
     public void render(TooltipMakerAPI tooltip) {
         if (foregroundColor == null || backgroundColor == null) {
-            tooltip.addSectionHeading(title, Alignment.MID, 0);
+            tooltip.addSectionHeading(title, alignment, 0);
         } else {
-            tooltip.addSectionHeading(title, foregroundColor, backgroundColor, Alignment.MID, 0);
+            tooltip.addSectionHeading(title, foregroundColor, backgroundColor, alignment, 0);
         }
     }
 }

@@ -13,7 +13,8 @@ import uilib.property.Size;
 public class FullViewButton extends Button {
 
     public FullViewButton(final MarketAPI market) {
-        super(new Size(0, 22), "View", true);
+        super(new Size(0, 22), "Viewer", true);
+        setSize(getSize().reduce(new Size(20, 0)));
         setHandler(
             new EventHandler() {
                 @Override

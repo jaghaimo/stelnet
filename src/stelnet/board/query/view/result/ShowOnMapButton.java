@@ -14,6 +14,7 @@ public class ShowOnMapButton extends Button {
 
     public ShowOnMapButton(final ResultIntel intel, final MarketAPI market) {
         super(new Size(0, 22), "Map", true);
+        setSize(getSize().reduce(new Size(20, 0)));
         setHandler(
             new EventHandler() {
                 @Override

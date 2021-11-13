@@ -5,6 +5,8 @@ import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
+import com.fs.starfarer.api.util.Misc;
+import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -49,7 +51,9 @@ public class ResultView implements RenderableFactory {
             return;
         }
         renderables.add(new Spacer(10));
-        renderables.add(new ShowPeople(people, "No people found", new Size(width, 0)));
+        ShowPeople showPeople = new ShowPeople(people, "No people found", new Size(width, 0));
+        showPeople.setGroupColor(getSupportColor(market));
+        renderables.add(showPeople);
     }
 
     private void addItems(List<Renderable> renderables, MarketAPI market, float width) {
@@ -59,7 +63,9 @@ public class ResultView implements RenderableFactory {
         }
         renderables.add(new Spacer(10));
         CargoAPI cargo = CargoUtils.makeCargoFromStacks(items);
-        renderables.add(new ShowCargo(cargo, "Items", "No items found", new Size(width, 0)));
+        ShowCargo showCargo = new ShowCargo(cargo, "Items", "No items found", new Size(width, 0));
+        showCargo.setTitleColor(getSupportColor(market));
+        renderables.add(showCargo);
     }
 
     private void addShips(List<Renderable> renderables, MarketAPI market, float width) {
@@ -68,6 +74,12 @@ public class ResultView implements RenderableFactory {
             return;
         }
         renderables.add(new Spacer(10));
-        renderables.add(new ShowShips(ships, "Ships", "No ships found", new Size(width, 0)));
+        ShowShips showShips = new ShowShips(ships, "Ships", "No ships found", new Size(width, 0));
+        showShips.setTitleColor(getSupportColor(market));
+        renderables.add(showShips);
+    }
+
+    private Color getSupportColor(MarketAPI market) {
+        return Misc.scaleAlpha(market.getFaction().getBaseUIColor(), 0.5f);
     }
 }

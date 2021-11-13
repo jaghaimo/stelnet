@@ -9,18 +9,22 @@ import com.fs.starfarer.api.impl.campaign.ids.Strings;
 import com.fs.starfarer.api.ui.LabelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
+import java.awt.Color;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import lombok.Setter;
 import uilib.property.Size;
 
 /**
  * Show list of people. Mimics showCargo() and showShips() look and feel.
  */
+@Setter
 public class ShowPeople extends RenderableComponent implements Comparator<PersonAPI> {
 
     private final List<PersonAPI> people;
     private final String emptyDescription;
+    private Color groupColor = Misc.getGrayColor();
 
     public ShowPeople(List<PersonAPI> people, String emptyDescription, Size size) {
         Collections.sort(people, this);
@@ -49,7 +53,7 @@ public class ShowPeople extends RenderableComponent implements Comparator<Person
         if (previousPost != null) {
             tooltip.addSpacer(10);
         }
-        addSectionTitle(tooltip, currentPost);
+        addSectionTitle(tooltip, currentPost, groupColor);
     }
 
     private void addPerson(TooltipMakerAPI tooltip, PersonAPI person) {

@@ -3,7 +3,6 @@ package uilib;
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.PositionAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.font.FontRenderContext;
@@ -46,8 +45,7 @@ public abstract class RenderableComponent implements Renderable {
         location.render(element, x + offset.getX(), y + offset.getY());
     }
 
-    protected void addSectionTitle(TooltipMakerAPI tooltip, String sectionTitle) {
-        Color color = Misc.getGrayColor();
+    protected void addSectionTitle(TooltipMakerAPI tooltip, String sectionTitle, Color color) {
         tooltip.addPara(sectionTitle, color, 0);
         tooltip.addButton("", "", color, color, getSize().getWidth(), 0, 0);
     }
