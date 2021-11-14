@@ -2,6 +2,7 @@ package stelnet.board.query.view.result;
 
 import com.fs.starfarer.api.campaign.CoreUITabId;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import stelnet.board.viewer.ViewerBoard;
 import stelnet.util.SectorUtils;
@@ -15,6 +16,7 @@ public class ViewerButton extends Button {
     public ViewerButton(final MarketAPI market) {
         super(new Size(0, 22), "Viewer", true);
         setSize(getSize().reduce(new Size(20, 0)));
+        setCutStyle(CutStyle.C2_MENU);
         setHandler(
             new EventHandler() {
                 @Override

@@ -5,13 +5,13 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 import java.util.List;
 import org.lwjgl.input.Keyboard;
 import stelnet.util.L10n;
-import uilib.Button;
+import uilib.C2Button;
 import uilib.EventHandler;
 import uilib.property.Location;
 import uilib.property.Position;
 import uilib.property.Size;
 
-public class MarketSelectButton extends Button {
+public class MarketSelectButton extends C2Button {
 
     public MarketSelectButton(final List<SectorEntityToken> entities) {
         super(new Size(180, 24), L10n.get(ViewerL10n.SELECT_MARKET), true);

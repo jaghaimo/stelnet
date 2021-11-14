@@ -71,12 +71,12 @@ public class Result implements Comparable<Result> {
         return (FleetMemberAPI) object;
     }
 
-    public int getSubmarketNumber() {
-        return market.getSubmarketsCopy().indexOf(submarket);
-    }
-
     public PersonAPI getPerson() {
         return (PersonAPI) object;
+    }
+
+    public int getSubmarketNumber() {
+        return market.getSubmarketsCopy().indexOf(submarket);
     }
 
     public boolean isCargoStack() {

@@ -8,14 +8,15 @@ import stelnet.board.query.QueryState;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
 import stelnet.util.L10n;
-import uilib.Button;
+import uilib.C2Button;
 import uilib.EventHandler;
 import uilib.property.Size;
 
-public class SearchButton extends Button {
+public class SearchButton extends C2Button {
 
     public SearchButton(final AddQueryFactory factory, Enum<?> translationId) {
         super(new Size(0, 30), L10n.get(translationId), true);
+        overrideSize(20);
         setHandler(
             new EventHandler() {
                 @Override
