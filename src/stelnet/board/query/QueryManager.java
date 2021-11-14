@@ -3,12 +3,15 @@ package stelnet.board.query;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import lombok.Getter;
 import stelnet.util.IntelUtils;
 import stelnet.util.SectorUtils;
 
 public class QueryManager {
 
+    @Getter
     private final Set<Query> queries = new HashSet<>();
+
     private final ResultMap resultMap = new ResultMap();
 
     public void addQuery(Query query) {
