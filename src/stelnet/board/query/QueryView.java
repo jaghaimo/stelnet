@@ -1,6 +1,6 @@
 package stelnet.board.query;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.lwjgl.input.Keyboard;
@@ -28,23 +28,30 @@ public class QueryView implements RenderableFactory {
 
     @Override
     public List<Renderable> create(Size size) {
-        float width = size.getWidth() - 10;
-        float height = size.getHeight() - 30;
+        float previewWidth = Math.max(250, size.getWidth() - 950);
+        float previewHeight = size.getHeight();
+        float width = size.getWidth() - previewWidth - 10;
+        float height = size.getHeight() - 36;
+        Size tabContentSize = new Size(width, height);
         TabViewContainer tabViewContainer = new TabViewContainer();
-        tabViewContainer.setSize(size);
+        tabViewContainer.setSize(size.reduce(new Size(previewWidth, 0)));
         tabViewContainer.addTab(
             getTabButton(QueryBoardTab.LIST, Keyboard.KEY_L),
-            new VerticalViewContainer(queryListFactory.create(new Size(width, height))),
+            new VerticalViewContainer(queryListFactory.create(tabContentSize)),
             isActive(QueryBoardTab.LIST)
         );
 
         tabViewContainer.addTab(
             getTabButton(QueryBoardTab.NEW, Keyboard.KEY_N),
-            new VerticalViewContainer(addQueryFactory.create(new Size(width, height))),
+            new VerticalViewContainer(addQueryFactory.create(tabContentSize)),
             isActive(QueryBoardTab.NEW)
         );
 
-        return Collections.<Renderable>singletonList(tabViewContainer);
+        return Arrays.<Renderable>asList(tabViewContainer, getPreview(previewWidth, previewHeight));
+    }
+
+    private Renderable getPreview(float width, float height) {
+        return addQueryFactory.getPreview(new Size(width, height));
     }
 
     private QueryTabButton getTabButton(QueryBoardTab currentTab, int keyboardShortcut) {

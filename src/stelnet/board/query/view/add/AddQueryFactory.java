@@ -1,7 +1,6 @@
 package stelnet.board.query.view.add;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -11,13 +10,10 @@ import stelnet.CommonL10n;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
-import uilib.Heading;
-import uilib.HorizontalViewContainer;
 import uilib.Renderable;
 import uilib.RenderableComponent;
 import uilib.RenderableFactory;
-import uilib.Spacer;
-import uilib.VerticalViewContainer;
+import uilib.property.Location;
 import uilib.property.Size;
 
 @Getter
@@ -35,12 +31,7 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
     @Override
     public List<Renderable> create(Size size) {
         setSizeHelper(new SizeHelper(size));
-        Renderable container = new VerticalViewContainer(getQueryBuilder());
-        Size previewSize = new Size(sizeHelper.getPreviewWidth(), sizeHelper.getHeight());
-        Renderable padding = new Spacer(12);
-        Renderable preview = buildPreview(getPreview(previewSize), previewSize);
-        HorizontalViewContainer horizontalViewContainer = new HorizontalViewContainer(container, padding, preview);
-        return Collections.<Renderable>singletonList(horizontalViewContainer);
+        return getQueryBuilder();
     }
 
     public void setQueryType(QueryTypeButton active) {
@@ -52,7 +43,9 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
     @Override
     public RenderableComponent getPreview(Size size) {
         QueryFactory queryFactory = findNextFactory();
-        return queryFactory.getPreview(size);
+        RenderableComponent preview = queryFactory.getPreview(size);
+        preview.setLocation(Location.TOP_RIGHT);
+        return preview;
     }
 
     @Override
@@ -78,17 +71,6 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
     private void addFromNextFactory(List<Renderable> elements) {
         QueryFactory nextFactory = findNextFactory();
         elements.addAll(nextFactory.getQueryBuilder());
-    }
-
-    private Renderable buildPreview(RenderableComponent content, Size size) {
-        final float HEADING_HEIGHT = 25;
-        final float PADDING = 10;
-        Heading heading = new Heading("Preview");
-        heading.setSize(new Size(size.getWidth(), HEADING_HEIGHT));
-        content.setSize(size.reduce(new Size(0, HEADING_HEIGHT + PADDING)));
-        VerticalViewContainer verticalView = new VerticalViewContainer(heading, content);
-        verticalView.setSize(size.reduce(new Size(0, PADDING)));
-        return verticalView;
     }
 
     private QueryTypeButton[] createQueryTypeButtons() {
