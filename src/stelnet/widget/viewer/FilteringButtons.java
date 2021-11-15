@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.Getter;
-import lombok.experimental.Delegate;
 import stelnet.CommonL10n;
 import stelnet.filter.CargoStackIsType;
 import stelnet.filter.CargoStackIsType.Type;
@@ -28,7 +27,6 @@ public class FilteringButtons {
     private final Renderable[] itemButtons;
     private final Renderable[] shipButtons;
 
-    @Delegate
     private final Set<Filter> filters = new HashSet<>();
 
     public FilteringButtons() {
@@ -85,11 +83,19 @@ public class FilteringButtons {
             };
     }
 
+    public void add(Filter filter) {
+        filters.add(filter);
+    }
+
     public Set<Filter> getFilters() {
         Set<Filter> negatedFilters = new HashSet<>();
         for (Filter filter : filters) {
             negatedFilters.add(new LogicalNot(filter));
         }
         return negatedFilters;
+    }
+
+    public void remove(Filter filter) {
+        filters.remove(filter);
     }
 }
