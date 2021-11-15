@@ -11,4 +11,9 @@ public class ShipHullIsManufacturer extends ShipHullFilter {
     protected boolean acceptShipHull(ShipHullSpecAPI shipHull) {
         return manufacturer.equalsIgnoreCase(shipHull.getManufacturer());
     }
+
+    @Override
+    public String toString() {
+        return manufacturer;
+    }
 }

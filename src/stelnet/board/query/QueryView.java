@@ -29,7 +29,7 @@ public class QueryView implements RenderableFactory {
     @Override
     public List<Renderable> create(Size size) {
         float width = size.getWidth() - 10;
-        float height = size.getHeight();
+        float height = size.getHeight() - 30;
         TabViewContainer tabViewContainer = new TabViewContainer();
         tabViewContainer.setSize(size);
         tabViewContainer.addTab(

@@ -35,7 +35,7 @@ public class Excluder {
             filters = getMarketBySystemFilters(filters);
             filters = getMarketByTagFilters(filters);
         }
-        return new LogicalNot(new LogicalOr(filters));
+        return new LogicalNot(new LogicalOr(filters, "Markets"));
     }
 
     private static List<Filter> getMarketByFactionFilters(List<Filter> filters) {

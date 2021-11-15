@@ -13,4 +13,9 @@ public class WeaponIsDamage extends WeaponFilter {
     protected boolean acceptWeapon(WeaponSpecAPI weapon) {
         return weapon.getDamageType().equals(damageType);
     }
+
+    @Override
+    public String toString() {
+        return damageType.getDisplayName();
+    }
 }

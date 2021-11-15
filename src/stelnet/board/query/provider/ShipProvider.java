@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import stelnet.board.query.ResultSet;
+import stelnet.board.query.view.add.QueryFactory;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.FactoryUtils;
@@ -20,6 +21,10 @@ public class ShipProvider extends QueryProvider {
     private static final String SUFFIX = "_Hull";
     private transient List<FleetMemberAPI> allFleetMembers;
     private transient List<ShipHullSpecAPI> allShipHulls;
+
+    public ShipProvider(QueryFactory factory) {
+        super(factory);
+    }
 
     @Override
     public List<FleetMemberAPI> getMatching(Set<Filter> filters) {

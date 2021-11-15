@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import stelnet.util.StringUtils;
 
 @Log4j
 @Getter
@@ -13,6 +14,7 @@ import lombok.extern.log4j.Log4j;
 public class LogicalOr extends Filter {
 
     private final Collection<Filter> filters;
+    private final String type;
 
     @Override
     public boolean accept(Object object) {
@@ -26,5 +28,13 @@ public class LogicalOr extends Filter {
             }
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        if (filters.isEmpty()) {
+            return "";
+        }
+        return type + ": " + StringUtils.join(filters, ",", "");
     }
 }

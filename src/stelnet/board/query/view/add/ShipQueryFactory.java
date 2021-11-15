@@ -12,7 +12,6 @@ import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.board.query.provider.ShipProvider;
 import stelnet.filter.Filter;
-import stelnet.filter.LogicalOr;
 import stelnet.filter.ShipHullIsManufacturer;
 import stelnet.filter.ShipHullIsSize;
 import stelnet.filter.WeaponSlotIsSize;
@@ -25,14 +24,14 @@ import uilib.property.Size;
 
 public class ShipQueryFactory extends QueryFactory {
 
-    private transient ShipProvider shipProvider = new ShipProvider();
+    private transient ShipProvider shipProvider = new ShipProvider(this);
     private transient ShipButton[] classSizes = createClassSizes();
     private transient ShipButton[] mountSizes = createMountSizes();
     private transient ShipButton[] mountTypes = createMountTypes();
     private transient ShipButton[] manufacturers = createManufacturers();
 
     public void readResolve() {
-        shipProvider = new ShipProvider();
+        shipProvider = new ShipProvider(this);
         classSizes = createClassSizes();
         mountSizes = createMountSizes();
         mountTypes = createMountTypes();
@@ -40,12 +39,18 @@ public class ShipQueryFactory extends QueryFactory {
     }
 
     @Override
+    public RenderableComponent getPreview(Size size) {
+        Set<Filter> filters = getFilters();
+        return new ShowShips(shipProvider.getMatching(filters), "Matching ships", "No matching ships found.", size);
+    }
+
+    @Override
     protected Set<Filter> getFilters() {
         Set<Filter> filters = new LinkedHashSet<>();
-        filters.add(new LogicalOr(getFilters(classSizes)));
-        filters.add(new LogicalOr(getFilters(mountSizes)));
-        filters.add(new LogicalOr(getFilters(mountTypes)));
-        filters.add(new LogicalOr(getFilters(manufacturers)));
+        addToFilters(filters, classSizes, L10n.get(QueryL10n.CLASS_SIZE), true);
+        addToFilters(filters, mountSizes, L10n.get(QueryL10n.MOUNT_TYPE), false);
+        addToFilters(filters, mountTypes, L10n.get(QueryL10n.MOUNT_SIZE), false);
+        addToFilters(filters, manufacturers, L10n.get(QueryL10n.MANUFACTURERS), false);
         return filters;
     }
 
@@ -59,12 +64,6 @@ public class ShipQueryFactory extends QueryFactory {
         addSection(elements, QueryL10n.MANUFACTURERS);
         addUnlabelledGroup(elements, Arrays.<Renderable>asList(manufacturers));
         return elements;
-    }
-
-    @Override
-    protected RenderableComponent getPreview(Size size) {
-        Set<Filter> filters = getFilters();
-        return new ShowShips(shipProvider.getMatching(filters), "Matching ships", "No matching ships found.", size);
     }
 
     @Override

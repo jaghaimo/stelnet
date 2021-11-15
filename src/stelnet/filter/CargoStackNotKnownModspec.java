@@ -1,22 +1,27 @@
 package stelnet.filter;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import lombok.EqualsAndHashCode;
+import stelnet.util.SectorUtils;
 
 @EqualsAndHashCode(callSuper = false)
-public class CargoStackKnownModspec extends CargoStackIsType {
+public class CargoStackNotKnownModspec extends CargoStackIsType {
 
-    public CargoStackKnownModspec() {
+    public CargoStackNotKnownModspec() {
         super(Type.MODSPEC);
     }
 
     @Override
     protected boolean acceptCargoStack(CargoStackAPI cargoStack) {
         if (!super.acceptCargoStack(cargoStack)) {
-            return false;
+            return true;
         }
         String hullModId = cargoStack.getHullModSpecIfHullMod().getId();
-        return Global.getSector().getPlayerFaction().knowsHullMod(hullModId);
+        return !SectorUtils.getPlayerFaction().knowsHullMod(hullModId);
+    }
+
+    @Override
+    public String toString() {
+        return "";
     }
 }

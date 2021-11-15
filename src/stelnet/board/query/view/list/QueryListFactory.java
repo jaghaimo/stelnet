@@ -20,7 +20,7 @@ public class QueryListFactory implements RenderableFactory {
         for (Query query : queryState.getQueryManger().getQueries()) {
             renderables.add(new QueryRow(size.getWidth(), query));
         }
-        renderables.add(new DeleteAllButton());
+        // renderables.add(new DeleteAllButton());
         return renderables;
     }
 }

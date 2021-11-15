@@ -13,4 +13,9 @@ public class WeaponSlotIsType extends WeaponSlotFilter {
     protected boolean acceptWeaponSlot(WeaponSlotAPI weaponSlot) {
         return weaponSlot.getWeaponType().equals(weaponType);
     }
+
+    @Override
+    public String toString() {
+        return weaponType.getDisplayName();
+    }
 }

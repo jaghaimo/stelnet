@@ -6,10 +6,15 @@ import java.util.List;
 import java.util.Set;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.query.ResultSet;
+import stelnet.board.query.view.add.QueryFactory;
 import stelnet.filter.Filter;
 
 @Log4j
 public class DummyProvider extends QueryProvider {
+
+    public DummyProvider(QueryFactory factory) {
+        super(factory);
+    }
 
     @Override
     public List<?> getMatching(Set<Filter> filters) {

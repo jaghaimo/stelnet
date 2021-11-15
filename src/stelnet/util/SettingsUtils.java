@@ -3,6 +3,7 @@ package stelnet.util;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.SettingsAPI;
 import com.fs.starfarer.api.campaign.SpecialItemSpecAPI;
+import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.characters.SkillSpecAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.loading.FighterWingSpecAPI;
@@ -19,6 +20,10 @@ import org.json.JSONObject;
  */
 @Log4j
 public class SettingsUtils {
+
+    public static PersonAPI createPerson() {
+        return getSettings().createPerson();
+    }
 
     public static List<FighterWingSpecAPI> getAllFighterWingSpecs() {
         return getSettings().getAllFighterWingSpecs();

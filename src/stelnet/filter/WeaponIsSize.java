@@ -13,4 +13,9 @@ public class WeaponIsSize extends WeaponFilter {
     protected boolean acceptWeapon(WeaponSpecAPI weapon) {
         return weapon.getSize().equals(weaponSize);
     }
+
+    @Override
+    public String toString() {
+        return weaponSize.getDisplayName();
+    }
 }

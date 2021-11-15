@@ -5,6 +5,7 @@ import com.fs.starfarer.api.combat.FighterWingAPI;
 import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import com.fs.starfarer.api.loading.WingRole;
 import lombok.RequiredArgsConstructor;
+import stelnet.util.L10n;
 
 @RequiredArgsConstructor
 public class CargoStackWingIsRole extends CargoStackFilter {
@@ -36,5 +37,10 @@ public class CargoStackWingIsRole extends CargoStackFilter {
 
     protected boolean acceptWingSpec(FighterWingSpecAPI wingSpec) {
         return wingSpec.getRole().equals(wingRole);
+    }
+
+    @Override
+    public String toString() {
+        return L10n.get(wingRole);
     }
 }

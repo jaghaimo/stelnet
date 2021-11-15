@@ -28,4 +28,9 @@ public class CargoStackIsManufacturer extends CargoStackFilter {
     private boolean acceptWeaponSpec(WeaponSpecAPI weaponSpec) {
         return weaponSpec.getManufacturer().equals(manufacturer);
     }
+
+    @Override
+    public String toString() {
+        return manufacturer;
+    }
 }

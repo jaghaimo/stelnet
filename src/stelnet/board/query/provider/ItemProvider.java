@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import lombok.experimental.ExtensionMethod;
 import stelnet.board.query.ResultSet;
+import stelnet.board.query.view.add.QueryFactory;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.SettingsUtils;
@@ -23,6 +24,10 @@ public class ItemProvider extends QueryProvider {
     private transient List<FighterWingSpecAPI> allFighterWings;
     private transient List<HullModSpecAPI> allHullModSpecs;
     private transient List<WeaponSpecAPI> allWeaponSpecs;
+
+    public ItemProvider(QueryFactory factory) {
+        super(factory);
+    }
 
     @Override
     public List<CargoStackAPI> getMatching(Set<Filter> filters) {

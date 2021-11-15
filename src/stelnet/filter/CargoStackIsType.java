@@ -4,6 +4,7 @@ import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.SpecialItemSpecAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Items;
 import lombok.RequiredArgsConstructor;
+import stelnet.util.L10n;
 
 @RequiredArgsConstructor
 public class CargoStackIsType extends CargoStackFilter {
@@ -37,6 +38,11 @@ public class CargoStackIsType extends CargoStackFilter {
             default:
                 return false;
         }
+    }
+
+    @Override
+    public String toString() {
+        return L10n.get(type);
     }
 
     protected boolean isModspec(CargoStackAPI c) {

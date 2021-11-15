@@ -5,15 +5,19 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import lombok.Getter;
 import lombok.Setter;
 import uilib.property.Position;
 import uilib.property.Size;
 
+@Getter
 @Setter
 public class TabViewContainer extends RenderableComponent {
 
     private final Map<Button, Renderable> tabs = new LinkedHashMap<>();
     private Button activeTab;
+    private Position separatorLineOffset = new Position(0, -4);
+    private Size outerContainerSizeCorrection = new Size(0, 35);
 
     public void addTab(Button tabButton, Renderable tabPanel, boolean isActive) {
         tabs.put(tabButton, tabPanel);
@@ -37,8 +41,8 @@ public class TabViewContainer extends RenderableComponent {
         }
         Renderable tabToDisplay = getTabToDisplay(panel);
         HorizontalViewContainer tabButtons = new HorizontalViewContainer(new ArrayList<Renderable>(tabs.keySet()));
-        Line separatorLine = new Line(tabToDisplay.getSize().getWidth());
-        separatorLine.setOffset(new Position(0, -4));
+        Line separatorLine = new Line(tabToDisplay.getSize().getWidth() - 6);
+        separatorLine.setOffset(separatorLineOffset);
         Spacer spacer = new Spacer(10);
         new VerticalViewContainer(tabButtons, separatorLine, spacer, tabToDisplay).render(panel, x, y);
     }
@@ -49,7 +53,7 @@ public class TabViewContainer extends RenderableComponent {
         customPanel.setSize(tabToDisplay.getSize());
         customPanel.render(panel, 0, 0);
         Group outerContainer = new Group(customPanel);
-        outerContainer.setSize(getSize().reduce(new Size(0, 20)));
+        outerContainer.setSize(getSize().reduce(outerContainerSizeCorrection));
         outerContainer.setWithScroller(true);
         return outerContainer;
     }

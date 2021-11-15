@@ -7,6 +7,7 @@ import java.util.Set;
 import lombok.Setter;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
+import stelnet.filter.LogicalOr;
 import stelnet.util.L10n;
 import uilib.DynamicGroup;
 import uilib.HorizontalViewContainer;
@@ -19,6 +20,8 @@ import uilib.property.Position;
 import uilib.property.Size;
 
 public abstract class QueryFactory {
+
+    public abstract RenderableComponent getPreview(Size size);
 
     @Setter
     protected SizeHelper sizeHelper = new SizeHelper();
@@ -54,7 +57,12 @@ public abstract class QueryFactory {
         elements.add(new Spacer(size));
     }
 
-    protected Set<Filter> getFilters(FilteringButton buttons[]) {
+    protected void addToFilters(
+        Set<Filter> filters,
+        FilteringButton buttons[],
+        String type,
+        boolean defaultToAllFilters
+    ) {
         Set<Filter> allFilters = new LinkedHashSet<>();
         Set<Filter> selectedFilters = new LinkedHashSet<>();
         for (FilteringButton button : buttons) {
@@ -63,7 +71,13 @@ public abstract class QueryFactory {
                 selectedFilters.add(button.getFilter());
             }
         }
-        return selectedFilters.isEmpty() ? allFilters : selectedFilters;
+        if (!selectedFilters.isEmpty()) {
+            filters.add(new LogicalOr(selectedFilters, type));
+            return;
+        }
+        if (defaultToAllFilters) {
+            filters.add(new LogicalOr(allFilters, type));
+        }
     }
 
     protected abstract Set<Filter> getFilters();
@@ -71,6 +85,4 @@ public abstract class QueryFactory {
     protected abstract List<Renderable> getQueryBuilder();
 
     protected abstract QueryProvider getProvider();
-
-    protected abstract RenderableComponent getPreview(Size size);
 }

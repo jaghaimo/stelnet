@@ -16,7 +16,6 @@ import stelnet.board.query.provider.SkillProvider;
 import stelnet.filter.AnyHasTag;
 import stelnet.filter.Filter;
 import stelnet.filter.LogicalNot;
-import stelnet.filter.LogicalOr;
 import stelnet.filter.PersonHasLevel;
 import stelnet.filter.PersonHasPersonality;
 import stelnet.filter.PersonHasSkill;
@@ -31,7 +30,7 @@ import uilib.property.Size;
 
 public class PersonnelQueryFactory extends QueryFactory {
 
-    private transient PeopleProvider peopleProvider = new PeopleProvider();
+    private transient PeopleProvider peopleProvider = new PeopleProvider(this);
     private transient SkillProvider skillProvider = new SkillProvider();
     private transient PersonnelButton[] postType = createPostTypeButtons();
     private transient OfficerButton[] level = createLevelButtons();
@@ -39,7 +38,7 @@ public class PersonnelQueryFactory extends QueryFactory {
     private transient OfficerButton[] skill = createSkillButtons();
 
     public void readResolve() {
-        peopleProvider = new PeopleProvider();
+        peopleProvider = new PeopleProvider(this);
         skillProvider = new SkillProvider();
         postType = createPostTypeButtons();
         level = createLevelButtons();
@@ -54,12 +53,18 @@ public class PersonnelQueryFactory extends QueryFactory {
     }
 
     @Override
+    public RenderableComponent getPreview(Size size) {
+        Set<Filter> filters = getFilters();
+        return new ShowPeople(peopleProvider.getMatching(filters), "No matching people found.", size);
+    }
+
+    @Override
     protected Set<Filter> getFilters() {
         Set<Filter> filters = new LinkedHashSet<>();
-        filters.add(new LogicalOr(getFilters(postType)));
-        filters.add(new LogicalOr(getFilters(level)));
-        filters.add(new LogicalOr(getFilters(personality)));
-        filters.add(new LogicalOr(getFilters(skill)));
+        addToFilters(filters, postType, L10n.get(QueryL10n.PERSONNEL_POST_TYPES), true);
+        addToFilters(filters, level, L10n.get(QueryL10n.PERSONNEL_MIN_LEVEL), false);
+        addToFilters(filters, personality, L10n.get(QueryL10n.PERSONNEL_PERSONALITY), false);
+        addToFilters(filters, skill, L10n.get(QueryL10n.PERSONNEL_SKILLS), false);
         return filters;
     }
 
@@ -72,12 +77,6 @@ public class PersonnelQueryFactory extends QueryFactory {
         addLabeledGroup(elements, QueryL10n.PERSONNEL_PERSONALITY, Arrays.<Renderable>asList(personality));
         addLabeledGroup(elements, QueryL10n.PERSONNEL_SKILLS, Arrays.<Renderable>asList(skill));
         return elements;
-    }
-
-    @Override
-    protected RenderableComponent getPreview(Size size) {
-        Set<Filter> filters = getFilters();
-        return new ShowPeople(peopleProvider.getMatching(filters), "No matching people found.", size);
     }
 
     @Override

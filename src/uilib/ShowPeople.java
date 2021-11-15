@@ -24,7 +24,7 @@ public class ShowPeople extends RenderableComponent implements Comparator<Person
 
     private final List<PersonAPI> people;
     private final String emptyDescription;
-    private Color groupColor = Misc.getGrayColor();
+    private Color groupColor = Misc.getBasePlayerColor();
 
     public ShowPeople(List<PersonAPI> people, String emptyDescription, Size size) {
         Collections.sort(people, this);

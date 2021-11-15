@@ -15,4 +15,9 @@ public class WeaponIsType extends WeaponFilter {
         boolean isMountType = weapon.getMountType().equals(weaponType);
         return isType || isMountType;
     }
+
+    @Override
+    public String toString() {
+        return weaponType.getDisplayName();
+    }
 }

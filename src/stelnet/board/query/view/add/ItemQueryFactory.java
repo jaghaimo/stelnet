@@ -17,11 +17,9 @@ import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.CargoStackIsManufacturer;
 import stelnet.filter.CargoStackIsType;
 import stelnet.filter.CargoStackIsType.Type;
-import stelnet.filter.CargoStackKnownModspec;
+import stelnet.filter.CargoStackNotKnownModspec;
 import stelnet.filter.CargoStackWingIsRole;
 import stelnet.filter.Filter;
-import stelnet.filter.LogicalNot;
-import stelnet.filter.LogicalOr;
 import stelnet.filter.WeaponIsDamage;
 import stelnet.filter.WeaponIsSize;
 import stelnet.filter.WeaponIsType;
@@ -34,7 +32,7 @@ import uilib.property.Size;
 
 public class ItemQueryFactory extends QueryFactory {
 
-    private transient ItemProvider itemProvider = new ItemProvider();
+    private transient ItemProvider itemProvider = new ItemProvider(this);
     private transient ItemButton[] itemTypes = createItemTypes();
     private transient ItemButton[] manufacturers = createManufacturers();
     private transient ItemButton[] weaponDamageTypes = createDamageType();
@@ -43,13 +41,33 @@ public class ItemQueryFactory extends QueryFactory {
     private transient ItemButton[] wingRoles = createWingRole();
 
     public void readResolve() {
-        itemProvider = new ItemProvider();
+        itemProvider = new ItemProvider(this);
         itemTypes = createItemTypes();
         manufacturers = createManufacturers();
         weaponDamageTypes = createDamageType();
         weaponMountSizes = createWeaponMountSize();
         weaponMountTypes = createWeaponMountType();
         wingRoles = createWingRole();
+    }
+
+    @Override
+    public RenderableComponent getPreview(Size size) {
+        Set<Filter> filters = getFilters();
+        CargoAPI cargo = CargoUtils.makeCargoFromStacks(itemProvider.getMatching(filters));
+        return new ShowCargo(cargo, "Matching items", "No matching items found.", size);
+    }
+
+    @Override
+    protected Set<Filter> getFilters() {
+        Set<Filter> filters = new LinkedHashSet<>();
+        addToFilters(filters, itemTypes, L10n.get(QueryL10n.ITEM_TYPES), true);
+        addToFilters(filters, manufacturers, L10n.get(QueryL10n.MANUFACTURERS), false);
+        addToFilters(filters, weaponDamageTypes, L10n.get(QueryL10n.DAMAGE_TYPE), false);
+        addToFilters(filters, weaponMountSizes, L10n.get(QueryL10n.MOUNT_SIZE), false);
+        addToFilters(filters, weaponMountTypes, L10n.get(QueryL10n.MOUNT_TYPE), false);
+        addToFilters(filters, wingRoles, L10n.get(QueryL10n.WING_ROLES), false);
+        filters.add(new CargoStackNotKnownModspec());
+        return filters;
     }
 
     @Override
@@ -65,26 +83,6 @@ public class ItemQueryFactory extends QueryFactory {
         addSection(elements, QueryL10n.MANUFACTURERS);
         addUnlabelledGroup(elements, Arrays.<Renderable>asList(manufacturers));
         return elements;
-    }
-
-    @Override
-    protected Set<Filter> getFilters() {
-        Set<Filter> filters = new LinkedHashSet<>();
-        filters.add(new LogicalOr(getFilters(itemTypes)));
-        filters.add(new LogicalOr(getFilters(manufacturers)));
-        filters.add(new LogicalOr(getFilters(weaponDamageTypes)));
-        filters.add(new LogicalOr(getFilters(weaponMountSizes)));
-        filters.add(new LogicalOr(getFilters(weaponMountTypes)));
-        filters.add(new LogicalOr(getFilters(wingRoles)));
-        filters.add(new LogicalNot(new CargoStackKnownModspec()));
-        return filters;
-    }
-
-    @Override
-    protected RenderableComponent getPreview(Size size) {
-        Set<Filter> filters = getFilters();
-        CargoAPI cargo = CargoUtils.makeCargoFromStacks(itemProvider.getMatching(filters));
-        return new ShowCargo(cargo, "Matching items", "No matching items found.", size);
     }
 
     @Override

@@ -50,6 +50,12 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
     }
 
     @Override
+    public RenderableComponent getPreview(Size size) {
+        QueryFactory queryFactory = findNextFactory();
+        return queryFactory.getPreview(size);
+    }
+
+    @Override
     protected Set<Filter> getFilters() {
         return findNextFactory().getFilters();
     }
@@ -65,12 +71,6 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
     }
 
     @Override
-    protected RenderableComponent getPreview(Size size) {
-        QueryFactory queryFactory = findNextFactory();
-        return queryFactory.getPreview(size);
-    }
-
-    @Override
     protected QueryProvider getProvider() {
         return findNextFactory().getProvider();
     }
@@ -82,12 +82,12 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
 
     private Renderable buildPreview(RenderableComponent content, Size size) {
         final float HEADING_HEIGHT = 25;
-        final float RESERVED_FOR_TABS_AND_PADDING = 33 + 4;
+        final float PADDING = 10;
         Heading heading = new Heading("Preview");
         heading.setSize(new Size(size.getWidth(), HEADING_HEIGHT));
-        content.setSize(size.reduce(new Size(0, HEADING_HEIGHT + RESERVED_FOR_TABS_AND_PADDING)));
+        content.setSize(size.reduce(new Size(0, HEADING_HEIGHT + PADDING)));
         VerticalViewContainer verticalView = new VerticalViewContainer(heading, content);
-        verticalView.setSize(size.reduce(new Size(0, RESERVED_FOR_TABS_AND_PADDING)));
+        verticalView.setSize(size.reduce(new Size(0, PADDING)));
         return verticalView;
     }
 

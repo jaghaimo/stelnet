@@ -8,6 +8,7 @@ import lombok.Setter;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
+import stelnet.util.StringUtils;
 
 @Getter
 @Setter
@@ -17,6 +18,7 @@ public class Query {
     private final QueryProvider provider;
     private final Set<Filter> filters;
     private boolean isEnabled = false;
+    private int resultNumber = 0;
 
     public void disable() {
         setEnabled(false);
@@ -27,7 +29,9 @@ public class Query {
     }
 
     public List<ResultSet> execute() {
-        return provider.getResults(filters);
+        List<ResultSet> results = provider.getResults(filters);
+        resultNumber = results.size();
+        return results;
     }
 
     public void toggle() {
@@ -47,5 +51,10 @@ public class Query {
     @Override
     public int hashCode() {
         return 0;
+    }
+
+    @Override
+    public String toString() {
+        return StringUtils.join(filters, "||", "Empty filter");
     }
 }

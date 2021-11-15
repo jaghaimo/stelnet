@@ -16,6 +16,15 @@ import uilib.property.Size;
 public class DummyFactory extends QueryFactory {
 
     @Override
+    public RenderableComponent getPreview(Size size) {
+        logUsage();
+        return new RenderableComponent() {
+            @Override
+            public void render(TooltipMakerAPI tooltip) {}
+        };
+    }
+
+    @Override
     protected Set<Filter> getFilters() {
         logUsage();
         return Collections.emptySet();
@@ -30,16 +39,7 @@ public class DummyFactory extends QueryFactory {
     @Override
     protected QueryProvider getProvider() {
         logUsage();
-        return new DummyProvider();
-    }
-
-    @Override
-    protected RenderableComponent getPreview(Size size) {
-        logUsage();
-        return new RenderableComponent() {
-            @Override
-            public void render(TooltipMakerAPI tooltip) {}
-        };
+        return new DummyProvider(this);
     }
 
     private void logUsage() {
