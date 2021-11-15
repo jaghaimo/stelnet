@@ -31,7 +31,7 @@ jobs:
 
             - name: Create Mod Zipfile
               run: |
-                  gradle release
+                  ./gradlew release
 
             - name: Publish Release on GitHub
               uses: "ncipollo/release-action@v1"
