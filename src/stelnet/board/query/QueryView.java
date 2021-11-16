@@ -2,7 +2,6 @@ package stelnet.board.query;
 
 import java.util.Arrays;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
 import org.lwjgl.input.Keyboard;
 import stelnet.board.query.QueryState.QueryBoardTab;
 import stelnet.board.query.view.add.AddQueryFactory;
@@ -16,17 +15,23 @@ import uilib.VerticalViewContainer;
 import uilib.property.Position;
 import uilib.property.Size;
 
-@RequiredArgsConstructor
 public class QueryView implements RenderableFactory {
 
-    private final QueryBoardTab activeTab;
-    private final AddQueryFactory addQueryFactory;
-    private final QueryListFactory queryListFactory;
+    private final QueryState queryState;
+    private transient QueryBoardTab activeTab;
+    private transient AddQueryFactory addQueryFactory;
+    private transient QueryListFactory queryListFactory;
 
     public QueryView(QueryState queryState) {
+        this.queryState = queryState;
+        readResolve();
+    }
+
+    public Object readResolve() {
         activeTab = queryState.getActiveTab();
         addQueryFactory = queryState.getAddQueryFactory();
         queryListFactory = queryState.getQueryListFactory();
+        return this;
     }
 
     @Override

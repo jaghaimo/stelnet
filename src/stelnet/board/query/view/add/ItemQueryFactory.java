@@ -32,23 +32,13 @@ import uilib.property.Size;
 
 public class ItemQueryFactory extends QueryFactory {
 
-    private transient ItemProvider itemProvider = new ItemProvider(this);
-    private transient ItemButton[] itemTypes = createItemTypes();
-    private transient ItemButton[] manufacturers = createManufacturers();
-    private transient ItemButton[] weaponDamageTypes = createDamageType();
-    private transient ItemButton[] weaponMountSizes = createWeaponMountSize();
-    private transient ItemButton[] weaponMountTypes = createWeaponMountType();
-    private transient ItemButton[] wingRoles = createWingRole();
-
-    public void readResolve() {
-        itemProvider = new ItemProvider(this);
-        itemTypes = createItemTypes();
-        manufacturers = createManufacturers();
-        weaponDamageTypes = createDamageType();
-        weaponMountSizes = createWeaponMountSize();
-        weaponMountTypes = createWeaponMountType();
-        wingRoles = createWingRole();
-    }
+    private final ItemProvider itemProvider = new ItemProvider(this);
+    private final ItemButton[] itemTypes = createItemTypes();
+    private final ItemButton[] manufacturers = createManufacturers();
+    private final ItemButton[] weaponDamageTypes = createDamageType();
+    private final ItemButton[] weaponMountSizes = createWeaponMountSize();
+    private final ItemButton[] weaponMountTypes = createWeaponMountType();
+    private final ItemButton[] wingRoles = createWingRole();
 
     @Override
     public RenderableComponent getPreview(Size size) {

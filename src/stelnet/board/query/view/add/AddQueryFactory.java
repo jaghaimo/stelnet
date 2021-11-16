@@ -20,13 +20,8 @@ import uilib.property.Size;
 @Log4j
 public class AddQueryFactory extends QueryFactory implements RenderableFactory {
 
-    private transient QueryTypeButton[] queryType = createQueryTypeButtons();
-    private transient SearchButton[] searchButton = createSearchButtons();
-
-    public void readResolve() {
-        queryType = createQueryTypeButtons();
-        searchButton = createSearchButtons();
-    }
+    private final QueryTypeButton[] queryType = createQueryTypeButtons();
+    private final SearchButton[] searchButton = createSearchButtons();
 
     @Override
     public List<Renderable> create(Size size) {

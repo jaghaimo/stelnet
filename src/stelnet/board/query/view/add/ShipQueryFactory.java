@@ -24,19 +24,11 @@ import uilib.property.Size;
 
 public class ShipQueryFactory extends QueryFactory {
 
-    private transient ShipProvider shipProvider = new ShipProvider(this);
-    private transient ShipButton[] classSizes = createClassSizes();
-    private transient ShipButton[] mountSizes = createMountSizes();
-    private transient ShipButton[] mountTypes = createMountTypes();
-    private transient ShipButton[] manufacturers = createManufacturers();
-
-    public void readResolve() {
-        shipProvider = new ShipProvider(this);
-        classSizes = createClassSizes();
-        mountSizes = createMountSizes();
-        mountTypes = createMountTypes();
-        manufacturers = createManufacturers();
-    }
+    private final ShipProvider shipProvider = new ShipProvider(this);
+    private final ShipButton[] classSizes = createClassSizes();
+    private final ShipButton[] mountSizes = createMountSizes();
+    private final ShipButton[] mountTypes = createMountTypes();
+    private final ShipButton[] manufacturers = createManufacturers();
 
     @Override
     public RenderableComponent getPreview(Size size) {

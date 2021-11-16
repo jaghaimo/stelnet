@@ -30,21 +30,12 @@ import uilib.property.Size;
 
 public class PersonnelQueryFactory extends QueryFactory {
 
-    private transient PeopleProvider peopleProvider = new PeopleProvider(this);
-    private transient SkillProvider skillProvider = new SkillProvider();
-    private transient PersonnelButton[] postType = createPostTypeButtons();
-    private transient OfficerButton[] level = createLevelButtons();
-    private transient OfficerButton[] personality = createPersonalityButtons();
-    private transient OfficerButton[] skill = createSkillButtons();
-
-    public void readResolve() {
-        peopleProvider = new PeopleProvider(this);
-        skillProvider = new SkillProvider();
-        postType = createPostTypeButtons();
-        level = createLevelButtons();
-        personality = createPersonalityButtons();
-        skill = createSkillButtons();
-    }
+    private final PeopleProvider peopleProvider = new PeopleProvider(this);
+    private final SkillProvider skillProvider = new SkillProvider();
+    private final PersonnelButton[] postType = createPostTypeButtons();
+    private final OfficerButton[] level = createLevelButtons();
+    private final OfficerButton[] personality = createPersonalityButtons();
+    private final OfficerButton[] skill = createSkillButtons();
 
     public void setLevel(OfficerLevelButton active) {
         for (OfficerButton button : level) {
