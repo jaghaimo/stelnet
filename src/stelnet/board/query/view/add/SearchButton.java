@@ -6,6 +6,7 @@ import stelnet.board.query.Query;
 import stelnet.board.query.QueryBoard;
 import stelnet.board.query.QueryManager;
 import stelnet.board.query.QueryState;
+import stelnet.board.query.QueryState.QueryBoardTab;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
 import stelnet.util.L10n;
@@ -28,6 +29,7 @@ public class SearchButton extends C2Button {
                     Set<Filter> filters = factory.getFilters();
                     Query query = new Query(manager, provider, filters);
                     manager.addQuery(query);
+                    state.setActiveTab(QueryBoardTab.LIST);
                 }
             }
         );
