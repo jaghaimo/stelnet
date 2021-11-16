@@ -11,25 +11,25 @@ Each tab comes with its own interactive board that can be used to manage present
 Commodity board (formerly [Galactic Markets](https://fractalsoftworks.com/forum/index.php?topic=19383)) is used to display buying and selling prices among all known markets.
 It also hosts a Profit tab that can be used to find viable trade routes.
 
-![Commodity](https://github.com/jaghaimo/stelnet/raw/master/images/commodity.png)
+![Commodity](images/commodity.png?raw=1)
 
 ### Market
 
 Market Queries board (formerly [Hyperspace Networks](https://fractalsoftworks.com/forum/index.php?topic=19252)) manages market searches. These can be either staff search (e.g. freelance administrator, steady officer, aggressive mercenary), item search (e.g. specific mod-spec or weapon), or ship search (e.g. pristine frigate, d-modded carrier).
 
-![Add a New Tab](https://github.com/jaghaimo/stelnet/raw/master/images/market1.png)
-![Query List](https://github.com/jaghaimo/stelnet/raw/master/images/market2.png)
+![Add a New Tab](images/market1.png?raw=1)
+![Query List](images/market2.png?raw=1)
 
 Market Viewer board lets you select a market and preview content of all its submarkets.
 
-![Viewer](https://github.com/jaghaimo/stelnet/raw/master/images/viewer.png)
+![Viewer](images/viewer.png?raw=1)
 
 ### Storage
 
 Storage board (formerly [Stellar Logistics](https://fractalsoftworks.com/forum/index.php?topic=18948)) displays all cargo and ships stored among all Storages.
 It allows to display a unified view to quickly verify what is available, and per-location view to find out where.
 
-![Storage](https://github.com/jaghaimo/stelnet/raw/master/images/storage.png)
+![Storage](images/storage.png?raw=1)
 
 ## Installation and Configuration
 
