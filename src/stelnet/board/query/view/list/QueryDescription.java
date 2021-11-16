@@ -1,66 +1,78 @@
 package stelnet.board.query.view.list;
 
-import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import com.fs.starfarer.api.util.Misc;
 import java.util.LinkedList;
 import java.util.List;
+
+import com.fs.starfarer.api.ui.Alignment;
+import com.fs.starfarer.api.ui.LabelAPI;
+import com.fs.starfarer.api.ui.PositionAPI;
+import com.fs.starfarer.api.ui.TooltipMakerAPI;
+import com.fs.starfarer.api.util.Misc;
+
 import stelnet.board.query.Query;
+import stelnet.util.StringUtils;
 import uilib.RenderableComponent;
 import uilib.property.Size;
 
 public class QueryDescription extends RenderableComponent {
 
+    private final boolean isLeftAligned;
     private final Query query;
-    private final float width;
-    private final List<String[]> description = new LinkedList<>();
+    private final List<String> labels = new LinkedList<>();
+    private final List<String> descriptions = new LinkedList<>();
 
-    private final float ROW_HEIGHT = 18;
-    private final float LABEL_WIDTH;
-    private final float PADDING = 5;
-
-    public QueryDescription(float width, Query query) {
-        this.width = width;
+    public QueryDescription(float width, Query query, boolean isLeftAligned) {
+        this.isLeftAligned = isLeftAligned;
         this.query = query;
-        LABEL_WIDTH = Math.max(120, width - 650);
-        buildFilterDescription();
-        setSize(new Size(width, PADDING + description.size() * ROW_HEIGHT));
+        buildLabelAndDescription();
+        setSize(new Size(width, 50));
+        setWithScroller(false);
     }
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        float gridWidth = width;
         tooltip.addSpacer(6);
-        tooltip.beginGridFlipped(gridWidth, 1, Misc.getTextColor(), LABEL_WIDTH, PADDING);
-        addQueryDescription(tooltip, query.toString());
-        tooltip.addGrid(0);
+        addQueryDescription(tooltip);
     }
 
-    private void addQueryDescription(TooltipMakerAPI tooltip, String queryToString) {
-        float gridWidth = width;
-        float labelWidth = PADDING + LABEL_WIDTH + PADDING;
-        int row = 0;
-        for (String[] filter : description) {
-            if (filter.length != 2) {
-                continue;
-            }
-            tooltip.addToGrid(
-                0,
-                row++,
-                tooltip.shortenString(filter[1], gridWidth - labelWidth),
-                filter[0],
-                Misc.getGrayColor()
-            );
+    private void addQueryDescription(TooltipMakerAPI tooltip) {
+        String description = StringUtils.join(descriptions, "  ", "Invalid query");
+        LabelAPI label = tooltip.addPara(description, 0);
+        PositionAPI originalPosition = label.getPosition();
+        boolean canReduce = canReduce(label, description);
+        while (canReduce) {
+            description = description.substring(0, description.length() - 1);
+            label.setText(description + "...");
+            canReduce = canReduce(label, description);
         }
+        setAlignment(label);
+        label.getPosition().setLocation(originalPosition.getX(), originalPosition.getY());
+        label.setHighlightColor(Misc.getGrayColor());
+        label.setHighlight(labels.toArray(new String[] {}));
     }
 
-    private void buildFilterDescription() {
+    private void buildLabelAndDescription() {
         String lines[] = query.toString().split("\\|");
         for (String line : lines) {
             String filter[] = line.split(":");
-            if (filter.length != 2) {
-                continue;
+            if (filter.length == 2) {
+                labels.add(filter[0] + ":");
             }
-            description.add(filter);
+            descriptions.add(line);
         }
+    }
+
+    private boolean canReduce(LabelAPI label, String description) {
+        boolean needsReducing = label.getPosition().getHeight() > 50;
+        boolean canReduce = description.length() > 120;
+        return needsReducing && canReduce;
+    }
+
+    private void setAlignment(LabelAPI label) {
+        if (isLeftAligned) {
+            label.setAlignment(Alignment.TL);
+            return;
+        }
+        label.setAlignment(Alignment.TR);
     }
 }

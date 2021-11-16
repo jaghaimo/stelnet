@@ -14,8 +14,8 @@ import uilib.property.Size;
 
 public class SearchButton extends C2Button {
 
-    public SearchButton(final AddQueryFactory factory, Enum<?> translationId) {
-        super(new Size(0, 30), L10n.get(translationId), true);
+    public SearchButton(final AddQueryFactory factory, Enum<?> translationId, boolean isEnabled) {
+        super(new Size(0, 30), L10n.get(translationId), isEnabled);
         overrideSize(20);
         setHandler(
             new EventHandler() {

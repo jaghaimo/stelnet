@@ -16,10 +16,10 @@ public class QueryRow extends RenderableComponent {
     private final HorizontalViewContainer container;
     private final float width;
 
-    public QueryRow(float width, Query query) {
+    public QueryRow(float width, Query query, boolean isLeft) {
         this.query = query;
         this.width = width;
-        this.container = createContainer();
+        this.container = createContainer(isLeft);
         setSize(container.getSize());
         setWithScroller(false);
     }
@@ -37,12 +37,18 @@ public class QueryRow extends RenderableComponent {
     @Override
     public void render(TooltipMakerAPI tooltip) {}
 
-    private HorizontalViewContainer createContainer() {
+    private HorizontalViewContainer createContainer(boolean isLeft) {
         float controlSize = getControlWidth(width);
         float descriptionSize = width - controlSize;
+        if (isLeft) {
+            return new HorizontalViewContainer(
+                new ControlButtons(controlSize, query),
+                new QueryDescription(descriptionSize, query, isLeft)
+            );
+        }
         return new HorizontalViewContainer(
-            new ControlButtons(controlSize, query),
-            new QueryDescription(descriptionSize, query)
+            new QueryDescription(descriptionSize, query, isLeft),
+            new ControlButtons(controlSize, query)
         );
     }
 

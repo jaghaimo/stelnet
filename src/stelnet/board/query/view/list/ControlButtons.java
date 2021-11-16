@@ -1,5 +1,6 @@
 package stelnet.board.query.view.list;
 
+import com.fs.starfarer.api.ui.Fonts;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.ui.UIComponentAPI;
 import com.fs.starfarer.api.util.Misc;
@@ -25,19 +26,22 @@ public class ControlButtons extends RenderableComponent {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        Button off = new C2Button(buttonSize, "Off", true);
+        Button off = new C2Button(buttonSize, "Enabled", true);
         off.setSize(buttonSize);
         Button delete = new C2Button(buttonSize, "Delete", true, Misc.getNegativeHighlightColor());
         delete.setSize(buttonSize);
-
-        tooltip.setButtonFontVictor10();
         tooltip.addSpacer(2 + PADDING / 2);
 
+        tooltip.setButtonFontVictor10();
+        tooltip.setParaFont(Fonts.VICTOR_10);
+        tooltip.setTitleFont(Fonts.VICTOR_10);
+        tooltip.setGridFont(Fonts.VICTOR_10);
         off.render(tooltip);
         UIComponentAPI offButton = tooltip.getPrev();
+
         delete.render(tooltip);
         UIComponentAPI deleteButton = tooltip.getPrev();
 
-        deleteButton.getPosition().belowMid(offButton, 2 + PADDING / 2);
+        deleteButton.getPosition().belowMid(offButton, 1 + PADDING / 2);
     }
 }

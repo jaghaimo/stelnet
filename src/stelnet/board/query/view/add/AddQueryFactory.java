@@ -85,8 +85,8 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
 
     private SearchButton[] createSearchButtons() {
         return new SearchButton[] {
-            new SearchButton(this, QueryL10n.SEARCH_MATCHING),
-            new SearchButton(this, QueryL10n.SEARCH_SELECTED),
+            new SearchButton(this, QueryL10n.SEARCH_MATCHING, true),
+            new SearchButton(this, QueryL10n.SEARCH_SELECTED, false),
         };
     }
 
