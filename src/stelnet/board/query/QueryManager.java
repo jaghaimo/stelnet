@@ -10,6 +10,9 @@ import stelnet.util.SectorUtils;
 public class QueryManager {
 
     @Getter
+    private Query activeQuery;
+
+    @Getter
     private final Set<Query> queries = new HashSet<>();
 
     private final ResultMap resultMap = new ResultMap();
@@ -49,6 +52,14 @@ public class QueryManager {
         return queries.size();
     }
 
+    public void selectQuery(Query newActiveQuery) {
+        for (Query query : queries) {
+            query.setSelected(false);
+        }
+        newActiveQuery.setSelected(true);
+        activeQuery = newActiveQuery;
+    }
+
     public void toggleAll() {
         for (Query query : queries) {
             query.toggle();
@@ -56,7 +67,7 @@ public class QueryManager {
         updateIntel();
     }
 
-    private void updateIntel() {
+    public void updateIntel() {
         resultMap.clear();
         IntelUtils.removeAll(ResultIntel.class);
         SectorUtils.removeScripts(ResultIntel.class);

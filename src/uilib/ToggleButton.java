@@ -33,7 +33,7 @@ public class ToggleButton extends Button implements TwoStateButton {
 
     @Override
     public Color getBackgroundColor() {
-        return isStateOn ? getBackgroundColor() : Misc.getGrayColor();
+        return isStateOn ? super.getBackgroundColor() : Misc.getGrayColor();
     }
 
     @Override

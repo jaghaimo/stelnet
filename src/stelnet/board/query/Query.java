@@ -15,13 +15,19 @@ import stelnet.util.StringUtils;
 @RequiredArgsConstructor
 public class Query {
 
+    private final QueryManager manager;
     private final QueryProvider provider;
     private final Set<Filter> filters;
-    private boolean isEnabled = false;
+    private boolean isEnabled = true;
+    private boolean isSelected = false;
     private int resultNumber = 0;
 
     public void disable() {
         setEnabled(false);
+    }
+
+    public void delete() {
+        manager.deleteQuery(this);
     }
 
     public void enable() {
@@ -34,8 +40,13 @@ public class Query {
         return results;
     }
 
+    public void select() {
+        manager.selectQuery(this);
+    }
+
     public void toggle() {
         setEnabled(!isEnabled);
+        manager.updateIntel();
     }
 
     @Override

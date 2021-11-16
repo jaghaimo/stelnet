@@ -27,26 +27,24 @@ public class ControlButtons extends RenderableComponent {
     @Override
     public void render(TooltipMakerAPI tooltip) {
         Button preview = new Button(buttonSize, "Preview", true, Misc.getGrayColor());
-        preview.setCutStyle(CutStyle.BOTTOM);
-        Button off = new Button(buttonSize, "Off", true);
-        off.setCutStyle(CutStyle.BOTTOM);
-        Button delete = new Button(buttonSize, "Delete", true, Misc.getNegativeHighlightColor());
-        delete.setCutStyle(CutStyle.BOTTOM);
+        preview.setCutStyle(CutStyle.TOP);
+        Button onOff = new OnOffButton(buttonSize, query);
+        Button delete = new DeleteButton(buttonSize, query);
 
         tooltip.setButtonFontVictor10();
 
         delete.render(tooltip);
-        UIComponentAPI deleteButton = tooltip.getPrev();
-        deleteButton.getPosition().setXAlignOffset(getSize().getWidth() - delete.getSize().getWidth());
-        deleteButton.getPosition().setYAlignOffset(-1);
+        UIComponentAPI deleteComponent = tooltip.getPrev();
+        deleteComponent.getPosition().setXAlignOffset(getSize().getWidth() - delete.getSize().getWidth());
+        deleteComponent.getPosition().setYAlignOffset(-PADDING);
 
-        off.render(tooltip);
-        UIComponentAPI offButton = tooltip.getPrev();
-        offButton.getPosition().leftOfTop(deleteButton, 1);
+        onOff.render(tooltip);
+        UIComponentAPI onOffComponent = tooltip.getPrev();
+        onOffComponent.getPosition().leftOfTop(deleteComponent, 1);
 
         preview.render(tooltip);
-        UIComponentAPI previewButton = tooltip.getPrev();
-        previewButton.getPosition().leftOfTop(offButton, 1);
+        UIComponentAPI previewComponent = tooltip.getPrev();
+        previewComponent.getPosition().leftOfTop(onOffComponent, 1);
 
         tooltip.setButtonFontDefault();
     }

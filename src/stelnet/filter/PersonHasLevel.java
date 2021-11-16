@@ -21,6 +21,6 @@ public class PersonHasLevel extends PersonOfficerFilter {
 
     @Override
     public String toString() {
-        return String.format("Level>%d", level - 1);
+        return String.format("At least %d", level - 1);
     }
 }
