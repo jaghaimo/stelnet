@@ -1,12 +1,11 @@
 package stelnet.board.query.view.list;
 
-import com.fs.starfarer.api.ui.Fonts;
+import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.ui.UIComponentAPI;
 import com.fs.starfarer.api.util.Misc;
 import stelnet.board.query.Query;
 import uilib.Button;
-import uilib.C2Button;
 import uilib.RenderableComponent;
 import uilib.property.Size;
 
@@ -20,28 +19,35 @@ public class ControlButtons extends RenderableComponent {
 
     public ControlButtons(float width, Query query) {
         this.query = query;
-        this.buttonSize = new Size(width, BUTTON_HEIGHT);
-        setSize(new Size(width, BUTTON_HEIGHT + PADDING + BUTTON_HEIGHT));
+        this.buttonSize = new Size(0, BUTTON_HEIGHT);
+        setSize(new Size(width, BUTTON_HEIGHT));
+        setWithScroller(false);
     }
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        Button off = new C2Button(buttonSize, "Enabled", true);
-        off.setSize(buttonSize);
-        Button delete = new C2Button(buttonSize, "Delete", true, Misc.getNegativeHighlightColor());
-        delete.setSize(buttonSize);
-        tooltip.addSpacer(2 + PADDING / 2);
+        Button preview = new Button(buttonSize, "Preview", true, Misc.getGrayColor());
+        preview.setCutStyle(CutStyle.BOTTOM);
+        Button off = new Button(buttonSize, "Off", true);
+        off.setCutStyle(CutStyle.BOTTOM);
+        Button delete = new Button(buttonSize, "Delete", true, Misc.getNegativeHighlightColor());
+        delete.setCutStyle(CutStyle.BOTTOM);
 
         tooltip.setButtonFontVictor10();
-        tooltip.setParaFont(Fonts.VICTOR_10);
-        tooltip.setTitleFont(Fonts.VICTOR_10);
-        tooltip.setGridFont(Fonts.VICTOR_10);
-        off.render(tooltip);
-        UIComponentAPI offButton = tooltip.getPrev();
 
         delete.render(tooltip);
         UIComponentAPI deleteButton = tooltip.getPrev();
+        deleteButton.getPosition().setXAlignOffset(getSize().getWidth() - delete.getSize().getWidth());
+        deleteButton.getPosition().setYAlignOffset(-1);
 
-        deleteButton.getPosition().belowMid(offButton, 1 + PADDING / 2);
+        off.render(tooltip);
+        UIComponentAPI offButton = tooltip.getPrev();
+        offButton.getPosition().leftOfTop(deleteButton, 1);
+
+        preview.render(tooltip);
+        UIComponentAPI previewButton = tooltip.getPrev();
+        previewButton.getPosition().leftOfTop(offButton, 1);
+
+        tooltip.setButtonFontDefault();
     }
 }

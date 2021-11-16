@@ -16,16 +16,10 @@ public class QueryListFactory implements RenderableFactory {
 
     @Override
     public List<Renderable> create(Size size) {
-        boolean isLeft = true;
-        List<QueryRow> renderables = new LinkedList<>();
+        List<Renderable> renderables = new LinkedList<>();
         for (Query query : queryState.getQueryManger().getQueries()) {
-            renderables.add(new QueryRow(size.getWidth(), query, isLeft));
-            isLeft = !isLeft;
+            renderables.add(new QueryRow(size.getWidth(), query));
         }
-        // int rowCount = renderables.size();
-        // if (rowCount > 0) {
-        //     renderables.get(rowCount - 1).setHasSeparator(false);
-        // }
-        return new LinkedList<Renderable>(renderables);
+        return renderables;
     }
 }
