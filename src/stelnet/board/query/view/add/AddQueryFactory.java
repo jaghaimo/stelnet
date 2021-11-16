@@ -23,16 +23,16 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
     private final QueryTypeButton[] queryType = createQueryTypeButtons();
     private final SearchButton[] searchButton = createSearchButtons();
 
-    @Override
-    public List<Renderable> create(Size size) {
-        setSizeHelper(new SizeHelper(size));
-        return getQueryBuilder();
-    }
-
     public void setQueryType(QueryTypeButton active) {
         for (QueryTypeButton button : queryType) {
             button.setStateOn(active.equals(button));
         }
+    }
+
+    @Override
+    public List<Renderable> create(Size size) {
+        setSizeHelper(new SizeHelper(size));
+        return getQueryBuildingComponents();
     }
 
     @Override
@@ -49,10 +49,11 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
     }
 
     @Override
-    protected List<Renderable> getQueryBuilder() {
+    protected List<Renderable> getQueryBuildingComponents() {
         List<Renderable> elements = new LinkedList<>();
         addLabeledGroup(elements, QueryL10n.QUERY_TYPE, Arrays.<Renderable>asList(queryType));
-        addFromNextFactory(elements);
+        QueryFactory nextFactory = findNextFactory();
+        elements.addAll(nextFactory.getQueryBuildingComponents());
         addSpacer(elements, 10);
         addLabeledGroup(elements, null, Arrays.<Renderable>asList(searchButton));
         return elements;
@@ -61,11 +62,6 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
     @Override
     protected QueryProvider getProvider() {
         return findNextFactory().getProvider();
-    }
-
-    private void addFromNextFactory(List<Renderable> elements) {
-        QueryFactory nextFactory = findNextFactory();
-        elements.addAll(nextFactory.getQueryBuilder());
     }
 
     private QueryTypeButton[] createQueryTypeButtons() {

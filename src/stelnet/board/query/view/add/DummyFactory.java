@@ -31,7 +31,7 @@ public class DummyFactory extends QueryFactory {
     }
 
     @Override
-    protected List<Renderable> getQueryBuilder() {
+    protected List<Renderable> getQueryBuildingComponents() {
         logUsage();
         return Collections.emptyList();
     }

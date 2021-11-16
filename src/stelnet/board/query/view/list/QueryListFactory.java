@@ -41,7 +41,7 @@ public class QueryListFactory implements RenderableFactory {
 
     private RenderableComponent getPreviewComponent(Size size, Query activeQuery) {
         if (activeQuery != null) {
-            return activeQuery.getProvider().getPreview(size);
+            return activeQuery.getPreview(size);
         }
         return new Paragraph(L10n.get(QueryL10n.NO_QUERY_SELECTED), size.getWidth());
     }

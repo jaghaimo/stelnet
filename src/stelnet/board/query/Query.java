@@ -10,6 +10,8 @@ import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.L10n;
 import stelnet.util.StringUtils;
+import uilib.RenderableComponent;
+import uilib.property.Size;
 
 @Getter
 @Setter
@@ -29,6 +31,10 @@ public class Query {
 
     public void delete() {
         manager.deleteQuery(this);
+    }
+
+    public RenderableComponent getPreview(Size size) {
+        return provider.getPreview(size);
     }
 
     public void enable() {

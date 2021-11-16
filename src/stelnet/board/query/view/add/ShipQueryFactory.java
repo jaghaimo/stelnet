@@ -52,7 +52,7 @@ public class ShipQueryFactory extends QueryFactory {
     }
 
     @Override
-    protected List<Renderable> getQueryBuilder() {
+    protected List<Renderable> getQueryBuildingComponents() {
         List<Renderable> elements = new LinkedList<>();
         addLabeledGroup(elements, QueryL10n.CLASS_SIZE, Arrays.<Renderable>asList(classSizes));
         addSection(elements, QueryL10n.WEAPON_MOUNTS);

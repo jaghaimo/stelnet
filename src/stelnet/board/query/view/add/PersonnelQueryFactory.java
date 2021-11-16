@@ -60,7 +60,7 @@ public class PersonnelQueryFactory extends QueryFactory {
     }
 
     @Override
-    protected List<Renderable> getQueryBuilder() {
+    protected List<Renderable> getQueryBuildingComponents() {
         List<Renderable> elements = new LinkedList<>();
         addLabeledGroup(elements, QueryL10n.PERSONNEL_POST_TYPES, Arrays.<Renderable>asList(postType));
         addSection(elements, QueryL10n.OFFICERS_AND_MERCENARIES);

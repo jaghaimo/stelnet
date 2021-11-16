@@ -61,7 +61,7 @@ public class ItemQueryFactory extends QueryFactory {
     }
 
     @Override
-    protected List<Renderable> getQueryBuilder() {
+    protected List<Renderable> getQueryBuildingComponents() {
         List<Renderable> elements = new LinkedList<>();
         addLabeledGroup(elements, QueryL10n.ITEM_TYPES, Arrays.<Renderable>asList(itemTypes));
         addSection(elements, CommonL10n.WEAPONS);

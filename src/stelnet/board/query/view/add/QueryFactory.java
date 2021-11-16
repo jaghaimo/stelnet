@@ -82,7 +82,7 @@ public abstract class QueryFactory {
 
     protected abstract Set<Filter> getFilters();
 
-    protected abstract List<Renderable> getQueryBuilder();
+    protected abstract List<Renderable> getQueryBuildingComponents();
 
     protected abstract QueryProvider getProvider();
 }
