@@ -90,6 +90,7 @@
     "QUERY_NO_MATCHING_ITEMS": "No matching items found",
     "QUERY_NO_MATCHING_PEOPLE": "No matching people found",
     "QUERY_NO_MATCHING_SHIPS": "No matching ships found",
+    "QUERY_NO_QUERIES": "There are no tracked queries to display. Use \"Add a New Query\" tab to define your first query.",
     "QUERY_NO_QUERY_SELECTED": "No query selected!",
     "QUERY_OFFICERS_AND_MERCENARIES": "Officers and Mercenaries",
     "QUERY_PERSONNEL_MIN_LEVEL": "Minimal level",

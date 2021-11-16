@@ -21,9 +21,13 @@ public class QueryListFactory implements RenderableFactory {
 
     @Override
     public List<Renderable> create(Size size) {
+        float width = size.getWidth();
         List<Renderable> renderables = new LinkedList<>();
         for (Query query : manager.getQueries()) {
-            renderables.add(new QueryRow(size.getWidth(), query));
+            renderables.add(new QueryRow(width, query));
+        }
+        if (renderables.isEmpty()) {
+            renderables.add(new Paragraph(L10n.get(QueryL10n.NO_QUERIES), width));
         }
         return renderables;
     }
