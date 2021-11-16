@@ -113,7 +113,7 @@ public class CommodityIntel extends BaseIntel {
     private void addRelationship(List<Renderable> renderables, float width) {
         FactionAPI faction = marketWrapper.getFaction();
         RelationshipAPI relationship = faction.getRelToPlayer();
-        String translatedRep = relationship.getLevel().getDisplayName();
+        String translatedRep = relationship.getLevel().getDisplayName().toLowerCase();
         Paragraph relationshipRenderable = new Paragraph(
             L10n.get(CommonL10n.INTEL_OWNER_RELATIONSHIP, translatedRep),
             width
