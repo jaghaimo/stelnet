@@ -11,6 +11,7 @@ import uilib.Paragraph;
 import uilib.Renderable;
 import uilib.RenderableComponent;
 import uilib.RenderableFactory;
+import uilib.Spacer;
 import uilib.property.Location;
 import uilib.property.Size;
 
@@ -27,6 +28,7 @@ public class QueryListFactory implements RenderableFactory {
             renderables.add(new QueryRow(width, query));
         }
         if (renderables.isEmpty()) {
+            renderables.add(new Spacer(7));
             renderables.add(new Paragraph(L10n.get(QueryL10n.NO_QUERIES), width));
         }
         return renderables;
