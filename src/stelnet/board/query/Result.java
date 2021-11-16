@@ -56,13 +56,6 @@ public class Result implements Comparable<Result> {
         this.hashCode = hashCode();
     }
 
-    public String getLocationName() {
-        if (submarket == null) {
-            return market.getName();
-        }
-        return String.format("%s - %s", market.getName(), submarket.getNameOneLine());
-    }
-
     public CargoStackAPI getCargoStack() {
         return (CargoStackAPI) object;
     }

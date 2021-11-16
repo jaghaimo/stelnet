@@ -4,7 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.query.Query;
+import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
+import stelnet.util.L10n;
 import uilib.Paragraph;
 import uilib.Renderable;
 import uilib.RenderableComponent;
@@ -37,6 +39,6 @@ public class QueryListFactory implements RenderableFactory {
         if (activeQuery != null) {
             return activeQuery.getProvider().getPreview(size);
         }
-        return new Paragraph("No query selected", size.getWidth());
+        return new Paragraph(L10n.get(QueryL10n.NO_QUERY_SELECTED), size.getWidth());
     }
 }

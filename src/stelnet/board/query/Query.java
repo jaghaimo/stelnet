@@ -8,6 +8,7 @@ import lombok.Setter;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
+import stelnet.util.L10n;
 import stelnet.util.StringUtils;
 
 @Getter
@@ -66,6 +67,6 @@ public class Query {
 
     @Override
     public String toString() {
-        return StringUtils.join(filters, "||", "Empty filter");
+        return StringUtils.join(filters, "||", L10n.get(QueryL10n.EMPTY_FILTER));
     }
 }

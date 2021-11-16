@@ -4,8 +4,10 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import java.awt.event.KeyEvent;
+import stelnet.board.query.QueryL10n;
 import stelnet.board.query.ResultIntel;
 import stelnet.util.AwtUtils;
+import stelnet.util.L10n;
 import stelnet.util.SectorUtils;
 import uilib.Button;
 import uilib.EventHandler;
@@ -14,7 +16,7 @@ import uilib.property.Size;
 public class MapButton extends Button {
 
     public MapButton(final ResultIntel intel, final MarketAPI market) {
-        super(new Size(0, 22), "Map", true);
+        super(new Size(0, 22), L10n.get(QueryL10n.MAP), true);
         setSize(getSize().reduce(new Size(20, 0)));
         setCutStyle(CutStyle.C2_MENU);
         setHandler(

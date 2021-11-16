@@ -46,7 +46,7 @@ public class PersonnelQueryFactory extends QueryFactory {
     @Override
     public RenderableComponent getPreview(Size size) {
         Set<Filter> filters = getFilters();
-        return new ShowPeople(peopleProvider.getMatching(filters), "No matching people found.", size);
+        return new ShowPeople(peopleProvider.getMatching(filters), L10n.get(QueryL10n.NO_MATCHING_PEOPLE), size);
     }
 
     @Override

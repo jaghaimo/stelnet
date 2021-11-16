@@ -12,6 +12,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.query.view.result.MarketHeader;
 import stelnet.util.CargoUtils;
+import stelnet.util.L10n;
 import uilib.Renderable;
 import uilib.RenderableFactory;
 import uilib.ShowCargo;
@@ -51,7 +52,7 @@ public class ResultView implements RenderableFactory {
             return;
         }
         renderables.add(new Spacer(10));
-        ShowPeople showPeople = new ShowPeople(people, "No people found", new Size(width, 0));
+        ShowPeople showPeople = new ShowPeople(people, L10n.get(QueryL10n.NO_MATCHING_PEOPLE), new Size(width, 0));
         showPeople.setGroupColor(getSupportColor(market));
         renderables.add(showPeople);
     }
@@ -63,7 +64,12 @@ public class ResultView implements RenderableFactory {
         }
         renderables.add(new Spacer(10));
         CargoAPI cargo = CargoUtils.makeCargoFromStacks(items);
-        ShowCargo showCargo = new ShowCargo(cargo, "Items", "No items found", new Size(width, 0));
+        ShowCargo showCargo = new ShowCargo(
+            cargo,
+            L10n.get(QueryL10n.MATCHING_ITEMS),
+            L10n.get(QueryL10n.NO_MATCHING_ITEMS),
+            new Size(width, 0)
+        );
         showCargo.setTitleColor(getSupportColor(market));
         renderables.add(showCargo);
     }
@@ -74,7 +80,12 @@ public class ResultView implements RenderableFactory {
             return;
         }
         renderables.add(new Spacer(10));
-        ShowShips showShips = new ShowShips(ships, "Ships", "No ships found", new Size(width, 0));
+        ShowShips showShips = new ShowShips(
+            ships,
+            L10n.get(QueryL10n.MATCHING_SHIPS),
+            L10n.get(QueryL10n.NO_MATCHING_SHIPS),
+            new Size(width, 0)
+        );
         showShips.setTitleColor(getSupportColor(market));
         renderables.add(showShips);
     }

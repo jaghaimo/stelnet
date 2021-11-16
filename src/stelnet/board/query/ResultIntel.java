@@ -4,6 +4,7 @@ import java.util.List;
 import lombok.Getter;
 import stelnet.BaseIntel;
 import stelnet.BoardInfo;
+import stelnet.util.L10n;
 import stelnet.util.SectorUtils;
 import stelnet.util.SettingsUtils;
 import stelnet.util.TagConstants;
@@ -56,7 +57,7 @@ public class ResultIntel extends BaseIntel {
     protected RenderableIntelInfo getIntelInfo() {
         return new BoardInfo(
             resultSet.getSystemName(),
-            String.format("Found %d results in %d markets.", resultSet.getResultNumber(), resultSet.getMarketNumber())
+            L10n.get(QueryL10n.RESULTS_IN_MARKET, resultSet.getResultNumber(), resultSet.getMarketNumber())
         );
     }
 
