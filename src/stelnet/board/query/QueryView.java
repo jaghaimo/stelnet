@@ -17,21 +17,14 @@ import uilib.property.Size;
 
 public class QueryView implements RenderableFactory {
 
-    private final QueryState queryState;
-    private transient QueryBoardTab activeTab;
-    private transient AddQueryFactory addQueryFactory;
-    private transient QueryListFactory queryListFactory;
+    private final QueryBoardTab activeTab;
+    private final AddQueryFactory addQueryFactory;
+    private final QueryListFactory queryListFactory;
 
     public QueryView(QueryState queryState) {
-        this.queryState = queryState;
-        readResolve();
-    }
-
-    public Object readResolve() {
         activeTab = queryState.getActiveTab();
         addQueryFactory = queryState.getAddQueryFactory();
         queryListFactory = queryState.getQueryListFactory();
-        return this;
     }
 
     @Override

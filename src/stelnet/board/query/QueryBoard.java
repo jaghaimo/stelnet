@@ -27,7 +27,7 @@ public class QueryBoard extends BaseBoard {
 
     @Override
     protected RenderableIntelInfo getIntelInfo() {
-        int queryCount = state.getQueryManger().numberOfQueries();
+        int queryCount = state.getQueryManager().numberOfQueries();
         return new BoardInfo(L10n.get(QueryL10n.TITLE), L10n.get(QueryL10n.DESCRIPTION, queryCount));
     }
 

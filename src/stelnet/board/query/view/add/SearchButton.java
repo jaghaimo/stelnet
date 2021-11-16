@@ -24,7 +24,7 @@ public class SearchButton extends C2Button {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
                     QueryState state = QueryBoard.getInstance(QueryBoard.class).getState();
-                    QueryManager manager = state.getQueryManger();
+                    QueryManager manager = state.getQueryManager();
                     QueryProvider provider = factory.getProvider();
                     Set<Filter> filters = factory.getFilters();
                     Query query = new Query(manager, provider, filters);
