@@ -17,7 +17,8 @@ It also hosts a Profit tab that can be used to find viable trade routes.
 
 Market Queries board (formerly [Hyperspace Networks](https://fractalsoftworks.com/forum/index.php?topic=19252)) manages market searches. These can be either staff search (e.g. freelance administrator, steady officer, aggressive mercenary), item search (e.g. specific mod-spec or weapon), or ship search (e.g. pristine frigate, d-modded carrier).
 
-![Market](https://github.com/jaghaimo/stelnet/raw/master/images/market.png)
+![Add a New Tab](https://github.com/jaghaimo/stelnet/raw/master/images/market1.png)
+![Query List](https://github.com/jaghaimo/stelnet/raw/master/images/market2.png)
 
 Market Viewer board lets you select a market and preview content of all its submarkets.
 
@@ -32,7 +33,7 @@ It allows to display a unified view to quickly verify what is available, and per
 
 ## Installation and Configuration
 
-To configure the mod edit [stelnet.json.dist](assets/stelnet.json.dist) and save it as `stelnet.json`.
+To configure the mod edit [stelnet.hjson.dist](assets/stelnet.hjson.dist) and save it as `stelnet.hjson`.
 
 This mod can be added to an existing playthrough - just enable it in the mod list and load the save.
 
