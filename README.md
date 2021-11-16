@@ -33,7 +33,7 @@ It allows to display a unified view to quickly verify what is available, and per
 
 ## Installation and Configuration
 
-To configure the mod edit [stelnet.hjson.dist](assets/stelnet.hjson.dist) and save it as `stelnet.hjson`.
+To configure the mod edit [stelnet.dist.hjson](assets/stelnet.dist.hjson) and save it as `stelnet.hjson`.
 
 This mod can be added to an existing playthrough - just enable it in the mod list and load the save.
 
