@@ -9,6 +9,8 @@ import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
+import com.fs.starfarer.api.util.Misc;
+import java.awt.Color;
 import java.io.IOException;
 import java.util.List;
 import lombok.extern.log4j.Log4j;
@@ -47,6 +49,15 @@ public class SettingsUtils {
 
     public static List<WeaponSpecAPI> getAllWeaponSpecs() {
         return getSettings().getAllWeaponSpecs();
+    }
+
+    public static Color getColor(String colorId) {
+        return getSettings().getColor(colorId);
+    }
+
+    public static Color getButtonHighlightColor() {
+        // not ideal approximation
+        return Misc.scaleColor(getColor("buttonBg"), 0.7f);
     }
 
     public static int getEconomyIterPerMonth() {

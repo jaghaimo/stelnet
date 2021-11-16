@@ -14,30 +14,30 @@ public class QueryDescription extends RenderableComponent {
     private final float width;
     private final List<String[]> description = new LinkedList<>();
 
-    private final float ROW_HEIGHT = 18;
-    private final float LABEL_WIDTH;
-    private final float PADDING = 5;
+    private final float rowHeight = 18;
+    private final float labelWidth;
+    private final float padding = 5;
 
     public QueryDescription(float width, Query query) {
         this.width = width;
         this.query = query;
-        LABEL_WIDTH = Math.max(120, width - 650);
+        labelWidth = Math.max(120, width - 650);
         buildFilterDescription();
-        setSize(new Size(width, PADDING + description.size() * ROW_HEIGHT));
+        setSize(new Size(width, padding + description.size() * rowHeight));
     }
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
         float gridWidth = width;
         tooltip.addSpacer(6);
-        tooltip.beginGridFlipped(gridWidth, 1, Misc.getTextColor(), LABEL_WIDTH, PADDING);
+        tooltip.beginGridFlipped(gridWidth, 1, Misc.getTextColor(), labelWidth, padding);
         addQueryDescription(tooltip, query.toString());
         tooltip.addGrid(0);
     }
 
     private void addQueryDescription(TooltipMakerAPI tooltip, String queryToString) {
         float gridWidth = width;
-        float labelWidth = PADDING + LABEL_WIDTH + PADDING;
+        float labelWidthWithPadding = padding + labelWidth + padding;
         int row = 0;
         for (String[] filter : description) {
             if (filter.length != 2) {
@@ -46,7 +46,7 @@ public class QueryDescription extends RenderableComponent {
             tooltip.addToGrid(
                 0,
                 row++,
-                tooltip.shortenString(filter[1], gridWidth - labelWidth),
+                tooltip.shortenString(filter[1], gridWidth - labelWidthWithPadding),
                 filter[0],
                 Misc.getGrayColor()
             );

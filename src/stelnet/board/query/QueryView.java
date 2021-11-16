@@ -7,10 +7,13 @@ import org.lwjgl.input.Keyboard;
 import stelnet.board.query.QueryState.QueryBoardTab;
 import stelnet.board.query.view.add.AddQueryFactory;
 import stelnet.board.query.view.list.QueryListFactory;
+import uilib.Line;
 import uilib.Renderable;
+import uilib.RenderableComponent;
 import uilib.RenderableFactory;
 import uilib.TabViewContainer;
 import uilib.VerticalViewContainer;
+import uilib.property.Position;
 import uilib.property.Size;
 
 @RequiredArgsConstructor
@@ -28,8 +31,9 @@ public class QueryView implements RenderableFactory {
 
     @Override
     public List<Renderable> create(Size size) {
+        float previewOffset = 39;
         float previewWidth = Math.max(250, size.getWidth() - 950);
-        float previewHeight = size.getHeight();
+        float previewHeight = size.getHeight() - previewOffset - 5;
         float width = size.getWidth() - previewWidth - 10;
         float height = size.getHeight() - 36;
         Size tabContentSize = new Size(width, height);
@@ -47,11 +51,22 @@ public class QueryView implements RenderableFactory {
             isActive(QueryBoardTab.NEW)
         );
 
-        return Arrays.<Renderable>asList(tabViewContainer, getPreview(previewWidth, previewHeight));
+        Line fakeTabLine = new Line(size.getWidth());
+        fakeTabLine.setOffset(new Position(0, 18));
+
+        RenderableComponent preview = getPreview(previewWidth, previewHeight);
+        Position offset = new Position(0, previewOffset);
+        preview.setOffset(offset);
+
+        return Arrays.<Renderable>asList(tabViewContainer, fakeTabLine, preview);
     }
 
-    private Renderable getPreview(float width, float height) {
-        return addQueryFactory.getPreview(new Size(width, height));
+    private RenderableComponent getPreview(float width, float height) {
+        Size size = new Size(width, height);
+        if (isActive(QueryBoardTab.NEW)) {
+            return addQueryFactory.getPreview(size);
+        }
+        return queryListFactory.getPreview(size);
     }
 
     private QueryTabButton getTabButton(QueryBoardTab currentTab, int keyboardShortcut) {

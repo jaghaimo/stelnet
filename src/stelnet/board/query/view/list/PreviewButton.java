@@ -10,7 +10,7 @@ import uilib.property.Size;
 public class PreviewButton extends ToggleButton {
 
     public PreviewButton(Size size, final Query query) {
-        super(size, "Preview", "Preview", true, query.isSelected());
+        super(size, "Previewing", "Show", true, query.isSelected());
         setCutStyle(CutStyle.TOP);
         setHandler(
             new EventHandler() {

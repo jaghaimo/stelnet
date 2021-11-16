@@ -59,7 +59,7 @@ public abstract class RenderableComponent implements Renderable {
     protected float getTextWidth(String text) {
         Font font = new Font("Insignia", Font.PLAIN, 12);
         FontRenderContext frc = new FontRenderContext(font.getTransform(), true, true);
-        double longTextAdjustment = 40 + text.length() * 0.5;
+        double longTextAdjustment = 20 + text.length() * 0.5;
         return (float) (font.getStringBounds(text, frc).getWidth() + longTextAdjustment);
     }
 

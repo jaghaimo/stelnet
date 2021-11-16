@@ -20,9 +20,9 @@ public class QueryState implements RenderableState, Serializable {
     }
 
     private QueryBoardTab activeTab = QueryBoardTab.LIST;
-    private final AddQueryFactory addQueryFactory = new AddQueryFactory();
-    private final QueryListFactory queryListFactory = new QueryListFactory(this);
     private final QueryManager queryManger = new QueryManager();
+    private final AddQueryFactory addQueryFactory = new AddQueryFactory();
+    private final QueryListFactory queryListFactory = new QueryListFactory(queryManger);
 
     @Override
     public List<Renderable> toRenderables(Size size) {

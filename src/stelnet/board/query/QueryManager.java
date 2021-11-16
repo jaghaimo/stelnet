@@ -23,11 +23,15 @@ public class QueryManager {
     }
 
     public void deleteAll() {
+        activeQuery = null;
         queries.clear();
         updateIntel();
     }
 
     public void deleteQuery(Query query) {
+        if (activeQuery == query) {
+            activeQuery = null;
+        }
         if (queries.contains(query)) {
             queries.remove(query);
             updateIntel();

@@ -5,6 +5,7 @@ import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 import lombok.Getter;
 import lombok.Setter;
+import stelnet.util.SettingsUtils;
 import uilib.property.Size;
 
 @Getter
@@ -22,18 +23,17 @@ public class ToggleButton extends Button implements TwoStateButton {
         boolean isStateOn
     ) {
         super(size, toggledOnTitle, isEnabled);
+        if (size.getWidth() == 0) {
+            float maxWidth = Math.max(getTextWidth(toggledOnTitle), getTextWidth(toggledOffTitle));
+            size = new Size(maxWidth, size.getHeight());
+        }
         this.titleOff = toggledOffTitle;
         this.isStateOn = isStateOn;
     }
 
     @Override
-    public Color getTextColor() {
-        return isStateOn ? super.getTextColor() : Misc.getGrayColor();
-    }
-
-    @Override
     public Color getBackgroundColor() {
-        return isStateOn ? super.getBackgroundColor() : Misc.getGrayColor();
+        return isStateOn ? SettingsUtils.getButtonHighlightColor() : Misc.getDarkPlayerColor();
     }
 
     @Override
