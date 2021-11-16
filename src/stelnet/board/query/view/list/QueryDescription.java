@@ -31,11 +31,11 @@ public class QueryDescription extends RenderableComponent {
         float gridWidth = width;
         tooltip.addSpacer(6);
         tooltip.beginGridFlipped(gridWidth, 1, Misc.getTextColor(), labelWidth, padding);
-        addQueryDescription(tooltip, query.toString());
+        addQueryDescription(tooltip);
         tooltip.addGrid(0);
     }
 
-    private void addQueryDescription(TooltipMakerAPI tooltip, String queryToString) {
+    private void addQueryDescription(TooltipMakerAPI tooltip) {
         float gridWidth = width;
         float labelWidthWithPadding = padding + labelWidth + padding;
         int row = 0;

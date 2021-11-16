@@ -21,10 +21,10 @@ import uilib.property.Size;
 
 public abstract class QueryFactory {
 
-    public abstract RenderableComponent getPreview(Size size);
-
     @Setter
     protected SizeHelper sizeHelper = new SizeHelper();
+
+    public abstract RenderableComponent getPreview(Size size);
 
     protected void addLabeledGroup(List<Renderable> elements, Enum<?> label, List<Renderable> groupElements) {
         String labelText = "";
