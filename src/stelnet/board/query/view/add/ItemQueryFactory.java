@@ -41,14 +41,7 @@ public class ItemQueryFactory extends QueryFactory {
     private final ItemButton[] wingRoles = createWingRole();
 
     @Override
-    public RenderableComponent getPreview(Size size) {
-        Set<Filter> filters = getFilters();
-        CargoAPI cargo = CargoUtils.makeCargoFromStacks(itemProvider.getMatching(filters));
-        return new ShowCargo(cargo, L10n.get(QueryL10n.MATCHING_ITEMS), L10n.get(QueryL10n.NO_MATCHING_ITEMS), size);
-    }
-
-    @Override
-    protected Set<Filter> getFilters() {
+    public Set<Filter> getFilters() {
         Set<Filter> filters = new LinkedHashSet<>();
         addToFilters(filters, itemTypes, L10n.get(QueryL10n.ITEM_TYPES), true);
         addToFilters(filters, manufacturers, L10n.get(QueryL10n.MANUFACTURERS), false);
@@ -58,6 +51,23 @@ public class ItemQueryFactory extends QueryFactory {
         addToFilters(filters, wingRoles, L10n.get(QueryL10n.WING_ROLES), false);
         filters.add(new CargoStackNotKnownModspec());
         return filters;
+    }
+
+    @Override
+    public RenderableComponent getPreview(Size size) {
+        Set<Filter> filters = getFilters();
+        CargoAPI cargo = CargoUtils.makeCargoFromStacks(itemProvider.getMatching(filters));
+        return new ShowCargo(cargo, L10n.get(QueryL10n.MATCHING_ITEMS), L10n.get(QueryL10n.NO_MATCHING_ITEMS), size);
+    }
+
+    @Override
+    public QueryProvider getProvider() {
+        return itemProvider;
+    }
+
+    @Override
+    protected List<Renderable> getFinalComponents() {
+        return Arrays.<Renderable>asList(new FindMatchingButton(this), new SelectAndFindButton(this));
     }
 
     @Override
@@ -73,11 +83,6 @@ public class ItemQueryFactory extends QueryFactory {
         addSection(elements, QueryL10n.MANUFACTURERS);
         addUnlabelledGroup(elements, Arrays.<Renderable>asList(manufacturers));
         return elements;
-    }
-
-    @Override
-    protected QueryProvider getProvider() {
-        return itemProvider;
     }
 
     private ItemButton[] createItemTypes() {

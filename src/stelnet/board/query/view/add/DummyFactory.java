@@ -16,6 +16,12 @@ import uilib.property.Size;
 public class DummyFactory extends QueryFactory {
 
     @Override
+    public Set<Filter> getFilters() {
+        logUsage();
+        return Collections.emptySet();
+    }
+
+    @Override
     public RenderableComponent getPreview(Size size) {
         logUsage();
         return new RenderableComponent() {
@@ -25,21 +31,21 @@ public class DummyFactory extends QueryFactory {
     }
 
     @Override
-    protected Set<Filter> getFilters() {
+    public QueryProvider getProvider() {
         logUsage();
-        return Collections.emptySet();
+        return new DummyProvider(this);
+    }
+
+    @Override
+    protected List<Renderable> getFinalComponents() {
+        logUsage();
+        return Collections.emptyList();
     }
 
     @Override
     protected List<Renderable> getQueryBuildingComponents() {
         logUsage();
         return Collections.emptyList();
-    }
-
-    @Override
-    protected QueryProvider getProvider() {
-        logUsage();
-        return new DummyProvider(this);
     }
 
     private void logUsage() {

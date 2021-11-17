@@ -1,9 +1,14 @@
 package stelnet.board.query.view.add;
 
-import com.fs.starfarer.api.ui.IntelUIAPI;
 import java.util.Set;
+
+import com.fs.starfarer.api.ui.IntelUIAPI;
+
+import org.lwjgl.input.Keyboard;
+
 import stelnet.board.query.Query;
 import stelnet.board.query.QueryBoard;
+import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
 import stelnet.board.query.QueryState;
 import stelnet.board.query.QueryState.QueryBoardTab;
@@ -14,11 +19,12 @@ import uilib.C2Button;
 import uilib.EventHandler;
 import uilib.property.Size;
 
-public class SearchButton extends C2Button {
+public class FindMatchingButton extends C2Button {
 
-    public SearchButton(final AddQueryFactory factory, Enum<?> translationId, boolean isEnabled) {
-        super(new Size(0, 30), L10n.get(translationId), isEnabled);
-        overrideSize(20);
+    public FindMatchingButton(final QueryFactory factory) {
+        super(new Size(0, 30), L10n.get(QueryL10n.FIND_MATCHING), true);
+        overrideSize(30);
+        setShortcut(Keyboard.KEY_M);
         setHandler(
             new EventHandler() {
                 @Override

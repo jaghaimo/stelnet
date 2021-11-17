@@ -21,7 +21,6 @@ import uilib.property.Size;
 public class AddQueryFactory extends QueryFactory implements RenderableFactory {
 
     private final QueryTypeButton[] queryType = createQueryTypeButtons();
-    private final SearchButton[] searchButton = createSearchButtons();
 
     public void setQueryType(QueryTypeButton active) {
         for (QueryTypeButton button : queryType) {
@@ -36,6 +35,16 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
     }
 
     @Override
+    public Set<Filter> getFilters() {
+        return findNextFactory().getFilters();
+    }
+
+    @Override
+    public List<Renderable> getFinalComponents() {
+        return findNextFactory().getFinalComponents();
+    }
+
+    @Override
     public RenderableComponent getPreview(Size size) {
         QueryFactory queryFactory = findNextFactory();
         RenderableComponent preview = queryFactory.getPreview(size);
@@ -44,8 +53,8 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
     }
 
     @Override
-    protected Set<Filter> getFilters() {
-        return findNextFactory().getFilters();
+    public QueryProvider getProvider() {
+        return findNextFactory().getProvider();
     }
 
     @Override
@@ -55,13 +64,8 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
         QueryFactory nextFactory = findNextFactory();
         elements.addAll(nextFactory.getQueryBuildingComponents());
         addSpacer(elements, 10);
-        addLabeledGroup(elements, null, Arrays.<Renderable>asList(searchButton));
+        addLabeledGroup(elements, null, getFinalComponents());
         return elements;
-    }
-
-    @Override
-    protected QueryProvider getProvider() {
-        return findNextFactory().getProvider();
     }
 
     private QueryTypeButton[] createQueryTypeButtons() {
@@ -72,13 +76,6 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
         };
         queryType[0].setStateOn(true);
         return queryType;
-    }
-
-    private SearchButton[] createSearchButtons() {
-        return new SearchButton[] {
-            new SearchButton(this, QueryL10n.SEARCH_MATCHING, true),
-            // new SearchButton(this, QueryL10n.SEARCH_SELECTED, false),
-        };
     }
 
     private QueryFactory findNextFactory() {

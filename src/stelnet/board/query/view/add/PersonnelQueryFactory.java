@@ -4,6 +4,7 @@ import com.fs.starfarer.api.characters.SkillSpecAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.campaign.ids.Ranks;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -44,19 +45,29 @@ public class PersonnelQueryFactory extends QueryFactory {
     }
 
     @Override
-    public RenderableComponent getPreview(Size size) {
-        Set<Filter> filters = getFilters();
-        return new ShowPeople(peopleProvider.getMatching(filters), L10n.get(QueryL10n.NO_MATCHING_PEOPLE), size);
-    }
-
-    @Override
-    protected Set<Filter> getFilters() {
+    public Set<Filter> getFilters() {
         Set<Filter> filters = new LinkedHashSet<>();
         addToFilters(filters, postType, L10n.get(QueryL10n.PERSONNEL_POST_TYPES), true);
         addToFilters(filters, level, L10n.get(QueryL10n.PERSONNEL_MIN_LEVEL), false);
         addToFilters(filters, personality, L10n.get(QueryL10n.PERSONNEL_PERSONALITY), false);
         addToFilters(filters, skill, L10n.get(QueryL10n.PERSONNEL_SKILLS), false);
         return filters;
+    }
+
+    @Override
+    public RenderableComponent getPreview(Size size) {
+        Set<Filter> filters = getFilters();
+        return new ShowPeople(peopleProvider.getMatching(filters), L10n.get(QueryL10n.NO_MATCHING_PEOPLE), size);
+    }
+
+    @Override
+    public QueryProvider getProvider() {
+        return peopleProvider;
+    }
+
+    @Override
+    protected List<Renderable> getFinalComponents() {
+        return Collections.<Renderable>singletonList(new FindMatchingButton(this));
     }
 
     @Override
@@ -68,11 +79,6 @@ public class PersonnelQueryFactory extends QueryFactory {
         addLabeledGroup(elements, QueryL10n.PERSONNEL_PERSONALITY, Arrays.<Renderable>asList(personality));
         addLabeledGroup(elements, QueryL10n.PERSONNEL_SKILLS, Arrays.<Renderable>asList(skill));
         return elements;
-    }
-
-    @Override
-    protected QueryProvider getProvider() {
-        return peopleProvider;
     }
 
     private OfficerLevelButton[] createLevelButtons() {

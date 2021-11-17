@@ -31,6 +31,16 @@ public class ShipQueryFactory extends QueryFactory {
     private final ShipButton[] manufacturers = createManufacturers();
 
     @Override
+    public Set<Filter> getFilters() {
+        Set<Filter> filters = new LinkedHashSet<>();
+        addToFilters(filters, classSizes, L10n.get(QueryL10n.CLASS_SIZE), true);
+        addToFilters(filters, mountSizes, L10n.get(QueryL10n.MOUNT_TYPE), false);
+        addToFilters(filters, mountTypes, L10n.get(QueryL10n.MOUNT_SIZE), false);
+        addToFilters(filters, manufacturers, L10n.get(QueryL10n.MANUFACTURERS), false);
+        return filters;
+    }
+
+    @Override
     public RenderableComponent getPreview(Size size) {
         Set<Filter> filters = getFilters();
         return new ShowShips(
@@ -42,13 +52,13 @@ public class ShipQueryFactory extends QueryFactory {
     }
 
     @Override
-    protected Set<Filter> getFilters() {
-        Set<Filter> filters = new LinkedHashSet<>();
-        addToFilters(filters, classSizes, L10n.get(QueryL10n.CLASS_SIZE), true);
-        addToFilters(filters, mountSizes, L10n.get(QueryL10n.MOUNT_TYPE), false);
-        addToFilters(filters, mountTypes, L10n.get(QueryL10n.MOUNT_SIZE), false);
-        addToFilters(filters, manufacturers, L10n.get(QueryL10n.MANUFACTURERS), false);
-        return filters;
+    public QueryProvider getProvider() {
+        return shipProvider;
+    }
+
+    @Override
+    protected List<Renderable> getFinalComponents() {
+        return Arrays.<Renderable>asList(new FindMatchingButton(this), new SelectAndFindButton(this));
     }
 
     @Override
@@ -61,11 +71,6 @@ public class ShipQueryFactory extends QueryFactory {
         addSection(elements, QueryL10n.MANUFACTURERS);
         addUnlabelledGroup(elements, Arrays.<Renderable>asList(manufacturers));
         return elements;
-    }
-
-    @Override
-    protected QueryProvider getProvider() {
-        return shipProvider;
     }
 
     private ShipButton[] createClassSizes() {

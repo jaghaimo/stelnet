@@ -24,8 +24,6 @@ public abstract class QueryFactory {
     @Setter
     protected SizeHelper sizeHelper = new SizeHelper();
 
-    public abstract RenderableComponent getPreview(Size size);
-
     protected void addLabeledGroup(List<Renderable> elements, Enum<?> label, List<Renderable> groupElements) {
         String labelText = "";
         if (label != null) {
@@ -80,9 +78,13 @@ public abstract class QueryFactory {
         }
     }
 
-    protected abstract Set<Filter> getFilters();
+    public abstract Set<Filter> getFilters();
+
+    public abstract RenderableComponent getPreview(Size size);
+
+    public abstract QueryProvider getProvider();
 
     protected abstract List<Renderable> getQueryBuildingComponents();
 
-    protected abstract QueryProvider getProvider();
+    protected abstract List<Renderable> getFinalComponents();
 }

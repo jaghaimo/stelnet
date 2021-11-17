@@ -45,6 +45,6 @@ public class QueryListFactory implements RenderableFactory {
         if (activeQuery != null) {
             return activeQuery.getPreview(size);
         }
-        return new Paragraph(L10n.get(QueryL10n.NO_QUERY_SELECTED), size.getWidth());
+        return new Spacer(0);
     }
 }
