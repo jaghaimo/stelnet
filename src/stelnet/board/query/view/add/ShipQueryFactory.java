@@ -35,8 +35,8 @@ public class ShipQueryFactory extends QueryFactory {
         Set<Filter> filters = getFilters();
         return new ShowShips(
             shipProvider.getMatching(filters),
-            L10n.get(QueryL10n.MATCHING_ITEMS),
-            L10n.get(QueryL10n.NO_MATCHING_ITEMS),
+            L10n.get(QueryL10n.MATCHING_SHIPS),
+            L10n.get(QueryL10n.NO_MATCHING_SHIPS),
             size
         );
     }

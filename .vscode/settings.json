@@ -3,5 +3,6 @@
     "editor.formatOnSave": true,
     "editor.formatOnPaste": false,
     "java.configuration.updateBuildConfiguration": "automatic",
+    "java.import.gradle.home": "./",
     "prettier.prettierPath": "node_modules/prettier"
 }

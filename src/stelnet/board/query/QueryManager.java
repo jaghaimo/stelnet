@@ -1,6 +1,7 @@
 package stelnet.board.query;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class QueryManager {
 
     public void addQuery(Query query) {
         queries.add(query);
+        setActiveQuery(null, query);
         updateIntel(query);
     }
 
@@ -29,12 +31,14 @@ public class QueryManager {
     }
 
     public void deleteQuery(Query query) {
-        if (activeQuery == query) {
-            activeQuery = null;
-        }
+        setActiveQuery(query, null);
         if (queries.contains(query)) {
             queries.remove(query);
             updateIntel();
+        }
+        Iterator<Query> iterator = queries.iterator();
+        if (iterator.hasNext()) {
+            setActiveQuery(null, iterator.next());
         }
     }
 
@@ -60,8 +64,7 @@ public class QueryManager {
         for (Query query : queries) {
             query.setSelected(false);
         }
-        newActiveQuery.setSelected(true);
-        activeQuery = newActiveQuery;
+        setActiveQuery(activeQuery, newActiveQuery);
     }
 
     public void toggleAll() {
@@ -79,6 +82,16 @@ public class QueryManager {
             if (query.isEnabled()) {
                 updateIntel(query);
             }
+        }
+    }
+
+    private void setActiveQuery(Query checkForThisQuery, Query setToThisQuery) {
+        if (activeQuery != checkForThisQuery) {
+            return;
+        }
+        activeQuery = setToThisQuery;
+        if (setToThisQuery != null) {
+            setToThisQuery.setSelected(true);
         }
     }
 
