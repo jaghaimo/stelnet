@@ -22,7 +22,7 @@ public class DummyFactory extends QueryFactory {
     }
 
     @Override
-    public RenderableComponent getPreview(Size size) {
+    public RenderableComponent getPreview(Set<Filter> filters, Size size) {
         logUsage();
         return new RenderableComponent() {
             @Override

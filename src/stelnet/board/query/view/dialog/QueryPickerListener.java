@@ -6,11 +6,11 @@ import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.FleetMemberPickerListener;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
+import stelnet.CommonL10n;
 import stelnet.board.query.Query;
 import stelnet.board.query.QueryBoard;
 import stelnet.board.query.QueryManager;
@@ -20,7 +20,9 @@ import stelnet.board.query.provider.QueryProvider;
 import stelnet.board.query.view.add.QueryFactory;
 import stelnet.filter.CargoStackIsStack;
 import stelnet.filter.Filter;
+import stelnet.filter.LogicalOr;
 import stelnet.filter.ShipHullIsHull;
+import stelnet.util.L10n;
 
 @RequiredArgsConstructor
 public class QueryPickerListener implements CargoPickerListener, FleetMemberPickerListener {
@@ -30,31 +32,31 @@ public class QueryPickerListener implements CargoPickerListener, FleetMemberPick
 
     @Override
     public void pickedCargo(CargoAPI cargo) {
-        Set<Filter> newFilters = new LinkedHashSet<>();
+        Set<Filter> selectedFilters = new LinkedHashSet<>();
         cargo.sort();
         for (CargoStackAPI cargoStack : cargo.getStacksCopy()) {
-            newFilters.add(new CargoStackIsStack(cargoStack));
+            selectedFilters.add(new CargoStackIsStack(cargoStack));
         }
-        addQuery(newFilters);
+        addQuery(new LogicalOr(selectedFilters, L10n.get(CommonL10n.ITEMS)));
     }
 
     @Override
     public void pickedFleetMembers(List<FleetMemberAPI> members) {
-        Set<Filter> newFilters = new LinkedHashSet<>();
+        Set<Filter> selectedFilters = new LinkedHashSet<>();
         for (FleetMemberAPI member : members) {
-            newFilters.add(new ShipHullIsHull(member.getHullSpec()));
+            selectedFilters.add(new ShipHullIsHull(member.getHullSpec()));
         }
-        addQuery(newFilters);
+        addQuery(new LogicalOr(selectedFilters, L10n.get(CommonL10n.SHIPS)));
     }
 
     @Override
     public void cancelledCargoSelection() {
-        addQuery(Collections.<Filter>emptySet());
+        dialog.dismiss(null);
     }
 
     @Override
     public void cancelledFleetMemberPicking() {
-        addQuery(Collections.<Filter>emptySet());
+        dialog.dismiss(null);
     }
 
     @Override
@@ -66,15 +68,16 @@ public class QueryPickerListener implements CargoPickerListener, FleetMemberPick
         CargoAPI combined
     ) {}
 
-    private void addQuery(Set<Filter> newFilters) {
-        QueryState state = QueryBoard.getInstance(QueryBoard.class).getState();
+    private void addQuery(Filter selectedFilter) {
+        QueryBoard board = QueryBoard.getInstance(QueryBoard.class);
+        QueryState state = board.getState();
         QueryManager manager = state.getQueryManager();
         QueryProvider provider = factory.getProvider();
         Set<Filter> filters = factory.getFilters();
-        filters.addAll(newFilters);
+        filters.add(selectedFilter);
+        state.setActiveTab(QueryBoardTab.LIST);
         Query query = new Query(manager, provider, filters);
         manager.addQuery(query);
-        state.setActiveTab(QueryBoardTab.LIST);
-        dialog.dismiss();
+        dialog.dismiss(board);
     }
 }

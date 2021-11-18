@@ -4,6 +4,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class ShipProvider extends QueryProvider {
         List<ShipHullSpecAPI> allShipHullSpecs = getShipHulls();
         Set<String> allHullIds = getHullIds(allShipHullSpecs);
         List<FleetMemberAPI> fleetMembers = convertToFleetMembers(allHullIds, filters);
+        Collections.sort(fleetMembers, new ShipSorter());
         return fleetMembers;
     }
 

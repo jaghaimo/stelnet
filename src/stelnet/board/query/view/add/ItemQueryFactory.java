@@ -54,10 +54,13 @@ public class ItemQueryFactory extends QueryFactory {
     }
 
     @Override
-    public RenderableComponent getPreview(Size size) {
-        Set<Filter> filters = getFilters();
-        CargoAPI cargo = CargoUtils.makeCargoFromStacks(itemProvider.getMatching(filters));
-        return new ShowCargo(cargo, L10n.get(QueryL10n.MATCHING_ITEMS), L10n.get(QueryL10n.NO_MATCHING_ITEMS), size);
+    public RenderableComponent getPreview(Set<Filter> filters, Size size) {
+        return new ShowCargo(
+            getCargo(filters),
+            L10n.get(QueryL10n.MATCHING_ITEMS),
+            L10n.get(QueryL10n.NO_MATCHING_ITEMS),
+            size
+        );
     }
 
     @Override
@@ -67,7 +70,11 @@ public class ItemQueryFactory extends QueryFactory {
 
     @Override
     protected List<Renderable> getFinalComponents() {
-        return Arrays.<Renderable>asList(new FindMatchingButton(this), new SelectAndFindButton(this));
+        Set<Filter> filters = getFilters();
+        return Arrays.<Renderable>asList(
+            new FindMatchingButton(this),
+            new SelectAndFindButton(this, getCargo(filters))
+        );
     }
 
     @Override
@@ -138,5 +145,9 @@ public class ItemQueryFactory extends QueryFactory {
             manufacturers.add(new ItemButton(manufacturer, new CargoStackIsManufacturer(manufacturer)));
         }
         return manufacturers.toArray(new ItemButton[] {});
+    }
+
+    private CargoAPI getCargo(Set<Filter> filters) {
+        return CargoUtils.makeCargoFromStacks(itemProvider.getMatching(filters));
     }
 }

@@ -80,7 +80,7 @@ public abstract class QueryFactory {
 
     public abstract Set<Filter> getFilters();
 
-    public abstract RenderableComponent getPreview(Size size);
+    public abstract RenderableComponent getPreview(Set<Filter> filters, Size size);
 
     public abstract QueryProvider getProvider();
 

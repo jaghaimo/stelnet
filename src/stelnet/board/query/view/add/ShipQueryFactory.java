@@ -3,6 +3,7 @@ package stelnet.board.query.view.add;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
+import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -41,10 +42,9 @@ public class ShipQueryFactory extends QueryFactory {
     }
 
     @Override
-    public RenderableComponent getPreview(Size size) {
-        Set<Filter> filters = getFilters();
+    public RenderableComponent getPreview(Set<Filter> filters, Size size) {
         return new ShowShips(
-            shipProvider.getMatching(filters),
+            getShips(filters),
             L10n.get(QueryL10n.MATCHING_SHIPS),
             L10n.get(QueryL10n.NO_MATCHING_SHIPS),
             size
@@ -58,7 +58,11 @@ public class ShipQueryFactory extends QueryFactory {
 
     @Override
     protected List<Renderable> getFinalComponents() {
-        return Arrays.<Renderable>asList(new FindMatchingButton(this), new SelectAndFindButton(this));
+        Set<Filter> filters = getFilters();
+        return Arrays.<Renderable>asList(
+            new FindMatchingButton(this),
+            new SelectAndFindButton(this, getShips(filters))
+        );
     }
 
     @Override
@@ -109,5 +113,9 @@ public class ShipQueryFactory extends QueryFactory {
             new ShipButton(WeaponType.UNIVERSAL.getDisplayName(), new WeaponSlotIsType(WeaponType.UNIVERSAL)),
             new ShipButton(WeaponType.BUILT_IN.getDisplayName(), new WeaponSlotIsType(WeaponType.BUILT_IN)),
         };
+    }
+
+    private List<FleetMemberAPI> getShips(Set<Filter> filters) {
+        return shipProvider.getMatching(filters);
     }
 }

@@ -2,10 +2,12 @@ package stelnet.board.query;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import org.lwjgl.input.Keyboard;
 import stelnet.board.query.QueryState.QueryBoardTab;
 import stelnet.board.query.view.add.AddQueryFactory;
 import stelnet.board.query.view.list.QueryListFactory;
+import stelnet.filter.Filter;
 import uilib.Line;
 import uilib.Renderable;
 import uilib.RenderableComponent;
@@ -62,7 +64,8 @@ public class QueryView implements RenderableFactory {
     private RenderableComponent getPreview(float width, float height) {
         Size size = new Size(width, height);
         if (isActive(QueryBoardTab.NEW)) {
-            return addQueryFactory.getPreview(size);
+            Set<Filter> filters = addQueryFactory.getFilters();
+            return addQueryFactory.getPreview(filters, size);
         }
         return queryListFactory.getPreview(size);
     }

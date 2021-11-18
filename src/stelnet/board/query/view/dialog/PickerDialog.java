@@ -2,18 +2,21 @@ package stelnet.board.query.view.dialog;
 
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.InteractionDialogPlugin;
+import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
 import com.fs.starfarer.api.combat.EngagementResultAPI;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import stelnet.board.query.view.add.QueryFactory;
 
 @RequiredArgsConstructor
+@Setter
 public abstract class PickerDialog implements InteractionDialogPlugin {
 
     protected final QueryFactory factory;
-    protected final IntelUIAPI ui;
+    protected IntelUIAPI ui;
     protected InteractionDialogAPI dialog;
 
     @Override
@@ -44,9 +47,9 @@ public abstract class PickerDialog implements InteractionDialogPlugin {
         return null;
     }
 
-    protected void dismiss() {
+    protected void dismiss(IntelInfoPlugin plugin) {
         dialog.dismiss();
-        ui.recreateIntelUI();
+        ui.updateUIForItem(plugin);
     }
 
     protected abstract void show();

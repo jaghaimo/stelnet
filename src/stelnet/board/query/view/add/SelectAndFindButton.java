@@ -1,8 +1,14 @@
 package stelnet.board.query.view.add;
 
+import com.fs.starfarer.api.campaign.CargoAPI;
+import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.ui.IntelUIAPI;
+import java.util.List;
 import org.lwjgl.input.Keyboard;
 import stelnet.board.query.QueryL10n;
+import stelnet.board.query.view.dialog.ItemPickerDialog;
+import stelnet.board.query.view.dialog.PickerDialog;
+import stelnet.board.query.view.dialog.ShipPickerDialog;
 import stelnet.util.L10n;
 import uilib.C2Button;
 import uilib.EventHandler;
@@ -10,7 +16,7 @@ import uilib.property.Size;
 
 public class SelectAndFindButton extends C2Button {
 
-    public SelectAndFindButton(final QueryFactory factory) {
+    private SelectAndFindButton(final QueryFactory factory, final PickerDialog plugin) {
         super(new Size(0, 30), L10n.get(QueryL10n.FIND_SELECTED), true);
         overrideSize(30);
         setShortcut(Keyboard.KEY_S);
@@ -18,15 +24,18 @@ public class SelectAndFindButton extends C2Button {
             new EventHandler() {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
-                    // QueryState state = QueryBoard.getInstance(QueryBoard.class).getState();
-                    // QueryManager manager = state.getQueryManager();
-                    // QueryProvider provider = factory.getProvider();
-                    // Set<Filter> filters = factory.getFilters();
-                    // Query query = new Query(manager, provider, filters);
-                    // manager.addQuery(query);
-                    // state.setActiveTab(QueryBoardTab.LIST);
+                    plugin.setUi(ui);
+                    ui.showDialog(null, plugin);
                 }
             }
         );
+    }
+
+    public SelectAndFindButton(final QueryFactory factory, final CargoAPI cargo) {
+        this(factory, new ItemPickerDialog(cargo, factory));
+    }
+
+    public SelectAndFindButton(final QueryFactory factory, final List<FleetMemberAPI> members) {
+        this(factory, new ShipPickerDialog(members, factory));
     }
 }

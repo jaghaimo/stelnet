@@ -13,4 +13,9 @@ public class CargoStackIsStack extends CargoStackFilter {
         // naive comparison but simplest implementation
         return stack.getDisplayName().equals(cargoStack.getDisplayName());
     }
+
+    @Override
+    public String toString() {
+        return stack.getDisplayName();
+    }
 }

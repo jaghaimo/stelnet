@@ -35,8 +35,8 @@ public abstract class QueryProvider {
         return resultSets;
     }
 
-    public RenderableComponent getPreview(Size size) {
-        return factory.getPreview(size);
+    public RenderableComponent getPreview(Set<Filter> filters, Size size) {
+        return factory.getPreview(filters, size);
     }
 
     protected abstract void processMarkets(List<ResultSet> resultSets, List<MarketAPI> markets, Set<Filter> filters);

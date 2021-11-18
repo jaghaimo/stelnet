@@ -12,4 +12,9 @@ public class ShipHullIsHull extends ShipHullFilter {
     protected boolean acceptShipHull(ShipHullSpecAPI shipHull) {
         return shipHull.getHullId().equals(hull.getHullId());
     }
+
+    @Override
+    public String toString() {
+        return hull.getNameWithDesignationWithDashClass();
+    }
 }

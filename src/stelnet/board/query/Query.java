@@ -34,7 +34,7 @@ public class Query {
     }
 
     public RenderableComponent getPreview(Size size) {
-        return provider.getPreview(size);
+        return provider.getPreview(filters, size);
     }
 
     public void enable() {

@@ -1,24 +1,26 @@
 package stelnet.board.query.view.dialog;
 
 import com.fs.starfarer.api.campaign.CargoAPI;
-import com.fs.starfarer.api.ui.IntelUIAPI;
+import stelnet.CommonL10n;
+import stelnet.board.query.QueryL10n;
 import stelnet.board.query.view.add.QueryFactory;
+import stelnet.util.L10n;
 
 public class ItemPickerDialog extends PickerDialog {
 
     private final CargoAPI cargo;
 
-    public ItemPickerDialog(CargoAPI cargo, QueryFactory factory, IntelUIAPI ui) {
-        super(factory, ui);
+    public ItemPickerDialog(CargoAPI cargo, QueryFactory factory) {
+        super(factory);
         this.cargo = cargo;
     }
 
     @Override
     protected void show() {
         dialog.showCargoPickerDialog(
-            "Select items to search for...",
-            "Find selected",
-            "Find all",
+            L10n.get(QueryL10n.SELECT_ITEMS_TO_SEARCH_FOR),
+            L10n.get(CommonL10n.SEARCH),
+            L10n.get(CommonL10n.CANCEL),
             false,
             0f,
             cargo,
