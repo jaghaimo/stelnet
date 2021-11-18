@@ -1,7 +1,6 @@
 package stelnet.board.query;
 
 import com.fs.starfarer.api.campaign.CargoStackAPI;
-import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
@@ -20,7 +19,6 @@ public class Result implements Comparable<Result> {
     private final String name;
     private final String type;
     private final Object object;
-    private final StarSystemAPI system;
     private final MarketAPI market;
     private final SubmarketAPI submarket;
     private final int hashCode;
@@ -29,7 +27,6 @@ public class Result implements Comparable<Result> {
         this.name = person.getNameString();
         this.type = person.getPost();
         this.object = person;
-        this.system = market.getStarSystem();
         this.market = market;
         this.submarket = null;
         this.hashCode = hashCode();
@@ -40,7 +37,6 @@ public class Result implements Comparable<Result> {
         this.name = hullSpec.getNameWithDesignationWithDashClass();
         this.type = L10n.get(hullSpec.getHullSize());
         this.object = fleetMember;
-        this.system = market.getStarSystem();
         this.market = market;
         this.submarket = submarket;
         this.hashCode = hashCode();
@@ -50,7 +46,6 @@ public class Result implements Comparable<Result> {
         this.name = cargoStack.getDisplayName();
         this.type = L10n.get(cargoStack.getType());
         this.object = cargoStack;
-        this.system = market.getStarSystem();
         this.market = market;
         this.submarket = submarket;
         this.hashCode = hashCode();

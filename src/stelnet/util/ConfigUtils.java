@@ -21,9 +21,9 @@ public class ConfigUtils {
     }
 
     public static void activate() {
-        initCommodity(BoardConfig.hasCommodities);
-        initMarket(BoardConfig.hasMarket);
-        initStorage(BoardConfig.hasStorage);
+        initCommodity(BoardConfig.HAS_COMMODITIES);
+        initMarket(BoardConfig.HAS_MARKET);
+        initStorage(BoardConfig.HAS_STORAGE);
         log.info("Stelnet activated");
     }
 

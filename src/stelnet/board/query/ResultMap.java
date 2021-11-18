@@ -1,6 +1,6 @@
 package stelnet.board.query;
 
-import com.fs.starfarer.api.campaign.StarSystemAPI;
+import com.fs.starfarer.api.campaign.SectorEntityToken;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,14 +9,14 @@ import java.util.Map;
  */
 public class ResultMap {
 
-    private final Map<StarSystemAPI, ResultSet> resultMap = new HashMap<>();
+    private final Map<SectorEntityToken, ResultSet> resultMap = new HashMap<>();
 
     public void add(ResultSet resultSet) {
-        resultMap.put(resultSet.getSystem(), resultSet);
+        resultMap.put(resultSet.getToken(), resultSet);
     }
 
     public boolean containsKey(ResultSet resultSet) {
-        return resultMap.containsKey(resultSet.getSystem());
+        return resultMap.containsKey(resultSet.getToken());
     }
 
     public void clear() {
@@ -24,7 +24,7 @@ public class ResultMap {
     }
 
     public ResultSet get(ResultSet resultSet) {
-        return resultMap.get(resultSet.getSystem());
+        return resultMap.get(resultSet.getToken());
     }
 
     public void update(ResultSet resultSet) {

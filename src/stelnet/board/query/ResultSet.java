@@ -15,20 +15,20 @@ import java.util.Set;
 import java.util.TreeSet;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
+import stelnet.BoardInfo;
+import stelnet.config.BoardConfig;
+import stelnet.util.L10n;
 import stelnet.util.SectorUtils;
 
 /**
  * A set of unique results for a given star system.
  */
-@Log4j
 @Getter
 @RequiredArgsConstructor
 public class ResultSet {
 
+    private final MarketAPI market;
     private final StarSystemAPI system;
-    private final String name;
-    private final SectorEntityToken token;
     private final Set<MarketAPI> marketSet = new HashSet<>();
     private final Set<Result> resultSet = new TreeSet<>(
         new Comparator<Result>() {
@@ -40,71 +40,67 @@ public class ResultSet {
     );
 
     public ResultSet(MarketAPI market) {
-        system = market.getStarSystem();
-        name = extractName(market);
-        token = extractToken(market);
+        this(market, market.getStarSystem());
         marketSet.add(market);
     }
 
     public void add(Result result) {
-        if (system != result.getSystem()) {
-            log.warn("Not adding one result to results due to incorrect system\n" + result.toString());
-            return;
-        }
         marketSet.add(result.getMarket());
         resultSet.add(result);
     }
 
     public void add(ResultSet newResultSet) {
-        if (system != newResultSet.getSystem()) {
-            log.warn("Not adding result set to results due to incorrect system\n" + newResultSet.toString());
-            return;
-        }
         marketSet.addAll(newResultSet.getMarketSet());
         resultSet.addAll(newResultSet.getResultSet());
     }
 
     public void addCargoStacks(MarketAPI market, SubmarketAPI submarket, List<CargoStackAPI> cargoStacks) {
         for (CargoStackAPI cargoStack : cargoStacks) {
-            resultSet.add(new Result(market, submarket, cargoStack));
+            add(new Result(market, submarket, cargoStack));
         }
     }
 
     public void addFleetMembers(MarketAPI market, SubmarketAPI submarket, List<FleetMemberAPI> fleetMembers) {
         for (FleetMemberAPI fleetMember : fleetMembers) {
-            resultSet.add(new Result(market, submarket, fleetMember));
+            add(new Result(market, submarket, fleetMember));
         }
     }
 
     public void addPeople(MarketAPI market, List<PersonAPI> people) {
         for (PersonAPI person : people) {
-            resultSet.add(new Result(market, person));
+            add(new Result(market, person));
         }
     }
 
-    public FactionAPI getClaimingFaction() {
-        return SectorUtils.getClaimingFaction(system);
+    public BoardInfo getBoardInfo() {
+        if (wantsMarket()) {
+            return new BoardInfo(market.getName(), L10n.get(QueryL10n.RESULTS_IN_MARKET, getResultNumber()));
+        }
+        return new BoardInfo(
+            system.getName(),
+            L10n.get(QueryL10n.RESULTS_IN_SYSTEM, getResultNumber(), marketSet.size())
+        );
     }
 
-    public int getMarketNumber() {
-        return marketSet.size();
+    public FactionAPI getClaimingFaction() {
+        if (wantsMarket()) {
+            return market.getFaction();
+        }
+        return SectorUtils.getClaimingFaction(system);
     }
 
     public int getResultNumber() {
         return resultSet.size();
     }
 
-    private String extractName(MarketAPI market) {
-        if (system == null) {
-            return market.getName();
-        }
-        return system.getBaseName();
-    }
-
-    private SectorEntityToken extractToken(MarketAPI market) {
-        if (system == null) {
+    public SectorEntityToken getToken() {
+        if (wantsMarket()) {
             return market.getPrimaryEntity();
         }
         return system.getCenter();
+    }
+
+    private boolean wantsMarket() {
+        return system == null || BoardConfig.DO_NOT_GROUP_QUERIES;
     }
 }

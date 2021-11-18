@@ -26,9 +26,8 @@ public abstract class Config {
             Object value = load().get(key);
             log.debug("Returning read value for '" + key + "' - " + value);
             return (T) value;
-        } catch (Exception e) {
-            log.error(e);
-            log.warn("Returning default value for '" + key + "' - " + defaultValue);
+        } catch (Exception exception) {
+            log.warn("Returning default value for '" + key + "' - " + defaultValue, exception);
             return defaultValue;
         }
     }
