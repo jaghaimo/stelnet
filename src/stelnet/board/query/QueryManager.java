@@ -85,6 +85,13 @@ public class QueryManager {
         }
     }
 
+    private void updateIntel(Query query) {
+        List<ResultSet> resultSets = query.execute();
+        for (ResultSet resultSet : resultSets) {
+            updateResult(resultSet);
+        }
+    }
+
     private void setActiveQuery(Query checkForThisQuery, Query setToThisQuery) {
         if (activeQuery != checkForThisQuery) {
             return;
@@ -92,13 +99,6 @@ public class QueryManager {
         activeQuery = setToThisQuery;
         if (setToThisQuery != null) {
             setToThisQuery.setSelected(true);
-        }
-    }
-
-    private void updateIntel(Query query) {
-        List<ResultSet> resultSets = query.execute();
-        for (ResultSet resultSet : resultSets) {
-            updateResult(resultSet);
         }
     }
 
