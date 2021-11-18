@@ -17,7 +17,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import stelnet.util.SectorUtils;
-import stelnet.util.StringUtils;
 
 /**
  * A set of unique results for a given star system.
@@ -28,6 +27,8 @@ import stelnet.util.StringUtils;
 public class ResultSet {
 
     private final StarSystemAPI system;
+    private final String name;
+    private final SectorEntityToken token;
     private final Set<MarketAPI> marketSet = new HashSet<>();
     private final Set<Result> resultSet = new TreeSet<>(
         new Comparator<Result>() {
@@ -40,6 +41,8 @@ public class ResultSet {
 
     public ResultSet(MarketAPI market) {
         system = market.getStarSystem();
+        name = extractName(market);
+        token = extractToken(market);
         marketSet.add(market);
     }
 
@@ -91,13 +94,16 @@ public class ResultSet {
         return resultSet.size();
     }
 
-    public String getSystemName() {
-        return StringUtils.getStarSystem(system, false);
+    private String extractName(MarketAPI market) {
+        if (system == null) {
+            return market.getName();
+        }
+        return system.getBaseName();
     }
 
-    public SectorEntityToken getSystemToken() {
+    private SectorEntityToken extractToken(MarketAPI market) {
         if (system == null) {
-            return null;
+            return market.getPrimaryEntity();
         }
         return system.getCenter();
     }

@@ -21,7 +21,7 @@ public class ResultIntel extends BaseIntel {
     private final String tag = TagConstants.MARKET;
 
     public ResultIntel(QueryManager queryManager, ResultSet resultSet) {
-        super(resultSet.getClaimingFaction(), resultSet.getSystemToken());
+        super(resultSet.getClaimingFaction(), resultSet.getToken());
         this.queryManager = queryManager;
         this.resultSet = resultSet;
     }
@@ -30,7 +30,7 @@ public class ResultIntel extends BaseIntel {
     public void advance(float amount) {
         advancedAmount += amount;
         if (advancedAmount > 1) {
-            setSectorEntityToken(resultSet.getSystemToken());
+            setSectorEntityToken(resultSet.getToken());
             SectorUtils.removeScript(this);
             advancedAmount = 0;
         }
@@ -56,7 +56,7 @@ public class ResultIntel extends BaseIntel {
     @Override
     protected RenderableIntelInfo getIntelInfo() {
         return new BoardInfo(
-            resultSet.getSystemName(),
+            resultSet.getName(),
             L10n.get(QueryL10n.RESULTS_IN_MARKET, resultSet.getResultNumber(), resultSet.getMarketNumber())
         );
     }
