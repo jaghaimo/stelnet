@@ -1,11 +1,8 @@
 package stelnet.board.query.view.add;
 
-import java.util.Set;
-
 import com.fs.starfarer.api.ui.IntelUIAPI;
-
+import java.util.Set;
 import org.lwjgl.input.Keyboard;
-
 import stelnet.board.query.Query;
 import stelnet.board.query.QueryBoard;
 import stelnet.board.query.QueryL10n;
