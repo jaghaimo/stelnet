@@ -16,7 +16,7 @@ import uilib.property.Size;
 
 public class SelectAndFindButton extends C2Button {
 
-    private SelectAndFindButton(final QueryFactory factory, final PickerDialog plugin) {
+    private SelectAndFindButton(final PickerDialog plugin) {
         super(new Size(0, 30), L10n.get(QueryL10n.FIND_SELECTED), true);
         overrideSize(30);
         setShortcut(Keyboard.KEY_S);
@@ -32,10 +32,10 @@ public class SelectAndFindButton extends C2Button {
     }
 
     public SelectAndFindButton(final QueryFactory factory, final CargoAPI cargo) {
-        this(factory, new ItemPickerDialog(cargo, factory));
+        this(new ItemPickerDialog(cargo, factory));
     }
 
     public SelectAndFindButton(final QueryFactory factory, final List<FleetMemberAPI> members) {
-        this(factory, new ShipPickerDialog(members, factory));
+        this(new ShipPickerDialog(members, factory));
     }
 }
