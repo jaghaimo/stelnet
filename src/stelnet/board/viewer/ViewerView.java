@@ -17,9 +17,9 @@ public class ViewerView implements RenderableFactory {
 
     @Override
     public List<Renderable> create(Size size) {
-        List<Renderable> renderables = new LinkedList<>();
-        renderables.addAll(new MarketView(viewerState).create(size));
-        renderables.add(new MarketSelectButton(entities));
-        return renderables;
+        List<Renderable> elements = new LinkedList<>();
+        elements.addAll(new MarketView(viewerState).create(size));
+        elements.add(new MarketSelectButton(entities));
+        return elements;
     }
 }

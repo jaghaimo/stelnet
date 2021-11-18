@@ -47,7 +47,7 @@ public abstract class RenderableIntel extends BaseIntelPlugin {
     @Override
     public void createSmallDescription(TooltipMakerAPI info, float width, float height) {
         Size size = new Size(width, height);
-        for (Renderable view : getRenderables(size)) {
+        for (Renderable view : getRenderableList(size)) {
             view.render(info);
         }
     }
@@ -55,7 +55,7 @@ public abstract class RenderableIntel extends BaseIntelPlugin {
     @Override
     public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
         Size size = new Size(width, height);
-        for (Renderable view : getRenderables(size)) {
+        for (Renderable view : getRenderableList(size)) {
             view.render(panel, 0, 0);
         }
     }
@@ -82,7 +82,7 @@ public abstract class RenderableIntel extends BaseIntelPlugin {
         return false;
     }
 
-    protected List<Renderable> getRenderables(Size size) {
+    protected List<Renderable> getRenderableList(Size size) {
         return Collections.<Renderable>emptyList();
     }
 

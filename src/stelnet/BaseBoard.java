@@ -50,8 +50,8 @@ public abstract class BaseBoard extends RenderableIntel {
     }
 
     @Override
-    protected List<Renderable> getRenderables(Size size) {
-        return getRenderableState().toRenderables(size);
+    protected List<Renderable> getRenderableList(Size size) {
+        return getRenderableState().toRenderableList(size);
     }
 
     protected abstract RenderableState getRenderableState();

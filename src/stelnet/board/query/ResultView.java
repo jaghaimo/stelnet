@@ -31,38 +31,38 @@ public class ResultView implements RenderableFactory {
     @Override
     public List<Renderable> create(Size size) {
         float width = size.getWidth();
-        List<Renderable> renderables = new LinkedList<>();
-        addMarkets(renderables, width);
-        return renderables;
+        List<Renderable> elements = new LinkedList<>();
+        addMarkets(elements, width);
+        return elements;
     }
 
-    private void addMarkets(List<Renderable> renderables, float width) {
+    private void addMarkets(List<Renderable> elements, float width) {
         for (MarketAPI market : resultOrganiser.getMarkets(resultSet)) {
-            renderables.add(new MarketHeader(market, intel));
-            addPeople(renderables, market, width);
-            addItems(renderables, market, width);
-            addShips(renderables, market, width);
-            renderables.add(new Spacer(20));
+            elements.add(new MarketHeader(market, intel));
+            addPeople(elements, market, width);
+            addItems(elements, market, width);
+            addShips(elements, market, width);
+            elements.add(new Spacer(20));
         }
     }
 
-    private void addPeople(List<Renderable> renderables, MarketAPI market, float width) {
+    private void addPeople(List<Renderable> elements, MarketAPI market, float width) {
         List<PersonAPI> people = resultOrganiser.getPeople(resultSet, market);
         if (people.isEmpty()) {
             return;
         }
-        renderables.add(new Spacer(10));
+        elements.add(new Spacer(10));
         ShowPeople showPeople = new ShowPeople(people, L10n.get(QueryL10n.NO_MATCHING_PEOPLE), new Size(width, 0));
         showPeople.setGroupColor(getSupportColor(market));
-        renderables.add(showPeople);
+        elements.add(showPeople);
     }
 
-    private void addItems(List<Renderable> renderables, MarketAPI market, float width) {
+    private void addItems(List<Renderable> elements, MarketAPI market, float width) {
         List<CargoStackAPI> items = resultOrganiser.getItems(resultSet, market);
         if (items.isEmpty()) {
             return;
         }
-        renderables.add(new Spacer(10));
+        elements.add(new Spacer(10));
         CargoAPI cargo = CargoUtils.makeCargoFromStacks(items);
         ShowCargo showCargo = new ShowCargo(
             cargo,
@@ -71,15 +71,15 @@ public class ResultView implements RenderableFactory {
             new Size(width, 0)
         );
         showCargo.setTitleColor(getSupportColor(market));
-        renderables.add(showCargo);
+        elements.add(showCargo);
     }
 
-    private void addShips(List<Renderable> renderables, MarketAPI market, float width) {
+    private void addShips(List<Renderable> elements, MarketAPI market, float width) {
         List<FleetMemberAPI> ships = resultOrganiser.getShips(resultSet, market);
         if (ships.isEmpty()) {
             return;
         }
-        renderables.add(new Spacer(10));
+        elements.add(new Spacer(10));
         ShowShips showShips = new ShowShips(
             ships,
             L10n.get(QueryL10n.MATCHING_SHIPS),
@@ -87,7 +87,7 @@ public class ResultView implements RenderableFactory {
             new Size(width, 0)
         );
         showShips.setTitleColor(getSupportColor(market));
-        renderables.add(showShips);
+        elements.add(showShips);
     }
 
     private Color getSupportColor(MarketAPI market) {

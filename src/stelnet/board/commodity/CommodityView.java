@@ -21,11 +21,11 @@ public class CommodityView implements RenderableFactory {
 
     @Override
     public List<Renderable> create(Size size) {
-        List<Renderable> renderables = new LinkedList<>();
-        renderables.addAll(new TabViewFactory(commodityId, activeTab).create(size));
-        renderables.addAll(new IntelViewFactory(commodityId, activeTab, intelTracker).create(size));
-        renderables.addAll(new ButtonViewFactory(commodityId).create(size));
-        renderables.addAll(new DeleteViewFactory(commodityId).create(size));
-        return renderables;
+        List<Renderable> elements = new LinkedList<>();
+        elements.addAll(new TabViewFactory(commodityId, activeTab).create(size));
+        elements.addAll(new IntelViewFactory(commodityId, activeTab, intelTracker).create(size));
+        elements.addAll(new ButtonViewFactory(commodityId).create(size));
+        elements.addAll(new DeleteViewFactory(commodityId).create(size));
+        return elements;
     }
 }

@@ -22,7 +22,7 @@ public class ViewerState implements RenderableState, MarketViewState {
     private InMarketStrategy displayStrategy = new InMarketStrategy(null);
 
     @Override
-    public List<Renderable> toRenderables(Size size) {
+    public List<Renderable> toRenderableList(Size size) {
         List<SectorEntityToken> entities = MarketUtils.convertMarketsToTokens(MarketUtils.getMarkets());
         return new ViewerView(entities, this).create(size);
     }

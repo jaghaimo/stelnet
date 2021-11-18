@@ -62,7 +62,7 @@ public class ResultIntel extends BaseIntel {
     }
 
     @Override
-    protected List<Renderable> getRenderables(Size size) {
+    protected List<Renderable> getRenderableList(Size size) {
         return new ResultView(this, resultSet).create(size);
     }
 }

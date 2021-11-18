@@ -78,21 +78,21 @@ public class CommodityIntel extends BaseIntel {
     }
 
     @Override
-    protected List<Renderable> getRenderables(Size size) {
+    protected List<Renderable> getRenderableList(Size size) {
         float width = size.getWidth();
         FactionAPI faction = marketWrapper.getFaction();
-        List<Renderable> renderables = new ArrayList<>();
-        renderables.add(new Heading(marketWrapper.getName(), faction.getBaseUIColor(), faction.getDarkUIColor()));
-        renderables.add(new Image(faction.getLogo(), width, 128));
-        renderables.add(new Spacer(10f));
-        addPriceChange(renderables, width);
-        addRelationship(renderables, width);
-        renderables.add(new Spacer(30f));
-        renderables.add(new DeleteIntel(size.getWidth(), this));
-        return renderables;
+        List<Renderable> elements = new ArrayList<>();
+        elements.add(new Heading(marketWrapper.getName(), faction.getBaseUIColor(), faction.getDarkUIColor()));
+        elements.add(new Image(faction.getLogo(), width, 128));
+        elements.add(new Spacer(10f));
+        addPriceChange(elements, width);
+        addRelationship(elements, width);
+        elements.add(new Spacer(30f));
+        elements.add(new DeleteIntel(size.getWidth(), this));
+        return elements;
     }
 
-    private void addPriceChange(List<Renderable> renderables, float width) {
+    private void addPriceChange(List<Renderable> elements, float width) {
         if (isEnding()) {
             String priceChangeText = L10n.get(
                 CommodityL10n.PRICE_CHANGED,
@@ -105,12 +105,12 @@ public class CommodityIntel extends BaseIntel {
                 Misc.getDGSCredits(marketWrapper.getPriceAmount())
             );
             priceChangeRenderable.setHighlightColors(Misc.getHighlightColor(), Misc.getHighlightColor());
-            renderables.add(priceChangeRenderable);
-            renderables.add(new Spacer(10f));
+            elements.add(priceChangeRenderable);
+            elements.add(new Spacer(10f));
         }
     }
 
-    private void addRelationship(List<Renderable> renderables, float width) {
+    private void addRelationship(List<Renderable> elements, float width) {
         FactionAPI faction = marketWrapper.getFaction();
         RelationshipAPI relationship = faction.getRelToPlayer();
         String translatedRep = relationship.getLevel().getDisplayName().toLowerCase();
@@ -120,7 +120,7 @@ public class CommodityIntel extends BaseIntel {
         );
         relationshipRenderable.setHighlightStrings(translatedRep);
         relationshipRenderable.setHighlightColors(relationship.getRelColor());
-        renderables.add(relationshipRenderable);
+        elements.add(relationshipRenderable);
     }
 
     private String getTitle() {

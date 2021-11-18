@@ -31,7 +31,7 @@ public class QueryState implements RenderableState, Serializable {
     }
 
     @Override
-    public List<Renderable> toRenderables(Size size) {
+    public List<Renderable> toRenderableList(Size size) {
         return new QueryView(this).create(size);
     }
 }

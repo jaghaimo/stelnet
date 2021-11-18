@@ -20,7 +20,7 @@ public class StorageState implements RenderableState, MarketViewState {
     private GroupingStrategy displayStrategy = GroupingStrategy.UNIFIED;
 
     @Override
-    public List<Renderable> toRenderables(Size size) {
+    public List<Renderable> toRenderableList(Size size) {
         return new StorageView(this).create(size);
     }
 }

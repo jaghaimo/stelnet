@@ -68,7 +68,7 @@ public class StorageIntel extends BaseIntel {
     }
 
     @Override
-    protected List<Renderable> getRenderables(Size size) {
+    protected List<Renderable> getRenderableList(Size size) {
         Color baseColor = getFactionForUIColors().getBaseUIColor();
         Color darkColor = getFactionForUIColors().getDarkUIColor();
         CargoAPI cargo = storage.getCargo().createCopy();

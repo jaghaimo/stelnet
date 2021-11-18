@@ -24,10 +24,10 @@ public class StorageView implements RenderableFactory {
 
     @Override
     public List<Renderable> create(Size size) {
-        List<Renderable> renderables = new LinkedList<>();
-        renderables.addAll(new MarketView(state).create(size));
-        renderables.add(getNextStrategyButton());
-        return renderables;
+        List<Renderable> elements = new LinkedList<>();
+        elements.addAll(new MarketView(state).create(size));
+        elements.add(getNextStrategyButton());
+        return elements;
     }
 
     private Renderable getNextStrategyButton() {
