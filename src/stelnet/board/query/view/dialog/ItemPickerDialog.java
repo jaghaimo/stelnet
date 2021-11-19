@@ -11,10 +11,10 @@ public class ItemPickerDialog extends PickerDialog {
     private final CargoAPI cargo;
     private final String type;
 
-    public ItemPickerDialog(CargoAPI cargo, String type, QueryFactory factory) {
+    public ItemPickerDialog(CargoAPI cargo, QueryFactory factory) {
         super(factory);
         this.cargo = cargo;
-        this.type = type;
+        this.type = L10n.get(CommonL10n.ITEMS);
     }
 
     @Override

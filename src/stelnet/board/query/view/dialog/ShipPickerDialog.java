@@ -12,10 +12,10 @@ public class ShipPickerDialog extends PickerDialog {
     private final List<FleetMemberAPI> members;
     private final String type;
 
-    public ShipPickerDialog(List<FleetMemberAPI> members, String type, QueryFactory factory) {
+    public ShipPickerDialog(List<FleetMemberAPI> members, QueryFactory factory) {
         super(factory);
         this.members = members;
-        this.type = type;
+        this.type = L10n.get(CommonL10n.SHIPS);
     }
 
     @Override

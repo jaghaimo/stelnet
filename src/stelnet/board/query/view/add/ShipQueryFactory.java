@@ -62,7 +62,7 @@ public class ShipQueryFactory extends QueryFactory {
         Set<Filter> filters = getFilters();
         return Arrays.<Renderable>asList(
             new FindMatchingButton(this, L10n.get(CommonL10n.SHIPS)),
-            new SelectAndFindButton(this, L10n.get(CommonL10n.SHIPS), getShips(filters))
+            new SelectAndFindButton(this, getShips(filters))
         );
     }
 
