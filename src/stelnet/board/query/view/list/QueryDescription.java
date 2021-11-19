@@ -15,25 +15,24 @@ public class QueryDescription extends RenderableComponent {
     private final Query query;
     private final float width;
     private final List<String[]> description = new LinkedList<>();
-
+    private Color textColor;
+    private Color labelColor;
     private final float labelWidth;
+    private final float gridLineAdjustment = 2;
     private final float padding = UiConstants.DEFAULT_BUTTON_PADDING;
-    private final float rowHeight = UiConstants.DEFAULT_BUTTON_HEIGHT - padding - 2;
+    private final float rowHeight = UiConstants.DEFAULT_BUTTON_HEIGHT - padding - gridLineAdjustment;
 
     public QueryDescription(float width, Query query) {
         this.width = width;
         this.query = query;
         labelWidth = Math.max(120, width - 650);
         buildFilterDescription();
-        setSize(new Size(width, 2 + description.size() * rowHeight));
+        setSize(new Size(width, gridLineAdjustment + description.size() * rowHeight));
+        setColors();
     }
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        Color textColor = Misc.getTextColor();
-        if (!query.isEnabled()) {
-            textColor = Misc.scaleAlpha(textColor, 0.3f);
-        }
         float gridWidth = width;
         tooltip.addSpacer(2);
         tooltip.beginGridFlipped(gridWidth, 1, textColor, labelWidth, padding);
@@ -42,10 +41,6 @@ public class QueryDescription extends RenderableComponent {
     }
 
     private void addQueryDescription(TooltipMakerAPI tooltip) {
-        Color textColor = Misc.getGrayColor();
-        if (!query.isEnabled()) {
-            textColor = Misc.scaleAlpha(textColor, 0.2f);
-        }
         float gridWidth = width;
         float labelWidthWithPadding = padding + labelWidth + padding;
         int row = 0;
@@ -58,7 +53,7 @@ public class QueryDescription extends RenderableComponent {
                 row++,
                 tooltip.shortenString(filter[1], gridWidth - labelWidthWithPadding),
                 filter[0],
-                textColor
+                labelColor
             );
         }
     }
@@ -71,6 +66,15 @@ public class QueryDescription extends RenderableComponent {
                 continue;
             }
             description.add(filter);
+        }
+    }
+
+    private void setColors() {
+        textColor = Misc.getTextColor();
+        labelColor = Misc.getGrayColor();
+        if (!query.isEnabled()) {
+            textColor = Misc.scaleAlpha(textColor, 0.3f);
+            labelColor = Misc.scaleAlpha(labelColor, 0.2f);
         }
     }
 }
