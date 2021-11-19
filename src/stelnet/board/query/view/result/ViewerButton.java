@@ -11,13 +11,14 @@ import stelnet.util.SectorUtils;
 import stelnet.widget.viewer.InMarketStrategy;
 import uilib.Button;
 import uilib.EventHandler;
+import uilib.UiConstants;
 import uilib.property.Size;
 
 public class ViewerButton extends Button {
 
     public ViewerButton(final MarketAPI market) {
-        super(new Size(0, 22), L10n.get(QueryL10n.VIEWER), true);
-        setSize(getSize().reduce(new Size(20, 0)));
+        super(new Size(UiConstants.AUTO_WIDTH, UiConstants.DEFAULT_ROW_HEIGHT), L10n.get(QueryL10n.MAP), true);
+        setPadding(0);
         setCutStyle(CutStyle.C2_MENU);
         setHandler(
             new EventHandler() {

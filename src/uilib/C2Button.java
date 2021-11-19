@@ -37,6 +37,6 @@ public class C2Button extends Button {
     }
 
     protected void overrideSize(float width) {
-        setSize(new Size(width + getSize().getWidth(), 30));
+        setSize(new Size(width + getSize().getWidth(), UiConstants.VICTOR_14_BUTTON_HEIGHT));
     }
 }
