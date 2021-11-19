@@ -80,7 +80,7 @@ public class Button extends RenderableComponent implements ButtonHandler {
         Color foregroundColor = getTextColor();
         Color backgroundColor = getBackgroundColor();
         ButtonAPI button = tooltip.addButton(
-            getTitle(),
+            tooltip.shortenString(getTitle(), size.getWidth()),
             this,
             foregroundColor,
             backgroundColor,

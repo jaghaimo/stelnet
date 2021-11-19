@@ -32,7 +32,7 @@ public class AreaCheckbox extends Button implements TwoStateButton {
         Color foregroundColor = getTextColor();
         Color backgroundColor = getBackgroundColor();
         ButtonAPI button = tooltip.addAreaCheckbox(
-            getTitle(),
+            tooltip.shortenString(getTitle(), size.getWidth()),
             this,
             foregroundColor,
             backgroundColor,
