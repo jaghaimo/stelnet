@@ -8,6 +8,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
+import com.fs.starfarer.api.util.Misc;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -18,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 import stelnet.BoardInfo;
 import stelnet.config.BoardConfig;
 import stelnet.util.L10n;
-import stelnet.util.SectorUtils;
 
 /**
  * A set of unique results for a given star system.
@@ -82,11 +82,11 @@ public class ResultSet {
         );
     }
 
-    public FactionAPI getClaimingFaction() {
+    public FactionAPI getFaction() {
         if (wantsMarket()) {
             return market.getFaction();
         }
-        return SectorUtils.getClaimingFaction(system);
+        return Misc.getClaimingFaction(market.getPrimaryEntity());
     }
 
     public int getResultNumber() {
@@ -98,6 +98,13 @@ public class ResultSet {
             return market.getPrimaryEntity();
         }
         return system.getCenter();
+    }
+
+    public void refresh() {
+        marketSet.clear();
+        for (Result result : resultSet) {
+            marketSet.add(result.getMarket());
+        }
     }
 
     private boolean wantsMarket() {

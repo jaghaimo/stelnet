@@ -19,6 +19,7 @@ public class PurchasableResultsFilter extends Filter {
 
     private boolean acceptResultSet(ResultSet resultSet) {
         CollectionUtils.reduce(resultSet.getResultSet(), this);
+        resultSet.refresh();
         return resultSet.getResultNumber() > 0;
     }
 

@@ -19,7 +19,7 @@ public class ResultIntel extends BaseIntel {
     private final String tag = TagConstants.MARKET;
 
     public ResultIntel(QueryManager queryManager, ResultSet resultSet) {
-        super(resultSet.getClaimingFaction(), resultSet.getToken());
+        super(resultSet.getFaction(), resultSet.getToken());
         this.queryManager = queryManager;
         this.resultSet = resultSet;
     }
