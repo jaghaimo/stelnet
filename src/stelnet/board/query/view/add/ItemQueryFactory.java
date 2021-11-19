@@ -73,7 +73,7 @@ public class ItemQueryFactory extends QueryFactory {
         Set<Filter> filters = getFilters();
         return Arrays.<Renderable>asList(
             new FindMatchingButton(this, L10n.get(CommonL10n.ITEMS)),
-            new SelectAndFindButton(this, getCargo(filters))
+            new FindSelectedButton(this, getCargo(filters))
         );
     }
 
