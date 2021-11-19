@@ -66,7 +66,7 @@ public class PersonnelQueryFactory extends QueryFactory {
 
     @Override
     protected List<Renderable> getFinalComponents() {
-        return Collections.<Renderable>singletonList(new FindMatchingButton(this));
+        return Collections.<Renderable>singletonList(new FindMatchingButton(this, L10n.get(CommonL10n.PERSONNEL)));
     }
 
     @Override

@@ -26,26 +26,35 @@ public class QueryControls extends RenderableComponent {
     public void render(TooltipMakerAPI tooltip) {
         tooltip.setButtonFontVictor10();
         renderHeading(tooltip);
-        UIComponentAPI headingComponent = tooltip.getPrev();
-        PositionAPI headingPosition = headingComponent.getPosition();
-        headingPosition.setSize(headingPosition.getWidth() - 200, headingPosition.getHeight());
-
+        overlapQueryHeading(tooltip);
         UIComponentAPI deleteComponent = renderDelete(tooltip);
-        UIComponentAPI onOffComponent = renderOnOff(tooltip, deleteComponent);
-        renderPreview(tooltip, onOffComponent);
+        UIComponentAPI onOffComponent = renderButton(new OnOffButton(query), tooltip, deleteComponent);
+        UIComponentAPI purchasableComponent = renderButton(new PurchasableButton(query), tooltip, onOffComponent);
+        renderButton(new PreviewButton(query), tooltip, purchasableComponent);
         tooltip.setButtonFontDefault();
     }
 
     private void renderHeading(TooltipMakerAPI tooltip) {
         tooltip.setParaFontVictor14();
-        String headingText = String.format(" #%d", query.getNumber());
-        Heading heading = new Heading(headingText, Misc.getBasePlayerColor(), Misc.getDarkPlayerColor());
+        Heading heading = new Heading("", Misc.getBasePlayerColor(), Misc.getDarkPlayerColor());
         if (!query.isEnabled()) {
             heading.setForegroundColor(Misc.scaleAlpha(Misc.getBasePlayerColor(), 0.3f));
             heading.setBackgroundColor(Misc.scaleAlpha(Misc.getDarkPlayerColor(), 0.2f));
         }
         heading.setAlignment(Alignment.LMID);
         heading.render(tooltip);
+    }
+
+    private void overlapQueryHeading(TooltipMakerAPI tooltip) {
+        tooltip.setParaFontVictor14();
+        tooltip.setParaFontColor(Misc.getBrightPlayerColor());
+        if (!query.isEnabled()) {
+            tooltip.setParaFontColor(Misc.scaleAlpha(Misc.getBrightPlayerColor(), 0.2f));
+        }
+        tooltip.addPara(query.getType() + " #" + query.getNumber(), 0);
+        tooltip.getPrev().getPosition().setYAlignOffset(16);
+        tooltip.addSpacer(0);
+        tooltip.getPrev().getPosition().setYAlignOffset(-3);
     }
 
     private UIComponentAPI renderDelete(TooltipMakerAPI tooltip) {
@@ -55,22 +64,20 @@ public class QueryControls extends RenderableComponent {
         PositionAPI deletePosition = deleteComponent.getPosition();
         deletePosition.setXAlignOffset(getSize().getWidth() - deletePosition.getWidth() - 5);
         deletePosition.setYAlignOffset(getSize().getHeight());
-        return deleteComponent;
+        tooltip.addSpacer(0);
+        UIComponentAPI spacerComponent = tooltip.getPrev();
+        spacerComponent.getPosition().leftOfTop(deleteComponent, UiConstants.DEFAULT_SPACER);
+        return spacerComponent;
     }
 
-    private UIComponentAPI renderOnOff(TooltipMakerAPI tooltip, UIComponentAPI deleteComponent) {
-        ToggleButton onOff = new OnOffButton(query);
-        onOff.render(tooltip);
-        UIComponentAPI onOffComponent = tooltip.getPrev();
-        onOffComponent.getPosition().leftOfTop(deleteComponent, 10);
-        return onOffComponent;
-    }
-
-    private UIComponentAPI renderPreview(TooltipMakerAPI tooltip, UIComponentAPI onOffComponent) {
-        ToggleButton preview = new PreviewButton(query);
-        preview.render(tooltip);
-        UIComponentAPI previewComponent = tooltip.getPrev();
-        previewComponent.getPosition().leftOfTop(onOffComponent, 1);
-        return previewComponent;
+    private UIComponentAPI renderButton(
+        ToggleButton button,
+        TooltipMakerAPI tooltip,
+        UIComponentAPI previousComponent
+    ) {
+        button.render(tooltip);
+        UIComponentAPI currentComponent = tooltip.getPrev();
+        currentComponent.getPosition().leftOfTop(previousComponent, 1);
+        return currentComponent;
     }
 }

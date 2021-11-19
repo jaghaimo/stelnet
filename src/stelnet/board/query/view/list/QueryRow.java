@@ -34,6 +34,7 @@ public class QueryRow extends RenderableComponent {
 
     private VerticalViewContainer createContainer() {
         return new VerticalViewContainer(
+            new QueryInfo(width, query),
             new QueryControls(width, query),
             new QueryDescription(width, query),
             new Spacer(UiConstants.DEFAULT_SPACER)

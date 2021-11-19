@@ -9,6 +9,7 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import stelnet.CommonL10n;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.board.query.provider.ShipProvider;
@@ -60,8 +61,8 @@ public class ShipQueryFactory extends QueryFactory {
     protected List<Renderable> getFinalComponents() {
         Set<Filter> filters = getFilters();
         return Arrays.<Renderable>asList(
-            new FindMatchingButton(this),
-            new SelectAndFindButton(this, getShips(filters))
+            new FindMatchingButton(this, L10n.get(CommonL10n.SHIPS)),
+            new SelectAndFindButton(this, L10n.get(CommonL10n.SHIPS), getShips(filters))
         );
     }
 

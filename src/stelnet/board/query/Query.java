@@ -7,8 +7,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
+import stelnet.filter.PurchasableResultsFilter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.L10n;
+import stelnet.util.SectorUtils;
 import stelnet.util.StringUtils;
 import uilib.RenderableComponent;
 import uilib.property.Size;
@@ -18,17 +20,16 @@ import uilib.property.Size;
 @RequiredArgsConstructor
 public class Query {
 
+    private final String createdAt = SectorUtils.getCurrentClock().getDateString();
     private final QueryManager manager;
     private final QueryProvider provider;
     private final Set<Filter> filters;
+    private final String type;
     private boolean isEnabled = true;
+    private boolean isPurchasable = true;
     private boolean isSelected = false;
     private int number = 0;
     private int resultNumber = 0;
-
-    public void disable() {
-        setEnabled(false);
-    }
 
     public void delete() {
         manager.deleteQuery(this);
@@ -38,23 +39,21 @@ public class Query {
         return provider.getPreview(filters, size);
     }
 
-    public void enable() {
-        setEnabled(true);
-    }
-
     public List<ResultSet> execute() {
         List<ResultSet> results = provider.getResults(filters);
+        if (isPurchasable) {
+            CollectionUtils.reduce(results, new PurchasableResultsFilter());
+        }
         resultNumber = results.size();
         return results;
     }
 
-    public void select() {
-        manager.selectQuery(this);
+    public void refresh() {
+        manager.updateIntel();
     }
 
-    public void toggle() {
-        setEnabled(!isEnabled);
-        manager.updateIntel();
+    public void select() {
+        manager.selectQuery(this);
     }
 
     @Override

@@ -29,6 +29,7 @@ public class QueryPickerListener implements CargoPickerListener, FleetMemberPick
 
     private final PickerDialog dialog;
     private final QueryFactory factory;
+    private final String type;
 
     @Override
     public void pickedCargo(CargoAPI cargo) {
@@ -76,7 +77,7 @@ public class QueryPickerListener implements CargoPickerListener, FleetMemberPick
         Set<Filter> filters = factory.getFilters();
         filters.add(selectedFilter);
         state.setActiveTab(QueryBoardTab.LIST);
-        Query query = new Query(manager, provider, filters);
+        Query query = new Query(manager, provider, filters, type);
         manager.addQuery(query);
         dialog.dismiss(board);
     }

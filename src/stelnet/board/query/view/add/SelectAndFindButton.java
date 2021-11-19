@@ -31,11 +31,11 @@ public class SelectAndFindButton extends C2Button {
         );
     }
 
-    public SelectAndFindButton(final QueryFactory factory, final CargoAPI cargo) {
-        this(new ItemPickerDialog(cargo, factory));
+    public SelectAndFindButton(QueryFactory factory, String type, CargoAPI cargo) {
+        this(new ItemPickerDialog(cargo, type, factory));
     }
 
-    public SelectAndFindButton(final QueryFactory factory, final List<FleetMemberAPI> members) {
-        this(new ShipPickerDialog(members, factory));
+    public SelectAndFindButton(QueryFactory factory, String type, List<FleetMemberAPI> members) {
+        this(new ShipPickerDialog(members, type, factory));
     }
 }

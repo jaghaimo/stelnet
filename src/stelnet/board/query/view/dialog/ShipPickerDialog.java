@@ -10,10 +10,12 @@ import stelnet.util.L10n;
 public class ShipPickerDialog extends PickerDialog {
 
     private final List<FleetMemberAPI> members;
+    private final String type;
 
-    public ShipPickerDialog(List<FleetMemberAPI> members, QueryFactory factory) {
+    public ShipPickerDialog(List<FleetMemberAPI> members, String type, QueryFactory factory) {
         super(factory);
         this.members = members;
+        this.type = type;
     }
 
     @Override
@@ -28,7 +30,7 @@ public class ShipPickerDialog extends PickerDialog {
             true,
             true,
             members,
-            new QueryPickerListener(this, factory)
+            new QueryPickerListener(this, factory, type)
         );
     }
 }

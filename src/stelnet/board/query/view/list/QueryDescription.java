@@ -18,14 +18,14 @@ public class QueryDescription extends RenderableComponent {
 
     private final float labelWidth;
     private final float padding = UiConstants.DEFAULT_BUTTON_PADDING;
-    private final float rowHeight = UiConstants.DEFAULT_BUTTON_HEIGHT;
+    private final float rowHeight = UiConstants.DEFAULT_BUTTON_HEIGHT - padding - 2;
 
     public QueryDescription(float width, Query query) {
         this.width = width;
         this.query = query;
         labelWidth = Math.max(120, width - 650);
         buildFilterDescription();
-        setSize(new Size(width, padding + description.size() * rowHeight));
+        setSize(new Size(width, 2 + description.size() * rowHeight));
     }
 
     @Override

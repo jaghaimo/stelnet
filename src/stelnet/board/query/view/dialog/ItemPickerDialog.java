@@ -9,10 +9,12 @@ import stelnet.util.L10n;
 public class ItemPickerDialog extends PickerDialog {
 
     private final CargoAPI cargo;
+    private final String type;
 
-    public ItemPickerDialog(CargoAPI cargo, QueryFactory factory) {
+    public ItemPickerDialog(CargoAPI cargo, String type, QueryFactory factory) {
         super(factory);
         this.cargo = cargo;
+        this.type = type;
     }
 
     @Override
@@ -24,7 +26,7 @@ public class ItemPickerDialog extends PickerDialog {
             false,
             0f,
             cargo,
-            new QueryPickerListener(this, factory)
+            new QueryPickerListener(this, factory, type)
         );
     }
 }

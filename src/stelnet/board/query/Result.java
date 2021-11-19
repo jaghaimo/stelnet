@@ -1,6 +1,7 @@
 package stelnet.board.query;
 
 import com.fs.starfarer.api.campaign.CargoStackAPI;
+import com.fs.starfarer.api.campaign.SubmarketPlugin.TransferAction;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
@@ -21,6 +22,7 @@ public class Result implements Comparable<Result> {
     private final Object object;
     private final MarketAPI market;
     private final SubmarketAPI submarket;
+    private final boolean isPurchasable;
     private final int hashCode;
 
     public Result(MarketAPI market, PersonAPI person) {
@@ -29,6 +31,7 @@ public class Result implements Comparable<Result> {
         this.object = person;
         this.market = market;
         this.submarket = null;
+        this.isPurchasable = true;
         this.hashCode = hashCode();
     }
 
@@ -39,6 +42,7 @@ public class Result implements Comparable<Result> {
         this.object = fleetMember;
         this.market = market;
         this.submarket = submarket;
+        this.isPurchasable = !submarket.getPlugin().isIllegalOnSubmarket(fleetMember, TransferAction.PLAYER_BUY);
         this.hashCode = hashCode();
     }
 
@@ -48,6 +52,7 @@ public class Result implements Comparable<Result> {
         this.object = cargoStack;
         this.market = market;
         this.submarket = submarket;
+        this.isPurchasable = !submarket.getPlugin().isIllegalOnSubmarket(cargoStack, TransferAction.PLAYER_BUY);
         this.hashCode = hashCode();
     }
 

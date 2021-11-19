@@ -21,10 +21,12 @@ public class QueryManager {
     private final ResultMap resultMap = new ResultMap();
 
     public void addQuery(Query query) {
-        query.setNumber(++queryCounter);
-        queries.add(query);
-        setActiveQuery(null, query);
-        updateIntel(query);
+        if (!queries.contains(query)) {
+            query.setNumber(++queryCounter);
+            queries.add(query);
+            setActiveQuery(null, query);
+            updateIntel(query);
+        }
     }
 
     public void deleteAll() {

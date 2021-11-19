@@ -18,7 +18,7 @@ import uilib.property.Size;
 
 public class FindMatchingButton extends C2Button {
 
-    public FindMatchingButton(final QueryFactory factory) {
+    public FindMatchingButton(final QueryFactory factory, final String type) {
         super(new Size(0, 30), L10n.get(QueryL10n.FIND_MATCHING), true);
         overrideSize(30);
         setShortcut(Keyboard.KEY_M);
@@ -30,7 +30,7 @@ public class FindMatchingButton extends C2Button {
                     QueryManager manager = state.getQueryManager();
                     QueryProvider provider = factory.getProvider();
                     Set<Filter> filters = factory.getFilters();
-                    Query query = new Query(manager, provider, filters);
+                    Query query = new Query(manager, provider, filters, type);
                     manager.addQuery(query);
                     state.setActiveTab(QueryBoardTab.LIST);
                 }
