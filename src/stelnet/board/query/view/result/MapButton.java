@@ -19,7 +19,6 @@ public class MapButton extends Button {
     public MapButton(final ResultIntel intel, final MarketAPI market) {
         super(new Size(UiConstants.AUTO_WIDTH, UiConstants.DEFAULT_ROW_HEIGHT), L10n.get(QueryL10n.MAP), true);
         setPadding(0);
-        setSize(getSize().reduce(new Size(20, 0)));
         setCutStyle(CutStyle.C2_MENU);
         setHandler(
             new EventHandler() {
