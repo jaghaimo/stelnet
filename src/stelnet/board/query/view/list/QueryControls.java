@@ -8,7 +8,6 @@ import com.fs.starfarer.api.util.Misc;
 import stelnet.board.query.Query;
 import uilib.Heading;
 import uilib.RenderableComponent;
-import uilib.ToggleButton;
 import uilib.UiConstants;
 import uilib.property.Size;
 
@@ -28,7 +27,7 @@ public class QueryControls extends RenderableComponent {
         renderHeading(tooltip);
         overlapQueryHeading(tooltip);
         UIComponentAPI deleteComponent = renderDelete(tooltip);
-        UIComponentAPI onOffComponent = renderButton(new OnOffButton(query), tooltip, deleteComponent);
+        UIComponentAPI onOffComponent = renderButton(new ToggleButton(query), tooltip, deleteComponent);
         UIComponentAPI purchasableComponent = renderButton(new PurchasableButton(query), tooltip, onOffComponent);
         renderButton(new PreviewButton(query), tooltip, purchasableComponent);
         tooltip.setButtonFontDefault();
@@ -58,7 +57,7 @@ public class QueryControls extends RenderableComponent {
     }
 
     private UIComponentAPI renderDelete(TooltipMakerAPI tooltip) {
-        ToggleButton delete = new DeleteButton(query);
+        ControlButton delete = new DeleteButton(query);
         delete.render(tooltip);
         UIComponentAPI deleteComponent = tooltip.getPrev();
         PositionAPI deletePosition = deleteComponent.getPosition();
@@ -71,7 +70,7 @@ public class QueryControls extends RenderableComponent {
     }
 
     private UIComponentAPI renderButton(
-        ToggleButton button,
+        ControlButton button,
         TooltipMakerAPI tooltip,
         UIComponentAPI previousComponent
     ) {

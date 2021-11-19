@@ -4,13 +4,12 @@ import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import stelnet.CommonL10n;
 import stelnet.board.query.Query;
-import stelnet.util.L10n;
 import uilib.EventHandler;
 
 public class PurchasableButton extends ControlButton {
 
     public PurchasableButton(final Query query) {
-        super(L10n.get(CommonL10n.PURCHASABLE), L10n.get(CommonL10n.ALL), true, query.isPurchasable());
+        super(CommonL10n.PURCHASABLE, CommonL10n.ALL, true, query.isPurchasable());
         setCutStyle(CutStyle.C2_MENU);
         scaleButton(query);
         setHandler(

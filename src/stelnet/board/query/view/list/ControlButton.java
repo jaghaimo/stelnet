@@ -3,17 +3,18 @@ package stelnet.board.query.view.list;
 import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.util.Misc;
 import stelnet.board.query.Query;
+import stelnet.util.L10n;
 import uilib.ToggleButton;
 import uilib.UiConstants;
 import uilib.property.Size;
 
 public class ControlButton extends ToggleButton {
 
-    public ControlButton(String toggledOnTitle, String toggledOffTitle, boolean isEnabled, boolean isStateOn) {
+    public ControlButton(Enum<?> toggledOnTitle, Enum<?> toggledOffTitle, boolean isEnabled, boolean isStateOn) {
         super(
             new Size(UiConstants.AUTO_WIDTH, UiConstants.DEFAULT_ROW_HEIGHT),
-            toggledOnTitle,
-            toggledOffTitle,
+            L10n.get(toggledOnTitle),
+            L10n.get(toggledOffTitle),
             isEnabled,
             isStateOn
         );

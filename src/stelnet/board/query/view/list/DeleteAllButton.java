@@ -3,13 +3,14 @@ package stelnet.board.query.view.list;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
+import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
 import uilib.EventHandler;
 
 public class DeleteAllButton extends GlobalButton {
 
     public DeleteAllButton(final QueryManager manager, boolean isEnabled) {
-        super("Delete All");
+        super(QueryL10n.DELETE_ALL);
         setEnabled(isEnabled);
         setTextColor(Misc.getNegativeHighlightColor());
         setBackgroundColor(Misc.getNegativeHighlightColor());
