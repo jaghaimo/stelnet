@@ -8,7 +8,6 @@ import java.awt.Font;
 import java.awt.font.FontRenderContext;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.log4j.Log4j;
 import uilib.property.Location;
 import uilib.property.Position;
 import uilib.property.Size;
@@ -23,7 +22,6 @@ import uilib.property.Size;
  */
 @Getter
 @Setter
-@Log4j
 public abstract class RenderableComponent implements Renderable {
 
     private Location location = Location.TOP_LEFT;
@@ -31,13 +29,8 @@ public abstract class RenderableComponent implements Renderable {
     private boolean withScroller = true;
     private Size size;
 
-    protected void log(Position position) {
-        log.debug(String.format("Rendering %s in %s at %s", this, position, location));
-    }
-
     @Override
     public void render(CustomPanelAPI panel, float x, float y) {
-        log(new Position(x, y));
         Size size = getSize();
         TooltipMakerAPI inner = panel.createUIElement(size.getWidth(), size.getHeight(), withScroller);
         render(inner);
@@ -51,15 +44,15 @@ public abstract class RenderableComponent implements Renderable {
     }
 
     /**
-     * Calculate the width of a string.
+     * Calculate the width of a string. Works reliably for default font only.
      *
-     * @deprecated Alex will add new method to TooltipMakerAPI in 0.95.1
+     * @deprecated Alex will add new method to TooltipMakerAPI and Misc in 0.95.1
      * @link https://stackoverflow.com/a/14832962
      */
     protected float getTextWidth(String text) {
-        Font font = new Font("Insignia", Font.PLAIN, 12);
+        Font font = new Font("Dialog", Font.PLAIN, 12);
         FontRenderContext frc = new FontRenderContext(font.getTransform(), true, true);
-        double longTextAdjustment = 20 + text.length() * 0.5;
+        double longTextAdjustment = 20 + text.length() * 0.8; // needed as we are not using same font
         return (float) (font.getStringBounds(text, frc).getWidth() + longTextAdjustment);
     }
 

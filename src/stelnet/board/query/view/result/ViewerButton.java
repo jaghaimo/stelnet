@@ -19,6 +19,7 @@ public class ViewerButton extends Button {
     public ViewerButton(final MarketAPI market) {
         super(new Size(UiConstants.AUTO_WIDTH, UiConstants.DEFAULT_ROW_HEIGHT), L10n.get(QueryL10n.MAP), true);
         setPadding(0);
+        setSize(getSize().increase(new Size(20, 0)));
         setCutStyle(CutStyle.C2_MENU);
         setHandler(
             new EventHandler() {

@@ -26,7 +26,6 @@ public class VerticalViewContainer extends Group {
 
     @Override
     public void render(CustomPanelAPI panel, float x, float y) {
-        log(new Position(x, y));
         for (Renderable renderable : getElements()) {
             Size size = renderable.getSize();
             Position offset = renderable.getOffset();

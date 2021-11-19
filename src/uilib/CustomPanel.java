@@ -4,7 +4,6 @@ import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import uilib.property.Position;
 import uilib.property.Size;
 
 @RequiredArgsConstructor
@@ -16,7 +15,6 @@ public class CustomPanel extends RenderableComponent {
 
     @Override
     public void render(CustomPanelAPI panel, float x, float y) {
-        log(new Position(x, y));
         Size size = getSize();
         customPanel = panel.createCustomPanel(size.getWidth(), size.getHeight(), null);
         renderable.render(customPanel, x, y);
