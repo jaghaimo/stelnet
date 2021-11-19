@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import stelnet.board.query.Query;
 import uilib.RenderableComponent;
+import uilib.UiConstants;
 import uilib.property.Size;
 
 public class QueryDescription extends RenderableComponent {
@@ -15,9 +16,9 @@ public class QueryDescription extends RenderableComponent {
     private final float width;
     private final List<String[]> description = new LinkedList<>();
 
-    private final float rowHeight = 18;
     private final float labelWidth;
-    private final float padding = 5;
+    private final float padding = UiConstants.DEFAULT_BUTTON_PADDING;
+    private final float rowHeight = UiConstants.DEFAULT_BUTTON_HEIGHT;
 
     public QueryDescription(float width, Query query) {
         this.width = width;
@@ -34,6 +35,7 @@ public class QueryDescription extends RenderableComponent {
             textColor = Misc.scaleAlpha(textColor, 0.3f);
         }
         float gridWidth = width;
+        tooltip.addSpacer(2);
         tooltip.beginGridFlipped(gridWidth, 1, textColor, labelWidth, padding);
         addQueryDescription(tooltip);
         tooltip.addGrid(0);

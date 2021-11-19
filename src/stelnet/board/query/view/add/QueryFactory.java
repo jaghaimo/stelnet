@@ -47,10 +47,10 @@ public abstract class QueryFactory {
         addSpacer(elements, 16);
         elements.add(new Paragraph(L10n.get(translationId), width));
         Line line = new Line(width, SettingsUtils.getButtonHighlightColor());
-        line.setOffset(new Position(0, -6));
+        line.setOffset(new Position(0, -3));
         line.setPadding(0);
         elements.add(line);
-        addSpacer(elements, 2);
+        addSpacer(elements, 6);
     }
 
     protected void addSpacer(List<Renderable> elements, float size) {

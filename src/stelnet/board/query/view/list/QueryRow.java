@@ -6,6 +6,7 @@ import lombok.Setter;
 import stelnet.board.query.Query;
 import uilib.RenderableComponent;
 import uilib.Spacer;
+import uilib.UiConstants;
 import uilib.VerticalViewContainer;
 
 @Setter
@@ -34,9 +35,8 @@ public class QueryRow extends RenderableComponent {
     private VerticalViewContainer createContainer() {
         return new VerticalViewContainer(
             new QueryControls(width, query),
-            // new Line(width, Misc.getDarkPlayerColor()),
             new QueryDescription(width, query),
-            new Spacer(8)
+            new Spacer(UiConstants.DEFAULT_SPACER)
         );
     }
 }

@@ -53,7 +53,7 @@ public class QueryControls extends RenderableComponent {
         delete.render(tooltip);
         UIComponentAPI deleteComponent = tooltip.getPrev();
         PositionAPI deletePosition = deleteComponent.getPosition();
-        deletePosition.setXAlignOffset(getSize().getWidth() - deletePosition.getWidth() - 4);
+        deletePosition.setXAlignOffset(getSize().getWidth() - deletePosition.getWidth() - 5);
         deletePosition.setYAlignOffset(getSize().getHeight());
         return deleteComponent;
     }
