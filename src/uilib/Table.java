@@ -12,8 +12,6 @@ import uilib.property.Size;
 @Setter
 public class Table extends RenderableComponent {
 
-    private static final float ROW_HEIGHT = 20;
-
     private final String title;
     private final float width;
     private final float maxHeight;
@@ -24,7 +22,7 @@ public class Table extends RenderableComponent {
 
     @Override
     public Size getSize() {
-        float tableHeight = ROW_HEIGHT * (tableContent.getRows().size() + 1) + 8;
+        float tableHeight = UiConstants.TABLE_ROW_HEIGHT * (tableContent.getRows().size() + 1) + 8;
         float height = maxHeight == 0 ? tableHeight : Math.min(maxHeight, tableHeight);
         return new Size(width, height);
     }
@@ -37,7 +35,7 @@ public class Table extends RenderableComponent {
     @Override
     public void render(TooltipMakerAPI tooltip) {
         boolean hasRows = false;
-        tooltip.beginTable(faction, ROW_HEIGHT, tableContent.getHeaders(width - 24));
+        tooltip.beginTable(faction, UiConstants.TABLE_ROW_HEIGHT, tableContent.getHeaders(width - 24));
         for (TableContentRow row : tableContent.getRows()) {
             tooltip.addRow(row.buildObjectArray());
             hasRows = true;

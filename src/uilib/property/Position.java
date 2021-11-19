@@ -22,9 +22,4 @@ public class Position extends Point2D {
     public Position unshift(Point2D point2d) {
         return new Position(super.unshift(point2d));
     }
-
-    @Override
-    public String toString() {
-        return String.format("Position(%.0f,%.0f)", getX(), getY());
-    }
 }

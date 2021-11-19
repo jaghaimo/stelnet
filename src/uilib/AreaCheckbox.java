@@ -13,7 +13,7 @@ import uilib.property.Size;
 public class AreaCheckbox extends Button implements TwoStateButton {
 
     private boolean isStateOn;
-    private int padding = 4;
+    private int padding = UiConstants.DEFAULT_BUTTON_PADDING;
 
     public AreaCheckbox(Size size, String title, boolean isEnabled, boolean isStateOn) {
         super(size, title, isEnabled);

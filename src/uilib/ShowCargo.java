@@ -29,7 +29,7 @@ public class ShowCargo extends RenderableComponent {
     @Override
     public void render(TooltipMakerAPI tooltip) {
         if (cargo.isEmpty()) {
-            tooltip.addPara(emptyDescription, 10);
+            tooltip.addPara(emptyDescription, UiConstants.DEFAULT_SHOW_SPACER);
             return;
         }
         if (optionalTitle != null) {

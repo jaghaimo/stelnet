@@ -21,7 +21,7 @@ public class Button extends RenderableComponent implements ButtonHandler {
     private boolean isEnabled;
     private ButtonHandler handler;
     private CutStyle cutStyle = CutStyle.ALL;
-    private int padding = 4;
+    private int padding = UiConstants.DEFAULT_BUTTON_PADDING;
     private int shortcut = 0;
 
     public Button(Size size, String title, boolean isEnabled) {
@@ -72,11 +72,6 @@ public class Button extends RenderableComponent implements ButtonHandler {
         if (handler != null) {
             handler.onPrompt(tooltipMaker);
         }
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Button with %s", getSize());
     }
 
     @Override

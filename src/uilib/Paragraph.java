@@ -19,7 +19,7 @@ public class Paragraph extends RenderableComponent {
     private float padding = 0;
 
     public Paragraph(String text, float width) {
-        setSize(new Size(width, 20));
+        setSize(new Size(width, UiConstants.DEFAULT_ROW_HEIGHT));
         setColor(Misc.getTextColor());
         setText(text);
         setWithScroller(false);

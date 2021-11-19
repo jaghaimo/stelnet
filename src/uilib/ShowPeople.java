@@ -36,7 +36,7 @@ public class ShowPeople extends RenderableComponent implements Comparator<Person
     @Override
     public void render(TooltipMakerAPI tooltip) {
         if (people.isEmpty()) {
-            tooltip.addPara(emptyDescription, 0);
+            tooltip.addPara(emptyDescription, UiConstants.DEFAULT_SHOW_SPACER);
         }
         String lastPost = null;
         for (PersonAPI person : people) {
@@ -51,7 +51,7 @@ public class ShowPeople extends RenderableComponent implements Comparator<Person
             return;
         }
         if (previousPost != null) {
-            tooltip.addSpacer(10);
+            tooltip.addSpacer(UiConstants.DEFAULT_SHOW_SPACER);
         }
         addSectionTitle(tooltip, currentPost, groupColor);
     }
