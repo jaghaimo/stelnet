@@ -24,7 +24,7 @@ public class DistanceCalculator {
 
     public static float getDistanceToPlayerLY(SectorEntityToken entity) {
         CampaignFleetAPI player = SectorUtils.getPlayerFleet();
-        return Misc.getDistanceLY(player, entity);
+        return getDistanceLY(player, entity);
     }
 
     private static boolean isInSameLocation(SectorEntityToken entity1, SectorEntityToken entity2) {

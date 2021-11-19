@@ -17,7 +17,6 @@ import java.util.TreeSet;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import stelnet.BoardInfo;
-import stelnet.config.BoardConfig;
 import stelnet.util.L10n;
 
 /**
@@ -27,6 +26,7 @@ import stelnet.util.L10n;
 @RequiredArgsConstructor
 public class ResultSet {
 
+    private final boolean groupBySystem;
     private final MarketAPI market;
     private final StarSystemAPI system;
     private final Set<MarketAPI> marketSet = new HashSet<>();
@@ -39,8 +39,8 @@ public class ResultSet {
         }
     );
 
-    public ResultSet(MarketAPI market) {
-        this(market, market.getStarSystem());
+    public ResultSet(boolean groupBySystem, MarketAPI market) {
+        this(groupBySystem, market, market.getStarSystem());
         marketSet.add(market);
     }
 
@@ -74,7 +74,8 @@ public class ResultSet {
 
     public BoardInfo getBoardInfo() {
         if (wantsMarket()) {
-            return new BoardInfo(market.getName(), L10n.get(QueryL10n.RESULTS_IN_MARKET, getResultNumber()));
+            String name = String.format("%s, %s", market.getName(), market.getFaction().getDisplayName());
+            return new BoardInfo(name, L10n.get(QueryL10n.RESULTS_IN_MARKET, getResultNumber()));
         }
         return new BoardInfo(
             system.getName(),
@@ -108,6 +109,6 @@ public class ResultSet {
     }
 
     private boolean wantsMarket() {
-        return system == null || BoardConfig.DO_NOT_GROUP_QUERIES;
+        return system == null || !groupBySystem;
     }
 }

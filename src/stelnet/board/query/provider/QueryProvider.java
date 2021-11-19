@@ -27,11 +27,11 @@ public abstract class QueryProvider {
 
     public abstract List<?> getMatching(Set<Filter> filters);
 
-    public List<ResultSet> getResults(Set<Filter> filters) {
+    public List<ResultSet> getResults(Set<Filter> filters, boolean grouppedBySystem) {
         List<MarketAPI> markets = MarketUtils.getMarkets(true);
         CollectionUtils.reduce(markets, filters);
         List<ResultSet> resultSets = new LinkedList<>();
-        processMarkets(resultSets, markets, filters);
+        processMarkets(resultSets, markets, filters, grouppedBySystem);
         return resultSets;
     }
 
@@ -39,7 +39,12 @@ public abstract class QueryProvider {
         return factory.getPreview(filters, size);
     }
 
-    protected abstract void processMarkets(List<ResultSet> resultSets, List<MarketAPI> markets, Set<Filter> filters);
+    protected abstract void processMarkets(
+        List<ResultSet> resultSets,
+        List<MarketAPI> markets,
+        Set<Filter> filters,
+        final boolean grouppedBySystem
+    );
 
     protected void addToResultSets(List<ResultSet> resultSets, ResultSet resultSet) {
         if (resultSet.getResultNumber() > 0) {

@@ -37,12 +37,17 @@ public class ShipProvider extends QueryProvider {
     }
 
     @Override
-    protected void processMarkets(List<ResultSet> resultSets, List<MarketAPI> markets, Set<Filter> filters) {
+    protected void processMarkets(
+        List<ResultSet> resultSets,
+        List<MarketAPI> markets,
+        Set<Filter> filters,
+        final boolean groupBySystem
+    ) {
         for (MarketAPI market : markets) {
             for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
                 List<FleetMemberAPI> fleetMembers = submarket.getCargo().getMothballedShips().getMembersListCopy();
                 CollectionUtils.reduce(fleetMembers, filters);
-                ResultSet resultSet = new ResultSet(market);
+                ResultSet resultSet = new ResultSet(groupBySystem, market);
                 resultSet.addFleetMembers(market, submarket, fleetMembers);
                 addToResultSets(resultSets, resultSet);
             }

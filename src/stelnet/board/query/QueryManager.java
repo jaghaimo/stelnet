@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import lombok.Getter;
+import lombok.Setter;
 import stelnet.util.IntelUtils;
 import stelnet.util.SectorUtils;
 
@@ -14,6 +15,10 @@ public class QueryManager {
 
     @Getter
     private Query activeQuery;
+
+    @Getter
+    @Setter
+    private boolean grouppedBySystem;
 
     @Getter
     private final Set<Query> queries = new HashSet<>();
@@ -47,12 +52,11 @@ public class QueryManager {
         }
     }
 
-    public void disableAll() {
-        setAllEnabled(false);
-    }
-
-    public void enableAll() {
-        setAllEnabled(true);
+    public void setAllEnabled(boolean isEnabled) {
+        for (Query query : queries) {
+            query.setEnabled(isEnabled);
+        }
+        updateIntel();
     }
 
     public int numberOfQueries() {
@@ -78,17 +82,10 @@ public class QueryManager {
     }
 
     private void updateIntel(Query query) {
-        List<ResultSet> resultSets = query.execute();
+        List<ResultSet> resultSets = query.execute(grouppedBySystem);
         for (ResultSet resultSet : resultSets) {
             updateResult(resultSet);
         }
-    }
-
-    private void setAllEnabled(boolean isEnabled) {
-        for (Query query : queries) {
-            query.setEnabled(isEnabled);
-        }
-        updateIntel();
     }
 
     private void setActiveQuery(Query checkForThisQuery, Query setToThisQuery) {

@@ -53,7 +53,7 @@ public abstract class RenderableComponent implements Renderable {
         Font font = new Font("Dialog", Font.PLAIN, 12);
         FontRenderContext frc = new FontRenderContext(font.getTransform(), true, true);
         double longTextAdjustment = 20 + text.length() * 0.8; // needed as we are not using same font
-        return (float) (font.getStringBounds(text, frc).getWidth() + longTextAdjustment);
+        return (float) Math.round(font.getStringBounds(text, frc).getWidth() + longTextAdjustment);
     }
 
     protected void setOffsetOfLast(TooltipMakerAPI tooltip, float offset) {

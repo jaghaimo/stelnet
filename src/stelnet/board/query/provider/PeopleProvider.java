@@ -26,11 +26,16 @@ public class PeopleProvider extends QueryProvider {
     }
 
     @Override
-    protected void processMarkets(List<ResultSet> resultSets, List<MarketAPI> markets, Set<Filter> filters) {
+    protected void processMarkets(
+        List<ResultSet> resultSets,
+        List<MarketAPI> markets,
+        Set<Filter> filters,
+        final boolean groupBySystem
+    ) {
         for (MarketAPI market : markets) {
             List<PersonAPI> people = market.getPeopleCopy();
             CollectionUtils.reduce(people, filters);
-            ResultSet resultSet = new ResultSet(market);
+            ResultSet resultSet = new ResultSet(groupBySystem, market);
             resultSet.addPeople(market, people);
             addToResultSets(resultSets, resultSet);
         }

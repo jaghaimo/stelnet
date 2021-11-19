@@ -3,11 +3,11 @@ package stelnet;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.ui.SectorMapAPI;
-import com.fs.starfarer.api.util.Misc;
 import java.util.Set;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import stelnet.util.DistanceCalculator;
 import stelnet.util.L10n;
 import stelnet.util.StringUtils;
 import uilib.RenderableIntel;
@@ -45,7 +45,7 @@ public abstract class BaseIntel extends RenderableIntel {
 
     @Override
     public String getSortString() {
-        return String.format("%07.2f", Misc.getDistanceToPlayerLY(sectorEntityToken));
+        return String.format("%07.2f", DistanceCalculator.getDistanceToPlayerLY(sectorEntityToken));
     }
 
     @Override

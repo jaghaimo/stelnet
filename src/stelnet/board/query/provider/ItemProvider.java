@@ -43,12 +43,17 @@ public class ItemProvider extends QueryProvider {
     }
 
     @Override
-    protected void processMarkets(List<ResultSet> resultSets, List<MarketAPI> markets, Set<Filter> filters) {
+    protected void processMarkets(
+        List<ResultSet> resultSets,
+        List<MarketAPI> markets,
+        Set<Filter> filters,
+        final boolean groupBySystem
+    ) {
         for (MarketAPI market : markets) {
             for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
                 List<CargoStackAPI> cargoStacks = submarket.getCargo().getStacksCopy();
                 CollectionUtils.reduce(cargoStacks, filters);
-                ResultSet resultSet = new ResultSet(market);
+                ResultSet resultSet = new ResultSet(groupBySystem, market);
                 resultSet.addCargoStacks(market, submarket, cargoStacks);
                 addToResultSets(resultSets, resultSet);
             }

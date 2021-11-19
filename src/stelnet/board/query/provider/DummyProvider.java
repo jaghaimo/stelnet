@@ -23,7 +23,12 @@ public class DummyProvider extends QueryProvider {
     }
 
     @Override
-    protected void processMarkets(List<ResultSet> resultSets, List<MarketAPI> markets, Set<Filter> filters) {
+    protected void processMarkets(
+        List<ResultSet> resultSets,
+        List<MarketAPI> markets,
+        Set<Filter> filters,
+        final boolean grouppedBySystem
+    ) {
         logUsage();
     }
 

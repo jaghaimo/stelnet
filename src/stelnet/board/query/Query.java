@@ -39,8 +39,8 @@ public class Query {
         return provider.getPreview(filters, size);
     }
 
-    public List<ResultSet> execute() {
-        List<ResultSet> results = provider.getResults(filters);
+    public List<ResultSet> execute(boolean grouppedBySystem) {
+        List<ResultSet> results = provider.getResults(filters, grouppedBySystem);
         if (isPurchasable) {
             CollectionUtils.reduce(results, new PurchasableResultsFilter());
         }

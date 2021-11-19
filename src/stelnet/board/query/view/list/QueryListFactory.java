@@ -13,6 +13,7 @@ import uilib.Renderable;
 import uilib.RenderableComponent;
 import uilib.RenderableFactory;
 import uilib.Spacer;
+import uilib.UiConstants;
 import uilib.property.Location;
 import uilib.property.Size;
 
@@ -28,12 +29,14 @@ public class QueryListFactory implements RenderableFactory {
         for (Query query : manager.getQueries()) {
             elements.add(new QueryRow(width, query));
         }
+        boolean enableButtons = true;
         if (elements.isEmpty()) {
-            elements.add(new Spacer(7));
+            enableButtons = false;
             elements.add(new Paragraph(L10n.get(QueryL10n.NO_QUERIES), width));
-        } else {
-            elements.add(0, getGlobalButtons());
         }
+        elements.add(0, new Spacer(UiConstants.DEFAULT_SPACER));
+        elements.add(0, new Spacer(UiConstants.DEFAULT_SPACER));
+        elements.add(0, getGlobalButtons(enableButtons, size.getWidth()));
         return elements;
     }
 
@@ -44,8 +47,26 @@ public class QueryListFactory implements RenderableFactory {
         return preview;
     }
 
-    private Renderable getGlobalButtons() {
+    private float calculateRemaining(float width, List<Renderable> elements) {
+        float total = 0;
+        for (Renderable element : elements) {
+            total += element.getSize().getWidth();
+        }
+        return width - total;
+    }
+
+    private Renderable getGlobalButtons(boolean enableButtons, float width) {
+        Spacer spacer = new Spacer(0);
         List<Renderable> elements = new LinkedList<>();
+        elements.add(new ToggleGroupingButton(manager, enableButtons));
+        elements.add(spacer);
+        elements.add(new RefreshAllButton(manager, enableButtons));
+        elements.add(new EnableAllButton(manager, enableButtons));
+        elements.add(new DisableAllButton(manager, enableButtons));
+        elements.add(spacer);
+        elements.add(new DeleteAllButton(manager, enableButtons));
+        float spacerWidth = calculateRemaining(width, elements) / 2;
+        spacer.setSize(new Size(spacerWidth, 0));
         return new HorizontalViewContainer(elements);
     }
 
