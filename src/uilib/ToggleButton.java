@@ -14,6 +14,7 @@ public class ToggleButton extends Button implements TwoStateButton {
 
     private final String titleOff;
     private boolean isStateOn;
+    private Color backgroundSelectedColor = SettingsUtils.getButtonHighlightColor();
 
     public ToggleButton(
         Size size,
@@ -33,7 +34,7 @@ public class ToggleButton extends Button implements TwoStateButton {
 
     @Override
     public Color getBackgroundColor() {
-        return isStateOn ? SettingsUtils.getButtonHighlightColor() : Misc.getDarkPlayerColor();
+        return isStateOn ? backgroundSelectedColor : super.getBackgroundColor();
     }
 
     @Override
@@ -50,5 +51,11 @@ public class ToggleButton extends Button implements TwoStateButton {
     @Override
     public void toggle() {
         setStateOn(!isStateOn);
+    }
+
+    @Override
+    protected void scaleBackground(float scale) {
+        backgroundSelectedColor = Misc.scaleColor(backgroundSelectedColor, scale);
+        super.scaleBackground(scale);
     }
 }

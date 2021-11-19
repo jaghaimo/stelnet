@@ -33,12 +33,12 @@ import uilib.property.Size;
 public class ItemQueryFactory extends QueryFactory {
 
     private final ItemProvider itemProvider = new ItemProvider(this);
-    private final ItemButton[] itemTypes = createItemTypes();
-    private final ItemButton[] manufacturers = createManufacturers();
-    private final ItemButton[] weaponDamageTypes = createDamageType();
-    private final ItemButton[] weaponMountSizes = createWeaponMountSize();
-    private final ItemButton[] weaponMountTypes = createWeaponMountType();
-    private final ItemButton[] wingRoles = createWingRole();
+    private final FilteringButton[] itemTypes = createItemTypes();
+    private final FilteringButton[] manufacturers = createManufacturers();
+    private final FilteringButton[] weaponDamageTypes = createDamageType();
+    private final FilteringButton[] weaponMountSizes = createWeaponMountSize();
+    private final FilteringButton[] weaponMountTypes = createWeaponMountType();
+    private final FilteringButton[] wingRoles = createWingRole();
 
     @Override
     public Set<Filter> getFilters() {
@@ -92,59 +92,65 @@ public class ItemQueryFactory extends QueryFactory {
         return elements;
     }
 
-    private ItemButton[] createItemTypes() {
-        return new ItemButton[] {
-            new ItemButton(L10n.get(CommonL10n.WEAPONS), new CargoStackIsType(Type.WEAPON)),
-            new ItemButton(L10n.get(CommonL10n.FIGHTER_WINGS), new CargoStackIsType(Type.FIGHTER)),
-            new ItemButton(L10n.get(CommonL10n.MODSPECS), new CargoStackIsType(Type.MODSPEC)),
+    private FilteringButton[] createItemTypes() {
+        return new FilteringButton[] {
+            new FilteringButton(L10n.get(CommonL10n.WEAPONS), new CargoStackIsType(Type.WEAPON)),
+            new FilteringButton(L10n.get(CommonL10n.FIGHTER_WINGS), new CargoStackIsType(Type.FIGHTER)),
+            new FilteringButton(L10n.get(CommonL10n.MODSPECS), new CargoStackIsType(Type.MODSPEC)),
         };
     }
 
-    private ItemButton[] createDamageType() {
-        return new ItemButton[] {
-            new ItemButton(DamageType.KINETIC.getDisplayName(), new WeaponIsDamage(DamageType.KINETIC)),
-            new ItemButton(DamageType.HIGH_EXPLOSIVE.getDisplayName(), new WeaponIsDamage(DamageType.HIGH_EXPLOSIVE)),
-            new ItemButton(DamageType.FRAGMENTATION.getDisplayName(), new WeaponIsDamage(DamageType.FRAGMENTATION)),
-            new ItemButton(DamageType.ENERGY.getDisplayName(), new WeaponIsDamage(DamageType.ENERGY)),
+    private FilteringButton[] createDamageType() {
+        return new FilteringButton[] {
+            new FilteringButton(DamageType.KINETIC.getDisplayName(), new WeaponIsDamage(DamageType.KINETIC)),
+            new FilteringButton(
+                DamageType.HIGH_EXPLOSIVE.getDisplayName(),
+                new WeaponIsDamage(DamageType.HIGH_EXPLOSIVE)
+            ),
+            new FilteringButton(
+                DamageType.FRAGMENTATION.getDisplayName(),
+                new WeaponIsDamage(DamageType.FRAGMENTATION)
+            ),
+            new FilteringButton(DamageType.ENERGY.getDisplayName(), new WeaponIsDamage(DamageType.ENERGY)),
         };
     }
 
-    private ItemButton[] createWeaponMountSize() {
-        return new ItemButton[] {
-            new ItemButton(WeaponSize.SMALL.getDisplayName(), new WeaponIsSize(WeaponSize.SMALL)),
-            new ItemButton(WeaponSize.MEDIUM.getDisplayName(), new WeaponIsSize(WeaponSize.MEDIUM)),
-            new ItemButton(WeaponSize.LARGE.getDisplayName(), new WeaponIsSize(WeaponSize.LARGE)),
+    private FilteringButton[] createWeaponMountSize() {
+        return new FilteringButton[] {
+            new FilteringButton(WeaponSize.SMALL.getDisplayName(), new WeaponIsSize(WeaponSize.SMALL)),
+            new FilteringButton(WeaponSize.MEDIUM.getDisplayName(), new WeaponIsSize(WeaponSize.MEDIUM)),
+            new FilteringButton(WeaponSize.LARGE.getDisplayName(), new WeaponIsSize(WeaponSize.LARGE)),
         };
     }
 
-    private ItemButton[] createWeaponMountType() {
-        return new ItemButton[] {
-            new ItemButton(WeaponType.BALLISTIC.getDisplayName(), new WeaponIsType(WeaponType.BALLISTIC)),
-            new ItemButton(WeaponType.MISSILE.getDisplayName(), new WeaponIsType(WeaponType.MISSILE)),
-            new ItemButton(WeaponType.ENERGY.getDisplayName(), new WeaponIsType(WeaponType.ENERGY)),
-            new ItemButton(WeaponType.HYBRID.getDisplayName(), new WeaponIsType(WeaponType.HYBRID)),
-            new ItemButton(WeaponType.SYNERGY.getDisplayName(), new WeaponIsType(WeaponType.SYNERGY)),
-            new ItemButton(WeaponType.COMPOSITE.getDisplayName(), new WeaponIsType(WeaponType.COMPOSITE)),
-            new ItemButton(WeaponType.UNIVERSAL.getDisplayName(), new WeaponIsType(WeaponType.UNIVERSAL)),
+    private FilteringButton[] createWeaponMountType() {
+        return new FilteringButton[] {
+            new FilteringButton(WeaponType.BALLISTIC.getDisplayName(), new WeaponIsType(WeaponType.BALLISTIC)),
+            new FilteringButton(WeaponType.MISSILE.getDisplayName(), new WeaponIsType(WeaponType.MISSILE)),
+            new FilteringButton(WeaponType.ENERGY.getDisplayName(), new WeaponIsType(WeaponType.ENERGY)),
+            new FilteringButton(WeaponType.HYBRID.getDisplayName(), new WeaponIsType(WeaponType.HYBRID)),
+            new FilteringButton(WeaponType.SYNERGY.getDisplayName(), new WeaponIsType(WeaponType.SYNERGY)),
+            new FilteringButton(WeaponType.COMPOSITE.getDisplayName(), new WeaponIsType(WeaponType.COMPOSITE)),
+            new FilteringButton(WeaponType.UNIVERSAL.getDisplayName(), new WeaponIsType(WeaponType.UNIVERSAL)),
         };
     }
 
-    private ItemButton[] createWingRole() {
-        return new ItemButton[] {
-            new ItemButton(L10n.get(WingRole.ASSAULT), new CargoStackWingIsRole(WingRole.ASSAULT)),
-            new ItemButton(L10n.get(WingRole.BOMBER), new CargoStackWingIsRole(WingRole.BOMBER)),
-            new ItemButton(L10n.get(WingRole.FIGHTER), new CargoStackWingIsRole(WingRole.FIGHTER)),
-            new ItemButton(L10n.get(WingRole.INTERCEPTOR), new CargoStackWingIsRole(WingRole.INTERCEPTOR)),
-            new ItemButton(L10n.get(WingRole.SUPPORT), new CargoStackWingIsRole(WingRole.SUPPORT)),
+    private FilteringButton[] createWingRole() {
+        return new FilteringButton[] {
+            new FilteringButton(L10n.get(WingRole.ASSAULT), new CargoStackWingIsRole(WingRole.ASSAULT)),
+            new FilteringButton(L10n.get(WingRole.BOMBER), new CargoStackWingIsRole(WingRole.BOMBER)),
+            new FilteringButton(L10n.get(WingRole.FIGHTER), new CargoStackWingIsRole(WingRole.FIGHTER)),
+            new FilteringButton(L10n.get(WingRole.INTERCEPTOR), new CargoStackWingIsRole(WingRole.INTERCEPTOR)),
+            new FilteringButton(L10n.get(WingRole.SUPPORT), new CargoStackWingIsRole(WingRole.SUPPORT)),
         };
     }
 
-    private ItemButton[] createManufacturers() {
-        List<ItemButton> manufacturers = new LinkedList<>();
+    private FilteringButton[] createManufacturers() {
+        List<FilteringButton> manufacturers = new LinkedList<>();
         for (String manufacturer : itemProvider.getManufacturers()) {
-            manufacturers.add(new ItemButton(manufacturer, new CargoStackIsManufacturer(manufacturer)));
+            manufacturers.add(new FilteringButton(manufacturer, new CargoStackIsManufacturer(manufacturer)));
         }
-        return manufacturers.toArray(new ItemButton[] {});
+        return manufacturers.toArray(new FilteringButton[] {});
     }
 
     private CargoAPI getCargo(Set<Filter> filters) {

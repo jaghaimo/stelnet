@@ -33,13 +33,13 @@ public class PersonnelQueryFactory extends QueryFactory {
 
     private final PeopleProvider peopleProvider = new PeopleProvider(this);
     private final SkillProvider skillProvider = new SkillProvider();
-    private final PersonnelButton[] postType = createPostTypeButtons();
-    private final OfficerButton[] level = createLevelButtons();
-    private final OfficerButton[] personality = createPersonalityButtons();
-    private final OfficerButton[] skill = createSkillButtons();
+    private final FilteringButton[] postType = createPostTypeButtons();
+    private final FilteringButton[] level = createLevelButtons();
+    private final FilteringButton[] personality = createPersonalityButtons();
+    private final FilteringButton[] skill = createSkillButtons();
 
     public void setLevel(OfficerLevelButton active) {
-        for (OfficerButton button : level) {
+        for (FilteringButton button : level) {
             button.setStateOn(active.equals(button));
         }
     }
@@ -91,32 +91,32 @@ public class PersonnelQueryFactory extends QueryFactory {
         return levelButtons.toArray(new OfficerLevelButton[] {});
     }
 
-    private OfficerButton[] createPersonalityButtons() {
-        return new OfficerButton[] {
-            new OfficerButton(L10n.get(CommonL10n.TIMID), new PersonHasPersonality(Personalities.TIMID)),
-            new OfficerButton(L10n.get(CommonL10n.CAUTIOUS), new PersonHasPersonality(Personalities.CAUTIOUS)),
-            new OfficerButton(L10n.get(CommonL10n.STEADY), new PersonHasPersonality(Personalities.STEADY)),
-            new OfficerButton(L10n.get(CommonL10n.AGGRESSIVE), new PersonHasPersonality(Personalities.AGGRESSIVE)),
-            new OfficerButton(L10n.get(CommonL10n.RECKLESS), new PersonHasPersonality(Personalities.RECKLESS)),
+    private FilteringButton[] createPersonalityButtons() {
+        return new FilteringButton[] {
+            new FilteringButton(L10n.get(CommonL10n.TIMID), new PersonHasPersonality(Personalities.TIMID)),
+            new FilteringButton(L10n.get(CommonL10n.CAUTIOUS), new PersonHasPersonality(Personalities.CAUTIOUS)),
+            new FilteringButton(L10n.get(CommonL10n.STEADY), new PersonHasPersonality(Personalities.STEADY)),
+            new FilteringButton(L10n.get(CommonL10n.AGGRESSIVE), new PersonHasPersonality(Personalities.AGGRESSIVE)),
+            new FilteringButton(L10n.get(CommonL10n.RECKLESS), new PersonHasPersonality(Personalities.RECKLESS)),
         };
     }
 
-    private PersonnelButton[] createPostTypeButtons() {
-        return new PersonnelButton[] {
-            new PersonnelButton(CommonL10n.ADMIN, new PersonIsPostedAs(Ranks.POST_FREELANCE_ADMIN)),
-            new PersonnelButton(CommonL10n.OFFICER, new PersonIsPostedAs(Ranks.POST_OFFICER_FOR_HIRE)),
-            new PersonnelButton(CommonL10n.MERCENARY, new PersonIsPostedAs(Ranks.POST_MERCENARY)),
+    private FilteringButton[] createPostTypeButtons() {
+        return new FilteringButton[] {
+            new FilteringButton(CommonL10n.ADMIN, new PersonIsPostedAs(Ranks.POST_FREELANCE_ADMIN)),
+            new FilteringButton(CommonL10n.OFFICER, new PersonIsPostedAs(Ranks.POST_OFFICER_FOR_HIRE)),
+            new FilteringButton(CommonL10n.MERCENARY, new PersonIsPostedAs(Ranks.POST_MERCENARY)),
         };
     }
 
-    private OfficerButton[] createSkillButtons() {
-        List<OfficerButton> skillButtons = new LinkedList<>();
+    private FilteringButton[] createSkillButtons() {
+        List<FilteringButton> skillButtons = new LinkedList<>();
         List<SkillSpecAPI> skills = skillProvider.getMatching(
             Arrays.<Filter>asList(new LogicalNot(new AnyHasTag("npc_only")), new SkillIsCombatOfficer())
         );
         for (SkillSpecAPI skill : skills) {
-            skillButtons.add(new OfficerButton(skill.getName(), new PersonHasSkill(skill.getId())));
+            skillButtons.add(new FilteringButton(skill.getName(), new PersonHasSkill(skill.getId())));
         }
-        return skillButtons.toArray(new OfficerButton[] {});
+        return skillButtons.toArray(new FilteringButton[] {});
     }
 }

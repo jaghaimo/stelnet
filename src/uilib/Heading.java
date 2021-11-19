@@ -10,8 +10,8 @@ import uilib.property.Size;
 public class Heading extends RenderableComponent {
 
     private final String title;
-    private final Color foregroundColor;
-    private final Color backgroundColor;
+    private Color foregroundColor;
+    private Color backgroundColor;
     private Alignment alignment = Alignment.MID;
 
     public Heading(String title) {
@@ -22,7 +22,7 @@ public class Heading extends RenderableComponent {
         this.title = title;
         this.foregroundColor = foregroundColor;
         this.backgroundColor = backgroundColor;
-        setSize(new Size(0, 10));
+        setSize(new Size(0, UiConstants.DEFAULT_ROW_HEIGHT));
     }
 
     @Override

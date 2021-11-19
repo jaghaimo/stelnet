@@ -26,17 +26,17 @@ import uilib.property.Size;
 public class ShipQueryFactory extends QueryFactory {
 
     private final ShipProvider shipProvider = new ShipProvider(this);
-    private final ShipButton[] classSizes = createClassSizes();
-    private final ShipButton[] mountSizes = createMountSizes();
-    private final ShipButton[] mountTypes = createMountTypes();
-    private final ShipButton[] manufacturers = createManufacturers();
+    private final FilteringButton[] classSizes = createClassSizes();
+    private final FilteringButton[] mountSizes = createMountSizes();
+    private final FilteringButton[] mountTypes = createMountTypes();
+    private final FilteringButton[] manufacturers = createManufacturers();
 
     @Override
     public Set<Filter> getFilters() {
         Set<Filter> filters = new LinkedHashSet<>();
         addToFilters(filters, classSizes, L10n.get(QueryL10n.CLASS_SIZE), true);
-        addToFilters(filters, mountSizes, L10n.get(QueryL10n.MOUNT_TYPE), false);
-        addToFilters(filters, mountTypes, L10n.get(QueryL10n.MOUNT_SIZE), false);
+        addToFilters(filters, mountSizes, L10n.get(QueryL10n.MOUNT_SIZE), false);
+        addToFilters(filters, mountTypes, L10n.get(QueryL10n.MOUNT_TYPE), false);
         addToFilters(filters, manufacturers, L10n.get(QueryL10n.MANUFACTURERS), false);
         return filters;
     }
@@ -77,41 +77,41 @@ public class ShipQueryFactory extends QueryFactory {
         return elements;
     }
 
-    private ShipButton[] createClassSizes() {
-        return new ShipButton[] {
-            new ShipButton(L10n.get(HullSize.FRIGATE), new ShipHullIsSize(HullSize.FRIGATE)),
-            new ShipButton(L10n.get(HullSize.DESTROYER), new ShipHullIsSize(HullSize.DESTROYER)),
-            new ShipButton(L10n.get(HullSize.CRUISER), new ShipHullIsSize(HullSize.CRUISER)),
-            new ShipButton(L10n.get(HullSize.CAPITAL_SHIP), new ShipHullIsSize(HullSize.CAPITAL_SHIP)),
+    private FilteringButton[] createClassSizes() {
+        return new FilteringButton[] {
+            new FilteringButton(L10n.get(HullSize.FRIGATE), new ShipHullIsSize(HullSize.FRIGATE)),
+            new FilteringButton(L10n.get(HullSize.DESTROYER), new ShipHullIsSize(HullSize.DESTROYER)),
+            new FilteringButton(L10n.get(HullSize.CRUISER), new ShipHullIsSize(HullSize.CRUISER)),
+            new FilteringButton(L10n.get(HullSize.CAPITAL_SHIP), new ShipHullIsSize(HullSize.CAPITAL_SHIP)),
         };
     }
 
-    private ShipButton[] createManufacturers() {
-        List<ShipButton> manufacturers = new LinkedList<>();
+    private FilteringButton[] createManufacturers() {
+        List<FilteringButton> manufacturers = new LinkedList<>();
         for (String manufacturer : shipProvider.getManufacturers()) {
-            manufacturers.add(new ShipButton(manufacturer, new ShipHullIsManufacturer(manufacturer)));
+            manufacturers.add(new FilteringButton(manufacturer, new ShipHullIsManufacturer(manufacturer)));
         }
-        return manufacturers.toArray(new ShipButton[] {});
+        return manufacturers.toArray(new FilteringButton[] {});
     }
 
-    private ShipButton[] createMountSizes() {
-        return new ShipButton[] {
-            new ShipButton(WeaponSize.SMALL.getDisplayName(), new WeaponSlotIsSize(WeaponSize.SMALL)),
-            new ShipButton(WeaponSize.MEDIUM.getDisplayName(), new WeaponSlotIsSize(WeaponSize.MEDIUM)),
-            new ShipButton(WeaponSize.LARGE.getDisplayName(), new WeaponSlotIsSize(WeaponSize.LARGE)),
+    private FilteringButton[] createMountSizes() {
+        return new FilteringButton[] {
+            new FilteringButton(WeaponSize.SMALL.getDisplayName(), new WeaponSlotIsSize(WeaponSize.SMALL)),
+            new FilteringButton(WeaponSize.MEDIUM.getDisplayName(), new WeaponSlotIsSize(WeaponSize.MEDIUM)),
+            new FilteringButton(WeaponSize.LARGE.getDisplayName(), new WeaponSlotIsSize(WeaponSize.LARGE)),
         };
     }
 
-    private ShipButton[] createMountTypes() {
-        return new ShipButton[] {
-            new ShipButton(WeaponType.BALLISTIC.getDisplayName(), new WeaponSlotIsType(WeaponType.BALLISTIC)),
-            new ShipButton(WeaponType.MISSILE.getDisplayName(), new WeaponSlotIsType(WeaponType.MISSILE)),
-            new ShipButton(WeaponType.ENERGY.getDisplayName(), new WeaponSlotIsType(WeaponType.ENERGY)),
-            new ShipButton(WeaponType.HYBRID.getDisplayName(), new WeaponSlotIsType(WeaponType.HYBRID)),
-            new ShipButton(WeaponType.SYNERGY.getDisplayName(), new WeaponSlotIsType(WeaponType.SYNERGY)),
-            new ShipButton(WeaponType.COMPOSITE.getDisplayName(), new WeaponSlotIsType(WeaponType.COMPOSITE)),
-            new ShipButton(WeaponType.UNIVERSAL.getDisplayName(), new WeaponSlotIsType(WeaponType.UNIVERSAL)),
-            new ShipButton(WeaponType.BUILT_IN.getDisplayName(), new WeaponSlotIsType(WeaponType.BUILT_IN)),
+    private FilteringButton[] createMountTypes() {
+        return new FilteringButton[] {
+            new FilteringButton(WeaponType.BALLISTIC.getDisplayName(), new WeaponSlotIsType(WeaponType.BALLISTIC)),
+            new FilteringButton(WeaponType.MISSILE.getDisplayName(), new WeaponSlotIsType(WeaponType.MISSILE)),
+            new FilteringButton(WeaponType.ENERGY.getDisplayName(), new WeaponSlotIsType(WeaponType.ENERGY)),
+            new FilteringButton(WeaponType.HYBRID.getDisplayName(), new WeaponSlotIsType(WeaponType.HYBRID)),
+            new FilteringButton(WeaponType.SYNERGY.getDisplayName(), new WeaponSlotIsType(WeaponType.SYNERGY)),
+            new FilteringButton(WeaponType.COMPOSITE.getDisplayName(), new WeaponSlotIsType(WeaponType.COMPOSITE)),
+            new FilteringButton(WeaponType.UNIVERSAL.getDisplayName(), new WeaponSlotIsType(WeaponType.UNIVERSAL)),
+            new FilteringButton(WeaponType.BUILT_IN.getDisplayName(), new WeaponSlotIsType(WeaponType.BUILT_IN)),
         };
     }
 

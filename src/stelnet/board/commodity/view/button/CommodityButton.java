@@ -13,6 +13,7 @@ public class CommodityButton extends AreaCheckbox {
     public CommodityButton(final CommoditySpecAPI commodity, boolean isOn) {
         super(new Size(190, 24), commodity.getName(), true, isOn);
         setLocation(Location.TOP_RIGHT);
+        setPadding(0);
         setHandler(
             new EventHandler() {
                 @Override

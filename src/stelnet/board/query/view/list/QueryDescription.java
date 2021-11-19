@@ -2,6 +2,7 @@ package stelnet.board.query.view.list;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
+import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
 import stelnet.board.query.Query;
@@ -28,14 +29,21 @@ public class QueryDescription extends RenderableComponent {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
+        Color textColor = Misc.getTextColor();
+        if (!query.isEnabled()) {
+            textColor = Misc.scaleAlpha(textColor, 0.3f);
+        }
         float gridWidth = width;
-        tooltip.addSpacer(6);
-        tooltip.beginGridFlipped(gridWidth, 1, Misc.getTextColor(), labelWidth, padding);
+        tooltip.beginGridFlipped(gridWidth, 1, textColor, labelWidth, padding);
         addQueryDescription(tooltip);
         tooltip.addGrid(0);
     }
 
     private void addQueryDescription(TooltipMakerAPI tooltip) {
+        Color textColor = Misc.getGrayColor();
+        if (!query.isEnabled()) {
+            textColor = Misc.scaleAlpha(textColor, 0.2f);
+        }
         float gridWidth = width;
         float labelWidthWithPadding = padding + labelWidth + padding;
         int row = 0;
@@ -48,7 +56,7 @@ public class QueryDescription extends RenderableComponent {
                 row++,
                 tooltip.shortenString(filter[1], gridWidth - labelWidthWithPadding),
                 filter[0],
-                Misc.getGrayColor()
+                textColor
             );
         }
     }

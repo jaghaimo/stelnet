@@ -9,6 +9,7 @@ import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
 import stelnet.filter.LogicalOr;
 import stelnet.util.L10n;
+import stelnet.util.SettingsUtils;
 import uilib.DynamicGroup;
 import uilib.HorizontalViewContainer;
 import uilib.Line;
@@ -45,8 +46,9 @@ public abstract class QueryFactory {
         float width = sizeHelper.getGroupAndTextWidth();
         addSpacer(elements, 16);
         elements.add(new Paragraph(L10n.get(translationId), width));
-        Line line = new Line(width);
+        Line line = new Line(width, SettingsUtils.getButtonHighlightColor());
         line.setOffset(new Position(0, -6));
+        line.setPadding(0);
         elements.add(line);
         addSpacer(elements, 2);
     }

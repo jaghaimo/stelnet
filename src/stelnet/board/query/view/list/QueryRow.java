@@ -2,10 +2,8 @@ package stelnet.board.query.view.list;
 
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import com.fs.starfarer.api.util.Misc;
 import lombok.Setter;
 import stelnet.board.query.Query;
-import uilib.Line;
 import uilib.RenderableComponent;
 import uilib.Spacer;
 import uilib.VerticalViewContainer;
@@ -35,8 +33,8 @@ public class QueryRow extends RenderableComponent {
 
     private VerticalViewContainer createContainer() {
         return new VerticalViewContainer(
-            new ControlButtons(width, query),
-            new Line(width, Misc.getDarkPlayerColor()),
+            new QueryControls(width, query),
+            // new Line(width, Misc.getDarkPlayerColor()),
             new QueryDescription(width, query),
             new Spacer(8)
         );

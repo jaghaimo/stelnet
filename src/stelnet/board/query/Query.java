@@ -23,6 +23,7 @@ public class Query {
     private final Set<Filter> filters;
     private boolean isEnabled = true;
     private boolean isSelected = false;
+    private int number = 0;
     private int resultNumber = 0;
 
     public void disable() {

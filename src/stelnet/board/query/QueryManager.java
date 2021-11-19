@@ -10,6 +10,8 @@ import stelnet.util.SectorUtils;
 
 public class QueryManager {
 
+    private int queryCounter = 0;
+
     @Getter
     private Query activeQuery;
 
@@ -19,6 +21,7 @@ public class QueryManager {
     private final ResultMap resultMap = new ResultMap();
 
     public void addQuery(Query query) {
+        query.setNumber(++queryCounter);
         queries.add(query);
         setActiveQuery(null, query);
         updateIntel(query);
@@ -43,17 +46,11 @@ public class QueryManager {
     }
 
     public void disableAll() {
-        for (Query query : queries) {
-            query.disable();
-        }
-        updateIntel();
+        setAllEnabled(false);
     }
 
     public void enableAll() {
-        for (Query query : queries) {
-            query.enable();
-        }
-        updateIntel();
+        setAllEnabled(true);
     }
 
     public int numberOfQueries() {
@@ -65,13 +62,6 @@ public class QueryManager {
             query.setSelected(false);
         }
         setActiveQuery(activeQuery, newActiveQuery);
-    }
-
-    public void toggleAll() {
-        for (Query query : queries) {
-            query.toggle();
-        }
-        updateIntel();
     }
 
     public void updateIntel() {
@@ -90,6 +80,13 @@ public class QueryManager {
         for (ResultSet resultSet : resultSets) {
             updateResult(resultSet);
         }
+    }
+
+    private void setAllEnabled(boolean isEnabled) {
+        for (Query query : queries) {
+            query.setEnabled(isEnabled);
+        }
+        updateIntel();
     }
 
     private void setActiveQuery(Query checkForThisQuery, Query setToThisQuery) {

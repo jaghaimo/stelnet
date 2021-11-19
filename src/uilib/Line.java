@@ -11,7 +11,7 @@ public class Line extends Button {
     }
 
     public Line(float width, Color color) {
-        super(new Size(width, 4), "", true, color, color);
+        super(new Size(width, 0), "", true, color, color);
     }
 
     @Override

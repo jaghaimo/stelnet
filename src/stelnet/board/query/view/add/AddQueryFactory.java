@@ -46,8 +46,7 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
 
     @Override
     public RenderableComponent getPreview(Set<Filter> filters, Size size) {
-        QueryFactory queryFactory = findNextFactory();
-        RenderableComponent preview = queryFactory.getPreview(filters, size);
+        RenderableComponent preview = findNextFactory().getPreview(filters, size);
         preview.setLocation(Location.TOP_RIGHT);
         return preview;
     }

@@ -21,6 +21,7 @@ public class Button extends RenderableComponent implements ButtonHandler {
     private boolean isEnabled;
     private ButtonHandler handler;
     private CutStyle cutStyle = CutStyle.ALL;
+    private int padding = 4;
     private int shortcut = 0;
 
     public Button(Size size, String title, boolean isEnabled) {
@@ -28,7 +29,8 @@ public class Button extends RenderableComponent implements ButtonHandler {
     }
 
     public Button(Size size, String title, boolean isEnabled, Color color) {
-        this(size, title, isEnabled, color, Misc.scaleColor(color, 0.5f));
+        this(size, title, isEnabled, color, color);
+        scaleBackground(0.5f);
     }
 
     public Button(Size size, String title, boolean isEnabled, Color textColor, Color backgroundColor) {
@@ -89,13 +91,17 @@ public class Button extends RenderableComponent implements ButtonHandler {
             backgroundColor,
             Alignment.MID,
             cutStyle,
-            size.getWidth() - 4f,
-            size.getHeight() - 4f,
-            4f
+            size.getWidth() - padding,
+            size.getHeight() - padding,
+            padding / 2
         );
         button.setEnabled(isEnabled);
         if (shortcut > 0) {
             button.setShortcut(shortcut, false);
         }
+    }
+
+    protected void scaleBackground(float scale) {
+        backgroundColor = Misc.scaleColor(backgroundColor, scale);
     }
 }

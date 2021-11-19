@@ -6,14 +6,13 @@ import stelnet.board.query.Query;
 import stelnet.board.query.QueryL10n;
 import stelnet.util.L10n;
 import uilib.EventHandler;
-import uilib.ToggleButton;
-import uilib.property.Size;
 
-public class PreviewButton extends ToggleButton {
+public class PreviewButton extends ControlButton {
 
-    public PreviewButton(Size size, final Query query) {
-        super(size, L10n.get(QueryL10n.PREVIEWING), L10n.get(QueryL10n.PREVIEW), true, query.isSelected());
-        setCutStyle(CutStyle.TOP);
+    public PreviewButton(final Query query) {
+        super(L10n.get(QueryL10n.PREVIEWING), L10n.get(QueryL10n.PREVIEW), true, query.isSelected());
+        setCutStyle(CutStyle.C2_MENU);
+        scaleButton(query);
         setHandler(
             new EventHandler() {
                 @Override

@@ -4,7 +4,7 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 import stelnet.filter.PersonFilter;
 import uilib.EventHandler;
 
-public class OfficerLevelButton extends OfficerButton {
+public class OfficerLevelButton extends FilteringButton {
 
     public OfficerLevelButton(final PersonnelQueryFactory factory, String label, PersonFilter filter) {
         super(label, filter);
