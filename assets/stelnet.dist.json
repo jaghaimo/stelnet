@@ -1,5 +1,5 @@
 {
-    ## In order to modify Stelnet settings save this file as stelnet.hjson
+    ## In order to modify Stelnet settings save this file as stelnet.json
 
     # Mod settings
     "uninstallMod": false, # set to true, load and save the game to remove the mod

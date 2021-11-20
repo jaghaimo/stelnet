@@ -12,7 +12,7 @@ import uilib.property.Size;
 public class ToggleGroupingButton extends ControlButton {
 
     public ToggleGroupingButton(final QueryManager manager, boolean isEnabled) {
-        super(QueryL10n.GROUP_BY_SYSTEM, QueryL10n.GROUP_BY_MARKET, isEnabled, manager.isGrouppedBySystem());
+        super(QueryL10n.GROUP_BY_SYSTEM, QueryL10n.GROUP_BY_MARKET, isEnabled, manager.isGroupedBySystem());
         setSize(new Size(getSize().getWidth() + 20, UiConstants.VICTOR_14_BUTTON_HEIGHT));
         setTextColor(Misc.getBasePlayerColor());
         setBackgroundColor(Misc.getDarkPlayerColor());
@@ -22,7 +22,7 @@ public class ToggleGroupingButton extends ControlButton {
             new EventHandler() {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
-                    manager.setGrouppedBySystem(!manager.isGrouppedBySystem());
+                    manager.setGroupedBySystem(!manager.isGroupedBySystem());
                     manager.updateIntel();
                 }
             }

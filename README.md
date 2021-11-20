@@ -33,9 +33,9 @@ It allows to display a unified view to quickly verify what is available, and per
 
 ## Installation and Configuration
 
-To configure the mod edit [stelnet.dist.hjson](assets/stelnet.dist.hjson) and save it as `stelnet.hjson`.
+To configure the mod edit [stelnet.dist.json](assets/stelnet.dist.json) and save it as `stelnet.json`.
 
 This mod can be added to an existing playthrough - just enable it in the mod list and load the save.
 
-This mod can be removed from an existing playthrough - edit `stelnet.hjson` and set `uninstallMod` to `true`.
+This mod can be removed from an existing playthrough - edit `stelnet.json` and set `uninstallMod` to `true`.
 Then load the save, save the game, quit the game, and finally disable this mod in the mod list.

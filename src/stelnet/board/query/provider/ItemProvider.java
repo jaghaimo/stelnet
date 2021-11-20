@@ -15,10 +15,11 @@ import stelnet.board.query.ResultSet;
 import stelnet.board.query.view.add.QueryFactory;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
-import stelnet.util.SettingsUtils;
 
 @ExtensionMethod({ CargoStackExtension.class })
 public class ItemProvider extends QueryProvider {
+
+    private final FactionProvider factionProvider = new FactionProvider();
 
     private transient List<CargoStackAPI> allCargoStacks;
     private transient List<FighterWingSpecAPI> allFighterWings;
@@ -71,24 +72,21 @@ public class ItemProvider extends QueryProvider {
 
     private List<FighterWingSpecAPI> getFighters() {
         if (allFighterWings == null) {
-            allFighterWings = SettingsUtils.getAllFighterWingSpecs();
-            filter(allFighterWings);
+            allFighterWings = factionProvider.getAllFighters();
         }
         return allFighterWings;
     }
 
     private List<HullModSpecAPI> getModspecs() {
         if (allHullModSpecs == null) {
-            allHullModSpecs = SettingsUtils.getAllHullModSpecs();
-            filter(allHullModSpecs);
+            allHullModSpecs = factionProvider.getAllHullMods();
         }
         return allHullModSpecs;
     }
 
     private List<WeaponSpecAPI> getWeapons() {
         if (allWeaponSpecs == null) {
-            allWeaponSpecs = SettingsUtils.getAllWeaponSpecs();
-            filter(allWeaponSpecs);
+            allWeaponSpecs = factionProvider.getAllWeapons();
         }
         return allWeaponSpecs;
     }

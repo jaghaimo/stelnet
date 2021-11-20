@@ -7,7 +7,7 @@ package stelnet.util;
 public class TagConstants {
 
     public static final String STELNET = "stelnet";
-    public static final String STELNET_JSON = "stelnet.hjson";
+    public static final String STELNET_JSON = "stelnet.json";
 
     public static final String COMMODITY = "stelnetCommodity";
     public static final String MARKET = "stelnetMarket";
