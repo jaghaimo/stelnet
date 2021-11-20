@@ -1,6 +1,8 @@
 package stelnet.board.query.view.add;
 
 import com.fs.starfarer.api.ui.Alignment;
+import com.fs.starfarer.api.util.Misc;
+import java.awt.Color;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,6 +12,7 @@ import stelnet.filter.Filter;
 import stelnet.filter.LogicalOr;
 import stelnet.util.L10n;
 import stelnet.util.SettingsUtils;
+import uilib.Button;
 import uilib.DynamicGroup;
 import uilib.HorizontalViewContainer;
 import uilib.Line;
@@ -25,30 +28,37 @@ public abstract class QueryFactory {
     @Setter
     protected SizeHelper sizeHelper = new SizeHelper();
 
-    protected void addLabeledGroup(List<Renderable> elements, Enum<?> label, List<Renderable> groupElements) {
+    protected void addLabeledGroup(List<Renderable> elements, Enum<?> label, Button[] buttons, boolean isEnabled) {
         String labelText = "";
         if (label != null) {
             labelText = L10n.get(label);
         }
-        elements.add(
-            new HorizontalViewContainer(
-                new Paragraph(labelText, sizeHelper.getTextWidth(), 4, Alignment.RMID),
-                new DynamicGroup(sizeHelper.getGroupWidth(), groupElements)
-            )
-        );
+        Paragraph title = new Paragraph(labelText, sizeHelper.getTextWidth(), 4, Alignment.RMID);
+        if (!isEnabled) {
+            title.setColor(Misc.getGrayColor());
+        }
+        prepareButtons(buttons, isEnabled);
+        elements.add(new HorizontalViewContainer(title, new DynamicGroup(sizeHelper.getGroupWidth(), buttons)));
     }
 
-    protected void addUnlabelledGroup(List<Renderable> elements, List<Renderable> groupElements) {
-        elements.add(new HorizontalViewContainer(new DynamicGroup(sizeHelper.getGroupAndTextWidth(), groupElements)));
+    protected void addUnlabelledGroup(List<Renderable> elements, Button[] buttons, boolean isEnabled) {
+        prepareButtons(buttons, isEnabled);
+        elements.add(new HorizontalViewContainer(new DynamicGroup(sizeHelper.getGroupAndTextWidth(), buttons)));
     }
 
-    protected void addSection(List<Renderable> elements, Enum<?> translationId) {
+    protected void addSection(List<Renderable> elements, Enum<?> translationId, boolean isEnabled) {
         float width = sizeHelper.getGroupAndTextWidth();
         addSpacer(elements, 16);
-        elements.add(new Paragraph(L10n.get(translationId), width));
-        Line line = new Line(width, SettingsUtils.getButtonHighlightColor());
+        Paragraph paragraph = new Paragraph(L10n.get(translationId), width);
+        Color lineColor = SettingsUtils.getButtonHighlightColor();
+        if (!isEnabled) {
+            paragraph.setColor(Misc.getGrayColor());
+            lineColor = Misc.getDarkPlayerColor();
+        }
+        Line line = new Line(width, lineColor);
         line.setOffset(new Position(0, -3));
         line.setPadding(0);
+        elements.add(paragraph);
         elements.add(line);
         addSpacer(elements, 6);
     }
@@ -57,7 +67,10 @@ public abstract class QueryFactory {
         elements.add(new Spacer(size));
     }
 
-    protected void addToFilters(Set<Filter> filters, FilteringButton buttons[], String type) {
+    protected void addToFilters(Set<Filter> filters, FilteringButton buttons[], String type, boolean isEnabled) {
+        if (!isEnabled) {
+            return;
+        }
         Set<Filter> selectedFilters = new LinkedHashSet<>();
         for (FilteringButton button : buttons) {
             Filter filter = button.getFilter();
@@ -68,6 +81,12 @@ public abstract class QueryFactory {
         filters.add(new LogicalOr(selectedFilters, type));
     }
 
+    private void prepareButtons(Button[] buttons, boolean isEnabled) {
+        for (Button button : buttons) {
+            button.setEnabled(isEnabled);
+        }
+    }
+
     public abstract Set<Filter> getFilters();
 
     public abstract RenderableComponent getPreview(Set<Filter> filters, Size size);
@@ -76,5 +95,5 @@ public abstract class QueryFactory {
 
     protected abstract List<Renderable> getQueryBuildingComponents();
 
-    protected abstract List<Renderable> getFinalComponents();
+    protected abstract Button[] getFinalComponents();
 }

@@ -5,7 +5,6 @@ import com.fs.starfarer.api.combat.DamageType;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.loading.WingRole;
-import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,6 +24,7 @@ import stelnet.filter.WeaponIsSize;
 import stelnet.filter.WeaponIsType;
 import stelnet.util.CargoUtils;
 import stelnet.util.L10n;
+import uilib.Button;
 import uilib.Renderable;
 import uilib.RenderableComponent;
 import uilib.ShowCargo;
@@ -43,12 +43,12 @@ public class ItemQueryFactory extends QueryFactory {
     @Override
     public Set<Filter> getFilters() {
         Set<Filter> filters = new LinkedHashSet<>();
-        addToFilters(filters, itemTypes, L10n.get(QueryL10n.ITEM_TYPES));
-        addToFilters(filters, manufacturers, L10n.get(QueryL10n.MANUFACTURERS));
-        addToFilters(filters, weaponDamageTypes, L10n.get(QueryL10n.DAMAGE_TYPE));
-        addToFilters(filters, weaponMountSizes, L10n.get(QueryL10n.MOUNT_SIZE));
-        addToFilters(filters, weaponMountTypes, L10n.get(QueryL10n.MOUNT_TYPE));
-        addToFilters(filters, wingRoles, L10n.get(QueryL10n.WING_ROLES));
+        addToFilters(filters, itemTypes, L10n.get(QueryL10n.ITEM_TYPES), true);
+        addToFilters(filters, manufacturers, L10n.get(QueryL10n.MANUFACTURERS), hasWeapons() || hasFighterWings());
+        addToFilters(filters, weaponDamageTypes, L10n.get(QueryL10n.DAMAGE_TYPE), hasWeapons());
+        addToFilters(filters, weaponMountSizes, L10n.get(QueryL10n.MOUNT_SIZE), hasWeapons());
+        addToFilters(filters, weaponMountTypes, L10n.get(QueryL10n.MOUNT_TYPE), hasWeapons());
+        addToFilters(filters, wingRoles, L10n.get(QueryL10n.WING_ROLES), hasFighterWings());
         filters.add(new CargoStackNotKnownModspec());
         return filters;
     }
@@ -69,26 +69,26 @@ public class ItemQueryFactory extends QueryFactory {
     }
 
     @Override
-    protected List<Renderable> getFinalComponents() {
+    protected Button[] getFinalComponents() {
         Set<Filter> filters = getFilters();
-        return Arrays.<Renderable>asList(
+        return new Button[] {
             new FindMatchingButton(this, L10n.get(CommonL10n.ITEMS)),
-            new FindSelectedButton(this, getCargo(filters))
-        );
+            new FindSelectedButton(this, getCargo(filters)),
+        };
     }
 
     @Override
     protected List<Renderable> getQueryBuildingComponents() {
         List<Renderable> elements = new LinkedList<>();
-        addLabeledGroup(elements, QueryL10n.ITEM_TYPES, Arrays.<Renderable>asList(itemTypes));
-        addSection(elements, CommonL10n.WEAPONS);
-        addLabeledGroup(elements, QueryL10n.DAMAGE_TYPE, Arrays.<Renderable>asList(weaponDamageTypes));
-        addLabeledGroup(elements, QueryL10n.MOUNT_TYPE, Arrays.<Renderable>asList(weaponMountTypes));
-        addLabeledGroup(elements, QueryL10n.MOUNT_SIZE, Arrays.<Renderable>asList(weaponMountSizes));
-        addSection(elements, CommonL10n.FIGHTER_WINGS);
-        addLabeledGroup(elements, QueryL10n.WING_ROLES, Arrays.<Renderable>asList(wingRoles));
-        addSection(elements, QueryL10n.MANUFACTURERS);
-        addUnlabelledGroup(elements, Arrays.<Renderable>asList(manufacturers));
+        addLabeledGroup(elements, QueryL10n.ITEM_TYPES, itemTypes, true);
+        addSection(elements, CommonL10n.WEAPONS, hasWeapons());
+        addLabeledGroup(elements, QueryL10n.DAMAGE_TYPE, weaponDamageTypes, hasWeapons());
+        addLabeledGroup(elements, QueryL10n.MOUNT_TYPE, weaponMountTypes, hasWeapons());
+        addLabeledGroup(elements, QueryL10n.MOUNT_SIZE, weaponMountSizes, hasWeapons());
+        addSection(elements, CommonL10n.FIGHTER_WINGS, hasFighterWings());
+        addLabeledGroup(elements, QueryL10n.WING_ROLES, wingRoles, hasFighterWings());
+        addSection(elements, QueryL10n.MANUFACTURERS, hasWeapons() || hasFighterWings());
+        addUnlabelledGroup(elements, manufacturers, hasWeapons() || hasFighterWings());
         return elements;
     }
 
@@ -155,5 +155,13 @@ public class ItemQueryFactory extends QueryFactory {
 
     private CargoAPI getCargo(Set<Filter> filters) {
         return CargoUtils.makeCargoFromStacks(itemProvider.getMatching(filters));
+    }
+
+    private boolean hasWeapons() {
+        return itemTypes[0].isStateOn();
+    }
+
+    private boolean hasFighterWings() {
+        return itemTypes[1].isStateOn();
     }
 }

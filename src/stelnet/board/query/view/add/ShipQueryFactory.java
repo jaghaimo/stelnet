@@ -4,7 +4,6 @@ import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
-import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,6 +18,7 @@ import stelnet.filter.ShipHullIsSize;
 import stelnet.filter.WeaponSlotIsSize;
 import stelnet.filter.WeaponSlotIsType;
 import stelnet.util.L10n;
+import uilib.Button;
 import uilib.Renderable;
 import uilib.RenderableComponent;
 import uilib.ShowShips;
@@ -35,10 +35,10 @@ public class ShipQueryFactory extends QueryFactory {
     @Override
     public Set<Filter> getFilters() {
         Set<Filter> filters = new LinkedHashSet<>();
-        addToFilters(filters, classSizes, L10n.get(QueryL10n.CLASS_SIZE));
-        addToFilters(filters, mountSizes, L10n.get(QueryL10n.MOUNT_SIZE));
-        addToFilters(filters, mountTypes, L10n.get(QueryL10n.MOUNT_TYPE));
-        addToFilters(filters, manufacturers, L10n.get(QueryL10n.MANUFACTURERS));
+        addToFilters(filters, classSizes, L10n.get(QueryL10n.CLASS_SIZE), true);
+        addToFilters(filters, mountSizes, L10n.get(QueryL10n.MOUNT_SIZE), true);
+        addToFilters(filters, mountTypes, L10n.get(QueryL10n.MOUNT_TYPE), true);
+        addToFilters(filters, manufacturers, L10n.get(QueryL10n.MANUFACTURERS), true);
         return filters;
     }
 
@@ -58,23 +58,23 @@ public class ShipQueryFactory extends QueryFactory {
     }
 
     @Override
-    protected List<Renderable> getFinalComponents() {
+    protected Button[] getFinalComponents() {
         Set<Filter> filters = getFilters();
-        return Arrays.<Renderable>asList(
+        return new Button[] {
             new FindMatchingButton(this, L10n.get(CommonL10n.SHIPS)),
-            new FindSelectedButton(this, getShips(filters))
-        );
+            new FindSelectedButton(this, getShips(filters)),
+        };
     }
 
     @Override
     protected List<Renderable> getQueryBuildingComponents() {
         List<Renderable> elements = new LinkedList<>();
-        addLabeledGroup(elements, QueryL10n.CLASS_SIZE, Arrays.<Renderable>asList(classSizes));
-        addSection(elements, QueryL10n.WEAPON_MOUNTS);
-        addLabeledGroup(elements, QueryL10n.MOUNT_TYPE, Arrays.<Renderable>asList(mountTypes));
-        addLabeledGroup(elements, QueryL10n.MOUNT_SIZE, Arrays.<Renderable>asList(mountSizes));
-        addSection(elements, QueryL10n.MANUFACTURERS);
-        addUnlabelledGroup(elements, Arrays.<Renderable>asList(manufacturers));
+        addLabeledGroup(elements, QueryL10n.CLASS_SIZE, classSizes, true);
+        addSection(elements, QueryL10n.WEAPON_MOUNTS, true);
+        addLabeledGroup(elements, QueryL10n.MOUNT_TYPE, mountTypes, true);
+        addLabeledGroup(elements, QueryL10n.MOUNT_SIZE, mountSizes, true);
+        addSection(elements, QueryL10n.MANUFACTURERS, true);
+        addUnlabelledGroup(elements, manufacturers, true);
         return elements;
     }
 

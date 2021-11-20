@@ -4,7 +4,6 @@ import com.fs.starfarer.api.characters.SkillSpecAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.campaign.ids.Ranks;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,6 +23,7 @@ import stelnet.filter.PersonIsPostedAs;
 import stelnet.filter.SkillIsCombatOfficer;
 import stelnet.util.L10n;
 import stelnet.util.SettingsUtils;
+import uilib.Button;
 import uilib.Renderable;
 import uilib.RenderableComponent;
 import uilib.ShowPeople;
@@ -47,10 +47,10 @@ public class PersonnelQueryFactory extends QueryFactory {
     @Override
     public Set<Filter> getFilters() {
         Set<Filter> filters = new LinkedHashSet<>();
-        addToFilters(filters, postType, L10n.get(QueryL10n.PERSONNEL_POST_TYPES));
-        addToFilters(filters, level, L10n.get(QueryL10n.PERSONNEL_MIN_LEVEL));
-        addToFilters(filters, personality, L10n.get(QueryL10n.PERSONNEL_PERSONALITY));
-        addToFilters(filters, skill, L10n.get(QueryL10n.PERSONNEL_SKILLS));
+        addToFilters(filters, postType, L10n.get(QueryL10n.PERSONNEL_POST_TYPES), true);
+        addToFilters(filters, level, L10n.get(QueryL10n.PERSONNEL_MIN_LEVEL), hasOfficers());
+        addToFilters(filters, personality, L10n.get(QueryL10n.PERSONNEL_PERSONALITY), hasOfficers());
+        addToFilters(filters, skill, L10n.get(QueryL10n.PERSONNEL_SKILLS), hasOfficers());
         return filters;
     }
 
@@ -65,18 +65,18 @@ public class PersonnelQueryFactory extends QueryFactory {
     }
 
     @Override
-    protected List<Renderable> getFinalComponents() {
-        return Collections.<Renderable>singletonList(new FindMatchingButton(this, L10n.get(CommonL10n.PERSONNEL)));
+    protected Button[] getFinalComponents() {
+        return new Button[] { new FindMatchingButton(this, L10n.get(CommonL10n.PERSONNEL)) };
     }
 
     @Override
     protected List<Renderable> getQueryBuildingComponents() {
         List<Renderable> elements = new LinkedList<>();
-        addLabeledGroup(elements, QueryL10n.PERSONNEL_POST_TYPES, Arrays.<Renderable>asList(postType));
-        addSection(elements, QueryL10n.OFFICERS_AND_MERCENARIES);
-        addLabeledGroup(elements, QueryL10n.PERSONNEL_MIN_LEVEL, Arrays.<Renderable>asList(level));
-        addLabeledGroup(elements, QueryL10n.PERSONNEL_PERSONALITY, Arrays.<Renderable>asList(personality));
-        addLabeledGroup(elements, QueryL10n.PERSONNEL_SKILLS, Arrays.<Renderable>asList(skill));
+        addLabeledGroup(elements, QueryL10n.PERSONNEL_POST_TYPES, postType, true);
+        addSection(elements, QueryL10n.OFFICERS_AND_MERCENARIES, hasOfficers());
+        addLabeledGroup(elements, QueryL10n.PERSONNEL_MIN_LEVEL, level, hasOfficers());
+        addLabeledGroup(elements, QueryL10n.PERSONNEL_PERSONALITY, personality, hasOfficers());
+        addLabeledGroup(elements, QueryL10n.PERSONNEL_SKILLS, skill, hasOfficers());
         return elements;
     }
 
@@ -118,5 +118,9 @@ public class PersonnelQueryFactory extends QueryFactory {
             skillButtons.add(new FilteringButton(skill.getName(), new PersonHasSkill(skill.getId())));
         }
         return skillButtons.toArray(new FilteringButton[] {});
+    }
+
+    private boolean hasOfficers() {
+        return postType[1].isStateOn() || postType[2].isStateOn();
     }
 }

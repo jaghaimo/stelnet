@@ -1,6 +1,5 @@
 package stelnet.board.query.view.add;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -10,6 +9,7 @@ import stelnet.CommonL10n;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
+import uilib.Button;
 import uilib.Renderable;
 import uilib.RenderableComponent;
 import uilib.RenderableFactory;
@@ -41,7 +41,7 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
     }
 
     @Override
-    public List<Renderable> getFinalComponents() {
+    public Button[] getFinalComponents() {
         return findNextFactory().getFinalComponents();
     }
 
@@ -61,11 +61,11 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
     protected List<Renderable> getQueryBuildingComponents() {
         List<Renderable> elements = new LinkedList<>();
         elements.add(new Spacer(1));
-        addLabeledGroup(elements, QueryL10n.QUERY_TYPE, Arrays.<Renderable>asList(queryType));
+        addLabeledGroup(elements, QueryL10n.QUERY_TYPE, queryType, true);
         QueryFactory nextFactory = findNextFactory();
         elements.addAll(nextFactory.getQueryBuildingComponents());
         addSpacer(elements, 10);
-        addLabeledGroup(elements, null, getFinalComponents());
+        addLabeledGroup(elements, null, getFinalComponents(), true);
         return elements;
     }
 

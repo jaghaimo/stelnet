@@ -8,6 +8,7 @@ import lombok.extern.log4j.Log4j;
 import stelnet.board.query.provider.DummyProvider;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
+import uilib.Button;
 import uilib.Renderable;
 import uilib.RenderableComponent;
 import uilib.property.Size;
@@ -37,9 +38,9 @@ public class DummyFactory extends QueryFactory {
     }
 
     @Override
-    protected List<Renderable> getFinalComponents() {
+    protected Button[] getFinalComponents() {
         logUsage();
-        return Collections.emptyList();
+        return new Button[] {};
     }
 
     @Override
