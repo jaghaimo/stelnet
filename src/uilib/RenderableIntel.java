@@ -46,18 +46,24 @@ public abstract class RenderableIntel extends BaseIntelPlugin {
 
     @Override
     public void createSmallDescription(TooltipMakerAPI info, float width, float height) {
+        long startTime = System.currentTimeMillis();
         Size size = new Size(width, height);
         for (Renderable view : getRenderableList(size)) {
             view.render(info);
         }
+        long stopTime = System.currentTimeMillis();
+        log.info(String.format("Created small intel in %dms", stopTime - startTime));
     }
 
     @Override
     public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
+        long startTime = System.currentTimeMillis();
         Size size = new Size(width, height);
         for (Renderable view : getRenderableList(size)) {
             view.render(panel, 0, 0);
         }
+        long stopTime = System.currentTimeMillis();
+        log.info(String.format("Created large intel in %dms", stopTime - startTime));
     }
 
     @Override
