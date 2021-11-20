@@ -47,10 +47,10 @@ public class PersonnelQueryFactory extends QueryFactory {
     @Override
     public Set<Filter> getFilters() {
         Set<Filter> filters = new LinkedHashSet<>();
-        addToFilters(filters, postType, L10n.get(QueryL10n.PERSONNEL_POST_TYPES), true);
-        addToFilters(filters, level, L10n.get(QueryL10n.PERSONNEL_MIN_LEVEL), false);
-        addToFilters(filters, personality, L10n.get(QueryL10n.PERSONNEL_PERSONALITY), false);
-        addToFilters(filters, skill, L10n.get(QueryL10n.PERSONNEL_SKILLS), false);
+        addToFilters(filters, postType, L10n.get(QueryL10n.PERSONNEL_POST_TYPES));
+        addToFilters(filters, level, L10n.get(QueryL10n.PERSONNEL_MIN_LEVEL));
+        addToFilters(filters, personality, L10n.get(QueryL10n.PERSONNEL_PERSONALITY));
+        addToFilters(filters, skill, L10n.get(QueryL10n.PERSONNEL_SKILLS));
         return filters;
     }
 

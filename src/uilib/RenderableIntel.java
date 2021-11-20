@@ -23,10 +23,13 @@ public abstract class RenderableIntel extends BaseIntelPlugin {
 
     @Override
     public void buttonPressConfirmed(Object buttonId, IntelUIAPI ui) {
+        long startTime = System.currentTimeMillis();
         log.debug("Calling confirm()");
         ButtonHandler handler = (ButtonHandler) buttonId;
         handler.onConfirm(ui);
         redraw(ui);
+        long stopTime = System.currentTimeMillis();
+        log.info(String.format("Processed button click in %dms", stopTime - startTime));
     }
 
     @Override

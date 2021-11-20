@@ -43,12 +43,12 @@ public class ItemQueryFactory extends QueryFactory {
     @Override
     public Set<Filter> getFilters() {
         Set<Filter> filters = new LinkedHashSet<>();
-        addToFilters(filters, itemTypes, L10n.get(QueryL10n.ITEM_TYPES), true);
-        addToFilters(filters, manufacturers, L10n.get(QueryL10n.MANUFACTURERS), false);
-        addToFilters(filters, weaponDamageTypes, L10n.get(QueryL10n.DAMAGE_TYPE), false);
-        addToFilters(filters, weaponMountSizes, L10n.get(QueryL10n.MOUNT_SIZE), false);
-        addToFilters(filters, weaponMountTypes, L10n.get(QueryL10n.MOUNT_TYPE), false);
-        addToFilters(filters, wingRoles, L10n.get(QueryL10n.WING_ROLES), false);
+        addToFilters(filters, itemTypes, L10n.get(QueryL10n.ITEM_TYPES));
+        addToFilters(filters, manufacturers, L10n.get(QueryL10n.MANUFACTURERS));
+        addToFilters(filters, weaponDamageTypes, L10n.get(QueryL10n.DAMAGE_TYPE));
+        addToFilters(filters, weaponMountSizes, L10n.get(QueryL10n.MOUNT_SIZE));
+        addToFilters(filters, weaponMountTypes, L10n.get(QueryL10n.MOUNT_TYPE));
+        addToFilters(filters, wingRoles, L10n.get(QueryL10n.WING_ROLES));
         filters.add(new CargoStackNotKnownModspec());
         return filters;
     }
@@ -148,7 +148,7 @@ public class ItemQueryFactory extends QueryFactory {
     private FilteringButton[] createManufacturers() {
         List<FilteringButton> manufacturers = new LinkedList<>();
         for (String manufacturer : itemProvider.getManufacturers()) {
-            manufacturers.add(new FilteringButton(manufacturer, new CargoStackIsManufacturer(manufacturer)));
+            manufacturers.add(new FilteringButton(manufacturer, new CargoStackIsManufacturer(manufacturer), false));
         }
         return manufacturers.toArray(new FilteringButton[] {});
     }

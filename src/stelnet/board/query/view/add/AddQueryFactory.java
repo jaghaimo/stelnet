@@ -13,6 +13,7 @@ import stelnet.filter.Filter;
 import uilib.Renderable;
 import uilib.RenderableComponent;
 import uilib.RenderableFactory;
+import uilib.Spacer;
 import uilib.property.Location;
 import uilib.property.Size;
 
@@ -59,6 +60,7 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
     @Override
     protected List<Renderable> getQueryBuildingComponents() {
         List<Renderable> elements = new LinkedList<>();
+        elements.add(new Spacer(1));
         addLabeledGroup(elements, QueryL10n.QUERY_TYPE, Arrays.<Renderable>asList(queryType));
         QueryFactory nextFactory = findNextFactory();
         elements.addAll(nextFactory.getQueryBuildingComponents());

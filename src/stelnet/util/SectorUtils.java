@@ -38,6 +38,10 @@ public class SectorUtils {
         return getSector().getPlayerFleet();
     }
 
+    public static long now() {
+        return getSector().getClock().getTimestamp();
+    }
+
     public static void removeScript(EveryFrameScript script) {
         getSector().removeScript(script);
     }

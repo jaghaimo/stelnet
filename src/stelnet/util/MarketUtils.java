@@ -10,10 +10,14 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import lombok.extern.log4j.Log4j;
 import stelnet.filter.Filter;
 import stelnet.filter.MarketNotHidden;
 
+@Log4j
 public class MarketUtils {
+
+    private static long lastUpdate = Long.MIN_VALUE;
 
     public static List<SectorEntityToken> convertMarketsToTokens(List<MarketAPI> markets) {
         List<SectorEntityToken> tokens = new LinkedList<>();
@@ -39,8 +43,10 @@ public class MarketUtils {
         List<MarketAPI> markets = EconomyUtils.getMarkets();
         List<Filter> filters = Arrays.<Filter>asList(Excluder.getMarketFilters(), new MarketNotHidden());
         CollectionUtils.reduce(markets, filters);
-        if (refreshContent) {
+        if (refreshContent && needsRefresh()) {
+            log.info("Refreshing all markets, this may take a while");
             updateMarketPrePlayerInteraction(markets);
+            lastUpdate = SectorUtils.now();
         }
         return markets;
     }
@@ -58,10 +64,14 @@ public class MarketUtils {
         return submarkets;
     }
 
+    private static boolean needsRefresh() {
+        return lastUpdate < SectorUtils.now();
+    }
+
     private static void updateMarketPrePlayerInteraction(List<MarketAPI> markets) {
         for (MarketAPI market : markets) {
-            updateSubmarketsPrePlayerInteraction(market);
             ListenerUtil.reportPlayerOpenedMarket(market);
+            updateSubmarketsPrePlayerInteraction(market);
         }
     }
 

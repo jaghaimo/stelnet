@@ -57,27 +57,15 @@ public abstract class QueryFactory {
         elements.add(new Spacer(size));
     }
 
-    protected void addToFilters(
-        Set<Filter> filters,
-        FilteringButton buttons[],
-        String type,
-        boolean defaultToAllFilters
-    ) {
-        Set<Filter> allFilters = new LinkedHashSet<>();
+    protected void addToFilters(Set<Filter> filters, FilteringButton buttons[], String type) {
         Set<Filter> selectedFilters = new LinkedHashSet<>();
         for (FilteringButton button : buttons) {
-            allFilters.add(button.getFilter());
+            Filter filter = button.getFilter();
             if (button.isStateOn()) {
-                selectedFilters.add(button.getFilter());
+                selectedFilters.add(filter);
             }
         }
-        if (!selectedFilters.isEmpty()) {
-            filters.add(new LogicalOr(selectedFilters, type));
-            return;
-        }
-        if (defaultToAllFilters) {
-            filters.add(new LogicalOr(allFilters, type));
-        }
+        filters.add(new LogicalOr(selectedFilters, type));
     }
 
     public abstract Set<Filter> getFilters();

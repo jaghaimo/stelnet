@@ -35,10 +35,10 @@ public class ShipQueryFactory extends QueryFactory {
     @Override
     public Set<Filter> getFilters() {
         Set<Filter> filters = new LinkedHashSet<>();
-        addToFilters(filters, classSizes, L10n.get(QueryL10n.CLASS_SIZE), true);
-        addToFilters(filters, mountSizes, L10n.get(QueryL10n.MOUNT_SIZE), false);
-        addToFilters(filters, mountTypes, L10n.get(QueryL10n.MOUNT_TYPE), false);
-        addToFilters(filters, manufacturers, L10n.get(QueryL10n.MANUFACTURERS), false);
+        addToFilters(filters, classSizes, L10n.get(QueryL10n.CLASS_SIZE));
+        addToFilters(filters, mountSizes, L10n.get(QueryL10n.MOUNT_SIZE));
+        addToFilters(filters, mountTypes, L10n.get(QueryL10n.MOUNT_TYPE));
+        addToFilters(filters, manufacturers, L10n.get(QueryL10n.MANUFACTURERS));
         return filters;
     }
 
@@ -90,7 +90,7 @@ public class ShipQueryFactory extends QueryFactory {
     private FilteringButton[] createManufacturers() {
         List<FilteringButton> manufacturers = new LinkedList<>();
         for (String manufacturer : shipProvider.getManufacturers()) {
-            manufacturers.add(new FilteringButton(manufacturer, new ShipHullIsManufacturer(manufacturer)));
+            manufacturers.add(new FilteringButton(manufacturer, new ShipHullIsManufacturer(manufacturer), false));
         }
         return manufacturers.toArray(new FilteringButton[] {});
     }

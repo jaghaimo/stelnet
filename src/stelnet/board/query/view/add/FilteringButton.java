@@ -17,7 +17,11 @@ public class FilteringButton extends AreaCheckbox {
     }
 
     public FilteringButton(String translatedString, Filter filter) {
-        super(new Size(UiConstants.AUTO_WIDTH, UiConstants.DEFAULT_BUTTON_HEIGHT), translatedString, true, false);
+        this(translatedString, filter, true);
+    }
+
+    public FilteringButton(String translatedString, Filter filter, boolean state) {
+        super(new Size(UiConstants.AUTO_WIDTH, UiConstants.DEFAULT_BUTTON_HEIGHT), translatedString, true, state);
         this.filter = filter;
         setPadding(0);
     }

@@ -41,17 +41,17 @@ public class QueryView implements RenderableFactory {
         tabViewContainer.setSize(size.reduce(new Size(previewWidth, 0)));
         tabViewContainer.addTab(
             getTabButton(QueryBoardTab.LIST, Keyboard.KEY_L),
-            new VerticalViewContainer(queryListFactory.create(tabContentSize)),
+            getTabContent(queryListFactory, tabContentSize, QueryBoardTab.LIST),
             isActive(QueryBoardTab.LIST)
         );
 
         tabViewContainer.addTab(
             getTabButton(QueryBoardTab.NEW, Keyboard.KEY_N),
-            new VerticalViewContainer(addQueryFactory.create(tabContentSize)),
+            getTabContent(addQueryFactory, tabContentSize, QueryBoardTab.NEW),
             isActive(QueryBoardTab.NEW)
         );
 
-        Line fakeTabLine = new Line(size.getWidth());
+        Line fakeTabLine = new Line(size.getWidth() - 5);
         fakeTabLine.setOffset(new Position(0, 18));
         fakeTabLine.setPadding(0);
 
@@ -73,6 +73,17 @@ public class QueryView implements RenderableFactory {
 
     private QueryTabButton getTabButton(QueryBoardTab currentTab, int keyboardShortcut) {
         return new QueryTabButton(currentTab, activeTab, keyboardShortcut);
+    }
+
+    private VerticalViewContainer getTabContent(
+        RenderableFactory factory,
+        Size tabContentSize,
+        QueryBoardTab currentTab
+    ) {
+        if (isActive(currentTab)) {
+            return new VerticalViewContainer(factory.create(tabContentSize));
+        }
+        return null;
     }
 
     private boolean isActive(QueryBoardTab currentTab) {
