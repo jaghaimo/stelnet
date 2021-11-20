@@ -29,7 +29,7 @@ public abstract class RenderableIntel extends BaseIntelPlugin {
         handler.onConfirm(ui);
         redraw(ui);
         long stopTime = System.currentTimeMillis();
-        log.info(String.format("Processed button click in %dms", stopTime - startTime));
+        log.debug(String.format("Processed button click in %dms", stopTime - startTime));
     }
 
     @Override
@@ -55,7 +55,7 @@ public abstract class RenderableIntel extends BaseIntelPlugin {
             view.render(info);
         }
         long stopTime = System.currentTimeMillis();
-        log.info(String.format("Created small intel in %dms", stopTime - startTime));
+        log.debug(String.format("Created small intel in %dms", stopTime - startTime));
     }
 
     @Override
@@ -66,7 +66,7 @@ public abstract class RenderableIntel extends BaseIntelPlugin {
             view.render(panel, 0, 0);
         }
         long stopTime = System.currentTimeMillis();
-        log.info(String.format("Created large intel in %dms", stopTime - startTime));
+        log.debug(String.format("Created large intel in %dms", stopTime - startTime));
     }
 
     @Override

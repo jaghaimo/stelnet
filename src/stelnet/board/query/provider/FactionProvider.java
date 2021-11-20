@@ -68,7 +68,6 @@ public class FactionProvider {
     private Set<String> getAllShipIds() {
         Set<String> ships = new HashSet<>();
         for (FactionAPI faction : getFactionIds()) {
-            // ships.addAll(faction.getAlwaysKnownShips());
             ships.addAll(faction.getKnownShips());
         }
         return ships;

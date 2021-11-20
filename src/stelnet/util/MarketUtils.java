@@ -44,7 +44,7 @@ public class MarketUtils {
         List<Filter> filters = Arrays.<Filter>asList(Excluder.getMarketFilters(), new MarketNotHidden());
         CollectionUtils.reduce(markets, filters);
         if (refreshContent && needsRefresh()) {
-            log.info("Refreshing all markets, this may take a while");
+            log.debug("Refreshing all markets, this may take a while");
             updateMarketPrePlayerInteraction(markets);
             lastUpdate = SectorUtils.now();
         }
