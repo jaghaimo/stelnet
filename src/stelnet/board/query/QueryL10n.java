@@ -5,6 +5,7 @@ public enum QueryL10n {
     DAMAGE_TYPE,
     DELETE,
     DELETE_ALL,
+    DELETE_ALL_CONFIRMATION,
     DESCRIPTION,
     DISABLED,
     DISABLE_ALL,

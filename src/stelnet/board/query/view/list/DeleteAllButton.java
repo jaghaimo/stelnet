@@ -5,6 +5,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
+import stelnet.util.L10n;
 import uilib.EventHandler;
 
 public class DeleteAllButton extends GlobalButton {
@@ -24,7 +25,7 @@ public class DeleteAllButton extends GlobalButton {
 
                 @Override
                 public void onPrompt(TooltipMakerAPI tooltipMaker) {
-                    tooltipMaker.addPara("Are you sure you want to delete ALL queries?", 0);
+                    tooltipMaker.addPara(L10n.get(QueryL10n.DELETE_ALL_CONFIRMATION), 0);
                 }
 
                 @Override

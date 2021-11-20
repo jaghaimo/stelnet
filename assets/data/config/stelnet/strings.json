@@ -81,6 +81,7 @@
     "QUERY_DAMAGE_TYPE": "Damage type",
     "QUERY_DELETE": "Delete",
     "QUERY_DELETE_ALL": "Delete All",
+    "QUERY_DELETE_ALL_CONFIRMATION": "Are you sure you want to delete ALL queries?",
     "QUERY_DESCRIPTION": "{0, choice, 0#No intel queries present|1#Managing one intel query|1<Managing {0, number, integer} intel queries}.",
     "QUERY_DISABLED": "Disabled",
     "QUERY_DISABLE_ALL": "Disable All",

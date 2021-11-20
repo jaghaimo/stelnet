@@ -27,7 +27,7 @@ public class DummyProvider extends QueryProvider {
         List<ResultSet> resultSets,
         List<MarketAPI> markets,
         Set<Filter> filters,
-        final boolean grouppedBySystem
+        final boolean groupedBySystem
     ) {
         logUsage();
     }

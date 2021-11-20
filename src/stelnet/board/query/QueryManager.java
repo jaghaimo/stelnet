@@ -18,7 +18,7 @@ public class QueryManager {
 
     @Getter
     @Setter
-    private boolean grouppedBySystem;
+    private boolean groupedBySystem;
 
     @Getter
     private final Set<Query> queries = new HashSet<>();
@@ -82,7 +82,7 @@ public class QueryManager {
     }
 
     private void updateIntel(Query query) {
-        List<ResultSet> resultSets = query.execute(grouppedBySystem);
+        List<ResultSet> resultSets = query.execute(groupedBySystem);
         for (ResultSet resultSet : resultSets) {
             updateResult(resultSet);
         }
