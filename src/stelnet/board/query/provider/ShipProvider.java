@@ -21,8 +21,13 @@ public class ShipProvider extends QueryProvider {
     private final FactionProvider factionProvider = new FactionProvider();
 
     private static final String SUFFIX = "_Hull";
-    private transient List<FleetMemberAPI> allFleetMembers;
-    private transient List<ShipHullSpecAPI> allShipHulls;
+    private static transient List<FleetMemberAPI> allFleetMembers;
+    private static transient List<ShipHullSpecAPI> allShipHulls;
+
+    public static void reset() {
+        allFleetMembers = null;
+        allShipHulls = null;
+    }
 
     public ShipProvider(QueryFactory factory) {
         super(factory);

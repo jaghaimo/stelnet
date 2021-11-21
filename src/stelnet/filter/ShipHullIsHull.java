@@ -10,6 +10,9 @@ public class ShipHullIsHull extends ShipHullFilter {
 
     @Override
     protected boolean acceptShipHull(ShipHullSpecAPI shipHull) {
+        if (shipHull.isDHull()) {
+            return shipHull.getBaseHullId().equals(hull.getHullId());
+        }
         return shipHull.getHullId().equals(hull.getHullId());
     }
 

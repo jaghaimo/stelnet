@@ -18,6 +18,10 @@ public class SectorUtils {
         getSector().addScript(script);
     }
 
+    public static void addTransientScript(EveryFrameScript script) {
+        getSector().addTransientScript(script);
+    }
+
     public static CampaignUIAPI getCampaignUI() {
         return getSector().getCampaignUI();
     }

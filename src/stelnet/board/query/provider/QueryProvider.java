@@ -9,7 +9,6 @@ import stelnet.board.query.ResultSet;
 import stelnet.board.query.view.add.QueryFactory;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
-import stelnet.util.MarketUtils;
 import uilib.RenderableComponent;
 import uilib.property.Size;
 
@@ -21,7 +20,7 @@ public abstract class QueryProvider {
     public abstract List<?> getMatching(Set<Filter> filters);
 
     public List<ResultSet> getResults(Set<Filter> filters, boolean groupedBySystem) {
-        List<MarketAPI> markets = MarketUtils.getMarkets(true);
+        List<MarketAPI> markets = MarketProvider.getMarkets(true);
         CollectionUtils.reduce(markets, filters);
         List<ResultSet> resultSets = new LinkedList<>();
         processMarkets(resultSets, markets, filters, groupedBySystem);

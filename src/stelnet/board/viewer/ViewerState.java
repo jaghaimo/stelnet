@@ -4,7 +4,7 @@ import com.fs.starfarer.api.campaign.SectorEntityToken;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import stelnet.util.MarketUtils;
+import stelnet.board.query.provider.MarketProvider;
 import stelnet.widget.viewer.ContentRenderer;
 import stelnet.widget.viewer.FilteringButtons;
 import stelnet.widget.viewer.InMarketStrategy;
@@ -23,7 +23,7 @@ public class ViewerState implements RenderableState, MarketViewState {
 
     @Override
     public List<Renderable> toRenderableList(Size size) {
-        List<SectorEntityToken> entities = MarketUtils.convertMarketsToTokens(MarketUtils.getMarkets());
+        List<SectorEntityToken> entities = MarketProvider.convertMarketsToTokens(MarketProvider.getMarkets());
         return new ViewerView(entities, this).create(size);
     }
 }

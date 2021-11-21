@@ -21,10 +21,17 @@ public class ItemProvider extends QueryProvider {
 
     private final FactionProvider factionProvider = new FactionProvider();
 
-    private transient List<CargoStackAPI> allCargoStacks;
-    private transient List<FighterWingSpecAPI> allFighterWings;
-    private transient List<HullModSpecAPI> allHullModSpecs;
-    private transient List<WeaponSpecAPI> allWeaponSpecs;
+    private static transient List<CargoStackAPI> allCargoStacks;
+    private static transient List<FighterWingSpecAPI> allFighterWings;
+    private static transient List<HullModSpecAPI> allHullModSpecs;
+    private static transient List<WeaponSpecAPI> allWeaponSpecs;
+
+    public static void reset() {
+        allCargoStacks = null;
+        allFighterWings = null;
+        allHullModSpecs = null;
+        allWeaponSpecs = null;
+    }
 
     public ItemProvider(QueryFactory factory) {
         super(factory);

@@ -15,7 +15,11 @@ import stelnet.util.CollectionUtils;
 
 public class FactionProvider {
 
-    private transient List<FactionAPI> factions;
+    private static transient List<FactionAPI> factions;
+
+    public static void reset() {
+        factions = null;
+    }
 
     public List<FighterWingSpecAPI> getAllFighters() {
         List<FighterWingSpecAPI> fighterWingSpecs = new LinkedList<>();

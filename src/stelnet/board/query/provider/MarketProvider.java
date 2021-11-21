@@ -1,21 +1,22 @@
-package stelnet.util;
+package stelnet.board.query.provider;
 
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.campaign.listeners.ListenerUtil;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import lombok.extern.log4j.Log4j;
 import stelnet.filter.Filter;
 import stelnet.filter.MarketNotHidden;
+import stelnet.util.CollectionUtils;
+import stelnet.util.EconomyUtils;
+import stelnet.util.Excluder;
+import stelnet.util.SectorUtils;
 
 @Log4j
-public class MarketUtils {
+public class MarketProvider {
 
     private static long lastUpdate = Long.MIN_VALUE;
 
@@ -25,14 +26,6 @@ public class MarketUtils {
             tokens.add(market.getPrimaryEntity());
         }
         return tokens;
-    }
-
-    public static Set<MarketAPI> extractMarketsFromSubmarkets(List<SubmarketAPI> submarkets) {
-        Set<MarketAPI> markets = new HashSet<>();
-        for (SubmarketAPI submarket : submarkets) {
-            markets.add(submarket.getMarket());
-        }
-        return markets;
     }
 
     public static List<MarketAPI> getMarkets() {
@@ -45,39 +38,26 @@ public class MarketUtils {
         CollectionUtils.reduce(markets, filters);
         if (refreshContent && needsRefresh()) {
             log.debug("Refreshing all markets, this may take a while");
-            updateMarketPrePlayerInteraction(markets);
+            updateMarkets(markets);
             lastUpdate = SectorUtils.now();
         }
         return markets;
     }
 
-    public static List<SubmarketAPI> getSubmarkets() {
-        return getSubmarkets(getMarkets());
+    public static void updateMarkets(List<MarketAPI> markets) {
+        for (MarketAPI market : markets) {
+            updateMarket(market);
+        }
     }
 
-    public static List<SubmarketAPI> getSubmarkets(List<MarketAPI> markets) {
-        List<SubmarketAPI> submarkets = new ArrayList<>();
-        for (MarketAPI market : markets) {
-            List<SubmarketAPI> marketSubmarkets = market.getSubmarketsCopy();
-            submarkets.addAll(marketSubmarkets);
+    public static void updateMarket(MarketAPI market) {
+        for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
+            submarket.getPlugin().updateCargoPrePlayerInteraction();
         }
-        return submarkets;
+        ListenerUtil.reportPlayerOpenedMarket(market);
     }
 
     private static boolean needsRefresh() {
         return lastUpdate < SectorUtils.now();
-    }
-
-    private static void updateMarketPrePlayerInteraction(List<MarketAPI> markets) {
-        for (MarketAPI market : markets) {
-            ListenerUtil.reportPlayerOpenedMarket(market);
-            updateSubmarketsPrePlayerInteraction(market);
-        }
-    }
-
-    private static void updateSubmarketsPrePlayerInteraction(MarketAPI market) {
-        for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
-            submarket.getPlugin().updateCargoPrePlayerInteraction();
-        }
     }
 }

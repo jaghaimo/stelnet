@@ -7,10 +7,11 @@ import stelnet.board.query.QueryBoard;
 import stelnet.board.query.ResultIntel;
 import stelnet.board.storage.StorageBoard;
 import stelnet.board.storage.StorageIntel;
-import stelnet.board.storage.StorageListener;
 import stelnet.board.viewer.ViewerBoard;
 import stelnet.config.BoardConfig;
 import stelnet.config.ModConfig;
+import stelnet.listener.MarketUpdateScript;
+import stelnet.listener.StorageListener;
 
 @Log4j
 public class ConfigUtils {
@@ -55,6 +56,7 @@ public class ConfigUtils {
         if (hasMarket) {
             QueryBoard.getInstance(QueryBoard.class);
             ViewerBoard.getInstance(ViewerBoard.class);
+            SectorUtils.addTransientScript(new MarketUpdateScript());
             log.info("Enabled Market plugin");
         } else {
             purgeIntel(QueryBoard.class, ViewerBoard.class, ResultIntel.class);

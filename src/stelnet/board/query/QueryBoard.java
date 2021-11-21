@@ -1,9 +1,11 @@
 package stelnet.board.query;
 
 import lombok.Getter;
+import lombok.extern.log4j.Log4j;
 import stelnet.BaseBoard;
 import stelnet.BoardInfo;
 import stelnet.util.L10n;
+import stelnet.util.SectorUtils;
 import stelnet.util.SettingsUtils;
 import stelnet.util.TagConstants;
 import uilib.RenderableIntelInfo;
@@ -16,9 +18,17 @@ import uilib.RenderableState;
  * dynamically update displayed intel.
  */
 @Getter
+@Log4j
 public class QueryBoard extends BaseBoard {
 
     private final QueryState state = new QueryState();
+
+    @Override
+    public void advance(float amount) {
+        log.debug("Resetting query cache");
+        QueryState.resetCache();
+        SectorUtils.removeScript(this);
+    }
 
     @Override
     public String getIcon() {
@@ -33,6 +43,7 @@ public class QueryBoard extends BaseBoard {
 
     @Override
     protected RenderableState getRenderableState() {
+        SectorUtils.addScript(this);
         return state;
     }
 

@@ -2,6 +2,7 @@ package stelnet.board.query;
 
 import java.util.List;
 import lombok.Getter;
+import lombok.extern.log4j.Log4j;
 import stelnet.BaseIntel;
 import stelnet.util.SectorUtils;
 import stelnet.util.SettingsUtils;
@@ -11,6 +12,7 @@ import uilib.RenderableIntelInfo;
 import uilib.property.Size;
 
 @Getter
+@Log4j
 public class ResultIntel extends BaseIntel {
 
     private float advancedAmount = 0;
@@ -28,6 +30,7 @@ public class ResultIntel extends BaseIntel {
     public void advance(float amount) {
         advancedAmount += amount;
         if (advancedAmount > 1) {
+            log.debug("Restoring original token");
             setSectorEntityToken(resultSet.getToken());
             SectorUtils.removeScript(this);
             advancedAmount = 0;
