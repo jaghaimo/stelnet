@@ -28,10 +28,6 @@ public class MarketProvider {
         return tokens;
     }
 
-    public static List<MarketAPI> getMarkets() {
-        return getMarkets(true);
-    }
-
     public static List<MarketAPI> getMarkets(boolean refreshContent) {
         List<MarketAPI> markets = EconomyUtils.getMarkets();
         List<Filter> filters = Arrays.<Filter>asList(Excluder.getMarketFilters(), new MarketNotHidden());

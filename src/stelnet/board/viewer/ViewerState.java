@@ -23,7 +23,7 @@ public class ViewerState implements RenderableState, MarketViewState {
 
     @Override
     public List<Renderable> toRenderableList(Size size) {
-        List<SectorEntityToken> entities = MarketProvider.convertMarketsToTokens(MarketProvider.getMarkets());
+        List<SectorEntityToken> entities = MarketProvider.convertMarketsToTokens(MarketProvider.getMarkets(true));
         return new ViewerView(entities, this).create(size);
     }
 }

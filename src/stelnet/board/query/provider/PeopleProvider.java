@@ -24,7 +24,7 @@ public class PeopleProvider extends QueryProvider {
 
     @Override
     public List<PersonAPI> getMatching(Set<Filter> filters) {
-        List<MarketAPI> markets = MarketProvider.getMarkets();
+        List<MarketAPI> markets = MarketProvider.getMarkets(true);
         List<PersonAPI> people = extractPeople(markets);
         List<PersonAPI> peopleCopy = new LinkedList<>(people);
         CollectionUtils.reduce(peopleCopy, filters);
