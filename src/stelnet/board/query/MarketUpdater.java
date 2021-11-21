@@ -1,4 +1,4 @@
-package stelnet.listener;
+package stelnet.board.query;
 
 import com.fs.starfarer.api.EveryFrameScript;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
@@ -8,7 +8,7 @@ import stelnet.board.query.provider.MarketProvider;
 import stelnet.util.EconomyUtils;
 
 @Log4j
-public class MarketUpdateScript implements EveryFrameScript {
+public class MarketUpdater implements EveryFrameScript {
 
     @Override
     public void advance(float amount) {

@@ -3,15 +3,15 @@ package stelnet.util;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.commodity.CommodityBoard;
 import stelnet.board.commodity.CommodityIntel;
+import stelnet.board.query.MarketUpdater;
 import stelnet.board.query.QueryBoard;
 import stelnet.board.query.ResultIntel;
 import stelnet.board.storage.StorageBoard;
 import stelnet.board.storage.StorageIntel;
+import stelnet.board.storage.StorageListener;
 import stelnet.board.viewer.ViewerBoard;
 import stelnet.config.BoardConfig;
 import stelnet.config.ModConfig;
-import stelnet.listener.MarketUpdateScript;
-import stelnet.listener.StorageListener;
 
 @Log4j
 public class ConfigUtils {
@@ -56,7 +56,7 @@ public class ConfigUtils {
         if (hasMarket) {
             QueryBoard.getInstance(QueryBoard.class);
             ViewerBoard.getInstance(ViewerBoard.class);
-            SectorUtils.addTransientScript(new MarketUpdateScript());
+            SectorUtils.addTransientScript(new MarketUpdater());
             log.info("Enabled Market plugin");
         } else {
             purgeIntel(QueryBoard.class, ViewerBoard.class, ResultIntel.class);

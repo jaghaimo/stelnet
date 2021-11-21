@@ -1,4 +1,4 @@
-package stelnet.listener;
+package stelnet.board.storage;
 
 import com.fs.starfarer.api.campaign.PlayerMarketTransaction;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
@@ -8,7 +8,6 @@ import com.fs.starfarer.api.campaign.listeners.ColonyInteractionListener;
 import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
 import java.util.List;
 import lombok.extern.log4j.Log4j;
-import stelnet.board.storage.StorageIntel;
 import stelnet.util.IntelUtils;
 import stelnet.util.SectorUtils;
 import stelnet.util.StorageUtils;
