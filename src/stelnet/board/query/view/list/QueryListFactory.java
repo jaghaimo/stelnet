@@ -58,7 +58,7 @@ public class QueryListFactory implements RenderableFactory {
     private Renderable getGlobalButtons(boolean enableButtons, float width) {
         Spacer spacer = new Spacer(0);
         List<Renderable> elements = new LinkedList<>();
-        elements.add(new ToggleGroupingButton(manager, enableButtons));
+        elements.add(new GroupByButton(manager, enableButtons));
         elements.add(spacer);
         elements.add(new RefreshAllButton(manager, enableButtons));
         elements.add(new EnableAllButton(manager, enableButtons));

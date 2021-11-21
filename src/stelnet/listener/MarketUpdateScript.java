@@ -2,7 +2,7 @@ package stelnet.listener;
 
 import com.fs.starfarer.api.EveryFrameScript;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import java.util.List;
+import com.fs.starfarer.api.util.WeightedRandomPicker;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.query.provider.MarketProvider;
 import stelnet.util.EconomyUtils;
@@ -12,12 +12,10 @@ public class MarketUpdateScript implements EveryFrameScript {
 
     @Override
     public void advance(float amount) {
-        List<MarketAPI> markets = EconomyUtils.getMarkets();
-        int randomInt = (int) (Math.random() * Integer.MAX_VALUE);
-        int marketSize = markets.size();
-        int marketNumber = (int) Math.abs(randomInt % marketSize);
-        MarketAPI market = markets.get(marketNumber);
-        log.debug(String.format("Updating %s, %d/%d", market.getId(), marketNumber, marketSize));
+        WeightedRandomPicker<MarketAPI> markets = new WeightedRandomPicker<>(true);
+        markets.addAll(EconomyUtils.getMarkets());
+        MarketAPI market = markets.pick();
+        log.info("Updating " + market.getId());
         MarketProvider.updateMarket(market);
     }
 
