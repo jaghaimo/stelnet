@@ -3,6 +3,7 @@ package stelnet.filter;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
+import java.util.List;
 
 public abstract class WeaponSlotFilter extends ShipHullFilter {
 
@@ -21,7 +22,11 @@ public abstract class WeaponSlotFilter extends ShipHullFilter {
 
     @Override
     protected boolean acceptShipHull(ShipHullSpecAPI shipHull) {
-        for (WeaponSlotAPI weaponSlot : shipHull.getAllWeaponSlotsCopy()) {
+        List<WeaponSlotAPI> weaponSlots = shipHull.getAllWeaponSlotsCopy();
+        if (weaponSlots.isEmpty()) {
+            return true;
+        }
+        for (WeaponSlotAPI weaponSlot : weaponSlots) {
             if (acceptWeaponSlot(weaponSlot)) {
                 return true;
             }
