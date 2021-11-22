@@ -19,14 +19,14 @@ public class ButtonGroup extends HorizontalViewContainer {
         super();
         prepareButtons(buttons, isEnabled);
         addLabel(helper.getTextWidth(), label, isEnabled);
-        addGroup(helper.getGroupWidth(), isEnabled, Arrays.asList(buttons));
+        addGroup(helper.getGroupWidth(), Arrays.asList(buttons));
     }
 
     public ButtonGroup(SizeHelper helper, FilteringButton[] buttons, boolean isEnabled) {
         super();
         prepareButtons(buttons, isEnabled);
         List<Button> filteredButtons = getFilteredButtons(buttons);
-        addGroup(helper.getGroupAndTextWidth(), isEnabled, filteredButtons);
+        addGroup(helper.getGroupAndTextWidth(), filteredButtons);
     }
 
     private void addLabel(float width, Enum<?> label, boolean isEnabled) {
@@ -37,7 +37,7 @@ public class ButtonGroup extends HorizontalViewContainer {
         getElements().add(title);
     }
 
-    private void addGroup(float width, boolean isEnabled, List<Button> buttons) {
+    private void addGroup(float width, List<Button> buttons) {
         getElements().add(new DynamicGroup(width - UiConstants.DEFAULT_SPACER, buttons.toArray(new Renderable[] {})));
     }
 
