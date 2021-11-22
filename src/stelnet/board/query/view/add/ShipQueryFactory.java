@@ -16,7 +16,7 @@ import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.board.query.provider.ShipProvider;
 import stelnet.filter.Filter;
-import stelnet.filter.FleetMemberHasDModd;
+import stelnet.filter.FleetMemberHasDMod;
 import stelnet.filter.FleetMemberPristine;
 import stelnet.filter.ShipHullHasBays;
 import stelnet.filter.ShipHullHasBuiltIn;
@@ -172,7 +172,7 @@ public class ShipQueryFactory extends QueryFactory {
         List<FilteringButton> dMods = new LinkedList<>();
         dMods.add(new FilteringButton(CommonL10n.NONE, new FleetMemberPristine(L10n.get(CommonL10n.NONE))));
         for (HullModSpecAPI dMod : shipProvider.getDMods()) {
-            dMods.add(new FilteringButton(dMod.getDisplayName(), new FleetMemberHasDModd(dMod), false));
+            dMods.add(new FilteringButton(dMod.getDisplayName(), new FleetMemberHasDMod(dMod), false));
         }
         return dMods.toArray(new FilteringButton[] {});
     }
