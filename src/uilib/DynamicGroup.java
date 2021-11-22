@@ -63,7 +63,10 @@ public class DynamicGroup extends RenderableComponent {
             finalOffset = advanceOffset(finalOffset, renderable.getSize(), 0);
             finalSize = renderable.getSize();
         }
-        Size size = new Size(Math.max(width, finalOffset.getX()), finalOffset.getY() + finalSize.getHeight());
+        Size size = new Size(
+            Math.max(width, finalOffset.getX() + finalSize.getWidth()),
+            finalOffset.getY() + finalSize.getHeight()
+        );
         log.debug("Calculated size as " + size);
         super.setSize(size);
     }

@@ -21,7 +21,7 @@ public class SizeHelper {
     public SizeHelper(Size size) {
         width = size.getWidth();
         height = size.getHeight();
-        groupWidth = Math.max(260, width - 175);
+        groupWidth = Math.max(300, width - 120);
         textWidth = width - groupWidth;
     }
 

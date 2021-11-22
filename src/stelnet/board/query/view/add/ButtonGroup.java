@@ -11,6 +11,7 @@ import uilib.DynamicGroup;
 import uilib.HorizontalViewContainer;
 import uilib.Paragraph;
 import uilib.Renderable;
+import uilib.UiConstants;
 
 public class ButtonGroup extends HorizontalViewContainer {
 
@@ -37,7 +38,7 @@ public class ButtonGroup extends HorizontalViewContainer {
     }
 
     private void addGroup(float width, boolean isEnabled, List<Button> buttons) {
-        getElements().add(new DynamicGroup(width, buttons.toArray(new Renderable[] {})));
+        getElements().add(new DynamicGroup(width - UiConstants.DEFAULT_SPACER, buttons.toArray(new Renderable[] {})));
     }
 
     private List<Button> getFilteredButtons(FilteringButton[] buttons) {
