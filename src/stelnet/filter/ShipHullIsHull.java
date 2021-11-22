@@ -10,10 +10,11 @@ public class ShipHullIsHull extends ShipHullFilter {
 
     @Override
     protected boolean acceptShipHull(ShipHullSpecAPI shipHull) {
+        String hullId = hull.getHullId();
         if (shipHull.isDHull()) {
-            return shipHull.getDParentHullId().equals(hull.getHullId());
+            return hullId.equals(shipHull.getBaseHullId()) || hullId.equals(shipHull.getDParentHullId());
         }
-        return shipHull.getHullId().equals(hull.getHullId());
+        return hullId.equals(shipHull.getHullId());
     }
 
     @Override
