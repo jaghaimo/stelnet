@@ -94,15 +94,15 @@ public class ShipQueryFactory extends QueryFactory {
         prepareBuiltIns();
         List<Renderable> elements = new LinkedList<>();
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.CLASS_SIZE, classSizes, true));
-        addSection(elements, QueryL10n.WEAPON_MOUNTS, true);
+        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.WEAPON_MOUNTS, true));
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.MOUNT_TYPE, mountTypes, true));
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.MOUNT_SIZE, mountSizes, true));
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.FIGHTER_BAYS, mountBays, true));
-        addSection(elements, QueryL10n.MANUFACTURERS, true);
+        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.MANUFACTURERS, true));
         elements.add(new ButtonGroup(sizeHelper, manufacturers, true));
-        addSection(elements, QueryL10n.DMODS, true);
+        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.DMODS, true));
         elements.add(new ButtonGroup(sizeHelper, dMods, true));
-        addSection(elements, QueryL10n.BUILT_IN, true);
+        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.BUILT_IN, true));
         elements.add(new ButtonGroup(sizeHelper, builtIns, true));
         return elements;
     }

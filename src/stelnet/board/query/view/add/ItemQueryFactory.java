@@ -81,13 +81,19 @@ public class ItemQueryFactory extends QueryFactory {
     protected List<Renderable> getQueryBuildingComponents() {
         List<Renderable> elements = new LinkedList<>();
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.ITEM_TYPES, itemTypes, true));
-        addSection(elements, CommonL10n.WEAPONS, hasWeapons());
+        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), CommonL10n.WEAPONS, hasWeapons()));
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.DAMAGE_TYPE, weaponDamageTypes, hasWeapons()));
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.MOUNT_TYPE, weaponMountTypes, hasWeapons()));
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.MOUNT_SIZE, weaponMountSizes, hasWeapons()));
-        addSection(elements, CommonL10n.FIGHTER_WINGS, hasFighterWings());
+        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), CommonL10n.FIGHTER_WINGS, hasFighterWings()));
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.WING_ROLES, wingRoles, hasFighterWings()));
-        addSection(elements, QueryL10n.MANUFACTURERS, hasWeapons() || hasFighterWings());
+        elements.add(
+            new SectionHeader(
+                sizeHelper.getGroupAndTextWidth(),
+                QueryL10n.MANUFACTURERS,
+                hasWeapons() || hasFighterWings()
+            )
+        );
         elements.add(new ButtonGroup(sizeHelper, manufacturers, hasWeapons() || hasFighterWings()));
         return elements;
     }

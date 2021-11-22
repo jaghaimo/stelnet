@@ -65,7 +65,7 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.QUERY_TYPE, queryType, true));
         QueryFactory nextFactory = findNextFactory();
         elements.addAll(nextFactory.getQueryBuildingComponents());
-        addSpacer(elements, UiConstants.DEFAULT_SPACER);
+        elements.add(new Spacer(UiConstants.DEFAULT_SPACER));
         elements.add(new ButtonGroup(sizeHelper, null, getFinalComponents(), true));
         return elements;
     }
