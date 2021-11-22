@@ -54,7 +54,7 @@ public class SectorUtils {
         getSector().removeScriptsOfClass(className);
     }
 
-    public static SectorAPI getSector() {
+    private static SectorAPI getSector() {
         return Global.getSector();
     }
 }

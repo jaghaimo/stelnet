@@ -14,6 +14,7 @@ import uilib.Renderable;
 import uilib.RenderableComponent;
 import uilib.RenderableFactory;
 import uilib.Spacer;
+import uilib.UiConstants;
 import uilib.property.Location;
 import uilib.property.Size;
 
@@ -61,11 +62,11 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
     protected List<Renderable> getQueryBuildingComponents() {
         List<Renderable> elements = new LinkedList<>();
         elements.add(new Spacer(1));
-        addLabeledGroup(elements, QueryL10n.QUERY_TYPE, queryType, true);
+        elements.add(new ButtonGroup(sizeHelper, QueryL10n.QUERY_TYPE, queryType, true));
         QueryFactory nextFactory = findNextFactory();
         elements.addAll(nextFactory.getQueryBuildingComponents());
-        addSpacer(elements, 10);
-        addLabeledGroup(elements, null, getFinalComponents(), true);
+        addSpacer(elements, UiConstants.DEFAULT_SPACER);
+        elements.add(new ButtonGroup(sizeHelper, null, getFinalComponents(), true));
         return elements;
     }
 

@@ -49,13 +49,13 @@ public class ToggleButton extends Button implements TwoStateButton {
     }
 
     @Override
-    public void toggle() {
-        setStateOn(!isStateOn);
+    public void scaleBackground(float scale) {
+        backgroundSelectedColor = Misc.scaleColor(backgroundSelectedColor, scale);
+        super.scaleBackground(scale);
     }
 
     @Override
-    protected void scaleBackground(float scale) {
-        backgroundSelectedColor = Misc.scaleColor(backgroundSelectedColor, scale);
-        super.scaleBackground(scale);
+    public void toggle() {
+        setStateOn(!isStateOn);
     }
 }

@@ -96,7 +96,11 @@ public class Button extends RenderableComponent implements ButtonHandler {
         }
     }
 
-    protected void scaleBackground(float scale) {
+    public void scaleTextColor(float scale) {
+        textColor = Misc.scaleColor(textColor, scale);
+    }
+
+    public void scaleBackground(float scale) {
         backgroundColor = Misc.scaleColor(backgroundColor, scale);
     }
 }

@@ -2,6 +2,7 @@ package uilib;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -23,7 +24,7 @@ public class Group extends RenderableComponent {
     private List<Renderable> elements;
 
     public Group(Renderable... elements) {
-        this.elements = Arrays.asList(elements);
+        this.elements = new LinkedList<>(Arrays.asList(elements));
     }
 
     @Override

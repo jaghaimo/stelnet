@@ -80,15 +80,15 @@ public class ItemQueryFactory extends QueryFactory {
     @Override
     protected List<Renderable> getQueryBuildingComponents() {
         List<Renderable> elements = new LinkedList<>();
-        addLabeledGroup(elements, QueryL10n.ITEM_TYPES, itemTypes, true);
+        elements.add(new ButtonGroup(sizeHelper, QueryL10n.ITEM_TYPES, itemTypes, true));
         addSection(elements, CommonL10n.WEAPONS, hasWeapons());
-        addLabeledGroup(elements, QueryL10n.DAMAGE_TYPE, weaponDamageTypes, hasWeapons());
-        addLabeledGroup(elements, QueryL10n.MOUNT_TYPE, weaponMountTypes, hasWeapons());
-        addLabeledGroup(elements, QueryL10n.MOUNT_SIZE, weaponMountSizes, hasWeapons());
+        elements.add(new ButtonGroup(sizeHelper, QueryL10n.DAMAGE_TYPE, weaponDamageTypes, hasWeapons()));
+        elements.add(new ButtonGroup(sizeHelper, QueryL10n.MOUNT_TYPE, weaponMountTypes, hasWeapons()));
+        elements.add(new ButtonGroup(sizeHelper, QueryL10n.MOUNT_SIZE, weaponMountSizes, hasWeapons()));
         addSection(elements, CommonL10n.FIGHTER_WINGS, hasFighterWings());
-        addLabeledGroup(elements, QueryL10n.WING_ROLES, wingRoles, hasFighterWings());
+        elements.add(new ButtonGroup(sizeHelper, QueryL10n.WING_ROLES, wingRoles, hasFighterWings()));
         addSection(elements, QueryL10n.MANUFACTURERS, hasWeapons() || hasFighterWings());
-        addUnlabelledGroup(elements, manufacturers, hasWeapons() || hasFighterWings());
+        elements.add(new ButtonGroup(sizeHelper, manufacturers, hasWeapons() || hasFighterWings()));
         return elements;
     }
 

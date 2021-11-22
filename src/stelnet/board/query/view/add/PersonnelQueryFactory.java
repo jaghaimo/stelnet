@@ -72,11 +72,11 @@ public class PersonnelQueryFactory extends QueryFactory {
     @Override
     protected List<Renderable> getQueryBuildingComponents() {
         List<Renderable> elements = new LinkedList<>();
-        addLabeledGroup(elements, QueryL10n.PERSONNEL_POST_TYPES, postType, true);
+        elements.add(new ButtonGroup(sizeHelper, QueryL10n.PERSONNEL_POST_TYPES, postType, true));
         addSection(elements, QueryL10n.OFFICERS_AND_MERCENARIES, hasOfficers());
-        addLabeledGroup(elements, QueryL10n.PERSONNEL_MIN_LEVEL, level, hasOfficers());
-        addLabeledGroup(elements, QueryL10n.PERSONNEL_PERSONALITY, personality, hasOfficers());
-        addLabeledGroup(elements, QueryL10n.PERSONNEL_SKILLS, skill, hasOfficers());
+        elements.add(new ButtonGroup(sizeHelper, QueryL10n.PERSONNEL_MIN_LEVEL, level, hasOfficers()));
+        elements.add(new ButtonGroup(sizeHelper, QueryL10n.PERSONNEL_PERSONALITY, personality, hasOfficers()));
+        elements.add(new ButtonGroup(sizeHelper, QueryL10n.PERSONNEL_SKILLS, skill, hasOfficers()));
         return elements;
     }
 

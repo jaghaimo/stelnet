@@ -5,9 +5,11 @@ import com.fs.starfarer.api.ui.LabelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
+import lombok.Getter;
 import lombok.Setter;
 import uilib.property.Size;
 
+@Getter
 @Setter
 public class Paragraph extends RenderableComponent {
 

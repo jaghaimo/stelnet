@@ -3,7 +3,6 @@ package stelnet.board.query.view.add;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import lombok.Setter;
@@ -12,10 +11,7 @@ import stelnet.filter.Filter;
 import stelnet.filter.LogicalOr;
 import stelnet.util.L10n;
 import uilib.Button;
-import uilib.DynamicGroup;
 import uilib.Heading;
-import uilib.HorizontalViewContainer;
-import uilib.Paragraph;
 import uilib.Renderable;
 import uilib.RenderableComponent;
 import uilib.Spacer;
@@ -26,28 +22,6 @@ public abstract class QueryFactory {
 
     @Setter
     protected SizeHelper sizeHelper = new SizeHelper();
-
-    protected void addLabeledGroup(List<Renderable> elements, Enum<?> label, Button[] buttons, boolean isEnabled) {
-        Paragraph title = new Paragraph(getLabelText(label), sizeHelper.getTextWidth(), 4, Alignment.RMID);
-        if (!isEnabled) {
-            title.setColor(Misc.getGrayColor());
-        }
-        prepareButtons(buttons, isEnabled);
-        elements.add(new HorizontalViewContainer(title, new DynamicGroup(sizeHelper.getGroupWidth(), buttons)));
-    }
-
-    protected void addUnlabelledGroup(List<Renderable> elements, FilteringButton[] buttons, boolean isEnabled) {
-        prepareButtons(buttons, isEnabled);
-        List<Renderable> filteredButtons = new LinkedList<>();
-        for (FilteringButton button : buttons) {
-            button.setEnabled(false);
-            if (button.isVisible()) {
-                button.setEnabled(true);
-                filteredButtons.add(button);
-            }
-        }
-        elements.add(new HorizontalViewContainer(new DynamicGroup(sizeHelper.getGroupAndTextWidth(), filteredButtons)));
-    }
 
     protected void addSection(List<Renderable> elements, Enum<?> translationId, boolean isEnabled) {
         addSpacer(elements, UiConstants.DEFAULT_SPACER * 2);
@@ -88,12 +62,6 @@ public abstract class QueryFactory {
             return L10n.get(label);
         }
         return "";
-    }
-
-    private void prepareButtons(Button[] buttons, boolean isEnabled) {
-        for (Button button : buttons) {
-            button.setEnabled(isEnabled);
-        }
     }
 
     public abstract Set<Filter> getFilters(boolean forResults);
