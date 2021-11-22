@@ -36,8 +36,8 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
     }
 
     @Override
-    public Set<Filter> getFilters() {
-        return findNextFactory().getFilters();
+    public Set<Filter> getFilters(boolean forResults) {
+        return findNextFactory().getFilters(forResults);
     }
 
     @Override

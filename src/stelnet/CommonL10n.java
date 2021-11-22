@@ -26,6 +26,7 @@ public enum CommonL10n {
     MOUNT_LARGE,
     MOUNT_MEDIUM,
     MOUNT_SMALL,
+    NONE,
     OFFICER,
     OTHERS,
     PERSONNEL,

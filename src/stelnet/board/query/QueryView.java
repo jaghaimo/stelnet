@@ -65,7 +65,7 @@ public class QueryView implements RenderableFactory {
     private RenderableComponent getPreview(float width, float height) {
         Size size = new Size(width, height);
         if (isActive(QueryBoardTab.NEW)) {
-            Set<Filter> filters = addQueryFactory.getFilters();
+            Set<Filter> filters = addQueryFactory.getFilters(false);
             return addQueryFactory.getPreview(filters, size);
         }
         return queryListFactory.getPreview(size);

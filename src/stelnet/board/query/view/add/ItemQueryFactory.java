@@ -41,7 +41,7 @@ public class ItemQueryFactory extends QueryFactory {
     private final FilteringButton[] wingRoles = createWingRole();
 
     @Override
-    public Set<Filter> getFilters() {
+    public Set<Filter> getFilters(boolean forResults) {
         Set<Filter> filters = new LinkedHashSet<>();
         addToFilters(filters, itemTypes, L10n.get(QueryL10n.ITEM_TYPES), true);
         addToFilters(filters, manufacturers, L10n.get(QueryL10n.MANUFACTURERS), hasWeapons() || hasFighterWings());
@@ -70,7 +70,7 @@ public class ItemQueryFactory extends QueryFactory {
 
     @Override
     protected Button[] getFinalComponents() {
-        Set<Filter> filters = getFilters();
+        Set<Filter> filters = getFilters(false);
         return new Button[] {
             new FindMatchingButton(this, L10n.get(CommonL10n.ITEMS)),
             new FindSelectedButton(this, getCargo(filters)),

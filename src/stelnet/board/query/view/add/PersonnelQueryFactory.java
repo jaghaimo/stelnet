@@ -45,7 +45,7 @@ public class PersonnelQueryFactory extends QueryFactory {
     }
 
     @Override
-    public Set<Filter> getFilters() {
+    public Set<Filter> getFilters(boolean forResults) {
         Set<Filter> filters = new LinkedHashSet<>();
         addToFilters(filters, postType, L10n.get(QueryL10n.PERSONNEL_POST_TYPES), true);
         addToFilters(filters, level, L10n.get(QueryL10n.PERSONNEL_MIN_LEVEL), hasOfficers());

@@ -87,7 +87,7 @@ public abstract class QueryFactory {
         }
     }
 
-    public abstract Set<Filter> getFilters();
+    public abstract Set<Filter> getFilters(boolean forResults);
 
     public abstract RenderableComponent getPreview(Set<Filter> filters, Size size);
 

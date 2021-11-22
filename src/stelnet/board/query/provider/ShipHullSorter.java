@@ -4,7 +4,7 @@ import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import java.util.Comparator;
 
-public class ShipSorter implements Comparator<FleetMemberAPI> {
+public class ShipHullSorter implements Comparator<FleetMemberAPI> {
 
     @Override
     public int compare(FleetMemberAPI o1, FleetMemberAPI o2) {
