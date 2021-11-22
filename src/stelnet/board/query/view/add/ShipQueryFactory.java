@@ -5,6 +5,8 @@ import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +18,7 @@ import stelnet.board.query.provider.ShipProvider;
 import stelnet.filter.Filter;
 import stelnet.filter.FleetMemberHasDMod;
 import stelnet.filter.FleetMemberPristine;
+import stelnet.filter.ShipHullHasBays;
 import stelnet.filter.ShipHullHasBuiltIn;
 import stelnet.filter.ShipHullIsManufacturer;
 import stelnet.filter.ShipHullIsSize;
@@ -35,9 +38,22 @@ public class ShipQueryFactory extends QueryFactory {
     private final FilteringButton[] classSizes = createClassSizes();
     private final FilteringButton[] mountSizes = createMountSizes();
     private final FilteringButton[] mountTypes = createMountTypes();
+    private final FilteringButton[] mountBays = createMountBays();
     private final FilteringButton[] manufacturers = createManufacturers();
     private final FilteringButton[] builtIns = createBuiltIns();
     private final FilteringButton[] dMods = createDMods();
+
+    public void setFighterBays(FighterBaysButton active) {
+        Iterable<FilteringButton> iterable = Arrays.asList(mountBays);
+        Iterator<FilteringButton> iterator = iterable.iterator();
+        iterator.next();
+        while (iterator.hasNext()) {
+            FilteringButton button = iterator.next();
+            if (!active.equals(button)) {
+                button.setStateOn(active.equals(button));
+            }
+        }
+    }
 
     @Override
     public Set<Filter> getFilters(boolean forResults) {
@@ -81,6 +97,7 @@ public class ShipQueryFactory extends QueryFactory {
         addSection(elements, QueryL10n.WEAPON_MOUNTS, true);
         addLabeledGroup(elements, QueryL10n.MOUNT_TYPE, mountTypes, true);
         addLabeledGroup(elements, QueryL10n.MOUNT_SIZE, mountSizes, true);
+        addLabeledGroup(elements, QueryL10n.FIGHTER_BAYS, mountBays, true);
         addSection(elements, QueryL10n.MANUFACTURERS, true);
         addUnlabelledGroup(elements, manufacturers, true);
         addSection(elements, QueryL10n.DMODS, true);
@@ -104,6 +121,16 @@ public class ShipQueryFactory extends QueryFactory {
         for (String manufacturer : shipProvider.getManufacturers()) {
             manufacturers.add(new FilteringButton(manufacturer, new ShipHullIsManufacturer(manufacturer), false));
         }
+        return manufacturers.toArray(new FilteringButton[] {});
+    }
+
+    private FilteringButton[] createMountBays() {
+        List<FilteringButton> manufacturers = new LinkedList<>();
+        manufacturers.add(new FilteringButton(CommonL10n.NONE, new ShipHullHasBays(0)));
+        for (int i = 1; i < 7; i++) {
+            manufacturers.add(new FighterBaysButton(this, String.valueOf(i), new ShipHullHasBays(i)));
+        }
+        manufacturers.get(1).setStateOn(true);
         return manufacturers.toArray(new FilteringButton[] {});
     }
 
@@ -155,6 +182,7 @@ public class ShipQueryFactory extends QueryFactory {
         addToFilters(filters, classSizes, L10n.get(QueryL10n.CLASS_SIZE), true);
         addToFilters(filters, mountSizes, L10n.get(QueryL10n.MOUNT_SIZE), true);
         addToFilters(filters, mountTypes, L10n.get(QueryL10n.MOUNT_TYPE), true);
+        addToFilters(filters, mountBays, L10n.get(QueryL10n.FIGHTER_BAYS), true);
         addToFilters(filters, manufacturers, L10n.get(QueryL10n.MANUFACTURERS), true);
         return filters;
     }

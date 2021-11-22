@@ -18,7 +18,7 @@ import stelnet.util.SectorUtils;
 @Log4j
 public class MarketProvider {
 
-    private static long lastUpdate = Long.MIN_VALUE;
+    private static transient long lastUpdate;
 
     public static List<SectorEntityToken> convertMarketsToTokens(List<MarketAPI> markets) {
         List<SectorEntityToken> tokens = new LinkedList<>();
@@ -38,6 +38,10 @@ public class MarketProvider {
             lastUpdate = SectorUtils.now();
         }
         return markets;
+    }
+
+    public static void reset() {
+        lastUpdate = Long.MIN_VALUE;
     }
 
     public static void updateMarkets(List<MarketAPI> markets) {

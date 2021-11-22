@@ -14,6 +14,7 @@ public enum QueryL10n {
     EMPTY_FILTER,
     ENABLED,
     ENABLE_ALL,
+    FIGHTER_BAYS,
     FIND_MATCHING,
     FIND_SELECTED,
     GROUP_BY_MARKET,

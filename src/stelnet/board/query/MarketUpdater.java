@@ -10,6 +10,10 @@ import stelnet.util.EconomyUtils;
 @Log4j
 public class MarketUpdater implements EveryFrameScript {
 
+    public MarketUpdater() {
+        MarketProvider.reset();
+    }
+
     @Override
     public void advance(float amount) {
         WeightedRandomPicker<MarketAPI> markets = new WeightedRandomPicker<>(true);

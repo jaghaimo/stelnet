@@ -5,6 +5,7 @@ import stelnet.board.commodity.CommodityBoard;
 import stelnet.board.commodity.CommodityIntel;
 import stelnet.board.query.MarketUpdater;
 import stelnet.board.query.QueryBoard;
+import stelnet.board.query.QueryState;
 import stelnet.board.query.ResultIntel;
 import stelnet.board.storage.StorageBoard;
 import stelnet.board.storage.StorageIntel;

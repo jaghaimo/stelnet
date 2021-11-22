@@ -3,6 +3,8 @@ package stelnet.filter;
 import com.fs.starfarer.api.characters.MutableCharacterStatsAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import lombok.RequiredArgsConstructor;
+import stelnet.CommonL10n;
+import stelnet.util.L10n;
 
 @RequiredArgsConstructor
 public class PersonHasLevel extends PersonOfficerFilter {
@@ -21,6 +23,6 @@ public class PersonHasLevel extends PersonOfficerFilter {
 
     @Override
     public String toString() {
-        return String.format("At least %d", level);
+        return L10n.get(CommonL10n.FILTER_OFFICER_LEVEL, level);
     }
 }
