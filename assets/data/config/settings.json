@@ -10,7 +10,7 @@
             # intel
             "low": "graphics/icons/intel/beacon_low.png",
             "medium": "graphics/icons/intel/beacon_med.png",
-            "high": "graphics/icons/intel/beacon_high.png",
+            "high": "graphics/icons/intel/beacon_high.png"
         }
     }
 }

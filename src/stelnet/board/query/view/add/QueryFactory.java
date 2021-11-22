@@ -2,7 +2,6 @@ package stelnet.board.query.view.add;
 
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
-import java.awt.Color;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,16 +11,15 @@ import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
 import stelnet.filter.LogicalOr;
 import stelnet.util.L10n;
-import stelnet.util.SettingsUtils;
 import uilib.Button;
 import uilib.DynamicGroup;
+import uilib.Heading;
 import uilib.HorizontalViewContainer;
-import uilib.Line;
 import uilib.Paragraph;
 import uilib.Renderable;
 import uilib.RenderableComponent;
 import uilib.Spacer;
-import uilib.property.Position;
+import uilib.UiConstants;
 import uilib.property.Size;
 
 public abstract class QueryFactory {
@@ -30,11 +28,7 @@ public abstract class QueryFactory {
     protected SizeHelper sizeHelper = new SizeHelper();
 
     protected void addLabeledGroup(List<Renderable> elements, Enum<?> label, Button[] buttons, boolean isEnabled) {
-        String labelText = "";
-        if (label != null) {
-            labelText = L10n.get(label);
-        }
-        Paragraph title = new Paragraph(labelText, sizeHelper.getTextWidth(), 4, Alignment.RMID);
+        Paragraph title = new Paragraph(getLabelText(label), sizeHelper.getTextWidth(), 4, Alignment.RMID);
         if (!isEnabled) {
             title.setColor(Misc.getGrayColor());
         }
@@ -56,20 +50,20 @@ public abstract class QueryFactory {
     }
 
     protected void addSection(List<Renderable> elements, Enum<?> translationId, boolean isEnabled) {
-        float width = sizeHelper.getGroupAndTextWidth();
-        addSpacer(elements, 16);
-        Paragraph paragraph = new Paragraph(L10n.get(translationId), width);
-        Color lineColor = SettingsUtils.getButtonHighlightColor();
+        addSpacer(elements, UiConstants.DEFAULT_SPACER * 2);
+        Heading heading = new Heading(
+            " " + getLabelText(translationId),
+            Misc.getBasePlayerColor(),
+            Misc.getDarkPlayerColor()
+        );
+        heading.setAlignment(Alignment.LMID);
+        heading.setSize(new Size(sizeHelper.getGroupAndTextWidth(), UiConstants.DEFAULT_ROW_HEIGHT));
         if (!isEnabled) {
-            paragraph.setColor(Misc.getGrayColor());
-            lineColor = Misc.getDarkPlayerColor();
+            heading.setForegroundColor(Misc.scaleAlpha(Misc.getBasePlayerColor(), 0.3f));
+            heading.setBackgroundColor(Misc.scaleAlpha(Misc.getDarkPlayerColor(), 0.2f));
         }
-        Line line = new Line(width, lineColor);
-        line.setOffset(new Position(0, -3));
-        line.setPadding(0);
-        elements.add(paragraph);
-        elements.add(line);
-        addSpacer(elements, 6);
+        elements.add(heading);
+        addSpacer(elements, UiConstants.DEFAULT_SPACER);
     }
 
     protected void addSpacer(List<Renderable> elements, float size) {
@@ -87,6 +81,13 @@ public abstract class QueryFactory {
             }
         }
         filters.add(new LogicalOr(selectedFilters, type));
+    }
+
+    private String getLabelText(Enum<?> label) {
+        if (label != null) {
+            return L10n.get(label);
+        }
+        return "";
     }
 
     private void prepareButtons(Button[] buttons, boolean isEnabled) {
