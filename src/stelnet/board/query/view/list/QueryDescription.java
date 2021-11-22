@@ -51,7 +51,7 @@ public class QueryDescription extends RenderableComponent {
             tooltip.addToGrid(
                 0,
                 row++,
-                tooltip.shortenString(filter[1], gridWidth - labelWidthWithPadding),
+                Misc.ucFirst(tooltip.shortenString(filter[1], gridWidth - labelWidthWithPadding)),
                 filter[0],
                 labelColor
             );

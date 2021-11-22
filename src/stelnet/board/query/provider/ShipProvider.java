@@ -8,6 +8,7 @@ import com.fs.starfarer.api.impl.campaign.DModManager;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,18 +19,20 @@ import stelnet.board.query.view.add.QueryFactory;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.FactoryUtils;
+import stelnet.util.SettingsUtils;
 
 public class ShipProvider extends QueryProvider {
 
     private final FactionProvider factionProvider = new FactionProvider();
 
     private static final String SUFFIX = "_Hull";
-    private static transient List<HullModSpecAPI> allDmods;
+    private static transient List<HullModSpecAPI> allBuiltIns;
+    private static transient List<HullModSpecAPI> allDMods;
     private static transient List<FleetMemberAPI> allFleetMembers;
     private static transient List<ShipHullSpecAPI> allShipHulls;
 
     public static void reset() {
-        allDmods = null;
+        allDMods = null;
         allFleetMembers = null;
         allShipHulls = null;
     }
@@ -41,8 +44,9 @@ public class ShipProvider extends QueryProvider {
     @Override
     public List<FleetMemberAPI> getMatching(Set<Filter> filters) {
         List<ShipHullSpecAPI> allShipHullSpecs = getShipHulls();
-        Set<String> allHullIds = getHullIds(allShipHullSpecs);
-        List<FleetMemberAPI> fleetMembers = convertToFleetMembers(allHullIds, filters);
+        Set<String> allHullIds = extractHullIds(allShipHullSpecs);
+        List<FleetMemberAPI> fleetMembers = convertToFleetMembers(allHullIds);
+        CollectionUtils.reduce(fleetMembers, filters);
         Collections.sort(fleetMembers, new ShipHullSorter());
         return fleetMembers;
     }
@@ -65,12 +69,28 @@ public class ShipProvider extends QueryProvider {
         }
     }
 
-    public List<HullModSpecAPI> getDmods() {
-        if (allDmods == null) {
-            allDmods = DModManager.getModsWithTags(Tags.HULLMOD_DAMAGE);
-            Collections.sort(allDmods, new ShipDmodSorter());
+    public List<HullModSpecAPI> getBuiltIns() {
+        if (allBuiltIns == null) {
+            List<ShipHullSpecAPI> allShipHulls = getShipHulls();
+            Set<String> builtIns = extractBuiltIns(allShipHulls);
+            allBuiltIns = convertToHullMods(builtIns);
+            Collections.sort(allBuiltIns, new ShipHullSpecSorter());
         }
-        return allDmods;
+        return allBuiltIns;
+    }
+
+    public Set<String> getBuiltInIds(Set<Filter> filters) {
+        List<ShipHullSpecAPI> shipHullsCopy = new LinkedList<>(getShipHulls());
+        CollectionUtils.reduce(shipHullsCopy, filters);
+        return extractBuiltIns(shipHullsCopy);
+    }
+
+    public List<HullModSpecAPI> getDMods() {
+        if (allDMods == null) {
+            allDMods = DModManager.getModsWithTags(Tags.HULLMOD_DAMAGE);
+            Collections.sort(allDMods, new ShipHullSpecSorter());
+        }
+        return allDMods;
     }
 
     public Set<String> getManufacturers() {
@@ -79,7 +99,22 @@ public class ShipProvider extends QueryProvider {
         return manufacturers;
     }
 
-    protected Set<String> extractManufacturers(List<ShipHullSpecAPI> shipHulls) {
+    private List<ShipHullSpecAPI> getShipHulls() {
+        if (allShipHulls == null) {
+            allShipHulls = factionProvider.getAllShips();
+        }
+        return allShipHulls;
+    }
+
+    private Set<String> extractBuiltIns(List<ShipHullSpecAPI> shipHulls) {
+        Set<String> builtIns = new HashSet<>();
+        for (ShipHullSpecAPI shipHull : shipHulls) {
+            builtIns.addAll(shipHull.getBuiltInMods());
+        }
+        return builtIns;
+    }
+
+    private Set<String> extractManufacturers(List<ShipHullSpecAPI> shipHulls) {
         Set<String> manufacturers = new TreeSet<>();
         for (ShipHullSpecAPI shipHull : shipHulls) {
             manufacturers.add(shipHull.getManufacturer());
@@ -87,14 +122,7 @@ public class ShipProvider extends QueryProvider {
         return manufacturers;
     }
 
-    protected List<ShipHullSpecAPI> getShipHulls() {
-        if (allShipHulls == null) {
-            allShipHulls = factionProvider.getAllShips();
-        }
-        return allShipHulls;
-    }
-
-    private Set<String> getHullIds(List<ShipHullSpecAPI> shipHullSpecs) {
+    private Set<String> extractHullIds(List<ShipHullSpecAPI> shipHullSpecs) {
         Set<String> hullIds = new LinkedHashSet<>();
         for (ShipHullSpecAPI shipHullSpec : shipHullSpecs) {
             hullIds.add(shipHullSpec.getHullId());
@@ -102,16 +130,22 @@ public class ShipProvider extends QueryProvider {
         return hullIds;
     }
 
-    private List<FleetMemberAPI> convertToFleetMembers(Set<String> hullIds, Set<Filter> filters) {
+    private List<HullModSpecAPI> convertToHullMods(Set<String> hullModIds) {
+        List<HullModSpecAPI> hullMods = new LinkedList<>();
+        for (String hullModId : hullModIds) {
+            hullMods.add(SettingsUtils.getHullModSpec(hullModId));
+        }
+        return hullMods;
+    }
+
+    private List<FleetMemberAPI> convertToFleetMembers(Set<String> hullIds) {
         if (allFleetMembers == null) {
             allFleetMembers = new LinkedList<>();
             for (String hullId : hullIds) {
                 allFleetMembers.add(makeFleetMember(hullId));
             }
         }
-        List<FleetMemberAPI> fleetMembersCopy = new LinkedList<FleetMemberAPI>(allFleetMembers);
-        CollectionUtils.reduce(fleetMembersCopy, filters);
-        return fleetMembersCopy;
+        return new LinkedList<FleetMemberAPI>(allFleetMembers);
     }
 
     private FleetMemberAPI makeFleetMember(String hullId) {

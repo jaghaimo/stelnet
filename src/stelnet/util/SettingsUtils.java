@@ -51,17 +51,21 @@ public class SettingsUtils {
         return getSettings().getAllWeaponSpecs();
     }
 
-    public static Color getColor(String colorId) {
-        return getSettings().getColor(colorId);
-    }
-
     public static Color getButtonHighlightColor() {
         // not ideal approximation
         return Misc.scaleColor(getColor("buttonBg"), 0.7f);
     }
 
+    public static Color getColor(String colorId) {
+        return getSettings().getColor(colorId);
+    }
+
     public static int getEconomyIterPerMonth() {
         return getSettings().getInt("economyIterPerMonth");
+    }
+
+    public static HullModSpecAPI getHullModSpec(String hullModId) {
+        return getSettings().getHullModSpec(hullModId);
     }
 
     public static int getOfficerMaxLevel() {

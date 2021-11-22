@@ -4,6 +4,7 @@ import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import lombok.Setter;
@@ -41,9 +42,17 @@ public abstract class QueryFactory {
         elements.add(new HorizontalViewContainer(title, new DynamicGroup(sizeHelper.getGroupWidth(), buttons)));
     }
 
-    protected void addUnlabelledGroup(List<Renderable> elements, Button[] buttons, boolean isEnabled) {
+    protected void addUnlabelledGroup(List<Renderable> elements, FilteringButton[] buttons, boolean isEnabled) {
         prepareButtons(buttons, isEnabled);
-        elements.add(new HorizontalViewContainer(new DynamicGroup(sizeHelper.getGroupAndTextWidth(), buttons)));
+        List<Renderable> filteredButtons = new LinkedList<>();
+        for (FilteringButton button : buttons) {
+            button.setEnabled(false);
+            if (button.isVisible()) {
+                button.setEnabled(true);
+                filteredButtons.add(button);
+            }
+        }
+        elements.add(new HorizontalViewContainer(new DynamicGroup(sizeHelper.getGroupAndTextWidth(), filteredButtons)));
     }
 
     protected void addSection(List<Renderable> elements, Enum<?> translationId, boolean isEnabled) {
@@ -73,9 +82,8 @@ public abstract class QueryFactory {
         }
         Set<Filter> selectedFilters = new LinkedHashSet<>();
         for (FilteringButton button : buttons) {
-            Filter filter = button.getFilter();
-            if (button.isStateOn()) {
-                selectedFilters.add(filter);
+            if (button.isEnabled() && button.isStateOn()) {
+                selectedFilters.add(button.getFilter());
             }
         }
         filters.add(new LogicalOr(selectedFilters, type));

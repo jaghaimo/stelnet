@@ -35,6 +35,6 @@ public class LogicalOr extends Filter {
         if (filters.isEmpty()) {
             return "";
         }
-        return type + ": " + StringUtils.join(filters, ", ", "");
+        return type + ":" + StringUtils.join(filters, ", ", "");
     }
 }

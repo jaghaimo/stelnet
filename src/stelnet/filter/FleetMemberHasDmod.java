@@ -6,7 +6,7 @@ import com.fs.starfarer.api.loading.HullModSpecAPI;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class FleetMemberHasDmod extends ShipHullFilter {
+public class FleetMemberHasDMod extends ShipHullFilter {
 
     private final HullModSpecAPI dmod;
 

@@ -1,6 +1,7 @@
 package stelnet.board.query;
 
 public enum QueryL10n {
+    BUILT_IN,
     CLASS_SIZE,
     DAMAGE_TYPE,
     DELETE,

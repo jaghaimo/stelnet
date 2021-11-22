@@ -14,10 +14,12 @@ import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.board.query.provider.ShipProvider;
 import stelnet.filter.Filter;
-import stelnet.filter.FleetMemberHasDmod;
+import stelnet.filter.FleetMemberHasDMod;
 import stelnet.filter.FleetMemberPristine;
+import stelnet.filter.ShipHullHasBuiltIn;
 import stelnet.filter.ShipHullIsManufacturer;
 import stelnet.filter.ShipHullIsSize;
+import stelnet.filter.ShipHullNoBuiltIns;
 import stelnet.filter.WeaponSlotIsSize;
 import stelnet.filter.WeaponSlotIsType;
 import stelnet.util.L10n;
@@ -34,17 +36,15 @@ public class ShipQueryFactory extends QueryFactory {
     private final FilteringButton[] mountSizes = createMountSizes();
     private final FilteringButton[] mountTypes = createMountTypes();
     private final FilteringButton[] manufacturers = createManufacturers();
-    private final FilteringButton[] dmods = createDmods();
+    private final FilteringButton[] builtIns = createBuiltIns();
+    private final FilteringButton[] dMods = createDMods();
 
     @Override
     public Set<Filter> getFilters(boolean forResults) {
-        Set<Filter> filters = new LinkedHashSet<>();
-        addToFilters(filters, classSizes, L10n.get(QueryL10n.CLASS_SIZE), true);
-        addToFilters(filters, mountSizes, L10n.get(QueryL10n.MOUNT_SIZE), true);
-        addToFilters(filters, mountTypes, L10n.get(QueryL10n.MOUNT_TYPE), true);
-        addToFilters(filters, manufacturers, L10n.get(QueryL10n.MANUFACTURERS), true);
+        Set<Filter> filters = getCommonFilters();
+        addToFilters(filters, builtIns, L10n.get(QueryL10n.BUILT_IN), true);
         if (forResults) {
-            addToFilters(filters, dmods, L10n.get(QueryL10n.DMODS), true);
+            addToFilters(filters, dMods, L10n.get(QueryL10n.DMODS), true);
         }
         return filters;
     }
@@ -75,6 +75,7 @@ public class ShipQueryFactory extends QueryFactory {
 
     @Override
     protected List<Renderable> getQueryBuildingComponents() {
+        prepareBuiltIns();
         List<Renderable> elements = new LinkedList<>();
         addLabeledGroup(elements, QueryL10n.CLASS_SIZE, classSizes, true);
         addSection(elements, QueryL10n.WEAPON_MOUNTS, true);
@@ -83,7 +84,9 @@ public class ShipQueryFactory extends QueryFactory {
         addSection(elements, QueryL10n.MANUFACTURERS, true);
         addUnlabelledGroup(elements, manufacturers, true);
         addSection(elements, QueryL10n.DMODS, true);
-        addUnlabelledGroup(elements, dmods, true);
+        addUnlabelledGroup(elements, dMods, true);
+        addSection(elements, QueryL10n.BUILT_IN, true);
+        addUnlabelledGroup(elements, builtIns, true);
         return elements;
     }
 
@@ -125,13 +128,44 @@ public class ShipQueryFactory extends QueryFactory {
         };
     }
 
-    private FilteringButton[] createDmods() {
-        List<FilteringButton> dmods = new LinkedList<>();
-        dmods.add(new FilteringButton(CommonL10n.NONE, new FleetMemberPristine(L10n.get(CommonL10n.NONE))));
-        for (HullModSpecAPI dmod : shipProvider.getDmods()) {
-            dmods.add(new FilteringButton(dmod.getDisplayName(), new FleetMemberHasDmod(dmod), false));
+    private FilteringButton[] createBuiltIns() {
+        List<FilteringButton> builtInList = new LinkedList<>();
+        builtInList.add(
+            new FilteringButton(L10n.get(CommonL10n.NONE), new ShipHullNoBuiltIns(L10n.get(CommonL10n.NONE)), "None")
+        );
+        for (HullModSpecAPI builtIn : shipProvider.getBuiltIns()) {
+            builtInList.add(
+                new FilteringButton(builtIn.getDisplayName(), new ShipHullHasBuiltIn(builtIn), builtIn.getId())
+            );
         }
-        return dmods.toArray(new FilteringButton[] {});
+        return builtInList.toArray(new FilteringButton[] {});
+    }
+
+    private FilteringButton[] createDMods() {
+        List<FilteringButton> dMods = new LinkedList<>();
+        dMods.add(new FilteringButton(CommonL10n.NONE, new FleetMemberPristine(L10n.get(CommonL10n.NONE))));
+        for (HullModSpecAPI dMod : shipProvider.getDMods()) {
+            dMods.add(new FilteringButton(dMod.getDisplayName(), new FleetMemberHasDMod(dMod), false));
+        }
+        return dMods.toArray(new FilteringButton[] {});
+    }
+
+    private Set<Filter> getCommonFilters() {
+        Set<Filter> filters = new LinkedHashSet<>();
+        addToFilters(filters, classSizes, L10n.get(QueryL10n.CLASS_SIZE), true);
+        addToFilters(filters, mountSizes, L10n.get(QueryL10n.MOUNT_SIZE), true);
+        addToFilters(filters, mountTypes, L10n.get(QueryL10n.MOUNT_TYPE), true);
+        addToFilters(filters, manufacturers, L10n.get(QueryL10n.MANUFACTURERS), true);
+        return filters;
+    }
+
+    private void prepareBuiltIns() {
+        Set<Filter> filters = getCommonFilters();
+        Set<String> hullModIds = shipProvider.getBuiltInIds(filters);
+        hullModIds.add("None");
+        for (FilteringButton button : builtIns) {
+            button.updateVisibility(hullModIds);
+        }
     }
 
     private List<FleetMemberAPI> getShips(Set<Filter> filters) {

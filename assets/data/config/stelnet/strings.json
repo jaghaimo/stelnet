@@ -78,6 +78,7 @@
     "GROUPINGSTRATEGY_UNIFIED": "Disable Grouping",
     "QUERYSTATE_LIST": "List Queries",
     "QUERYSTATE_NEW": "Add a New Query",
+    "QUERY_BUILT_IN": "Built-in hullmods",
     "QUERY_CLASS_SIZE": "Class size",
     "QUERY_DAMAGE_TYPE": "Damage type",
     "QUERY_DELETE": "Delete",
