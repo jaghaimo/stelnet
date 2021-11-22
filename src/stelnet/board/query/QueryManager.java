@@ -105,6 +105,6 @@ public class QueryManager {
         }
         resultMap.add(resultSet);
         ResultIntel intel = new ResultIntel(this, resultSet);
-        IntelUtils.add(intel);
+        IntelUtils.add(intel, true);
     }
 }

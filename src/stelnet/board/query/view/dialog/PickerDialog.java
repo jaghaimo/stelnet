@@ -49,8 +49,10 @@ public abstract class PickerDialog implements InteractionDialogPlugin {
 
     protected void dismiss(IntelInfoPlugin plugin) {
         dialog.dismiss();
-        ui.recreateIntelUI();
-        ui.updateUIForItem(plugin);
+        if (plugin != null) {
+            ui.recreateIntelUI();
+            ui.updateUIForItem(plugin);
+        }
     }
 
     protected abstract void show();

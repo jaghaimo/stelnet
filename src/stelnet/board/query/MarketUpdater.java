@@ -15,7 +15,7 @@ public class MarketUpdater implements EveryFrameScript {
         WeightedRandomPicker<MarketAPI> markets = new WeightedRandomPicker<>(true);
         markets.addAll(EconomyUtils.getMarkets());
         MarketAPI market = markets.pick();
-        log.info("Updating " + market.getId());
+        log.debug("Updating " + market.getId());
         MarketProvider.updateMarket(market);
     }
 
