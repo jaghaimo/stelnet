@@ -1,8 +1,8 @@
 # Stellar Networks
 
-Stellar Networks is a pure-information oriented Starsector mod.
+Stellar Networks is a QoL oriented Starsector mod.
 It adds three new intel tabs: Commodity, Market, and Storage.
-Each tab comes with its own interactive board that can be used to manage presented intel.
+Each tab comes with its own interactive board that are used to manage presented intel.
 
 ## Available Boards
 
@@ -15,14 +15,17 @@ It also hosts a Profit tab that can be used to find viable trade routes.
 
 ### Market
 
-Market Queries board (formerly [Hyperspace Networks](https://fractalsoftworks.com/forum/index.php?topic=19252)) manages market searches. These can be either staff search (e.g. freelance administrator, steady officer, aggressive mercenary), item search (e.g. specific mod-spec or weapon), or ship search (e.g. pristine frigate, d-modded carrier).
-
+Queries board (formerly [Hyperspace Networks](https://fractalsoftworks.com/forum/index.php?topic=19252)) manages market searches.
+These can be either staff search (e.g. freelance administrator, steady officer, aggressive mercenary), item search (e.g. specific mod-spec or weapon), or ship search (e.g. pristine frigate, d-modded carrier).
 ![Add a New Tab](images/market1.png?raw=1)
 ![Query List](images/market2.png?raw=1)
 
-Market Viewer board lets you select a market and preview content of all its submarkets.
+Viewer board lets you select a market and preview content of its legal submarkets.
 
 ![Viewer](images/viewer.png?raw=1)
+
+By default, both Market boards work with Open and Military Markets only.
+To enable support for Black and Custom Markets edit `stelnet.json` (see below).
 
 ### Storage
 
@@ -35,7 +38,7 @@ It allows to display a unified view to quickly verify what is available, and per
 
 To configure the mod edit [stelnet.json.dist](assets/stelnet.json.dist) and save it as `stelnet.json`.
 
-This mod can be added to an existing playthrough - just enable it in the mod list and load the save.
+This mod can be added to an existing save - just enable it in the mod list and load the save.
 
-This mod can be removed from an existing playthrough - edit `stelnet.json` and set `uninstallMod` to `true`.
+This mod can be removed from an existing save - edit `stelnet.json` and set `uninstallMod` to `true`.
 Then load the save, save the game, quit the game, and finally disable this mod in the mod list.
