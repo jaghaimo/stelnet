@@ -1,0 +1,4 @@
+version: "2"
+checks:
+    similar-code:
+        enabled: false

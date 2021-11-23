@@ -1,45 +1,45 @@
 name: GitHub Release
 
 on:
-  # Triggers the workflow on pushing a tag only
-  push:
-    tags: "*"
-    branches:
-      - "!*"
+    # Triggers the workflow on pushing a tag only
+    push:
+        tags: "*"
+        branches:
+            - "!*"
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
 
 jobs:
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    build:
+        # The type of runner that the job will run on
+        runs-on: ubuntu-latest
 
-    steps:
-      # Checks-out repository under $GITHUB_WORKSPACE, so your job can access it
-      # GitHub Actions by default doesn't check out tags, so make sure those are included
-      - name: Checkout
-        uses: actions/checkout@v2
+        steps:
+            # Checks-out repository under $GITHUB_WORKSPACE, so your job can access it
+            # GitHub Actions by default doesn't check out tags, so make sure those are included
+            - name: Checkout
+              uses: actions/checkout@v2
 
-      - name: Fetch Tags
-        run: git fetch --prune --unshallow --tags
+            - name: Fetch Tags
+              run: git fetch --prune --unshallow --tags
 
-      - name: Set Variables
-        run: |
-          echo "VERSION=$(git describe --tags)" >> $GITHUB_ENV
-          git log --format=%B -n 1 $(git log -1 --pretty=format:"%h") | cat - > changes.txt
+            - name: Set Variables
+              run: |
+                  echo "VERSION=$(git describe --tags)" >> $GITHUB_ENV
+                  git log --format=%B -n 1 $(git log -1 --pretty=format:"%h") | cat - > changes.txt
 
-      - name: Create Mod Zipfile
-        run: |
-          gradle release
+            - name: Create Mod Zipfile
+              run: |
+                  ./gradlew release
 
-      - name: Publish Release on GitHub
-        uses: "ncipollo/release-action@v1"
-        with:
-          name: ${{ env.VERSION }}
-          tag: ${{ env.VERSION }}
-          bodyFile: changes.txt
-          draft: false
-          prerelease: false
-          token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: "stelnet*.zip"
+            - name: Publish Release on GitHub
+              uses: "ncipollo/release-action@v1"
+              with:
+                  name: ${{ env.VERSION }}
+                  tag: ${{ env.VERSION }}
+                  bodyFile: changes.txt
+                  draft: false
+                  prerelease: false
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  artifacts: "stelnet*.zip"

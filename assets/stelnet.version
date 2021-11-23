@@ -1,12 +1,10 @@
 {
-    "masterVersionFile":"https://raw.githubusercontent.com/jaghaimo/stelnet/master/assets/stelnet.version",
-    "modName":"Stellar Networks",
-    "modThreadId":20836,
-    "modVersion":
-    {
-        "major":1,
-        "minor":2,
-        "patch":1
+    "masterVersionFile": "https://raw.githubusercontent.com/jaghaimo/stelnet/master/assets/stelnet.version",
+    "modName": "Stellar Networks",
+    "modThreadId": 20836,
+    "modVersion": {
+        "major": 2,
+        "minor": 0,
+        "patch": 0
     }
 }
-
