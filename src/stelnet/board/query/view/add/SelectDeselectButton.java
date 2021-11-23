@@ -2,6 +2,8 @@ package stelnet.board.query.view.add;
 
 import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.ui.IntelUIAPI;
+import com.fs.starfarer.api.ui.TooltipMakerAPI;
+import com.fs.starfarer.api.util.Misc;
 import stelnet.util.L10n;
 import uilib.Button;
 import uilib.EventHandler;
@@ -29,5 +31,16 @@ public class SelectDeselectButton extends Button {
                 }
             }
         );
+        if (!isEnabled) {
+            setTextColor(Misc.scaleAlpha(getTextColor(), 0));
+            setBackgroundColor(Misc.scaleAlpha(getBackgroundColor(), 0));
+        }
+    }
+
+    @Override
+    public void render(TooltipMakerAPI tooltip) {
+        tooltip.setButtonFontVictor10();
+        super.render(tooltip);
+        tooltip.setButtonFontDefault();
     }
 }

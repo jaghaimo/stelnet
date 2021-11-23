@@ -24,8 +24,8 @@ public class ButtonGroup extends HorizontalViewContainer {
 
     public ButtonGroup(SizeHelper helper, FilteringButton[] buttons, boolean isEnabled) {
         super();
-        prepareButtons(buttons, isEnabled);
         List<Button> filteredButtons = getFilteredButtons(buttons);
+        prepareButtons(buttons, isEnabled);
         addGroup(helper.getGroupAndTextWidth(), filteredButtons);
     }
 
