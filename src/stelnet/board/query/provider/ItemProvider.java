@@ -13,8 +13,10 @@ import java.util.TreeSet;
 import lombok.experimental.ExtensionMethod;
 import stelnet.board.query.ResultSet;
 import stelnet.board.query.view.add.QueryFactory;
+import stelnet.config.QueryConfig;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
+import stelnet.util.EconomyUtils;
 
 @ExtensionMethod({ CargoStackExtension.class })
 public class ItemProvider extends QueryProvider {
@@ -57,14 +59,15 @@ public class ItemProvider extends QueryProvider {
         Set<Filter> filters,
         final boolean groupBySystem
     ) {
-        for (MarketAPI market : markets) {
-            for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
-                List<CargoStackAPI> cargoStacks = submarket.getCargo().getStacksCopy();
-                CollectionUtils.reduce(cargoStacks, filters);
-                ResultSet resultSet = new ResultSet(groupBySystem, market);
-                resultSet.addCargoStacks(market, submarket, cargoStacks);
-                addToResultSets(resultSets, resultSet);
-            }
+        List<SubmarketAPI> submarkets = EconomyUtils.getSubmarkets(markets);
+        CollectionUtils.reduce(submarkets, QueryConfig.getSubmarketFilter());
+        for (SubmarketAPI submarket : submarkets) {
+            MarketAPI market = submarket.getMarket();
+            List<CargoStackAPI> cargoStacks = submarket.getCargo().getStacksCopy();
+            CollectionUtils.reduce(cargoStacks, filters);
+            ResultSet resultSet = new ResultSet(groupBySystem, market);
+            resultSet.addCargoStacks(market, submarket, cargoStacks);
+            addToResultSets(resultSets, resultSet);
         }
     }
 

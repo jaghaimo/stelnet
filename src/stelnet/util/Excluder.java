@@ -1,17 +1,21 @@
 package stelnet.util;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import lombok.extern.log4j.Log4j;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import stelnet.filter.AnyHasId;
 import stelnet.filter.AnyHasTag;
 import stelnet.filter.Filter;
+import stelnet.filter.LogicalAnd;
 import stelnet.filter.LogicalNot;
 import stelnet.filter.LogicalOr;
 import stelnet.filter.MarketBelongsToFaction;
-import stelnet.filter.MarketHasId;
 import stelnet.filter.MarketIsInSystem;
 
 /**
@@ -38,6 +42,34 @@ public class Excluder {
         return new LogicalNot(new LogicalOr(filters, "Markets"));
     }
 
+    public static Filter getSubmarketFilters(
+        boolean useOpenMarket,
+        boolean useMilitaryMarket,
+        boolean useBlackMarket,
+        boolean useCustomMarkets
+    ) {
+        Filter storage = new AnyHasId(Submarkets.SUBMARKET_STORAGE);
+        Filter openMarket = new AnyHasId(Submarkets.SUBMARKET_OPEN);
+        Filter militaryMarket = new AnyHasId(Submarkets.GENERIC_MILITARY);
+        Filter blackMarket = new AnyHasId(Submarkets.SUBMARKET_BLACK);
+        List<Filter> filters = new LinkedList<>();
+        if (useOpenMarket) {
+            filters.add(openMarket);
+        }
+        if (useMilitaryMarket) {
+            filters.add(militaryMarket);
+        }
+        if (useBlackMarket) {
+            filters.add(blackMarket);
+        }
+        if (useCustomMarkets) {
+            filters.add(
+                new LogicalNot(new LogicalOr(Arrays.asList(storage, openMarket, militaryMarket, blackMarket), "Custom"))
+            );
+        }
+        return new LogicalAnd(Arrays.asList(new LogicalNot(storage), new LogicalOr(filters, "Submarkets")));
+    }
+
     private static List<Filter> getMarketByFactionFilters(List<Filter> filters) {
         for (String factionId : getStrings(MARKET_BY_FACTION)) {
             filters.add(new MarketBelongsToFaction(factionId));
@@ -47,7 +79,7 @@ public class Excluder {
 
     private static List<Filter> getMarketByIdFilters(List<Filter> filters) {
         for (String marketId : getStrings(MARKET_BY_ID)) {
-            filters.add(new MarketHasId(marketId));
+            filters.add(new AnyHasId(marketId));
         }
         return filters;
     }

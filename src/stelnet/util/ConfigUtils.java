@@ -10,14 +10,14 @@ import stelnet.board.storage.StorageBoard;
 import stelnet.board.storage.StorageIntel;
 import stelnet.board.storage.StorageListener;
 import stelnet.board.viewer.ViewerBoard;
-import stelnet.config.ModConfig;
 import stelnet.config.ModuleConfig;
+import stelnet.config.StelnetConfig;
 
 @Log4j
 public class ConfigUtils {
 
     public static void configure() {
-        ModConfig.configure();
+        StelnetConfig.configure();
         ModuleConfig.configure();
     }
 

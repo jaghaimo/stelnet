@@ -16,8 +16,10 @@ import java.util.Set;
 import java.util.TreeSet;
 import stelnet.board.query.ResultSet;
 import stelnet.board.query.view.add.QueryFactory;
+import stelnet.config.QueryConfig;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
+import stelnet.util.EconomyUtils;
 import stelnet.util.FactoryUtils;
 import stelnet.util.SettingsUtils;
 
@@ -58,14 +60,15 @@ public class ShipProvider extends QueryProvider {
         Set<Filter> filters,
         final boolean groupBySystem
     ) {
-        for (MarketAPI market : markets) {
-            for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
-                List<FleetMemberAPI> fleetMembers = submarket.getCargo().getMothballedShips().getMembersListCopy();
-                CollectionUtils.reduce(fleetMembers, filters);
-                ResultSet resultSet = new ResultSet(groupBySystem, market);
-                resultSet.addFleetMembers(market, submarket, fleetMembers);
-                addToResultSets(resultSets, resultSet);
-            }
+        List<SubmarketAPI> submarkets = EconomyUtils.getSubmarkets(markets);
+        CollectionUtils.reduce(submarkets, QueryConfig.getSubmarketFilter());
+        for (SubmarketAPI submarket : submarkets) {
+            MarketAPI market = submarket.getMarket();
+            List<FleetMemberAPI> fleetMembers = submarket.getCargo().getMothballedShips().getMembersListCopy();
+            CollectionUtils.reduce(fleetMembers, filters);
+            ResultSet resultSet = new ResultSet(groupBySystem, market);
+            resultSet.addFleetMembers(market, submarket, fleetMembers);
+            addToResultSets(resultSets, resultSet);
         }
     }
 

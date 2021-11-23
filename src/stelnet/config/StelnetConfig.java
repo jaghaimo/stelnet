@@ -1,6 +1,6 @@
 package stelnet.config;
 
-public class ModConfig extends Config {
+public class StelnetConfig extends Config {
 
     public static transient boolean uninstallMod = false;
     public static transient boolean verboseLogging = false;

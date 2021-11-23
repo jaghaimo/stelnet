@@ -4,7 +4,9 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.campaign.econ.EconomyAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -36,7 +38,15 @@ public class EconomyUtils {
         return getEconomy().getMarketsCopy();
     }
 
-    public static EconomyAPI getEconomy() {
+    public static List<SubmarketAPI> getSubmarkets(List<MarketAPI> markets) {
+        List<SubmarketAPI> submarkets = new LinkedList<>();
+        for (MarketAPI market : markets) {
+            submarkets.addAll(market.getSubmarketsCopy());
+        }
+        return submarkets;
+    }
+
+    private static EconomyAPI getEconomy() {
         return Global.getSector().getEconomy();
     }
 }

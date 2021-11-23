@@ -4,13 +4,14 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
-import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.util.Misc;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import stelnet.config.ViewerConfig;
+import stelnet.util.CollectionUtils;
 import stelnet.util.L10n;
 import stelnet.widget.WidgetL10n;
 
@@ -31,15 +32,17 @@ public class InMarketStrategy extends PerMarketStrategy {
         }
         log.debug("Adding data for market " + market.getName());
         List<LocationContent> data = new LinkedList<>();
-        for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
-            if (Submarkets.SUBMARKET_STORAGE.equals(submarket.getSpecId())) {
-                log.debug("Skipping storage");
-                continue;
-            }
+        for (SubmarketAPI submarket : getSubmarkets(market)) {
             log.debug("Processing submarket " + submarket.getNameOneLine());
             processSubmarket(new LocationInfo(submarket), submarket, filteringButtons, data);
         }
         return data;
+    }
+
+    private List<SubmarketAPI> getSubmarkets(MarketAPI market) {
+        List<SubmarketAPI> submarkets = market.getSubmarketsCopy();
+        CollectionUtils.reduce(submarkets, ViewerConfig.getSubmarketFilter());
+        return submarkets;
     }
 
     private List<LocationContent> getEmptyData() {

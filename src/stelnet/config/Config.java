@@ -1,10 +1,10 @@
 package stelnet.config;
 
-import com.fs.starfarer.api.Global;
 import java.io.IOException;
 import lombok.extern.log4j.Log4j;
 import org.json.JSONException;
 import org.json.JSONObject;
+import stelnet.util.SettingsUtils;
 import stelnet.util.TagConstants;
 
 @Log4j
@@ -15,7 +15,7 @@ public abstract class Config {
     protected static JSONObject load() throws JSONException, IOException {
         if (cachedSettings == null) {
             log.debug("Reading config file");
-            cachedSettings = Global.getSettings().loadJSON(TagConstants.STELNET_JSON, TagConstants.STELNET);
+            cachedSettings = SettingsUtils.loadJson(TagConstants.STELNET_JSON);
         }
         return cachedSettings;
     }

@@ -91,19 +91,30 @@ public class SettingsUtils {
         try {
             String jsonText = getSettings().loadText(filename, TagConstants.STELNET);
             return new JSONObject(jsonText);
-        } catch (IOException | JSONException e) {
-            log.warn("Failed to read " + filename, e);
-            return new JSONObject();
+        } catch (IOException | JSONException exception) {
+            return getEmptyJsonObject(exception, filename);
         }
     }
 
-    public static JSONObject load(String filename) {
+    public static JSONObject loadJson(String filename) {
+        try {
+            return getSettings().loadJSON(filename, TagConstants.STELNET);
+        } catch (IOException | JSONException exception) {
+            return getEmptyJsonObject(exception, filename);
+        }
+    }
+
+    public static JSONObject loadMergedJson(String filename) {
         try {
             return getSettings().getMergedJSONForMod(filename, TagConstants.STELNET);
-        } catch (IOException | JSONException e) {
-            log.warn("Failed to read " + filename, e);
-            return new JSONObject();
+        } catch (IOException | JSONException exception) {
+            return getEmptyJsonObject(exception, filename);
         }
+    }
+
+    private static JSONObject getEmptyJsonObject(Exception exception, String filename) {
+        log.warn("Failed to read " + filename, exception);
+        return new JSONObject();
     }
 
     private static SettingsAPI getSettings() {
