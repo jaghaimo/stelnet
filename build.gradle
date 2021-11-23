@@ -1,5 +1,4 @@
 import groovy.json.JsonSlurper
-import org.apache.tools.ant.taskdefs.condition.Os
 
 plugins {
     id 'java'
@@ -27,10 +26,14 @@ eclipse {
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
+// where to find sources
+sourceSets.main.java.srcDirs = ['src/']
+
 // build everything and make a jar
 build {
     doLast {
         copy {
+            from 'assets'
             from jar
             into '.'
         }
@@ -49,8 +52,8 @@ dependencies {
     implementation group: 'org.codehaus.janino', name: 'janino', version: '3.0.7'
 
     // lombok
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
-    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
     // test only
     testImplementation 'junit:junit:4.12'
