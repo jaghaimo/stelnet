@@ -39,7 +39,7 @@ public class ShipQueryFactory extends QueryFactory {
     private final FilteringButton[] mountSizes = createMountSizes();
     private final FilteringButton[] mountTypes = createMountTypes();
     private final FilteringButton[] mountBays = createMountBays();
-    private final FilteringButton[] manufacturers = createManufacturers();
+    private final FilteringButton[] designTypes = createManufacturers();
     private final FilteringButton[] builtIns = createBuiltIns();
     private final FilteringButton[] dMods = createDMods();
 
@@ -98,11 +98,11 @@ public class ShipQueryFactory extends QueryFactory {
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.MOUNT_TYPE, mountTypes, true));
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.MOUNT_SIZE, mountSizes, true));
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.FIGHTER_BAYS, mountBays, true));
-        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.MANUFACTURERS, true));
-        elements.add(new ButtonGroup(sizeHelper, manufacturers, true));
-        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.DMODS, true));
+        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.MANUFACTURERS, true, designTypes));
+        elements.add(new ButtonGroup(sizeHelper, designTypes, true));
+        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.DMODS, true, dMods));
         elements.add(new ButtonGroup(sizeHelper, dMods, true));
-        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.BUILT_IN, true));
+        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.BUILT_IN, true, builtIns));
         elements.add(new ButtonGroup(sizeHelper, builtIns, true));
         return elements;
     }
@@ -183,7 +183,7 @@ public class ShipQueryFactory extends QueryFactory {
         addToFilters(filters, mountSizes, L10n.get(QueryL10n.MOUNT_SIZE), true);
         addToFilters(filters, mountTypes, L10n.get(QueryL10n.MOUNT_TYPE), true);
         addToFilters(filters, mountBays, L10n.get(QueryL10n.FIGHTER_BAYS), true);
-        addToFilters(filters, manufacturers, L10n.get(QueryL10n.MANUFACTURERS), true);
+        addToFilters(filters, designTypes, L10n.get(QueryL10n.MANUFACTURERS), true);
         return filters;
     }
 

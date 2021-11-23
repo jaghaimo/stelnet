@@ -34,7 +34,7 @@ public class ItemQueryFactory extends QueryFactory {
 
     private final ItemProvider itemProvider = new ItemProvider(this);
     private final FilteringButton[] itemTypes = createItemTypes();
-    private final FilteringButton[] manufacturers = createManufacturers();
+    private final FilteringButton[] designTypes = createManufacturers();
     private final FilteringButton[] weaponDamageTypes = createDamageType();
     private final FilteringButton[] weaponMountSizes = createWeaponMountSize();
     private final FilteringButton[] weaponMountTypes = createWeaponMountType();
@@ -44,7 +44,7 @@ public class ItemQueryFactory extends QueryFactory {
     public Set<Filter> getFilters(boolean forResults) {
         Set<Filter> filters = new LinkedHashSet<>();
         addToFilters(filters, itemTypes, L10n.get(QueryL10n.ITEM_TYPES), true);
-        addToFilters(filters, manufacturers, L10n.get(QueryL10n.MANUFACTURERS), hasWeapons() || hasFighterWings());
+        addToFilters(filters, designTypes, L10n.get(QueryL10n.MANUFACTURERS), hasWeapons() || hasFighterWings());
         addToFilters(filters, weaponDamageTypes, L10n.get(QueryL10n.DAMAGE_TYPE), hasWeapons());
         addToFilters(filters, weaponMountSizes, L10n.get(QueryL10n.MOUNT_SIZE), hasWeapons());
         addToFilters(filters, weaponMountTypes, L10n.get(QueryL10n.MOUNT_TYPE), hasWeapons());
@@ -91,10 +91,11 @@ public class ItemQueryFactory extends QueryFactory {
             new SectionHeader(
                 sizeHelper.getGroupAndTextWidth(),
                 QueryL10n.MANUFACTURERS,
-                hasWeapons() || hasFighterWings()
+                hasWeapons() || hasFighterWings(),
+                designTypes
             )
         );
-        elements.add(new ButtonGroup(sizeHelper, manufacturers, hasWeapons() || hasFighterWings()));
+        elements.add(new ButtonGroup(sizeHelper, designTypes, hasWeapons() || hasFighterWings()));
         return elements;
     }
 
