@@ -1,10 +1,6 @@
 package stelnet.board.query.view.add;
 
-import com.fs.starfarer.api.combat.ShipAPI.HullSize;
-import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
-import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
-import com.fs.starfarer.api.loading.HullModSpecAPI;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -16,15 +12,6 @@ import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.board.query.provider.ShipProvider;
 import stelnet.filter.Filter;
-import stelnet.filter.FleetMemberHasDMod;
-import stelnet.filter.FleetMemberPristine;
-import stelnet.filter.ShipHullHasBays;
-import stelnet.filter.ShipHullHasBuiltIn;
-import stelnet.filter.ShipHullIsManufacturer;
-import stelnet.filter.ShipHullIsSize;
-import stelnet.filter.ShipHullNoBuiltIns;
-import stelnet.filter.WeaponSlotIsSize;
-import stelnet.filter.WeaponSlotIsType;
 import stelnet.util.L10n;
 import uilib.Button;
 import uilib.Renderable;
@@ -35,13 +22,13 @@ import uilib.property.Size;
 public class ShipQueryFactory extends QueryFactory {
 
     private final ShipProvider shipProvider = new ShipProvider(this);
-    private final FilteringButton[] classSizes = createClassSizes();
-    private final FilteringButton[] mountSizes = createMountSizes();
-    private final FilteringButton[] mountTypes = createMountTypes();
-    private final FilteringButton[] mountBays = createMountBays();
-    private final FilteringButton[] designTypes = createManufacturers();
-    private final FilteringButton[] builtIns = createBuiltIns();
-    private final FilteringButton[] dMods = createDMods();
+    private final FilteringButton[] classSizes = ShipButtonUtils.getClassSizes();
+    private final FilteringButton[] mountSizes = ShipButtonUtils.getMountSizes();
+    private final FilteringButton[] mountTypes = ShipButtonUtils.getMountTypes();
+    private final FilteringButton[] mountBays = ShipButtonUtils.getMountBays(this);
+    private final FilteringButton[] designTypes = ShipButtonUtils.getManufacturers(shipProvider);
+    private final FilteringButton[] builtIns = ShipButtonUtils.getBuiltIns(shipProvider);
+    private final FilteringButton[] dMods = ShipButtonUtils.getDMods(shipProvider);
 
     public void setFighterBays(FighterBaysButton active) {
         Iterable<FilteringButton> iterable = Arrays.asList(mountBays);
@@ -107,76 +94,6 @@ public class ShipQueryFactory extends QueryFactory {
         return elements;
     }
 
-    private FilteringButton[] createClassSizes() {
-        return new FilteringButton[] {
-            new FilteringButton(L10n.get(HullSize.FRIGATE), new ShipHullIsSize(HullSize.FRIGATE)),
-            new FilteringButton(L10n.get(HullSize.DESTROYER), new ShipHullIsSize(HullSize.DESTROYER)),
-            new FilteringButton(L10n.get(HullSize.CRUISER), new ShipHullIsSize(HullSize.CRUISER)),
-            new FilteringButton(L10n.get(HullSize.CAPITAL_SHIP), new ShipHullIsSize(HullSize.CAPITAL_SHIP)),
-        };
-    }
-
-    private FilteringButton[] createManufacturers() {
-        List<FilteringButton> manufacturers = new LinkedList<>();
-        for (String manufacturer : shipProvider.getManufacturers()) {
-            manufacturers.add(new FilteringButton(manufacturer, new ShipHullIsManufacturer(manufacturer), false));
-        }
-        return manufacturers.toArray(new FilteringButton[] {});
-    }
-
-    private FilteringButton[] createMountBays() {
-        List<FilteringButton> manufacturers = new LinkedList<>();
-        manufacturers.add(new FilteringButton(CommonL10n.NONE, new ShipHullHasBays(0)));
-        for (int i = 1; i < 7; i++) {
-            manufacturers.add(new FighterBaysButton(this, String.valueOf(i), new ShipHullHasBays(i)));
-        }
-        manufacturers.get(1).setStateOn(true);
-        return manufacturers.toArray(new FilteringButton[] {});
-    }
-
-    private FilteringButton[] createMountSizes() {
-        return new FilteringButton[] {
-            new FilteringButton(WeaponSize.SMALL.getDisplayName(), new WeaponSlotIsSize(WeaponSize.SMALL)),
-            new FilteringButton(WeaponSize.MEDIUM.getDisplayName(), new WeaponSlotIsSize(WeaponSize.MEDIUM)),
-            new FilteringButton(WeaponSize.LARGE.getDisplayName(), new WeaponSlotIsSize(WeaponSize.LARGE)),
-        };
-    }
-
-    private FilteringButton[] createMountTypes() {
-        return new FilteringButton[] {
-            new FilteringButton(WeaponType.BALLISTIC.getDisplayName(), new WeaponSlotIsType(WeaponType.BALLISTIC)),
-            new FilteringButton(WeaponType.MISSILE.getDisplayName(), new WeaponSlotIsType(WeaponType.MISSILE)),
-            new FilteringButton(WeaponType.ENERGY.getDisplayName(), new WeaponSlotIsType(WeaponType.ENERGY)),
-            new FilteringButton(WeaponType.HYBRID.getDisplayName(), new WeaponSlotIsType(WeaponType.HYBRID)),
-            new FilteringButton(WeaponType.SYNERGY.getDisplayName(), new WeaponSlotIsType(WeaponType.SYNERGY)),
-            new FilteringButton(WeaponType.COMPOSITE.getDisplayName(), new WeaponSlotIsType(WeaponType.COMPOSITE)),
-            new FilteringButton(WeaponType.UNIVERSAL.getDisplayName(), new WeaponSlotIsType(WeaponType.UNIVERSAL)),
-            new FilteringButton(WeaponType.BUILT_IN.getDisplayName(), new WeaponSlotIsType(WeaponType.BUILT_IN)),
-        };
-    }
-
-    private FilteringButton[] createBuiltIns() {
-        List<FilteringButton> builtInList = new LinkedList<>();
-        builtInList.add(
-            new FilteringButton(L10n.get(CommonL10n.NONE), new ShipHullNoBuiltIns(L10n.get(CommonL10n.NONE)), "None")
-        );
-        for (HullModSpecAPI builtIn : shipProvider.getBuiltIns()) {
-            builtInList.add(
-                new FilteringButton(builtIn.getDisplayName(), new ShipHullHasBuiltIn(builtIn), builtIn.getId())
-            );
-        }
-        return builtInList.toArray(new FilteringButton[] {});
-    }
-
-    private FilteringButton[] createDMods() {
-        List<FilteringButton> dMods = new LinkedList<>();
-        dMods.add(new FilteringButton(CommonL10n.NONE, new FleetMemberPristine(L10n.get(CommonL10n.NONE))));
-        for (HullModSpecAPI dMod : shipProvider.getDMods()) {
-            dMods.add(new FilteringButton(dMod.getDisplayName(), new FleetMemberHasDMod(dMod), false));
-        }
-        return dMods.toArray(new FilteringButton[] {});
-    }
-
     private Set<Filter> getCommonFilters() {
         Set<Filter> filters = new LinkedHashSet<>();
         addToFilters(filters, classSizes, L10n.get(QueryL10n.CLASS_SIZE), true);
@@ -187,6 +104,10 @@ public class ShipQueryFactory extends QueryFactory {
         return filters;
     }
 
+    private List<FleetMemberAPI> getShips(Set<Filter> filters) {
+        return shipProvider.getMatching(filters);
+    }
+
     private void prepareBuiltIns() {
         Set<Filter> filters = getCommonFilters();
         Set<String> hullModIds = shipProvider.getBuiltInIds(filters);
@@ -194,9 +115,5 @@ public class ShipQueryFactory extends QueryFactory {
         for (FilteringButton button : builtIns) {
             button.updateVisibility(hullModIds);
         }
-    }
-
-    private List<FleetMemberAPI> getShips(Set<Filter> filters) {
-        return shipProvider.getMatching(filters);
     }
 }
