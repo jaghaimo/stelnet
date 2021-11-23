@@ -10,21 +10,21 @@ import stelnet.board.storage.StorageBoard;
 import stelnet.board.storage.StorageIntel;
 import stelnet.board.storage.StorageListener;
 import stelnet.board.viewer.ViewerBoard;
-import stelnet.config.BoardConfig;
 import stelnet.config.ModConfig;
+import stelnet.config.ModuleConfig;
 
 @Log4j
 public class ConfigUtils {
 
     public static void configure() {
         ModConfig.configure();
-        BoardConfig.configure();
+        ModuleConfig.configure();
     }
 
     public static void activate() {
-        initCommodity(BoardConfig.HAS_COMMODITIES);
-        initMarket(BoardConfig.HAS_MARKET);
-        initStorage(BoardConfig.HAS_STORAGE);
+        initCommodity(ModuleConfig.HAS_COMMODITIES);
+        initMarket(ModuleConfig.HAS_MARKET);
+        initStorage(ModuleConfig.HAS_STORAGE);
         log.info("Stelnet activated");
     }
 

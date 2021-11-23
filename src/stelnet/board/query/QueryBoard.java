@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 import stelnet.BaseBoard;
 import stelnet.BoardInfo;
+import stelnet.board.query.QueryState.QueryBoardTab;
 import stelnet.util.L10n;
 import stelnet.util.SectorUtils;
 import stelnet.util.SettingsUtils;
@@ -26,7 +27,8 @@ public class QueryBoard extends BaseBoard {
     @Override
     public void advance(float amount) {
         log.debug("Resetting query cache");
-        QueryState.resetCache();
+        state.resetCache();
+        state.setActiveTab(QueryBoardTab.LIST);
         SectorUtils.removeScript(this);
     }
 

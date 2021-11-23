@@ -2,6 +2,9 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "editor.formatOnPaste": false,
+    "files.exclude": {
+        "**/.git": false
+    },
     "java.configuration.updateBuildConfiguration": "automatic",
     "java.import.gradle.home": "./",
     "prettier.prettierPath": "node_modules/prettier"

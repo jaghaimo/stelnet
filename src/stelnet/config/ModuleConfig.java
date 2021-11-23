@@ -1,6 +1,6 @@
 package stelnet.config;
 
-public class BoardConfig extends Config {
+public class ModuleConfig extends Config {
 
     public static transient boolean HAS_COMMODITIES = true;
     public static transient boolean HAS_MARKET = true;

@@ -39,7 +39,7 @@ public class QueryState implements RenderableState, Serializable {
         return new QueryView(this).create(size);
     }
 
-    public static void resetCache() {
+    public void resetCache() {
         FactionProvider.reset();
         ItemProvider.reset();
         PeopleProvider.reset();
