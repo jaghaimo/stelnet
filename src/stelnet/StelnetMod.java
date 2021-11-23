@@ -1,25 +1,20 @@
 package stelnet;
 
 import com.fs.starfarer.api.BaseModPlugin;
-import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
 import stelnet.config.StelnetConfig;
 import stelnet.util.ConfigUtils;
 
 public class StelnetMod extends BaseModPlugin {
 
     @Override
-    public void beforeGameSave() {
-        if (StelnetConfig.uninstallMod) {
-            ConfigUtils.deactivate();
-        }
+    public void afterGameSave() {
+        onGameLoad(false);
     }
 
     @Override
-    public void onApplicationLoad() throws Exception {
-        ConfigUtils.configure();
-        if (StelnetConfig.verboseLogging) {
-            LogManager.getRootLogger().setLevel(Level.ALL);
+    public void beforeGameSave() {
+        if (StelnetConfig.uninstallMod) {
+            ConfigUtils.deactivate();
         }
     }
 
@@ -30,6 +25,7 @@ public class StelnetMod extends BaseModPlugin {
 
     @Override
     public void onGameLoad(boolean newGame) {
+        ConfigUtils.configure();
         ConfigUtils.activate();
     }
 }

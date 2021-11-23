@@ -3,7 +3,6 @@
 
     # Mod settings
     "uninstallMod": false, # set to true, load and save the game to remove the mod
-    "verboseLogging": false, # increases log verbosity
     # Module toggles - used to enable or disable specific modules
     "hasCommodities": true,
     "hasMarket": true,
