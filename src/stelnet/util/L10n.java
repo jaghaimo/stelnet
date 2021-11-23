@@ -8,7 +8,7 @@ import org.json.JSONObject;
 @Log4j
 public class L10n {
 
-    private static JSONObject translations;
+    private static transient JSONObject translations;
 
     public static void init() {
         if (translations == null) {
@@ -36,12 +36,12 @@ public class L10n {
         String enumPrefix = enumKey.getClass().getName().toUpperCase();
         enumPrefix = enumPrefix.replaceAll("L10N", "");
         enumPrefix = enumPrefix.replaceAll("\\.", "\\_");
-        enumPrefix = removeHead(enumPrefix);
         enumPrefix = removeTail(enumPrefix);
+        enumPrefix = removeHead(enumPrefix);
         return enumPrefix + "_" + enumKey.name();
     }
 
-    private static String removeHead(String string) {
+    private static String removeTail(String string) {
         int endIndex = string.lastIndexOf("_") + 1;
         if (endIndex > 0) {
             string = string.substring(endIndex);
@@ -49,7 +49,7 @@ public class L10n {
         return string;
     }
 
-    private static String removeTail(String string) {
+    private static String removeHead(String string) {
         int endIndex = string.indexOf("$");
         if (endIndex > 0) {
             string = string.substring(0, endIndex);
