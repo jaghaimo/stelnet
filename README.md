@@ -2,7 +2,7 @@
 
 Stellar Networks is a QoL oriented Starsector mod.
 It adds three new intel tabs: Commodity, Market, and Storage.
-Each tab comes with its own interactive board that are used to manage presented intel.
+Each tab comes with interactive boards that are used to manage presented intel.
 
 ## Available Boards
 
