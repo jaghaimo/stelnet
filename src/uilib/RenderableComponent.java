@@ -39,7 +39,9 @@ public abstract class RenderableComponent implements Renderable {
     }
 
     protected void addSectionTitle(TooltipMakerAPI tooltip, String sectionTitle, Color color) {
+        tooltip.setParaFontOrbitron();
         tooltip.addPara(sectionTitle, color, 0);
+        tooltip.setParaFontDefault();
         tooltip.addButton("", "", color, color, getSize().getWidth() - 12, 0, 0);
     }
 

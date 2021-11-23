@@ -13,7 +13,7 @@ public class ShowCargo extends RenderableComponent {
     private final CargoAPI cargo;
     private final String optionalTitle;
     private final String emptyDescription;
-    private Color titleColor = Misc.getButtonTextColor();
+    private Color titleColor = Misc.getTextColor();
 
     public ShowCargo(CargoAPI cargo, String emptyDescription, Size size) {
         this(cargo, null, emptyDescription, size);

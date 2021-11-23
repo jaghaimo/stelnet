@@ -36,6 +36,7 @@ public class SectionHeader extends RenderableComponent {
         tooltip.addSpacer(UiConstants.DEFAULT_SPACER);
         heading.render(tooltip);
         if (buttons != null) {
+            tooltip.setButtonFontVictor10();
             renderButtons(tooltip);
         }
         tooltip.addSpacer(UiConstants.DEFAULT_SPACER);

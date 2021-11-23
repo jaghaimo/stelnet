@@ -14,7 +14,7 @@ public class ShowShips extends RenderableComponent {
     private final List<FleetMemberAPI> ships;
     private final String optionalTitle;
     private final String emptyDescription;
-    private Color titleColor = Misc.getButtonTextColor();
+    private Color titleColor = Misc.getTextColor();
 
     public ShowShips(List<FleetMemberAPI> ships, String emptyDescription, Size size) {
         this(ships, null, emptyDescription, size);
