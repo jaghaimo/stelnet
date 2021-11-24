@@ -23,7 +23,6 @@ public class ConfigUtils {
         initMarket(ConfigConstants.HAS_MARKET);
         initStorage(ConfigConstants.HAS_STORAGE);
         log.info("Stelnet activated");
-        log.info("Using JRE" + System.getProperty("java.specification.version"));
     }
 
     public static void deactivate() {
