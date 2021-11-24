@@ -20,6 +20,8 @@ public class MarketUpdater implements EveryFrameScript, ColonyInteractionListene
         if (instance == null) {
             instance = new MarketUpdater();
         }
+        SectorUtils.addTransientScript(instance);
+        SectorUtils.getListenerManager().addListener(instance, true);
         MarketProvider.reset();
         return instance;
     }
@@ -31,10 +33,7 @@ public class MarketUpdater implements EveryFrameScript, ColonyInteractionListene
         }
     }
 
-    private MarketUpdater() {
-        SectorUtils.addTransientScript(this);
-        SectorUtils.getListenerManager().addListener(this, true);
-    }
+    private MarketUpdater() {}
 
     @Override
     public void advance(float amount) {
