@@ -9,6 +9,8 @@ import stelnet.filter.Filter;
 @Log4j
 public class ConfigConstants {
 
+    private static transient JSONObject cachedSettings = null;
+
     public static transient boolean AUTO_REFRESH_MARKETS = true;
     public static transient boolean UNINSTALL_MOD = false;
 
@@ -62,8 +64,6 @@ public class ConfigConstants {
             VIEWER_USE_CUSTOM_MARKETS
         );
     }
-
-    private static transient JSONObject cachedSettings = null;
 
     protected static JSONObject load() throws JSONException, IOException {
         if (cachedSettings == null) {
