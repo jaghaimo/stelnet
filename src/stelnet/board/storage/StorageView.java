@@ -38,7 +38,7 @@ public class StorageView implements RenderableFactory {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
                     StorageBoard board = StorageBoard.getInstance(StorageBoard.class);
-                    board.getState().setDisplayStrategy(nextStrategy);
+                    board.getRenderableState().setDisplayStrategy(nextStrategy);
                 }
             }
         );

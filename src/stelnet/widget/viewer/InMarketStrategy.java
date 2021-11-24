@@ -10,8 +10,8 @@ import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import stelnet.config.ViewerConfig;
 import stelnet.util.CollectionUtils;
+import stelnet.util.ConfigConstants;
 import stelnet.util.L10n;
 import stelnet.widget.WidgetL10n;
 
@@ -41,7 +41,7 @@ public class InMarketStrategy extends PerMarketStrategy {
 
     private List<SubmarketAPI> getSubmarkets(MarketAPI market) {
         List<SubmarketAPI> submarkets = market.getSubmarketsCopy();
-        CollectionUtils.reduce(submarkets, ViewerConfig.getSubmarketFilter());
+        CollectionUtils.reduce(submarkets, ConfigConstants.getViewerSubmarketFilter());
         return submarkets;
     }
 

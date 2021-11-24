@@ -76,7 +76,11 @@ public class ShipButtonUtils {
         );
         for (HullModSpecAPI builtIn : provider.getBuiltIns()) {
             builtInList.add(
-                new FilteringButton(builtIn.getDisplayName(), new ShipHullHasBuiltIn(builtIn), builtIn.getId())
+                new FilteringButton(
+                    builtIn.getDisplayName(),
+                    new ShipHullHasBuiltIn(builtIn.getId(), builtIn.getDisplayName()),
+                    builtIn.getId()
+                )
             );
         }
         return builtInList.toArray(new FilteringButton[] {});
@@ -86,7 +90,13 @@ public class ShipButtonUtils {
         List<FilteringButton> dMods = new LinkedList<>();
         dMods.add(new FilteringButton(CommonL10n.NONE, new FleetMemberPristine(L10n.get(CommonL10n.NONE))));
         for (HullModSpecAPI dMod : provider.getDMods()) {
-            dMods.add(new FilteringButton(dMod.getDisplayName(), new FleetMemberHasDMod(dMod), false));
+            dMods.add(
+                new FilteringButton(
+                    dMod.getDisplayName(),
+                    new FleetMemberHasDMod(dMod.getId(), dMod.getDisplayName()),
+                    false
+                )
+            );
         }
         return dMods.toArray(new FilteringButton[] {});
     }

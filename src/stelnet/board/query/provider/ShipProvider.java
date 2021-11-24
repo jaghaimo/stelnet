@@ -16,9 +16,9 @@ import java.util.Set;
 import java.util.TreeSet;
 import stelnet.board.query.ResultSet;
 import stelnet.board.query.view.add.QueryFactory;
-import stelnet.config.QueryConfig;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
+import stelnet.util.ConfigConstants;
 import stelnet.util.EconomyUtils;
 import stelnet.util.FactoryUtils;
 import stelnet.util.SettingsUtils;
@@ -61,7 +61,7 @@ public class ShipProvider extends QueryProvider {
         final boolean groupBySystem
     ) {
         List<SubmarketAPI> submarkets = EconomyUtils.getSubmarkets(markets);
-        CollectionUtils.reduce(submarkets, QueryConfig.getSubmarketFilter());
+        CollectionUtils.reduce(submarkets, ConfigConstants.getQuerySubmarketFilter());
         for (SubmarketAPI submarket : submarkets) {
             MarketAPI market = submarket.getMarket();
             List<FleetMemberAPI> fleetMembers = submarket.getCargo().getMothballedShips().getMembersListCopy();

@@ -3,7 +3,7 @@
     "name": "Stellar Networks",
     "author": "Jaghaimo",
     "utility": true,
-    "version": "2.0.0",
+    "version": "2.1.0",
     "description": "Stellar Networks - a collection of intel boards",
     "gameVersion": "0.95a-RC15",
     "modPlugin": "stelnet.StelnetMod",

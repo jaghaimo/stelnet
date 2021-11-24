@@ -1,21 +1,22 @@
 package stelnet;
 
 import com.fs.starfarer.api.BaseModPlugin;
-import stelnet.config.StelnetConfig;
+import stelnet.util.ConfigConstants;
 import stelnet.util.ConfigUtils;
+import stelnet.util.ReportUtils;
 
 public class StelnetMod extends BaseModPlugin {
 
     @Override
-    public void afterGameSave() {
-        onGameLoad(false);
+    public void beforeGameSave() {
+        if (ConfigConstants.UNINSTALL_MOD) {
+            ConfigUtils.deactivate();
+        }
     }
 
     @Override
-    public void beforeGameSave() {
-        if (StelnetConfig.uninstallMod) {
-            ConfigUtils.deactivate();
-        }
+    public void onApplicationLoad() throws Exception {
+        ReportUtils.generate();
     }
 
     @Override

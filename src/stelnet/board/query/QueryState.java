@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import stelnet.board.query.provider.FactionProvider;
 import stelnet.board.query.provider.ItemProvider;
+import stelnet.board.query.provider.MarketProvider;
 import stelnet.board.query.provider.PeopleProvider;
 import stelnet.board.query.provider.ShipProvider;
 import stelnet.board.query.view.add.AddQueryFactory;
@@ -25,14 +26,8 @@ public class QueryState implements RenderableState, Serializable {
 
     private QueryBoardTab activeTab = QueryBoardTab.LIST;
     private final QueryManager queryManager = new QueryManager();
-    private transient AddQueryFactory addQueryFactory = new AddQueryFactory();
-    private transient QueryListFactory queryListFactory = new QueryListFactory(queryManager);
-
-    public Object readResolve() {
-        addQueryFactory = new AddQueryFactory();
-        queryListFactory = new QueryListFactory(queryManager);
-        return this;
-    }
+    private AddQueryFactory addQueryFactory = new AddQueryFactory();
+    private QueryListFactory queryListFactory = new QueryListFactory(queryManager);
 
     @Override
     public List<Renderable> toRenderableList(Size size) {
@@ -42,7 +37,9 @@ public class QueryState implements RenderableState, Serializable {
     public void resetCache() {
         FactionProvider.reset();
         ItemProvider.reset();
+        MarketProvider.reset();
         PeopleProvider.reset();
         ShipProvider.reset();
+        MarketUpdater.reset();
     }
 }

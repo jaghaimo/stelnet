@@ -36,7 +36,7 @@ It allows to display a unified view to quickly verify what is available, and per
 
 ## Installation and Configuration
 
-To configure the mod edit [stelnet.json.dist](assets/stelnet.json.dist) and save it as `stelnet.json`.
+To configure the mod edit [stelnet.json](assets/stelnet.json).
 
 This mod can be added to an existing save - just enable it in the mod list and load the save.
 

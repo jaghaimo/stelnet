@@ -13,12 +13,11 @@ import stelnet.filter.MarketNotHidden;
 import stelnet.util.CollectionUtils;
 import stelnet.util.EconomyUtils;
 import stelnet.util.Excluder;
-import stelnet.util.SectorUtils;
 
 @Log4j
 public class MarketProvider {
 
-    private static transient long lastUpdate;
+    private static transient boolean needsRefresh = true;
 
     public static List<SectorEntityToken> convertMarketsToTokens(List<MarketAPI> markets) {
         List<SectorEntityToken> tokens = new LinkedList<>();
@@ -32,16 +31,16 @@ public class MarketProvider {
         List<MarketAPI> markets = EconomyUtils.getMarkets();
         List<Filter> filters = Arrays.<Filter>asList(Excluder.getMarketFilters(), new MarketNotHidden());
         CollectionUtils.reduce(markets, filters);
-        if (refreshContent && needsRefresh()) {
+        if (refreshContent && needsRefresh) {
             log.debug("Refreshing all markets, this may take a while");
             updateMarkets(markets);
-            lastUpdate = SectorUtils.now();
+            needsRefresh = false;
         }
         return markets;
     }
 
     public static void reset() {
-        lastUpdate = Long.MIN_VALUE;
+        needsRefresh = true;
     }
 
     public static void updateMarkets(List<MarketAPI> markets) {
@@ -51,13 +50,13 @@ public class MarketProvider {
     }
 
     public static void updateMarket(MarketAPI market) {
-        for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
-            submarket.getPlugin().updateCargoPrePlayerInteraction();
-        }
+        updateSubmarkets(market);
         ListenerUtil.reportPlayerOpenedMarket(market);
     }
 
-    private static boolean needsRefresh() {
-        return lastUpdate < SectorUtils.now();
+    public static void updateSubmarkets(MarketAPI market) {
+        for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
+            submarket.getPlugin().updateCargoPrePlayerInteraction();
+        }
     }
 }

@@ -25,7 +25,7 @@ public class ViewerButton extends Button {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
                     ViewerBoard board = ViewerBoard.getInstance(ViewerBoard.class);
-                    board.getState().setDisplayStrategy(new InMarketStrategy(market));
+                    board.getRenderableState().setDisplayStrategy(new InMarketStrategy(market));
                     SectorUtils.getCampaignUI().showCoreUITab(CoreUITabId.INTEL, board);
                 }
             }

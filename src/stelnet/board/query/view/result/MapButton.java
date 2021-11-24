@@ -26,7 +26,7 @@ public class MapButton extends Button {
                 public void onConfirm(IntelUIAPI ui) {
                     intel.setSectorEntityToken(market.getPrimaryEntity());
                     AwtUtils.send(KeyEvent.VK_S);
-                    SectorUtils.addScript(intel);
+                    SectorUtils.addTransientScript(intel);
                 }
             }
         );

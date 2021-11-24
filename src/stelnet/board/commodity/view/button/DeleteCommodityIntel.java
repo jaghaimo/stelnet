@@ -28,7 +28,7 @@ public class DeleteCommodityIntel extends C2Button {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
                     CommodityBoard board = CommodityBoard.getInstance(CommodityBoard.class);
-                    board.getState().deleteIntel(commodityId);
+                    board.getRenderableState().deleteIntel(commodityId);
                 }
 
                 @Override

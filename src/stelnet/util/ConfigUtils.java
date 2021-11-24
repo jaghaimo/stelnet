@@ -10,21 +10,18 @@ import stelnet.board.storage.StorageBoard;
 import stelnet.board.storage.StorageIntel;
 import stelnet.board.storage.StorageListener;
 import stelnet.board.viewer.ViewerBoard;
-import stelnet.config.ModuleConfig;
-import stelnet.config.StelnetConfig;
 
 @Log4j
 public class ConfigUtils {
 
     public static void configure() {
-        StelnetConfig.configure();
-        ModuleConfig.configure();
+        ConfigConstants.init();
     }
 
     public static void activate() {
-        initCommodity(ModuleConfig.HAS_COMMODITIES);
-        initMarket(ModuleConfig.HAS_MARKET);
-        initStorage(ModuleConfig.HAS_STORAGE);
+        initCommodity(ConfigConstants.HAS_COMMODITIES);
+        initMarket(ConfigConstants.HAS_MARKET);
+        initStorage(ConfigConstants.HAS_STORAGE);
         log.info("Stelnet activated");
     }
 
@@ -56,11 +53,14 @@ public class ConfigUtils {
         if (hasMarket) {
             QueryBoard.getInstance(QueryBoard.class);
             ViewerBoard.getInstance(ViewerBoard.class);
-            SectorUtils.addTransientScript(new MarketUpdater());
             log.info("Enabled Market plugin");
         } else {
             purgeIntel(QueryBoard.class, ViewerBoard.class, ResultIntel.class);
             log.info("Disabled Market plugin");
+        }
+        if (hasMarket && ConfigConstants.AUTO_REFRESH_MARKETS) {
+            log.info("Enabled Market updater script");
+            MarketUpdater.getInstance();
         }
     }
 
