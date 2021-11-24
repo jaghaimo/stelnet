@@ -22,7 +22,9 @@ import uilib.RenderableState;
 @Log4j
 public class QueryBoard extends BaseBoard {
 
+    private final String icon = SettingsUtils.getSpriteName("query");
     private final QueryState state = new QueryState();
+    private final String tag = ModConstants.TAG_QUERY;
 
     @Override
     public void advance(float amount) {
@@ -30,11 +32,6 @@ public class QueryBoard extends BaseBoard {
         log.debug("Cleanup - resetting query cache");
         state.resetCache();
         state.setActiveTab(QueryBoardTab.LIST);
-    }
-
-    @Override
-    public String getIcon() {
-        return SettingsUtils.getSpriteName("query");
     }
 
     @Override
@@ -48,10 +45,5 @@ public class QueryBoard extends BaseBoard {
         log.debug("Adding itself as a script for cleanup operation");
         SectorUtils.addTransientScript(this);
         return state;
-    }
-
-    @Override
-    protected String getTag() {
-        return ModConstants.TAG_MARKET;
     }
 }

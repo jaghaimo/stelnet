@@ -23,7 +23,7 @@ public class MarketSelectPicker implements CampaignEntityPickerListener {
 
     @Override
     public void pickedEntity(SectorEntityToken entity) {
-        board.getState().setDisplayStrategy(new InMarketStrategy(entity.getMarket()));
+        board.getRenderableState().setDisplayStrategy(new InMarketStrategy(entity.getMarket()));
         ui.updateUIForItem(board);
         dialog.dismiss();
     }

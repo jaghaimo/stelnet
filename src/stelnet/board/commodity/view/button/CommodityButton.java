@@ -21,7 +21,7 @@ public class CommodityButton extends AreaCheckbox {
                 public void onConfirm(IntelUIAPI ui) {
                     String commodityId = commodity.getId();
                     CommodityBoard board = CommodityBoard.getInstance(CommodityBoard.class);
-                    board.getState().setCommodityId(commodityId);
+                    board.getRenderableState().setCommodityId(commodityId);
                 }
             }
         );
