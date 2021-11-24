@@ -32,7 +32,7 @@ public class ResultIntel extends BaseIntel {
         if (advancedAmount > 1) {
             log.debug("Restoring original token");
             setSectorEntityToken(resultSet.getToken());
-            SectorUtils.removeScript(this);
+            SectorUtils.removeTransientScript(this);
             advancedAmount = 0;
         }
     }

@@ -7,18 +7,30 @@ import com.fs.starfarer.api.campaign.listeners.ColonyInteractionListener;
 import com.fs.starfarer.api.campaign.listeners.ListenerUtil;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import lombok.extern.log4j.Log4j;
-import stelnet.board.query.provider.MarketProvider;
 import stelnet.util.EconomyUtils;
 import stelnet.util.SectorUtils;
 
 @Log4j
 public class MarketUpdater implements EveryFrameScript, ColonyInteractionListener {
 
+    private static transient MarketUpdater instance;
     private MarketAPI openedMarket;
 
-    public MarketUpdater() {
-        MarketProvider.reset();
+    public static MarketUpdater getInstance() {
+        if (instance == null) {
+            instance = new MarketUpdater();
+        }
+        return instance;
     }
+
+    public static void reset() {
+        if (instance != null) {
+            log.debug("Forcing fake player closed market");
+            instance.reportPlayerClosedMarket(null);
+        }
+    }
+
+    private MarketUpdater() {}
 
     @Override
     public void advance(float amount) {
@@ -27,7 +39,7 @@ public class MarketUpdater implements EveryFrameScript, ColonyInteractionListene
         }
         MarketAPI market = pickRandomMarket();
         if (openedMarket == market) {
-            log.debug("Skipping currently docked market " + market.getName());
+            log.debug("Skipping currently opened market " + market.getId());
             return;
         }
         updateMarket(market);

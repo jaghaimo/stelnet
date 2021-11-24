@@ -40,6 +40,7 @@ public class QueryState implements RenderableState, Serializable {
     }
 
     public void resetCache() {
+        MarketUpdater.reset();
         FactionProvider.reset();
         ItemProvider.reset();
         PeopleProvider.reset();

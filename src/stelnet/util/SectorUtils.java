@@ -14,10 +14,6 @@ import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
  */
 public class SectorUtils {
 
-    public static void addScript(EveryFrameScript script) {
-        getSector().addScript(script);
-    }
-
     public static void addTransientScript(EveryFrameScript script) {
         getSector().addTransientScript(script);
     }
@@ -50,12 +46,12 @@ public class SectorUtils {
         return getSector().getClock().getTimestamp();
     }
 
-    public static void removeScript(EveryFrameScript script) {
-        getSector().removeScript(script);
+    public static void removeTransientScript(EveryFrameScript script) {
+        getSector().removeTransientScript(script);
     }
 
-    public static void removeScripts(Class<?> className) {
-        getSector().removeScriptsOfClass(className);
+    public static void removeTransientScripts(Class<?> className) {
+        getSector().removeTransientScriptsOfClass(className);
     }
 
     private static SectorAPI getSector() {

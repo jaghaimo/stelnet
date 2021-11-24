@@ -56,7 +56,7 @@ public class ConfigUtils {
             log.info("Enabled Market plugin");
             if (ConfigConstants.AUTO_REFRESH_MARKETS) {
                 log.info("Enabled transient market updater");
-                MarketUpdater marketUpdater = new MarketUpdater();
+                MarketUpdater marketUpdater = MarketUpdater.getInstance();
                 SectorUtils.addTransientScript(marketUpdater);
                 SectorUtils.getListenerManager().addListener(marketUpdater, true);
             }
