@@ -6,9 +6,9 @@ import stelnet.BaseBoard;
 import stelnet.BoardInfo;
 import stelnet.board.query.QueryState.QueryBoardTab;
 import stelnet.util.L10n;
+import stelnet.util.ModConstants;
 import stelnet.util.SectorUtils;
 import stelnet.util.SettingsUtils;
-import stelnet.util.TagConstants;
 import uilib.RenderableIntelInfo;
 import uilib.RenderableState;
 
@@ -22,19 +22,16 @@ import uilib.RenderableState;
 @Log4j
 public class QueryBoard extends BaseBoard {
 
+    private final String icon = SettingsUtils.getSpriteName("query");
     private final QueryState state = new QueryState();
+    private final String tag = ModConstants.TAG_QUERY;
 
     @Override
     public void advance(float amount) {
-        log.debug("Resetting query cache");
+        SectorUtils.removeTransientScript(this);
+        log.debug("Performing cleanup and resetting query cache");
         state.resetCache();
         state.setActiveTab(QueryBoardTab.LIST);
-        SectorUtils.removeScript(this);
-    }
-
-    @Override
-    public String getIcon() {
-        return SettingsUtils.getSpriteName("query");
     }
 
     @Override
@@ -45,12 +42,8 @@ public class QueryBoard extends BaseBoard {
 
     @Override
     protected RenderableState getRenderableState() {
-        SectorUtils.addScript(this);
+        log.debug("Adding itself as a script for cleanup operations");
+        SectorUtils.addTransientScript(this);
         return state;
-    }
-
-    @Override
-    protected String getTag() {
-        return TagConstants.MARKET;
     }
 }

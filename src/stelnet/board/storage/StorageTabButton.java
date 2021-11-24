@@ -15,7 +15,7 @@ public class StorageTabButton extends TabButton {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
                     StorageBoard board = StorageBoard.getInstance(StorageBoard.class);
-                    board.getState().setContentRenderer(newRenderer);
+                    board.getRenderableState().setContentRenderer(newRenderer);
                 }
             }
         );

@@ -13,7 +13,7 @@ import stelnet.CommonL10n;
 import stelnet.IntelInfo;
 import stelnet.util.CargoUtils;
 import stelnet.util.L10n;
-import stelnet.util.TagConstants;
+import stelnet.util.ModConstants;
 import uilib.Heading;
 import uilib.Renderable;
 import uilib.ShowCargo;
@@ -25,8 +25,7 @@ import uilib.property.Size;
 public class StorageIntel extends BaseIntel {
 
     private final SubmarketAPI storage;
-
-    private final String tag = TagConstants.STORAGE;
+    private final String tag = ModConstants.TAG_STORAGE;
 
     public StorageIntel(SubmarketAPI storage) {
         super(storage.getMarket().getFaction(), storage.getMarket().getPrimaryEntity());
