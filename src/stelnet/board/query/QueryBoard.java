@@ -29,7 +29,7 @@ public class QueryBoard extends BaseBoard {
     @Override
     public void advance(float amount) {
         SectorUtils.removeTransientScript(this);
-        log.debug("Cleanup - resetting query cache");
+        log.debug("Performing cleanup and resetting query cache");
         state.resetCache();
         state.setActiveTab(QueryBoardTab.LIST);
     }
@@ -42,7 +42,7 @@ public class QueryBoard extends BaseBoard {
 
     @Override
     protected RenderableState getRenderableState() {
-        log.debug("Adding itself as a script for cleanup operation");
+        log.debug("Adding itself as a script for cleanup operations");
         SectorUtils.addTransientScript(this);
         return state;
     }
