@@ -11,7 +11,9 @@ import stelnet.board.storage.StorageIntel;
 import stelnet.board.storage.StorageListener;
 import stelnet.board.viewer.ViewerBoard;
 import stelnet.config.ModuleConfig;
+import stelnet.config.QueryConfig;
 import stelnet.config.StelnetConfig;
+import stelnet.config.ViewerConfig;
 
 @Log4j
 public class ConfigUtils {
@@ -19,6 +21,8 @@ public class ConfigUtils {
     public static void configure() {
         StelnetConfig.configure();
         ModuleConfig.configure();
+        QueryConfig.configure();
+        ViewerConfig.configure();
     }
 
     public static void activate() {
