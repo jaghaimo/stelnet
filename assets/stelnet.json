@@ -14,5 +14,5 @@
     "viewerUseOpenMarket": true,
     "viewerUseMilitaryMarket": true,
     "viewerUseBlackMarket": false,
-    "viewerUseCustomMarkets": false,
+    "viewerUseCustomMarkets": false
 }
