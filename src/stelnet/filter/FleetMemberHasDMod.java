@@ -2,17 +2,17 @@ package stelnet.filter;
 
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
-import com.fs.starfarer.api.loading.HullModSpecAPI;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class FleetMemberHasDMod extends ShipHullFilter {
 
-    private final HullModSpecAPI dmod;
+    private final String id;
+    private final String name;
 
     @Override
     protected boolean acceptFleetMember(FleetMemberAPI fleetMember) {
-        return fleetMember.getVariant().hasHullMod(dmod.getId());
+        return fleetMember.getVariant().hasHullMod(id);
     }
 
     @Override
@@ -22,6 +22,6 @@ public class FleetMemberHasDMod extends ShipHullFilter {
 
     @Override
     public String toString() {
-        return dmod.getDisplayName();
+        return name;
     }
 }

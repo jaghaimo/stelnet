@@ -2,7 +2,6 @@ package stelnet.board.query;
 
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
-import org.apache.log4j.Level;
 import stelnet.BaseBoard;
 import stelnet.BoardInfo;
 import stelnet.board.query.QueryState.QueryBoardTab;
@@ -46,7 +45,6 @@ public class QueryBoard extends BaseBoard {
 
     @Override
     protected RenderableState getRenderableState() {
-        log.setLevel(Level.ALL);
         log.debug("Adding itself as a script for cleanup operation");
         SectorUtils.addTransientScript(this);
         return state;

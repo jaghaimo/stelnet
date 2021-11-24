@@ -4,9 +4,9 @@ import com.fs.starfarer.api.EveryFrameScript;
 import com.fs.starfarer.api.campaign.PlayerMarketTransaction;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.listeners.ColonyInteractionListener;
-import com.fs.starfarer.api.campaign.listeners.ListenerUtil;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import lombok.extern.log4j.Log4j;
+import stelnet.board.query.provider.MarketProvider;
 import stelnet.util.EconomyUtils;
 import stelnet.util.SectorUtils;
 
@@ -20,6 +20,7 @@ public class MarketUpdater implements EveryFrameScript, ColonyInteractionListene
         if (instance == null) {
             instance = new MarketUpdater();
         }
+        MarketProvider.reset();
         return instance;
     }
 
@@ -84,6 +85,6 @@ public class MarketUpdater implements EveryFrameScript, ColonyInteractionListene
 
     protected void updateMarket(MarketAPI market) {
         log.debug("Updating " + market.getId());
-        ListenerUtil.reportPlayerOpenedMarketAndCargoUpdated(market);
+        MarketProvider.updateSubmarkets(market);
     }
 }

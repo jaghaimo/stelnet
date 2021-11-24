@@ -42,10 +42,6 @@ public class SectorUtils {
         return getSector().isPaused();
     }
 
-    public static long now() {
-        return getSector().getClock().getTimestamp();
-    }
-
     public static void removeTransientScript(EveryFrameScript script) {
         getSector().removeTransientScript(script);
     }
