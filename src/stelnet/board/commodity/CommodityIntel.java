@@ -14,7 +14,7 @@ import stelnet.board.commodity.market.MarketApiWrapper;
 import stelnet.board.commodity.market.price.Price;
 import stelnet.board.commodity.view.button.DeleteIntel;
 import stelnet.util.L10n;
-import stelnet.util.TagConstants;
+import stelnet.util.ModConstants;
 import uilib.Heading;
 import uilib.Image;
 import uilib.Paragraph;
@@ -31,7 +31,7 @@ public class CommodityIntel extends BaseIntel {
     private final Price priceProvider;
     private final float price;
 
-    private final String tag = TagConstants.COMMODITY;
+    private final String tag = ModConstants.COMMODITY;
 
     public CommodityIntel(
         String action,

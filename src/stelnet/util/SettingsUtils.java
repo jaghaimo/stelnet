@@ -1,14 +1,11 @@
 package stelnet.util;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.ModSpecAPI;
 import com.fs.starfarer.api.SettingsAPI;
-import com.fs.starfarer.api.campaign.SpecialItemSpecAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.characters.SkillSpecAPI;
-import com.fs.starfarer.api.combat.ShipHullSpecAPI;
-import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
-import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 import java.io.IOException;
@@ -27,28 +24,8 @@ public class SettingsUtils {
         return getSettings().createPerson();
     }
 
-    public static List<FighterWingSpecAPI> getAllFighterWingSpecs() {
-        return getSettings().getAllFighterWingSpecs();
-    }
-
-    public static List<HullModSpecAPI> getAllHullModSpecs() {
-        return getSettings().getAllHullModSpecs();
-    }
-
-    public static List<ShipHullSpecAPI> getAllShipHullSpecs() {
-        return getSettings().getAllShipHullSpecs();
-    }
-
     public static List<String> getAllSkillIds() {
         return getSettings().getSkillIds();
-    }
-
-    public static List<SpecialItemSpecAPI> getAllSpecialItemSpecs() {
-        return getSettings().getAllSpecialItemSpecs();
-    }
-
-    public static List<WeaponSpecAPI> getAllWeaponSpecs() {
-        return getSettings().getAllWeaponSpecs();
     }
 
     public static Color getButtonHighlightColor() {
@@ -64,6 +41,10 @@ public class SettingsUtils {
         return getSettings().getInt("economyIterPerMonth");
     }
 
+    public static List<ModSpecAPI> getEnabledMods() {
+        return getSettings().getModManager().getEnabledModsCopy();
+    }
+
     public static HullModSpecAPI getHullModSpec(String hullModId) {
         return getSettings().getHullModSpec(hullModId);
     }
@@ -77,7 +58,7 @@ public class SettingsUtils {
     }
 
     public static String getSpriteName(String sprite) {
-        return getSettings().getSpriteName(TagConstants.STELNET, sprite);
+        return getSettings().getSpriteName(ModConstants.STELNET, sprite);
     }
 
     public static boolean isDevMode() {
@@ -89,7 +70,7 @@ public class SettingsUtils {
      */
     public static JSONObject loadRawJson(String filename) {
         try {
-            String jsonText = getSettings().loadText(filename, TagConstants.STELNET);
+            String jsonText = getSettings().loadText(filename, ModConstants.STELNET);
             return new JSONObject(jsonText);
         } catch (IOException | JSONException exception) {
             return getEmptyJsonObject(exception, filename);
@@ -98,7 +79,7 @@ public class SettingsUtils {
 
     public static JSONObject loadJson(String filename) {
         try {
-            return getSettings().loadJSON(filename, TagConstants.STELNET);
+            return getSettings().loadJSON(filename, ModConstants.STELNET);
         } catch (IOException | JSONException exception) {
             return getEmptyJsonObject(exception, filename);
         }
@@ -106,7 +87,7 @@ public class SettingsUtils {
 
     public static JSONObject loadMergedJson(String filename) {
         try {
-            return getSettings().getMergedJSONForMod(filename, TagConstants.STELNET);
+            return getSettings().getMergedJSONForMod(filename, ModConstants.STELNET);
         } catch (IOException | JSONException exception) {
             return getEmptyJsonObject(exception, filename);
         }

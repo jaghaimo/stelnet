@@ -3,6 +3,7 @@ package stelnet;
 import com.fs.starfarer.api.BaseModPlugin;
 import stelnet.util.ConfigConstants;
 import stelnet.util.ConfigUtils;
+import stelnet.util.ReportUtils;
 
 public class StelnetMod extends BaseModPlugin {
 
@@ -16,6 +17,11 @@ public class StelnetMod extends BaseModPlugin {
         if (ConfigConstants.UNINSTALL_MOD) {
             ConfigUtils.deactivate();
         }
+    }
+
+    @Override
+    public void onApplicationLoad() throws Exception {
+        ReportUtils.generate();
     }
 
     @Override

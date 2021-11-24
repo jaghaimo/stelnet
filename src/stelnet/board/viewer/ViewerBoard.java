@@ -4,8 +4,8 @@ import lombok.Getter;
 import stelnet.BaseBoard;
 import stelnet.BoardInfo;
 import stelnet.util.L10n;
+import stelnet.util.ModConstants;
 import stelnet.util.SettingsUtils;
-import stelnet.util.TagConstants;
 import uilib.RenderableIntelInfo;
 import uilib.RenderableState;
 
@@ -32,6 +32,6 @@ public class ViewerBoard extends BaseBoard {
 
     @Override
     protected String getTag() {
-        return TagConstants.MARKET;
+        return ModConstants.MARKET;
     }
 }
