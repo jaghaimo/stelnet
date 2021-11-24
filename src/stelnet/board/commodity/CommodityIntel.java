@@ -30,7 +30,6 @@ public class CommodityIntel extends BaseIntel {
     private final MarketApiWrapper marketWrapper;
     private final Price priceProvider;
     private final float price;
-
     private final String tag = ModConstants.TAG_COMMODITY;
 
     public CommodityIntel(
