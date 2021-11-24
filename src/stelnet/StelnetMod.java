@@ -1,7 +1,7 @@
 package stelnet;
 
 import com.fs.starfarer.api.BaseModPlugin;
-import stelnet.config.StelnetConfig;
+import stelnet.util.ConfigConstants;
 import stelnet.util.ConfigUtils;
 
 public class StelnetMod extends BaseModPlugin {
@@ -13,7 +13,7 @@ public class StelnetMod extends BaseModPlugin {
 
     @Override
     public void beforeGameSave() {
-        if (StelnetConfig.uninstallMod) {
+        if (ConfigConstants.UNINSTALL_MOD) {
             ConfigUtils.deactivate();
         }
     }

@@ -42,6 +42,10 @@ public class SectorUtils {
         return getSector().getPlayerFleet();
     }
 
+    public static boolean isPaused() {
+        return getSector().isPaused();
+    }
+
     public static long now() {
         return getSector().getClock().getTimestamp();
     }

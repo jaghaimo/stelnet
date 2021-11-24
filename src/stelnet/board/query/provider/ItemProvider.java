@@ -13,9 +13,9 @@ import java.util.TreeSet;
 import lombok.experimental.ExtensionMethod;
 import stelnet.board.query.ResultSet;
 import stelnet.board.query.view.add.QueryFactory;
-import stelnet.config.QueryConfig;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
+import stelnet.util.ConfigConstants;
 import stelnet.util.EconomyUtils;
 
 @ExtensionMethod({ CargoStackExtension.class })
@@ -60,7 +60,7 @@ public class ItemProvider extends QueryProvider {
         final boolean groupBySystem
     ) {
         List<SubmarketAPI> submarkets = EconomyUtils.getSubmarkets(markets);
-        CollectionUtils.reduce(submarkets, QueryConfig.getSubmarketFilter());
+        CollectionUtils.reduce(submarkets, ConfigConstants.getQuerySubmarketFilter());
         for (SubmarketAPI submarket : submarkets) {
             MarketAPI market = submarket.getMarket();
             List<CargoStackAPI> cargoStacks = submarket.getCargo().getStacksCopy();

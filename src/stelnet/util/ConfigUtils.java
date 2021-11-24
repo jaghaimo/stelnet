@@ -10,26 +10,20 @@ import stelnet.board.storage.StorageBoard;
 import stelnet.board.storage.StorageIntel;
 import stelnet.board.storage.StorageListener;
 import stelnet.board.viewer.ViewerBoard;
-import stelnet.config.ModuleConfig;
-import stelnet.config.QueryConfig;
-import stelnet.config.StelnetConfig;
-import stelnet.config.ViewerConfig;
 
 @Log4j
 public class ConfigUtils {
 
     public static void configure() {
-        StelnetConfig.configure();
-        ModuleConfig.configure();
-        QueryConfig.configure();
-        ViewerConfig.configure();
+        ConfigConstants.init();
     }
 
     public static void activate() {
-        initCommodity(ModuleConfig.HAS_COMMODITIES);
-        initMarket(ModuleConfig.HAS_MARKET);
-        initStorage(ModuleConfig.HAS_STORAGE);
+        initCommodity(ConfigConstants.HAS_COMMODITIES);
+        initMarket(ConfigConstants.HAS_MARKET);
+        initStorage(ConfigConstants.HAS_STORAGE);
         log.info("Stelnet activated");
+        log.info("Using JRE" + System.getProperty("java.specification.version"));
     }
 
     public static void deactivate() {
@@ -60,7 +54,9 @@ public class ConfigUtils {
         if (hasMarket) {
             QueryBoard.getInstance(QueryBoard.class);
             ViewerBoard.getInstance(ViewerBoard.class);
-            SectorUtils.addTransientScript(new MarketUpdater());
+            if (ConfigConstants.AUTO_REFRESH_MARKETS) {
+                SectorUtils.addTransientScript(new MarketUpdater());
+            }
             log.info("Enabled Market plugin");
         } else {
             purgeIntel(QueryBoard.class, ViewerBoard.class, ResultIntel.class);
