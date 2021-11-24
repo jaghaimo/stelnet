@@ -30,7 +30,10 @@ public class MarketUpdater implements EveryFrameScript, ColonyInteractionListene
         }
     }
 
-    private MarketUpdater() {}
+    private MarketUpdater() {
+        SectorUtils.addTransientScript(this);
+        SectorUtils.getListenerManager().addListener(this, true);
+    }
 
     @Override
     public void advance(float amount) {

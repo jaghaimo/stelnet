@@ -54,15 +54,13 @@ public class ConfigUtils {
             QueryBoard.getInstance(QueryBoard.class);
             ViewerBoard.getInstance(ViewerBoard.class);
             log.info("Enabled Market plugin");
-            if (ConfigConstants.AUTO_REFRESH_MARKETS) {
-                log.info("Enabled transient market updater");
-                MarketUpdater marketUpdater = MarketUpdater.getInstance();
-                SectorUtils.addTransientScript(marketUpdater);
-                SectorUtils.getListenerManager().addListener(marketUpdater, true);
-            }
         } else {
             purgeIntel(QueryBoard.class, ViewerBoard.class, ResultIntel.class);
             log.info("Disabled Market plugin");
+        }
+        if (hasMarket && ConfigConstants.AUTO_REFRESH_MARKETS) {
+            log.info("Enabled Market updater script");
+            MarketUpdater.getInstance();
         }
     }
 
