@@ -51,6 +51,6 @@ public class QueryBoard extends BaseBoard {
 
     @Override
     protected String getTag() {
-        return ModConstants.MARKET;
+        return ModConstants.TAG_MARKET;
     }
 }

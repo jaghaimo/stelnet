@@ -34,7 +34,7 @@ public class StorageBoard extends BaseBoard {
 
     @Override
     protected String getTag() {
-        return ModConstants.STORAGE;
+        return ModConstants.TAG_STORAGE;
     }
 
     private String getDescription() {

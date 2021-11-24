@@ -26,7 +26,7 @@ public class StorageIntel extends BaseIntel {
 
     private final SubmarketAPI storage;
 
-    private final String tag = ModConstants.STORAGE;
+    private final String tag = ModConstants.TAG_STORAGE;
 
     public StorageIntel(SubmarketAPI storage) {
         super(storage.getMarket().getFaction(), storage.getMarket().getPrimaryEntity());

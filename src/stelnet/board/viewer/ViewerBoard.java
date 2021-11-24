@@ -32,6 +32,6 @@ public class ViewerBoard extends BaseBoard {
 
     @Override
     protected String getTag() {
-        return ModConstants.MARKET;
+        return ModConstants.TAG_MARKET;
     }
 }

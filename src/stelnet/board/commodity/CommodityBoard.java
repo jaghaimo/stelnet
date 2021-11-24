@@ -33,6 +33,6 @@ public class CommodityBoard extends BaseBoard {
 
     @Override
     protected String getTag() {
-        return ModConstants.COMMODITY;
+        return ModConstants.TAG_COMMODITY;
     }
 }
