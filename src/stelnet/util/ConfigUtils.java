@@ -55,6 +55,7 @@ public class ConfigUtils {
             QueryBoard.getInstance(QueryBoard.class);
             ViewerBoard.getInstance(ViewerBoard.class);
             if (ConfigConstants.AUTO_REFRESH_MARKETS) {
+                log.info("Adding transient market updater");
                 SectorUtils.addTransientScript(new MarketUpdater());
             }
             log.info("Enabled Market plugin");

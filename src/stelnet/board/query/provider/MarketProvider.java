@@ -2,7 +2,6 @@ package stelnet.board.query.provider;
 
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.campaign.listeners.ListenerUtil;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -51,9 +50,7 @@ public class MarketProvider {
     }
 
     public static void updateMarket(MarketAPI market) {
-        for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
-            submarket.getPlugin().updateCargoPrePlayerInteraction();
-        }
+        ListenerUtil.reportPlayerOpenedMarketAndCargoUpdated(market);
         ListenerUtil.reportPlayerOpenedMarket(market);
     }
 

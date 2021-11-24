@@ -2,6 +2,8 @@ package stelnet.board.query;
 
 import com.fs.starfarer.api.EveryFrameScript;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.campaign.listeners.ListenerUtil;
+import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.query.provider.MarketProvider;
@@ -12,7 +14,6 @@ import stelnet.util.SectorUtils;
 public class MarketUpdater implements EveryFrameScript {
 
     public MarketUpdater() {
-        log.info("Adding transient market updater");
         MarketProvider.reset();
     }
 
@@ -21,7 +22,12 @@ public class MarketUpdater implements EveryFrameScript {
         if (!SectorUtils.isPaused()) {
             return;
         }
-        updateMarket(pickRandomMarket());
+        MarketAPI market = pickRandomMarket();
+        if (isTooClose(market)) {
+            log.debug("Skipping " + market.getName());
+            return;
+        }
+        updateMarket(market);
     }
 
     @Override
@@ -31,7 +37,11 @@ public class MarketUpdater implements EveryFrameScript {
 
     @Override
     public boolean runWhilePaused() {
-        return false;
+        return true;
+    }
+
+    protected boolean isTooClose(MarketAPI market) {
+        return Misc.getDistanceToPlayerLY(market.getPrimaryEntity()) < 1;
     }
 
     protected MarketAPI pickRandomMarket() {
@@ -41,7 +51,7 @@ public class MarketUpdater implements EveryFrameScript {
     }
 
     protected void updateMarket(MarketAPI market) {
-        log.info("Updating " + market.getId());
-        MarketProvider.updateMarket(market);
+        log.debug("Updating " + market.getId());
+        ListenerUtil.reportPlayerOpenedMarketAndCargoUpdated(market);
     }
 }

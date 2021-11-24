@@ -39,12 +39,12 @@ public class ConfigConstants {
         QUERY_USE_OPEN_MARKET = get("queryUseOpenMarket", QUERY_USE_OPEN_MARKET);
         QUERY_USE_MILITARY_MARKET = get("queryUseMilitaryMarket", QUERY_USE_MILITARY_MARKET);
         QUERY_USE_BLACK_MARKET = get("queryUseBlackMarket", QUERY_USE_BLACK_MARKET);
-        QUERY_USE_CUSTOM_MARKETS = get("queryUseCustomMarket", QUERY_USE_CUSTOM_MARKETS);
+        QUERY_USE_CUSTOM_MARKETS = get("queryUseCustomMarkets", QUERY_USE_CUSTOM_MARKETS);
 
         VIEWER_USE_OPEN_MARKET = get("viewerUseOpenMarket", VIEWER_USE_OPEN_MARKET);
         VIEWER_USE_MILITARY_MARKET = get("viewerUseMilitaryMarket", VIEWER_USE_MILITARY_MARKET);
         VIEWER_USE_BLACK_MARKET = get("viewerUseBlackMarket", VIEWER_USE_BLACK_MARKET);
-        VIEWER_USE_CUSTOM_MARKETS = get("viewerUseCustomMarket", VIEWER_USE_CUSTOM_MARKETS);
+        VIEWER_USE_CUSTOM_MARKETS = get("viewerUseCustomMarkets", VIEWER_USE_CUSTOM_MARKETS);
     }
 
     public static Filter getQuerySubmarketFilter() {
