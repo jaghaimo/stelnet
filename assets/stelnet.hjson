@@ -1,6 +1,4 @@
 {
-    ## In order to modify Stelnet settings save this file as stelnet.json
-
     # Mod settings
     "autoRefreshMarkets": true, # keeps market information up-to-date
     "uninstallMod": false, # set to true, load and save the game to remove the mod
