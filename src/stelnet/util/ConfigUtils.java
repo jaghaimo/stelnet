@@ -56,7 +56,9 @@ public class ConfigUtils {
             log.info("Enabled Market plugin");
             if (ConfigConstants.AUTO_REFRESH_MARKETS) {
                 log.info("Enabled transient market updater");
-                SectorUtils.addTransientScript(new MarketUpdater());
+                MarketUpdater marketUpdater = new MarketUpdater();
+                SectorUtils.addTransientScript(marketUpdater);
+                SectorUtils.getListenerManager().addListener(marketUpdater, true);
             }
         } else {
             purgeIntel(QueryBoard.class, ViewerBoard.class, ResultIntel.class);

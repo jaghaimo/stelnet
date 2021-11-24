@@ -1,9 +1,10 @@
 package stelnet.board.query;
 
 import com.fs.starfarer.api.EveryFrameScript;
+import com.fs.starfarer.api.campaign.PlayerMarketTransaction;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.campaign.listeners.ColonyInteractionListener;
 import com.fs.starfarer.api.campaign.listeners.ListenerUtil;
-import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.query.provider.MarketProvider;
@@ -11,7 +12,9 @@ import stelnet.util.EconomyUtils;
 import stelnet.util.SectorUtils;
 
 @Log4j
-public class MarketUpdater implements EveryFrameScript {
+public class MarketUpdater implements EveryFrameScript, ColonyInteractionListener {
+
+    private MarketAPI openedMarket;
 
     public MarketUpdater() {
         MarketProvider.reset();
@@ -23,8 +26,8 @@ public class MarketUpdater implements EveryFrameScript {
             return;
         }
         MarketAPI market = pickRandomMarket();
-        if (isTooClose(market)) {
-            log.debug("Skipping " + market.getName());
+        if (openedMarket == market) {
+            log.debug("Skipping currently docked market " + market.getName());
             return;
         }
         updateMarket(market);
@@ -40,9 +43,23 @@ public class MarketUpdater implements EveryFrameScript {
         return true;
     }
 
-    protected boolean isTooClose(MarketAPI market) {
-        return Misc.getDistanceToPlayerLY(market.getPrimaryEntity()) < 1;
+    @Override
+    public void reportPlayerOpenedMarket(MarketAPI market) {
+        if (openedMarket == null) {
+            openedMarket = market;
+        }
     }
+
+    @Override
+    public void reportPlayerClosedMarket(MarketAPI market) {
+        openedMarket = null;
+    }
+
+    @Override
+    public void reportPlayerOpenedMarketAndCargoUpdated(MarketAPI market) {}
+
+    @Override
+    public void reportPlayerMarketTransaction(PlayerMarketTransaction transaction) {}
 
     protected MarketAPI pickRandomMarket() {
         WeightedRandomPicker<MarketAPI> markets = new WeightedRandomPicker<>(true);
