@@ -8,11 +8,6 @@ import stelnet.util.ReportUtils;
 public class StelnetMod extends BaseModPlugin {
 
     @Override
-    public void afterGameSave() {
-        onGameLoad(false);
-    }
-
-    @Override
     public void beforeGameSave() {
         if (ConfigConstants.UNINSTALL_MOD) {
             ConfigUtils.deactivate();
