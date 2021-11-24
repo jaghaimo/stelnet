@@ -25,7 +25,7 @@ Viewer board lets you select a market and preview content of its legal submarket
 ![Viewer](images/viewer.png?raw=1)
 
 By default, both Market boards work with Open and Military Markets only.
-To enable support for Black and Custom Markets edit `stelnet.hjson` (see below).
+To enable support for Black and Custom Markets edit `stelnet.json` (see below).
 
 ### Storage
 
@@ -36,9 +36,9 @@ It allows to display a unified view to quickly verify what is available, and per
 
 ## Installation and Configuration
 
-To configure the mod edit [stelnet.hjson](assets/stelnet.hjson).
+To configure the mod edit [stelnet.json](assets/stelnet.json).
 
 This mod can be added to an existing save - just enable it in the mod list and load the save.
 
-This mod can be removed from an existing save - edit `stelnet.hjson` and set `uninstallMod` to `true`.
+This mod can be removed from an existing save - edit `stelnet.json` and set `uninstallMod` to `true`.
 Then load the save, save the game, quit the game, and finally disable this mod in the mod list.

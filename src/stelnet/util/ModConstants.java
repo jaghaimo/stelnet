@@ -3,7 +3,7 @@ package stelnet.util;
 public class ModConstants {
 
     public static final String STELNET = "stelnet";
-    public static final String STELNET_JSON = "stelnet.hjson";
+    public static final String STELNET_JSON = "stelnet.json";
     public static final String STELNET_LOG = "stelnet.log";
 
     /**
