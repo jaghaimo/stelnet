@@ -28,7 +28,7 @@ public class QueryBoard extends BaseBoard {
     @Override
     public void advance(float amount) {
         SectorUtils.removeTransientScript(this);
-        log.debug("Cleanup resetting query cache");
+        log.debug("Cleanup - resetting query cache");
         state.resetCache();
         state.setActiveTab(QueryBoardTab.LIST);
     }
