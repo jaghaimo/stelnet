@@ -1,6 +1,7 @@
 {
     "graphics": {
         "stelnet": {
+            "comms": "graphics/icons/intel/comms.png",
             "commodity": "graphics/icons/intel/tutorial_mission.png",
             "query": "graphics/icons/intel/investigation.png",
             "storage": "graphics/icons/intel/all.png",
