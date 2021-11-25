@@ -74,7 +74,7 @@ public class QueryPickerListener implements CargoPickerListener, FleetMemberPick
         QueryState state = board.getState();
         QueryManager manager = state.getQueryManager();
         QueryProvider provider = factory.getProvider();
-        Set<Filter> filters = factory.getFilters(true);
+        Set<Filter> filters = new LinkedHashSet<>();
         filters.add(selectedFilter);
         state.setActiveTab(QueryBoardTab.LIST);
         Query query = new Query(manager, provider, filters, type);
