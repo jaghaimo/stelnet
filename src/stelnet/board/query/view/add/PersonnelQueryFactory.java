@@ -35,10 +35,10 @@ public class PersonnelQueryFactory extends QueryFactory {
     @Override
     public Set<Filter> getFilters(boolean forResults) {
         Set<Filter> filters = new LinkedHashSet<>();
-        addToFilters(filters, postType, L10n.get(QueryL10n.PERSONNEL_POST_TYPES), true);
-        addToFilters(filters, level, L10n.get(QueryL10n.PERSONNEL_MIN_LEVEL), hasOfficers());
-        addToFilters(filters, personality, L10n.get(QueryL10n.PERSONNEL_PERSONALITY), hasOfficers());
-        addToFilters(filters, skill, L10n.get(QueryL10n.PERSONNEL_SKILLS), hasOfficers());
+        addSelectedOrAll(filters, postType, L10n.get(QueryL10n.PERSONNEL_POST_TYPES));
+        addSelectedOrNone(filters, level, L10n.get(QueryL10n.PERSONNEL_MIN_LEVEL), hasOfficers());
+        addSelectedOrNone(filters, personality, L10n.get(QueryL10n.PERSONNEL_PERSONALITY), hasOfficers());
+        addSelectedOrNone(filters, skill, L10n.get(QueryL10n.PERSONNEL_SKILLS), hasOfficers());
         return filters;
     }
 
@@ -71,6 +71,8 @@ public class PersonnelQueryFactory extends QueryFactory {
     }
 
     private boolean hasOfficers() {
-        return postType[1].isStateOn() || postType[2].isStateOn();
+        boolean hasAdmin = postType[0].isStateOn();
+        boolean hasOfficerOrMerc = postType[1].isStateOn() || postType[2].isStateOn();
+        return hasOfficerOrMerc || (!hasAdmin && !hasOfficerOrMerc);
     }
 }

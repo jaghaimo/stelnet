@@ -32,12 +32,12 @@ public class ItemQueryFactory extends QueryFactory {
     @Override
     public Set<Filter> getFilters(boolean forResults) {
         Set<Filter> filters = new LinkedHashSet<>();
-        addToFilters(filters, itemTypes, L10n.get(QueryL10n.ITEM_TYPES), true);
-        addToFilters(filters, designTypes, L10n.get(QueryL10n.MANUFACTURERS), hasWeapons() || hasFighterWings());
-        addToFilters(filters, weaponDamageTypes, L10n.get(QueryL10n.DAMAGE_TYPE), hasWeapons());
-        addToFilters(filters, weaponMountSizes, L10n.get(QueryL10n.MOUNT_SIZE), hasWeapons());
-        addToFilters(filters, weaponMountTypes, L10n.get(QueryL10n.MOUNT_TYPE), hasWeapons());
-        addToFilters(filters, wingRoles, L10n.get(QueryL10n.WING_ROLES), hasFighterWings());
+        addSelectedOrAll(filters, itemTypes, L10n.get(QueryL10n.ITEM_TYPES));
+        addSelectedOrNone(filters, designTypes, L10n.get(QueryL10n.MANUFACTURERS), hasWeapons() || hasFighterWings());
+        addSelectedOrNone(filters, weaponDamageTypes, L10n.get(QueryL10n.DAMAGE_TYPE), hasWeapons());
+        addSelectedOrNone(filters, weaponMountSizes, L10n.get(QueryL10n.MOUNT_SIZE), hasWeapons());
+        addSelectedOrNone(filters, weaponMountTypes, L10n.get(QueryL10n.MOUNT_TYPE), hasWeapons());
+        addSelectedOrNone(filters, wingRoles, L10n.get(QueryL10n.WING_ROLES), hasFighterWings());
         filters.add(new CargoStackNotKnownModspec());
         return filters;
     }
@@ -93,10 +93,19 @@ public class ItemQueryFactory extends QueryFactory {
     }
 
     private boolean hasWeapons() {
-        return itemTypes[0].isStateOn();
+        return itemTypes[0].isStateOn() || hasNothing();
     }
 
     private boolean hasFighterWings() {
-        return itemTypes[1].isStateOn();
+        return itemTypes[1].isStateOn() || hasNothing();
+    }
+
+    private boolean hasNothing() {
+        for (FilteringButton button : itemTypes) {
+            if (button.isStateOn()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

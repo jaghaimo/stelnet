@@ -45,9 +45,9 @@ public class ShipQueryFactory extends QueryFactory {
     @Override
     public Set<Filter> getFilters(boolean forResults) {
         Set<Filter> filters = getCommonFilters();
-        addToFilters(filters, builtIns, L10n.get(QueryL10n.BUILT_IN), true);
+        addSelectedOrNone(filters, builtIns, L10n.get(QueryL10n.BUILT_IN), true);
         if (forResults) {
-            addToFilters(filters, dMods, L10n.get(QueryL10n.DMODS), true);
+            addSelectedOrNone(filters, dMods, L10n.get(QueryL10n.DMODS), true);
         }
         return filters;
     }
@@ -96,11 +96,11 @@ public class ShipQueryFactory extends QueryFactory {
 
     private Set<Filter> getCommonFilters() {
         Set<Filter> filters = new LinkedHashSet<>();
-        addToFilters(filters, classSizes, L10n.get(QueryL10n.CLASS_SIZE), true);
-        addToFilters(filters, mountSizes, L10n.get(QueryL10n.MOUNT_SIZE), true);
-        addToFilters(filters, mountTypes, L10n.get(QueryL10n.MOUNT_TYPE), true);
-        addToFilters(filters, mountBays, L10n.get(QueryL10n.FIGHTER_BAYS), true);
-        addToFilters(filters, designTypes, L10n.get(QueryL10n.MANUFACTURERS), true);
+        addSelectedOrAll(filters, classSizes, L10n.get(QueryL10n.CLASS_SIZE));
+        addSelectedOrNone(filters, mountSizes, L10n.get(QueryL10n.MOUNT_SIZE), true);
+        addSelectedOrNone(filters, mountTypes, L10n.get(QueryL10n.MOUNT_TYPE), true);
+        addSelectedOrNone(filters, mountBays, L10n.get(QueryL10n.FIGHTER_BAYS), true);
+        addSelectedOrNone(filters, designTypes, L10n.get(QueryL10n.MANUFACTURERS), true);
         return filters;
     }
 

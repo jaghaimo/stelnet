@@ -7,7 +7,7 @@ import uilib.EventHandler;
 public class OfficerLevelButton extends FilteringButton {
 
     public OfficerLevelButton(final PersonnelQueryFactory factory, String label, Filter filter) {
-        super(label, filter, false);
+        super(label, filter);
         final OfficerLevelButton button = this;
         setHandler(
             new EventHandler() {

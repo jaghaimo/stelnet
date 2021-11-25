@@ -33,7 +33,7 @@ public class ShipButtonUtils {
     public static FilteringButton[] getManufacturers(ShipProvider provider) {
         List<FilteringButton> manufacturers = new LinkedList<>();
         for (String manufacturer : provider.getManufacturers()) {
-            manufacturers.add(new FilteringButton(manufacturer, new ShipHullIsManufacturer(manufacturer), false));
+            manufacturers.add(new FilteringButton(manufacturer, new ShipHullIsManufacturer(manufacturer)));
         }
         return manufacturers.toArray(new FilteringButton[] {});
     }
@@ -44,7 +44,6 @@ public class ShipButtonUtils {
         for (int i = 1; i < 7; i++) {
             manufacturers.add(new FighterBaysButton(factory, String.valueOf(i), new ShipHullHasBays(i)));
         }
-        manufacturers.get(1).setStateOn(true);
         return manufacturers.toArray(new FilteringButton[] {});
     }
 
@@ -91,11 +90,7 @@ public class ShipButtonUtils {
         dMods.add(new FilteringButton(CommonL10n.NONE, new FleetMemberPristine(L10n.get(CommonL10n.NONE))));
         for (HullModSpecAPI dMod : provider.getDMods()) {
             dMods.add(
-                new FilteringButton(
-                    dMod.getDisplayName(),
-                    new FleetMemberHasDMod(dMod.getId(), dMod.getDisplayName()),
-                    false
-                )
+                new FilteringButton(dMod.getDisplayName(), new FleetMemberHasDMod(dMod.getId(), dMod.getDisplayName()))
             );
         }
         return dMods.toArray(new FilteringButton[] {});

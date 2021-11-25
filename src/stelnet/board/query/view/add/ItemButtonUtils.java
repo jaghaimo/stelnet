@@ -75,7 +75,7 @@ public class ItemButtonUtils {
     public static FilteringButton[] createManufacturers(ItemProvider provider) {
         List<FilteringButton> manufacturers = new LinkedList<>();
         for (String manufacturer : provider.getManufacturers()) {
-            manufacturers.add(new FilteringButton(manufacturer, new CargoStackIsManufacturer(manufacturer), false));
+            manufacturers.add(new FilteringButton(manufacturer, new CargoStackIsManufacturer(manufacturer)));
         }
         return manufacturers.toArray(new FilteringButton[] {});
     }

@@ -17,17 +17,33 @@ public abstract class QueryFactory {
     @Setter
     protected SizeHelper sizeHelper = new SizeHelper();
 
-    protected void addToFilters(Set<Filter> filters, FilteringButton buttons[], String type, boolean isEnabled) {
+    protected void addSelectedOrAll(Set<Filter> filters, FilteringButton buttons[], String type) {
+        Set<Filter> selectedFilters = getFilters(buttons, true);
+        if (selectedFilters.isEmpty()) {
+            selectedFilters = getFilters(buttons, false);
+        }
+        filters.add(new LogicalOr(selectedFilters, type));
+    }
+
+    protected void addSelectedOrNone(Set<Filter> filters, FilteringButton buttons[], String type, boolean isEnabled) {
         if (!isEnabled) {
             return;
         }
+        Set<Filter> selectedFilters = getFilters(buttons, true);
+        if (!selectedFilters.isEmpty()) {
+            filters.add(new LogicalOr(selectedFilters, type));
+        }
+    }
+
+    protected Set<Filter> getFilters(FilteringButton buttons[], boolean selected) {
         Set<Filter> selectedFilters = new LinkedHashSet<>();
         for (FilteringButton button : buttons) {
-            if (button.isEnabled() && button.isStateOn()) {
+            boolean isSelected = button.isEnabled() && button.isStateOn();
+            if (isSelected || !selected) {
                 selectedFilters.add(button.getFilter());
             }
         }
-        filters.add(new LogicalOr(selectedFilters, type));
+        return selectedFilters;
     }
 
     public abstract Set<Filter> getFilters(boolean forResults);
