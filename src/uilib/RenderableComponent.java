@@ -38,11 +38,11 @@ public abstract class RenderableComponent implements Renderable {
         location.render(element, x + offset.getX(), y + offset.getY());
     }
 
-    protected void addSectionTitle(TooltipMakerAPI tooltip, String sectionTitle, Color color) {
+    protected void addSectionTitle(TooltipMakerAPI tooltip, String sectionTitle, Color color, float width) {
         tooltip.setParaFontOrbitron();
         tooltip.addPara(sectionTitle, color, 0);
         tooltip.setParaFontDefault();
-        tooltip.addButton("", "", color, color, getSize().getWidth() - 12, 0, 0);
+        tooltip.addButton("", "", color, color, width, 0, 0);
     }
 
     /**

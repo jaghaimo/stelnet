@@ -6,9 +6,9 @@ import com.fs.starfarer.api.ui.PositionAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.ui.UIComponentAPI;
 import com.fs.starfarer.api.util.Misc;
+import java.awt.Color;
 import stelnet.util.SectorUtils;
 import uilib.Button;
-import uilib.Heading;
 import uilib.RenderableComponent;
 import uilib.UiConstants;
 
@@ -20,13 +20,13 @@ public abstract class HeadingWithButtons extends RenderableComponent {
     }
 
     protected void renderHeading(TooltipMakerAPI tooltip, boolean isEnabled, String headingText, FactionAPI faction) {
-        Heading heading = new Heading(headingText, faction.getBaseUIColor(), faction.getDarkUIColor());
+        Color textColor = faction.getBaseUIColor();
+        Color backgroundColor = faction.getDarkUIColor();
         if (!isEnabled) {
-            heading.setForegroundColor(Misc.scaleAlpha(faction.getBaseUIColor(), 0.3f));
-            heading.setBackgroundColor(Misc.scaleAlpha(faction.getDarkUIColor(), 0.2f));
+            textColor = Misc.scaleAlpha(textColor, 0.3f);
+            backgroundColor = Misc.scaleAlpha(backgroundColor, 0.2f);
         }
-        heading.setAlignment(Alignment.LMID);
-        heading.render(tooltip);
+        tooltip.addSectionHeading(headingText, textColor, backgroundColor, Alignment.LMID, 0);
     }
 
     protected void overlapQueryHeading(TooltipMakerAPI tooltip, boolean isEnabled, String heading) {
@@ -51,9 +51,18 @@ public abstract class HeadingWithButtons extends RenderableComponent {
     }
 
     protected UIComponentAPI renderNext(Button button, TooltipMakerAPI tooltip, UIComponentAPI previousComponent) {
+        return renderNext(button, tooltip, previousComponent, 1);
+    }
+
+    protected UIComponentAPI renderNext(
+        Button button,
+        TooltipMakerAPI tooltip,
+        UIComponentAPI previousComponent,
+        float padding
+    ) {
         button.render(tooltip);
         UIComponentAPI currentComponent = tooltip.getPrev();
-        currentComponent.getPosition().leftOfTop(previousComponent, 1);
+        currentComponent.getPosition().leftOfTop(previousComponent, padding);
         return currentComponent;
     }
 }

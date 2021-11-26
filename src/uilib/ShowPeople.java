@@ -53,7 +53,7 @@ public class ShowPeople extends RenderableComponent implements Comparator<Person
         if (previousPost != null) {
             tooltip.addSpacer(UiConstants.DEFAULT_SPACER);
         }
-        addSectionTitle(tooltip, currentPost, groupColor);
+        addSectionTitle(tooltip, currentPost, groupColor, getSize().getWidth() - 12);
     }
 
     private void addPerson(TooltipMakerAPI tooltip, PersonAPI person) {
