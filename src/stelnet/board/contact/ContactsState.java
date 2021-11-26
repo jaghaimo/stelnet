@@ -7,9 +7,9 @@ import uilib.Renderable;
 import uilib.RenderableState;
 import uilib.property.Size;
 
-public class ContactState implements RenderableState {
+public class ContactsState implements RenderableState {
 
-    public int getContacts() {
+    public int getContactNumber() {
         return ContactIntel.getCurrentContacts();
     }
 

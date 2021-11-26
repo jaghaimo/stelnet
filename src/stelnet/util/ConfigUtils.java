@@ -3,7 +3,7 @@ package stelnet.util;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.commodity.CommodityBoard;
 import stelnet.board.commodity.CommodityIntel;
-import stelnet.board.contact.ContactBoard;
+import stelnet.board.contact.ContactsBoard;
 import stelnet.board.query.MarketUpdater;
 import stelnet.board.query.QueryBoard;
 import stelnet.board.query.ResultIntel;
@@ -44,10 +44,10 @@ public class ConfigUtils {
 
     private static void initContacts(boolean hasContacts) {
         if (hasContacts) {
-            ContactBoard.getInstance(ContactBoard.class);
+            ContactsBoard.getInstance(ContactsBoard.class);
             log.info("Enabled Contact plugin");
         } else {
-            purgeIntel(ContactBoard.class);
+            purgeIntel(ContactsBoard.class);
             log.info("Disabled Contact plugin");
         }
     }
