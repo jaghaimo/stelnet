@@ -21,6 +21,6 @@ public class ContactsBoard extends BaseBoard {
 
     @Override
     public boolean isHidden() {
-        return renderableState.getContactNumber() > 0;
+        return renderableState.getContactNumber() == 0;
     }
 }
