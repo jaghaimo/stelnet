@@ -22,14 +22,14 @@ import uilib.Renderable;
 import uilib.Spacer;
 
 @Getter
-public class FilteringButtons {
+public class ButtonManager {
 
     private final Renderable[] itemButtons;
     private final Renderable[] shipButtons;
 
     private final Set<Filter> filters = new HashSet<>();
 
-    public FilteringButtons() {
+    public ButtonManager() {
         Filter isWeapon = new CargoStackIsType(Type.WEAPON);
         Filter isFighterWing = new CargoStackIsType(Type.FIGHTER);
         itemButtons =

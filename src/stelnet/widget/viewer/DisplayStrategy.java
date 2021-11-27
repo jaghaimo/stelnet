@@ -3,5 +3,5 @@ package stelnet.widget.viewer;
 import java.util.List;
 
 public interface DisplayStrategy {
-    public List<LocationContent> getData(FilteringButtons filteringButtons);
+    public List<LocationContent> getData(ButtonManager filteringButtons);
 }

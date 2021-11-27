@@ -20,8 +20,8 @@ import uilib.property.Size;
 @RequiredArgsConstructor
 public class ContactsView implements RenderableFactory {
 
-    private final FilteringButton[] importanceButtons;
-    private final FilteringButton[] missionTypeButtons;
+    private final ContactFilterButton[] importanceButtons;
+    private final ContactFilterButton[] missionTypeButtons;
 
     @Override
     public List<Renderable> create(Size size) {

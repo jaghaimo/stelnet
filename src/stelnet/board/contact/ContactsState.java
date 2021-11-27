@@ -4,14 +4,15 @@ import com.fs.starfarer.api.campaign.PersonImportance;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
 import java.util.List;
+import stelnet.filter.AnyHasTag;
 import uilib.Renderable;
 import uilib.RenderableState;
 import uilib.property.Size;
 
 public class ContactsState implements RenderableState {
 
-    private final FilteringButton[] importanceButtons = createImportanceButtons();
-    private final FilteringButton[] contactTypeButtons = createTypeButtons();
+    private final ContactFilterButton[] importanceButtons = createImportanceButtons();
+    private final ContactFilterButton[] contactTypeButtons = createTypeButtons();
 
     public int getContactNumber() {
         return ContactIntel.getCurrentContacts();
@@ -22,23 +23,23 @@ public class ContactsState implements RenderableState {
         return (new ContactsView(importanceButtons, contactTypeButtons)).create(size);
     }
 
-    public FilteringButton[] createImportanceButtons() {
-        return new FilteringButton[] {
-            new FilteringButton(PersonImportance.VERY_HIGH.getDisplayName(), null),
-            new FilteringButton(PersonImportance.HIGH.getDisplayName(), null),
-            new FilteringButton(PersonImportance.MEDIUM.getDisplayName(), null),
-            new FilteringButton(PersonImportance.LOW.getDisplayName(), null),
-            new FilteringButton(PersonImportance.VERY_LOW.getDisplayName(), null),
+    public ContactFilterButton[] createImportanceButtons() {
+        return new ContactFilterButton[] {
+            new ContactFilterButton(PersonImportance.VERY_HIGH.getDisplayName(), null),
+            new ContactFilterButton(PersonImportance.HIGH.getDisplayName(), null),
+            new ContactFilterButton(PersonImportance.MEDIUM.getDisplayName(), null),
+            new ContactFilterButton(PersonImportance.LOW.getDisplayName(), null),
+            new ContactFilterButton(PersonImportance.VERY_LOW.getDisplayName(), null),
         };
     }
 
-    public FilteringButton[] createTypeButtons() {
-        return new FilteringButton[] {
-            new FilteringButton(Tags.CONTACT_MILITARY, null),
-            new FilteringButton(Tags.CONTACT_PATHER, null),
-            new FilteringButton(Tags.CONTACT_SCIENCE, null),
-            new FilteringButton(Tags.CONTACT_TRADE, null),
-            new FilteringButton(Tags.CONTACT_UNDERWORLD, null),
+    public ContactFilterButton[] createTypeButtons() {
+        return new ContactFilterButton[] {
+            new ContactFilterButton(Tags.CONTACT_MILITARY, new AnyHasTag(Tags.CONTACT_MILITARY)),
+            new ContactFilterButton(Tags.CONTACT_PATHER, new AnyHasTag(Tags.CONTACT_PATHER)),
+            new ContactFilterButton(Tags.CONTACT_SCIENCE, new AnyHasTag(Tags.CONTACT_SCIENCE)),
+            new ContactFilterButton(Tags.CONTACT_TRADE, new AnyHasTag(Tags.CONTACT_TRADE)),
+            new ContactFilterButton(Tags.CONTACT_UNDERWORLD, new AnyHasTag(Tags.CONTACT_UNDERWORLD)),
         };
     }
 }

@@ -5,8 +5,8 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import stelnet.board.query.provider.MarketProvider;
+import stelnet.widget.viewer.ButtonManager;
 import stelnet.widget.viewer.ContentRenderer;
-import stelnet.widget.viewer.FilteringButtons;
 import stelnet.widget.viewer.InMarketStrategy;
 import stelnet.widget.viewer.MarketViewState;
 import uilib.Renderable;
@@ -17,7 +17,7 @@ import uilib.property.Size;
 @Setter
 public class ViewerState implements RenderableState, MarketViewState {
 
-    private final FilteringButtons filteringButtons = new FilteringButtons();
+    private final ButtonManager filteringButtons = new ButtonManager();
     private ContentRenderer contentRenderer = ContentRenderer.ITEMS;
     private InMarketStrategy displayStrategy = new InMarketStrategy(null);
 
