@@ -7,6 +7,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import stelnet.filter.Filter;
+import stelnet.filter.LogicalOr;
+import stelnet.util.CollectionUtils;
 import stelnet.util.IntelUtils;
 import uilib.HorizontalViewContainer;
 import uilib.Paragraph;
@@ -34,6 +37,23 @@ public class ContactsView implements RenderableFactory {
         );
     }
 
+    private List<Filter> getSelectedFilters() {
+        List<Filter> selected = new LinkedList<>();
+        // selected.add(new LogicalOr(getSelectedFilters(importanceButtons), "importance"));
+        selected.add(new LogicalOr(getSelectedFilters(missionTypeButtons), "type"));
+        return selected;
+    }
+
+    private List<Filter> getSelectedFilters(ContactFilterButton[] buttons) {
+        List<Filter> selected = new LinkedList<>();
+        for (ContactFilterButton button : buttons) {
+            if (button.isStateOn()) {
+                selected.add(button.getFilter());
+            }
+        }
+        return selected;
+    }
+
     private List<Renderable> getContacts(float size) {
         List<Renderable> elements = new LinkedList<>();
         List<ContactIntel> contacts = getAllContacts();
@@ -59,6 +79,7 @@ public class ContactsView implements RenderableFactory {
         for (IntelInfoPlugin plugin : plugins) {
             contacts.add(0, (ContactIntel) plugin);
         }
+        CollectionUtils.reduce(contacts, getSelectedFilters());
         return contacts;
     }
 }

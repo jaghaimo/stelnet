@@ -6,6 +6,7 @@ import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.characters.SkillSpecAPI;
+import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -21,6 +22,9 @@ public class AnyHasTag extends Filter {
         if (object instanceof CommoditySpecAPI) {
             return acceptCommodity((CommoditySpecAPI) object);
         }
+        if (object instanceof ContactIntel) {
+            return acceptContact((ContactIntel) object);
+        }
         if (object instanceof MarketAPI) {
             return acceptMarket((MarketAPI) object);
         }
@@ -31,6 +35,10 @@ public class AnyHasTag extends Filter {
             return acceptSkill((SkillSpecAPI) object);
         }
         return super.accept(object);
+    }
+
+    protected boolean acceptContact(ContactIntel intel) {
+        return acceptPerson(intel.getPerson());
     }
 
     protected boolean acceptCommDirectoryEntry(CommDirectoryEntryAPI entry) {

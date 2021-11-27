@@ -5,6 +5,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
 import java.util.List;
 import stelnet.filter.AnyHasTag;
+import stelnet.filter.ContactIsOfImportance;
 import uilib.Renderable;
 import uilib.RenderableState;
 import uilib.property.Size;
@@ -25,11 +26,26 @@ public class ContactsState implements RenderableState {
 
     public ContactFilterButton[] createImportanceButtons() {
         return new ContactFilterButton[] {
-            new ContactFilterButton(PersonImportance.VERY_HIGH.getDisplayName(), null),
-            new ContactFilterButton(PersonImportance.HIGH.getDisplayName(), null),
-            new ContactFilterButton(PersonImportance.MEDIUM.getDisplayName(), null),
-            new ContactFilterButton(PersonImportance.LOW.getDisplayName(), null),
-            new ContactFilterButton(PersonImportance.VERY_LOW.getDisplayName(), null),
+            new ContactFilterButton(
+                PersonImportance.VERY_HIGH.getDisplayName(),
+                new ContactIsOfImportance(PersonImportance.VERY_HIGH)
+            ),
+            new ContactFilterButton(
+                PersonImportance.HIGH.getDisplayName(),
+                new ContactIsOfImportance(PersonImportance.HIGH)
+            ),
+            new ContactFilterButton(
+                PersonImportance.MEDIUM.getDisplayName(),
+                new ContactIsOfImportance(PersonImportance.MEDIUM)
+            ),
+            new ContactFilterButton(
+                PersonImportance.LOW.getDisplayName(),
+                new ContactIsOfImportance(PersonImportance.LOW)
+            ),
+            new ContactFilterButton(
+                PersonImportance.VERY_LOW.getDisplayName(),
+                new ContactIsOfImportance(PersonImportance.VERY_LOW)
+            ),
         };
     }
 
