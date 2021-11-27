@@ -39,7 +39,7 @@ public class ContactsView implements RenderableFactory {
 
     private List<Filter> getSelectedFilters() {
         List<Filter> selected = new LinkedList<>();
-        // selected.add(new LogicalOr(getSelectedFilters(importanceButtons), "importance"));
+        selected.add(new LogicalOr(getSelectedFilters(importanceButtons), "importance"));
         selected.add(new LogicalOr(getSelectedFilters(missionTypeButtons), "type"));
         return selected;
     }
