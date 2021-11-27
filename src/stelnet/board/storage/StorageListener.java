@@ -4,6 +4,7 @@ import com.fs.starfarer.api.campaign.PlayerMarketTransaction;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
+import com.fs.starfarer.api.campaign.listeners.ColonyDecivListener;
 import com.fs.starfarer.api.campaign.listeners.ColonyInteractionListener;
 import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
 import java.util.List;
@@ -13,11 +14,12 @@ import stelnet.util.SectorUtils;
 import stelnet.util.StorageUtils;
 
 /**
+ * Triggers on market closed and colony decivilized.
  * Adds a new intel when player closes a market, if needed.
  * Will also look for any storage intel that are no longer valid.
  */
 @Log4j
-public class StorageListener implements ColonyInteractionListener {
+public class StorageListener implements ColonyDecivListener, ColonyInteractionListener {
 
     public static void register() {
         ListenerManagerAPI listenerManager = SectorUtils.getListenerManager();
@@ -29,13 +31,19 @@ public class StorageListener implements ColonyInteractionListener {
     }
 
     @Override
+    public void reportColonyAboutToBeDecivilized(MarketAPI market, boolean fullyDestroyed) {}
+
+    @Override
+    public void reportColonyDecivilized(MarketAPI market, boolean fullyDestroyed) {
+        updateNeeded();
+    }
+
+    @Override
     public void reportPlayerOpenedMarket(MarketAPI market) {}
 
     @Override
     public void reportPlayerClosedMarket(MarketAPI market) {
-        List<IntelInfoPlugin> existingIntel = IntelUtils.getAll(StorageIntel.class);
-        List<SubmarketAPI> storageSubmarkets = StorageUtils.getAllWithAccess();
-        updateIntelList(existingIntel, storageSubmarkets);
+        updateNeeded();
     }
 
     @Override
@@ -44,12 +52,16 @@ public class StorageListener implements ColonyInteractionListener {
     @Override
     public void reportPlayerMarketTransaction(PlayerMarketTransaction transaction) {}
 
-    private void updateIntelList(List<IntelInfoPlugin> existingIntel, List<SubmarketAPI> storageSubmarkets) {
+    private void updateNeeded() {
+        List<IntelInfoPlugin> existingIntel = IntelUtils.getAll(StorageIntel.class);
+        List<SubmarketAPI> storageSubmarkets = StorageUtils.getAllWithAccess();
+        addMissing(existingIntel, storageSubmarkets);
+        removeObsolete(existingIntel, storageSubmarkets);
+    }
+
+    private void addMissing(List<IntelInfoPlugin> existingIntel, List<SubmarketAPI> storageSubmarkets) {
         for (SubmarketAPI storage : storageSubmarkets) {
             addMissing(existingIntel, storage);
-        }
-        for (IntelInfoPlugin intel : existingIntel) {
-            removeObsolete(storageSubmarkets, intel);
         }
     }
 
@@ -57,6 +69,13 @@ public class StorageListener implements ColonyInteractionListener {
         IntelInfoPlugin plugin = new StorageIntel(storage);
         if (!existingIntel.contains(plugin)) {
             IntelUtils.add(plugin, true);
+        }
+    }
+
+    private void removeObsolete(List<IntelInfoPlugin> existingIntel, List<SubmarketAPI> storageSubmarkets) {
+        for (int i = existingIntel.size(); i > 0; i--) {
+            IntelInfoPlugin intel = existingIntel.get(i - 1);
+            removeObsolete(storageSubmarkets, intel);
         }
     }
 
