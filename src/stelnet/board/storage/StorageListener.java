@@ -1,5 +1,6 @@
 package stelnet.board.storage;
 
+import com.fs.starfarer.api.campaign.PlanetAPI;
 import com.fs.starfarer.api.campaign.PlayerMarketTransaction;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
@@ -7,6 +8,7 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.campaign.listeners.ColonyDecivListener;
 import com.fs.starfarer.api.campaign.listeners.ColonyInteractionListener;
 import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
+import com.fs.starfarer.api.campaign.listeners.PlayerColonizationListener;
 import java.util.List;
 import lombok.extern.log4j.Log4j;
 import stelnet.util.IntelUtils;
@@ -14,12 +16,12 @@ import stelnet.util.SectorUtils;
 import stelnet.util.StorageUtils;
 
 /**
- * Triggers on market closed and colony decivilized.
+ * Triggers on player colony interaction, colony decivilized, and market closed.
  * Adds a new intel when player closes a market, if needed.
  * Will also look for any storage intel that are no longer valid.
  */
 @Log4j
-public class StorageListener implements ColonyDecivListener, ColonyInteractionListener {
+public class StorageListener implements ColonyDecivListener, ColonyInteractionListener, PlayerColonizationListener {
 
     public static void register() {
         ListenerManagerAPI listenerManager = SectorUtils.getListenerManager();
@@ -35,6 +37,16 @@ public class StorageListener implements ColonyDecivListener, ColonyInteractionLi
 
     @Override
     public void reportColonyDecivilized(MarketAPI market, boolean fullyDestroyed) {
+        updateNeeded();
+    }
+
+    @Override
+    public void reportPlayerColonizedPlanet(PlanetAPI planet) {
+        updateNeeded();
+    }
+
+    @Override
+    public void reportPlayerAbandonedColony(MarketAPI colony) {
         updateNeeded();
     }
 
