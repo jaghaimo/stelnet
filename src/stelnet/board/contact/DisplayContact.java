@@ -30,21 +30,29 @@ public class DisplayContact extends HeadingWithButtons {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
+        renderHeaderAndBody(tooltip);
+        renderButtons(tooltip);
+    }
+
+    private void renderHeaderAndBody(TooltipMakerAPI tooltip) {
         TooltipMakerAPI inner = tooltip.beginImageWithText(person.getPortraitSprite(), imageHeight);
-        // renderHeading(inner, true, " " + person.getNameString(), person.getFaction());
         addSectionTitle(
             inner,
             person.getNameString() + " - " + person.getImportance().getDisplayName(),
             person.getFaction().getBaseUIColor(),
             getSize().getWidth() - imageHeight - UiConstants.DEFAULT_SPACER * 2
         );
-        inner.addSpacer(8);
-        inner.addPara(getPersonBlurb(), 0);
+        inner.addSpacer(6);
+        inner.addPara(getMissionTypeText(), 0);
+        inner.addSpacer(2);
+        inner.addPara(getLocationText(), 0);
         tooltip.addImageWithText(0);
+    }
 
+    private void renderButtons(TooltipMakerAPI tooltip) {
         String label1 = L10n.get(CommonL10n.CALL);
         String label2 = L10n.get(CommonL10n.SHOW);
-        Size buttonSize = getButtonSize(tooltip, label1, label2);
+        Size buttonSize = getButtonSize(label1, label2);
         tooltip.setButtonFontVictor14();
         UIComponentAPI call = renderFirst(
             new CallContact(label1, buttonSize, market, person),
@@ -60,18 +68,23 @@ public class DisplayContact extends HeadingWithButtons {
         );
     }
 
-    private Size getButtonSize(TooltipMakerAPI tooltip, String label1, String label2) {
+    private Size getButtonSize(String label1, String label2) {
         float width = 50 + Math.max(getTextWidth(label1), getTextWidth(label2));
         float height = UiConstants.VICTOR_14_BUTTON_HEIGHT;
         return new Size(width, height);
     }
 
-    private String getPersonBlurb() {
+    private String getMissionTypeText() {
         return (
             Misc.ucFirst(person.getFaction().getDisplayName()) +
             " contact can offer " +
             Misc.getAndJoined(person.getSortedContactTagStrings()).toLowerCase() +
-            " missions.\n" +
+            " missions."
+        );
+    }
+
+    private String getLocationText() {
+        return (
             Misc.ucFirst(person.getHeOrShe()) +
             " is stationed on " +
             market.getName() +
