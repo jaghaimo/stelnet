@@ -18,6 +18,11 @@ public class Heading extends RenderableComponent {
         this(title, null, null);
     }
 
+    public Heading(String title, float width) {
+        this(title);
+        setSize(new Size(width, UiConstants.DEFAULT_ROW_HEIGHT));
+    }
+
     public Heading(String title, Color foregroundColor, Color backgroundColor) {
         this.title = title;
         this.foregroundColor = foregroundColor;

@@ -3,12 +3,15 @@ package stelnet.board.contact;
 import com.fs.starfarer.api.campaign.PersonImportance;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
+import com.fs.starfarer.api.loading.ContactTagSpec;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.IntelUtils;
+import stelnet.util.SettingsUtils;
 
 public class ContactProvider {
 
@@ -22,8 +25,8 @@ public class ContactProvider {
         return contacts;
     }
 
-    public List<String> getAllMissionTypes() {
-        return null;
+    public Set<ContactTagSpec> getAllMissionTypes() {
+        return SettingsUtils.getAllContactTypes();
     }
 
     public List<PersonImportance> getAllPersonImportances() {
