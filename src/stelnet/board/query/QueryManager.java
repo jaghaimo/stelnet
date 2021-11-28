@@ -1,7 +1,7 @@
 package stelnet.board.query;
 
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import lombok.Getter;
@@ -21,7 +21,7 @@ public class QueryManager {
     private boolean groupedBySystem;
 
     @Getter
-    private final Set<Query> queries = new HashSet<>();
+    private final Set<Query> queries = new LinkedHashSet<>();
 
     private final ResultMap resultMap = new ResultMap();
 
