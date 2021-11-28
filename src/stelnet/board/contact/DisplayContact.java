@@ -78,11 +78,10 @@ public class DisplayContact extends HeadingWithButtons {
     }
 
     private String getMissionTypeText() {
-        return (
-            Misc.ucFirst(person.getFaction().getDisplayName()) +
-            " contact can offer " +
-            Misc.getAndJoined(getTagStrings(person)) +
-            " missions."
+        return L10n.get(
+            ContactsL10n.DISPLAY_MISSION_TEXT,
+            Misc.ucFirst(person.getFaction().getDisplayName()),
+            Misc.getAndJoined(getTagStrings(person))
         );
     }
 
@@ -95,13 +94,11 @@ public class DisplayContact extends HeadingWithButtons {
     }
 
     private String getLocationText() {
-        return (
-            Misc.ucFirst(person.getHeOrShe()) +
-            " is stationed on " +
-            market.getName() +
-            " in " +
-            StringUtils.getStarSystem(market, false) +
-            "."
+        return L10n.get(
+            ContactsL10n.DISPLAY_LOCATION_TEXT,
+            Misc.ucFirst(person.getHeOrShe()),
+            market.getName(),
+            StringUtils.getStarSystem(market, false)
         );
     }
 }

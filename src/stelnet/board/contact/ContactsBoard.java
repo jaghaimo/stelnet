@@ -3,6 +3,7 @@ package stelnet.board.contact;
 import lombok.Getter;
 import stelnet.BaseBoard;
 import stelnet.BoardInfo;
+import stelnet.util.L10n;
 import stelnet.util.ModConstants;
 import stelnet.util.SettingsUtils;
 import uilib.RenderableIntelInfo;
@@ -16,7 +17,10 @@ public class ContactsBoard extends BaseBoard {
 
     @Override
     protected RenderableIntelInfo getIntelInfo() {
-        return new BoardInfo("Contacts", "Managing " + renderableState.getContactNumber() + " contacts");
+        return new BoardInfo(
+            L10n.get(ContactsL10n.BOARD_TITLE),
+            L10n.get(ContactsL10n.BOARD_DESCRIPTION, renderableState.getContactNumber())
+        );
     }
 
     @Override

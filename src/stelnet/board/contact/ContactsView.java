@@ -8,6 +8,7 @@ import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import stelnet.filter.Filter;
 import stelnet.filter.LogicalOr;
+import stelnet.util.L10n;
 import uilib.Heading;
 import uilib.HorizontalViewContainer;
 import uilib.Paragraph;
@@ -60,20 +61,20 @@ public class ContactsView implements RenderableFactory {
             elements.add(new DisplayContact(contact, width));
         }
         if (elements.isEmpty()) {
-            elements.add(new Paragraph("No matching contacts found - change your filtering criteria.", width));
+            elements.add(new Paragraph(L10n.get(ContactsL10n.NONE), width));
         }
         elements.add(0, new Spacer(UiConstants.DEFAULT_SPACER));
-        elements.add(0, new Heading("Contact List", width));
+        elements.add(0, new Heading(L10n.get(ContactsL10n.CONTACT_LIST), width));
         return elements;
     }
 
     private List<Renderable> getButtons() {
         List<Renderable> elements = new LinkedList<>();
-        elements.add(new Heading("Contact Type", 165));
+        elements.add(new Heading(L10n.get(ContactsL10n.CONTACT_TYPE), 165));
         elements.add(new Spacer(UiConstants.DEFAULT_SPACER));
         elements.addAll(missionTypeButtons);
         elements.add(new Spacer(UiConstants.DEFAULT_SPACER * 3));
-        elements.add(new Heading("Importance", 165));
+        elements.add(new Heading(L10n.get(ContactsL10n.IMPORTANCE), 165));
         elements.add(new Spacer(UiConstants.DEFAULT_SPACER));
         elements.addAll(importanceButtons);
         return elements;
