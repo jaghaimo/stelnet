@@ -1,9 +1,11 @@
 package stelnet.board.contact;
 
 import com.fs.starfarer.api.campaign.PersonImportance;
-import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
+import com.fs.starfarer.api.loading.ContactTagSpec;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import stelnet.filter.AnyHasTag;
 import stelnet.filter.ContactIsOfImportance;
 import uilib.Renderable;
@@ -12,8 +14,14 @@ import uilib.property.Size;
 
 public class ContactsState implements RenderableState {
 
-    private final ContactFilterButton[] importanceButtons = createImportanceButtons();
-    private final ContactFilterButton[] contactTypeButtons = createTypeButtons();
+    private final ContactProvider provider = new ContactProvider();
+    private final Set<ContactFilterButton> contactTypeButtons = new TreeSet<>();
+    private final Set<ContactFilterButton> importanceButtons = new TreeSet<>();
+
+    public ContactsState() {
+        createImportanceButtons();
+        createTypeButtons();
+    }
 
     public int getContactNumber() {
         return ContactIntel.getCurrentContacts();
@@ -21,41 +29,22 @@ public class ContactsState implements RenderableState {
 
     @Override
     public List<Renderable> toRenderableList(Size size) {
-        return (new ContactsView(importanceButtons, contactTypeButtons)).create(size);
+        return (new ContactsView(contactTypeButtons, importanceButtons)).create(size);
     }
 
-    public ContactFilterButton[] createImportanceButtons() {
-        return new ContactFilterButton[] {
-            new ContactFilterButton(
-                PersonImportance.VERY_HIGH.getDisplayName(),
-                new ContactIsOfImportance(PersonImportance.VERY_HIGH)
-            ),
-            new ContactFilterButton(
-                PersonImportance.HIGH.getDisplayName(),
-                new ContactIsOfImportance(PersonImportance.HIGH)
-            ),
-            new ContactFilterButton(
-                PersonImportance.MEDIUM.getDisplayName(),
-                new ContactIsOfImportance(PersonImportance.MEDIUM)
-            ),
-            new ContactFilterButton(
-                PersonImportance.LOW.getDisplayName(),
-                new ContactIsOfImportance(PersonImportance.LOW)
-            ),
-            new ContactFilterButton(
-                PersonImportance.VERY_LOW.getDisplayName(),
-                new ContactIsOfImportance(PersonImportance.VERY_LOW)
-            ),
-        };
+    public void createImportanceButtons() {
+        importanceButtons.clear();
+        for (PersonImportance importance : provider.getAllPersonImportances()) {
+            importanceButtons.add(
+                new ContactFilterButton(importance.getDisplayName(), new ContactIsOfImportance(importance))
+            );
+        }
     }
 
-    public ContactFilterButton[] createTypeButtons() {
-        return new ContactFilterButton[] {
-            new ContactFilterButton(Tags.CONTACT_MILITARY, new AnyHasTag(Tags.CONTACT_MILITARY)),
-            new ContactFilterButton(Tags.CONTACT_PATHER, new AnyHasTag(Tags.CONTACT_PATHER)),
-            new ContactFilterButton(Tags.CONTACT_SCIENCE, new AnyHasTag(Tags.CONTACT_SCIENCE)),
-            new ContactFilterButton(Tags.CONTACT_TRADE, new AnyHasTag(Tags.CONTACT_TRADE)),
-            new ContactFilterButton(Tags.CONTACT_UNDERWORLD, new AnyHasTag(Tags.CONTACT_UNDERWORLD)),
-        };
+    public void createTypeButtons() {
+        contactTypeButtons.clear();
+        for (ContactTagSpec type : provider.getAllMissionTypes()) {
+            contactTypeButtons.add(new ContactFilterButton(type.getName(), new AnyHasTag(type.getTag())));
+        }
     }
 }

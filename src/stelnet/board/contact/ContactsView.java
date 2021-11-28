@@ -1,10 +1,10 @@
 package stelnet.board.contact;
 
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import stelnet.filter.Filter;
 import stelnet.filter.LogicalOr;
@@ -21,8 +21,8 @@ import uilib.property.Size;
 public class ContactsView implements RenderableFactory {
 
     private final ContactProvider provider = new ContactProvider();
-    private final ContactFilterButton[] importanceButtons;
-    private final ContactFilterButton[] missionTypeButtons;
+    private final Set<ContactFilterButton> missionTypeButtons;
+    private final Set<ContactFilterButton> importanceButtons;
 
     @Override
     public List<Renderable> create(Size size) {
@@ -37,12 +37,12 @@ public class ContactsView implements RenderableFactory {
 
     private List<Filter> getSelectedFilters() {
         List<Filter> selected = new LinkedList<>();
+        selected.add(new LogicalOr(getSelectedFilters(missionTypeButtons), "contact_type"));
         selected.add(new LogicalOr(getSelectedFilters(importanceButtons), "importance"));
-        selected.add(new LogicalOr(getSelectedFilters(missionTypeButtons), "type"));
         return selected;
     }
 
-    private List<Filter> getSelectedFilters(ContactFilterButton[] buttons) {
+    private List<Filter> getSelectedFilters(Set<ContactFilterButton> buttons) {
         List<Filter> selected = new LinkedList<>();
         for (ContactFilterButton button : buttons) {
             if (button.isStateOn()) {
@@ -52,22 +52,25 @@ public class ContactsView implements RenderableFactory {
         return selected;
     }
 
-    private List<Renderable> getContacts(float size) {
+    private List<Renderable> getContacts(float width) {
         List<Renderable> elements = new LinkedList<>();
         List<ContactIntel> contacts = provider.getContacts(getSelectedFilters());
         for (ContactIntel contact : contacts) {
-            elements.add(new DisplayContact(contact, size));
+            elements.add(new DisplayContact(contact, width));
+        }
+        if (elements.isEmpty()) {
+            elements.add(new Paragraph("No matching contacts found.", width));
         }
         return elements;
     }
 
     private List<Renderable> getButtons() {
         List<Renderable> elements = new LinkedList<>();
-        elements.add(new Paragraph("Importance", 150));
-        elements.addAll(Arrays.<Renderable>asList(importanceButtons));
+        elements.add(new Paragraph("Contact Type", 150));
+        elements.addAll(missionTypeButtons);
         elements.add(new Spacer(UiConstants.DEFAULT_SPACER));
-        elements.add(new Paragraph("Type", 150));
-        elements.addAll(Arrays.<Renderable>asList(missionTypeButtons));
+        elements.add(new Paragraph("Importance", 150));
+        elements.addAll(importanceButtons);
         return elements;
     }
 }

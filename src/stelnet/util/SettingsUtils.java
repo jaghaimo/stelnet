@@ -5,11 +5,15 @@ import com.fs.starfarer.api.ModSpecAPI;
 import com.fs.starfarer.api.SettingsAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.characters.SkillSpecAPI;
+import com.fs.starfarer.api.loading.ContactTagSpec;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
 import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import lombok.extern.log4j.Log4j;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,6 +51,29 @@ public class SettingsUtils {
 
     public static HullModSpecAPI getHullModSpec(String hullModId) {
         return getSettings().getHullModSpec(hullModId);
+    }
+
+    public static Set<ContactTagSpec> getAllContactTypes() {
+        Set<ContactTagSpec> contactSpecs = new LinkedHashSet<>();
+        JSONObject types;
+        try {
+            types = getSettings().getMergedJSONForMod("data/config/contact_tag_data.json", "");
+            @SuppressWarnings("unchecked")
+            Iterator<String> iterator = types.keys();
+            while (iterator.hasNext()) {
+                try {
+                    String tag = iterator.next();
+                    JSONObject object = types.getJSONObject(tag);
+                    contactSpecs.add(new ContactTagSpec(tag, null, object));
+                } catch (JSONException e) {
+                    log.error("Failed reading JSON content", e);
+                }
+            }
+        } catch (IOException | JSONException e) {
+            log.error("Failed reading merged JSON file", e);
+        }
+
+        return contactSpecs;
     }
 
     public static int getOfficerMaxLevel() {
