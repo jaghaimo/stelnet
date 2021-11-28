@@ -24,7 +24,7 @@ public class DisplayContact extends HeadingWithButtons {
 
     public DisplayContact(ContactIntel intel, float width) {
         this(intel, intel.getMapLocation(null).getMarket(), intel.getPerson());
-        setSize(new Size(width, imageHeight + 2 * UiConstants.DEFAULT_SPACER));
+        setSize(new Size(width - 5, imageHeight + 2 * UiConstants.DEFAULT_SPACER));
         setWithScroller(false);
     }
 

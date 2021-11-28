@@ -3,6 +3,7 @@ package stelnet.board.contact;
 import com.fs.starfarer.api.campaign.PersonImportance;
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
 import com.fs.starfarer.api.loading.ContactTagSpec;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -16,7 +17,7 @@ public class ContactsState implements RenderableState {
 
     private final ContactProvider provider = new ContactProvider();
     private final Set<ContactFilterButton> contactTypeButtons = new TreeSet<>();
-    private final Set<ContactFilterButton> importanceButtons = new TreeSet<>();
+    private final Set<ContactFilterButton> importanceButtons = new LinkedHashSet<>();
 
     public ContactsState() {
         createImportanceButtons();

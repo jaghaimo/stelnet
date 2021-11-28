@@ -8,6 +8,7 @@ import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import stelnet.filter.Filter;
 import stelnet.filter.LogicalOr;
+import uilib.Heading;
 import uilib.HorizontalViewContainer;
 import uilib.Paragraph;
 import uilib.Renderable;
@@ -28,8 +29,8 @@ public class ContactsView implements RenderableFactory {
     public List<Renderable> create(Size size) {
         return Collections.<Renderable>singletonList(
             new HorizontalViewContainer(
-                new VerticalViewContainer(getContacts(size.getWidth() - 180)),
-                new Spacer(UiConstants.DEFAULT_SPACER * 2),
+                new VerticalViewContainer(getContacts(size.getWidth() - 170)),
+                new Spacer(UiConstants.DEFAULT_SPACER),
                 new VerticalViewContainer(getButtons())
             )
         );
@@ -59,17 +60,21 @@ public class ContactsView implements RenderableFactory {
             elements.add(new DisplayContact(contact, width));
         }
         if (elements.isEmpty()) {
-            elements.add(new Paragraph("No matching contacts found.", width));
+            elements.add(new Paragraph("No matching contacts found - change your filtering criteria.", width));
         }
+        elements.add(0, new Spacer(UiConstants.DEFAULT_SPACER));
+        elements.add(0, new Heading("Contact List", width));
         return elements;
     }
 
     private List<Renderable> getButtons() {
         List<Renderable> elements = new LinkedList<>();
-        elements.add(new Paragraph("Contact Type", 150));
-        elements.addAll(missionTypeButtons);
+        elements.add(new Heading("Contact Type", 165));
         elements.add(new Spacer(UiConstants.DEFAULT_SPACER));
-        elements.add(new Paragraph("Importance", 150));
+        elements.addAll(missionTypeButtons);
+        elements.add(new Spacer(UiConstants.DEFAULT_SPACER * 3));
+        elements.add(new Heading("Importance", 165));
+        elements.add(new Spacer(UiConstants.DEFAULT_SPACER));
         elements.addAll(importanceButtons);
         return elements;
     }
