@@ -3,6 +3,7 @@ package stelnet.board.contact;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
+import com.fs.starfarer.api.ui.LabelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.ui.UIComponentAPI;
 import com.fs.starfarer.api.util.Misc;
@@ -43,7 +44,9 @@ public class DisplayContact extends HeadingWithButtons {
             getSize().getWidth() - imageHeight - UiConstants.DEFAULT_SPACER * 2
         );
         inner.addSpacer(6);
-        inner.addPara(getMissionTypeText(), 0);
+        LabelAPI missionParagraph = inner.addPara(getMissionTypeText(), 0);
+        missionParagraph.setHighlight(getTagStrings(person));
+        missionParagraph.setHighlightColor(person.getFaction().getBaseUIColor());
         inner.addSpacer(2);
         inner.addPara(getLocationText(), 0);
         tooltip.addImageWithText(0);
@@ -78,9 +81,17 @@ public class DisplayContact extends HeadingWithButtons {
         return (
             Misc.ucFirst(person.getFaction().getDisplayName()) +
             " contact can offer " +
-            Misc.getAndJoined(person.getSortedContactTagStrings()).toLowerCase() +
+            Misc.getAndJoined(getTagStrings(person)) +
             " missions."
         );
+    }
+
+    private String[] getTagStrings(PersonAPI person) {
+        String[] tagStrings = person.getSortedContactTagStrings().toArray(new String[] {});
+        for (int i = 0; i < tagStrings.length; i++) {
+            tagStrings[i] = tagStrings[i].toLowerCase();
+        }
+        return tagStrings;
     }
 
     private String getLocationText() {
