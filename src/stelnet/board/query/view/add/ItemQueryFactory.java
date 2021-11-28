@@ -5,10 +5,10 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import lombok.Getter;
 import stelnet.CommonL10n;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.ItemProvider;
-import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.CargoStackNotKnownModspec;
 import stelnet.filter.Filter;
 import stelnet.util.CargoUtils;
@@ -21,9 +21,11 @@ import uilib.property.Size;
 
 public class ItemQueryFactory extends QueryFactory {
 
-    private final ItemProvider itemProvider = new ItemProvider(this);
+    @Getter
+    private final ItemProvider provider = new ItemProvider(this);
+
     private final FilteringButton[] itemTypes = ItemButtonUtils.createItemTypes();
-    private final FilteringButton[] designTypes = ItemButtonUtils.createManufacturers(itemProvider);
+    private final FilteringButton[] designTypes = ItemButtonUtils.createManufacturers(provider);
     private final FilteringButton[] weaponDamageTypes = ItemButtonUtils.createDamageType();
     private final FilteringButton[] weaponMountSizes = ItemButtonUtils.createWeaponMountSize();
     private final FilteringButton[] weaponMountTypes = ItemButtonUtils.createWeaponMountType();
@@ -50,11 +52,6 @@ public class ItemQueryFactory extends QueryFactory {
             L10n.get(QueryL10n.NO_MATCHING_ITEMS),
             size
         );
-    }
-
-    @Override
-    public QueryProvider getProvider() {
-        return itemProvider;
     }
 
     @Override
@@ -89,7 +86,7 @@ public class ItemQueryFactory extends QueryFactory {
     }
 
     private CargoAPI getCargo(Set<Filter> filters) {
-        return CargoUtils.makeCargoFromStacks(itemProvider.getMatching(filters));
+        return CargoUtils.makeCargoFromStacks(provider.getMatching(filters));
     }
 
     private boolean hasWeapons() {

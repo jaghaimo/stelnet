@@ -7,9 +7,9 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import lombok.Getter;
 import stelnet.CommonL10n;
 import stelnet.board.query.QueryL10n;
-import stelnet.board.query.provider.QueryProvider;
 import stelnet.board.query.provider.ShipProvider;
 import stelnet.filter.Filter;
 import stelnet.util.L10n;
@@ -21,14 +21,16 @@ import uilib.property.Size;
 
 public class ShipQueryFactory extends QueryFactory {
 
-    private final ShipProvider shipProvider = new ShipProvider(this);
+    @Getter
+    private final ShipProvider provider = new ShipProvider(this);
+
     private final FilteringButton[] classSizes = ShipButtonUtils.getClassSizes();
     private final FilteringButton[] mountSizes = ShipButtonUtils.getMountSizes();
     private final FilteringButton[] mountTypes = ShipButtonUtils.getMountTypes();
     private final FilteringButton[] mountBays = ShipButtonUtils.getMountBays(this);
-    private final FilteringButton[] designTypes = ShipButtonUtils.getManufacturers(shipProvider);
-    private final FilteringButton[] builtIns = ShipButtonUtils.getBuiltIns(shipProvider);
-    private final FilteringButton[] dMods = ShipButtonUtils.getDMods(shipProvider);
+    private final FilteringButton[] designTypes = ShipButtonUtils.getManufacturers(provider);
+    private final FilteringButton[] builtIns = ShipButtonUtils.getBuiltIns(provider);
+    private final FilteringButton[] dMods = ShipButtonUtils.getDMods(provider);
 
     public void setFighterBays(FighterBaysButton active) {
         Iterable<FilteringButton> iterable = Arrays.asList(mountBays);
@@ -60,11 +62,6 @@ public class ShipQueryFactory extends QueryFactory {
             L10n.get(QueryL10n.NO_MATCHING_SHIPS),
             size
         );
-    }
-
-    @Override
-    public QueryProvider getProvider() {
-        return shipProvider;
     }
 
     @Override
@@ -105,12 +102,12 @@ public class ShipQueryFactory extends QueryFactory {
     }
 
     private List<FleetMemberAPI> getShips(Set<Filter> filters) {
-        return shipProvider.getMatching(filters);
+        return provider.getMatching(filters);
     }
 
     private void prepareBuiltIns() {
         Set<Filter> filters = getCommonFilters();
-        Set<String> hullModIds = shipProvider.getBuiltInIds(filters);
+        Set<String> hullModIds = provider.getBuiltInIds(filters);
         hullModIds.add("None");
         for (FilteringButton button : builtIns) {
             button.updateVisibility(hullModIds);

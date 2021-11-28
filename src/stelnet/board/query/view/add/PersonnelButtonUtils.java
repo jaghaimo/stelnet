@@ -50,7 +50,8 @@ public class PersonnelButtonUtils {
         };
     }
 
-    public static FilteringButton[] getSkillButtons(SkillProvider provider) {
+    public static FilteringButton[] getSkillButtons() {
+        SkillProvider provider = new SkillProvider();
         List<FilteringButton> skillButtons = new LinkedList<>();
         List<SkillSpecAPI> skills = provider.getMatching(
             Arrays.<Filter>asList(new LogicalNot(new AnyHasTag("npc_only")), new SkillIsCombatOfficer())

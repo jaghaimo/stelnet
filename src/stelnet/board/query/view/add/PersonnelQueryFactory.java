@@ -4,11 +4,10 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import lombok.Getter;
 import stelnet.CommonL10n;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.PeopleProvider;
-import stelnet.board.query.provider.QueryProvider;
-import stelnet.board.query.provider.SkillProvider;
 import stelnet.filter.Filter;
 import stelnet.util.L10n;
 import uilib.Button;
@@ -19,12 +18,13 @@ import uilib.property.Size;
 
 public class PersonnelQueryFactory extends QueryFactory {
 
-    private final PeopleProvider peopleProvider = new PeopleProvider(this);
-    private final SkillProvider skillProvider = new SkillProvider();
+    @Getter
+    private final PeopleProvider provider = new PeopleProvider(this);
+
     private final FilteringButton[] postType = PersonnelButtonUtils.getPostTypeButtons();
     private final FilteringButton[] level = PersonnelButtonUtils.getLevelButtons(this);
     private final FilteringButton[] personality = PersonnelButtonUtils.getPersonalityButtons();
-    private final FilteringButton[] skill = PersonnelButtonUtils.getSkillButtons(skillProvider);
+    private final FilteringButton[] skill = PersonnelButtonUtils.getSkillButtons();
 
     public void setLevel(OfficerLevelButton active) {
         for (FilteringButton button : level) {
@@ -44,12 +44,7 @@ public class PersonnelQueryFactory extends QueryFactory {
 
     @Override
     public RenderableComponent getPreview(Set<Filter> filters, Size size) {
-        return new ShowPeople(peopleProvider.getMatching(filters), L10n.get(QueryL10n.NO_MATCHING_PEOPLE), size);
-    }
-
-    @Override
-    public QueryProvider getProvider() {
-        return peopleProvider;
+        return new ShowPeople(provider.getMatching(filters), L10n.get(QueryL10n.NO_MATCHING_PEOPLE), size);
     }
 
     @Override
