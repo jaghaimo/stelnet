@@ -20,8 +20,8 @@ public class ConfigUtils {
     }
 
     public static void activate() {
-        initContacts(ConfigConstants.HAS_COMMODITIES);
         initCommodity(ConfigConstants.HAS_COMMODITIES);
+        initContacts(ConfigConstants.HAS_CONTACTS);
         initMarket(ConfigConstants.HAS_MARKET);
         initStorage(ConfigConstants.HAS_STORAGE);
         log.info("Stelnet activated");
