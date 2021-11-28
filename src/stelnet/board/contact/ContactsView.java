@@ -1,6 +1,5 @@
 package stelnet.board.contact;
 
-import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
 import java.util.Arrays;
 import java.util.Collections;
@@ -9,8 +8,6 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import stelnet.filter.Filter;
 import stelnet.filter.LogicalOr;
-import stelnet.util.CollectionUtils;
-import stelnet.util.IntelUtils;
 import uilib.HorizontalViewContainer;
 import uilib.Paragraph;
 import uilib.Renderable;
@@ -23,6 +20,7 @@ import uilib.property.Size;
 @RequiredArgsConstructor
 public class ContactsView implements RenderableFactory {
 
+    private final ContactProvider provider = new ContactProvider();
     private final ContactFilterButton[] importanceButtons;
     private final ContactFilterButton[] missionTypeButtons;
 
@@ -56,7 +54,7 @@ public class ContactsView implements RenderableFactory {
 
     private List<Renderable> getContacts(float size) {
         List<Renderable> elements = new LinkedList<>();
-        List<ContactIntel> contacts = getAllContacts();
+        List<ContactIntel> contacts = provider.getContacts(getSelectedFilters());
         for (ContactIntel contact : contacts) {
             elements.add(new DisplayContact(contact, size));
         }
@@ -71,15 +69,5 @@ public class ContactsView implements RenderableFactory {
         elements.add(new Paragraph("Type", 150));
         elements.addAll(Arrays.<Renderable>asList(missionTypeButtons));
         return elements;
-    }
-
-    private List<ContactIntel> getAllContacts() {
-        List<ContactIntel> contacts = new LinkedList<>();
-        List<IntelInfoPlugin> plugins = IntelUtils.getAll(ContactIntel.class);
-        for (IntelInfoPlugin plugin : plugins) {
-            contacts.add(0, (ContactIntel) plugin);
-        }
-        CollectionUtils.reduce(contacts, getSelectedFilters());
-        return contacts;
     }
 }
