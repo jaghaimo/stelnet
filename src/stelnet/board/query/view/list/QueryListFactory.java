@@ -1,5 +1,6 @@
 package stelnet.board.query.view.list;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ public class QueryListFactory implements RenderableFactory {
         for (Query query : manager.getQueries()) {
             elements.add(new QueryRow(width, query));
         }
+        Collections.reverse(elements);
         boolean enableButtons = addNewQueries(elements, width);
         elements.add(0, new Spacer(2 * UiConstants.DEFAULT_SPACER));
         elements.add(0, getGlobalButtons(enableButtons, size.getWidth()));
