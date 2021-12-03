@@ -15,6 +15,7 @@ import uilib.Button;
 import uilib.Group;
 import uilib.Renderable;
 import uilib.RenderableFactory;
+import uilib.Spacer;
 import uilib.property.Position;
 import uilib.property.Size;
 
@@ -29,12 +30,13 @@ public class ButtonViewFactory implements RenderableFactory {
         List<CommoditySpecAPI> commodities = EconomyUtils.getAllCommodities();
         filterCommodities(commodities);
         sortCommodities(commodities);
+        buttons.add(new Spacer(1));
         for (CommoditySpecAPI commodity : commodities) {
             buttons.add(createContainer(commodity, commodityId));
         }
         Group group = new Group(buttons);
-        group.setSize(new Size(200, size.getHeight() - 55));
-        group.setOffset(new Position(size.getWidth() - 200, 24));
+        group.setSize(new Size(200, size.getHeight() - 54));
+        group.setOffset(new Position(size.getWidth() - 200, 28));
         return Collections.<Renderable>singletonList(group);
     }
 

@@ -22,21 +22,13 @@ public class PersonnelQueryFactory extends QueryFactory {
     private final PeopleProvider provider = new PeopleProvider(this);
 
     private final FilteringButton[] postType = PersonnelButtonUtils.getPostTypeButtons();
-    private final FilteringButton[] level = PersonnelButtonUtils.getLevelButtons(this);
     private final FilteringButton[] personality = PersonnelButtonUtils.getPersonalityButtons();
     private final FilteringButton[] skill = PersonnelButtonUtils.getSkillButtons();
-
-    public void setLevel(OfficerLevelButton active) {
-        for (FilteringButton button : level) {
-            button.setStateOn(active.equals(button));
-        }
-    }
 
     @Override
     public Set<Filter> getFilters(boolean forResults) {
         Set<Filter> filters = new LinkedHashSet<>();
         addSelectedOrAll(filters, postType, L10n.get(QueryL10n.PERSONNEL_POST_TYPES));
-        addSelectedOrNone(filters, level, L10n.get(QueryL10n.PERSONNEL_MIN_LEVEL), hasOfficers());
         addSelectedOrNone(filters, personality, L10n.get(QueryL10n.PERSONNEL_PERSONALITY), hasOfficers());
         addSelectedOrNone(filters, skill, L10n.get(QueryL10n.PERSONNEL_SKILLS), hasOfficers());
         return filters;
@@ -59,7 +51,6 @@ public class PersonnelQueryFactory extends QueryFactory {
         elements.add(
             new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.OFFICERS_AND_MERCENARIES, hasOfficers())
         );
-        elements.add(new ButtonGroup(sizeHelper, QueryL10n.PERSONNEL_MIN_LEVEL, level, hasOfficers()));
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.PERSONNEL_PERSONALITY, personality, hasOfficers()));
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.PERSONNEL_SKILLS, skill, hasOfficers()));
         return elements;

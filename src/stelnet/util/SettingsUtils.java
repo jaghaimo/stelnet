@@ -76,10 +76,6 @@ public class SettingsUtils {
         return contactSpecs;
     }
 
-    public static int getOfficerMaxLevel() {
-        return getSettings().getInt("officerMaxLevel");
-    }
-
     public static SkillSpecAPI getSkill(String skillId) {
         return getSettings().getSkillSpec(skillId);
     }

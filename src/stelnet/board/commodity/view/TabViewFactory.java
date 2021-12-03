@@ -26,7 +26,7 @@ public class TabViewFactory implements RenderableFactory {
     @Override
     public List<Renderable> create(Size size) {
         float width = size.getWidth() - 210;
-        float height = size.getHeight() - 54;
+        float height = size.getHeight() - 24;
         MarketRepository marketRepository = new MarketRepository(commodityId);
         TabViewContainer tabViewContainer = new TabViewContainer();
         tabViewContainer.setSize(new Size(width, height));
