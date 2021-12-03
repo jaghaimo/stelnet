@@ -20,5 +20,5 @@ node_modules/
 /exclude
 /graphics
 /stelnet*
-/translation
+/translate
 /mod_info.json
