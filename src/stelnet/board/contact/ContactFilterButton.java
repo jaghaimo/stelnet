@@ -22,6 +22,8 @@ public class ContactFilterButton extends AreaCheckbox implements Comparable<Cont
 
     @Override
     public int compareTo(ContactFilterButton o) {
-        return name.compareTo(o.getName());
+        String self = name + getFilter();
+        String other = o.getName() + o.getFilter();
+        return self.compareTo(other);
     }
 }
