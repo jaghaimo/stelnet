@@ -28,7 +28,7 @@ public class ShowPeopleOfficerTooltip implements TooltipCreator {
 
     @Override
     public void createTooltip(TooltipMakerAPI tooltip, boolean expanded, Object tooltipParam) {
-        String level = String.format(" %s (%d)", person.getNameString(), person.getStats().getLevel());
+        String level = String.format(" %s (L%d)", person.getNameString(), person.getStats().getLevel());
         tooltip.addSectionHeading(level, Alignment.LMID, 2);
         tooltip.addSpacer(4);
         List<SkillLevelAPI> skills = person.getStats().getSkillsCopy();
