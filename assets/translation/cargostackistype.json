@@ -1,5 +1,8 @@
 {
+    "BLUEPRINT": "Blueprint",
+    "COMMODITY": "Commodity",
     "FIGHTER": "Fighter Wing",
     "MODSPEC": "Modspec",
+    "SPECIAL": "Special",
     "WEAPON": "Weapon"
 }
