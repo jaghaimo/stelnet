@@ -1,0 +1,8 @@
+{
+    "VIEWER_LOCATION_INFO": "{0} in {1} of {2}",
+    "VIEWER_NO_ITEMS": "There are no matching items to display.",
+    "VIEWER_NO_MARKETS": "Please select a market to view.",
+    "VIEWER_NO_SHIPS": "There are no matching ships to display.",
+    "VIEWER_NO_STORAGES": "You do not have any storages.",
+    "VIEWER_UNIFIED_VIEW_TITLE": "Unified View"
+}

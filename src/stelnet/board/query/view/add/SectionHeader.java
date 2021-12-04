@@ -4,8 +4,8 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.ui.UIComponentAPI;
 import lombok.RequiredArgsConstructor;
 import stelnet.CommonL10n;
-import stelnet.board.query.view.HeadingWithButtons;
 import stelnet.util.L10n;
+import stelnet.widget.HeadingWithButtons;
 import uilib.UiConstants;
 import uilib.property.Size;
 
@@ -30,11 +30,11 @@ public class SectionHeader extends HeadingWithButtons {
     public void render(TooltipMakerAPI tooltip) {
         tooltip.addSpacer(UiConstants.DEFAULT_SPACER);
         tooltip.addSpacer(UiConstants.DEFAULT_SPACER);
-        renderHeading(tooltip, isEnabled);
-        overlapQueryHeading(tooltip, isEnabled, heading);
+        renderQueryHeading(tooltip, isEnabled, heading);
         if (buttons != null) {
             UIComponentAPI first = renderFirst(
                 new SelectDeselectButton(CommonL10n.NONE, isEnabled, false, buttons),
+                getSize().getWidth(),
                 tooltip
             );
             renderNext(new SelectDeselectButton(CommonL10n.ALL, isEnabled, true, buttons), tooltip, first);

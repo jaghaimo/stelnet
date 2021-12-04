@@ -1,10 +1,11 @@
 {
     "graphics": {
         "stelnet": {
+            "contacts": "graphics/icons/markets/organized_crime.png",
             "commodity": "graphics/icons/intel/tutorial_mission.png",
             "query": "graphics/icons/intel/investigation.png",
             "storage": "graphics/icons/intel/all.png",
-            "viewer": "graphics/icons/industry/local_production.png",
+            "viewer": "graphics/icons/markets/headquarters.png",
             "low": "graphics/icons/intel/beacon_low.png",
             "medium": "graphics/icons/intel/beacon_med.png",
             "high": "graphics/icons/intel/beacon_high.png"

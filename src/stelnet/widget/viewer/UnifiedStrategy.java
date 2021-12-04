@@ -19,7 +19,7 @@ import stelnet.widget.WidgetL10n;
 public class UnifiedStrategy implements DisplayStrategy {
 
     @Override
-    public List<LocationContent> getData(FilteringButtons filteringButtons) {
+    public List<LocationContent> getData(ButtonManager filteringButtons) {
         Set<Filter> filters = filteringButtons.getFilters();
         CargoAPI items = StorageUtils.getAllItems(filters);
         List<FleetMemberAPI> ships = StorageUtils.getAllShips(filters);

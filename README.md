@@ -6,6 +6,14 @@ Each tab comes with interactive boards that are used to manage presented intel.
 
 ## Available Boards
 
+### Contacts
+
+Contacts board presents a filterable (by priority, by type) list of all your active contacts.
+Using the board you can quickly navigate to see each contact's intel details, or directly call the person.
+All items and ships acquired during the call will be deposited to the Storage of the respective market.
+
+![Contacts](images/contacts.png?raw=1)
+
 ### Commodity
 
 Commodity board (formerly [Galactic Markets](https://fractalsoftworks.com/forum/index.php?topic=19383)) is used to display buying and selling prices among all known markets.

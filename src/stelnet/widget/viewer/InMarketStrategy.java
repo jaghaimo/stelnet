@@ -25,7 +25,7 @@ public class InMarketStrategy extends PerMarketStrategy {
     private final MarketAPI market;
 
     @Override
-    public List<LocationContent> getData(FilteringButtons filteringButtons) {
+    public List<LocationContent> getData(ButtonManager filteringButtons) {
         if (market == null) {
             log.debug("No market set, returning empty data.");
             return getEmptyData();

@@ -12,6 +12,10 @@ public class StringUtils {
         return getStarSystem(market.getStarSystem());
     }
 
+    public static String getStarSystem(MarketAPI market, boolean shortName) {
+        return getStarSystem(market.getStarSystem(), shortName);
+    }
+
     public static String getStarSystem(SectorEntityToken entity) {
         return getStarSystem(entity.getStarSystem());
     }

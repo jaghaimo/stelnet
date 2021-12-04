@@ -11,7 +11,7 @@ public class QueryTypeButton extends FilteringButton {
     private QueryFactory nextFactory;
 
     public QueryTypeButton(final AddQueryFactory factory, Enum<?> translationId, QueryFactory nextFactory) {
-        super(L10n.get(translationId), null, false);
+        super(L10n.get(translationId), null);
         this.nextFactory = nextFactory;
         final QueryTypeButton button = this;
         setHandler(

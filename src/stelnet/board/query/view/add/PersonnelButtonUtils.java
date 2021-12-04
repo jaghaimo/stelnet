@@ -11,26 +11,13 @@ import stelnet.board.query.provider.SkillProvider;
 import stelnet.filter.AnyHasTag;
 import stelnet.filter.Filter;
 import stelnet.filter.LogicalNot;
-import stelnet.filter.PersonHasLevel;
 import stelnet.filter.PersonHasPersonality;
 import stelnet.filter.PersonHasSkill;
 import stelnet.filter.PersonIsPostedAs;
 import stelnet.filter.SkillIsCombatOfficer;
 import stelnet.util.L10n;
-import stelnet.util.SettingsUtils;
 
 public class PersonnelButtonUtils {
-
-    public static OfficerLevelButton[] getLevelButtons(PersonnelQueryFactory factory) {
-        List<OfficerLevelButton> levelButtons = new LinkedList<>();
-        for (int i = 1; i <= SettingsUtils.getOfficerMaxLevel(); i++) {
-            levelButtons.add(new OfficerLevelButton(factory, String.valueOf(i), new PersonHasLevel(i)));
-        }
-        if (levelButtons.size() > 0) {
-            levelButtons.get(0).setStateOn(true);
-        }
-        return levelButtons.toArray(new OfficerLevelButton[] {});
-    }
 
     public static FilteringButton[] getPersonalityButtons() {
         return new FilteringButton[] {
@@ -50,7 +37,8 @@ public class PersonnelButtonUtils {
         };
     }
 
-    public static FilteringButton[] getSkillButtons(SkillProvider provider) {
+    public static FilteringButton[] getSkillButtons() {
+        SkillProvider provider = new SkillProvider();
         List<FilteringButton> skillButtons = new LinkedList<>();
         List<SkillSpecAPI> skills = provider.getMatching(
             Arrays.<Filter>asList(new LogicalNot(new AnyHasTag("npc_only")), new SkillIsCombatOfficer())

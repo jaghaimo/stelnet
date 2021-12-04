@@ -18,7 +18,7 @@ import stelnet.util.StorageUtils;
 public class PerMarketStrategy implements DisplayStrategy {
 
     @Override
-    public List<LocationContent> getData(FilteringButtons filteringButtons) {
+    public List<LocationContent> getData(ButtonManager filteringButtons) {
         List<LocationContent> data = new LinkedList<>();
         List<SubmarketAPI> storages = StorageUtils.getAllSortedWithAccess();
         for (SubmarketAPI storage : storages) {
@@ -30,7 +30,7 @@ public class PerMarketStrategy implements DisplayStrategy {
     protected void processSubmarket(
         LocationInfo locationData,
         SubmarketAPI storage,
-        FilteringButtons filteringButtons,
+        ButtonManager filteringButtons,
         List<LocationContent> data
     ) {
         CargoAPI storageCargo = storage.getCargo();
@@ -42,7 +42,7 @@ public class PerMarketStrategy implements DisplayStrategy {
         data.add(new LocationContent(locationData, items, ships));
     }
 
-    private CargoAPI getItems(FilteringButtons filteringButtons, CargoAPI storageCargo) {
+    private CargoAPI getItems(ButtonManager filteringButtons, CargoAPI storageCargo) {
         CargoAPI items = storageCargo.createCopy();
         List<CargoStackAPI> cargoStacks = storageCargo.getStacksCopy();
         CollectionUtils.reduce(cargoStacks, filteringButtons.getFilters());
@@ -50,7 +50,7 @@ public class PerMarketStrategy implements DisplayStrategy {
         return items;
     }
 
-    private List<FleetMemberAPI> getShips(FilteringButtons filteringButtons, CargoAPI storageCargo) {
+    private List<FleetMemberAPI> getShips(ButtonManager filteringButtons, CargoAPI storageCargo) {
         List<FleetMemberAPI> ships = storageCargo.getMothballedShips().getMembersInPriorityOrder();
         CollectionUtils.reduce(ships, filteringButtons.getFilters());
         return ships;

@@ -6,7 +6,7 @@ import uilib.EventHandler;
 
 public class ShipFilterButton extends FilteringButton {
 
-    public ShipFilterButton(final FilteringButtons filteringButtons, Enum<?> translationId, final Filter filter) {
+    public ShipFilterButton(final ButtonManager filteringButtons, Enum<?> translationId, final Filter filter) {
         super(translationId);
         setHandler(
             new EventHandler() {

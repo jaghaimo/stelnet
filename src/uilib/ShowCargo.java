@@ -33,7 +33,7 @@ public class ShowCargo extends RenderableComponent {
             return;
         }
         if (optionalTitle != null) {
-            addSectionTitle(tooltip, optionalTitle, titleColor);
+            addSectionTitle(tooltip, optionalTitle, titleColor, getSize().getWidth() - 12);
         }
         tooltip.showCargo(cargo, cargo.getStacksCopy().size(), false, 5);
         setOffsetOfLast(tooltip, -6);

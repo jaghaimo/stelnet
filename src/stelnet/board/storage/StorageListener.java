@@ -30,6 +30,7 @@ public class StorageListener implements ColonyDecivListener, ColonyInteractionLi
             StorageListener listener = new StorageListener();
             listenerManager.addListener(listener, true);
         }
+        updateNeeded();
     }
 
     @Override
@@ -64,41 +65,41 @@ public class StorageListener implements ColonyDecivListener, ColonyInteractionLi
     @Override
     public void reportPlayerMarketTransaction(PlayerMarketTransaction transaction) {}
 
-    private void updateNeeded() {
+    private static void updateNeeded() {
         List<IntelInfoPlugin> existingIntel = IntelUtils.getAll(StorageIntel.class);
         List<SubmarketAPI> storageSubmarkets = StorageUtils.getAllWithAccess();
         addMissing(existingIntel, storageSubmarkets);
         removeObsolete(existingIntel, storageSubmarkets);
     }
 
-    private void addMissing(List<IntelInfoPlugin> existingIntel, List<SubmarketAPI> storageSubmarkets) {
+    private static void addMissing(List<IntelInfoPlugin> existingIntel, List<SubmarketAPI> storageSubmarkets) {
         for (SubmarketAPI storage : storageSubmarkets) {
             addMissing(existingIntel, storage);
         }
     }
 
-    private void addMissing(List<IntelInfoPlugin> existingIntel, SubmarketAPI storage) {
+    private static void addMissing(List<IntelInfoPlugin> existingIntel, SubmarketAPI storage) {
         IntelInfoPlugin plugin = new StorageIntel(storage);
         if (!existingIntel.contains(plugin)) {
             IntelUtils.add(plugin, true);
         }
     }
 
-    private void removeObsolete(List<IntelInfoPlugin> existingIntel, List<SubmarketAPI> storageSubmarkets) {
+    private static void removeObsolete(List<IntelInfoPlugin> existingIntel, List<SubmarketAPI> storageSubmarkets) {
         for (int i = existingIntel.size(); i > 0; i--) {
             IntelInfoPlugin intel = existingIntel.get(i - 1);
             removeObsolete(storageSubmarkets, intel);
         }
     }
 
-    private void removeObsolete(List<SubmarketAPI> storageSubmarkets, IntelInfoPlugin intel) {
+    private static void removeObsolete(List<SubmarketAPI> storageSubmarkets, IntelInfoPlugin intel) {
         SubmarketAPI storage = extractStorage(intel);
         if (!storageSubmarkets.contains(storage)) {
             IntelUtils.remove(intel);
         }
     }
 
-    private SubmarketAPI extractStorage(IntelInfoPlugin intel) {
+    private static SubmarketAPI extractStorage(IntelInfoPlugin intel) {
         try {
             StorageIntel storageIntel = (StorageIntel) intel;
             return storageIntel.getStorage();

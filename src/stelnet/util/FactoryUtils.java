@@ -2,6 +2,7 @@ package stelnet.util;
 
 import com.fs.starfarer.api.FactoryAPI;
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CargoAPI.CargoItemType;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.SpecialItemData;
@@ -10,6 +11,10 @@ import com.fs.starfarer.api.fleet.FleetMemberType;
 import com.fs.starfarer.api.impl.campaign.ids.Items;
 
 public class FactoryUtils {
+
+    public static CargoAPI createCargo() {
+        return getFactory().createCargo(true);
+    }
 
     public static CargoStackAPI createFighterItem(String variant) {
         return getFactory().createCargoStack(CargoItemType.FIGHTER_CHIP, variant, null);
