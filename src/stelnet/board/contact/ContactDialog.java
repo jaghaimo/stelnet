@@ -34,6 +34,8 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
     public void optionSelected(String text, Object optionData) {
         if (optionData.equals("cutCommLink")) {
             optionData = FAILSAFE_LEAVE;
+        }
+        if (optionData.equals(FAILSAFE_LEAVE)) {
             storageData.add(playerData);
             playerData.restore();
         }
