@@ -5,7 +5,6 @@ import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.impl.campaign.RuleBasedInteractionDialogPluginImpl;
-import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import stelnet.util.SectorUtils;
 
 public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
@@ -14,10 +13,9 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
     private final CargoFleetData playerData;
     private final CargoFleetData storageData;
 
-    public ContactDialog(PersonAPI person) {
+    public ContactDialog(PersonAPI person, SubmarketAPI storage) {
         super("OpenCDE");
         this.person = person;
-        SubmarketAPI storage = person.getMarket().getSubmarket(Submarkets.SUBMARKET_STORAGE);
         this.playerData = new CargoFleetData(SectorUtils.getPlayerFleet());
         this.storageData = new CargoFleetData(storage);
     }

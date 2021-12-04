@@ -20,7 +20,10 @@ public class CallContact extends Button {
             new EventHandler() {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
-                    ui.showDialog(market.getPrimaryEntity(), new ContactDialog(person));
+                    ui.showDialog(
+                        market.getPrimaryEntity(),
+                        new ContactDialog(person, market.getSubmarket(Submarkets.SUBMARKET_STORAGE))
+                    );
                 }
             }
         );
