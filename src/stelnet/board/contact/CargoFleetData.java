@@ -32,8 +32,8 @@ public class CargoFleetData {
     }
 
     public void add(CargoFleetData other) {
-        addCargo(other.getCargoStacks());
-        addFleet(other.getFleetMembers());
+        addCargo(other.getCargo().getStacksCopy());
+        addFleet(other.getFleet().getMembersListCopy());
     }
 
     public void clear() {
