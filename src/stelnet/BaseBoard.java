@@ -31,7 +31,7 @@ public abstract class BaseBoard extends RenderableIntel {
                 IntelUtils.add(board, true);
                 intel = board;
             } catch (Exception exception) {
-                log.warn("Couldn't create board for " + className.getName(), exception);
+                log.error("Couldn't create board for " + className.getName(), exception);
             }
         }
         return className.cast(intel);

@@ -15,6 +15,7 @@ public class ConfigConstants {
     public static transient boolean UNINSTALL_MOD = false;
 
     public static transient boolean HAS_COMMODITIES = true;
+    public static transient boolean HAS_CONTACTS = true;
     public static transient boolean HAS_MARKET = true;
     public static transient boolean HAS_STORAGE = true;
 
@@ -33,6 +34,7 @@ public class ConfigConstants {
         UNINSTALL_MOD = get("uninstallMod", UNINSTALL_MOD);
 
         HAS_COMMODITIES = get("hasCommodities", HAS_COMMODITIES);
+        HAS_CONTACTS = get("hasContacts", HAS_CONTACTS);
         HAS_MARKET = get("hasMarket", HAS_MARKET);
         HAS_STORAGE = get("hasStorage", HAS_STORAGE);
 

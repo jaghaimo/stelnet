@@ -3,6 +3,7 @@ package stelnet.util;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.commodity.CommodityBoard;
 import stelnet.board.commodity.CommodityIntel;
+import stelnet.board.contact.ContactsBoard;
 import stelnet.board.query.MarketUpdater;
 import stelnet.board.query.QueryBoard;
 import stelnet.board.query.ResultIntel;
@@ -20,12 +21,14 @@ public class ConfigUtils {
 
     public static void activate() {
         initCommodity(ConfigConstants.HAS_COMMODITIES);
+        initContacts(ConfigConstants.HAS_CONTACTS);
         initMarket(ConfigConstants.HAS_MARKET);
         initStorage(ConfigConstants.HAS_STORAGE);
         log.info("Stelnet activated");
     }
 
     public static void deactivate() {
+        initContacts(false);
         initCommodity(false);
         initMarket(false);
         initStorage(false);
@@ -36,6 +39,16 @@ public class ConfigUtils {
         for (Class<?> className : classNames) {
             log.debug("Removing intel " + className);
             IntelUtils.removeAll(className);
+        }
+    }
+
+    private static void initContacts(boolean hasContacts) {
+        if (hasContacts) {
+            ContactsBoard.getInstance(ContactsBoard.class);
+            log.info("Enabled Contact plugin");
+        } else {
+            purgeIntel(ContactsBoard.class);
+            log.info("Disabled Contact plugin");
         }
     }
 

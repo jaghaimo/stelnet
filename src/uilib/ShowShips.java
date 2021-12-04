@@ -34,7 +34,7 @@ public class ShowShips extends RenderableComponent {
             return;
         }
         if (optionalTitle != null) {
-            addSectionTitle(tooltip, optionalTitle, titleColor);
+            addSectionTitle(tooltip, optionalTitle, titleColor, getSize().getWidth() - 12);
         }
         tooltip.showShips(ships, ships.size(), true, 5f);
         setOffsetOfLast(tooltip, -6);

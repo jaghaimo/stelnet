@@ -4,6 +4,7 @@
     "uninstallMod": false, # set to true, load and save the game to remove the mod
     # Module toggles - used to enable or disable specific modules
     "hasCommodities": true,
+    "hasContacts": true,
     "hasMarket": true,
     "hasStorage": true,
     # Board specific config

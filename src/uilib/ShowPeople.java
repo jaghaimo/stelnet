@@ -5,9 +5,9 @@ import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.characters.PersonalityAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.campaign.ids.Ranks;
-import com.fs.starfarer.api.impl.campaign.ids.Strings;
 import com.fs.starfarer.api.ui.LabelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
+import com.fs.starfarer.api.ui.TooltipMakerAPI.TooltipLocation;
 import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 import java.util.Collections;
@@ -53,11 +53,11 @@ public class ShowPeople extends RenderableComponent implements Comparator<Person
         if (previousPost != null) {
             tooltip.addSpacer(UiConstants.DEFAULT_SPACER);
         }
-        addSectionTitle(tooltip, currentPost, groupColor);
+        addSectionTitle(tooltip, currentPost, groupColor, getSize().getWidth() - 12);
     }
 
     private void addPerson(TooltipMakerAPI tooltip, PersonAPI person) {
-        String numberString = " 1" + Strings.X;
+        String numberString = " L" + person.getStats().getLevel();
         TooltipMakerAPI inner = tooltip.beginImageWithText(person.getPortraitSprite(), 16);
         String nameString = getName(person);
         String personalityString = getPersonality(person);
@@ -65,6 +65,9 @@ public class ShowPeople extends RenderableComponent implements Comparator<Person
         label.setHighlightColors(Misc.getHighlightColor(), Misc.getTextColor());
         label.setHighlight(numberString, nameString);
         tooltip.addImageWithText(7);
+        if (isAnyOfficer(person)) {
+            tooltip.addTooltipToPrevious(new ShowPeopleOfficerTooltip(person), TooltipLocation.LEFT);
+        }
     }
 
     private String getName(PersonAPI person) {
@@ -73,8 +76,7 @@ public class ShowPeople extends RenderableComponent implements Comparator<Person
     }
 
     private String getPersonality(PersonAPI person) {
-        String postId = person.getPostId();
-        if (!postId.equals(Ranks.POST_OFFICER_FOR_HIRE) && !postId.equals(Ranks.POST_MERCENARY)) {
+        if (!isAnyOfficer(person)) {
             return "";
         }
         return String.format(" (%s)", person.getPersonalityAPI().getDisplayName());
@@ -115,5 +117,10 @@ public class ShowPeople extends RenderableComponent implements Comparator<Person
                 i++;
         }
         return i;
+    }
+
+    private boolean isAnyOfficer(PersonAPI person) {
+        String postId = person.getPostId();
+        return postId.equals(Ranks.POST_OFFICER_FOR_HIRE) || postId.equals(Ranks.POST_MERCENARY);
     }
 }

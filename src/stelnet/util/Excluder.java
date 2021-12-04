@@ -24,10 +24,10 @@ import stelnet.filter.MarketIsInSystem;
 @Log4j
 public class Excluder {
 
-    private static final String MARKET_BY_FACTION = "data/config/stelnet/market_by_faction.csv";
-    private static final String MARKET_BY_ID = "data/config/stelnet/market_by_id.csv";
-    private static final String MARKET_BY_SYSTEM = "data/config/stelnet/market_by_system.csv";
-    private static final String MARKET_BY_TAG = "data/config/stelnet/market_by_tag.csv";
+    private static final String MARKET_BY_FACTION = "exclude/market_by_faction.csv";
+    private static final String MARKET_BY_ID = "exclude/market_by_id.csv";
+    private static final String MARKET_BY_SYSTEM = "exclude/market_by_system.csv";
+    private static final String MARKET_BY_TAG = "exclude/market_by_tag.csv";
 
     private static transient List<Filter> filters;
 

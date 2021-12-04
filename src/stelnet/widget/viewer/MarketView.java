@@ -20,7 +20,7 @@ import uilib.property.Size;
 
 public class MarketView implements RenderableFactory {
 
-    private final FilteringButtons buttonManager;
+    private final ButtonManager buttonManager;
     private final ContentRenderer activeTab;
     private final DisplayStrategy activeView;
     private final MarketViewState state;

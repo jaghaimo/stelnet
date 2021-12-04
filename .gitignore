@@ -17,6 +17,8 @@ node_modules/
 # Local copies of mod structure (dev env)
 /*.jar
 /data
+/exclude
 /graphics
 /stelnet*
+/translate
 /mod_info.json
