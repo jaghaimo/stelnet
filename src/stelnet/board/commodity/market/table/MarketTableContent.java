@@ -64,7 +64,10 @@ public abstract class MarketTableContent implements TableContent {
             market.getMarketAndFactionDisplayName()
         );
         rowDataElement.addCell(TableCellHelper.getClaimingFactionColor(market.getMarketAPI()), starSystem);
-        rowDataElement.addCell(Misc.getTextColor(), String.format("%.1f", market.getDistanceToPlayer()));
+        rowDataElement.addCell(
+            Misc.getTextColor(),
+            String.format("%.1f", Misc.getDistanceToPlayerLY(market.getPrimaryEntity()))
+        );
         return rowDataElement;
     }
 }
