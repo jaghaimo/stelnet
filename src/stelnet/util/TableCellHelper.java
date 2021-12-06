@@ -3,16 +3,20 @@ package stelnet.util;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import com.fs.starfarer.api.impl.campaign.submarkets.OpenMarketPlugin;
+import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
+import java.util.List;
 
 public class TableCellHelper {
 
     public static int getAvailable(CommodityOnMarketAPI commodity) {
-        int available = OpenMarketPlugin.getApproximateStockpileLimit(commodity);
-        available += commodity.getPlayerTradeNetQuantity();
-        return available;
+        String commodityId = commodity.getId();
+        MarketAPI market = commodity.getMarket();
+        if (commodityId == null || market == null) {
+            return 0;
+        }
+        return getAvailableOnMarket(market, commodityId);
     }
 
     public static Color getFactionColor(FactionAPI faction) {
@@ -40,5 +44,25 @@ public class TableCellHelper {
 
     public static String getLocation(MarketAPI market) {
         return market.getName() + " - " + market.getFaction().getDisplayName();
+    }
+
+    private static int getAvailableOnMarket(MarketAPI market, String commodityId) {
+        float available = 0;
+        List<SubmarketAPI> submarkets = market.getSubmarketsCopy();
+        for (SubmarketAPI submarket : submarkets) {
+            available += submarket.getCargo().getCommodityQuantity(commodityId);
+        }
+        return (int) smartRounding(available);
+    }
+
+    private static float smartRounding(float number) {
+        number = 5 * Math.round(number / 5);
+        if (number > 100) {
+            number = 10 * Math.round(number / 10);
+        }
+        if (number > 1000) {
+            number = 100 * Math.round(number / 100);
+        }
+        return (int) number;
     }
 }
