@@ -1,10 +1,10 @@
-package stelnet.board.commodity.market.table;
+package stelnet.board.commodity.table;
 
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import java.util.List;
 import stelnet.board.commodity.CommodityL10n;
-import stelnet.board.commodity.market.price.DemandPrice;
+import stelnet.board.commodity.price.DemandPrice;
 import stelnet.util.TableCellHelper;
 
 public class SellTableContent extends MarketTableContent {

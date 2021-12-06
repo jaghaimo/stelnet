@@ -1,4 +1,4 @@
-package stelnet.board.commodity.market.table;
+package stelnet.board.commodity.table;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.ui.Alignment;
