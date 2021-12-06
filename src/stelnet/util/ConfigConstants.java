@@ -4,7 +4,6 @@ import java.io.IOException;
 import lombok.extern.log4j.Log4j;
 import org.json.JSONException;
 import org.json.JSONObject;
-import stelnet.filter.Filter;
 
 @Log4j
 public class ConfigConstants {
@@ -47,24 +46,6 @@ public class ConfigConstants {
         VIEWER_USE_MILITARY_MARKET = get("viewerUseMilitaryMarket", VIEWER_USE_MILITARY_MARKET);
         VIEWER_USE_BLACK_MARKET = get("viewerUseBlackMarket", VIEWER_USE_BLACK_MARKET);
         VIEWER_USE_CUSTOM_MARKETS = get("viewerUseCustomMarkets", VIEWER_USE_CUSTOM_MARKETS);
-    }
-
-    public static Filter getQuerySubmarketFilter() {
-        return Excluder.getSubmarketFilters(
-            QUERY_USE_OPEN_MARKET,
-            QUERY_USE_MILITARY_MARKET,
-            QUERY_USE_BLACK_MARKET,
-            QUERY_USE_CUSTOM_MARKETS
-        );
-    }
-
-    public static Filter getViewerSubmarketFilter() {
-        return Excluder.getSubmarketFilters(
-            VIEWER_USE_OPEN_MARKET,
-            VIEWER_USE_MILITARY_MARKET,
-            VIEWER_USE_BLACK_MARKET,
-            VIEWER_USE_CUSTOM_MARKETS
-        );
     }
 
     protected static JSONObject load() throws JSONException, IOException {
