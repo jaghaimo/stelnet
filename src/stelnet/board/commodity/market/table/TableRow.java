@@ -11,27 +11,15 @@ public class TableRow implements TableContentRow {
     ArrayList<Object> elements = new ArrayList<>();
 
     public void addRowNumberCell(Integer i) {
-        addRowNumberCell(Misc.getGrayColor(), i);
-    }
-
-    public void addRowNumberCell(Color color, Integer i) {
-        addCell(color, i + ".");
+        addCell(Misc.getGrayColor(), i + ".");
     }
 
     public void addDGSCreditsCell(float value) {
-        addDGSCreditsCell(Misc.getTextColor(), value);
-    }
-
-    public void addDGSCreditsCell(Color color, float value) {
-        addCell(color, Misc.getDGSCredits(value));
+        addCell(Misc.getTextColor(), Misc.getDGSCredits(value));
     }
 
     public void addDGSCell(int value) {
-        addDGSCell(Misc.getTextColor(), value);
-    }
-
-    public void addDGSCell(Color color, int value) {
-        addCell(color, Misc.getWithDGS(value));
+        addCell(Misc.getTextColor(), Misc.getWithDGS(value));
     }
 
     public void addExcessDemandCell(int value) {

@@ -51,10 +51,6 @@ public abstract class MarketTableContent implements TableContent {
         }
     }
 
-    protected abstract TableRow createRowData(int i, MarketAPI market);
-
-    protected abstract float getPrice(MarketAPI market);
-
     protected TableRow createRowData(int i, MarketAPI market, int demandOrAvailability, int excessOrDeficit) {
         String starSystem = StringUtils.getStarSystem(market);
         TableRow rowDataElement = new TableRow();
@@ -74,7 +70,11 @@ public abstract class MarketTableContent implements TableContent {
         return rowDataElement;
     }
 
+    protected abstract TableRow createRowData(int i, MarketAPI market);
+
     protected CommodityOnMarketAPI getCommodityData(MarketAPI market) {
         return market.getCommodityData(commodityId);
     }
+
+    protected abstract float getPrice(MarketAPI market);
 }
