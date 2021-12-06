@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.commodity.CommodityState.CommodityTab;
-import stelnet.board.commodity.market.price.Price;
+import stelnet.board.commodity.price.Price;
 import stelnet.util.EconomyUtils;
 import stelnet.util.IntelUtils;
 

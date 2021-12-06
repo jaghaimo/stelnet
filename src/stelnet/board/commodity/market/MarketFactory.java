@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import stelnet.board.commodity.market.price.Price;
+import stelnet.board.commodity.price.Price;
 import stelnet.filter.MarketNotHidden;
 import stelnet.util.CollectionUtils;
 import stelnet.util.EconomyUtils;
