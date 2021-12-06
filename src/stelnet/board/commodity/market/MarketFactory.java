@@ -1,7 +1,6 @@
 package stelnet.board.commodity.market;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -16,12 +15,12 @@ public abstract class MarketFactory {
 
     protected final String commodityId;
 
-    public List<MarketApiWrapper> createMarkets() {
+    public List<MarketAPI> createMarkets() {
         List<MarketAPI> markets = EconomyUtils.getMarkets();
         CollectionUtils.reduce(markets, new MarketNotHidden());
         filterMarkets(markets);
         sortMarkets(markets);
-        return mapToWrapper(markets);
+        return markets;
     }
 
     protected void sortMarkets(List<MarketAPI> markets) {
@@ -36,19 +35,6 @@ public abstract class MarketFactory {
                 }
             }
         );
-    }
-
-    private List<MarketApiWrapper> mapToWrapper(List<MarketAPI> entities) {
-        List<MarketApiWrapper> list = new ArrayList<>();
-        for (MarketAPI marketAPI : entities) {
-            MarketApiWrapper marketApiWrapper = MarketApiWrapper
-                .builder()
-                .marketAPI(marketAPI)
-                .price(getPrice())
-                .build();
-            list.add(marketApiWrapper);
-        }
-        return list;
     }
 
     protected abstract Price getPrice();

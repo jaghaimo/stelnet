@@ -1,12 +1,13 @@
 package stelnet.board.commodity.market.table;
 
+import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.util.Misc;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.commodity.CommodityL10n;
-import stelnet.board.commodity.market.MarketApiWrapper;
 import stelnet.util.L10n;
 import stelnet.util.StringUtils;
 import stelnet.util.TableCellHelper;
@@ -17,7 +18,7 @@ import uilib.TableContent;
 public abstract class MarketTableContent implements TableContent {
 
     protected final String commodityId;
-    protected final List<MarketApiWrapper> markets;
+    protected final List<MarketAPI> markets;
     protected List<TableRow> rows = new ArrayList<>();
 
     protected Object[] getHeader(float width, Enum<?> availableOrDemand, Enum<?> excessOrDeficit) {
@@ -44,30 +45,36 @@ public abstract class MarketTableContent implements TableContent {
         rows.clear();
         int i = 1;
 
-        for (MarketApiWrapper market : markets) {
+        for (MarketAPI market : markets) {
             TableRow row = createRowData(i++, market);
             rows.add(row);
         }
     }
 
-    protected abstract TableRow createRowData(int i, MarketApiWrapper market);
+    protected abstract TableRow createRowData(int i, MarketAPI market);
 
-    protected TableRow createRowData(int i, MarketApiWrapper market, int demandOrAvailability, int excessOrDeficit) {
-        String starSystem = StringUtils.getStarSystem(market.getMarketAPI());
+    protected abstract float getPrice(MarketAPI market);
+
+    protected TableRow createRowData(int i, MarketAPI market, int demandOrAvailability, int excessOrDeficit) {
+        String starSystem = StringUtils.getStarSystem(market);
         TableRow rowDataElement = new TableRow();
         rowDataElement.addRowNumberCell(i);
-        rowDataElement.addDGSCreditsCell(market.getPriceAmount());
+        rowDataElement.addDGSCreditsCell(getPrice(market));
         rowDataElement.addDGSCell(demandOrAvailability);
         rowDataElement.addExcessDemandCell(excessOrDeficit);
         rowDataElement.addCell(
-            TableCellHelper.getFactionColor(market.getMarketAPI().getFaction()),
-            market.getMarketAndFactionDisplayName()
+            TableCellHelper.getFactionColor(market.getFaction()),
+            StringUtils.getMarketAndFactionDisplayName(market)
         );
-        rowDataElement.addCell(TableCellHelper.getClaimingFactionColor(market.getMarketAPI()), starSystem);
+        rowDataElement.addCell(TableCellHelper.getClaimingFactionColor(market), starSystem);
         rowDataElement.addCell(
             Misc.getTextColor(),
             String.format("%.1f", Misc.getDistanceToPlayerLY(market.getPrimaryEntity()))
         );
         return rowDataElement;
+    }
+
+    protected CommodityOnMarketAPI getCommodityData(MarketAPI market) {
+        return market.getCommodityData(commodityId);
     }
 }
