@@ -2,15 +2,13 @@ package stelnet.board.commodity.market.table;
 
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import com.fs.starfarer.api.util.Misc;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.commodity.CommodityL10n;
+import stelnet.board.commodity.market.price.Price;
 import stelnet.util.L10n;
-import stelnet.util.StringUtils;
-import stelnet.util.TableCellHelper;
 import uilib.TableContent;
 
 @RequiredArgsConstructor
@@ -19,7 +17,8 @@ public abstract class MarketTableContent implements TableContent {
 
     protected final String commodityId;
     protected final List<MarketAPI> markets;
-    protected List<TableRow> rows = new ArrayList<>();
+    protected final Price price;
+    protected List<TableRow> rows = new LinkedList<>();
 
     protected Object[] getHeader(float width, Enum<?> availableOrDemand, Enum<?> excessOrDeficit) {
         Object header[] = {
@@ -44,37 +43,15 @@ public abstract class MarketTableContent implements TableContent {
     protected void createRows() {
         rows.clear();
         int i = 1;
-
         for (MarketAPI market : markets) {
             TableRow row = createRowData(i++, market);
             rows.add(row);
         }
     }
 
-    protected TableRow createRowData(int i, MarketAPI market, int demandOrAvailability, int excessOrDeficit) {
-        String starSystem = StringUtils.getStarSystem(market);
-        TableRow rowDataElement = new TableRow();
-        rowDataElement.addRowNumberCell(i);
-        rowDataElement.addDGSCreditsCell(getPrice(market));
-        rowDataElement.addDGSCell(demandOrAvailability);
-        rowDataElement.addExcessDemandCell(excessOrDeficit);
-        rowDataElement.addCell(
-            TableCellHelper.getFactionColor(market.getFaction()),
-            StringUtils.getMarketAndFactionDisplayName(market)
-        );
-        rowDataElement.addCell(TableCellHelper.getClaimingFactionColor(market), starSystem);
-        rowDataElement.addCell(
-            Misc.getTextColor(),
-            String.format("%.1f", Misc.getDistanceToPlayerLY(market.getPrimaryEntity()))
-        );
-        return rowDataElement;
-    }
-
-    protected abstract TableRow createRowData(int i, MarketAPI market);
-
     protected CommodityOnMarketAPI getCommodityData(MarketAPI market) {
         return market.getCommodityData(commodityId);
     }
 
-    protected abstract float getPrice(MarketAPI market);
+    protected abstract TableRow createRowData(int i, MarketAPI market);
 }

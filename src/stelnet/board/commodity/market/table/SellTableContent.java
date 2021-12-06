@@ -5,16 +5,12 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import java.util.List;
 import stelnet.board.commodity.CommodityL10n;
 import stelnet.board.commodity.market.price.DemandPrice;
-import stelnet.board.commodity.market.price.Price;
 import stelnet.util.TableCellHelper;
 
 public class SellTableContent extends MarketTableContent {
 
-    private final Price price;
-
     public SellTableContent(String commodityId, List<MarketAPI> sellMarket) {
-        super(commodityId, sellMarket);
-        price = new DemandPrice(commodityId);
+        super(commodityId, sellMarket, new DemandPrice(commodityId));
         createRows();
     }
 
@@ -28,11 +24,7 @@ public class SellTableContent extends MarketTableContent {
         CommodityOnMarketAPI commodityData = getCommodityData(market);
         int demand = TableCellHelper.getDemand(market, commodityData);
         int deficit = -commodityData.getDeficitQuantity();
-        return createRowData(i, market, demand, deficit);
-    }
-
-    @Override
-    protected float getPrice(MarketAPI market) {
-        return price.getPriceAmount(market);
+        float sellPrice = price.getPriceAmount(market);
+        return new TableRow(i, sellPrice, market, demand, deficit);
     }
 }
