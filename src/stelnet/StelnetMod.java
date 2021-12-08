@@ -30,5 +30,7 @@ public class StelnetMod extends BaseModPlugin {
         if (TutorialMissionIntel.isTutorialInProgress()) {
             return;
         }
+        ConfigUtils.configure();
+        ConfigUtils.activate();
     }
 }
