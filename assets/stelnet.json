@@ -10,10 +10,10 @@
     # Board specific config
     "queryUseOpenMarket": true,
     "queryUseMilitaryMarket": true,
-    "queryUseBlackMarket": false,
+    "queryUseBlackMarket": true,
     "queryUseCustomMarkets": false,
     "viewerUseOpenMarket": true,
     "viewerUseMilitaryMarket": true,
-    "viewerUseBlackMarket": false,
+    "viewerUseBlackMarket": true,
     "viewerUseCustomMarkets": false
 }

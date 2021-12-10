@@ -7,6 +7,7 @@ import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.CampaignUIAPI;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.SectorAPI;
+import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
 
 /**
@@ -40,6 +41,10 @@ public class SectorUtils {
 
     public static boolean isPaused() {
         return getSector().isPaused();
+    }
+
+    public static void layInCourseFor(SectorEntityToken target) {
+        getSector().layInCourseFor(target);
     }
 
     public static void removeTransientScript(EveryFrameScript script) {

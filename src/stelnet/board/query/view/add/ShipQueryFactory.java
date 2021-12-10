@@ -32,6 +32,10 @@ public class ShipQueryFactory extends QueryFactory {
     private final FilteringButton[] builtIns = ShipButtonUtils.getBuiltIns(provider);
     private final FilteringButton[] dMods = ShipButtonUtils.getDMods(provider);
 
+    public void addDmodFilters(Set<Filter> filters) {
+        addSelectedOrNone(filters, dMods, L10n.get(QueryL10n.DMODS), true);
+    }
+
     public void setFighterBays(FighterBaysButton active) {
         Iterable<FilteringButton> iterable = Arrays.asList(mountBays);
         Iterator<FilteringButton> iterator = iterable.iterator();
@@ -49,7 +53,7 @@ public class ShipQueryFactory extends QueryFactory {
         Set<Filter> filters = getCommonFilters();
         addSelectedOrNone(filters, builtIns, L10n.get(QueryL10n.BUILT_IN), true);
         if (forResults) {
-            addSelectedOrNone(filters, dMods, L10n.get(QueryL10n.DMODS), true);
+            addDmodFilters(filters);
         }
         return filters;
     }
