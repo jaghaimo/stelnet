@@ -1,9 +1,9 @@
-package stelnet.board.commodity.view.button;
+package stelnet.board.commodity.view;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import stelnet.board.commodity.CommodityState.CommodityTab;
 import stelnet.board.commodity.IntelTracker;
-import stelnet.board.commodity.market.MarketApiWrapper;
 import uilib.AreaCheckbox;
 import uilib.EventHandler;
 import uilib.property.Location;
@@ -16,10 +16,10 @@ public class IntelButton extends AreaCheckbox {
         int i,
         final CommodityTab commodityTab,
         final String commodityId,
-        final MarketApiWrapper market,
+        final MarketAPI market,
         final IntelTracker tracker
     ) {
-        super(new Size(28f, 24f), String.valueOf(i), true, tracker.has(commodityTab.id, commodityId, market));
+        super(new Size(28f, 24f), String.valueOf(i), true, tracker.has(commodityTab.name(), commodityId, market));
         setLocation(Location.BOTTOM_LEFT);
         setOffset(new Position(0, 1));
         setHandler(

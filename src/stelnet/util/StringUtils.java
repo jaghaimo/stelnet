@@ -8,6 +8,10 @@ import stelnet.CommonL10n;
 
 public class StringUtils {
 
+    public static String getMarketAndFactionDisplayName(MarketAPI market) {
+        return String.format("%s - %s", market.getName(), market.getFaction().getDisplayName());
+    }
+
     public static String getStarSystem(MarketAPI market) {
         return getStarSystem(market.getStarSystem());
     }

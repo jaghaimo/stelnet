@@ -3,8 +3,6 @@ package stelnet.board.commodity.view;
 import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import stelnet.board.commodity.view.button.DeleteAllIntel;
-import stelnet.board.commodity.view.button.DeleteCommodityIntel;
 import uilib.Renderable;
 import uilib.RenderableFactory;
 import uilib.VerticalViewContainer;

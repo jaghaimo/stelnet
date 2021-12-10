@@ -3,7 +3,7 @@ package stelnet.board.commodity.market;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import java.util.List;
 import lombok.Getter;
-import stelnet.board.commodity.market.price.DemandPrice;
+import stelnet.board.commodity.price.DemandPrice;
 import stelnet.filter.MarketCommodityDemand;
 import stelnet.util.CollectionUtils;
 

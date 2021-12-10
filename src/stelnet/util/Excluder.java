@@ -31,6 +31,24 @@ public class Excluder {
 
     private static transient List<Filter> filters;
 
+    public static Filter getQuerySubmarketFilter() {
+        return Excluder.getSubmarketFilters(
+            ConfigConstants.QUERY_USE_OPEN_MARKET,
+            ConfigConstants.QUERY_USE_MILITARY_MARKET,
+            ConfigConstants.QUERY_USE_BLACK_MARKET,
+            ConfigConstants.QUERY_USE_CUSTOM_MARKETS
+        );
+    }
+
+    public static Filter getViewerSubmarketFilter() {
+        return Excluder.getSubmarketFilters(
+            ConfigConstants.VIEWER_USE_OPEN_MARKET,
+            ConfigConstants.VIEWER_USE_MILITARY_MARKET,
+            ConfigConstants.VIEWER_USE_BLACK_MARKET,
+            ConfigConstants.VIEWER_USE_CUSTOM_MARKETS
+        );
+    }
+
     public static Filter getMarketFilters() {
         if (filters == null) {
             filters = new ArrayList<>();
@@ -42,7 +60,7 @@ public class Excluder {
         return new LogicalNot(new LogicalOr(filters, "Markets"));
     }
 
-    public static Filter getSubmarketFilters(
+    private static Filter getSubmarketFilters(
         boolean useOpenMarket,
         boolean useMilitaryMarket,
         boolean useBlackMarket,
