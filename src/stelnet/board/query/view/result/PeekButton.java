@@ -4,7 +4,7 @@ import com.fs.starfarer.api.campaign.CoreUITabId;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.ui.IntelUIAPI;
-import stelnet.board.query.QueryL10n;
+import stelnet.CommonL10n;
 import stelnet.board.viewer.ViewerBoard;
 import stelnet.util.L10n;
 import stelnet.util.SectorUtils;
@@ -14,10 +14,10 @@ import uilib.EventHandler;
 import uilib.UiConstants;
 import uilib.property.Size;
 
-public class ViewerButton extends Button {
+public class PeekButton extends Button {
 
-    public ViewerButton(final MarketAPI market) {
-        super(new Size(UiConstants.AUTO_WIDTH, UiConstants.DEFAULT_ROW_HEIGHT), L10n.get(QueryL10n.VIEWER), true);
+    public PeekButton(final MarketAPI market) {
+        super(new Size(UiConstants.AUTO_WIDTH, UiConstants.DEFAULT_ROW_HEIGHT), L10n.get(CommonL10n.PEEK), true);
         setPadding(0);
         setCutStyle(CutStyle.C2_MENU);
         setHandler(
