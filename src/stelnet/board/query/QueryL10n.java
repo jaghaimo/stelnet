@@ -21,7 +21,6 @@ public enum QueryL10n {
     GROUP_BY_SYSTEM,
     ITEM_TYPES,
     MANUFACTURERS,
-    MAP,
     MATCHING_ITEMS,
     MATCHING_SHIPS,
     MOUNT_SIZE,
@@ -47,7 +46,6 @@ public enum QueryL10n {
     SELECT_ITEMS_TO_SEARCH_FOR,
     SELECT_SHIPS_TO_SEARCH_FOR,
     TITLE,
-    VIEWER,
     WEAPON_MOUNTS,
     WING_ROLES,
 }

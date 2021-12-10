@@ -1,6 +1,7 @@
 package stelnet;
 
 import com.fs.starfarer.api.BaseModPlugin;
+import com.fs.starfarer.api.impl.campaign.tutorial.TutorialMissionIntel;
 import stelnet.util.ConfigConstants;
 import stelnet.util.ConfigUtils;
 import stelnet.util.ReportUtils;
@@ -26,6 +27,9 @@ public class StelnetMod extends BaseModPlugin {
 
     @Override
     public void onGameLoad(boolean newGame) {
+        if (TutorialMissionIntel.isTutorialInProgress()) {
+            return;
+        }
         ConfigUtils.configure();
         ConfigUtils.activate();
     }

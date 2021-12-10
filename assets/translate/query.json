@@ -19,7 +19,6 @@
     "GROUP_BY_SYSTEM": "By System",
     "ITEM_TYPES": "Item types",
     "MANUFACTURERS": "Design type",
-    "MAP": "Map",
     "MATCHING_ITEMS": "Matchings items",
     "MATCHING_SHIPS": "Matching ships",
     "MOUNT_SIZE": "Mount size",
@@ -45,7 +44,6 @@
     "SELECT_ITEMS_TO_SEARCH_FOR": "Select items to search for...",
     "SELECT_SHIPS_TO_SEARCH_FOR": "Select ships to search for...",
     "TITLE": "Queries",
-    "VIEWER": "Viewer",
     "WEAPON_MOUNTS": "Weapon Mounts",
     "WING_ROLES": "Wing roles"
 }
