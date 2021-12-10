@@ -19,11 +19,16 @@ import uilib.property.Size;
 public class PersonnelQueryFactory extends QueryFactory {
 
     @Getter
-    private final PeopleProvider provider = new PeopleProvider(this);
+    private transient PeopleProvider provider = new PeopleProvider(this);
 
     private final FilteringButton[] postType = PersonnelButtonUtils.getPostTypeButtons();
     private final FilteringButton[] personality = PersonnelButtonUtils.getPersonalityButtons();
     private final FilteringButton[] skill = PersonnelButtonUtils.getSkillButtons();
+
+    public Object readResolve() {
+        provider = new PeopleProvider(this);
+        return this;
+    }
 
     @Override
     public Set<Filter> getFilters(boolean forResults) {
