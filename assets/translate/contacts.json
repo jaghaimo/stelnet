@@ -3,7 +3,7 @@
     "BOARD_TITLE": "Contacts",
     "CONTACT_LIST": "Contact List",
     "CONTACT_TYPE": "Contact Type",
-    "DISPLAY_LOCATION_TEXT": "{0} is stationed on {1} in {2}.",
+    "DISPLAY_LOCATION_TEXT": "{0} is stationed on the {1} in {2}.",
     "DISPLAY_MISSION_TEXT": "The {0} contact can offer {1} missions.",
     "IMPORTANCE": "Importance",
     "NONE": "No matching contacts found - change your filtering criteria."
