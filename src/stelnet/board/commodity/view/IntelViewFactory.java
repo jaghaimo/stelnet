@@ -5,9 +5,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import stelnet.board.commodity.CommodityState.CommodityTab;
+import stelnet.board.commodity.CommodityTab;
 import stelnet.board.commodity.IntelTracker;
-import stelnet.board.commodity.market.MarketRepository;
 import uilib.HorizontalViewContainer;
 import uilib.Renderable;
 import uilib.RenderableFactory;
@@ -22,8 +21,7 @@ public class IntelViewFactory implements RenderableFactory {
 
     @Override
     public List<Renderable> create(Size size) {
-        MarketRepository marketRepository = new MarketRepository(commodityId);
-        List<MarketAPI> markets = marketRepository.getMarketsByType(commodityTab);
+        List<MarketAPI> markets = commodityTab.getMarkets(commodityId);
         int numberOfButtons = calcNumberOfButtons(markets, size);
 
         List<Renderable> buttons = new LinkedList<>();

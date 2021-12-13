@@ -4,9 +4,6 @@ import com.fs.starfarer.api.impl.campaign.ids.Commodities;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import stelnet.board.commodity.price.DemandPrice;
-import stelnet.board.commodity.price.Price;
-import stelnet.board.commodity.price.SupplyPrice;
 import uilib.Renderable;
 import uilib.RenderableState;
 import uilib.property.Size;
@@ -14,25 +11,6 @@ import uilib.property.Size;
 @Getter
 @Setter
 public class CommodityState implements RenderableState {
-
-    public static enum CommodityTab {
-        BUY {
-            @Override
-            public Price getPrice(String commodityId) {
-                return new SupplyPrice(commodityId);
-            }
-        },
-        SELL {
-            @Override
-            public Price getPrice(String commodityId) {
-                return new DemandPrice(commodityId);
-            }
-        };
-
-        public Price getPrice(String commodityId) {
-            return null;
-        }
-    }
 
     private String commodityId = Commodities.SUPPLIES;
     private CommodityTab activeTab = CommodityTab.BUY;

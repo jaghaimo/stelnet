@@ -3,7 +3,6 @@ package stelnet.board.commodity;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import stelnet.board.commodity.CommodityState.CommodityTab;
 import stelnet.board.commodity.view.ButtonViewFactory;
 import stelnet.board.commodity.view.DeleteViewFactory;
 import stelnet.board.commodity.view.IntelViewFactory;

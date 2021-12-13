@@ -2,7 +2,7 @@ package stelnet.board.commodity.view;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import stelnet.board.commodity.CommodityBoard;
-import stelnet.board.commodity.CommodityState.CommodityTab;
+import stelnet.board.commodity.CommodityTab;
 import stelnet.util.L10n;
 import uilib.TabButton;
 
