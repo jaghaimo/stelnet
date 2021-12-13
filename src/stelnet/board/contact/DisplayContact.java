@@ -100,7 +100,7 @@ public class DisplayContact extends HeadingWithButtons {
             ContactsL10n.DISPLAY_LOCATION_TEXT,
             Misc.ucFirst(person.getHeOrShe()),
             market.getName(),
-            StringUtils.getStarSystem(market, false)
+            StringUtils.getStarSystem(market, true)
         );
     }
 }

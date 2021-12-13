@@ -33,9 +33,9 @@ public class StringUtils {
             return L10n.get(CommonL10n.HYPERSPACE);
         }
         if (shortName) {
-            return starSystem.getBaseName();
+            return starSystem.getNameWithLowercaseTypeShort();
         }
-        return starSystem.getName();
+        return starSystem.getNameWithLowercaseType();
     }
 
     public static String join(Iterable<?> iterable, String delimiter, String empty) {
