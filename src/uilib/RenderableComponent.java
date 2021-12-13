@@ -4,8 +4,6 @@ import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.PositionAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.font.FontRenderContext;
 import lombok.Getter;
 import lombok.Setter;
 import uilib.property.Location;
@@ -43,19 +41,6 @@ public abstract class RenderableComponent implements Renderable {
         tooltip.addPara(sectionTitle, color, 0);
         tooltip.setParaFontDefault();
         tooltip.addButton("", "", color, color, width, 0, 0);
-    }
-
-    /**
-     * Calculate the width of a string. Works reliably for default font only.
-     *
-     * @deprecated Alex will add new method to TooltipMakerAPI and Misc in 0.95.1
-     * @link https://stackoverflow.com/a/14832962
-     */
-    protected float getTextWidth(String text) {
-        Font font = new Font("Dialog", Font.PLAIN, 12);
-        FontRenderContext frc = new FontRenderContext(font.getTransform(), true, true);
-        double longTextAdjustment = 20 + text.length() * 0.8; // needed as we are not using same font
-        return (float) Math.round(font.getStringBounds(text, frc).getWidth() + longTextAdjustment);
     }
 
     protected void setOffsetOfLast(TooltipMakerAPI tooltip, float offset) {
