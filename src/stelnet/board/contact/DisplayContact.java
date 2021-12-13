@@ -3,6 +3,7 @@ package stelnet.board.contact;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
+import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.LabelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.ui.UIComponentAPI;
@@ -25,7 +26,7 @@ public class DisplayContact extends HeadingWithButtons {
 
     public DisplayContact(ContactIntel intel, float width) {
         this(intel, intel.getMapLocation(null).getMarket(), intel.getPerson());
-        setSize(new Size(width - 5, imageHeight + 2 * UiConstants.DEFAULT_SPACER));
+        setSize(new Size(width - 5, imageHeight + 3 * UiConstants.DEFAULT_SPACER));
         setWithScroller(false);
     }
 
@@ -36,13 +37,15 @@ public class DisplayContact extends HeadingWithButtons {
     }
 
     private void renderHeaderAndBody(TooltipMakerAPI tooltip) {
-        TooltipMakerAPI inner = tooltip.beginImageWithText(person.getPortraitSprite(), imageHeight);
-        addSectionTitle(
-            inner,
-            person.getNameString() + " - " + person.getImportance().getDisplayName(),
+        TooltipMakerAPI inner = tooltip.beginImageWithText(person.getPortraitSprite(), 40);
+        inner.addSectionHeading(
+            " " + person.getNameString() + " - " + person.getImportance().getDisplayName(),
             person.getFaction().getBaseUIColor(),
-            getSize().getWidth() - imageHeight - UiConstants.DEFAULT_SPACER * 2
+            person.getFaction().getDarkUIColor(),
+            Alignment.LMID,
+            0
         );
+        inner.setForceProcessInput(true);
         inner.addSpacer(6);
         LabelAPI missionParagraph = inner.addPara(getMissionTypeText(), 0);
         missionParagraph.setHighlight(getTagStrings(person));
@@ -55,14 +58,14 @@ public class DisplayContact extends HeadingWithButtons {
     private void renderButtons(TooltipMakerAPI tooltip) {
         String label1 = L10n.get(CommonL10n.CALL);
         String label2 = L10n.get(CommonL10n.SHOW);
-        Size buttonSize = getButtonSize(label1, label2);
+        Size buttonSize = getButtonSize(tooltip, label1, label2);
         tooltip.setButtonFontVictor14();
         UIComponentAPI call = renderFirst(
             new CallContact(label1, buttonSize, market, person),
-            getSize().getWidth() - 0,
+            getSize().getWidth() - 5,
             tooltip
         );
-        call.getPosition().setYAlignOffset(UiConstants.DEFAULT_ROW_HEIGHT + imageHeight - buttonSize.getHeight());
+        call.getPosition().setYAlignOffset(imageHeight + 8);
         renderNext(
             new ShowContactButton(label2, buttonSize, intel, person.getFaction()),
             tooltip,
@@ -71,10 +74,9 @@ public class DisplayContact extends HeadingWithButtons {
         );
     }
 
-    private Size getButtonSize(String label1, String label2) {
-        float width = 50 + Math.max(getTextWidth(label1), getTextWidth(label2));
-        float height = UiConstants.VICTOR_14_BUTTON_HEIGHT;
-        return new Size(width, height);
+    private Size getButtonSize(TooltipMakerAPI tooltip, String label1, String label2) {
+        float width = 20 + Math.max(tooltip.computeStringWidth(label1), tooltip.computeStringWidth(label2));
+        return new Size(width, UiConstants.DEFAULT_ROW_HEIGHT);
     }
 
     private String getMissionTypeText() {
