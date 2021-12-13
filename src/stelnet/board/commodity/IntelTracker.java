@@ -37,7 +37,7 @@ public class IntelTracker {
 
     public void remove(CommodityIntel intel) {
         String key = getKey(intel.getAction(), intel.getCommodityId(), intel.getMarket());
-        remove(intel, key);
+        removeIntel(intel, key);
     }
 
     public void removeAll() {
@@ -59,13 +59,13 @@ public class IntelTracker {
         String key = getKey(action, commodityId, market);
         CommodityIntel intel = intelMap.get(key);
         if (intel == null) {
-            add(commodityId, commodityTab, market);
+            addIntel(commodityId, commodityTab, market);
         } else {
-            remove(intel, key);
+            removeIntel(intel, key);
         }
     }
 
-    private void add(String commodityId, CommodityTab commodityTab, MarketAPI market) {
+    private void addIntel(String commodityId, CommodityTab commodityTab, MarketAPI market) {
         String action = commodityTab.name();
         String key = getKey(action, commodityId, market);
         CommoditySpecAPI commodity = EconomyUtils.getCommoditySpec(commodityId);
@@ -80,16 +80,16 @@ public class IntelTracker {
         return action + ":" + commodityId + ":" + market.getName();
     }
 
-    private void remove(CommodityIntel intel, String key) {
-        IntelUtils.remove(intel);
-        intelMap.remove(key);
-        log.debug("Removed existing intel with key " + key);
-    }
-
     private void removeIfCommodity(String key, String commodityId) {
         CommodityIntel intel = intelMap.get(key);
         if (intel.getCommodityId().equals(commodityId)) {
-            remove(intel, key);
+            removeIntel(intel, key);
         }
+    }
+
+    private void removeIntel(CommodityIntel intel, String key) {
+        IntelUtils.remove(intel);
+        intelMap.remove(key);
+        log.debug("Removed existing intel with key " + key);
     }
 }
