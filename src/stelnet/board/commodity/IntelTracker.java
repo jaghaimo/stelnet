@@ -18,7 +18,7 @@ public class IntelTracker {
 
     private transient Map<String, CommodityIntel> intelMap = new LinkedHashMap<>();
 
-    public Object readResolve() {
+    public void restore() {
         intelMap = new LinkedHashMap<>();
         for (IntelInfoPlugin intel : IntelUtils.getAll(CommodityIntel.class)) {
             CommodityIntel elevatedIntel = (CommodityIntel) intel;
@@ -26,7 +26,6 @@ public class IntelTracker {
             String key = getKey(elevatedIntel.getAction(), commodity.getId(), elevatedIntel.getMarket());
             intelMap.put(key, elevatedIntel);
         }
-        return this;
     }
 
     public boolean has(String action, String commodityId, MarketAPI market) {
