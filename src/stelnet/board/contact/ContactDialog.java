@@ -29,6 +29,12 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
     }
 
     @Override
+    public void notifyActivePersonChanged() {
+        super.notifyActivePersonChanged();
+        optionSelected("", FAILSAFE_LEAVE);
+    }
+
+    @Override
     public void optionSelected(String text, Object optionData) {
         if (optionData.equals("cutCommLink")) {
             optionData = FAILSAFE_LEAVE;
