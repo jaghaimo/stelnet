@@ -17,8 +17,9 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
     public ContactDialog(PersonAPI person, SubmarketAPI storage) {
         super("OpenCDE");
         this.person = person;
-        this.playerData = new CargoFleetData(SectorUtils.getPlayerFleet());
-        this.storageData = new CargoFleetData(storage);
+        playerData = new CargoFleetData(SectorUtils.getPlayerFleet());
+        playerData.clear();
+        storageData = new CargoFleetData(storage);
     }
 
     @Override
@@ -27,7 +28,6 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
         token.setActivePerson(person);
         super.init(dialog);
         this.dialog = dialog;
-        playerData.clear();
     }
 
     @Override
