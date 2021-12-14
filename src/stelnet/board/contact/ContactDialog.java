@@ -9,6 +9,7 @@ import stelnet.util.SectorUtils;
 
 public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
 
+    private InteractionDialogAPI dialog;
     private final PersonAPI person;
     private final CargoFleetData playerData;
     private final CargoFleetData storageData;
@@ -25,24 +26,29 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
         SectorEntityToken token = dialog.getInteractionTarget();
         token.setActivePerson(person);
         super.init(dialog);
+        this.dialog = dialog;
         playerData.clear();
     }
 
     @Override
     public void notifyActivePersonChanged() {
+        dialog.hideVisualPanel();
         super.notifyActivePersonChanged();
-        optionSelected("", FAILSAFE_LEAVE);
+        dismiss();
     }
 
     @Override
     public void optionSelected(String text, Object optionData) {
         if (optionData.equals("cutCommLink")) {
-            optionData = FAILSAFE_LEAVE;
-        }
-        if (optionData.equals(FAILSAFE_LEAVE)) {
-            storageData.add(playerData);
-            playerData.restore();
+            dismiss();
+            return;
         }
         super.optionSelected(text, optionData);
+    }
+
+    private void dismiss() {
+        storageData.add(playerData);
+        playerData.restore();
+        dialog.dismiss();
     }
 }
