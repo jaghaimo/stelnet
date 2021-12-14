@@ -14,7 +14,7 @@ public class ShowContactButton extends Button {
 
     public ShowContactButton(String label, Size size, final ContactIntel intel, FactionAPI faction) {
         super(size, label, true, faction.getBrightUIColor(), faction.getDarkUIColor());
-        setCutStyle(CutStyle.BL_TR);
+        setCutStyle(CutStyle.C2_MENU);
         setPadding(0);
         setHandler(
             new EventHandler() {

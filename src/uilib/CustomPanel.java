@@ -15,9 +15,10 @@ public class CustomPanel extends RenderableComponent {
 
     @Override
     public void render(CustomPanelAPI panel, float x, float y) {
-        Size size = getSize();
+        Size size = renderable.getSize();
         customPanel = panel.createCustomPanel(size.getWidth(), size.getHeight(), null);
-        renderable.render(customPanel, x, y);
+        renderable.render(customPanel, 0, 0);
+        super.render(panel, x, y);
     }
 
     @Override

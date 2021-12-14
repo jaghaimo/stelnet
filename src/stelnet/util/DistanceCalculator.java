@@ -14,10 +14,10 @@ public class DistanceCalculator {
         }
         float distance = Misc.getDistanceLY(entity1.getLocationInHyperspace(), entity2.getLocationInHyperspace());
         if (!entity1.isInHyperspace()) {
-            distance += getDistanceToClosestJumpPoint(entity1);
+            distance += getDistanceToClosestJumpOutPoint(entity1);
         }
         if (!entity2.isInHyperspace()) {
-            distance += getDistanceToClosestJumpPoint(entity2);
+            distance += getDistanceToClosestJumpInPoint(entity2);
         }
         return distance;
     }
@@ -36,7 +36,15 @@ public class DistanceCalculator {
         return entity1Location == entity2Location;
     }
 
-    private static float getDistanceToClosestJumpPoint(SectorEntityToken entity) {
+    private static float getDistanceToClosestJumpOutPoint(SectorEntityToken entity) {
+        JumpPointAPI jumpPoint = Misc.findNearestJumpPointThatCouldBeExitedFrom(entity);
+        if (jumpPoint == null) {
+            return 0;
+        }
+        return Misc.getDistanceLY(jumpPoint.getLocation(), entity.getLocation());
+    }
+
+    private static float getDistanceToClosestJumpInPoint(SectorEntityToken entity) {
         JumpPointAPI jumpPoint = Misc.findNearestJumpPointTo(entity);
         if (jumpPoint == null) {
             return 0;

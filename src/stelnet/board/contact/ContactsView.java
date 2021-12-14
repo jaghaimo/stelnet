@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import stelnet.filter.Filter;
 import stelnet.filter.LogicalOr;
 import stelnet.util.L10n;
+import uilib.CustomPanel;
 import uilib.Heading;
 import uilib.HorizontalViewContainer;
 import uilib.Paragraph;
@@ -28,13 +29,16 @@ public class ContactsView implements RenderableFactory {
 
     @Override
     public List<Renderable> create(Size size) {
-        return Collections.<Renderable>singletonList(
-            new HorizontalViewContainer(
-                new VerticalViewContainer(getContacts(size.getWidth() - 170)),
-                new Spacer(UiConstants.DEFAULT_SPACER),
-                new VerticalViewContainer(getButtons())
-            )
+        VerticalViewContainer contacts = new VerticalViewContainer(getContacts(size.getWidth() - 170));
+        CustomPanel panel = new CustomPanel(contacts);
+        panel.setSize(new Size(size.getWidth() - 168, size.getHeight()));
+        HorizontalViewContainer container = new HorizontalViewContainer(
+            panel,
+            new Spacer(UiConstants.DEFAULT_SPACER - 4),
+            new VerticalViewContainer(getButtons())
         );
+        container.setSize(size);
+        return Collections.<Renderable>singletonList(container);
     }
 
     private List<Filter> getSelectedFilters() {

@@ -4,7 +4,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import java.util.Collections;
 import java.util.List;
 import lombok.Getter;
-import stelnet.board.commodity.market.price.SupplyPrice;
+import stelnet.board.commodity.price.SupplyPrice;
 import stelnet.filter.MarketCommodityAvailable;
 import stelnet.util.CollectionUtils;
 

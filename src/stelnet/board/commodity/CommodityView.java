@@ -3,7 +3,6 @@ package stelnet.board.commodity;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import stelnet.board.commodity.CommodityState.CommodityTab;
 import stelnet.board.commodity.view.ButtonViewFactory;
 import stelnet.board.commodity.view.DeleteViewFactory;
 import stelnet.board.commodity.view.IntelViewFactory;
@@ -16,7 +15,7 @@ import uilib.property.Size;
 public class CommodityView implements RenderableFactory {
 
     private final String commodityId;
-    private final CommodityTab activeTab;
+    private final CommodityAction activeTab;
     private final IntelTracker intelTracker;
 
     @Override

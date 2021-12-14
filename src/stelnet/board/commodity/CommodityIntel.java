@@ -2,6 +2,7 @@ package stelnet.board.commodity;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.RelationshipAPI;
 import com.fs.starfarer.api.util.Misc;
 import java.util.ArrayList;
@@ -10,9 +11,8 @@ import lombok.Getter;
 import stelnet.BaseIntel;
 import stelnet.CommonL10n;
 import stelnet.IntelInfo;
-import stelnet.board.commodity.market.MarketApiWrapper;
-import stelnet.board.commodity.market.price.Price;
-import stelnet.board.commodity.view.button.DeleteIntel;
+import stelnet.board.commodity.price.Price;
+import stelnet.board.commodity.view.DeleteIntel;
 import stelnet.util.L10n;
 import stelnet.util.ModConstants;
 import uilib.Heading;
@@ -27,23 +27,18 @@ public class CommodityIntel extends BaseIntel {
 
     private final String action;
     private final CommoditySpecAPI commodity;
-    private final MarketApiWrapper marketWrapper;
+    private final MarketAPI market;
     private final Price priceProvider;
     private final float price;
     private final String tag = ModConstants.TAG_COMMODITY;
 
-    public CommodityIntel(
-        String action,
-        CommoditySpecAPI commodity,
-        MarketApiWrapper marketWrapper,
-        Price priceProvider
-    ) {
-        super(marketWrapper.getFaction(), marketWrapper.getPrimaryEntity());
+    public CommodityIntel(String action, CommoditySpecAPI commodity, MarketAPI market, Price priceProvider) {
+        super(market.getFaction(), market.getPrimaryEntity());
         this.action = action;
         this.commodity = commodity;
-        this.marketWrapper = marketWrapper;
+        this.market = market;
         this.priceProvider = priceProvider;
-        this.price = marketWrapper.getPriceAmount();
+        this.price = priceProvider.getPriceAmount(market);
     }
 
     @Override
@@ -58,7 +53,7 @@ public class CommodityIntel extends BaseIntel {
 
     @Override
     public boolean isEnding() {
-        return Math.abs(price - marketWrapper.getPriceAmount()) > 1;
+        return Math.abs(price - priceProvider.getPriceAmount(market)) > 1;
     }
 
     public String getCommodityId() {
@@ -79,9 +74,9 @@ public class CommodityIntel extends BaseIntel {
     @Override
     protected List<Renderable> getRenderableList(Size size) {
         float width = size.getWidth();
-        FactionAPI faction = marketWrapper.getFaction();
+        FactionAPI faction = market.getFaction();
         List<Renderable> elements = new ArrayList<>();
-        elements.add(new Heading(marketWrapper.getName(), faction.getBaseUIColor(), faction.getDarkUIColor()));
+        elements.add(new Heading(market.getName(), faction.getBaseUIColor(), faction.getDarkUIColor()));
         elements.add(new Image(faction.getLogo(), width, 128));
         elements.add(new Spacer(10f));
         addPriceChange(elements, width);
@@ -93,16 +88,14 @@ public class CommodityIntel extends BaseIntel {
 
     private void addPriceChange(List<Renderable> elements, float width) {
         if (isEnding()) {
+            float currentPrice = priceProvider.getPriceAmount(market);
             String priceChangeText = L10n.get(
                 CommodityL10n.PRICE_CHANGED,
                 Misc.getDGSCredits(price),
-                Misc.getDGSCredits(marketWrapper.getPriceAmount())
+                Misc.getDGSCredits(currentPrice)
             );
             Paragraph priceChangeRenderable = new Paragraph(priceChangeText, width);
-            priceChangeRenderable.setHighlightStrings(
-                Misc.getDGSCredits(price),
-                Misc.getDGSCredits(marketWrapper.getPriceAmount())
-            );
+            priceChangeRenderable.setHighlightStrings(Misc.getDGSCredits(price), Misc.getDGSCredits(currentPrice));
             priceChangeRenderable.setHighlightColors(Misc.getHighlightColor(), Misc.getHighlightColor());
             elements.add(priceChangeRenderable);
             elements.add(new Spacer(10f));
@@ -110,7 +103,7 @@ public class CommodityIntel extends BaseIntel {
     }
 
     private void addRelationship(List<Renderable> elements, float width) {
-        FactionAPI faction = marketWrapper.getFaction();
+        FactionAPI faction = market.getFaction();
         RelationshipAPI relationship = faction.getRelToPlayer();
         String translatedRep = relationship.getLevel().getDisplayName().toLowerCase();
         Paragraph relationshipRenderable = new Paragraph(

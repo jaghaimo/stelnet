@@ -28,6 +28,7 @@ public class StelnetMod extends BaseModPlugin {
     @Override
     public void onGameLoad(boolean newGame) {
         if (TutorialMissionIntel.isTutorialInProgress()) {
+            ConfigUtils.deactivate();
             return;
         }
         ConfigUtils.configure();

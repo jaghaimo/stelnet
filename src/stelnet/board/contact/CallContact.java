@@ -14,7 +14,7 @@ public class CallContact extends Button {
     public CallContact(String label, Size size, final MarketAPI market, final PersonAPI person) {
         super(size, label, true, person.getFaction().getBrightUIColor(), person.getFaction().getDarkUIColor());
         setEnabled(market.hasSubmarket(Submarkets.SUBMARKET_STORAGE));
-        setCutStyle(CutStyle.TL_BR);
+        setCutStyle(CutStyle.C2_MENU);
         setPadding(0);
         setHandler(
             new EventHandler() {

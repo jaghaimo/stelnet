@@ -22,7 +22,7 @@ import uilib.property.Size;
 public class ItemQueryFactory extends QueryFactory {
 
     @Getter
-    private final ItemProvider provider = new ItemProvider(this);
+    private transient ItemProvider provider = new ItemProvider(this);
 
     private final FilteringButton[] itemTypes = ItemButtonUtils.createItemTypes();
     private final FilteringButton[] designTypes = ItemButtonUtils.createManufacturers(provider);
@@ -30,6 +30,11 @@ public class ItemQueryFactory extends QueryFactory {
     private final FilteringButton[] weaponMountSizes = ItemButtonUtils.createWeaponMountSize();
     private final FilteringButton[] weaponMountTypes = ItemButtonUtils.createWeaponMountType();
     private final FilteringButton[] wingRoles = ItemButtonUtils.createWingRole();
+
+    public Object readResolve() {
+        provider = new ItemProvider(this);
+        return this;
+    }
 
     @Override
     public Set<Filter> getFilters(boolean forResults) {

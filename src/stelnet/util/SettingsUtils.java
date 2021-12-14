@@ -7,6 +7,7 @@ import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.characters.SkillSpecAPI;
 import com.fs.starfarer.api.loading.ContactTagSpec;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
+import com.fs.starfarer.api.ui.Fonts;
 import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 import java.io.IOException;
@@ -23,6 +24,14 @@ import org.json.JSONObject;
  */
 @Log4j
 public class SettingsUtils {
+
+    public static float computeStringWidth(String text) {
+        return computeStringWidth(text, Fonts.DEFAULT_SMALL);
+    }
+
+    public static float computeStringWidth(String text, String font) {
+        return getSettings().computeStringWidth(text, font);
+    }
 
     public static PersonAPI createPerson() {
         return getSettings().createPerson();

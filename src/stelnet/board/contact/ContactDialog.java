@@ -9,6 +9,7 @@ import stelnet.util.SectorUtils;
 
 public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
 
+    private InteractionDialogAPI dialog;
     private final PersonAPI person;
     private final CargoFleetData playerData;
     private final CargoFleetData storageData;
@@ -16,8 +17,9 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
     public ContactDialog(PersonAPI person, SubmarketAPI storage) {
         super("OpenCDE");
         this.person = person;
-        this.playerData = new CargoFleetData(SectorUtils.getPlayerFleet());
-        this.storageData = new CargoFleetData(storage);
+        playerData = new CargoFleetData(SectorUtils.getPlayerFleet());
+        playerData.clear();
+        storageData = new CargoFleetData(storage);
     }
 
     @Override
@@ -25,18 +27,28 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
         SectorEntityToken token = dialog.getInteractionTarget();
         token.setActivePerson(person);
         super.init(dialog);
-        playerData.clear();
+        this.dialog = dialog;
+    }
+
+    @Override
+    public void notifyActivePersonChanged() {
+        dialog.hideVisualPanel();
+        super.notifyActivePersonChanged();
+        dismiss();
     }
 
     @Override
     public void optionSelected(String text, Object optionData) {
         if (optionData.equals("cutCommLink")) {
-            optionData = FAILSAFE_LEAVE;
-        }
-        if (optionData.equals(FAILSAFE_LEAVE)) {
-            storageData.add(playerData);
-            playerData.restore();
+            dismiss();
+            return;
         }
         super.optionSelected(text, optionData);
+    }
+
+    private void dismiss() {
+        storageData.add(playerData);
+        playerData.restore();
+        dialog.dismiss();
     }
 }

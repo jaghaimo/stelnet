@@ -22,7 +22,7 @@ import uilib.property.Size;
 public class ShipQueryFactory extends QueryFactory {
 
     @Getter
-    private final ShipProvider provider = new ShipProvider(this);
+    private transient ShipProvider provider = new ShipProvider(this);
 
     private final FilteringButton[] classSizes = ShipButtonUtils.getClassSizes();
     private final FilteringButton[] mountSizes = ShipButtonUtils.getMountSizes();
@@ -31,6 +31,11 @@ public class ShipQueryFactory extends QueryFactory {
     private final FilteringButton[] designTypes = ShipButtonUtils.getManufacturers(provider);
     private final FilteringButton[] builtIns = ShipButtonUtils.getBuiltIns(provider);
     private final FilteringButton[] dMods = ShipButtonUtils.getDMods(provider);
+
+    public Object readResolve() {
+        provider = new ShipProvider(this);
+        return this;
+    }
 
     public void addDmodFilters(Set<Filter> filters) {
         addSelectedOrNone(filters, dMods, L10n.get(QueryL10n.DMODS), true);

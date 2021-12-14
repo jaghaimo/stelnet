@@ -9,6 +9,7 @@ import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 import lombok.Getter;
 import lombok.Setter;
+import stelnet.util.SettingsUtils;
 import uilib.property.Size;
 
 @Getter
@@ -39,7 +40,7 @@ public class Button extends RenderableComponent implements ButtonHandler {
         this.textColor = textColor;
         this.backgroundColor = backgroundColor;
         if (size.getWidth() == 0) {
-            size = new Size(getTextWidth(title), size.getHeight());
+            size = new Size(SettingsUtils.computeStringWidth(title) + 10, size.getHeight());
         }
         setSize(size);
         setWithScroller(false);

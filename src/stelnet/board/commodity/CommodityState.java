@@ -12,20 +12,8 @@ import uilib.property.Size;
 @Setter
 public class CommodityState implements RenderableState {
 
-    public static enum CommodityTab {
-        BUY("Buy"),
-        SELL("Sell"),
-        PROFIT("Profit");
-
-        public final String id;
-
-        private CommodityTab(String id) {
-            this.id = id;
-        }
-    }
-
     private String commodityId = Commodities.SUPPLIES;
-    private CommodityTab activeTab = CommodityTab.BUY;
+    private CommodityAction activeTab = CommodityAction.BUY;
     private final IntelTracker intelTracker = new IntelTracker();
 
     public void deleteIntel() {

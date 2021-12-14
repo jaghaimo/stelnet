@@ -25,7 +25,10 @@ public class ToggleButton extends Button implements TwoStateButton {
     ) {
         super(size, toggledOnTitle, isEnabled);
         if (size.getWidth() == 0) {
-            float maxWidth = Math.max(getTextWidth(toggledOnTitle), getTextWidth(toggledOffTitle));
+            float maxWidth = Math.max(
+                10 + SettingsUtils.computeStringWidth(toggledOnTitle),
+                10 + SettingsUtils.computeStringWidth(toggledOffTitle)
+            );
             size = new Size(maxWidth, size.getHeight());
         }
         this.titleOff = toggledOffTitle;

@@ -50,12 +50,8 @@ public class TabViewContainer extends RenderableComponent {
     private Renderable getTabToDisplay(CustomPanelAPI panel) {
         Renderable tabToDisplay = getActiveTab();
         CustomPanel customPanel = new CustomPanel(tabToDisplay);
-        customPanel.setSize(tabToDisplay.getSize());
-        customPanel.render(panel, 0, 0);
-        Group outerContainer = new Group(customPanel);
-        outerContainer.setSize(getSize().reduce(outerContainerSizeCorrection));
-        outerContainer.setWithScroller(true);
-        return outerContainer;
+        customPanel.setSize(getSize().reduce(outerContainerSizeCorrection));
+        return customPanel;
     }
 
     private Renderable getActiveTab() {
