@@ -9,7 +9,7 @@ import stelnet.board.commodity.price.DemandPrice;
 import stelnet.board.commodity.price.Price;
 import stelnet.board.commodity.price.SupplyPrice;
 
-public enum CommodityTab {
+public enum CommodityAction {
     BUY {
         @Override
         public List<MarketAPI> getMarkets(String commodityId) {

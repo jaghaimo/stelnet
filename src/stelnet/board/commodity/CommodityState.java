@@ -13,7 +13,7 @@ import uilib.property.Size;
 public class CommodityState implements RenderableState {
 
     private String commodityId = Commodities.SUPPLIES;
-    private CommodityTab activeTab = CommodityTab.BUY;
+    private CommodityAction activeTab = CommodityAction.BUY;
     private final IntelTracker intelTracker = new IntelTracker();
 
     public void deleteIntel() {

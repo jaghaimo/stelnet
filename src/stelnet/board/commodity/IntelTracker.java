@@ -52,22 +52,22 @@ public class IntelTracker {
         }
     }
 
-    public void toggle(String commodityId, CommodityTab commodityTab, MarketAPI market) {
-        String action = commodityTab.name();
+    public void toggle(String commodityId, CommodityAction commodityAction, MarketAPI market) {
+        String action = commodityAction.name();
         String key = getKey(action, commodityId, market);
         CommodityIntel intel = intelMap.get(key);
         if (intel == null) {
-            addIntel(commodityId, commodityTab, market);
+            addIntel(commodityId, commodityAction, market);
         } else {
             removeIntel(intel, key);
         }
     }
 
-    private void addIntel(String commodityId, CommodityTab commodityTab, MarketAPI market) {
-        String action = commodityTab.name();
+    private void addIntel(String commodityId, CommodityAction commodityAction, MarketAPI market) {
+        String action = commodityAction.name();
         String key = getKey(action, commodityId, market);
         CommoditySpecAPI commodity = EconomyUtils.getCommoditySpec(commodityId);
-        Price price = commodityTab.getPrice(commodityId);
+        Price price = commodityAction.getPrice(commodityId);
         CommodityIntel intel = new CommodityIntel(action, commodity, market, price);
         IntelUtils.add(intel, true);
         intelMap.put(key, intel);

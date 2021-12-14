@@ -15,7 +15,7 @@ import uilib.property.Size;
 public class CommodityView implements RenderableFactory {
 
     private final String commodityId;
-    private final CommodityTab activeTab;
+    private final CommodityAction activeTab;
     private final IntelTracker intelTracker;
 
     @Override

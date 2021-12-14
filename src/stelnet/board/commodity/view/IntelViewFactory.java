@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import stelnet.board.commodity.CommodityTab;
+import stelnet.board.commodity.CommodityAction;
 import stelnet.board.commodity.IntelTracker;
 import uilib.HorizontalViewContainer;
 import uilib.Renderable;
@@ -16,18 +16,18 @@ import uilib.property.Size;
 public class IntelViewFactory implements RenderableFactory {
 
     private final String commodityId;
-    private final CommodityTab commodityTab;
+    private final CommodityAction commodityAction;
     private final IntelTracker tracker;
 
     @Override
     public List<Renderable> create(Size size) {
-        List<MarketAPI> markets = commodityTab.getMarkets(commodityId);
+        List<MarketAPI> markets = commodityAction.getMarkets(commodityId);
         int numberOfButtons = calcNumberOfButtons(markets, size);
 
         List<Renderable> buttons = new LinkedList<>();
         for (int i = 0; i < numberOfButtons; i++) {
             MarketAPI market = markets.get(i);
-            buttons.add(new IntelButton(i + 1, commodityTab, commodityId, market, tracker));
+            buttons.add(new IntelButton(i + 1, commodityAction, commodityId, market, tracker));
         }
 
         HorizontalViewContainer rows = new HorizontalViewContainer(buttons);

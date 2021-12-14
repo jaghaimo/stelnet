@@ -1,16 +1,16 @@
 package stelnet.board.commodity.view;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
+import stelnet.board.commodity.CommodityAction;
 import stelnet.board.commodity.CommodityBoard;
-import stelnet.board.commodity.CommodityTab;
 import stelnet.util.L10n;
 import uilib.TabButton;
 
 public class CommodityTabButton extends TabButton {
 
-    private final CommodityTab currentTab;
+    private final CommodityAction currentTab;
 
-    public CommodityTabButton(CommodityTab currentTab, CommodityTab activeTab, int shortcut) {
+    public CommodityTabButton(CommodityAction currentTab, CommodityAction activeTab, int shortcut) {
         super(L10n.get(currentTab), currentTab.equals(activeTab), shortcut);
         this.currentTab = currentTab;
     }
