@@ -23,7 +23,7 @@ public class ContactsState implements RenderableState {
     private transient Set<ContactFilterButton> importanceButtons;
     private Map<MarketAPI, TrackingCargoFleetData> needingPickup;
 
-    {
+    public ContactsState() {
         readResolve();
     }
 
@@ -44,12 +44,12 @@ public class ContactsState implements RenderableState {
     }
 
     public void addTrackingData(MarketAPI market, CargoFleetData currentContent, CargoFleetData newContent) {
-        TrackingCargoFleetData newTrackingCargoFleetData = new TrackingCargoFleetData(currentContent, newContent);
         TrackingCargoFleetData oldTrackingCargoFleetData = needingPickup.get(market);
         if (oldTrackingCargoFleetData == null) {
+            TrackingCargoFleetData newTrackingCargoFleetData = new TrackingCargoFleetData(currentContent, newContent);
             needingPickup.put(market, newTrackingCargoFleetData);
         } else {
-            oldTrackingCargoFleetData.add(newTrackingCargoFleetData);
+            oldTrackingCargoFleetData.add(newContent);
         }
     }
 

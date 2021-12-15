@@ -16,11 +16,14 @@ import uilib.UiConstants;
 
 public class ContactsPanel extends CustomPanel {
 
+    private final float width;
+    private final float marketWidth = 200;
     private final Map<MarketAPI, TrackingCargoFleetData> needingPickup;
 
-    public ContactsPanel(Renderable renderable, Map<MarketAPI, TrackingCargoFleetData> needingPickup) {
+    public ContactsPanel(float width, Renderable renderable, Map<MarketAPI, TrackingCargoFleetData> needingPickup) {
         super(renderable);
         this.needingPickup = needingPickup;
+        this.width = width;
     }
 
     @Override
@@ -31,9 +34,9 @@ public class ContactsPanel extends CustomPanel {
     @Override
     public void render(TooltipMakerAPI tooltip) {
         if (!needingPickup.isEmpty()) {
-            tooltip.addSectionHeading("Ships and items pending collection", Alignment.MID, 10);
+            tooltip.addSectionHeading("Awaiting Collection", Alignment.MID, 10);
             tooltip.addSpacer(UiConstants.DEFAULT_SPACER);
-            tooltip.beginGridFlipped(500, 1, Misc.getTextColor(), 200, UiConstants.DEFAULT_SPACER);
+            tooltip.beginGridFlipped(width, 1, Misc.getTextColor(), marketWidth, UiConstants.DEFAULT_SPACER);
             addMarkets(tooltip);
             tooltip.addGrid(0);
             tooltip.addSpacer(1.5f * UiConstants.DEFAULT_SPACER);

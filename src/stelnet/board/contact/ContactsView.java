@@ -32,9 +32,10 @@ public class ContactsView implements RenderableFactory {
 
     @Override
     public List<Renderable> create(Size size) {
+        float width = size.getWidth() - 168;
         VerticalViewContainer contacts = new VerticalViewContainer(buildLeftPanel(size.getWidth() - 170));
-        CustomPanel panel = new ContactsPanel(contacts, needingPickup);
-        panel.setSize(new Size(size.getWidth() - 168, size.getHeight()));
+        CustomPanel panel = new ContactsPanel(width, contacts, needingPickup);
+        panel.setSize(new Size(width, size.getHeight()));
         HorizontalViewContainer container = new HorizontalViewContainer(
             panel,
             new Spacer(UiConstants.DEFAULT_SPACER - 4),
