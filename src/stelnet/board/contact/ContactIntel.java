@@ -83,7 +83,7 @@ public class ContactIntel extends BaseIntel {
             renderableList.add(new Spacer(UiConstants.DEFAULT_SPACER));
             renderableList.add(new ShowShips(trackerData.getNewContentInFleet(), "", size));
         }
-        renderableList.add(new Spacer(2 * UiConstants.DEFAULT_SPACER));
+        renderableList.add(new Spacer(3 * UiConstants.DEFAULT_SPACER));
         renderableList.add(new ContactIntelDelete(size.getWidth(), this));
         return renderableList;
     }
