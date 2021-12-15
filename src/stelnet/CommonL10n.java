@@ -13,6 +13,7 @@ public enum CommonL10n {
     CIVILIANS,
     COMMODITIES,
     CRUISERS,
+    DELETE,
     DESTROYERS,
     FIGHTER_WINGS,
     FILTER_NUMBER_OF_BAYS,

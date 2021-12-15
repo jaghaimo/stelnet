@@ -22,7 +22,7 @@ public class CallContact extends Button {
                 public void onConfirm(IntelUIAPI ui) {
                     ui.showDialog(
                         market.getPrimaryEntity(),
-                        new ContactDialog(person, market.getSubmarket(Submarkets.SUBMARKET_STORAGE))
+                        new ContactDialog(ui, person, market.getSubmarket(Submarkets.SUBMARKET_STORAGE))
                     );
                 }
             }

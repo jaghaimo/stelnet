@@ -11,6 +11,7 @@
     "CIVILIANS": "Civilians",
     "COMMODITIES": "Commodities",
     "CRUISERS": "Cruisers",
+    "DELETE": "Delete",
     "DESTROYERS": "Destroyers",
     "FIGHTER_WINGS": "Fighter Wings",
     "FILTER_NUMBER_OF_BAYS": "{0, choice, 0#None|0<At least {0, number, integer}}",

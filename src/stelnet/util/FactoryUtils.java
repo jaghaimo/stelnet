@@ -9,11 +9,20 @@ import com.fs.starfarer.api.campaign.SpecialItemData;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.fleet.FleetMemberType;
 import com.fs.starfarer.api.impl.campaign.ids.Items;
+import java.util.List;
 
 public class FactoryUtils {
 
     public static CargoAPI createCargo() {
         return getFactory().createCargo(true);
+    }
+
+    public static CargoAPI createCargo(List<CargoStackAPI> stacks) {
+        CargoAPI cargo = createCargo();
+        for (CargoStackAPI stack : stacks) {
+            cargo.addFromStack(stack);
+        }
+        return cargo;
     }
 
     public static CargoStackAPI createFighterItem(String variant) {
