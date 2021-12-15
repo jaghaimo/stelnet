@@ -16,6 +16,12 @@ public class TrackingCargoFleetData extends CargoFleetData {
         );
     }
 
+    @Override
+    public void add(CargoFleetData other) {
+        cargoStacks.addAll(other.getCargo().getStacksCopy());
+        fleetMembers.addAll(other.getFleet().getMembersListCopy());
+    }
+
     public List<CargoStackAPI> getNewContentInCargo() {
         List<CargoStackAPI> cargoStacksCopy = new LinkedList<>();
         for (CargoStackAPI stack : cargoStacks) {
@@ -34,6 +40,10 @@ public class TrackingCargoFleetData extends CargoFleetData {
             }
         }
         return fleetMembersCopy;
+    }
+
+    public boolean hasAny() {
+        return hasAnyInCargo() || hasAnyInFleet();
     }
 
     public boolean hasAnyInCargo() {

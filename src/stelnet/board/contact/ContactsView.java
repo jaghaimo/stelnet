@@ -1,9 +1,11 @@
 package stelnet.board.contact;
 
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import stelnet.filter.Filter;
@@ -26,19 +28,48 @@ public class ContactsView implements RenderableFactory {
     private final ContactProvider provider = new ContactProvider();
     private final Set<ContactFilterButton> missionTypeButtons;
     private final Set<ContactFilterButton> importanceButtons;
+    private final Map<MarketAPI, TrackingCargoFleetData> needingPickup;
 
     @Override
     public List<Renderable> create(Size size) {
-        VerticalViewContainer contacts = new VerticalViewContainer(getContacts(size.getWidth() - 170));
-        CustomPanel panel = new CustomPanel(contacts);
+        VerticalViewContainer contacts = new VerticalViewContainer(buildLeftPanel(size.getWidth() - 170));
+        CustomPanel panel = new ContactsPanel(contacts, needingPickup);
         panel.setSize(new Size(size.getWidth() - 168, size.getHeight()));
         HorizontalViewContainer container = new HorizontalViewContainer(
             panel,
             new Spacer(UiConstants.DEFAULT_SPACER - 4),
-            new VerticalViewContainer(getButtons())
+            new VerticalViewContainer(buildRightPanel())
         );
         container.setSize(size);
         return Collections.<Renderable>singletonList(container);
+    }
+
+    private List<Renderable> buildLeftPanel(float width) {
+        List<Renderable> elements = new LinkedList<>();
+        addContacts(elements, width);
+        return elements;
+    }
+
+    private List<Renderable> buildRightPanel() {
+        List<Renderable> elements = new LinkedList<>();
+        elements.add(new Heading(L10n.get(ContactsL10n.CONTACT_TYPE), 165));
+        elements.add(new Spacer(UiConstants.DEFAULT_SPACER));
+        elements.addAll(missionTypeButtons);
+        elements.add(new Spacer(UiConstants.DEFAULT_SPACER * 3));
+        elements.add(new Heading(L10n.get(ContactsL10n.IMPORTANCE), 165));
+        elements.add(new Spacer(UiConstants.DEFAULT_SPACER));
+        elements.addAll(importanceButtons);
+        return elements;
+    }
+
+    private void addContacts(List<Renderable> elements, float width) {
+        List<ContactIntel> contacts = provider.getContacts(getSelectedFilters());
+        for (ContactIntel contact : contacts) {
+            elements.add(new DisplayContact(contact, width));
+        }
+        if (elements.isEmpty()) {
+            elements.add(new Paragraph(L10n.get(ContactsL10n.NONE), width));
+        }
     }
 
     private List<Filter> getSelectedFilters() {
@@ -56,31 +87,5 @@ public class ContactsView implements RenderableFactory {
             }
         }
         return selected;
-    }
-
-    private List<Renderable> getContacts(float width) {
-        List<Renderable> elements = new LinkedList<>();
-        List<ContactIntel> contacts = provider.getContacts(getSelectedFilters());
-        for (ContactIntel contact : contacts) {
-            elements.add(new DisplayContact(contact, width));
-        }
-        if (elements.isEmpty()) {
-            elements.add(new Paragraph(L10n.get(ContactsL10n.NONE), width));
-        }
-        elements.add(0, new Spacer(UiConstants.DEFAULT_SPACER));
-        elements.add(0, new Heading(L10n.get(ContactsL10n.CONTACT_LIST), width));
-        return elements;
-    }
-
-    private List<Renderable> getButtons() {
-        List<Renderable> elements = new LinkedList<>();
-        elements.add(new Heading(L10n.get(ContactsL10n.CONTACT_TYPE), 165));
-        elements.add(new Spacer(UiConstants.DEFAULT_SPACER));
-        elements.addAll(missionTypeButtons);
-        elements.add(new Spacer(UiConstants.DEFAULT_SPACER * 3));
-        elements.add(new Heading(L10n.get(ContactsL10n.IMPORTANCE), 165));
-        elements.add(new Spacer(UiConstants.DEFAULT_SPACER));
-        elements.addAll(importanceButtons);
-        return elements;
     }
 }

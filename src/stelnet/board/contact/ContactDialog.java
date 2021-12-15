@@ -7,7 +7,6 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.impl.campaign.RuleBasedInteractionDialogPluginImpl;
 import com.fs.starfarer.api.ui.IntelUIAPI;
-import stelnet.util.IntelUtils;
 import stelnet.util.SectorUtils;
 
 public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
@@ -54,18 +53,12 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
     }
 
     private void dismiss() {
-        TrackingCargoFleetData trackerData = new TrackingCargoFleetData(storageData, playerData);
+        ContactsBoard
+            .getInstance(ContactsBoard.class)
+            .getRenderableState()
+            .addTrackingData(market, storageData, playerData);
         storageData.add(playerData);
         playerData.restore();
         dialog.dismiss();
-        addIntelIfNeeded(trackerData);
-    }
-
-    private void addIntelIfNeeded(TrackingCargoFleetData trackerData) {
-        ContactIntel intel = new ContactIntel(market, trackerData);
-        if (intel.hasContent()) {
-            IntelUtils.add(intel);
-            ui.recreateIntelUI();
-        }
     }
 }
