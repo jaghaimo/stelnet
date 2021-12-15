@@ -21,7 +21,7 @@ public class ContactsState implements RenderableState {
     private transient ContactProvider provider;
     private transient Set<ContactFilterButton> contactTypeButtons;
     private transient Set<ContactFilterButton> importanceButtons;
-    private Map<MarketAPI, TrackingCargoFleetData> needingPickup;
+    private Map<MarketAPI, TrackingCargoFleetData> awaitingCollection;
 
     public ContactsState() {
         readResolve();
@@ -37,17 +37,17 @@ public class ContactsState implements RenderableState {
         }
         createTypeButtons();
         createImportanceButtons();
-        if (needingPickup == null) {
-            needingPickup = new LinkedHashMap<>();
+        if (awaitingCollection == null) {
+            awaitingCollection = new LinkedHashMap<>();
         }
         return this;
     }
 
     public void addTrackingData(MarketAPI market, CargoFleetData currentContent, CargoFleetData newContent) {
-        TrackingCargoFleetData oldTrackingCargoFleetData = needingPickup.get(market);
+        TrackingCargoFleetData oldTrackingCargoFleetData = awaitingCollection.get(market);
         if (oldTrackingCargoFleetData == null) {
             TrackingCargoFleetData newTrackingCargoFleetData = new TrackingCargoFleetData(currentContent, newContent);
-            needingPickup.put(market, newTrackingCargoFleetData);
+            awaitingCollection.put(market, newTrackingCargoFleetData);
         } else {
             oldTrackingCargoFleetData.add(newContent);
         }
@@ -55,8 +55,8 @@ public class ContactsState implements RenderableState {
 
     @Override
     public List<Renderable> toRenderableList(Size size) {
-        pruneNeedingPickup();
-        return (new ContactsView(contactTypeButtons, importanceButtons, needingPickup)).create(size);
+        pruneAwaitingCollection();
+        return (new ContactsView(contactTypeButtons, importanceButtons, awaitingCollection)).create(size);
     }
 
     private void createImportanceButtons() {
@@ -81,17 +81,17 @@ public class ContactsState implements RenderableState {
         }
     }
 
-    private void pruneNeedingPickup() {
-        Set<MarketAPI> markets = new LinkedHashSet<>(needingPickup.keySet());
+    private void pruneAwaitingCollection() {
+        Set<MarketAPI> markets = new LinkedHashSet<>(awaitingCollection.keySet());
         for (MarketAPI market : markets) {
-            pruneIfNeeded(market);
+            removeIfNeeded(market);
         }
     }
 
-    private void pruneIfNeeded(MarketAPI market) {
-        TrackingCargoFleetData trackingCargoFleetData = needingPickup.get(market);
+    private void removeIfNeeded(MarketAPI market) {
+        TrackingCargoFleetData trackingCargoFleetData = awaitingCollection.get(market);
         if (!trackingCargoFleetData.hasAny()) {
-            needingPickup.remove(market);
+            awaitingCollection.remove(market);
         }
     }
 }
