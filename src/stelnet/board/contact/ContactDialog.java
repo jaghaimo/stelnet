@@ -53,13 +53,11 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
     }
 
     private void dismiss() {
-        ContactsBoard
-            .getInstance(ContactsBoard.class)
-            .getRenderableState()
-            .addTrackingData(market, storageData, playerData);
+        ContactsBoard board = ContactsBoard.getInstance(ContactsBoard.class);
+        board.getRenderableState().addTrackingData(market, storageData, playerData);
         storageData.add(playerData);
         playerData.restore();
         dialog.dismiss();
-        ui.updateUIForItem(ContactsBoard.getInstance(ContactsBoard.class));
+        ui.updateUIForItem(board);
     }
 }
