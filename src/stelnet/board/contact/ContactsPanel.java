@@ -4,7 +4,6 @@ import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.ui.Alignment;
-import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import java.util.Map;
@@ -28,11 +27,6 @@ public class ContactsPanel extends CustomPanel {
         super(renderable);
         this.awaitingCollection = awaitingCollection;
         this.width = width;
-    }
-
-    @Override
-    public void render(CustomPanelAPI panel, float x, float y) {
-        super.render(panel, 0, 0);
     }
 
     @Override
