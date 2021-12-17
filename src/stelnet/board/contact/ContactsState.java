@@ -18,11 +18,11 @@ import uilib.property.Size;
 
 public class ContactsState implements RenderableState {
 
+    private Map<MarketAPI, TrackingCargoFleetData> awaitingCollection;
     // TODO make these transient on next minor update
     private Set<ContactFilterButton> contactTypeButtons;
     private Set<ContactFilterButton> importanceButtons;
     private transient ContactProvider provider;
-    private Map<MarketAPI, TrackingCargoFleetData> awaitingCollection;
 
     public ContactsState() {
         readResolve();
@@ -33,11 +33,11 @@ public class ContactsState implements RenderableState {
     }
 
     public Object readResolve() {
-        if (provider == null) {
-            provider = new ContactProvider();
-        }
         if (awaitingCollection == null) {
             awaitingCollection = new LinkedHashMap<>();
+        }
+        if (provider == null) {
+            provider = new ContactProvider();
         }
         createTypeButtons();
         createImportanceButtons();
