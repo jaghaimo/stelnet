@@ -47,7 +47,13 @@ public class ContactsView implements RenderableFactory {
 
     private List<Renderable> buildLeftPanel(float width) {
         List<Renderable> elements = new LinkedList<>();
-        addContacts(elements, width);
+        List<ContactIntel> contacts = provider.getContacts(getSelectedFilters());
+        for (ContactIntel contact : contacts) {
+            elements.add(new DisplayContact(contact, width));
+        }
+        if (elements.isEmpty()) {
+            elements.add(new Paragraph(L10n.get(ContactsL10n.NONE), width));
+        }
         return elements;
     }
 
@@ -61,16 +67,6 @@ public class ContactsView implements RenderableFactory {
         elements.add(new Spacer(UiConstants.DEFAULT_SPACER));
         elements.addAll(importanceButtons);
         return elements;
-    }
-
-    private void addContacts(List<Renderable> elements, float width) {
-        List<ContactIntel> contacts = provider.getContacts(getSelectedFilters());
-        for (ContactIntel contact : contacts) {
-            elements.add(new DisplayContact(contact, width));
-        }
-        if (elements.isEmpty()) {
-            elements.add(new Paragraph(L10n.get(ContactsL10n.NONE), width));
-        }
     }
 
     private List<Filter> getSelectedFilters() {
