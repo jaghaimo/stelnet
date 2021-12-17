@@ -1,4 +1,5 @@
 {
+    "AWAITING_PICKUP": "Awaiting Collection",
     "BOARD_DESCRIPTION": "Managing {0, choice, 0#0 contacts|1#1 contact|1<{0, number, integer} contacts.}",
     "BOARD_TITLE": "Contacts",
     "CONTACT_LIST": "Contact List",

@@ -16,9 +16,11 @@ import stelnet.util.L10n;
 import stelnet.util.ModConstants;
 import uilib.Heading;
 import uilib.Renderable;
+import uilib.RenderableIntelInfo;
 import uilib.ShowCargo;
 import uilib.ShowShips;
 import uilib.Spacer;
+import uilib.UiConstants;
 import uilib.property.Size;
 
 @Getter
@@ -56,7 +58,7 @@ public class StorageIntel extends BaseIntel {
     }
 
     @Override
-    protected IntelInfo getIntelInfo() {
+    protected RenderableIntelInfo getIntelInfo() {
         return new IntelInfo(
             getLocationNameWithSystem(),
             L10n.get(CommonL10n.INTEL_LOCATION),
@@ -74,11 +76,11 @@ public class StorageIntel extends BaseIntel {
         List<FleetMemberAPI> ships = storage.getCargo().getMothballedShips().getMembersListCopy();
         return Arrays.<Renderable>asList(
             new Heading(L10n.get(StorageL10n.INTEL_HEADER_ITEMS, getLocationName()), baseColor, darkColor),
-            new Spacer(10),
+            new Spacer(UiConstants.DEFAULT_SPACER),
             new ShowCargo(cargo, L10n.get(StorageL10n.INTEL_NO_ITEMS), size),
-            new Spacer(10),
+            new Spacer(UiConstants.DEFAULT_SPACER * 2),
             new Heading(L10n.get(StorageL10n.INTEL_HEADER_SHIPS, getLocationName()), baseColor, darkColor),
-            new Spacer(10),
+            new Spacer(UiConstants.DEFAULT_SPACER),
             new ShowShips(ships, L10n.get(StorageL10n.INTEL_NO_SHIPS), size)
         );
     }

@@ -4,6 +4,7 @@ import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.campaign.listeners.ListenerUtil;
+import com.fs.starfarer.api.impl.campaign.events.OfficerManagerEvent;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,6 +14,7 @@ import stelnet.filter.MarketNotHidden;
 import stelnet.util.CollectionUtils;
 import stelnet.util.EconomyUtils;
 import stelnet.util.Excluder;
+import stelnet.util.SectorUtils;
 
 @Log4j
 public class MarketProvider {
@@ -50,8 +52,16 @@ public class MarketProvider {
     }
 
     public static void updateMarket(MarketAPI market) {
+        updateOfficers(market);
         updateSubmarkets(market);
-        ListenerUtil.reportPlayerOpenedMarket(market);
+        ListenerUtil.reportPlayerOpenedMarketAndCargoUpdated(market);
+    }
+
+    public static void updateOfficers(MarketAPI market) {
+        List<OfficerManagerEvent> managers = SectorUtils.getListenerManager().getListeners(OfficerManagerEvent.class);
+        for (OfficerManagerEvent manager : managers) {
+            manager.reportPlayerOpenedMarket(market);
+        }
     }
 
     public static void updateSubmarkets(MarketAPI market) {

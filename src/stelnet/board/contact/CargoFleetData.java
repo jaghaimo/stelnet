@@ -14,10 +14,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CargoFleetData {
 
-    private final CargoAPI cargo;
-    private final FleetDataAPI fleet;
-    private final List<CargoStackAPI> cargoStacks;
-    private final List<FleetMemberAPI> fleetMembers;
+    protected final CargoAPI cargo;
+    protected final FleetDataAPI fleet;
+    protected final List<CargoStackAPI> cargoStacks;
+    protected final List<FleetMemberAPI> fleetMembers;
 
     public CargoFleetData(CargoAPI cargo, FleetDataAPI fleet) {
         this(cargo, fleet, cargo.getStacksCopy(), fleet.getMembersListCopy());
