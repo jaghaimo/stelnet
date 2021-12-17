@@ -19,7 +19,7 @@ import uilib.property.Size;
 public class ContactsState implements RenderableState {
 
     private Map<MarketAPI, TrackingCargoFleetData> awaitingCollection;
-    // TODO make these transient on next minor update
+    // make these transient on next minor update (backwards-incompatible change)
     private Set<ContactFilterButton> contactTypeButtons;
     private Set<ContactFilterButton> importanceButtons;
     private transient ContactProvider provider;
