@@ -6,11 +6,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ShipHullIsHull extends ShipHullFilter {
 
-    private final ShipHullSpecAPI hull;
+    private final String hullId;
+    private final String hullName;
+
+    public ShipHullIsHull(ShipHullSpecAPI shipHullSpec) {
+        this(shipHullSpec.getHullId(), shipHullSpec.getNameWithDesignationWithDashClass());
+    }
 
     @Override
     protected boolean acceptShipHull(ShipHullSpecAPI shipHull) {
-        String hullId = hull.getHullId();
         if (shipHull.isDHull()) {
             return hullId.equals(shipHull.getBaseHullId()) || hullId.equals(shipHull.getDParentHullId());
         }
@@ -19,6 +23,6 @@ public class ShipHullIsHull extends ShipHullFilter {
 
     @Override
     public String toString() {
-        return hull.getNameWithDesignationWithDashClass();
+        return hullName;
     }
 }
