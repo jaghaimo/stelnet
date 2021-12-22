@@ -24,14 +24,21 @@ public class QueryState implements RenderableState, Serializable {
         NEW,
     }
 
-    private QueryBoardTab activeTab = QueryBoardTab.LIST;
-    private final QueryManager queryManager = new QueryManager();
-    private AddQueryFactory addQueryFactory = new AddQueryFactory();
-    private QueryListFactory queryListFactory = new QueryListFactory(queryManager);
+    private final QueryManager queryManager;
+    private transient QueryBoardTab activeTab;
+    private transient AddQueryFactory addQueryFactory;
+    private transient QueryListFactory queryListFactory;
 
-    @Override
-    public List<Renderable> toRenderableList(Size size) {
-        return new QueryView(this).create(size);
+    public QueryState() {
+        queryManager = new QueryManager();
+        readResolve();
+    }
+
+    public Object readResolve() {
+        activeTab = QueryBoardTab.LIST;
+        addQueryFactory = new AddQueryFactory();
+        queryListFactory = new QueryListFactory(queryManager);
+        return this;
     }
 
     public void resetCache() {
@@ -41,5 +48,10 @@ public class QueryState implements RenderableState, Serializable {
         PeopleProvider.reset();
         ShipProvider.reset();
         MarketUpdater.reset();
+    }
+
+    @Override
+    public List<Renderable> toRenderableList(Size size) {
+        return new QueryView(this).create(size);
     }
 }
