@@ -60,10 +60,7 @@ public class ContactsState implements RenderableState {
     }
 
     private void createImportanceButtons() {
-        if (importanceButtons == null) {
-            importanceButtons = new LinkedHashSet<>();
-        }
-        importanceButtons.clear();
+        importanceButtons = new LinkedHashSet<>();
         for (PersonImportance importance : provider.getAllPersonImportances()) {
             importanceButtons.add(
                 new ContactFilterButton(importance.getDisplayName(), new ContactIsOfImportance(importance))
@@ -72,10 +69,7 @@ public class ContactsState implements RenderableState {
     }
 
     private void createTypeButtons() {
-        if (contactTypeButtons == null) {
-            contactTypeButtons = new TreeSet<>();
-        }
-        contactTypeButtons.clear();
+        contactTypeButtons = new TreeSet<>();
         for (ContactTagSpec type : provider.getAllMissionTypes()) {
             contactTypeButtons.add(new ContactFilterButton(type.getName(), new AnyHasTag(type.getTag())));
         }
