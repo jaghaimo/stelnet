@@ -15,12 +15,19 @@ import uilib.property.Size;
 @Setter
 public class StorageState implements RenderableState, MarketViewState {
 
-    private final ButtonManager filteringButtons = new ButtonManager();
-    private ContentRenderer contentRenderer = ContentRenderer.ITEMS;
-    private GroupingStrategy displayStrategy = GroupingStrategy.UNIFIED;
+    private transient ButtonManager buttonManager = new ButtonManager();
+    private transient ContentRenderer contentRenderer = ContentRenderer.ITEMS;
+    private transient GroupingStrategy displayStrategy = GroupingStrategy.UNIFIED;
 
     @Override
     public List<Renderable> toRenderableList(Size size) {
         return new StorageView(this).create(size);
+    }
+
+    public Object readResolve() {
+        buttonManager = new ButtonManager();
+        contentRenderer = ContentRenderer.ITEMS;
+        displayStrategy = GroupingStrategy.UNIFIED;
+        return this;
     }
 }

@@ -1,7 +1,7 @@
 package stelnet.widget.viewer;
 
 public interface MarketViewState {
-    public ButtonManager getFilteringButtons();
+    public ButtonManager getButtonManager();
 
     public ContentRenderer getContentRenderer();
 
