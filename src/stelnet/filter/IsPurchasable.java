@@ -1,9 +1,11 @@
 package stelnet.filter;
 
+import lombok.EqualsAndHashCode;
 import stelnet.board.query.Result;
 import stelnet.board.query.ResultSet;
 import stelnet.util.CollectionUtils;
 
+@EqualsAndHashCode(callSuper = false)
 public final class IsPurchasable extends Filter {
 
     @Override
