@@ -2,10 +2,12 @@ package stelnet.filter;
 
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
+@EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
-public class WeaponIsType extends WeaponFilter {
+public final class WeaponIsType extends WeaponFilter {
 
     private final WeaponType weaponType;
 

@@ -2,10 +2,12 @@ package stelnet.filter;
 
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
+@EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
-public class FleetMemberPristine extends ShipHullFilter {
+public final class FleetMemberPristine extends ShipHullFilter {
 
     private final String name;
 

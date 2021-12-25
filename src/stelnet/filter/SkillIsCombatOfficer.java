@@ -2,8 +2,10 @@ package stelnet.filter;
 
 import com.fs.starfarer.api.characters.MutableCharacterStatsAPI.SkillLevelAPI;
 import com.fs.starfarer.api.characters.SkillSpecAPI;
+import lombok.EqualsAndHashCode;
 
-public class SkillIsCombatOfficer extends Filter {
+@EqualsAndHashCode(callSuper = false)
+public final class SkillIsCombatOfficer extends Filter {
 
     @Override
     public boolean accept(Object object) {

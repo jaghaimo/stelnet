@@ -3,11 +3,13 @@ package stelnet.filter;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.SpecialItemSpecAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Items;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import stelnet.util.L10n;
 
+@EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
-public class CargoStackIsType extends CargoStackFilter {
+public final class CargoStackIsType extends CargoStackFilter {
 
     public static enum Type {
         COMMODITY,

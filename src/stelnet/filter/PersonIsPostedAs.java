@@ -1,11 +1,13 @@
 package stelnet.filter;
 
 import com.fs.starfarer.api.characters.PersonAPI;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import stelnet.util.SettingsUtils;
 
+@EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
-public class PersonIsPostedAs extends PersonFilter {
+public final class PersonIsPostedAs extends PersonFilter {
 
     private final String postId;
 

@@ -2,10 +2,12 @@ package stelnet.filter;
 
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI.ShipTypeHints;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
+@EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
-public class ShipHullHasHint extends ShipHullFilter {
+public final class ShipHullHasHint extends ShipHullFilter {
 
     private final ShipTypeHints typeHint;
 

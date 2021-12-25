@@ -5,15 +5,11 @@ import lombok.EqualsAndHashCode;
 import stelnet.util.SectorUtils;
 
 @EqualsAndHashCode(callSuper = false)
-public class CargoStackNotKnownModspec extends CargoStackIsType {
-
-    public CargoStackNotKnownModspec() {
-        super(Type.MODSPEC);
-    }
+public final class CargoStackNotKnownModspec extends CargoStackFilter {
 
     @Override
     protected boolean acceptCargoStack(CargoStackAPI cargoStack) {
-        if (!super.acceptCargoStack(cargoStack)) {
+        if (!cargoStack.isModSpecStack()) {
             return true;
         }
         String hullModId = cargoStack.getHullModSpecIfHullMod().getId();

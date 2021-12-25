@@ -2,11 +2,13 @@ package stelnet.filter;
 
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.characters.PersonalityAPI;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import stelnet.util.SettingsUtils;
 
+@EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
-public class PersonHasPersonality extends PersonOfficerFilter {
+public final class PersonHasPersonality extends PersonOfficerFilter {
 
     private final String personalityId;
 

@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
-import stelnet.filter.PurchasableResultsFilter;
+import stelnet.filter.IsPurchasable;
 import stelnet.util.CollectionUtils;
 import stelnet.util.L10n;
 import stelnet.util.SectorUtils;
@@ -42,7 +42,7 @@ public class Query {
     public List<ResultSet> execute(boolean groupedBySystem) {
         List<ResultSet> results = provider.getResults(filters, groupedBySystem);
         if (isPurchasable) {
-            CollectionUtils.reduce(results, new PurchasableResultsFilter());
+            CollectionUtils.reduce(results, new IsPurchasable());
         }
         resultNumber = results.size();
         return results;

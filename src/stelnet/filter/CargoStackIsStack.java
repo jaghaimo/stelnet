@@ -1,10 +1,12 @@
 package stelnet.filter;
 
 import com.fs.starfarer.api.campaign.CargoStackAPI;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
+@EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
-public class CargoStackIsStack extends CargoStackFilter {
+public final class CargoStackIsStack extends CargoStackFilter {
 
     private final CargoStackAPI stack;
 

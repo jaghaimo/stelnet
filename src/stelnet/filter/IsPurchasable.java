@@ -4,7 +4,7 @@ import stelnet.board.query.Result;
 import stelnet.board.query.ResultSet;
 import stelnet.util.CollectionUtils;
 
-public class PurchasableResultsFilter extends Filter {
+public final class IsPurchasable extends Filter {
 
     @Override
     public boolean accept(Object object) {

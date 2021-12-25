@@ -2,10 +2,12 @@ package stelnet.filter;
 
 import com.fs.starfarer.api.campaign.PersonImportance;
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
+@EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
-public class ContactIsOfImportance extends Filter {
+public final class ContactIsOfImportance extends Filter {
 
     private final PersonImportance importance;
 
