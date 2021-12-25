@@ -58,6 +58,7 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
         storageData.add(playerData);
         playerData.restore();
         dialog.dismiss();
+        ui.recreateIntelUI();
         ui.updateUIForItem(board);
     }
 }
