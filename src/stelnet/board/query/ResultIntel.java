@@ -39,8 +39,8 @@ public class ResultIntel extends BaseIntel {
 
     @Override
     public String getIcon() {
-        int results = Math.min(100, resultSet.getResultNumber());
-        double rounded = Math.floor(results / 10);
+        int results = Math.min(90, resultSet.getResultNumber());
+        double rounded = Math.floor(results / 10) + 1;
         String icon = String.format("result_%.0f", rounded);
         return SettingsUtils.getSpriteName(icon);
     }
