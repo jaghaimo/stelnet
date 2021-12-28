@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
+import stelnet.board.query.QueryGrouping;
 import stelnet.board.query.ResultSet;
 import stelnet.board.query.view.add.QueryFactory;
 import stelnet.filter.Filter;
@@ -19,11 +20,11 @@ public abstract class QueryProvider {
 
     public abstract List<?> getMatching(Set<Filter> filters);
 
-    public List<ResultSet> getResults(Set<Filter> filters, boolean groupedBySystem) {
+    public List<ResultSet> getResults(Set<Filter> filters, QueryGrouping groupingStrategy) {
         List<MarketAPI> markets = MarketProvider.getMarkets(true);
         CollectionUtils.reduce(markets, filters);
         List<ResultSet> resultSets = new LinkedList<>();
-        processMarkets(resultSets, markets, filters, groupedBySystem);
+        processMarkets(resultSets, markets, filters, groupingStrategy);
         return resultSets;
     }
 
@@ -35,7 +36,7 @@ public abstract class QueryProvider {
         List<ResultSet> resultSets,
         List<MarketAPI> markets,
         Set<Filter> filters,
-        final boolean groupedBySystem
+        final QueryGrouping groupingStrategy
     );
 
     protected void addToResultSets(List<ResultSet> resultSets, ResultSet resultSet) {

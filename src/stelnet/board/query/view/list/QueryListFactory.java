@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.query.Query;
+import stelnet.board.query.QueryGrouping;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
 import stelnet.util.L10n;
@@ -69,7 +70,9 @@ public class QueryListFactory implements RenderableFactory {
     private Renderable getGlobalButtons(boolean enableButtons, float width) {
         Spacer spacer = new Spacer(0);
         List<Renderable> elements = new LinkedList<>();
-        elements.add(new GroupByButton(manager, enableButtons));
+        elements.add(new GroupByButton(manager, enableButtons, QueryGrouping.NO_GROUPING));
+        elements.add(new GroupByButton(manager, enableButtons, QueryGrouping.BY_MARKET));
+        elements.add(new GroupByButton(manager, enableButtons, QueryGrouping.BY_SYSTEM));
         elements.add(spacer);
         elements.add(new RefreshAllButton(manager, enableButtons));
         elements.add(new EnableAllButton(manager, enableButtons));

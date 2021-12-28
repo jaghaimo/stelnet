@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import lombok.experimental.ExtensionMethod;
+import stelnet.board.query.QueryGrouping;
 import stelnet.board.query.ResultSet;
 import stelnet.board.query.view.add.QueryFactory;
 import stelnet.filter.Filter;
@@ -57,7 +58,7 @@ public class ItemProvider extends QueryProvider {
         List<ResultSet> resultSets,
         List<MarketAPI> markets,
         Set<Filter> filters,
-        final boolean groupBySystem
+        final QueryGrouping groupingStrategy
     ) {
         List<SubmarketAPI> submarkets = EconomyUtils.getSubmarkets(markets);
         CollectionUtils.reduce(submarkets, Excluder.getQuerySubmarketFilter());
@@ -65,7 +66,7 @@ public class ItemProvider extends QueryProvider {
             MarketAPI market = submarket.getMarket();
             List<CargoStackAPI> cargoStacks = submarket.getCargo().getStacksCopy();
             CollectionUtils.reduce(cargoStacks, filters);
-            ResultSet resultSet = new ResultSet(groupBySystem, market);
+            ResultSet resultSet = new ResultSet(groupingStrategy, market);
             resultSet.addCargoStacks(market, submarket, cargoStacks);
             addToResultSets(resultSets, resultSet);
         }

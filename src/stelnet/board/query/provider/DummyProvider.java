@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import lombok.extern.log4j.Log4j;
+import stelnet.board.query.QueryGrouping;
 import stelnet.board.query.ResultSet;
 import stelnet.board.query.view.add.QueryFactory;
 import stelnet.filter.Filter;
@@ -27,7 +28,7 @@ public class DummyProvider extends QueryProvider {
         List<ResultSet> resultSets,
         List<MarketAPI> markets,
         Set<Filter> filters,
-        final boolean groupedBySystem
+        final QueryGrouping groupingStrategy
     ) {
         logUsage();
     }

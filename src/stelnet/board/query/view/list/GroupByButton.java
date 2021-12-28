@@ -4,6 +4,7 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import org.lwjgl.input.Keyboard;
+import stelnet.board.query.QueryGrouping;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
 import uilib.EventHandler;
@@ -12,8 +13,13 @@ import uilib.property.Size;
 
 public class GroupByButton extends ControlButton {
 
-    public GroupByButton(final QueryManager manager, boolean isEnabled) {
-        super(QueryL10n.GROUP_BY_SYSTEM, QueryL10n.GROUP_BY_MARKET, isEnabled, manager.isGroupedBySystem());
+    public GroupByButton(final QueryManager manager, boolean isEnabled, final QueryGrouping groupingStrategy) {
+        super(
+            QueryL10n.GROUP_BY_SYSTEM,
+            QueryL10n.GROUP_BY_MARKET,
+            isEnabled,
+            manager.getGroupingStrategy().equals(groupingStrategy)
+        );
         setSize(new Size(getSize().getWidth() + 20, UiConstants.VICTOR_14_BUTTON_HEIGHT));
         setShortcut(Keyboard.KEY_B);
         setTextColor(Misc.getBasePlayerColor());
@@ -24,7 +30,7 @@ public class GroupByButton extends ControlButton {
             new EventHandler() {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
-                    manager.setGroupedBySystem(!manager.isGroupedBySystem());
+                    manager.setGroupingStrategy(groupingStrategy);
                     manager.updateIntel();
                 }
             }

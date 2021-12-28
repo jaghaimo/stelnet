@@ -5,6 +5,7 @@ import com.fs.starfarer.api.characters.PersonAPI;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import stelnet.board.query.QueryGrouping;
 import stelnet.board.query.ResultSet;
 import stelnet.board.query.view.add.QueryFactory;
 import stelnet.filter.Filter;
@@ -36,12 +37,12 @@ public class PeopleProvider extends QueryProvider {
         List<ResultSet> resultSets,
         List<MarketAPI> markets,
         Set<Filter> filters,
-        final boolean groupBySystem
+        final QueryGrouping groupingStrategy
     ) {
         for (MarketAPI market : markets) {
             List<PersonAPI> people = market.getPeopleCopy();
             CollectionUtils.reduce(people, filters);
-            ResultSet resultSet = new ResultSet(groupBySystem, market);
+            ResultSet resultSet = new ResultSet(groupingStrategy, market);
             resultSet.addPeople(market, people);
             addToResultSets(resultSets, resultSet);
         }

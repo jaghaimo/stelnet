@@ -8,7 +8,6 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
-import com.fs.starfarer.api.util.Misc;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -17,7 +16,6 @@ import java.util.TreeSet;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import stelnet.BoardInfo;
-import stelnet.util.L10n;
 
 /**
  * A set of unique results for a given star system.
@@ -26,7 +24,7 @@ import stelnet.util.L10n;
 @RequiredArgsConstructor
 public class ResultSet {
 
-    private final boolean groupBySystem;
+    private final QueryGrouping groupingStrategy;
     private final MarketAPI market;
     private final StarSystemAPI system;
     private final Set<MarketAPI> marketSet = new HashSet<>();
@@ -39,8 +37,8 @@ public class ResultSet {
         }
     );
 
-    public ResultSet(boolean groupBySystem, MarketAPI market) {
-        this(groupBySystem, market, market.getStarSystem());
+    public ResultSet(QueryGrouping groupingStrategy, MarketAPI market) {
+        this(groupingStrategy, market, market.getStarSystem());
         marketSet.add(market);
     }
 
@@ -73,21 +71,11 @@ public class ResultSet {
     }
 
     public BoardInfo getBoardInfo() {
-        if (wantsMarket()) {
-            String name = String.format("%s, %s", market.getName(), market.getFaction().getDisplayName());
-            return new BoardInfo(name, L10n.get(QueryL10n.RESULTS_IN_MARKET, getResultNumber()));
-        }
-        return new BoardInfo(
-            system.getName(),
-            L10n.get(QueryL10n.RESULTS_IN_SYSTEM, getResultNumber(), marketSet.size())
-        );
+        return groupingStrategy.getBoardInfo(this);
     }
 
     public FactionAPI getFaction() {
-        if (wantsMarket()) {
-            return market.getFaction();
-        }
-        return Misc.getClaimingFaction(market.getPrimaryEntity());
+        return groupingStrategy.getFaction(this);
     }
 
     public int getResultNumber() {
@@ -95,10 +83,7 @@ public class ResultSet {
     }
 
     public SectorEntityToken getToken() {
-        if (wantsMarket()) {
-            return market.getPrimaryEntity();
-        }
-        return system.getCenter();
+        return groupingStrategy.getToken(this);
     }
 
     public void refresh() {
@@ -106,9 +91,5 @@ public class ResultSet {
         for (Result result : resultSet) {
             marketSet.add(result.getMarket());
         }
-    }
-
-    private boolean wantsMarket() {
-        return system == null || !groupBySystem;
     }
 }

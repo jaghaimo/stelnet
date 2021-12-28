@@ -18,7 +18,7 @@ public class QueryManager {
 
     @Getter
     @Setter
-    private boolean groupedBySystem;
+    private QueryGrouping groupingStrategy;
 
     @Getter
     private final Set<Query> queries = new LinkedHashSet<>();
@@ -82,7 +82,7 @@ public class QueryManager {
     }
 
     private void updateIntel(Query query) {
-        List<ResultSet> resultSets = query.execute(groupedBySystem);
+        List<ResultSet> resultSets = query.execute(groupingStrategy);
         for (ResultSet resultSet : resultSets) {
             updateResult(resultSet);
         }
@@ -99,12 +99,16 @@ public class QueryManager {
     }
 
     private void updateResult(ResultSet resultSet) {
-        if (resultMap.containsKey(resultSet)) {
+        boolean noGrouping = resultSet.getToken() == null;
+        boolean hasIntel = resultMap.containsKey(resultSet);
+        boolean needsNewIntel = noGrouping || !hasIntel;
+        if (hasIntel) {
             resultMap.update(resultSet);
-            return;
         }
-        resultMap.add(resultSet);
-        ResultIntel intel = new ResultIntel(this, resultSet);
-        IntelUtils.add(intel, true);
+        if (needsNewIntel) {
+            resultMap.add(resultSet);
+            ResultIntel intel = new ResultIntel(this, resultSet);
+            IntelUtils.add(intel, true);
+        }
     }
 }

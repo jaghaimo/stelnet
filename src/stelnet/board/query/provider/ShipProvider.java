@@ -14,6 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import stelnet.board.query.QueryGrouping;
 import stelnet.board.query.ResultSet;
 import stelnet.board.query.view.add.QueryFactory;
 import stelnet.filter.Filter;
@@ -58,7 +59,7 @@ public class ShipProvider extends QueryProvider {
         List<ResultSet> resultSets,
         List<MarketAPI> markets,
         Set<Filter> filters,
-        final boolean groupBySystem
+        final QueryGrouping groupingStrategy
     ) {
         List<SubmarketAPI> submarkets = EconomyUtils.getSubmarkets(markets);
         CollectionUtils.reduce(submarkets, Excluder.getQuerySubmarketFilter());
@@ -66,7 +67,7 @@ public class ShipProvider extends QueryProvider {
             MarketAPI market = submarket.getMarket();
             List<FleetMemberAPI> fleetMembers = submarket.getCargo().getMothballedShips().getMembersListCopy();
             CollectionUtils.reduce(fleetMembers, filters);
-            ResultSet resultSet = new ResultSet(groupBySystem, market);
+            ResultSet resultSet = new ResultSet(groupingStrategy, market);
             resultSet.addFleetMembers(market, submarket, fleetMembers);
             addToResultSets(resultSets, resultSet);
         }
