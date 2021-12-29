@@ -5,6 +5,7 @@ import com.fs.starfarer.api.ModSpecAPI;
 import com.fs.starfarer.api.SettingsAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.characters.SkillSpecAPI;
+import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.loading.ContactTagSpec;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
 import com.fs.starfarer.api.ui.Fonts;
@@ -60,6 +61,10 @@ public class SettingsUtils {
 
     public static HullModSpecAPI getHullModSpec(String hullModId) {
         return getSettings().getHullModSpec(hullModId);
+    }
+
+    public static ShipHullSpecAPI getHullSpec(String hullId) {
+        return getSettings().getHullSpec(hullId);
     }
 
     public static Set<ContactTagSpec> getAllContactTypes() {

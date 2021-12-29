@@ -1,4 +1,5 @@
 {
-    "PER_LOCATION": "Group By Location",
-    "UNIFIED": "Disable Grouping"
+    "BY_MARKET": "Group By Market",
+    "BY_SYSTEM": "Group By System",
+    "NO_GROUPING": "Disable Grouping"
 }

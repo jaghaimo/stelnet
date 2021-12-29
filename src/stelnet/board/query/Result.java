@@ -7,10 +7,12 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
+import com.fs.starfarer.api.loading.HullModSpecAPI;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import stelnet.util.L10n;
+import stelnet.util.SettingsUtils;
 
 @Getter
 @Setter
@@ -118,10 +120,12 @@ public class Result implements Comparable<Result> {
             return cargoStack.getWeaponSpecIfWeapon().getTurretSpriteName();
         }
         if (cargoStack.isFighterWingStack()) {
-            return cargoStack.getFighterWingSpecIfWing().getWingName();
+            return cargoStack.getFighterWingSpecIfWing().getVariant().getHullSpec().getSpriteName();
         }
         if (cargoStack.isSpecialStack()) {
-            return cargoStack.getSpecialItemSpecIfSpecial().getIconName();
+            String id = cargoStack.getSpecialDataIfSpecial().getData();
+            HullModSpecAPI hullModSpec = SettingsUtils.getHullModSpec(id);
+            return hullModSpec.getSpriteName();
         }
         return null;
     }
