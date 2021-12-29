@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
+import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.util.IntelUtils;
 import stelnet.util.SectorUtils;
 
@@ -18,7 +19,7 @@ public class QueryManager {
 
     @Getter
     @Setter
-    private QueryGrouping groupingStrategy;
+    private GroupingStrategy groupingStrategy = GroupingStrategy.BY_MARKET;
 
     @Getter
     private final Set<Query> queries = new LinkedHashSet<>();
@@ -99,16 +100,17 @@ public class QueryManager {
     }
 
     private void updateResult(ResultSet resultSet) {
-        boolean noGrouping = resultSet.getToken() == null;
+        boolean hasGrouping = resultSet.getKey() != null;
         boolean hasIntel = resultMap.containsKey(resultSet);
-        boolean needsNewIntel = noGrouping || !hasIntel;
-        if (hasIntel) {
-            resultMap.update(resultSet);
-        }
-        if (needsNewIntel) {
-            resultMap.add(resultSet);
-            ResultIntel intel = new ResultIntel(this, resultSet);
-            IntelUtils.add(intel, true);
+        if (hasGrouping) {
+            if (hasIntel) {
+                resultMap.update(resultSet);
+            } else {
+                resultMap.add(resultSet);
+                groupingStrategy.createIntel(this, resultSet);
+            }
+        } else {
+            groupingStrategy.createIntel(this, resultSet);
         }
     }
 }

@@ -5,6 +5,7 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
 import stelnet.filter.IsPurchasable;
@@ -39,7 +40,7 @@ public class Query {
         return provider.getPreview(filters, size);
     }
 
-    public List<ResultSet> execute(QueryGrouping groupingStrategy) {
+    public List<ResultSet> execute(GroupingStrategy groupingStrategy) {
         List<ResultSet> results = provider.getResults(filters, groupingStrategy);
         if (isPurchasable) {
             CollectionUtils.reduce(results, new IsPurchasable());

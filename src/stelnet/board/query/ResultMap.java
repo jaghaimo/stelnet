@@ -1,6 +1,5 @@
 package stelnet.board.query;
 
-import com.fs.starfarer.api.campaign.SectorEntityToken;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,14 +8,14 @@ import java.util.Map;
  */
 public class ResultMap {
 
-    private final Map<SectorEntityToken, ResultSet> resultMap = new HashMap<>();
+    private final Map<String, ResultSet> resultMap = new HashMap<>();
 
     public void add(ResultSet resultSet) {
-        resultMap.put(resultSet.getToken(), resultSet);
+        resultMap.put(resultSet.getKey(), resultSet);
     }
 
     public boolean containsKey(ResultSet resultSet) {
-        return resultMap.containsKey(resultSet.getToken());
+        return resultMap.containsKey(resultSet.getKey());
     }
 
     public void clear() {
@@ -24,7 +23,7 @@ public class ResultMap {
     }
 
     public ResultSet get(ResultSet resultSet) {
-        return resultMap.get(resultSet.getToken());
+        return resultMap.get(resultSet.getKey());
     }
 
     public void update(ResultSet resultSet) {

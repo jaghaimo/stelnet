@@ -15,7 +15,9 @@ import java.util.Set;
 import java.util.TreeSet;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import stelnet.BoardInfo;
+import stelnet.board.query.grouping.GroupingData;
+import stelnet.board.query.grouping.GroupingStrategy;
+import uilib.RenderableIntelInfo;
 
 /**
  * A set of unique results for a given star system.
@@ -24,7 +26,7 @@ import stelnet.BoardInfo;
 @RequiredArgsConstructor
 public class ResultSet {
 
-    private final QueryGrouping groupingStrategy;
+    private final GroupingStrategy groupingStrategy;
     private final MarketAPI market;
     private final StarSystemAPI system;
     private final Set<MarketAPI> marketSet = new HashSet<>();
@@ -36,8 +38,9 @@ public class ResultSet {
             }
         }
     );
+    private GroupingData groupingData;
 
-    public ResultSet(QueryGrouping groupingStrategy, MarketAPI market) {
+    public ResultSet(GroupingStrategy groupingStrategy, MarketAPI market) {
         this(groupingStrategy, market, market.getStarSystem());
         marketSet.add(market);
     }
@@ -45,11 +48,13 @@ public class ResultSet {
     public void add(Result result) {
         marketSet.add(result.getMarket());
         resultSet.add(result);
+        groupingData = groupingStrategy.getGroupingData(this);
     }
 
     public void add(ResultSet newResultSet) {
         marketSet.addAll(newResultSet.getMarketSet());
         resultSet.addAll(newResultSet.getResultSet());
+        groupingData = groupingStrategy.getGroupingData(this);
     }
 
     public void addCargoStacks(MarketAPI market, SubmarketAPI submarket, List<CargoStackAPI> cargoStacks) {
@@ -70,12 +75,16 @@ public class ResultSet {
         }
     }
 
-    public BoardInfo getBoardInfo() {
-        return groupingStrategy.getBoardInfo(this);
+    public RenderableIntelInfo getBoardInfo() {
+        return groupingData.getInfo();
     }
 
     public FactionAPI getFaction() {
-        return groupingStrategy.getFaction(this);
+        return groupingData.getFaction();
+    }
+
+    public String getKey() {
+        return groupingData.getKey();
     }
 
     public int getResultNumber() {
@@ -83,7 +92,7 @@ public class ResultSet {
     }
 
     public SectorEntityToken getToken() {
-        return groupingStrategy.getToken(this);
+        return groupingData.getToken();
     }
 
     public void refresh() {

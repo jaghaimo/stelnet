@@ -3,28 +3,30 @@ package stelnet.board.query.view.list;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-import org.lwjgl.input.Keyboard;
-import stelnet.board.query.QueryGrouping;
-import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
+import stelnet.board.query.grouping.GroupingStrategy;
+import stelnet.util.L10n;
+import uilib.Button;
 import uilib.EventHandler;
 import uilib.UiConstants;
 import uilib.property.Size;
 
-public class GroupByButton extends ControlButton {
+public class GroupByButton extends Button {
 
-    public GroupByButton(final QueryManager manager, boolean isEnabled, final QueryGrouping groupingStrategy) {
+    public GroupByButton(
+        final QueryManager manager,
+        final GroupingStrategy groupingStrategy,
+        boolean isEnabled,
+        float width
+    ) {
         super(
-            QueryL10n.GROUP_BY_SYSTEM,
-            QueryL10n.GROUP_BY_MARKET,
-            isEnabled,
+            new Size(width, UiConstants.DEFAULT_BUTTON_HEIGHT),
+            L10n.get(groupingStrategy),
             manager.getGroupingStrategy().equals(groupingStrategy)
         );
-        setSize(new Size(getSize().getWidth() + 20, UiConstants.VICTOR_14_BUTTON_HEIGHT));
-        setShortcut(Keyboard.KEY_B);
+        setEnabled(isEnabled);
         setTextColor(Misc.getBasePlayerColor());
         setBackgroundColor(Misc.getDarkPlayerColor());
-        setBackgroundSelectedColor(Misc.getDarkPlayerColor());
         setPadding(1);
         setHandler(
             new EventHandler() {
