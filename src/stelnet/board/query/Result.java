@@ -18,6 +18,7 @@ import stelnet.util.L10n;
 public class Result implements Comparable<Result> {
 
     private final String name;
+    private final String icon;
     private final String type;
     private final Object object;
     private final MarketAPI market;
@@ -27,6 +28,7 @@ public class Result implements Comparable<Result> {
 
     public Result(MarketAPI market, PersonAPI person) {
         this.name = person.getNameString();
+        this.icon = person.getPortraitSprite();
         this.type = person.getPost();
         this.object = person;
         this.market = market;
@@ -38,6 +40,7 @@ public class Result implements Comparable<Result> {
     public Result(MarketAPI market, SubmarketAPI submarket, FleetMemberAPI fleetMember) {
         ShipHullSpecAPI hullSpec = fleetMember.getHullSpec();
         this.name = hullSpec.getNameWithDesignationWithDashClass();
+        this.icon = hullSpec.getSpriteName();
         this.type = L10n.get(hullSpec.getHullSize());
         this.object = fleetMember;
         this.market = market;
@@ -48,6 +51,7 @@ public class Result implements Comparable<Result> {
 
     public Result(MarketAPI market, SubmarketAPI submarket, CargoStackAPI cargoStack) {
         this.name = cargoStack.getDisplayName();
+        this.icon = getCargoStackIcon(cargoStack);
         this.type = L10n.get(cargoStack.getType());
         this.object = cargoStack;
         this.market = market;
@@ -107,5 +111,18 @@ public class Result implements Comparable<Result> {
             return compareTo((Result) other) == 0;
         }
         return false;
+    }
+
+    private String getCargoStackIcon(CargoStackAPI cargoStack) {
+        if (cargoStack.isWeaponStack()) {
+            return cargoStack.getWeaponSpecIfWeapon().getTurretSpriteName();
+        }
+        if (cargoStack.isFighterWingStack()) {
+            return cargoStack.getFighterWingSpecIfWing().getWingName();
+        }
+        if (cargoStack.isSpecialStack()) {
+            return cargoStack.getSpecialItemSpecIfSpecial().getIconName();
+        }
+        return null;
     }
 }

@@ -73,8 +73,9 @@ public class QueryManager {
 
     public void updateIntel() {
         resultMap.clear();
-        IntelUtils.removeAll(ResultIntel.class);
-        SectorUtils.removeTransientScripts(ResultIntel.class);
+        IntelUtils.removeAll(SingleResultIntel.class);
+        IntelUtils.removeAll(MultiResultIntel.class);
+        SectorUtils.removeTransientScripts(MultiResultIntel.class);
         for (Query query : queries) {
             if (query.isEnabled()) {
                 updateIntel(query);
@@ -102,14 +103,13 @@ public class QueryManager {
     private void updateResult(ResultSet resultSet) {
         boolean hasGrouping = resultSet.getKey() != null;
         boolean hasIntel = resultMap.containsKey(resultSet);
-        if (hasGrouping) {
-            if (hasIntel) {
-                resultMap.update(resultSet);
-            } else {
-                resultMap.add(resultSet);
-                groupingStrategy.createIntel(this, resultSet);
-            }
+        boolean needsIntel = !hasGrouping || !hasIntel;
+        if (hasIntel) {
+            resultMap.update(resultSet);
         } else {
+            resultMap.add(resultSet);
+        }
+        if (needsIntel) {
             groupingStrategy.createIntel(this, resultSet);
         }
     }
