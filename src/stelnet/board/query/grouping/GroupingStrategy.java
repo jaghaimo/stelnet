@@ -14,6 +14,7 @@ import stelnet.board.query.ResultSet;
 import stelnet.board.query.SingleResultIntel;
 import stelnet.util.IntelUtils;
 import stelnet.util.L10n;
+import stelnet.util.StringUtils;
 import uilib.RenderableIntelInfo;
 
 public enum GroupingStrategy {
@@ -59,7 +60,7 @@ public enum GroupingStrategy {
     public GroupingData getGroupingData(ResultSet resultSet) {
         MarketAPI market = resultSet.getMarket();
         RenderableIntelInfo info = new BoardInfo(
-            L10n.get(QueryL10n.RESULTS_MARKET_SYSTEM, market.getName(), market.getFaction().getDisplayName()),
+            StringUtils.getMarketAndFactionDisplayName(market),
             L10n.get(QueryL10n.RESULTS_IN_MARKET, resultSet.getResultCount())
         );
         return new GroupingData(info, market.getFaction(), market.getId(), market.getPrimaryEntity());

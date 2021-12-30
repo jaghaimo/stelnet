@@ -23,6 +23,7 @@
     "INTEL_LOCATION": "Location",
     "INTEL_OWNER_RELATIONSHIP": "The owner of this market is {0} towards you.",
     "ITEMS": "Items",
+    "MARKET_FACTION": "{0} - {1}",
     "MERCENARY": "Mercenary",
     "MODSPECS": "Modspecs",
     "MOUNT_LARGE": "Large Mount",

@@ -3,6 +3,7 @@ package stelnet.board.query;
 import lombok.Getter;
 import stelnet.BaseIntel;
 import stelnet.BoardInfo;
+import stelnet.util.L10n;
 import stelnet.util.ModConstants;
 import uilib.RenderableIntelInfo;
 
@@ -26,8 +27,9 @@ public class SingleResultIntel extends BaseIntel {
 
     @Override
     protected RenderableIntelInfo getIntelInfo() {
-        String title = getLocationNameWithSystem();
-        String description = String.format("%s - %s", result.getType(), result.getName());
-        return new BoardInfo(title, description);
+        return new BoardInfo(
+            getLocationNameWithSystem(),
+            L10n.get(QueryL10n.RESULTS_TYPE_NAME, result.getType(), result.getName())
+        );
     }
 }
