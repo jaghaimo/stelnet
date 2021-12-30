@@ -62,7 +62,7 @@ public class Result implements Comparable<Result> {
         this.market = market;
         this.submarket = submarket;
         this.isPurchasable = !submarket.getPlugin().isIllegalOnSubmarket(cargoStack, TransferAction.PLAYER_BUY);
-        this.count = (int) cargoStack.getCargoSpace();
+        this.count = (int) cargoStack.getSize();
         this.hashCode = hashCode();
     }
 
