@@ -26,6 +26,7 @@ public class Result implements Comparable<Result> {
     private final MarketAPI market;
     private final SubmarketAPI submarket;
     private final boolean isPurchasable;
+    private final int count;
     private final int hashCode;
 
     public Result(MarketAPI market, PersonAPI person) {
@@ -36,6 +37,7 @@ public class Result implements Comparable<Result> {
         this.market = market;
         this.submarket = null;
         this.isPurchasable = true;
+        this.count = 1;
         this.hashCode = hashCode();
     }
 
@@ -48,6 +50,7 @@ public class Result implements Comparable<Result> {
         this.market = market;
         this.submarket = submarket;
         this.isPurchasable = !submarket.getPlugin().isIllegalOnSubmarket(fleetMember, TransferAction.PLAYER_BUY);
+        this.count = 1;
         this.hashCode = hashCode();
     }
 
@@ -59,6 +62,7 @@ public class Result implements Comparable<Result> {
         this.market = market;
         this.submarket = submarket;
         this.isPurchasable = !submarket.getPlugin().isIllegalOnSubmarket(cargoStack, TransferAction.PLAYER_BUY);
+        this.count = (int) cargoStack.getCargoSpace();
         this.hashCode = hashCode();
     }
 

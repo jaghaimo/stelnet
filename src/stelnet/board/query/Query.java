@@ -45,7 +45,10 @@ public class Query {
         if (isPurchasable) {
             CollectionUtils.reduce(results, new IsPurchasable());
         }
-        resultNumber = results.size();
+        resultNumber = 0;
+        for (ResultSet resultSet : results) {
+            resultNumber += resultSet.getResultCount();
+        }
         return results;
     }
 
@@ -61,8 +64,7 @@ public class Query {
     public boolean equals(Object obj) {
         if (obj instanceof Query) {
             Set<Filter> objFilters = ((Query) obj).getFilters();
-            boolean result = CollectionUtils.equals(filters, objFilters);
-            return result;
+            return CollectionUtils.equals(filters, objFilters);
         }
         return false;
     }

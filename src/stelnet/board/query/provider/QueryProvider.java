@@ -40,7 +40,7 @@ public abstract class QueryProvider {
     );
 
     protected void addToResultSets(List<ResultSet> resultSets, ResultSet resultSet) {
-        if (resultSet.getResultNumber() > 0) {
+        if (resultSet.size() > 0) {
             resultSets.add(resultSet);
         }
     }

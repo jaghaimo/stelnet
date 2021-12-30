@@ -22,7 +22,7 @@ public final class IsPurchasable extends Filter {
     private boolean acceptResultSet(ResultSet resultSet) {
         CollectionUtils.reduce(resultSet.getResultSet(), this);
         resultSet.refresh();
-        return resultSet.getResultNumber() > 0;
+        return resultSet.size() > 0;
     }
 
     private boolean acceptResult(Result result) {

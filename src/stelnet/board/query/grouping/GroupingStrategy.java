@@ -43,7 +43,7 @@ public enum GroupingStrategy {
             Set<MarketAPI> marketSet = resultSet.getMarketSet();
             RenderableIntelInfo info = new BoardInfo(
                 system.getName(),
-                L10n.get(QueryL10n.RESULTS_IN_SYSTEM, resultSet.getResultNumber(), marketSet.size())
+                L10n.get(QueryL10n.RESULTS_IN_SYSTEM, resultSet.getResultCount(), marketSet.size())
             );
             MarketAPI market = resultSet.getMarket();
             FactionAPI faction = Misc.getClaimingFaction(market.getPrimaryEntity());
@@ -59,9 +59,8 @@ public enum GroupingStrategy {
     public GroupingData getGroupingData(ResultSet resultSet) {
         MarketAPI market = resultSet.getMarket();
         RenderableIntelInfo info = new BoardInfo(
-            // todo: l10n
-            String.format("%s, %s", market.getName(), market.getFaction().getDisplayName()),
-            L10n.get(QueryL10n.RESULTS_IN_MARKET, resultSet.getResultNumber())
+            L10n.get(QueryL10n.RESULTS_MARKET_SYSTEM, market.getName(), market.getFaction().getDisplayName()),
+            L10n.get(QueryL10n.RESULTS_IN_MARKET, resultSet.getResultCount())
         );
         return new GroupingData(info, market.getFaction(), market.getId(), market.getPrimaryEntity());
     }

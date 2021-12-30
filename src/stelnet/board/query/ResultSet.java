@@ -87,8 +87,12 @@ public class ResultSet {
         return groupingData.getKey();
     }
 
-    public int getResultNumber() {
-        return resultSet.size();
+    public int getResultCount() {
+        int i = 0;
+        for (Result result : resultSet) {
+            i += result.getCount();
+        }
+        return i;
     }
 
     public SectorEntityToken getToken() {
@@ -100,5 +104,9 @@ public class ResultSet {
         for (Result result : resultSet) {
             marketSet.add(result.getMarket());
         }
+    }
+
+    public int size() {
+        return resultSet.size();
     }
 }

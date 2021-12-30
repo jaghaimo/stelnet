@@ -39,7 +39,7 @@ public class MultiResultIntel extends BaseIntel {
 
     @Override
     public String getIcon() {
-        int results = Math.min(100, resultSet.getResultNumber());
+        int results = Math.min(100, resultSet.getResultCount());
         double rounded = Math.floor(results / 10);
         String icon = String.format("result_%.0f", rounded);
         return SettingsUtils.getSpriteName(icon);
