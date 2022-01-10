@@ -34,11 +34,12 @@ public class ButtonManager {
         Filter isFighterWing = new CargoStackIsType(Type.FIGHTER);
         itemButtons =
             new Renderable[] {
+                new Spacer(2),
                 new ItemFilterButton(this, CommonL10n.COMMODITIES, new CargoStackIsType(Type.COMMODITY)),
                 new ItemFilterButton(this, CommonL10n.WEAPONS, isWeapon),
                 new ItemFilterButton(this, CommonL10n.FIGHTER_WINGS, isFighterWing),
                 new ItemFilterButton(this, CommonL10n.OTHERS, new CargoStackIsType(Type.SPECIAL)),
-                new Spacer(20f),
+                new Spacer(20),
                 new ItemFilterButton(
                     this,
                     CommonL10n.MOUNT_SMALL,
@@ -73,11 +74,12 @@ public class ButtonManager {
             };
         shipButtons =
             new Renderable[] {
+                new Spacer(2),
                 new ShipFilterButton(this, CommonL10n.FRIGATES, new ShipHullIsSize(HullSize.FRIGATE)),
                 new ShipFilterButton(this, CommonL10n.DESTROYERS, new ShipHullIsSize(HullSize.DESTROYER)),
                 new ShipFilterButton(this, CommonL10n.CRUISERS, new ShipHullIsSize(HullSize.CRUISER)),
                 new ShipFilterButton(this, CommonL10n.CAPITALS, new ShipHullIsSize(HullSize.CAPITAL_SHIP)),
-                new Spacer(20f),
+                new Spacer(20),
                 new ShipFilterButton(this, CommonL10n.CARRIERS, new ShipHullHasHint(ShipTypeHints.CARRIER)),
                 new ShipFilterButton(this, CommonL10n.CIVILIANS, new ShipHullHasHint(ShipTypeHints.CIVILIAN)),
             };
