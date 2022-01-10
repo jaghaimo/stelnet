@@ -20,7 +20,7 @@ public class GroupByButton extends AreaCheckbox {
         super(
             new Size(width, UiConstants.DEFAULT_BUTTON_HEIGHT),
             L10n.get(groupingStrategy),
-            true,
+            isEnabled,
             manager.getGroupingStrategy().equals(groupingStrategy)
         );
         setPadding(1);
