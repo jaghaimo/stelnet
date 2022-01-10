@@ -52,9 +52,9 @@ public class MarketProvider {
     }
 
     public static void updateMarket(MarketAPI market) {
-        updateOfficers(market);
-        updateSubmarkets(market);
         ListenerUtil.reportPlayerOpenedMarketAndCargoUpdated(market);
+        updateSubmarkets(market);
+        updateOfficers(market);
     }
 
     public static void updateOfficers(MarketAPI market) {
@@ -65,6 +65,7 @@ public class MarketProvider {
     }
 
     public static void updateSubmarkets(MarketAPI market) {
+        ListenerUtil.reportPlayerOpenedMarketAndCargoUpdated(market);
         for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
             submarket.getPlugin().updateCargoPrePlayerInteraction();
         }
