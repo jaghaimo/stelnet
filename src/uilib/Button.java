@@ -24,6 +24,7 @@ public class Button extends RenderableComponent implements ButtonHandler {
     private CutStyle cutStyle = CutStyle.ALL;
     private int padding = UiConstants.DEFAULT_BUTTON_PADDING;
     private int shortcut = 0;
+    private boolean highlight = false;
 
     public Button(Size size, String title, boolean isEnabled) {
         this(size, title, isEnabled, Misc.getButtonTextColor(), Misc.getDarkPlayerColor());
@@ -94,6 +95,9 @@ public class Button extends RenderableComponent implements ButtonHandler {
         button.setEnabled(isEnabled);
         if (shortcut > 0) {
             button.setShortcut(shortcut, false);
+        }
+        if (highlight) {
+            button.highlight();
         }
     }
 

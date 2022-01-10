@@ -7,7 +7,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
-import stelnet.util.SettingsUtils;
 import uilib.property.Position;
 import uilib.property.Size;
 
@@ -15,11 +14,11 @@ import uilib.property.Size;
 @Setter
 public class TabViewContainer extends RenderableComponent {
 
-    private final Map<Button, Renderable> tabs = new LinkedHashMap<>();
-    private Button activeTab;
+    private final Map<TabButton, Renderable> tabs = new LinkedHashMap<>();
+    private TabButton activeTab;
     private Size outerContainerSizeCorrection = new Size(0, 35);
 
-    public void addTab(Button tabButton, Renderable tabPanel, boolean isActive) {
+    public void addTab(TabButton tabButton, Renderable tabPanel, boolean isActive) {
         tabs.put(tabButton, tabPanel);
         if (isActive) {
             setActiveTab(tabButton);
@@ -41,7 +40,9 @@ public class TabViewContainer extends RenderableComponent {
         }
         Renderable tabToDisplay = getTabToDisplay(panel);
         HorizontalViewContainer tabButtons = new HorizontalViewContainer(new ArrayList<Renderable>(tabs.keySet()));
-        Line separatorLine = new Line(tabToDisplay.getSize().getWidth() - 6, SettingsUtils.getButtonHighlightColor());
+        Line separatorLine = new Line(tabToDisplay.getSize().getWidth() - 6);
+        separatorLine.setHighlight(true);
+        separatorLine.setEnabled(false);
         separatorLine.setPadding(0);
         Spacer spacer = new Spacer(10);
         new VerticalViewContainer(tabButtons, separatorLine, spacer, tabToDisplay).render(panel, x, y);
