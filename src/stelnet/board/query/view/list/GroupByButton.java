@@ -1,17 +1,15 @@
 package stelnet.board.query.view.list;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
-import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import com.fs.starfarer.api.util.Misc;
 import stelnet.board.query.QueryManager;
 import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.util.L10n;
-import uilib.Button;
+import uilib.AreaCheckbox;
 import uilib.EventHandler;
 import uilib.UiConstants;
 import uilib.property.Size;
 
-public class GroupByButton extends Button {
+public class GroupByButton extends AreaCheckbox {
 
     public GroupByButton(
         final QueryManager manager,
@@ -22,11 +20,9 @@ public class GroupByButton extends Button {
         super(
             new Size(width, UiConstants.DEFAULT_BUTTON_HEIGHT),
             L10n.get(groupingStrategy),
+            true,
             manager.getGroupingStrategy().equals(groupingStrategy)
         );
-        setEnabled(isEnabled);
-        setTextColor(Misc.getBasePlayerColor());
-        setBackgroundColor(Misc.getDarkPlayerColor());
         setPadding(1);
         setHandler(
             new EventHandler() {
@@ -37,12 +33,5 @@ public class GroupByButton extends Button {
                 }
             }
         );
-    }
-
-    @Override
-    public void render(TooltipMakerAPI tooltip) {
-        tooltip.setButtonFontVictor14();
-        super.render(tooltip);
-        tooltip.setButtonFontDefault();
     }
 }

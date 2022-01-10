@@ -6,9 +6,9 @@ import stelnet.board.query.Query;
 import stelnet.board.query.QueryL10n;
 import uilib.EventHandler;
 
-public class ToggleButton extends ControlButton {
+public class OnOffButton extends ControlButton {
 
-    public ToggleButton(final Query query) {
+    public OnOffButton(final Query query) {
         super(QueryL10n.ENABLED, QueryL10n.DISABLED, true, query.isEnabled());
         setCutStyle(CutStyle.C2_MENU);
         scaleButton(query);
