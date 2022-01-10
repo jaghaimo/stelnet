@@ -39,9 +39,8 @@ public class QueryListFactory implements RenderableFactory {
         return elements;
     }
 
-    public RenderableComponent getPreview(Size size) {
-        Query activeQuery = manager.getActiveQuery();
-        RenderableComponent preview = getPreviewComponent(size, activeQuery);
+    public RenderableComponent getFilters(Size size) {
+        RenderableComponent preview = new Spacer(0);
         preview.setLocation(Location.TOP_RIGHT);
         return preview;
     }
@@ -87,12 +86,5 @@ public class QueryListFactory implements RenderableFactory {
         elements.add(new GroupByButton(manager, GroupingStrategy.BY_MARKET, enableButtons, buttonWidth));
         elements.add(new GroupByButton(manager, GroupingStrategy.BY_SYSTEM, enableButtons, buttonWidth));
         return new HorizontalViewContainer(elements);
-    }
-
-    private RenderableComponent getPreviewComponent(Size size, Query activeQuery) {
-        if (activeQuery != null) {
-            return activeQuery.getPreview(size);
-        }
-        return new Spacer(0);
     }
 }

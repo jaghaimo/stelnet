@@ -68,7 +68,7 @@ public class QueryView implements RenderableFactory {
             Set<Filter> filters = addQueryFactory.getFilters(false);
             return addQueryFactory.getPreview(filters, size);
         }
-        return queryListFactory.getPreview(size);
+        return queryListFactory.getFilters(size);
     }
 
     private QueryTabButton getTabButton(QueryBoardTab currentTab, int keyboardShortcut) {

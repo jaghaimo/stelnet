@@ -12,21 +12,18 @@ import stelnet.filter.Filter;
 import stelnet.util.L10n;
 import uilib.Button;
 import uilib.Renderable;
-import uilib.RenderableComponent;
-import uilib.ShowPeople;
-import uilib.property.Size;
 
 public class PersonnelQueryFactory extends QueryFactory {
 
     @Getter
-    private transient PeopleProvider provider = new PeopleProvider(this);
+    private transient PeopleProvider provider = new PeopleProvider();
 
     private final FilteringButton[] postType = PersonnelButtonUtils.getPostTypeButtons();
     private final FilteringButton[] personality = PersonnelButtonUtils.getPersonalityButtons();
     private final FilteringButton[] skill = PersonnelButtonUtils.getSkillButtons();
 
     public Object readResolve() {
-        provider = new PeopleProvider(this);
+        provider = new PeopleProvider();
         return this;
     }
 
@@ -37,11 +34,6 @@ public class PersonnelQueryFactory extends QueryFactory {
         addSelectedOrNone(filters, personality, L10n.get(QueryL10n.PERSONNEL_PERSONALITY), hasOfficers());
         addSelectedOrNone(filters, skill, L10n.get(QueryL10n.PERSONNEL_SKILLS), hasOfficers());
         return filters;
-    }
-
-    @Override
-    public RenderableComponent getPreview(Set<Filter> filters, Size size) {
-        return new ShowPeople(provider.getMatching(filters), L10n.get(QueryL10n.NO_MATCHING_PEOPLE), size);
     }
 
     @Override

@@ -14,15 +14,19 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import stelnet.board.query.QueryL10n;
 import stelnet.board.query.ResultSet;
 import stelnet.board.query.grouping.GroupingStrategy;
-import stelnet.board.query.view.add.QueryFactory;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.EconomyUtils;
 import stelnet.util.Excluder;
 import stelnet.util.FactoryUtils;
+import stelnet.util.L10n;
 import stelnet.util.SettingsUtils;
+import uilib.RenderableComponent;
+import uilib.ShowShips;
+import uilib.property.Size;
 
 public class ShipProvider extends QueryProvider {
 
@@ -40,10 +44,6 @@ public class ShipProvider extends QueryProvider {
         allShipHulls = null;
     }
 
-    public ShipProvider(QueryFactory factory) {
-        super(factory);
-    }
-
     @Override
     public List<FleetMemberAPI> getMatching(Set<Filter> filters) {
         List<ShipHullSpecAPI> allShipHullSpecs = getShipHulls();
@@ -52,6 +52,16 @@ public class ShipProvider extends QueryProvider {
         CollectionUtils.reduce(fleetMembers, filters);
         Collections.sort(fleetMembers, new ShipHullSorter());
         return fleetMembers;
+    }
+
+    @Override
+    public RenderableComponent getPreview(Set<Filter> filters, Size size) {
+        return new ShowShips(
+            getMatching(filters),
+            L10n.get(QueryL10n.MATCHING_SHIPS),
+            L10n.get(QueryL10n.NO_MATCHING_SHIPS),
+            size
+        );
     }
 
     @Override

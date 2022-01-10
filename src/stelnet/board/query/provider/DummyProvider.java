@@ -7,20 +7,24 @@ import java.util.Set;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.query.ResultSet;
 import stelnet.board.query.grouping.GroupingStrategy;
-import stelnet.board.query.view.add.QueryFactory;
 import stelnet.filter.Filter;
+import uilib.RenderableComponent;
+import uilib.Spacer;
+import uilib.property.Size;
 
 @Log4j
 public class DummyProvider extends QueryProvider {
-
-    public DummyProvider(QueryFactory factory) {
-        super(factory);
-    }
 
     @Override
     public List<?> getMatching(Set<Filter> filters) {
         logUsage();
         return Collections.emptyList();
+    }
+
+    @Override
+    public RenderableComponent getPreview(Set<Filter> filters, Size size) {
+        logUsage();
+        return new Spacer(0);
     }
 
     @Override

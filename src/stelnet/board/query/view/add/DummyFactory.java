@@ -34,7 +34,7 @@ public class DummyFactory extends QueryFactory {
     @Override
     public QueryProvider getProvider() {
         logUsage();
-        return new DummyProvider(this);
+        return new DummyProvider();
     }
 
     @Override

@@ -11,13 +11,17 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import lombok.experimental.ExtensionMethod;
+import stelnet.board.query.QueryL10n;
 import stelnet.board.query.ResultSet;
 import stelnet.board.query.grouping.GroupingStrategy;
-import stelnet.board.query.view.add.QueryFactory;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.EconomyUtils;
 import stelnet.util.Excluder;
+import stelnet.util.L10n;
+import uilib.RenderableComponent;
+import uilib.ShowCargo;
+import uilib.property.Size;
 
 @ExtensionMethod({ CargoStackExtension.class })
 public class ItemProvider extends QueryProvider {
@@ -36,10 +40,6 @@ public class ItemProvider extends QueryProvider {
         allWeaponSpecs = null;
     }
 
-    public ItemProvider(QueryFactory factory) {
-        super(factory);
-    }
-
     @Override
     public List<CargoStackAPI> getMatching(Set<Filter> filters) {
         if (allCargoStacks == null) {
@@ -51,6 +51,16 @@ public class ItemProvider extends QueryProvider {
         List<CargoStackAPI> cargoStacksCopy = new LinkedList<CargoStackAPI>(allCargoStacks);
         CollectionUtils.reduce(cargoStacksCopy, filters);
         return cargoStacksCopy;
+    }
+
+    @Override
+    public RenderableComponent getPreview(Set<Filter> filters, Size size) {
+        return new ShowCargo(
+            getMatching(filters),
+            L10n.get(QueryL10n.MATCHING_ITEMS),
+            L10n.get(QueryL10n.NO_MATCHING_ITEMS),
+            size
+        );
     }
 
     @Override
