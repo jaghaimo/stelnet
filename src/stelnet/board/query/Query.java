@@ -8,12 +8,12 @@ import lombok.Setter;
 import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
-import stelnet.filter.IsPurchasable;
 import stelnet.util.CollectionUtils;
 import stelnet.util.L10n;
 import stelnet.util.SectorUtils;
 import stelnet.util.StringUtils;
 import uilib.RenderableComponent;
+import uilib.RenderableShowComponent;
 import uilib.property.Size;
 
 @Getter
@@ -27,8 +27,6 @@ public class Query {
     private final Set<Filter> filters;
     private final String type;
     private boolean isEnabled = true;
-    private boolean isPurchasable = true;
-    private boolean isSelected = false;
     private int number = 0;
     private int resultNumber = 0;
 
@@ -37,14 +35,13 @@ public class Query {
     }
 
     public RenderableComponent getPreview(Size size) {
-        return provider.getPreview(filters, size);
+        RenderableShowComponent preview = provider.getPreview(filters, size);
+        preview.setMaxElements(30);
+        return preview;
     }
 
     public List<ResultSet> execute(GroupingStrategy groupingStrategy) {
         List<ResultSet> results = provider.getResults(filters, groupingStrategy);
-        if (isPurchasable) {
-            CollectionUtils.reduce(results, new IsPurchasable());
-        }
         resultNumber = 0;
         for (ResultSet resultSet : results) {
             resultNumber += resultSet.getResultCount();
@@ -54,10 +51,6 @@ public class Query {
 
     public void refresh() {
         manager.updateIntel();
-    }
-
-    public void select() {
-        manager.selectQuery(this);
     }
 
     @Override

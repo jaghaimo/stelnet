@@ -9,13 +9,13 @@ import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
 import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.util.L10n;
-import uilib.HorizontalViewContainer;
 import uilib.Paragraph;
 import uilib.Renderable;
 import uilib.RenderableComponent;
 import uilib.RenderableFactory;
 import uilib.Spacer;
 import uilib.UiConstants;
+import uilib.VerticalViewContainer;
 import uilib.property.Location;
 import uilib.property.Size;
 
@@ -32,59 +32,45 @@ public class QueryListFactory implements RenderableFactory {
             elements.add(new QueryRow(width, query));
         }
         Collections.reverse(elements);
-        boolean enableButtons = addNewQueries(elements, width);
-        elements.add(0, new Spacer(2 * UiConstants.DEFAULT_SPACER));
-        elements.add(0, getGroupingButtons(enableButtons, size.getWidth()));
-        elements.add(0, getGlobalButtons(enableButtons, size.getWidth()));
+        addNewQueries(elements, width);
         return elements;
     }
 
     public RenderableComponent getFilters(Size size) {
-        RenderableComponent preview = new Spacer(0);
-        preview.setLocation(Location.TOP_RIGHT);
-        return preview;
+        List<Renderable> elements = new LinkedList<>();
+        boolean enableButtons = manager.getQueries().size() > 0;
+        elements.add(new Spacer(UiConstants.DEFAULT_BUTTON_HEIGHT));
+        elements.addAll(getGlobalButtons(enableButtons, size.getWidth()));
+        elements.add(new Spacer(UiConstants.DEFAULT_BUTTON_HEIGHT));
+        elements.addAll(getGroupingButtons(enableButtons, size.getWidth()));
+        VerticalViewContainer container = new VerticalViewContainer(elements);
+        container.setSize(size);
+        container.setLocation(Location.TOP_RIGHT);
+        return container;
     }
 
-    private boolean addNewQueries(List<Renderable> elements, float width) {
-        boolean hasAdded = false;
+    private void addNewQueries(List<Renderable> elements, float width) {
         if (elements.isEmpty()) {
-            hasAdded = true;
             elements.add(new Paragraph(L10n.get(QueryL10n.NO_QUERIES), width));
         }
-        return !hasAdded;
     }
 
-    private void adjustSpacerWidth(List<Renderable> elements, Spacer spacer, float width) {
-        float spacerWidth = calculateRemaining(width, elements);
-        spacer.setSize(new Size(spacerWidth, 0));
-    }
-
-    private float calculateRemaining(float width, List<Renderable> elements) {
-        float total = 0;
-        for (Renderable element : elements) {
-            total += element.getSize().getWidth();
-        }
-        return Math.max(0, width - total);
-    }
-
-    private Renderable getGlobalButtons(boolean enableButtons, float width) {
-        Spacer spacer = new Spacer(0);
+    private List<Renderable> getGlobalButtons(boolean enableButtons, float width) {
         List<Renderable> elements = new LinkedList<>();
-        elements.add(new RefreshAllButton(manager, enableButtons));
-        elements.add(new EnableAllButton(manager, enableButtons));
-        elements.add(new DisableAllButton(manager, enableButtons));
-        elements.add(spacer);
-        elements.add(new DeleteAllButton(manager, enableButtons));
-        adjustSpacerWidth(elements, spacer, width);
-        return new HorizontalViewContainer(elements);
+        elements.add(new RefreshAllButton(manager, enableButtons, width));
+        elements.add(new Spacer(UiConstants.DEFAULT_BUTTON_HEIGHT));
+        elements.add(new EnableAllButton(manager, enableButtons, width));
+        elements.add(new DisableAllButton(manager, enableButtons, width));
+        elements.add(new Spacer(UiConstants.DEFAULT_BUTTON_HEIGHT));
+        elements.add(new DeleteAllButton(manager, enableButtons, width));
+        return elements;
     }
 
-    private Renderable getGroupingButtons(boolean enableButtons, float width) {
-        float buttonWidth = width / 3;
+    private List<Renderable> getGroupingButtons(boolean enableButtons, float width) {
         List<Renderable> elements = new LinkedList<>();
-        elements.add(new GroupByButton(manager, GroupingStrategy.NO_GROUPING, enableButtons, buttonWidth));
-        elements.add(new GroupByButton(manager, GroupingStrategy.BY_MARKET, enableButtons, buttonWidth));
-        elements.add(new GroupByButton(manager, GroupingStrategy.BY_SYSTEM, enableButtons, buttonWidth));
-        return new HorizontalViewContainer(elements);
+        elements.add(new GroupByButton(manager, GroupingStrategy.NO_GROUPING, enableButtons, width));
+        elements.add(new GroupByButton(manager, GroupingStrategy.BY_MARKET, enableButtons, width));
+        elements.add(new GroupByButton(manager, GroupingStrategy.BY_SYSTEM, enableButtons, width));
+        return elements;
     }
 }

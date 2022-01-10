@@ -8,8 +8,8 @@ import uilib.EventHandler;
 
 public class RefreshAllButton extends GlobalButton {
 
-    public RefreshAllButton(final QueryManager manager, boolean isEnabled) {
-        super(QueryL10n.REFRESH_ALL);
+    public RefreshAllButton(final QueryManager manager, boolean isEnabled, float width) {
+        super(QueryL10n.REFRESH_ALL, width);
         setEnabled(isEnabled);
         setShortcut(Keyboard.KEY_R);
         setHandler(

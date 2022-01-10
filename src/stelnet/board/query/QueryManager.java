@@ -1,6 +1,5 @@
 package stelnet.board.query;
 
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,9 +14,6 @@ public class QueryManager {
     private int queryCounter = 0;
 
     @Getter
-    private Query activeQuery;
-
-    @Getter
     @Setter
     private GroupingStrategy groupingStrategy = GroupingStrategy.BY_MARKET;
 
@@ -30,26 +26,19 @@ public class QueryManager {
         if (!queries.contains(query)) {
             query.setNumber(++queryCounter);
             queries.add(query);
-            setActiveQuery(null, query);
             updateIntel(query);
         }
     }
 
     public void deleteAll() {
-        activeQuery = null;
         queries.clear();
         updateIntel();
     }
 
     public void deleteQuery(Query query) {
-        setActiveQuery(query, null);
         if (queries.contains(query)) {
             queries.remove(query);
             updateIntel();
-        }
-        Iterator<Query> iterator = queries.iterator();
-        if (iterator.hasNext()) {
-            setActiveQuery(null, iterator.next());
         }
     }
 
@@ -62,13 +51,6 @@ public class QueryManager {
 
     public int numberOfQueries() {
         return queries.size();
-    }
-
-    public void selectQuery(Query newActiveQuery) {
-        for (Query query : queries) {
-            query.setSelected(false);
-        }
-        setActiveQuery(activeQuery, newActiveQuery);
     }
 
     public void updateIntel() {
@@ -87,16 +69,6 @@ public class QueryManager {
         List<ResultSet> resultSets = query.execute(groupingStrategy);
         for (ResultSet resultSet : resultSets) {
             updateResult(resultSet);
-        }
-    }
-
-    private void setActiveQuery(Query checkForThisQuery, Query setToThisQuery) {
-        if (activeQuery != checkForThisQuery) {
-            return;
-        }
-        activeQuery = setToThisQuery;
-        if (setToThisQuery != null) {
-            setToThisQuery.setSelected(true);
         }
     }
 

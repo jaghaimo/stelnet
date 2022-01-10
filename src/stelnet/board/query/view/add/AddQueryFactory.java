@@ -15,7 +15,6 @@ import uilib.RenderableComponent;
 import uilib.RenderableFactory;
 import uilib.Spacer;
 import uilib.UiConstants;
-import uilib.property.Location;
 import uilib.property.Size;
 
 @Getter
@@ -48,9 +47,7 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
 
     @Override
     public RenderableComponent getPreview(Set<Filter> filters, Size size) {
-        RenderableComponent preview = findNextFactory().getPreview(filters, size);
-        preview.setLocation(Location.TOP_RIGHT);
-        return preview;
+        return findNextFactory().getPreview(filters, size);
     }
 
     @Override

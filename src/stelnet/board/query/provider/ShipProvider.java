@@ -24,7 +24,7 @@ import stelnet.util.Excluder;
 import stelnet.util.FactoryUtils;
 import stelnet.util.L10n;
 import stelnet.util.SettingsUtils;
-import uilib.RenderableComponent;
+import uilib.RenderableShowComponent;
 import uilib.ShowShips;
 import uilib.property.Size;
 
@@ -55,7 +55,7 @@ public class ShipProvider extends QueryProvider {
     }
 
     @Override
-    public RenderableComponent getPreview(Set<Filter> filters, Size size) {
+    public RenderableShowComponent getPreview(Set<Filter> filters, Size size) {
         return new ShowShips(
             getMatching(filters),
             L10n.get(QueryL10n.MATCHING_SHIPS),

@@ -1,6 +1,7 @@
 package stelnet.board.query.provider;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -8,8 +9,7 @@ import lombok.extern.log4j.Log4j;
 import stelnet.board.query.ResultSet;
 import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.filter.Filter;
-import uilib.RenderableComponent;
-import uilib.Spacer;
+import uilib.RenderableShowComponent;
 import uilib.property.Size;
 
 @Log4j
@@ -22,9 +22,14 @@ public class DummyProvider extends QueryProvider {
     }
 
     @Override
-    public RenderableComponent getPreview(Set<Filter> filters, Size size) {
+    public RenderableShowComponent getPreview(Set<Filter> filters, Size size) {
         logUsage();
-        return new Spacer(0);
+        return new RenderableShowComponent(0) {
+            @Override
+            public void render(TooltipMakerAPI tooltip) {
+                logUsage();
+            }
+        };
     }
 
     @Override

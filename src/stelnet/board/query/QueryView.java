@@ -8,11 +8,12 @@ import stelnet.board.query.QueryState.QueryBoardTab;
 import stelnet.board.query.view.add.AddQueryFactory;
 import stelnet.board.query.view.list.QueryListFactory;
 import stelnet.filter.Filter;
-import uilib.Line;
+import uilib.HorizontalViewContainer;
 import uilib.Renderable;
 import uilib.RenderableComponent;
 import uilib.RenderableFactory;
 import uilib.TabViewContainer;
+import uilib.UiConstants;
 import uilib.VerticalViewContainer;
 import uilib.property.Position;
 import uilib.property.Size;
@@ -31,7 +32,7 @@ public class QueryView implements RenderableFactory {
 
     @Override
     public List<Renderable> create(Size size) {
-        float previewOffset = 28;
+        float previewOffset = UiConstants.DEFAULT_BUTTON_HEIGHT;
         float previewWidth = Math.max(250, size.getWidth() - 950);
         float previewHeight = size.getHeight() - previewOffset - 5;
         float width = size.getWidth() - previewWidth - 10;
@@ -51,15 +52,11 @@ public class QueryView implements RenderableFactory {
             isActive(QueryBoardTab.NEW)
         );
 
-        Line fakeTabLine = new Line(size.getWidth() - 5);
-        fakeTabLine.setOffset(new Position(0, 18));
-        fakeTabLine.setPadding(0);
-
         RenderableComponent sideColumn = getSideColumn(previewWidth, previewHeight);
         Position offset = new Position(0, previewOffset);
         sideColumn.setOffset(offset);
 
-        return Arrays.<Renderable>asList(tabViewContainer, fakeTabLine, sideColumn);
+        return Arrays.<Renderable>asList(new HorizontalViewContainer(tabViewContainer, sideColumn));
     }
 
     private RenderableComponent getSideColumn(float width, float height) {
@@ -68,7 +65,7 @@ public class QueryView implements RenderableFactory {
             Set<Filter> filters = addQueryFactory.getFilters(false);
             return addQueryFactory.getPreview(filters, size);
         }
-        return queryListFactory.getFilters(size);
+        return queryListFactory.getFilters(size.reduce(new Size(UiConstants.DEFAULT_BUTTON_PADDING, 0)));
     }
 
     private QueryTabButton getTabButton(QueryBoardTab currentTab, int keyboardShortcut) {

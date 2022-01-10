@@ -11,7 +11,7 @@ import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.L10n;
-import uilib.RenderableComponent;
+import uilib.RenderableShowComponent;
 import uilib.ShowPeople;
 import uilib.property.Size;
 
@@ -33,7 +33,7 @@ public class PeopleProvider extends QueryProvider {
     }
 
     @Override
-    public RenderableComponent getPreview(Set<Filter> filters, Size size) {
+    public RenderableShowComponent getPreview(Set<Filter> filters, Size size) {
         return new ShowPeople(getMatching(filters), L10n.get(QueryL10n.NO_MATCHING_PEOPLE), size);
     }
 

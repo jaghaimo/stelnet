@@ -9,7 +9,7 @@ import stelnet.board.query.ResultSet;
 import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
-import uilib.RenderableComponent;
+import uilib.RenderableShowComponent;
 import uilib.property.Size;
 
 @RequiredArgsConstructor
@@ -17,7 +17,7 @@ public abstract class QueryProvider {
 
     public abstract List<?> getMatching(Set<Filter> filters);
 
-    public abstract RenderableComponent getPreview(Set<Filter> filters, Size size);
+    public abstract RenderableShowComponent getPreview(Set<Filter> filters, Size size);
 
     public List<ResultSet> getResults(Set<Filter> filters, GroupingStrategy groupingStrategy) {
         List<MarketAPI> markets = MarketProvider.getMarkets(true);

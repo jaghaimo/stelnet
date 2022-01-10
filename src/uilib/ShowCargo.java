@@ -11,7 +11,7 @@ import stelnet.util.CargoUtils;
 import uilib.property.Size;
 
 @Setter
-public class ShowCargo extends RenderableComponent {
+public class ShowCargo extends RenderableShowComponent {
 
     private final CargoAPI cargo;
     private final String optionalTitle;
@@ -23,6 +23,7 @@ public class ShowCargo extends RenderableComponent {
     }
 
     public ShowCargo(CargoAPI cargo, String optionalTitle, String emptyDescription, Size size) {
+        super(cargo.getStacksCopy().size());
         this.cargo = cargo;
         this.optionalTitle = optionalTitle;
         this.emptyDescription = emptyDescription;
@@ -36,13 +37,13 @@ public class ShowCargo extends RenderableComponent {
     @Override
     public void render(TooltipMakerAPI tooltip) {
         if (cargo.isEmpty()) {
-            tooltip.addPara(emptyDescription, UiConstants.DEFAULT_SPACER);
+            tooltip.addPara(emptyDescription, 0);
             return;
         }
         if (optionalTitle != null) {
-            addSectionTitle(tooltip, optionalTitle, titleColor, getSize().getWidth() - 12);
+            addSectionTitle(tooltip, optionalTitle, titleColor, getSize().getWidth() - UiConstants.DEFAULT_SPACER);
         }
-        tooltip.showCargo(cargo, cargo.getStacksCopy().size(), false, 5);
+        tooltip.showCargo(cargo, getMaxElements(), false, 5);
         setOffsetOfLast(tooltip, -6);
     }
 }

@@ -19,7 +19,7 @@ import stelnet.util.CollectionUtils;
 import stelnet.util.EconomyUtils;
 import stelnet.util.Excluder;
 import stelnet.util.L10n;
-import uilib.RenderableComponent;
+import uilib.RenderableShowComponent;
 import uilib.ShowCargo;
 import uilib.property.Size;
 
@@ -54,7 +54,7 @@ public class ItemProvider extends QueryProvider {
     }
 
     @Override
-    public RenderableComponent getPreview(Set<Filter> filters, Size size) {
+    public RenderableShowComponent getPreview(Set<Filter> filters, Size size) {
         return new ShowCargo(
             getMatching(filters),
             L10n.get(QueryL10n.MATCHING_ITEMS),
