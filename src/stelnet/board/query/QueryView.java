@@ -55,14 +55,14 @@ public class QueryView implements RenderableFactory {
         fakeTabLine.setOffset(new Position(0, 18));
         fakeTabLine.setPadding(0);
 
-        RenderableComponent preview = getPreview(previewWidth, previewHeight);
+        RenderableComponent sideColumn = getSideColumn(previewWidth, previewHeight);
         Position offset = new Position(0, previewOffset);
-        preview.setOffset(offset);
+        sideColumn.setOffset(offset);
 
-        return Arrays.<Renderable>asList(tabViewContainer, fakeTabLine, preview);
+        return Arrays.<Renderable>asList(tabViewContainer, fakeTabLine, sideColumn);
     }
 
-    private RenderableComponent getPreview(float width, float height) {
+    private RenderableComponent getSideColumn(float width, float height) {
         Size size = new Size(width, height);
         if (isActive(QueryBoardTab.NEW)) {
             Set<Filter> filters = addQueryFactory.getFilters(false);
