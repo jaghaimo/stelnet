@@ -34,7 +34,7 @@ public class MarketProvider {
         List<Filter> filters = Arrays.<Filter>asList(Excluder.getMarketFilters(), new MarketNotHidden());
         CollectionUtils.reduce(markets, filters);
         if (refreshContent && needsRefresh) {
-            log.debug("Refreshing all markets, this may take a while");
+            log.debug("Refreshing all markets, this may take a moment");
             updateMarkets(markets);
             needsRefresh = false;
         }
