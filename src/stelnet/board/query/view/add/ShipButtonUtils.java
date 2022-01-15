@@ -9,7 +9,7 @@ import java.util.List;
 import stelnet.CommonL10n;
 import stelnet.board.query.provider.ShipProvider;
 import stelnet.filter.FleetMemberHasDMod;
-import stelnet.filter.FleetMemberHasDmods;
+import stelnet.filter.FleetMemberHasDModCount;
 import stelnet.filter.ShipHullHasBays;
 import stelnet.filter.ShipHullHasBuiltIn;
 import stelnet.filter.ShipHullIsManufacturer;
@@ -87,7 +87,6 @@ public class ShipButtonUtils {
 
     public static FilteringButton[] getDMods(ShipProvider provider) {
         List<FilteringButton> dMods = new LinkedList<>();
-        // dMods.add(new FilteringButton(CommonL10n.NONE, new FleetMemberPristine(L10n.get(CommonL10n.NONE))));
         for (HullModSpecAPI dMod : provider.getDMods()) {
             dMods.add(
                 new FilteringButton(dMod.getDisplayName(), new FleetMemberHasDMod(dMod.getId(), dMod.getDisplayName()))
@@ -98,9 +97,9 @@ public class ShipButtonUtils {
 
     public static FilteringButton[] getDModsCount() {
         List<FilteringButton> dModCount = new LinkedList<>();
-        dModCount.add(new FilteringButton(CommonL10n.NONE, new FleetMemberHasDmods(0)));
+        dModCount.add(new FilteringButton(CommonL10n.NONE, new FleetMemberHasDModCount(0)));
         for (int i = 1; i < 6; i++) {
-            dModCount.add(new FilteringButton(String.valueOf(i), new FleetMemberHasDmods(i)));
+            dModCount.add(new FilteringButton(String.valueOf(i), new FleetMemberHasDModCount(i)));
         }
         return dModCount.toArray(new FilteringButton[] {});
     }

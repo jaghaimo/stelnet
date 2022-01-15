@@ -14,6 +14,7 @@
     "DESTROYERS": "Destroyers",
     "FIGHTER_WINGS": "Fighter Wings",
     "FILTER_NUMBER_OF_BAYS": "{0, choice, 0#None|0<At least {0, number, integer}}",
+    "FILTER_NUMBER_OF_DMODS": "{0, choice, 0#None|0<Exactly {0, number, integer}}",
     "FILTER_OFFICER_LEVEL": "At least {0}",
     "FRIGATES": "Frigates",
     "HYPERSPACE": "Hyperspace",
