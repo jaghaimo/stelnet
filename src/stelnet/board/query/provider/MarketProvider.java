@@ -52,22 +52,21 @@ public class MarketProvider {
     }
 
     public static void updateMarket(MarketAPI market) {
-        ListenerUtil.reportPlayerOpenedMarketAndCargoUpdated(market);
         updateSubmarkets(market);
         updateOfficers(market);
     }
 
-    public static void updateOfficers(MarketAPI market) {
+    private static void updateOfficers(MarketAPI market) {
         List<OfficerManagerEvent> managers = SectorUtils.getListenerManager().getListeners(OfficerManagerEvent.class);
         for (OfficerManagerEvent manager : managers) {
             manager.reportPlayerOpenedMarket(market);
         }
     }
 
-    public static void updateSubmarkets(MarketAPI market) {
-        ListenerUtil.reportPlayerOpenedMarketAndCargoUpdated(market);
+    private static void updateSubmarkets(MarketAPI market) {
         for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
             submarket.getPlugin().updateCargoPrePlayerInteraction();
+            ListenerUtil.reportSubmarketCargoAndShipsUpdated(submarket);
         }
     }
 }

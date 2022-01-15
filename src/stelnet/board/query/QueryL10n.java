@@ -10,6 +10,8 @@ public enum QueryL10n {
     DESCRIPTION,
     DISABLED,
     DISABLE_ALL,
+    DMOD_ALLOWED,
+    DMOD_COUNT,
     DMODS,
     EMPTY_FILTER,
     ENABLED,

@@ -28,7 +28,8 @@ public class ShipQueryFactory extends QueryFactory {
     private final FilteringButton[] mountBays = ShipButtonUtils.getMountBays(this);
     private final FilteringButton[] designTypes = ShipButtonUtils.getManufacturers(provider);
     private final FilteringButton[] builtIns = ShipButtonUtils.getBuiltIns(provider);
-    private final FilteringButton[] dMods = ShipButtonUtils.getDMods(provider);
+    private final FilteringButton[] dModCount = ShipButtonUtils.getDModsCount();
+    private final FilteringButton[] dModAllowed = ShipButtonUtils.getDMods(provider);
 
     public Object readResolve() {
         provider = new ShipProvider();
@@ -36,7 +37,8 @@ public class ShipQueryFactory extends QueryFactory {
     }
 
     public void addDmodFilters(Set<Filter> filters) {
-        addSelectedOrNone(filters, dMods, L10n.get(QueryL10n.DMODS), true);
+        addSelectedOrNone(filters, dModCount, L10n.get(QueryL10n.DMOD_COUNT), true);
+        addSelectedOrNone(filters, dModAllowed, L10n.get(QueryL10n.DMOD_ALLOWED), true);
     }
 
     public void setFighterBays(FighterBaysButton active) {
@@ -82,8 +84,11 @@ public class ShipQueryFactory extends QueryFactory {
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.FIGHTER_BAYS, mountBays, true));
         elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.MANUFACTURERS, true, designTypes));
         elements.add(new ButtonGroup(sizeHelper, designTypes, true));
-        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.DMODS, true, dMods));
-        elements.add(new ButtonGroup(sizeHelper, dMods, true));
+        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.DMODS, true, dModAllowed));
+        elements.add(new ButtonGroup(sizeHelper, QueryL10n.DMOD_COUNT, dModCount, true));
+        elements.add(new ButtonGroup(sizeHelper, QueryL10n.DMOD_ALLOWED, dModAllowed, true));
+        // elements.add(new Spacer(4));
+        // elements.add(new ButtonGroup(sizeHelper, dModAllowed, true));
         elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.BUILT_IN, true, builtIns));
         elements.add(new ButtonGroup(sizeHelper, builtIns, true));
         return elements;
