@@ -84,6 +84,6 @@ public class MarketUpdater implements EveryFrameScript, ColonyInteractionListene
 
     protected void updateMarket(MarketAPI market) {
         log.debug("Updating " + market.getId());
-        MarketProvider.updateSubmarkets(market);
+        MarketProvider.updateMarket(market);
     }
 }
