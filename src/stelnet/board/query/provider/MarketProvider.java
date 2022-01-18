@@ -67,6 +67,7 @@ public class MarketProvider {
     public static void updateSubmarkets(MarketAPI market) {
         for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
             submarket.getPlugin().updateCargoPrePlayerInteraction();
+            ListenerUtil.reportSubmarketCargoAndShipsUpdated(submarket);
         }
     }
 }
