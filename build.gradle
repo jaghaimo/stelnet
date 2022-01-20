@@ -7,6 +7,13 @@ plugins {
 
 repositories {
     mavenCentral()
+    ivy {
+        url 'https://github.com/jaghaimo/'
+        patternLayout {
+            artifact '/[organization]/releases/download/[revision]/[module].[ext]'
+        }
+        metadataSources { artifact() }
+    }
 }
 
 // fix documentation
@@ -15,8 +22,8 @@ eclipse {
         file {
             whenMerged {
                 def lib = entries.find { it.path.contains 'starfarer.api.jar' }
-                lib.javadocPath = fileReference(file('libs/starfarer.api.zip'))
-                lib.sourcePath = fileReference(file('libs/starfarer.api.zip'))
+                lib.javadocPath = fileReference(file('starfarer.api.zip'))
+                lib.sourcePath = fileReference(file('starfarer.api.zip'))
             }
         }
     }
@@ -42,7 +49,8 @@ build {
 
 // compile time dependencies
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "starsector-api:starfarer.api:0.95.1a-RC6@jar"
+    implementation "starsector-api:starfarer.api:0.95.1a-RC6@zip"
     implementation group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.10'
     implementation group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: '2.9.3'
     implementation group: 'org.lwjgl.lwjgl', name: 'lwjgl_util', version: '2.9.3'
