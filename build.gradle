@@ -2,15 +2,14 @@ import groovy.json.JsonSlurper
 
 plugins {
     id 'java'
-    id 'eclipse'
 }
 
 repositories {
     mavenCentral()
     ivy {
-        url 'https://github.com/jaghaimo/'
+        url 'https://github.com/'
         patternLayout {
-            artifact '/[organization]/releases/download/[revision]/[module].[ext]'
+            artifact '/[organization]/[module]/releases/download/[revision]/[ext]'
         }
         metadataSources {
             artifact()
@@ -19,8 +18,10 @@ repositories {
 }
 
 // project level config
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
 
 // where to find sources
 sourceSets.main.java.srcDirs = ['src/']
@@ -38,7 +39,7 @@ build {
 
 // compile time dependencies
 dependencies {
-    implementation "starsector-api:starfarer.api:0.95.1a-RC6@jar"
+    implementation "jaghaimo:starsector-api:0.95.1a-RC6@starfarer.api.jar"
 
     // game dependencies
     implementation group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.10'
