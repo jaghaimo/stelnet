@@ -53,9 +53,6 @@ dependencies {
     // lombok
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
-
-    // test only
-    testImplementation 'junit:junit:4.12'
 }
 
 // custom tasks
