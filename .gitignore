@@ -6,7 +6,6 @@
 /*.zip
 bin/
 build/
-libs/
 gradle.properties
 node_modules/
 # VSCode

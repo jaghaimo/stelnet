@@ -12,19 +12,8 @@ repositories {
         patternLayout {
             artifact '/[organization]/releases/download/[revision]/[module].[ext]'
         }
-        metadataSources { artifact() }
-    }
-}
-
-// fix documentation
-eclipse {
-    classpath {
-        file {
-            whenMerged {
-                def lib = entries.find { it.path.contains 'starfarer.api.jar' }
-                lib.javadocPath = fileReference(file('starfarer.api.zip'))
-                lib.sourcePath = fileReference(file('starfarer.api.zip'))
-            }
+        metadataSources {
+            artifact()
         }
     }
 }
@@ -50,7 +39,8 @@ build {
 // compile time dependencies
 dependencies {
     implementation "starsector-api:starfarer.api:0.95.1a-RC6@jar"
-    implementation "starsector-api:starfarer.api:0.95.1a-RC6@zip"
+
+    // game dependencies
     implementation group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.10'
     implementation group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: '2.9.3'
     implementation group: 'org.lwjgl.lwjgl', name: 'lwjgl_util', version: '2.9.3'
