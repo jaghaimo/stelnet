@@ -1,7 +1,7 @@
 package stelnet.board.query.view.result;
 
+import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import com.fs.starfarer.api.ui.UIComponentAPI;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.query.Result;
 import uilib.RenderableComponent;
@@ -15,11 +15,32 @@ public class ResultDisplay extends RenderableComponent {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        if (result.isPerson()) {
-            UIComponentAPI panel = tooltip.addSkillPanel(result.getPerson(), UiConstants.DEFAULT_SPACER);
-            float height = panel.getPosition().getHeight();
-            panel.getPosition().setSize(width, height);
+        renderPerson(tooltip);
+        renderCargoStack(tooltip);
+        renderFleetMember(tooltip);
+    }
+
+    private void renderPerson(TooltipMakerAPI tooltip) {
+        if (!result.isPerson()) {
+            return;
         }
-        // TODO Finish this method
+        PersonAPI person = result.getPerson();
+        tooltip.addPara(
+            person.getNameString() + " is a level " + person.getStats().getLevel() + " " + person.getRankId(),
+            UiConstants.DEFAULT_SPACER
+        );
+        tooltip.addSkillPanel(person, UiConstants.DEFAULT_SPACER);
+    }
+
+    private void renderCargoStack(TooltipMakerAPI tooltip) {
+        if (!result.isCargoStack()) {
+            return;
+        }
+    }
+
+    private void renderFleetMember(TooltipMakerAPI tooltip) {
+        if (!result.isFleetMember()) {
+            return;
+        }
     }
 }
