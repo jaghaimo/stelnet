@@ -52,8 +52,9 @@ public class MarketProvider {
     }
 
     public static void updateMarket(MarketAPI market) {
-        updateSubmarkets(market);
         updateOfficers(market);
+        updateSubmarkets(market);
+        ListenerUtil.reportPlayerOpenedMarketAndCargoUpdated(market);
     }
 
     private static void updateOfficers(MarketAPI market) {
