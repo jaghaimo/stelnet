@@ -10,6 +10,7 @@ import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
 import stelnet.board.query.ResultIntel;
 import stelnet.board.query.ResultSet;
+import stelnet.board.query.ResultView;
 import stelnet.util.IntelUtils;
 import stelnet.util.L10n;
 import stelnet.util.StringUtils;
@@ -33,6 +34,11 @@ public enum GroupingStrategy {
             FactionAPI faction = Misc.getClaimingFaction(market.getPrimaryEntity());
             return new GroupingData(info, faction, system.getId(), system.getCenter());
         }
+
+        @Override
+        public ResultView getView(ResultIntel intel, ResultSet resultSet) {
+            return new SystemView(intel, resultSet);
+        }
     };
 
     public void createIntel(QueryManager manager, ResultSet resultSet) {
@@ -47,5 +53,9 @@ public enum GroupingStrategy {
             L10n.get(QueryL10n.RESULTS_IN_MARKET, resultSet.getResultCount())
         );
         return new GroupingData(info, market.getFaction(), market.getId(), market.getPrimaryEntity());
+    }
+
+    public ResultView getView(ResultIntel intel, ResultSet resultSet) {
+        return new MarketView(intel, resultSet);
     }
 }

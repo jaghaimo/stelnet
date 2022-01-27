@@ -1,6 +1,7 @@
 package stelnet.board.query;
 
 import java.util.List;
+
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 import stelnet.BaseIntel;
@@ -57,6 +58,6 @@ public class ResultIntel extends BaseIntel {
 
     @Override
     protected List<Renderable> getRenderableList(Size size) {
-        return new ResultView(this, resultSet).create(size);
+        return resultSet.getGroupingStrategy().getView(this, resultSet).create(size);
     }
 }
