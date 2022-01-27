@@ -55,9 +55,8 @@ public class QueryManager {
 
     public void updateIntel() {
         resultMap.clear();
-        IntelUtils.removeAll(SingleResultIntel.class);
-        IntelUtils.removeAll(MultiResultIntel.class);
-        SectorUtils.removeTransientScripts(MultiResultIntel.class);
+        IntelUtils.removeAll(ResultIntel.class);
+        SectorUtils.removeTransientScripts(ResultIntel.class);
         for (Query query : queries) {
             if (query.isEnabled()) {
                 updateIntel(query);

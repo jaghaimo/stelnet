@@ -22,9 +22,9 @@ import uilib.Spacer;
 import uilib.property.Size;
 
 @RequiredArgsConstructor
-public class MultiResultView implements RenderableFactory {
+public class ResultView implements RenderableFactory {
 
-    private final MultiResultIntel intel;
+    private final ResultIntel intel;
     private final ResultSet resultSet;
     private final ResultOrganiser resultOrganiser = new ResultOrganiser();
 

@@ -68,7 +68,6 @@ public class QueryListFactory implements RenderableFactory {
 
     private List<Renderable> getGroupingButtons(boolean enableButtons, float width) {
         List<Renderable> elements = new LinkedList<>();
-        elements.add(new GroupByButton(manager, GroupingStrategy.NO_GROUPING, enableButtons, width));
         elements.add(new GroupByButton(manager, GroupingStrategy.BY_MARKET, enableButtons, width));
         elements.add(new GroupByButton(manager, GroupingStrategy.BY_SYSTEM, enableButtons, width));
         return elements;

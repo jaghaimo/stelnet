@@ -5,8 +5,8 @@ import stelnet.board.commodity.CommodityBoard;
 import stelnet.board.commodity.CommodityIntel;
 import stelnet.board.contact.ContactsBoard;
 import stelnet.board.query.MarketUpdater;
-import stelnet.board.query.MultiResultIntel;
 import stelnet.board.query.QueryBoard;
+import stelnet.board.query.ResultIntel;
 import stelnet.board.storage.StorageBoard;
 import stelnet.board.storage.StorageIntel;
 import stelnet.board.storage.StorageListener;
@@ -69,7 +69,7 @@ public class ConfigUtils {
             ViewerBoard.getInstance(ViewerBoard.class);
             log.info("Enabled Market plugin");
         } else {
-            purgeIntel(QueryBoard.class, ViewerBoard.class, MultiResultIntel.class);
+            purgeIntel(QueryBoard.class, ViewerBoard.class, ResultIntel.class);
             log.info("Disabled Market plugin");
         }
         if (hasMarket && ConfigConstants.AUTO_REFRESH_MARKETS) {

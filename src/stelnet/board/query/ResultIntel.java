@@ -13,14 +13,14 @@ import uilib.property.Size;
 
 @Getter
 @Log4j
-public class MultiResultIntel extends BaseIntel {
+public class ResultIntel extends BaseIntel {
 
     private float advancedAmount = 0;
     private final QueryManager queryManager;
     private final ResultSet resultSet;
     private final String tag = ModConstants.TAG_MARKET;
 
-    public MultiResultIntel(QueryManager queryManager, ResultSet resultSet) {
+    public ResultIntel(QueryManager queryManager, ResultSet resultSet) {
         super(resultSet.getFaction(), resultSet.getToken());
         this.queryManager = queryManager;
         this.resultSet = resultSet;
@@ -57,6 +57,6 @@ public class MultiResultIntel extends BaseIntel {
 
     @Override
     protected List<Renderable> getRenderableList(Size size) {
-        return new MultiResultView(this, resultSet).create(size);
+        return new ResultView(this, resultSet).create(size);
     }
 }
