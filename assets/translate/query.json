@@ -43,6 +43,8 @@
     "SELECTED_SHIPS": "Selected ships",
     "SELECT_ITEMS_TO_SEARCH_FOR": "Select items to search for...",
     "SELECT_SHIPS_TO_SEARCH_FOR": "Select ships to search for...",
+    "SUBMARKET_ITEMS": "{0} matching items",
+    "SUBMARKET_SHIPS": "{0} matching ships",
     "TITLE": "Queries",
     "WEAPON_MOUNTS": "Weapon Mounts",
     "WING_ROLES": "Wing roles"

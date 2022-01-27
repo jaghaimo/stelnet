@@ -41,23 +41,29 @@ public class ResultOrganiser {
         return people;
     }
 
-    public List<CargoStackAPI> getItems(ResultSet resultSet, MarketAPI market) {
+    public List<CargoStackAPI> getItems(ResultSet resultSet, MarketAPI market, SubmarketAPI submarket) {
         List<CargoStackAPI> items = new LinkedList<>();
         for (Result result : resultSet.getResultSet()) {
-            if (result.getMarket() == market && result.isCargoStack()) {
+            if (matches(result, market, submarket) && result.isCargoStack()) {
                 items.add(result.getCargoStack());
             }
         }
         return items;
     }
 
-    public List<FleetMemberAPI> getShips(ResultSet resultSet, MarketAPI market) {
+    public List<FleetMemberAPI> getShips(ResultSet resultSet, MarketAPI market, SubmarketAPI submarket) {
         List<FleetMemberAPI> ships = new LinkedList<>();
         for (Result result : resultSet.getResultSet()) {
-            if (result.getMarket() == market && result.isFleetMember()) {
+            if (matches(result, market, submarket) && result.isFleetMember()) {
                 ships.add(result.getFleetMember());
             }
         }
         return ships;
+    }
+
+    private boolean matches(Result result, MarketAPI market, SubmarketAPI submarket) {
+        boolean matchesMarket = result.getMarket() == market;
+        boolean matchesSubmarket = result.getSubmarket() == submarket || submarket == null;
+        return matchesMarket && matchesSubmarket;
     }
 }

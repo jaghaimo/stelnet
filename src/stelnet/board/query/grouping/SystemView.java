@@ -10,6 +10,7 @@ import stelnet.board.query.QueryL10n;
 import stelnet.board.query.ResultIntel;
 import stelnet.board.query.ResultSet;
 import stelnet.board.query.ResultView;
+import stelnet.board.query.view.result.MarketHeader;
 import stelnet.util.CargoUtils;
 import stelnet.util.L10n;
 import uilib.Renderable;
@@ -17,6 +18,7 @@ import uilib.ShowCargo;
 import uilib.ShowPeople;
 import uilib.ShowShips;
 import uilib.Spacer;
+import uilib.UiConstants;
 import uilib.property.Size;
 
 public class SystemView extends ResultView {
@@ -25,25 +27,33 @@ public class SystemView extends ResultView {
         super(intel, resultSet);
     }
 
-    @Override
-    protected void addPeople(List<Renderable> elements, MarketAPI market, float width) {
+    protected void addResults(List<Renderable> elements, float width) {
+        for (MarketAPI market : resultOrganiser.getMarkets(resultSet)) {
+            elements.add(new MarketHeader(market, intel));
+            addPeople(elements, market, width);
+            addItems(elements, market, width);
+            addShips(elements, market, width);
+            elements.add(new Spacer(2 * UiConstants.DEFAULT_SPACER));
+        }
+    }
+
+    private void addPeople(List<Renderable> elements, MarketAPI market, float width) {
         List<PersonAPI> people = resultOrganiser.getPeople(resultSet, market);
         if (people.isEmpty()) {
             return;
         }
-        elements.add(new Spacer(10));
+        elements.add(new Spacer(UiConstants.DEFAULT_SPACER));
         ShowPeople showPeople = new ShowPeople(people, L10n.get(QueryL10n.NO_MATCHING_PEOPLE), new Size(width, 0));
         showPeople.setGroupColor(getSupportColor(market.getFaction()));
         elements.add(showPeople);
     }
 
-    @Override
-    protected void addItems(List<Renderable> elements, MarketAPI market, float width) {
-        List<CargoStackAPI> items = resultOrganiser.getItems(resultSet, market);
+    private void addItems(List<Renderable> elements, MarketAPI market, float width) {
+        List<CargoStackAPI> items = resultOrganiser.getItems(resultSet, market, null);
         if (items.isEmpty()) {
             return;
         }
-        elements.add(new Spacer(10));
+        elements.add(new Spacer(UiConstants.DEFAULT_SPACER));
         CargoAPI cargo = CargoUtils.makeCargoFromStacks(items);
         ShowCargo showCargo = new ShowCargo(
             cargo,
@@ -55,13 +65,12 @@ public class SystemView extends ResultView {
         elements.add(showCargo);
     }
 
-    @Override
-    protected void addShips(List<Renderable> elements, MarketAPI market, float width) {
-        List<FleetMemberAPI> ships = resultOrganiser.getShips(resultSet, market);
+    private void addShips(List<Renderable> elements, MarketAPI market, float width) {
+        List<FleetMemberAPI> ships = resultOrganiser.getShips(resultSet, market, null);
         if (ships.isEmpty()) {
             return;
         }
-        elements.add(new Spacer(10));
+        elements.add(new Spacer(UiConstants.DEFAULT_SPACER));
         ShowShips showShips = new ShowShips(
             ships,
             L10n.get(QueryL10n.MATCHING_SHIPS),
