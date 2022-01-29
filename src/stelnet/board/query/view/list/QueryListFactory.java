@@ -9,6 +9,7 @@ import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
 import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.util.L10n;
+import uilib.Checkbox;
 import uilib.Paragraph;
 import uilib.Renderable;
 import uilib.RenderableComponent;
@@ -36,13 +37,15 @@ public class QueryListFactory implements RenderableFactory {
         return elements;
     }
 
-    public RenderableComponent getFilters(Size size) {
+    public RenderableComponent getButtons(Size size) {
         List<Renderable> elements = new LinkedList<>();
         boolean enableButtons = manager.getQueries().size() > 0;
         elements.add(new Spacer(UiConstants.DEFAULT_BUTTON_HEIGHT));
         elements.addAll(getGlobalButtons(enableButtons, size.getWidth()));
         elements.add(new Spacer(UiConstants.DEFAULT_BUTTON_HEIGHT));
-        elements.addAll(getGroupingButtons(enableButtons, size.getWidth()));
+        elements.addAll(getGroupingButtons(size.getWidth()));
+        elements.add(new Spacer(UiConstants.DEFAULT_BUTTON_HEIGHT));
+        elements.addAll(getExtraCheckboxes(size.getWidth()));
         VerticalViewContainer container = new VerticalViewContainer(elements);
         container.setSize(size);
         container.setLocation(Location.TOP_RIGHT);
@@ -66,10 +69,18 @@ public class QueryListFactory implements RenderableFactory {
         return elements;
     }
 
-    private List<Renderable> getGroupingButtons(boolean enableButtons, float width) {
+    private List<Renderable> getGroupingButtons(float width) {
         List<Renderable> elements = new LinkedList<>();
-        elements.add(new GroupByButton(manager, GroupingStrategy.BY_MARKET, enableButtons, width));
-        elements.add(new GroupByButton(manager, GroupingStrategy.BY_SYSTEM, enableButtons, width));
+        elements.add(new GroupByButton(manager, GroupingStrategy.BY_MARKET, width));
+        elements.add(new GroupByButton(manager, GroupingStrategy.BY_SYSTEM, width));
+        return elements;
+    }
+
+    private List<Renderable> getExtraCheckboxes(float width) {
+        List<Renderable> elements = new LinkedList<>();
+        Size size = new Size(width, UiConstants.DEFAULT_BUTTON_HEIGHT);
+        elements.add(new Checkbox("Only purchasable locations", size));
+        elements.add(new Checkbox("Only friendly markets", size));
         return elements;
     }
 }
