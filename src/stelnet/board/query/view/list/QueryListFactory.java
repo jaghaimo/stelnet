@@ -1,6 +1,5 @@
 package stelnet.board.query.view.list;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.SubmarketSpecAPI;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -10,12 +9,9 @@ import stelnet.board.query.Query;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
 import stelnet.board.query.grouping.GroupingStrategy;
-import stelnet.filter.AnyHasId;
-import stelnet.filter.FactionIsFriendly;
 import stelnet.filter.Filter;
-import stelnet.filter.IsPurchasable;
-import stelnet.util.CollectionUtils;
-import stelnet.util.Excluder;
+import stelnet.filter.ResultIsFriendly;
+import stelnet.filter.ResultIsPurchasable;
 import stelnet.util.L10n;
 import uilib.Paragraph;
 import uilib.Renderable;
@@ -87,19 +83,19 @@ public class QueryListFactory implements RenderableFactory {
 
     private List<Renderable> getExtraCheckboxes(float width) {
         List<Renderable> elements = new LinkedList<>();
-        elements.add(new FilteringButton(manager, "Only purchasable locations", new IsPurchasable(), width));
-        elements.add(new FilteringButton(manager, "Only friendly markets", new FactionIsFriendly(), width));
+        elements.add(new SpecialFilterButton(manager, "Only Purchasable Locations", new ResultIsPurchasable(), width));
+        elements.add(new SpecialFilterButton(manager, "Only Friendly Markets", new ResultIsFriendly(), width));
         return elements;
     }
 
     private List<Renderable> getSubmarketButtons(float width) {
         List<Renderable> elements = new LinkedList<>();
-        List<SubmarketSpecAPI> allSubmarketSpecs = Global.getSettings().getAllSubmarketSpecs();
-        CollectionUtils.reduce(allSubmarketSpecs, Excluder.getQuerySubmarketFilter());
+        List<SubmarketSpecAPI> allSubmarketSpecs = manager.getSubmarketSpecs();
         for (SubmarketSpecAPI submarketSpec : allSubmarketSpecs) {
-            Filter filter = new AnyHasId(submarketSpec.getId());
             String name = getSubmarketName(submarketSpec);
-            elements.add(new FilteringButton(manager, name, filter, width));
+            Filter filter = manager.getSubmarketFilter(submarketSpec);
+            boolean isStateOn = manager.getSubmarketFilters().contains(filter);
+            elements.add(new SubmarketFilterButton(manager, name, filter, width, isStateOn));
         }
         return elements;
     }

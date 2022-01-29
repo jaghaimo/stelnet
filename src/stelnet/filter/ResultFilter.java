@@ -3,10 +3,9 @@ package stelnet.filter;
 import lombok.EqualsAndHashCode;
 import stelnet.board.query.Result;
 import stelnet.board.query.ResultSet;
-import stelnet.util.CollectionUtils;
 
 @EqualsAndHashCode(callSuper = false)
-public final class IsPurchasable extends Filter {
+public abstract class ResultFilter extends Filter {
 
     @Override
     public boolean accept(Object object) {
@@ -19,13 +18,7 @@ public final class IsPurchasable extends Filter {
         return false;
     }
 
-    private boolean acceptResultSet(ResultSet resultSet) {
-        CollectionUtils.reduce(resultSet.getResultSet(), this);
-        resultSet.refresh();
-        return resultSet.size() > 0;
-    }
+    protected abstract boolean acceptResultSet(ResultSet resultSet);
 
-    private boolean acceptResult(Result result) {
-        return result.isPurchasable();
-    }
+    protected abstract boolean acceptResult(Result result);
 }

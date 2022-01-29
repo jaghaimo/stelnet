@@ -8,8 +8,8 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import stelnet.board.query.grouping.GroupingStrategy;
-import stelnet.filter.AnyHasId;
 import stelnet.filter.Filter;
+import stelnet.filter.ResultHasId;
 import stelnet.util.CollectionUtils;
 import stelnet.util.Excluder;
 import stelnet.util.IntelUtils;
@@ -20,7 +20,10 @@ public class QueryManager {
     private int queryCounter = 0;
 
     @Getter
-    private final Set<Filter> marketFilters = new LinkedHashSet<>();
+    private final Set<Filter> specialFilters = new LinkedHashSet<>();
+
+    @Getter
+    private final Set<Filter> submarketFilters = new LinkedHashSet<>();
 
     @Getter
     @Setter
@@ -32,10 +35,9 @@ public class QueryManager {
     private final ResultMap resultMap = new ResultMap();
 
     public QueryManager() {
-        List<SubmarketSpecAPI> allSubmarkets = Global.getSettings().getAllSubmarketSpecs();
-        CollectionUtils.reduce(allSubmarkets, Excluder.getQuerySubmarketFilter());
-        for (SubmarketSpecAPI submarket : allSubmarkets) {
-            marketFilters.add(new AnyHasId(submarket.getId()));
+        List<SubmarketSpecAPI> allSubmarketSpecs = getSubmarketSpecs();
+        for (SubmarketSpecAPI submarketSpec : allSubmarketSpecs) {
+            submarketFilters.add(getSubmarketFilter(submarketSpec));
         }
     }
 
@@ -57,6 +59,16 @@ public class QueryManager {
             queries.remove(query);
             updateIntel();
         }
+    }
+
+    public Filter getSubmarketFilter(SubmarketSpecAPI submarketSpec) {
+        return new ResultHasId(submarketSpec.getId());
+    }
+
+    public List<SubmarketSpecAPI> getSubmarketSpecs() {
+        List<SubmarketSpecAPI> allSubmarketSpecs = Global.getSettings().getAllSubmarketSpecs();
+        CollectionUtils.reduce(allSubmarketSpecs, Excluder.getQuerySubmarketFilter());
+        return allSubmarketSpecs;
     }
 
     public void setAllEnabled(boolean isEnabled) {

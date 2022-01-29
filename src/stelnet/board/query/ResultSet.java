@@ -38,7 +38,6 @@ public class ResultSet {
             }
         }
     );
-    private GroupingData groupingData;
 
     public ResultSet(GroupingStrategy groupingStrategy, MarketAPI market) {
         this(groupingStrategy, market, market.getStarSystem());
@@ -48,13 +47,11 @@ public class ResultSet {
     public void add(Result result) {
         marketSet.add(result.getMarket());
         resultSet.add(result);
-        groupingData = groupingStrategy.getGroupingData(this);
     }
 
     public void add(ResultSet newResultSet) {
         marketSet.addAll(newResultSet.getMarketSet());
         resultSet.addAll(newResultSet.getResultSet());
-        groupingData = groupingStrategy.getGroupingData(this);
     }
 
     public void addCargoStacks(MarketAPI market, SubmarketAPI submarket, List<CargoStackAPI> cargoStacks) {
@@ -76,15 +73,19 @@ public class ResultSet {
     }
 
     public RenderableIntelInfo getBoardInfo() {
-        return groupingData.getInfo();
+        return getGroupingData().getInfo();
     }
 
     public FactionAPI getFaction() {
-        return groupingData.getFaction();
+        return getGroupingData().getFaction();
     }
 
     public String getKey() {
-        return groupingData.getKey();
+        return getGroupingData().getKey();
+    }
+
+    private GroupingData getGroupingData() {
+        return groupingStrategy.getGroupingData(this);
     }
 
     public int getResultCount() {
@@ -96,7 +97,7 @@ public class ResultSet {
     }
 
     public SectorEntityToken getToken() {
-        return groupingData.getToken();
+        return getGroupingData().getToken();
     }
 
     public void refresh() {

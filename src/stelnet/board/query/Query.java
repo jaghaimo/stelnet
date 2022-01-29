@@ -8,6 +8,7 @@ import lombok.Setter;
 import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
+import stelnet.filter.LogicalOr;
 import stelnet.util.CollectionUtils;
 import stelnet.util.L10n;
 import stelnet.util.SectorUtils;
@@ -41,9 +42,9 @@ public class Query {
     }
 
     public List<ResultSet> execute(GroupingStrategy groupingStrategy) {
-        Set<Filter> allFilters = manager.getMarketFilters();
-        allFilters.addAll(filters);
-        List<ResultSet> results = provider.getResults(allFilters, groupingStrategy);
+        List<ResultSet> results = provider.getResults(filters, groupingStrategy);
+        CollectionUtils.reduce(results, new LogicalOr(manager.getSubmarketFilters(), "submarkets"));
+        CollectionUtils.reduce(results, manager.getSpecialFilters());
         resultNumber = 0;
         for (ResultSet resultSet : results) {
             resultNumber += resultSet.getResultCount();
