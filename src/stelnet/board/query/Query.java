@@ -41,7 +41,9 @@ public class Query {
     }
 
     public List<ResultSet> execute(GroupingStrategy groupingStrategy) {
-        List<ResultSet> results = provider.getResults(filters, groupingStrategy);
+        Set<Filter> allFilters = manager.getMarketFilters();
+        allFilters.addAll(filters);
+        List<ResultSet> results = provider.getResults(allFilters, groupingStrategy);
         resultNumber = 0;
         for (ResultSet resultSet : results) {
             resultNumber += resultSet.getResultCount();

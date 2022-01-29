@@ -1,17 +1,25 @@
 package stelnet.board.query;
 
+import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.econ.SubmarketSpecAPI;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import stelnet.board.query.grouping.GroupingStrategy;
+import stelnet.filter.Filter;
+import stelnet.util.CollectionUtils;
+import stelnet.util.Excluder;
 import stelnet.util.IntelUtils;
 import stelnet.util.SectorUtils;
 
 public class QueryManager {
 
     private int queryCounter = 0;
+
+    @Getter
+    private final Set<String> activeSubmarkets = new LinkedHashSet<>();
 
     @Getter
     @Setter
@@ -21,6 +29,14 @@ public class QueryManager {
     private final Set<Query> queries = new LinkedHashSet<>();
 
     private final ResultMap resultMap = new ResultMap();
+
+    public QueryManager() {
+        List<SubmarketSpecAPI> allSubmarkets = Global.getSettings().getAllSubmarketSpecs();
+        CollectionUtils.reduce(allSubmarkets, Excluder.getQuerySubmarketFilter());
+        for (SubmarketSpecAPI submarket : allSubmarkets) {
+            activeSubmarkets.add(submarket.getId());
+        }
+    }
 
     public void addQuery(Query query) {
         if (!queries.contains(query)) {
@@ -40,6 +56,11 @@ public class QueryManager {
             queries.remove(query);
             updateIntel();
         }
+    }
+
+    public Set<Filter> getMarketFilters() {
+        Set<Filter> filters = new LinkedHashSet<>();
+        return filters;
     }
 
     public void setAllEnabled(boolean isEnabled) {

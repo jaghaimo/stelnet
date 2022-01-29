@@ -1,5 +1,7 @@
 package stelnet.board.query.view.list;
 
+import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.econ.SubmarketSpecAPI;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,8 +10,10 @@ import stelnet.board.query.Query;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
 import stelnet.board.query.grouping.GroupingStrategy;
+import stelnet.util.CollectionUtils;
+import stelnet.util.Excluder;
 import stelnet.util.L10n;
-import uilib.Checkbox;
+import uilib.AreaCheckbox;
 import uilib.Paragraph;
 import uilib.Renderable;
 import uilib.RenderableComponent;
@@ -46,6 +50,8 @@ public class QueryListFactory implements RenderableFactory {
         elements.addAll(getGroupingButtons(size.getWidth()));
         elements.add(new Spacer(UiConstants.DEFAULT_BUTTON_HEIGHT));
         elements.addAll(getExtraCheckboxes(size.getWidth()));
+        elements.add(new Spacer(UiConstants.DEFAULT_BUTTON_HEIGHT));
+        elements.addAll(getSubmarketButtons(size.getWidth()));
         VerticalViewContainer container = new VerticalViewContainer(elements);
         container.setSize(size);
         container.setLocation(Location.TOP_RIGHT);
@@ -79,8 +85,18 @@ public class QueryListFactory implements RenderableFactory {
     private List<Renderable> getExtraCheckboxes(float width) {
         List<Renderable> elements = new LinkedList<>();
         Size size = new Size(width, UiConstants.DEFAULT_BUTTON_HEIGHT);
-        elements.add(new Checkbox("Only purchasable locations", size));
-        elements.add(new Checkbox("Only friendly markets", size));
+        elements.add(new AreaCheckbox(size, "Only purchasable locations", true, true));
+        elements.add(new AreaCheckbox(size, "Only friendly markets", true, true));
+        return elements;
+    }
+
+    private List<Renderable> getSubmarketButtons(float width) {
+        List<Renderable> elements = new LinkedList<>();
+        List<SubmarketSpecAPI> allSubmarkets = Global.getSettings().getAllSubmarketSpecs();
+        CollectionUtils.reduce(allSubmarkets, Excluder.getQuerySubmarketFilter());
+        for (SubmarketSpecAPI submarket : allSubmarkets) {
+            elements.add(new SubmarketButton(manager, submarket, width));
+        }
         return elements;
     }
 }
