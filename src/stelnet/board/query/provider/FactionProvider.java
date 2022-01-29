@@ -1,16 +1,18 @@
 package stelnet.board.query.provider;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-import stelnet.filter.FactionIsShownFilter;
+
+import stelnet.filter.FactionIsShown;
 import stelnet.util.CollectionUtils;
 
 public class FactionProvider {
@@ -88,7 +90,7 @@ public class FactionProvider {
     private List<FactionAPI> getFactionIds() {
         if (factions == null) {
             factions = Global.getSector().getAllFactions();
-            CollectionUtils.reduce(factions, new FactionIsShownFilter());
+            CollectionUtils.reduce(factions, new FactionIsShown());
         }
         return factions;
     }

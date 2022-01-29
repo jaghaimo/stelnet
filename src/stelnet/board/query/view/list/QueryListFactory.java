@@ -10,10 +10,13 @@ import stelnet.board.query.Query;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
 import stelnet.board.query.grouping.GroupingStrategy;
+import stelnet.filter.AnyHasId;
+import stelnet.filter.FactionIsFriendly;
+import stelnet.filter.Filter;
+import stelnet.filter.IsPurchasable;
 import stelnet.util.CollectionUtils;
 import stelnet.util.Excluder;
 import stelnet.util.L10n;
-import uilib.AreaCheckbox;
 import uilib.Paragraph;
 import uilib.Renderable;
 import uilib.RenderableComponent;
@@ -84,19 +87,28 @@ public class QueryListFactory implements RenderableFactory {
 
     private List<Renderable> getExtraCheckboxes(float width) {
         List<Renderable> elements = new LinkedList<>();
-        Size size = new Size(width, UiConstants.DEFAULT_BUTTON_HEIGHT);
-        elements.add(new AreaCheckbox(size, "Only purchasable locations", true, true));
-        elements.add(new AreaCheckbox(size, "Only friendly markets", true, true));
+        elements.add(new FilteringButton(manager, "Only purchasable locations", new IsPurchasable(), width));
+        elements.add(new FilteringButton(manager, "Only friendly markets", new FactionIsFriendly(), width));
         return elements;
     }
 
     private List<Renderable> getSubmarketButtons(float width) {
         List<Renderable> elements = new LinkedList<>();
-        List<SubmarketSpecAPI> allSubmarkets = Global.getSettings().getAllSubmarketSpecs();
-        CollectionUtils.reduce(allSubmarkets, Excluder.getQuerySubmarketFilter());
-        for (SubmarketSpecAPI submarket : allSubmarkets) {
-            elements.add(new SubmarketButton(manager, submarket, width));
+        List<SubmarketSpecAPI> allSubmarketSpecs = Global.getSettings().getAllSubmarketSpecs();
+        CollectionUtils.reduce(allSubmarketSpecs, Excluder.getQuerySubmarketFilter());
+        for (SubmarketSpecAPI submarketSpec : allSubmarketSpecs) {
+            Filter filter = new AnyHasId(submarketSpec.getId());
+            String name = getSubmarketName(submarketSpec);
+            elements.add(new FilteringButton(manager, name, filter, width));
         }
         return elements;
+    }
+
+    private String getSubmarketName(SubmarketSpecAPI submarketSpec) {
+        String name = submarketSpec.getName().replace("\n", " ").trim();
+        if (name.isEmpty()) {
+            return "Military Market";
+        }
+        return name;
     }
 }

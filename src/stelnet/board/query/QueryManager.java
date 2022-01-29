@@ -8,6 +8,7 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import stelnet.board.query.grouping.GroupingStrategy;
+import stelnet.filter.AnyHasId;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.Excluder;
@@ -19,7 +20,7 @@ public class QueryManager {
     private int queryCounter = 0;
 
     @Getter
-    private final Set<String> activeSubmarkets = new LinkedHashSet<>();
+    private final Set<Filter> marketFilters = new LinkedHashSet<>();
 
     @Getter
     @Setter
@@ -34,7 +35,7 @@ public class QueryManager {
         List<SubmarketSpecAPI> allSubmarkets = Global.getSettings().getAllSubmarketSpecs();
         CollectionUtils.reduce(allSubmarkets, Excluder.getQuerySubmarketFilter());
         for (SubmarketSpecAPI submarket : allSubmarkets) {
-            activeSubmarkets.add(submarket.getId());
+            marketFilters.add(new AnyHasId(submarket.getId()));
         }
     }
 
@@ -56,11 +57,6 @@ public class QueryManager {
             queries.remove(query);
             updateIntel();
         }
-    }
-
-    public Set<Filter> getMarketFilters() {
-        Set<Filter> filters = new LinkedHashSet<>();
-        return filters;
     }
 
     public void setAllEnabled(boolean isEnabled) {
