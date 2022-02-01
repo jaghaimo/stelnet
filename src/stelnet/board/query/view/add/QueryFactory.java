@@ -40,6 +40,14 @@ public abstract class QueryFactory {
         }
     }
 
+    protected Set<Filter> negateFilters(Set<Filter> filters) {
+        Set<Filter> negatedFilters = new LinkedHashSet<>();
+        for (Filter filter : filters) {
+            negatedFilters.add(new LogicalNot(filter));
+        }
+        return negatedFilters;
+    }
+
     protected Set<Filter> getFilters(FilteringButton buttons[], boolean wantedSelectedState) {
         Set<Filter> selectedFilters = new LinkedHashSet<>();
         for (FilteringButton button : buttons) {
@@ -49,14 +57,6 @@ public abstract class QueryFactory {
             }
         }
         return selectedFilters;
-    }
-
-    protected Set<Filter> getNegatedFilter(Set<Filter> filters) {
-        Set<Filter> negatedFilters = new LinkedHashSet<>();
-        for (Filter filter : filters) {
-            negatedFilters.add(new LogicalNot(filter));
-        }
-        return negatedFilters;
     }
 
     public abstract Set<Filter> getFilters(boolean forResults);
