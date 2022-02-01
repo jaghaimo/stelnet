@@ -48,7 +48,7 @@ public class ShipQueryFactory extends QueryFactory {
             return;
         }
         filters.add(new LogicalOr(allowedDmods, L10n.get(QueryL10n.DMOD_ALLOWED)));
-        filters.add(new LogicalAnd(disallowedDmods, L10n.get(QueryL10n.DMOD_DISALLOWED)));
+        filters.add(new LogicalAnd(negateFilters(disallowedDmods), L10n.get(QueryL10n.DMOD_DISALLOWED)));
     }
 
     public void setFighterBays(FighterBaysButton active) {

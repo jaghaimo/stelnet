@@ -18,6 +18,6 @@ public class LogicalNot extends Filter {
 
     @Override
     public String toString() {
-        return "!" + filter.toString();
+        return filter.toString();
     }
 }
