@@ -1,5 +1,8 @@
 package stelnet.board.query.view.add;
 
+import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.util.Misc;
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -13,6 +16,8 @@ import stelnet.board.query.provider.ShipProvider;
 import stelnet.board.query.view.dialog.PickerDialog;
 import stelnet.board.query.view.dialog.ShipPickerDialog;
 import stelnet.filter.Filter;
+import stelnet.filter.LogicalAnd;
+import stelnet.filter.LogicalOr;
 import stelnet.util.L10n;
 import uilib.Button;
 import uilib.Renderable;
@@ -38,7 +43,13 @@ public class ShipQueryFactory extends QueryFactory {
 
     public void addDmodFilters(Set<Filter> filters) {
         addSelectedOrNone(filters, dModCount, L10n.get(QueryL10n.DMOD_COUNT), true);
-        addSelectedOrNone(filters, dModAllowed, L10n.get(QueryL10n.DMOD_ALLOWED), true);
+        Set<Filter> allowedDmods = getFilters(dModAllowed, true);
+        Set<Filter> disallowedDmods = getFilters(dModAllowed, false);
+        if (!hasDmodSelection(allowedDmods, disallowedDmods)) {
+            return;
+        }
+        filters.add(new LogicalOr(allowedDmods, L10n.get(QueryL10n.DMOD_ALLOWED)));
+        filters.add(new LogicalAnd(disallowedDmods, L10n.get(QueryL10n.DMOD_DISALLOWED)));
     }
 
     public void setFighterBays(FighterBaysButton active) {
@@ -76,6 +87,7 @@ public class ShipQueryFactory extends QueryFactory {
     @Override
     protected List<Renderable> getQueryBuildingComponents() {
         prepareBuiltIns();
+        prepareDmods();
         List<Renderable> elements = new LinkedList<>();
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.CLASS_SIZE, classSizes, true));
         elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.WEAPON_MOUNTS, true));
@@ -102,12 +114,38 @@ public class ShipQueryFactory extends QueryFactory {
         return filters;
     }
 
+    private boolean hasDmodSelection(Set<Filter> selected, Set<Filter> unselected) {
+        return !selected.isEmpty() && !unselected.isEmpty();
+    }
+
     private void prepareBuiltIns() {
         Set<Filter> filters = getCommonFilters();
         Set<String> hullModIds = provider.getBuiltInIds(filters);
         hullModIds.add("None");
         for (FilteringButton button : builtIns) {
             button.updateVisibility(hullModIds);
+        }
+    }
+
+    private void prepareDmods() {
+        Color textColor = null;
+        Color positive = Misc.getPositiveHighlightColor();
+        Color negative = Misc.getNegativeHighlightColor();
+        if (!hasDmodSelection(getFilters(dModAllowed, true), getFilters(dModAllowed, false))) {
+            textColor = Misc.getButtonTextColor();
+            positive = negative = Global.getSettings().getColor("buttonBgDark");
+        }
+        for (FilteringButton button : dModAllowed) {
+            Color desiredColor = button.isStateOn() ? positive : negative;
+            float desiredScale = button.isStateOn() ? 1f : 0.7f;
+            button.setTextColor(desiredColor);
+            button.setBackgroundColor(desiredColor);
+            if (textColor == null) {
+                button.scaleTextColor(desiredScale);
+                button.scaleBackground(desiredScale * 0.5f);
+            } else {
+                button.setTextColor(textColor);
+            }
         }
     }
 }

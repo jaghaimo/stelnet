@@ -17,7 +17,7 @@ public class ButtonGroup extends HorizontalViewContainer {
 
     public ButtonGroup(SizeHelper helper, Enum<?> label, Button[] buttons, boolean isEnabled) {
         super();
-        prepareButtons(buttons, isEnabled);
+        // prepareButtons(buttons, isEnabled);
         addLabel(helper.getTextWidth(), label, isEnabled);
         addGroup(helper.getGroupWidth(), Arrays.asList(buttons));
     }
@@ -25,7 +25,7 @@ public class ButtonGroup extends HorizontalViewContainer {
     public ButtonGroup(SizeHelper helper, FilteringButton[] buttons, boolean isEnabled) {
         super();
         List<Button> filteredButtons = getFilteredButtons(buttons);
-        prepareButtons(buttons, isEnabled);
+        // prepareButtons(buttons, isEnabled);
         addGroup(helper.getGroupAndTextWidth(), filteredButtons);
     }
 
@@ -60,6 +60,7 @@ public class ButtonGroup extends HorizontalViewContainer {
         return "";
     }
 
+    // todo: reenable this
     private void prepareButtons(Button[] buttons, boolean isEnabled) {
         for (Button button : buttons) {
             button.setTextColor(Misc.getBasePlayerColor());

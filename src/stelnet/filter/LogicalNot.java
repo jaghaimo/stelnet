@@ -15,4 +15,9 @@ public class LogicalNot extends Filter {
     public boolean accept(Object object) {
         return !filter.accept(object);
     }
+
+    @Override
+    public String toString() {
+        return "!" + filter.toString();
+    }
 }

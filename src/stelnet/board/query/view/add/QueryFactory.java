@@ -6,6 +6,7 @@ import java.util.Set;
 import lombok.Setter;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
+import stelnet.filter.LogicalNot;
 import stelnet.filter.LogicalOr;
 import uilib.Button;
 import uilib.Renderable;
@@ -39,15 +40,23 @@ public abstract class QueryFactory {
         }
     }
 
-    protected Set<Filter> getFilters(FilteringButton buttons[], boolean selected) {
+    protected Set<Filter> getFilters(FilteringButton buttons[], boolean wantedSelectedState) {
         Set<Filter> selectedFilters = new LinkedHashSet<>();
         for (FilteringButton button : buttons) {
             boolean isSelected = button.isEnabled() && button.isStateOn();
-            if (isSelected || !selected) {
+            if (isSelected == wantedSelectedState) {
                 selectedFilters.add(button.getFilter());
             }
         }
         return selectedFilters;
+    }
+
+    protected Set<Filter> getNegatedFilter(Set<Filter> filters) {
+        Set<Filter> negatedFilters = new LinkedHashSet<>();
+        for (Filter filter : filters) {
+            negatedFilters.add(new LogicalNot(filter));
+        }
+        return negatedFilters;
     }
 
     public abstract Set<Filter> getFilters(boolean forResults);

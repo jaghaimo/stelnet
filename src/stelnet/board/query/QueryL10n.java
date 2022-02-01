@@ -13,6 +13,7 @@ public enum QueryL10n {
     DMODS,
     DMOD_ALLOWED,
     DMOD_COUNT,
+    DMOD_DISALLOWED,
     EMPTY_FILTER,
     ENABLED,
     ENABLE_ALL,
