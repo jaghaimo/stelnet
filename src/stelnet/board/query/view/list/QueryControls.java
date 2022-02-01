@@ -21,10 +21,10 @@ public class QueryControls extends HeadingWithButtons {
     public void render(TooltipMakerAPI tooltip) {
         tooltip.setButtonFontVictor10();
         renderQueryHeading(tooltip, query.isEnabled(), query.getType() + " #" + query.getNumber());
-        UIComponentAPI deleteComponent = renderFirst(new DeleteButton(query), getSize().getWidth(), tooltip);
+        UIComponentAPI deleteComponent = renderFirstButton(new DeleteButton(query), getSize().getWidth(), tooltip);
         UIComponentAPI spacerComponent = addSpacer(tooltip, deleteComponent);
-        UIComponentAPI onOffComponent = renderNext(new OnOffButton(query), tooltip, spacerComponent);
-        renderNext(new PreviewButton(query), tooltip, onOffComponent);
+        UIComponentAPI onOffComponent = renderNextButton(new OnOffButton(query), tooltip, spacerComponent);
+        renderNextButton(new PreviewButton(query), tooltip, onOffComponent);
         tooltip.setButtonFontDefault();
     }
 
