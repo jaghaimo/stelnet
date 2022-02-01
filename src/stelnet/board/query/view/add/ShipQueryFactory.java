@@ -1,8 +1,5 @@
 package stelnet.board.query.view.add;
 
-import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.util.Misc;
-import java.awt.Color;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -22,10 +19,11 @@ import stelnet.util.L10n;
 import uilib.Button;
 import uilib.Renderable;
 
+@Getter
 public class ShipQueryFactory extends QueryFactory {
 
-    @Getter
     private transient ShipProvider provider = new ShipProvider();
+    private transient ShipButtonHelper helper = new ShipButtonHelper(this);
 
     private final FilteringButton[] classSizes = ShipButtonUtils.getClassSizes();
     private final FilteringButton[] mountSizes = ShipButtonUtils.getMountSizes();
@@ -38,6 +36,7 @@ public class ShipQueryFactory extends QueryFactory {
 
     public Object readResolve() {
         provider = new ShipProvider();
+        helper = new ShipButtonHelper(this);
         return this;
     }
 
@@ -45,7 +44,7 @@ public class ShipQueryFactory extends QueryFactory {
         addSelectedOrNone(filters, dModCount, L10n.get(QueryL10n.DMOD_COUNT), true);
         Set<Filter> allowedDmods = getFilters(dModAllowed, true);
         Set<Filter> disallowedDmods = getFilters(dModAllowed, false);
-        if (!hasDmodSelection(allowedDmods, disallowedDmods)) {
+        if (!hasDmodSelection()) {
             return;
         }
         filters.add(new LogicalOr(allowedDmods, L10n.get(QueryL10n.DMOD_ALLOWED)));
@@ -86,8 +85,8 @@ public class ShipQueryFactory extends QueryFactory {
 
     @Override
     protected List<Renderable> getQueryBuildingComponents() {
-        prepareBuiltIns();
-        prepareDmods();
+        helper.prepareBuiltIns();
+        helper.prepareDmods();
         List<Renderable> elements = new LinkedList<>();
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.CLASS_SIZE, classSizes, true));
         elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.WEAPON_MOUNTS, true));
@@ -104,7 +103,7 @@ public class ShipQueryFactory extends QueryFactory {
         return elements;
     }
 
-    private Set<Filter> getCommonFilters() {
+    protected Set<Filter> getCommonFilters() {
         Set<Filter> filters = new LinkedHashSet<>();
         addSelectedOrAll(filters, classSizes, L10n.get(QueryL10n.CLASS_SIZE));
         addSelectedOrNone(filters, mountSizes, L10n.get(QueryL10n.MOUNT_SIZE), true);
@@ -114,49 +113,9 @@ public class ShipQueryFactory extends QueryFactory {
         return filters;
     }
 
-    private boolean hasDmodSelection(Set<Filter> selected, Set<Filter> unselected) {
-        return !selected.isEmpty() && !unselected.isEmpty();
-    }
-
-    private void prepareBuiltIns() {
-        Set<Filter> filters = getCommonFilters();
-        Set<String> hullModIds = provider.getBuiltInIds(filters);
-        hullModIds.add("None");
-        for (FilteringButton button : builtIns) {
-            button.updateVisibility(hullModIds);
-        }
-    }
-
-    private void prepareDmods() {
-        Color textColor = null;
-        Color positiveColor = Misc.getPositiveHighlightColor();
-        Color negativeColor = Misc.getNegativeHighlightColor();
-        if (!hasDmodSelection(getFilters(dModAllowed, true), getFilters(dModAllowed, false))) {
-            textColor = Misc.getButtonTextColor();
-            positiveColor = negativeColor = Global.getSettings().getColor("buttonBgDark");
-        }
-        prepareDmods(textColor, positiveColor, negativeColor);
-    }
-
-    private void prepareDmods(Color textColor, Color positiveColor, Color negativeColor) {
-        for (FilteringButton button : dModAllowed) {
-            if (button.isStateOn()) {
-                prepareDmods(button, textColor, positiveColor, 1f);
-            }
-            if (!button.isStateOn()) {
-                prepareDmods(button, textColor, negativeColor, 0.7f);
-            }
-        }
-    }
-
-    private void prepareDmods(FilteringButton button, Color textColor, Color desiredColor, float desiredScale) {
-        button.setTextColor(desiredColor);
-        button.setBackgroundColor(desiredColor);
-        if (textColor == null) {
-            button.scaleTextColor(desiredScale);
-            button.scaleBackground(desiredScale * 0.5f);
-        } else {
-            button.setTextColor(textColor);
-        }
+    protected boolean hasDmodSelection() {
+        Set<Filter> allowedDmods = getFilters(dModAllowed, true);
+        Set<Filter> disallowedDmods = getFilters(dModAllowed, false);
+        return !allowedDmods.isEmpty() && !disallowedDmods.isEmpty();
     }
 }
