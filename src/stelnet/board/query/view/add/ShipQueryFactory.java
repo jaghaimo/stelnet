@@ -129,14 +129,18 @@ public class ShipQueryFactory extends QueryFactory {
 
     private void prepareDmods() {
         Color textColor = null;
-        Color positive = Misc.getPositiveHighlightColor();
-        Color negative = Misc.getNegativeHighlightColor();
+        Color positiveColor = Misc.getPositiveHighlightColor();
+        Color negativeColor = Misc.getNegativeHighlightColor();
         if (!hasDmodSelection(getFilters(dModAllowed, true), getFilters(dModAllowed, false))) {
             textColor = Misc.getButtonTextColor();
-            positive = negative = Global.getSettings().getColor("buttonBgDark");
+            positiveColor = negativeColor = Global.getSettings().getColor("buttonBgDark");
         }
+        prepareDmods(textColor, positiveColor, negativeColor);
+    }
+
+    private void prepareDmods(Color textColor, Color positiveColor, Color negativeColor) {
         for (FilteringButton button : dModAllowed) {
-            Color desiredColor = button.isStateOn() ? positive : negative;
+            Color desiredColor = button.isStateOn() ? positiveColor : negativeColor;
             float desiredScale = button.isStateOn() ? 1f : 0.7f;
             button.setTextColor(desiredColor);
             button.setBackgroundColor(desiredColor);
