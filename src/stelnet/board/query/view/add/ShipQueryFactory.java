@@ -142,14 +142,18 @@ public class ShipQueryFactory extends QueryFactory {
         for (FilteringButton button : dModAllowed) {
             Color desiredColor = button.isStateOn() ? positiveColor : negativeColor;
             float desiredScale = button.isStateOn() ? 1f : 0.7f;
-            button.setTextColor(desiredColor);
-            button.setBackgroundColor(desiredColor);
-            if (textColor == null) {
-                button.scaleTextColor(desiredScale);
-                button.scaleBackground(desiredScale * 0.5f);
-            } else {
-                button.setTextColor(textColor);
-            }
+            prepareDmods(button, textColor, desiredColor, desiredScale);
+        }
+    }
+
+    private void prepareDmods(FilteringButton button, Color textColor, Color desiredColor, float desiredScale) {
+        button.setTextColor(desiredColor);
+        button.setBackgroundColor(desiredColor);
+        if (textColor == null) {
+            button.scaleTextColor(desiredScale);
+            button.scaleBackground(desiredScale * 0.5f);
+        } else {
+            button.setTextColor(textColor);
         }
     }
 }
