@@ -8,6 +8,7 @@ bin/
 build/
 gradle.properties
 node_modules/
+package-lock.json
 # VSCode
 .vscode/**/*
 !.vscode/settings.json
