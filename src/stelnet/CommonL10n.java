@@ -28,6 +28,7 @@ public enum CommonL10n {
     ITEMS,
     MARKET_FACTION,
     MERCENARY,
+    MILITARY_MARKET,
     MODSPECS,
     MOUNT_LARGE,
     MOUNT_MEDIUM,

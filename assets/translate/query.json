@@ -44,6 +44,8 @@
     "REFRESH_ALL": "Refresh All",
     "RESULTS_IN_MARKET": "Found {0, choice, 0#no results|1#one result|1<{0, number, integer} results}.",
     "RESULTS_IN_SYSTEM": "Found {0, choice, 0#no results|1#one result|1<{0, number, integer} results} in {1, choice, 0#no markets|1#one market|1<{1, number, integer} markets}.",
+    "RESULTS_ONLY_FRIENDLY": "Only Friendly Markets",
+    "RESULTS_ONLY_PURCHASABLE": "Only Purchasable Locations",
     "RESULTS_TYPE_NAME": "{0} - {1}",
     "SELECTED_ITEMS": "Selected items",
     "SELECTED_SHIPS": "Selected ships",

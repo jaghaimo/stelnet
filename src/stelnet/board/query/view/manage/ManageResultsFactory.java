@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
-import stelnet.board.query.provider.DmodProvider;
 import stelnet.board.query.view.ButtonGroup;
 import stelnet.board.query.view.FilterAwareFactory;
 import stelnet.board.query.view.FilteringButton;
@@ -33,7 +32,7 @@ public class ManageResultsFactory extends FilterAwareFactory implements Renderab
 
     public ManageResultsFactory(QueryManager manager) {
         dModCount = ButtonUtils.getDModsCount();
-        dModAllowed = ButtonUtils.getDMods(new DmodProvider());
+        dModAllowed = ButtonUtils.getDMods();
         groupingButtons = ButtonUtils.getGroupingButtons(manager);
         submarketButtons = ButtonUtils.getSubmarketButtons(manager);
         otherButtons = ButtonUtils.getOtherButtons(manager);
