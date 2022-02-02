@@ -18,6 +18,7 @@ import stelnet.board.query.view.SizeHelper;
 import stelnet.filter.Filter;
 import stelnet.filter.ResultIsFriendly;
 import stelnet.filter.ResultIsPurchasable;
+import uilib.Button;
 import uilib.Renderable;
 import uilib.RenderableFactory;
 import uilib.Spacer;
@@ -41,15 +42,14 @@ public class ManageResultsFactory extends FilterAwareFactory implements Renderab
         sizeHelper.movePartition(100);
         buttonHelper.prepareDmods();
         List<Renderable> elements = new LinkedList<>();
-        elements.add(new Spacer(UiConstants.DEFAULT_BUTTON_HEIGHT));
-        elements.addAll(getGroupingButtons(size.getWidth()));
-        elements.add(new Spacer(UiConstants.DEFAULT_BUTTON_HEIGHT));
-        elements.addAll(getExtraCheckboxes(size.getWidth()));
-        elements.add(new Spacer(UiConstants.DEFAULT_BUTTON_HEIGHT));
-        elements.addAll(getSubmarketButtons(size.getWidth()));
-        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.DMODS, true, dModAllowed));
-        elements.add(new ButtonGroup(sizeHelper, QueryL10n.DMOD_COUNT, dModCount, true));
-        elements.add(new ButtonGroup(sizeHelper, QueryL10n.DMOD_SET, dModAllowed));
+        elements.add(new Spacer(UiConstants.DEFAULT_SPACER));
+        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.MANAGE_DMODS, true, dModAllowed));
+        elements.add(new ButtonGroup(sizeHelper, QueryL10n.MANAGE_DMOD_COUNT, getGroupingButtons(), true));
+        elements.add(new ButtonGroup(sizeHelper, QueryL10n.MANAGE_DMOD_COUNT, getSpecialButtons(), true));
+        elements.add(new ButtonGroup(sizeHelper, QueryL10n.MANAGE_DMOD_COUNT, getSubmarketButtons(), true));
+        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.MANAGE_DMODS, true, dModAllowed));
+        elements.add(new ButtonGroup(sizeHelper, QueryL10n.MANAGE_DMOD_COUNT, dModCount, true));
+        elements.add(new ButtonGroup(sizeHelper, QueryL10n.MANAGE_DMOD_SET, dModAllowed));
         return elements;
     }
 
@@ -59,30 +59,30 @@ public class ManageResultsFactory extends FilterAwareFactory implements Renderab
         return !allowedDmods.isEmpty() && !disallowedDmods.isEmpty();
     }
 
-    private List<Renderable> getGroupingButtons(float width) {
-        List<Renderable> elements = new LinkedList<>();
-        elements.add(new GroupByButton(manager, GroupingStrategy.BY_MARKET, width));
-        elements.add(new GroupByButton(manager, GroupingStrategy.BY_SYSTEM, width));
-        return elements;
+    private Button[] getGroupingButtons() {
+        return new Button[] {
+            new GroupByButton(manager, GroupingStrategy.BY_MARKET),
+            new GroupByButton(manager, GroupingStrategy.BY_SYSTEM),
+        };
     }
 
-    private List<Renderable> getExtraCheckboxes(float width) {
-        List<Renderable> elements = new LinkedList<>();
-        elements.add(new SpecialFilterButton(manager, "Only Purchasable Locations", new ResultIsPurchasable(), width));
-        elements.add(new SpecialFilterButton(manager, "Only Friendly Markets", new ResultIsFriendly(), width));
-        return elements;
+    private Button[] getSpecialButtons() {
+        return new Button[] {
+            new SpecialFilterButton(manager, "Only Purchasable Locations", new ResultIsPurchasable()),
+            new SpecialFilterButton(manager, "Only Friendly Markets", new ResultIsFriendly()),
+        };
     }
 
-    private List<Renderable> getSubmarketButtons(float width) {
+    private Button[] getSubmarketButtons() {
         List<Renderable> elements = new LinkedList<>();
         List<SubmarketSpecAPI> allSubmarketSpecs = manager.getSubmarketSpecs();
         for (SubmarketSpecAPI submarketSpec : allSubmarketSpecs) {
             String name = getSubmarketName(submarketSpec);
             Filter filter = manager.getSubmarketFilter(submarketSpec);
             boolean isStateOn = manager.getSubmarketFilters().contains(filter);
-            elements.add(new SubmarketFilterButton(manager, name, filter, width, isStateOn));
+            elements.add(new SubmarketFilterButton(manager, name, filter, isStateOn));
         }
-        return elements;
+        return elements.toArray(new Button[] {});
     }
 
     private String getSubmarketName(SubmarketSpecAPI submarketSpec) {
