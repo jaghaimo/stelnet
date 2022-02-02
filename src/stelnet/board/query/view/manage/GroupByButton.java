@@ -11,9 +11,9 @@ import uilib.property.Size;
 
 public class GroupByButton extends AreaCheckbox {
 
-    public GroupByButton(final QueryManager manager, final GroupingStrategy groupingStrategy, float width) {
+    public GroupByButton(final QueryManager manager, final GroupingStrategy groupingStrategy) {
         super(
-            new Size(width, UiConstants.DEFAULT_BUTTON_HEIGHT),
+            new Size(UiConstants.AUTO_WIDTH, UiConstants.DEFAULT_BUTTON_HEIGHT),
             L10n.get(groupingStrategy),
             true,
             manager.getGroupingStrategy().equals(groupingStrategy)

@@ -5,12 +5,13 @@ import lombok.Setter;
 import stelnet.board.query.QueryManager;
 import stelnet.board.query.view.FilteringButton;
 import stelnet.filter.Filter;
+import uilib.UiConstants;
 
 @Setter
 public class SubmarketFilterButton extends FilteringButton {
 
-    public SubmarketFilterButton(QueryManager manager, String title, Filter filter, float width, boolean isStateOn) {
-        super(manager, title, filter, width, isStateOn);
+    public SubmarketFilterButton(QueryManager manager, String title, Filter filter, boolean isStateOn) {
+        super(manager, title, filter, UiConstants.AUTO_WIDTH, isStateOn);
     }
 
     @Override

@@ -30,7 +30,7 @@ public class SizeHelper {
     }
 
     public void movePartition(float x) {
-        groupWidth += x;
-        textWidth -= x;
+        groupWidth -= x;
+        textWidth += x;
     }
 }
