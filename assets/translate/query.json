@@ -20,6 +20,8 @@
     "MANAGE_DMOD_SET": "Allowed and disallowed d-mods",
     "MANAGE_FILTERING": "Market and submarket filtering",
     "MANAGE_GROUPING_SORTING": "Result grouping and sorting",
+    "MANAGE_RESULT_GROUPING": "Result grouping",
+    "MANAGE_RESULT_SORTING": "Result sorting",
     "MANUFACTURERS": "Design type",
     "MATCHING_ITEMS": "Matching items",
     "MATCHING_SHIPS": "Matching ships",
