@@ -22,8 +22,6 @@ import uilib.property.Size;
 
 public class ManageResultsFactory extends FilterAwareFactory implements RenderableFactory {
 
-    private SizeHelper sizeHelper = new SizeHelper();
-
     private final FilteringButton[] dModCount;
     private final FilteringButton[] dModAllowed;
     private final Button[] groupingButtons;
@@ -40,9 +38,9 @@ public class ManageResultsFactory extends FilterAwareFactory implements Renderab
 
     @Override
     public List<Renderable> create(Size size) {
-        sizeHelper = new SizeHelper(size);
-        sizeHelper.movePartition(100);
         prepareDmods();
+        SizeHelper sizeHelper = new SizeHelper(size);
+        sizeHelper.movePartition(100);
         List<Renderable> elements = new LinkedList<>();
         elements.add(new Spacer(-2 * UiConstants.DEFAULT_SPACER));
         elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.MANAGE_GROUPING_SORTING, true));
