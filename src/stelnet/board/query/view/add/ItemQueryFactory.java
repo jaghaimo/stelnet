@@ -8,6 +8,7 @@ import lombok.Getter;
 import stelnet.CommonL10n;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.ItemProvider;
+import stelnet.board.query.view.FilteringButton;
 import stelnet.board.query.view.dialog.ItemPickerDialog;
 import stelnet.board.query.view.dialog.PickerDialog;
 import stelnet.filter.CargoStackNotKnownModspec;

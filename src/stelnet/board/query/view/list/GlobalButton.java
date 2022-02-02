@@ -12,5 +12,6 @@ public class GlobalButton extends C2Button {
         super(new Size(width, UiConstants.VICTOR_14_BUTTON_HEIGHT), L10n.get(titleEnum), true);
         setCutStyle(CutStyle.C2_MENU);
         setPadding(1);
+        overrideSize(40);
     }
 }

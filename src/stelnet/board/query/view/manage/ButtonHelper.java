@@ -1,24 +1,15 @@
-package stelnet.board.query.view.add;
+package stelnet.board.query.view.manage;
 
 import java.awt.Color;
-import java.util.Set;
+
 import lombok.RequiredArgsConstructor;
-import stelnet.filter.Filter;
+import stelnet.board.query.view.FilteringButton;
 import stelnet.util.ColorUtils;
 
 @RequiredArgsConstructor
-public class ShipButtonHelper {
+public class ButtonHelper {
 
-    private final ShipQueryFactory factory;
-
-    public void prepareBuiltIns() {
-        Set<Filter> filters = factory.getCommonFilters();
-        Set<String> hullModIds = factory.getProvider().getBuiltInIds(filters);
-        hullModIds.add("None");
-        for (FilteringButton button : factory.getBuiltIns()) {
-            button.updateVisibility(hullModIds);
-        }
-    }
+    private final ManageResultsFactory factory;
 
     public void prepareDmods() {
         Color textColor = null;

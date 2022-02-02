@@ -8,6 +8,7 @@ import lombok.Getter;
 import stelnet.CommonL10n;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.PeopleProvider;
+import stelnet.board.query.view.FilteringButton;
 import stelnet.filter.Filter;
 import stelnet.util.L10n;
 import uilib.Button;

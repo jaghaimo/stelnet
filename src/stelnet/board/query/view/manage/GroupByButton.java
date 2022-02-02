@@ -1,4 +1,4 @@
-package stelnet.board.query.view.list;
+package stelnet.board.query.view.manage;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import stelnet.board.query.QueryManager;

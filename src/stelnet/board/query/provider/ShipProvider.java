@@ -4,8 +4,6 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
-import com.fs.starfarer.api.impl.campaign.DModManager;
-import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
 import java.util.Collections;
 import java.util.HashSet;
@@ -34,12 +32,10 @@ public class ShipProvider extends QueryProvider {
 
     private static final String SUFFIX = "_Hull";
     private static transient List<HullModSpecAPI> allBuiltIns;
-    private static transient List<HullModSpecAPI> allDMods;
     private static transient List<FleetMemberAPI> allFleetMembers;
     private static transient List<ShipHullSpecAPI> allShipHulls;
 
     public static void reset() {
-        allDMods = null;
         allFleetMembers = null;
         allShipHulls = null;
     }
@@ -97,14 +93,6 @@ public class ShipProvider extends QueryProvider {
         List<ShipHullSpecAPI> shipHullsCopy = new LinkedList<>(getShipHulls());
         CollectionUtils.reduce(shipHullsCopy, filters);
         return extractBuiltIns(shipHullsCopy);
-    }
-
-    public List<HullModSpecAPI> getDMods() {
-        if (allDMods == null) {
-            allDMods = DModManager.getModsWithTags(Tags.HULLMOD_DAMAGE);
-            Collections.sort(allDMods, new ShipHullSpecSorter());
-        }
-        return allDMods;
     }
 
     public Set<String> getManufacturers() {

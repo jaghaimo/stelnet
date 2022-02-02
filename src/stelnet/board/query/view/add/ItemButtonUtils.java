@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import stelnet.CommonL10n;
 import stelnet.board.query.provider.ItemProvider;
+import stelnet.board.query.view.FilteringButton;
 import stelnet.filter.CargoStackIsManufacturer;
 import stelnet.filter.CargoStackIsType;
 import stelnet.filter.CargoStackIsType.Type;

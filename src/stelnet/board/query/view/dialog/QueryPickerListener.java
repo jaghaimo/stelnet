@@ -18,7 +18,6 @@ import stelnet.board.query.QueryState;
 import stelnet.board.query.QueryState.QueryBoardTab;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.board.query.view.add.QueryFactory;
-import stelnet.board.query.view.add.ShipQueryFactory;
 import stelnet.filter.CargoStackIsStack;
 import stelnet.filter.Filter;
 import stelnet.filter.LogicalOr;
@@ -39,7 +38,7 @@ public class QueryPickerListener implements CargoPickerListener, FleetMemberPick
         for (CargoStackAPI cargoStack : cargo.getStacksCopy()) {
             selectedFilters.add(new CargoStackIsStack(cargoStack));
         }
-        addItemQuery(selectedFilters);
+        addQuery(selectedFilters, L10n.get(CommonL10n.ITEMS));
     }
 
     @Override
@@ -48,7 +47,7 @@ public class QueryPickerListener implements CargoPickerListener, FleetMemberPick
         for (FleetMemberAPI member : members) {
             selectedFilters.add(new ShipHullIsHull(member.getHullSpec()));
         }
-        addShipQuery(selectedFilters);
+        addQuery(selectedFilters, L10n.get(CommonL10n.SHIPS));
     }
 
     @Override
@@ -70,21 +69,9 @@ public class QueryPickerListener implements CargoPickerListener, FleetMemberPick
         CargoAPI combined
     ) {}
 
-    private void addItemQuery(Set<Filter> selectedFilters) {
+    private void addQuery(Set<Filter> selectedFilters, String label) {
         Set<Filter> filters = new LinkedHashSet<>();
-        filters.add(new LogicalOr(selectedFilters, L10n.get(CommonL10n.ITEMS)));
-        addQuery(filters);
-    }
-
-    private void addShipQuery(Set<Filter> selectedFilters) {
-        Set<Filter> filters = new LinkedHashSet<>();
-        filters.add(new LogicalOr(selectedFilters, L10n.get(CommonL10n.SHIPS)));
-        ShipQueryFactory elevatedFactory = (ShipQueryFactory) factory;
-        elevatedFactory.addDmodFilters(filters);
-        addQuery(filters);
-    }
-
-    private void addQuery(Set<Filter> filters) {
+        filters.add(new LogicalOr(selectedFilters, label));
         QueryBoard board = QueryBoard.getInstance(QueryBoard.class);
         QueryState state = board.getState();
         QueryManager manager = state.getQueryManager();

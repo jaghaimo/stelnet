@@ -1,5 +1,6 @@
 package stelnet.board.query.view.add;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -10,11 +11,13 @@ import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
 import uilib.Button;
+import uilib.HorizontalViewContainer;
 import uilib.Renderable;
 import uilib.RenderableComponent;
 import uilib.RenderableFactory;
 import uilib.Spacer;
 import uilib.UiConstants;
+import uilib.VerticalViewContainer;
 import uilib.property.Size;
 
 @Getter
@@ -31,8 +34,16 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
 
     @Override
     public List<Renderable> create(Size size) {
-        setSizeHelper(new SizeHelper(size));
-        return getQueryBuildingComponents();
+        float previewWidth = Math.max(250, size.getWidth() - 950);
+        float previewHeight = size.getHeight();
+        float width = size.getWidth() - previewWidth - 10;
+        float height = size.getHeight() - 36;
+        Size mainSize = new Size(width, height);
+        Size sideSize = new Size(previewWidth, previewHeight);
+        setSizeHelper(new SizeHelper(mainSize));
+        RenderableComponent mainColumn = new VerticalViewContainer(getQueryBuildingComponents());
+        RenderableComponent sideColumn = getPreview(getFilters(false), sideSize);
+        return Arrays.<Renderable>asList(new HorizontalViewContainer(mainColumn, sideColumn));
     }
 
     @Override
