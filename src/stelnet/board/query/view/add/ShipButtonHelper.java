@@ -1,11 +1,10 @@
 package stelnet.board.query.view.add;
 
-import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import stelnet.filter.Filter;
+import stelnet.util.ColorUtils;
 
 @RequiredArgsConstructor
 public class ShipButtonHelper {
@@ -23,11 +22,11 @@ public class ShipButtonHelper {
 
     public void prepareDmods() {
         Color textColor = null;
-        Color positiveColor = Misc.getPositiveHighlightColor();
-        Color negativeColor = Misc.getNegativeHighlightColor();
+        Color positiveColor = ColorUtils.positiveHighlight();
+        Color negativeColor = ColorUtils.negativeHighlight();
         if (!factory.hasDmodSelection()) {
-            textColor = Misc.getButtonTextColor();
-            positiveColor = negativeColor = Global.getSettings().getColor("buttonBgDark");
+            textColor = ColorUtils.buttonText();
+            positiveColor = negativeColor = ColorUtils.buttonBgDark();
         }
         prepareDmods(textColor, positiveColor, negativeColor);
     }

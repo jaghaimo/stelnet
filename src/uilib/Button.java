@@ -1,6 +1,5 @@
 package uilib;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.ButtonAPI;
 import com.fs.starfarer.api.ui.CutStyle;
@@ -10,6 +9,7 @@ import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 import lombok.Getter;
 import lombok.Setter;
+import stelnet.util.ColorUtils;
 import stelnet.util.SettingsUtils;
 import uilib.property.Size;
 
@@ -28,7 +28,7 @@ public class Button extends RenderableComponent implements ButtonHandler {
     private boolean highlight = false;
 
     public Button(Size size, String title, boolean isEnabled) {
-        this(size, title, isEnabled, Misc.getButtonTextColor(), Global.getSettings().getColor("buttonBgDark"));
+        this(size, title, isEnabled, ColorUtils.buttonText(), ColorUtils.buttonBgDark());
     }
 
     public Button(Size size, String title, boolean isEnabled, Color color) {
