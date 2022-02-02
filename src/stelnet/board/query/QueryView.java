@@ -6,6 +6,7 @@ import org.lwjgl.input.Keyboard;
 import stelnet.board.query.QueryState.QueryBoardTab;
 import stelnet.board.query.view.add.AddQueryFactory;
 import stelnet.board.query.view.list.QueryListFactory;
+import stelnet.board.query.view.manage.ManageResultsFactory;
 import uilib.Renderable;
 import uilib.RenderableFactory;
 import uilib.TabViewContainer;
@@ -17,11 +18,13 @@ public class QueryView implements RenderableFactory {
     private final QueryBoardTab activeTab;
     private final AddQueryFactory addQueryFactory;
     private final QueryListFactory queryListFactory;
+    private final ManageResultsFactory manageResultsFactory;
 
     public QueryView(QueryState queryState) {
         activeTab = queryState.getActiveTab();
         addQueryFactory = queryState.getAddQueryFactory();
         queryListFactory = queryState.getQueryListFactory();
+        manageResultsFactory = queryState.getManageResultsFactory();
     }
 
     @Override
@@ -36,7 +39,11 @@ public class QueryView implements RenderableFactory {
             getTabContent(queryListFactory, tabContentSize, QueryBoardTab.LIST),
             isActive(QueryBoardTab.LIST)
         );
-
+        tabViewContainer.addTab(
+            getTabButton(QueryBoardTab.MANAGE, Keyboard.KEY_M),
+            getTabContent(manageResultsFactory, tabContentSize, QueryBoardTab.MANAGE),
+            isActive(QueryBoardTab.MANAGE)
+        );
         tabViewContainer.addTab(
             getTabButton(QueryBoardTab.NEW, Keyboard.KEY_N),
             getTabContent(addQueryFactory, tabContentSize, QueryBoardTab.NEW),

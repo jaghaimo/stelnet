@@ -37,7 +37,12 @@ public abstract class FilterAwareFactory {
         return selectedFilters;
     }
 
-    protected Set<Filter> negateFilters(Set<Filter> filters) {
+    protected Set<Filter> getNegatedFilters(FilteringButton buttons[], boolean wantedSelectedState) {
+        Set<Filter> selectedFilters = getFilters(buttons, wantedSelectedState);
+        return negateFilters(selectedFilters);
+    }
+
+    private Set<Filter> negateFilters(Set<Filter> filters) {
         Set<Filter> negatedFilters = new LinkedHashSet<>();
         for (Filter filter : filters) {
             negatedFilters.add(new LogicalNot(filter));

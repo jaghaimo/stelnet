@@ -1,10 +1,9 @@
-package stelnet.board.query.view.add;
+package stelnet.board.query.view;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.ui.UIComponentAPI;
 import lombok.RequiredArgsConstructor;
 import stelnet.CommonL10n;
-import stelnet.board.query.view.FilteringButton;
 import stelnet.util.L10n;
 import stelnet.widget.HeadingWithButtons;
 import uilib.UiConstants;

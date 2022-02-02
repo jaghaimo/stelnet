@@ -1,10 +1,9 @@
-package stelnet.board.query.view.add;
+package stelnet.board.query.view;
 
 import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-import stelnet.board.query.view.FilteringButton;
 import stelnet.util.L10n;
 import uilib.Button;
 import uilib.EventHandler;

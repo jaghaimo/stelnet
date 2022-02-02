@@ -1,11 +1,10 @@
-package stelnet.board.query.view.add;
+package stelnet.board.query.view;
 
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import stelnet.board.query.view.FilteringButton;
 import stelnet.util.ColorUtils;
 import stelnet.util.L10n;
 import uilib.Button;

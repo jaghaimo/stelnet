@@ -11,6 +11,7 @@ import stelnet.board.query.provider.PeopleProvider;
 import stelnet.board.query.provider.ShipProvider;
 import stelnet.board.query.view.add.AddQueryFactory;
 import stelnet.board.query.view.list.QueryListFactory;
+import stelnet.board.query.view.manage.ManageResultsFactory;
 import uilib.Renderable;
 import uilib.RenderableState;
 import uilib.property.Size;
@@ -22,12 +23,14 @@ public class QueryState implements RenderableState, Serializable {
     public static enum QueryBoardTab {
         LIST,
         NEW,
+        MANAGE,
     }
 
     private final QueryManager queryManager;
     private transient QueryBoardTab activeTab;
     private transient AddQueryFactory addQueryFactory;
     private transient QueryListFactory queryListFactory;
+    private transient ManageResultsFactory manageResultsFactory;
 
     public QueryState() {
         queryManager = new QueryManager();
@@ -38,6 +41,7 @@ public class QueryState implements RenderableState, Serializable {
         activeTab = QueryBoardTab.LIST;
         addQueryFactory = new AddQueryFactory();
         queryListFactory = new QueryListFactory(queryManager);
+        manageResultsFactory = new ManageResultsFactory(queryManager);
         return this;
     }
 

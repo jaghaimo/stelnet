@@ -9,6 +9,8 @@ import lombok.extern.log4j.Log4j;
 import stelnet.CommonL10n;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.QueryProvider;
+import stelnet.board.query.view.ButtonGroup;
+import stelnet.board.query.view.SizeHelper;
 import stelnet.filter.Filter;
 import uilib.Button;
 import uilib.HorizontalViewContainer;

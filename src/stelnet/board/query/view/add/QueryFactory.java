@@ -5,6 +5,7 @@ import java.util.Set;
 import lombok.Setter;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.board.query.view.FilterAwareFactory;
+import stelnet.board.query.view.SizeHelper;
 import stelnet.filter.Filter;
 import uilib.Button;
 import uilib.Renderable;

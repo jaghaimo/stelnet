@@ -1,4 +1,4 @@
-package stelnet.board.query.view.add;
+package stelnet.board.query.view;
 
 import lombok.Getter;
 import uilib.property.Size;
