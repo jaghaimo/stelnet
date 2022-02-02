@@ -22,7 +22,7 @@ public class FindMatchingButton extends C2Button {
     public FindMatchingButton(final QueryFactory factory, final String type) {
         super(new Size(0, UiConstants.VICTOR_14_BUTTON_HEIGHT), L10n.get(QueryL10n.FIND_MATCHING), true);
         overrideSize(30);
-        setShortcut(Keyboard.KEY_M);
+        setShortcut(Keyboard.KEY_F);
         setHandler(
             new EventHandler() {
                 @Override

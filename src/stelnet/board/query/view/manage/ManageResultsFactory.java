@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
 import stelnet.board.query.grouping.GroupingStrategy;
@@ -29,18 +28,18 @@ import uilib.property.Size;
 @RequiredArgsConstructor
 public class ManageResultsFactory extends FilterAwareFactory implements RenderableFactory {
 
-    @Setter
     private SizeHelper sizeHelper = new SizeHelper();
+    private ButtonHelper buttonHelper = new ButtonHelper(this);
 
     private final QueryManager manager;
     private final FilteringButton[] dModCount = ButtonUtils.getDModsCount();
     private final FilteringButton[] dModAllowed = ButtonUtils.getDMods(new DmodProvider());
-    private final ButtonHelper helper = new ButtonHelper(this);
 
     @Override
     public List<Renderable> create(Size size) {
-        setSizeHelper(new SizeHelper(size));
-        helper.prepareDmods();
+        sizeHelper = new SizeHelper(size);
+        sizeHelper.movePartition(100);
+        buttonHelper.prepareDmods();
         List<Renderable> elements = new LinkedList<>();
         elements.add(new Spacer(UiConstants.DEFAULT_BUTTON_HEIGHT));
         elements.addAll(getGroupingButtons(size.getWidth()));
