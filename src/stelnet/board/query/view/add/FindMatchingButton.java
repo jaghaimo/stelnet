@@ -30,7 +30,7 @@ public class FindMatchingButton extends C2Button {
                     QueryState state = QueryBoard.getInstance(QueryBoard.class).getState();
                     QueryManager manager = state.getQueryManager();
                     QueryProvider provider = factory.getProvider();
-                    Set<Filter> filters = factory.getFilters(true);
+                    Set<Filter> filters = factory.getFilters();
                     Query query = new Query(manager, provider, filters, type);
                     manager.addQuery(query);
                     state.setActiveTab(QueryBoardTab.LIST);

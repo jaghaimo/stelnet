@@ -48,7 +48,7 @@ public class ShipQueryFactory extends QueryFactory {
     }
 
     @Override
-    public Set<Filter> getFilters(boolean forResults) {
+    public Set<Filter> getFilters() {
         Set<Filter> filters = getCommonFilters();
         addSelectedOrNone(filters, builtIns, L10n.get(QueryL10n.BUILT_IN), true);
         return filters;
@@ -56,7 +56,7 @@ public class ShipQueryFactory extends QueryFactory {
 
     @Override
     protected Button[] getFinalComponents() {
-        Set<Filter> filters = getFilters(false);
+        Set<Filter> filters = getFilters();
         PickerDialog picker = new ShipPickerDialog(provider.getMatching(filters), this);
         return new Button[] {
             new FindMatchingButton(this, L10n.get(CommonL10n.SHIPS)),

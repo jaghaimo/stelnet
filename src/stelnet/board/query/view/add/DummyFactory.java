@@ -17,7 +17,7 @@ import uilib.property.Size;
 public class DummyFactory extends QueryFactory {
 
     @Override
-    public Set<Filter> getFilters(boolean forResults) {
+    public Set<Filter> getFilters() {
         logUsage();
         return Collections.emptySet();
     }

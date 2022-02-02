@@ -20,7 +20,7 @@ public abstract class QueryFactory extends FilterAwareFactory {
         return getProvider().getPreview(filters, size);
     }
 
-    public abstract Set<Filter> getFilters(boolean forResults);
+    public abstract Set<Filter> getFilters();
 
     public abstract QueryProvider getProvider();
 

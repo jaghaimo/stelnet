@@ -36,7 +36,7 @@ public class ItemQueryFactory extends QueryFactory {
     }
 
     @Override
-    public Set<Filter> getFilters(boolean forResults) {
+    public Set<Filter> getFilters() {
         Set<Filter> filters = new LinkedHashSet<>();
         addSelectedOrAll(filters, itemTypes, L10n.get(QueryL10n.ITEM_TYPES));
         addSelectedOrNone(filters, designTypes, L10n.get(QueryL10n.MANUFACTURERS), hasWeapons() || hasFighterWings());
@@ -50,7 +50,7 @@ public class ItemQueryFactory extends QueryFactory {
 
     @Override
     protected Button[] getFinalComponents() {
-        Set<Filter> filters = getFilters(false);
+        Set<Filter> filters = getFilters();
         PickerDialog picker = new ItemPickerDialog(CargoUtils.makeCargoFromStacks(provider.getMatching(filters)), this);
         return new Button[] {
             new FindMatchingButton(this, L10n.get(CommonL10n.ITEMS)),

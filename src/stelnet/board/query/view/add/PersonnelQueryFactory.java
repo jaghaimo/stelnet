@@ -29,7 +29,7 @@ public class PersonnelQueryFactory extends QueryFactory {
     }
 
     @Override
-    public Set<Filter> getFilters(boolean forResults) {
+    public Set<Filter> getFilters() {
         Set<Filter> filters = new LinkedHashSet<>();
         addSelectedOrAll(filters, postType, L10n.get(QueryL10n.PERSONNEL_POST_TYPES));
         addSelectedOrNone(filters, personality, L10n.get(QueryL10n.PERSONNEL_PERSONALITY), hasOfficers());
