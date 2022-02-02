@@ -1,7 +1,6 @@
 package stelnet.board.query.view.manage;
 
 import java.awt.Color;
-
 import lombok.RequiredArgsConstructor;
 import stelnet.board.query.view.FilteringButton;
 import stelnet.util.ColorUtils;
