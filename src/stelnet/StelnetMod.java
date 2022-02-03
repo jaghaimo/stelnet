@@ -18,6 +18,7 @@ public class StelnetMod extends BaseModPlugin {
     @Override
     public void onApplicationLoad() throws Exception {
         ReportUtils.generate();
+        ConfigUtils.configure();
     }
 
     @Override
@@ -26,7 +27,6 @@ public class StelnetMod extends BaseModPlugin {
             ConfigUtils.deactivate();
             return;
         }
-        ConfigUtils.configure();
         ConfigUtils.activate();
     }
 }
