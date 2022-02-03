@@ -20,7 +20,10 @@ public class QueryManager {
     private int queryCounter = 0;
 
     @Getter
-    private final Set<Filter> dModFilters = new LinkedHashSet<>();
+    private final Set<Filter> dModCountFilters = new LinkedHashSet<>();
+
+    @Getter
+    private final Set<Filter> dModTypesFilters = new LinkedHashSet<>();
 
     @Getter
     private final Set<Filter> otherFilters = new LinkedHashSet<>();

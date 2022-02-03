@@ -11,9 +11,8 @@ import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.board.query.provider.DmodProvider;
 import stelnet.board.query.view.FilteringButton;
 import stelnet.filter.Filter;
-import stelnet.filter.FleetMemberHasDMod;
-import stelnet.filter.FleetMemberHasDModCount;
-import stelnet.filter.ResultIsFriendly;
+import stelnet.filter.ResultFleetMemberHasDModCount;
+import stelnet.filter.ResultFleetMemberWithoutDMod;
 import stelnet.filter.ResultIsPurchasable;
 import stelnet.util.L10n;
 import uilib.Button;
@@ -21,22 +20,41 @@ import uilib.Renderable;
 
 public class ButtonUtils {
 
-    public static FilteringButton[] getDMods() {
+    public static FilteringButton[] getDMods(QueryManager manager) {
         DmodProvider provider = new DmodProvider();
         List<FilteringButton> dMods = new LinkedList<>();
         for (HullModSpecAPI dMod : provider.getDMods()) {
             dMods.add(
-                new FilteringButton(dMod.getDisplayName(), new FleetMemberHasDMod(dMod.getId(), dMod.getDisplayName()))
+                new FilterSetAwareButton(
+                    manager,
+                    dMod.getDisplayName(),
+                    new ResultFleetMemberWithoutDMod(dMod.getId()),
+                    manager.getDModTypesFilters()
+                )
             );
         }
         return dMods.toArray(new FilteringButton[] {});
     }
 
-    public static FilteringButton[] getDModsCount() {
-        List<FilteringButton> dModCount = new LinkedList<>();
-        dModCount.add(new FilteringButton(CommonL10n.NONE, new FleetMemberHasDModCount(0)));
+    public static FilteringButton[] getDModsCount(QueryManager manager) {
+        List<Button> dModCount = new LinkedList<>();
+        dModCount.add(
+            new FilterSetAwareButton(
+                manager,
+                L10n.get(CommonL10n.NONE),
+                new ResultFleetMemberHasDModCount(0),
+                manager.getDModCountFilters()
+            )
+        );
         for (int i = 1; i < 6; i++) {
-            dModCount.add(new FilteringButton(String.valueOf(i), new FleetMemberHasDModCount(i)));
+            dModCount.add(
+                new FilterSetAwareButton(
+                    manager,
+                    String.valueOf(i),
+                    new ResultFleetMemberHasDModCount(i),
+                    manager.getDModCountFilters()
+                )
+            );
         }
         return dModCount.toArray(new FilteringButton[] {});
     }
@@ -48,23 +66,32 @@ public class ButtonUtils {
         };
     }
 
-    public static Button[] getOtherButtons(QueryManager manager) {
-        return new Button[] {
-            new OtherFilterButton(manager, L10n.get(QueryL10n.RESULTS_ONLY_PURCHASABLE), new ResultIsPurchasable()),
-            new OtherFilterButton(manager, L10n.get(QueryL10n.RESULTS_ONLY_FRIENDLY), new ResultIsFriendly()),
+    public static FilteringButton[] getOtherButtons(QueryManager manager) {
+        return new FilteringButton[] {
+            new FilterSetAwareButton(
+                manager,
+                L10n.get(QueryL10n.RESULTS_ONLY_PURCHASABLE),
+                new ResultIsPurchasable(),
+                manager.getOtherFilters()
+            ),
+            new FilterSetAwareButton(
+                manager,
+                L10n.get(QueryL10n.RESULTS_ONLY_PURCHASABLE),
+                new ResultIsPurchasable(),
+                manager.getOtherFilters()
+            ),
         };
     }
 
-    public static Button[] getSubmarketButtons(QueryManager manager) {
+    public static FilteringButton[] getSubmarketButtons(QueryManager manager) {
         List<Renderable> elements = new LinkedList<>();
         List<SubmarketSpecAPI> allSubmarketSpecs = manager.getSubmarketSpecs();
         for (SubmarketSpecAPI submarketSpec : allSubmarketSpecs) {
             String name = getSubmarketName(submarketSpec);
             Filter filter = manager.getSubmarketFilter(submarketSpec);
-            boolean isStateOn = manager.getSubmarketFilters().contains(filter);
-            elements.add(new SubmarketFilterButton(manager, name, filter, isStateOn));
+            elements.add(new FilterSetAwareButton(manager, name, filter, manager.getSubmarketFilters()));
         }
-        return elements.toArray(new Button[] {});
+        return elements.toArray(new FilteringButton[] {});
     }
 
     private static String getSubmarketName(SubmarketSpecAPI submarketSpec) {

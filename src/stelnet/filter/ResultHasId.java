@@ -1,12 +1,9 @@
 package stelnet.filter;
 
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
-import java.util.LinkedHashSet;
-import java.util.Set;
 import lombok.EqualsAndHashCode;
 import stelnet.board.query.Result;
 import stelnet.board.query.ResultSet;
-import stelnet.util.CollectionUtils;
 
 @EqualsAndHashCode(callSuper = false)
 public class ResultHasId extends ResultFilter {
@@ -19,9 +16,7 @@ public class ResultHasId extends ResultFilter {
 
     @Override
     protected boolean acceptResultSet(ResultSet resultSet) {
-        Set<Result> copyOfResults = new LinkedHashSet<>(resultSet.getResultSet());
-        CollectionUtils.reduce(copyOfResults, this);
-        return copyOfResults.size() > 0;
+        return acceptResultSetCopy(resultSet);
     }
 
     @Override

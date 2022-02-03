@@ -29,8 +29,8 @@ public class ManageResultsFactory extends FilterAwareFactory implements Renderab
     private final Button[] otherButtons;
 
     public ManageResultsFactory(QueryManager manager) {
-        dModCount = ButtonUtils.getDModsCount();
-        dModAllowed = ButtonUtils.getDMods();
+        dModCount = ButtonUtils.getDModsCount(manager);
+        dModAllowed = ButtonUtils.getDMods(manager);
         groupingButtons = ButtonUtils.getGroupingButtons(manager);
         submarketButtons = ButtonUtils.getSubmarketButtons(manager);
         otherButtons = ButtonUtils.getOtherButtons(manager);
@@ -91,14 +91,14 @@ public class ManageResultsFactory extends FilterAwareFactory implements Renderab
     }
 
     private Color getDesiredColor(FilteringButton button, Color positiveColor, Color negativeColor) {
-        if (button.isStateOn()) {
+        if (!button.isStateOn()) {
             return positiveColor;
         }
         return negativeColor;
     }
 
     private float getDesiredScale(FilteringButton button) {
-        if (button.isStateOn()) {
+        if (!button.isStateOn()) {
             return 1.0f;
         }
         return 0.7f;

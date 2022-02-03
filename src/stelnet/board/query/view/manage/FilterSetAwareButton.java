@@ -1,6 +1,7 @@
 package stelnet.board.query.view.manage;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
+import java.util.Set;
 import lombok.Setter;
 import stelnet.board.query.QueryManager;
 import stelnet.board.query.view.FilteringButton;
@@ -8,19 +9,22 @@ import stelnet.filter.Filter;
 import uilib.UiConstants;
 
 @Setter
-public class SubmarketFilterButton extends FilteringButton {
+public class FilterSetAwareButton extends FilteringButton {
 
-    public SubmarketFilterButton(QueryManager manager, String title, Filter filter, boolean isStateOn) {
-        super(manager, title, filter, UiConstants.AUTO_WIDTH, isStateOn);
+    private final Set<Filter> filterSet;
+
+    public FilterSetAwareButton(QueryManager manager, String title, Filter filter, Set<Filter> filterSet) {
+        super(manager, title, filter, UiConstants.AUTO_WIDTH, filterSet.contains(filter));
+        this.filterSet = filterSet;
     }
 
     @Override
     public void onConfirm(IntelUIAPI ui) {
         super.onConfirm(ui);
         if (isStateOn()) {
-            manager.getSubmarketFilters().add(filter);
+            filterSet.add(filter);
         } else {
-            manager.getSubmarketFilters().remove(filter);
+            filterSet.remove(filter);
         }
         manager.updateIntel();
     }

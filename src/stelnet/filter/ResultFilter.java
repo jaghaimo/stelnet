@@ -1,8 +1,11 @@
 package stelnet.filter;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
 import lombok.EqualsAndHashCode;
 import stelnet.board.query.Result;
 import stelnet.board.query.ResultSet;
+import stelnet.util.CollectionUtils;
 
 @EqualsAndHashCode(callSuper = false)
 public abstract class ResultFilter extends Filter {
@@ -16,6 +19,18 @@ public abstract class ResultFilter extends Filter {
             return acceptResult((Result) object);
         }
         return false;
+    }
+
+    protected boolean acceptResultSetCopy(ResultSet resultSet) {
+        Set<Result> copyOfResults = new LinkedHashSet<>(resultSet.getResultSet());
+        CollectionUtils.reduce(copyOfResults, this);
+        return copyOfResults.size() > 0;
+    }
+
+    protected boolean acceptResultSetInPlace(ResultSet resultSet) {
+        CollectionUtils.reduce(resultSet.getResultSet(), this);
+        resultSet.refresh();
+        return resultSet.size() > 0;
     }
 
     protected abstract boolean acceptResultSet(ResultSet resultSet);

@@ -108,15 +108,21 @@ public class Result implements Comparable<Result> {
                 return compareResult;
             }
         }
-        return 0;
+        return hashCode() - o.hashCode();
     }
 
     @Override
     public boolean equals(Object other) {
         if (other instanceof Result) {
-            return compareTo((Result) other) == 0;
+            Result otherResult = (Result) other;
+            return object == otherResult.getObject();
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return object.hashCode();
     }
 
     private String getCargoStackIcon(CargoStackAPI cargoStack) {
