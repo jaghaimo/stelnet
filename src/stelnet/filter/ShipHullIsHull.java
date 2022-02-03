@@ -18,7 +18,7 @@ public final class ShipHullIsHull extends ShipHullFilter {
     @Override
     protected boolean acceptShipHull(ShipHullSpecAPI shipHull) {
         if (shipHull.isDHull()) {
-            return hullId.equals(shipHull.getBaseHullId()) || hullId.equals(shipHull.getDParentHullId());
+            return hullId.equals(shipHull.getDParentHullId());
         }
         return hullId.equals(shipHull.getHullId());
     }
