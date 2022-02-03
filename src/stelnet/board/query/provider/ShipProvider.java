@@ -36,6 +36,7 @@ public class ShipProvider extends QueryProvider {
     private static transient List<ShipHullSpecAPI> allShipHulls;
 
     public static void reset() {
+        allBuiltIns = null;
         allFleetMembers = null;
         allShipHulls = null;
     }

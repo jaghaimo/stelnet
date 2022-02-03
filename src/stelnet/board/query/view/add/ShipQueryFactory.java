@@ -77,9 +77,6 @@ public class ShipQueryFactory extends QueryFactory {
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.FIGHTER_BAYS, mountBays, true));
         elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.MANUFACTURERS, true, designTypes));
         elements.add(new ButtonGroup(sizeHelper, designTypes, true));
-        // elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.DMODS, true, dModAllowed));
-        // elements.add(new ButtonGroup(sizeHelper, QueryL10n.DMOD_COUNT, dModCount, true));
-        // elements.add(new ButtonGroup(sizeHelper, QueryL10n.DMOD_ALLOWED, dModAllowed));
         elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.BUILT_IN, true, builtIns));
         elements.add(new ButtonGroup(sizeHelper, builtIns, true));
         return elements;
