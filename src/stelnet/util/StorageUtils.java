@@ -1,7 +1,9 @@
 package stelnet.util;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
+import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
@@ -61,6 +63,7 @@ public class StorageUtils {
                 availableStorages.add(storage);
             }
         }
+        addDerelictStations(availableStorages);
         return availableStorages;
     }
 
@@ -78,5 +81,17 @@ public class StorageUtils {
             }
         );
         return availableStorages;
+    }
+
+    private static void addDerelictStations(List<SubmarketAPI> submarkets) {
+        String[] stations = new String[] {
+            "corvus_abandoned_station",
+            "yma_abandoned_station",
+            "mairaath_abandoned_station1",
+        };
+        for (String station : stations) {
+            SectorEntityToken token = Global.getSector().getEntityById(station);
+            submarkets.add(token.getMarket().getSubmarket(Submarkets.SUBMARKET_STORAGE));
+        }
     }
 }
