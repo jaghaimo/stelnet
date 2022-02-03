@@ -1,5 +1,7 @@
 package stelnet.board.query;
 
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import lombok.Getter;
@@ -8,6 +10,8 @@ import lombok.Setter;
 import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
+import stelnet.filter.LogicalAnd;
+import stelnet.filter.LogicalNot;
 import stelnet.filter.LogicalOr;
 import stelnet.util.CollectionUtils;
 import stelnet.util.L10n;
@@ -43,8 +47,7 @@ public class Query {
 
     public List<ResultSet> execute(GroupingStrategy groupingStrategy) {
         List<ResultSet> results = provider.getResults(filters, groupingStrategy);
-        CollectionUtils.reduce(results, new LogicalOr(manager.getSubmarketFilters(), "submarkets"));
-        CollectionUtils.reduce(results, manager.getSpecialFilters());
+        CollectionUtils.reduce(results, getResultFilters());
         resultNumber = 0;
         for (ResultSet resultSet : results) {
             resultNumber += resultSet.getResultCount();
@@ -73,5 +76,25 @@ public class Query {
     @Override
     public String toString() {
         return StringUtils.join(filters, "||", L10n.get(QueryL10n.EMPTY_FILTER));
+    }
+
+    private Set<Filter> getResultFilters() {
+        Set<Filter> resultFilters = new LinkedHashSet<>();
+        resultFilters.add(new LogicalOr(manager.getSubmarketFilters(), "submarkets"));
+        resultFilters.addAll(manager.getOtherFilters());
+        addDmodFilter(resultFilters);
+        return resultFilters;
+    }
+
+    private void addDmodFilter(Set<Filter> resultFilters) {
+        Set<Filter> dModFilters = manager.getDModFilters();
+        if (dModFilters.isEmpty()) {
+            return;
+        }
+        List<Filter> negatedFilters = new LinkedList<>();
+        for (Filter dModFilter : dModFilters) {
+            negatedFilters.add(new LogicalNot(dModFilter));
+        }
+        resultFilters.add(new LogicalAnd(negatedFilters));
     }
 }

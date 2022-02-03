@@ -50,8 +50,8 @@ public class ButtonUtils {
 
     public static Button[] getOtherButtons(QueryManager manager) {
         return new Button[] {
-            new SpecialFilterButton(manager, L10n.get(QueryL10n.RESULTS_ONLY_PURCHASABLE), new ResultIsPurchasable()),
-            new SpecialFilterButton(manager, L10n.get(QueryL10n.RESULTS_ONLY_FRIENDLY), new ResultIsFriendly()),
+            new OtherFilterButton(manager, L10n.get(QueryL10n.RESULTS_ONLY_PURCHASABLE), new ResultIsPurchasable()),
+            new OtherFilterButton(manager, L10n.get(QueryL10n.RESULTS_ONLY_FRIENDLY), new ResultIsFriendly()),
         };
     }
 
