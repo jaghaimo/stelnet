@@ -3,7 +3,6 @@ package stelnet.board.query.grouping;
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import java.util.List;
 import stelnet.board.query.QueryL10n;
@@ -15,7 +14,6 @@ import stelnet.util.CargoUtils;
 import stelnet.util.L10n;
 import uilib.Renderable;
 import uilib.ShowCargo;
-import uilib.ShowPeople;
 import uilib.ShowShips;
 import uilib.Spacer;
 import uilib.UiConstants;
@@ -35,17 +33,6 @@ public class SystemView extends ResultView {
             addShips(elements, market, width);
             elements.add(new Spacer(2 * UiConstants.DEFAULT_SPACER));
         }
-    }
-
-    private void addPeople(List<Renderable> elements, MarketAPI market, float width) {
-        List<PersonAPI> people = resultOrganiser.getPeople(resultSet, market);
-        if (people.isEmpty()) {
-            return;
-        }
-        elements.add(new Spacer(UiConstants.DEFAULT_SPACER));
-        ShowPeople showPeople = new ShowPeople(people, L10n.get(QueryL10n.NO_MATCHING_PEOPLE), new Size(width, 0));
-        showPeople.setGroupColor(getSupportColor(market.getFaction()));
-        elements.add(showPeople);
     }
 
     private void addItems(List<Renderable> elements, MarketAPI market, float width) {
