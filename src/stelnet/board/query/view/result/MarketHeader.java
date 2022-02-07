@@ -7,7 +7,7 @@ import com.fs.starfarer.api.ui.PositionAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.ui.UIComponentAPI;
 import lombok.Getter;
-import stelnet.board.query.ResultIntel;
+import stelnet.BaseIntel;
 import uilib.Button;
 import uilib.Heading;
 import uilib.RenderableComponent;
@@ -20,7 +20,7 @@ public class MarketHeader extends RenderableComponent {
     private final ShowButton showButton;
     private final PeekButton peekButton;
 
-    public MarketHeader(MarketAPI market, ResultIntel intel) {
+    public MarketHeader(MarketAPI market, BaseIntel intel) {
         FactionAPI faction = market.getFaction();
         heading = new Heading(" " + market.getName(), faction.getBaseUIColor(), faction.getDarkUIColor());
         heading.setAlignment(Alignment.LMID);

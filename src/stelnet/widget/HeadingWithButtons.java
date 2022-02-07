@@ -19,29 +19,7 @@ public abstract class HeadingWithButtons extends RenderableComponent {
         overlapQueryHeading(tooltip, isEnabled, headingText);
     }
 
-    protected void renderHeading(TooltipMakerAPI tooltip, boolean isEnabled, String headingText, FactionAPI faction) {
-        Color textColor = faction.getBaseUIColor();
-        Color backgroundColor = faction.getDarkUIColor();
-        if (!isEnabled) {
-            textColor = Misc.scaleAlpha(textColor, 0.3f);
-            backgroundColor = Misc.scaleAlpha(backgroundColor, 0.2f);
-        }
-        tooltip.addSectionHeading(headingText, textColor, backgroundColor, Alignment.LMID, 0);
-    }
-
-    protected void overlapQueryHeading(TooltipMakerAPI tooltip, boolean isEnabled, String heading) {
-        tooltip.setParaFontVictor14();
-        tooltip.setParaFontColor(Misc.getBrightPlayerColor());
-        if (!isEnabled) {
-            tooltip.setParaFontColor(Misc.scaleAlpha(Misc.getBrightPlayerColor(), 0.2f));
-        }
-        tooltip.addPara(heading, 0);
-        tooltip.getPrev().getPosition().setYAlignOffset(16);
-        tooltip.addSpacer(0);
-        tooltip.getPrev().getPosition().setYAlignOffset(-3);
-    }
-
-    protected UIComponentAPI renderFirst(Button delete, float width, TooltipMakerAPI tooltip) {
+    protected UIComponentAPI renderFirstButton(Button delete, float width, TooltipMakerAPI tooltip) {
         delete.render(tooltip);
         UIComponentAPI deleteComponent = tooltip.getPrev();
         PositionAPI deletePosition = deleteComponent.getPosition();
@@ -50,11 +28,15 @@ public abstract class HeadingWithButtons extends RenderableComponent {
         return deleteComponent;
     }
 
-    protected UIComponentAPI renderNext(Button button, TooltipMakerAPI tooltip, UIComponentAPI previousComponent) {
-        return renderNext(button, tooltip, previousComponent, 1);
+    protected UIComponentAPI renderNextButton(
+        Button button,
+        TooltipMakerAPI tooltip,
+        UIComponentAPI previousComponent
+    ) {
+        return renderNextButton(button, tooltip, previousComponent, 1);
     }
 
-    protected UIComponentAPI renderNext(
+    protected UIComponentAPI renderNextButton(
         Button button,
         TooltipMakerAPI tooltip,
         UIComponentAPI previousComponent,
@@ -64,5 +46,27 @@ public abstract class HeadingWithButtons extends RenderableComponent {
         UIComponentAPI currentComponent = tooltip.getPrev();
         currentComponent.getPosition().leftOfTop(previousComponent, padding);
         return currentComponent;
+    }
+
+    private void renderHeading(TooltipMakerAPI tooltip, boolean isEnabled, String headingText, FactionAPI faction) {
+        Color textColor = faction.getBaseUIColor();
+        Color backgroundColor = faction.getDarkUIColor();
+        if (!isEnabled) {
+            textColor = Misc.scaleAlpha(textColor, 0.3f);
+            backgroundColor = Misc.scaleAlpha(backgroundColor, 0.2f);
+        }
+        tooltip.addSectionHeading(headingText, textColor, backgroundColor, Alignment.LMID, 0);
+    }
+
+    private void overlapQueryHeading(TooltipMakerAPI tooltip, boolean isEnabled, String heading) {
+        tooltip.setParaFontVictor14();
+        tooltip.setParaFontColor(Misc.getBrightPlayerColor());
+        if (!isEnabled) {
+            tooltip.setParaFontColor(Misc.scaleAlpha(Misc.getBrightPlayerColor(), 0.2f));
+        }
+        tooltip.addPara(heading, 0);
+        tooltip.getPrev().getPosition().setYAlignOffset(16);
+        tooltip.addSpacer(0);
+        tooltip.getPrev().getPosition().setYAlignOffset(-3);
     }
 }

@@ -2,21 +2,21 @@ package stelnet.board.query.view.list;
 
 import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.ui.IntelUIAPI;
-import stelnet.CommonL10n;
 import stelnet.board.query.Query;
+import stelnet.board.query.QueryL10n;
 import uilib.EventHandler;
 
-public class PurchasableButton extends ControlButton {
+public class OnOffButton extends ControlButton {
 
-    public PurchasableButton(final Query query) {
-        super(CommonL10n.PURCHASABLE, CommonL10n.ALL, true, query.isPurchasable());
+    public OnOffButton(final Query query) {
+        super(QueryL10n.ENABLED, QueryL10n.DISABLED, true, query.isEnabled());
         setCutStyle(CutStyle.C2_MENU);
         scaleButton(query);
         setHandler(
             new EventHandler() {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
-                    query.setPurchasable(!query.isPurchasable());
+                    query.setEnabled(!query.isEnabled());
                     query.refresh();
                 }
             }

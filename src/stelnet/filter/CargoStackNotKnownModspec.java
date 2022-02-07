@@ -2,18 +2,17 @@ package stelnet.filter;
 
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import lombok.EqualsAndHashCode;
+import stelnet.filter.CargoStackIsType.Type;
 import stelnet.util.SectorUtils;
 
 @EqualsAndHashCode(callSuper = false)
-public class CargoStackNotKnownModspec extends CargoStackIsType {
+public final class CargoStackNotKnownModspec extends CargoStackFilter {
 
-    public CargoStackNotKnownModspec() {
-        super(Type.MODSPEC);
-    }
+    private final Filter isCargoStack = new CargoStackIsType(Type.MODSPEC);
 
     @Override
     protected boolean acceptCargoStack(CargoStackAPI cargoStack) {
-        if (!super.acceptCargoStack(cargoStack)) {
+        if (!isCargoStack.accept(cargoStack)) {
             return true;
         }
         String hullModId = cargoStack.getHullModSpecIfHullMod().getId();

@@ -26,7 +26,7 @@ public class MarketView implements RenderableFactory {
     private final MarketViewState state;
 
     public MarketView(MarketViewState state) {
-        buttonManager = state.getFilteringButtons();
+        buttonManager = state.getButtonManager();
         activeTab = state.getContentRenderer();
         activeView = state.getDisplayStrategy();
         this.state = state;

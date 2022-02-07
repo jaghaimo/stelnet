@@ -32,13 +32,13 @@ Viewer board lets you select a market and preview content of its legal submarket
 
 ![Viewer](images/viewer.png?raw=1)
 
-By default, both Market boards work with Open and Military Markets only.
-To enable support for Black and Custom Markets edit `stelnet.json` (see below).
+By default, both Market boards work with Open Military, and Black Markets only.
+To enable support for Custom Markets edit `stelnet.json` (see below).
 
 ### Storage
 
 Storage board (formerly [Stellar Logistics](https://fractalsoftworks.com/forum/index.php?topic=18948)) displays all cargo and ships stored among all Storages.
-It allows to display a unified view to quickly verify what is available, and per-location view to find out where.
+It allows to display a unified view to quickly verify what is available, and per-location view to find out where it is.
 
 ![Storage](images/storage.png?raw=1)
 

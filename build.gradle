@@ -2,29 +2,26 @@ import groovy.json.JsonSlurper
 
 plugins {
     id 'java'
-    id 'eclipse'
 }
 
 repositories {
     mavenCentral()
-}
-
-// fix documentation
-eclipse {
-    classpath {
-        file {
-            whenMerged {
-                def lib = entries.find { it.path.contains 'starfarer.api.jar' }
-                lib.javadocPath = fileReference(file('libs/starfarer.api.zip'))
-                lib.sourcePath = fileReference(file('libs/starfarer.api.zip'))
-            }
+    ivy {
+        url 'https://github.com/'
+        patternLayout {
+            artifact '/[organization]/[module]/releases/download/[revision]/[ext]'
+        }
+        metadataSources {
+            artifact()
         }
     }
 }
 
 // project level config
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
 
 // where to find sources
 sourceSets.main.java.srcDirs = ['src/']
@@ -42,7 +39,9 @@ build {
 
 // compile time dependencies
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "jaghaimo:starsector-api:0.95.1a-RC6@starfarer.api.jar"
+
+    // game dependencies
     implementation group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.10'
     implementation group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: '2.9.3'
     implementation group: 'org.lwjgl.lwjgl', name: 'lwjgl_util', version: '2.9.3'
@@ -54,9 +53,6 @@ dependencies {
     // lombok
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
-
-    // test only
-    testImplementation 'junit:junit:4.12'
 }
 
 // custom tasks

@@ -1,21 +1,27 @@
 package stelnet.filter;
 
 import com.fs.starfarer.api.campaign.CargoStackAPI;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
+@EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
-public class CargoStackIsStack extends CargoStackFilter {
+public final class CargoStackIsStack extends CargoStackFilter {
 
-    private final CargoStackAPI stack;
+    private final String stackName;
+
+    public CargoStackIsStack(CargoStackAPI stack) {
+        this(stack.getDisplayName());
+    }
 
     @Override
     protected boolean acceptCargoStack(CargoStackAPI cargoStack) {
         // naive comparison but simplest implementation
-        return stack.getDisplayName().equals(cargoStack.getDisplayName());
+        return stackName.equals(cargoStack.getDisplayName());
     }
 
     @Override
     public String toString() {
-        return stack.getDisplayName();
+        return stackName;
     }
 }

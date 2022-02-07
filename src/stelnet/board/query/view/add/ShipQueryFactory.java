@@ -1,6 +1,5 @@
 package stelnet.board.query.view.add;
 
-import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -11,18 +10,20 @@ import lombok.Getter;
 import stelnet.CommonL10n;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.ShipProvider;
+import stelnet.board.query.view.ButtonGroup;
+import stelnet.board.query.view.FilteringButton;
+import stelnet.board.query.view.SectionHeader;
+import stelnet.board.query.view.dialog.PickerDialog;
+import stelnet.board.query.view.dialog.ShipPickerDialog;
 import stelnet.filter.Filter;
 import stelnet.util.L10n;
 import uilib.Button;
 import uilib.Renderable;
-import uilib.RenderableComponent;
-import uilib.ShowShips;
-import uilib.property.Size;
 
+@Getter
 public class ShipQueryFactory extends QueryFactory {
 
-    @Getter
-    private transient ShipProvider provider = new ShipProvider(this);
+    private transient ShipProvider provider = new ShipProvider();
 
     private final FilteringButton[] classSizes = ShipButtonUtils.getClassSizes();
     private final FilteringButton[] mountSizes = ShipButtonUtils.getMountSizes();
@@ -30,15 +31,10 @@ public class ShipQueryFactory extends QueryFactory {
     private final FilteringButton[] mountBays = ShipButtonUtils.getMountBays(this);
     private final FilteringButton[] designTypes = ShipButtonUtils.getManufacturers(provider);
     private final FilteringButton[] builtIns = ShipButtonUtils.getBuiltIns(provider);
-    private final FilteringButton[] dMods = ShipButtonUtils.getDMods(provider);
 
     public Object readResolve() {
-        provider = new ShipProvider(this);
+        provider = new ShipProvider();
         return this;
-    }
-
-    public void addDmodFilters(Set<Filter> filters) {
-        addSelectedOrNone(filters, dMods, L10n.get(QueryL10n.DMODS), true);
     }
 
     public void setFighterBays(FighterBaysButton active) {
@@ -54,31 +50,19 @@ public class ShipQueryFactory extends QueryFactory {
     }
 
     @Override
-    public Set<Filter> getFilters(boolean forResults) {
+    public Set<Filter> getFilters() {
         Set<Filter> filters = getCommonFilters();
         addSelectedOrNone(filters, builtIns, L10n.get(QueryL10n.BUILT_IN), true);
-        if (forResults) {
-            addDmodFilters(filters);
-        }
         return filters;
     }
 
     @Override
-    public RenderableComponent getPreview(Set<Filter> filters, Size size) {
-        return new ShowShips(
-            getShips(filters),
-            L10n.get(QueryL10n.MATCHING_SHIPS),
-            L10n.get(QueryL10n.NO_MATCHING_SHIPS),
-            size
-        );
-    }
-
-    @Override
     protected Button[] getFinalComponents() {
-        Set<Filter> filters = getFilters(false);
+        Set<Filter> filters = getFilters();
+        PickerDialog picker = new ShipPickerDialog(provider.getMatching(filters), this);
         return new Button[] {
             new FindMatchingButton(this, L10n.get(CommonL10n.SHIPS)),
-            new FindSelectedButton(this, getShips(filters)),
+            new FindSelectedButton(picker),
         };
     }
 
@@ -93,14 +77,12 @@ public class ShipQueryFactory extends QueryFactory {
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.FIGHTER_BAYS, mountBays, true));
         elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.MANUFACTURERS, true, designTypes));
         elements.add(new ButtonGroup(sizeHelper, designTypes, true));
-        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.DMODS, true, dMods));
-        elements.add(new ButtonGroup(sizeHelper, dMods, true));
         elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.BUILT_IN, true, builtIns));
         elements.add(new ButtonGroup(sizeHelper, builtIns, true));
         return elements;
     }
 
-    private Set<Filter> getCommonFilters() {
+    protected Set<Filter> getCommonFilters() {
         Set<Filter> filters = new LinkedHashSet<>();
         addSelectedOrAll(filters, classSizes, L10n.get(QueryL10n.CLASS_SIZE));
         addSelectedOrNone(filters, mountSizes, L10n.get(QueryL10n.MOUNT_SIZE), true);
@@ -110,15 +92,11 @@ public class ShipQueryFactory extends QueryFactory {
         return filters;
     }
 
-    private List<FleetMemberAPI> getShips(Set<Filter> filters) {
-        return provider.getMatching(filters);
-    }
-
-    private void prepareBuiltIns() {
+    public void prepareBuiltIns() {
         Set<Filter> filters = getCommonFilters();
-        Set<String> hullModIds = provider.getBuiltInIds(filters);
+        Set<String> hullModIds = getProvider().getBuiltInIds(filters);
         hullModIds.add("None");
-        for (FilteringButton button : builtIns) {
+        for (FilteringButton button : getBuiltIns()) {
             button.updateVisibility(hullModIds);
         }
     }

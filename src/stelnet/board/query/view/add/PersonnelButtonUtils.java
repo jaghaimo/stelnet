@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import stelnet.CommonL10n;
 import stelnet.board.query.provider.SkillProvider;
+import stelnet.board.query.view.FilteringButton;
 import stelnet.filter.AnyHasTag;
 import stelnet.filter.Filter;
 import stelnet.filter.LogicalNot;

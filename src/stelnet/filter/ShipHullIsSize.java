@@ -2,11 +2,13 @@ package stelnet.filter;
 
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import stelnet.util.L10n;
 
+@EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
-public class ShipHullIsSize extends ShipHullFilter {
+public final class ShipHullIsSize extends ShipHullFilter {
 
     private final HullSize hullSize;
 

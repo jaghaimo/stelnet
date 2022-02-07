@@ -20,12 +20,12 @@ public class ConfigConstants {
 
     public static transient boolean QUERY_USE_OPEN_MARKET = true;
     public static transient boolean QUERY_USE_MILITARY_MARKET = true;
-    public static transient boolean QUERY_USE_BLACK_MARKET = false;
+    public static transient boolean QUERY_USE_BLACK_MARKET = true;
     public static transient boolean QUERY_USE_CUSTOM_MARKETS = false;
 
     public static transient boolean VIEWER_USE_OPEN_MARKET = true;
     public static transient boolean VIEWER_USE_MILITARY_MARKET = true;
-    public static transient boolean VIEWER_USE_BLACK_MARKET = false;
+    public static transient boolean VIEWER_USE_BLACK_MARKET = true;
     public static transient boolean VIEWER_USE_CUSTOM_MARKETS = false;
 
     public static void init() {

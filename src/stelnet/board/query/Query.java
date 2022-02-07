@@ -1,18 +1,21 @@
 package stelnet.board.query;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
-import stelnet.filter.PurchasableResultsFilter;
+import stelnet.filter.LogicalOr;
 import stelnet.util.CollectionUtils;
 import stelnet.util.L10n;
 import stelnet.util.SectorUtils;
 import stelnet.util.StringUtils;
 import uilib.RenderableComponent;
+import uilib.RenderableShowComponent;
 import uilib.property.Size;
 
 @Getter
@@ -26,8 +29,6 @@ public class Query {
     private final Set<Filter> filters;
     private final String type;
     private boolean isEnabled = true;
-    private boolean isPurchasable = true;
-    private boolean isSelected = false;
     private int number = 0;
     private int resultNumber = 0;
 
@@ -36,15 +37,18 @@ public class Query {
     }
 
     public RenderableComponent getPreview(Size size) {
-        return provider.getPreview(filters, size);
+        RenderableShowComponent preview = provider.getPreview(filters, size);
+        preview.setMaxElements(30);
+        return preview;
     }
 
-    public List<ResultSet> execute(boolean groupedBySystem) {
-        List<ResultSet> results = provider.getResults(filters, groupedBySystem);
-        if (isPurchasable) {
-            CollectionUtils.reduce(results, new PurchasableResultsFilter());
+    public List<ResultSet> execute(GroupingStrategy groupingStrategy) {
+        List<ResultSet> results = provider.getResults(filters, groupingStrategy);
+        CollectionUtils.reduce(results, getResultFilters());
+        resultNumber = 0;
+        for (ResultSet resultSet : results) {
+            resultNumber += resultSet.getResultCount();
         }
-        resultNumber = results.size();
         return results;
     }
 
@@ -52,16 +56,11 @@ public class Query {
         manager.updateIntel();
     }
 
-    public void select() {
-        manager.selectQuery(this);
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Query) {
             Set<Filter> objFilters = ((Query) obj).getFilters();
-            boolean result = CollectionUtils.equals(filters, objFilters);
-            return result;
+            return CollectionUtils.equals(filters, objFilters);
         }
         return false;
     }
@@ -74,5 +73,22 @@ public class Query {
     @Override
     public String toString() {
         return StringUtils.join(filters, "||", L10n.get(QueryL10n.EMPTY_FILTER));
+    }
+
+    private Set<Filter> getResultFilters() {
+        Set<Filter> resultFilters = new LinkedHashSet<>();
+        resultFilters.add(new LogicalOr(manager.getSubmarketFilters(), "submarkets"));
+        resultFilters.addAll(manager.getOtherFilters());
+        addDmodCountFilter(resultFilters);
+        resultFilters.addAll(manager.getDModTypesFilters());
+        return resultFilters;
+    }
+
+    private void addDmodCountFilter(Set<Filter> resultFilters) {
+        Set<Filter> dModCountFilters = manager.getDModCountFilters();
+        if (dModCountFilters.isEmpty()) {
+            return;
+        }
+        resultFilters.add(new LogicalOr(dModCountFilters, "dmod count"));
     }
 }

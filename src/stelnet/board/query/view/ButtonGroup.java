@@ -1,10 +1,11 @@
-package stelnet.board.query.view.add;
+package stelnet.board.query.view;
 
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import stelnet.util.ColorUtils;
 import stelnet.util.L10n;
 import uilib.Button;
 import uilib.DynamicGroup;
@@ -14,6 +15,12 @@ import uilib.Renderable;
 import uilib.UiConstants;
 
 public class ButtonGroup extends HorizontalViewContainer {
+
+    public ButtonGroup(SizeHelper helper, Enum<?> label, Button[] buttons) {
+        super();
+        addLabel(helper.getTextWidth(), label, true);
+        addGroup(helper.getGroupWidth(), Arrays.asList(buttons));
+    }
 
     public ButtonGroup(SizeHelper helper, Enum<?> label, Button[] buttons, boolean isEnabled) {
         super();
@@ -62,8 +69,8 @@ public class ButtonGroup extends HorizontalViewContainer {
 
     private void prepareButtons(Button[] buttons, boolean isEnabled) {
         for (Button button : buttons) {
-            button.setTextColor(Misc.getBasePlayerColor());
-            button.setBackgroundColor(Misc.getDarkPlayerColor());
+            button.setTextColor(ColorUtils.buttonText());
+            button.setBackgroundColor(ColorUtils.buttonBgDark());
             button.setEnabled(isEnabled);
         }
         if (isEnabled) {

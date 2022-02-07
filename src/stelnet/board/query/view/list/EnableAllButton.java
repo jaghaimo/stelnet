@@ -8,8 +8,8 @@ import uilib.EventHandler;
 
 public class EnableAllButton extends GlobalButton {
 
-    public EnableAllButton(final QueryManager manager, boolean isEnabled) {
-        super(QueryL10n.ENABLE_ALL);
+    public EnableAllButton(final QueryManager manager, boolean isEnabled, float width) {
+        super(QueryL10n.ENABLE_ALL, width);
         setEnabled(isEnabled);
         setShortcut(Keyboard.KEY_E);
         setHandler(

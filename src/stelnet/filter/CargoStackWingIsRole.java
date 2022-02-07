@@ -4,11 +4,13 @@ import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.combat.FighterWingAPI;
 import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import com.fs.starfarer.api.loading.WingRole;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import stelnet.util.L10n;
 
+@EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
-public class CargoStackWingIsRole extends CargoStackFilter {
+public final class CargoStackWingIsRole extends CargoStackFilter {
 
     private final WingRole wingRole;
 

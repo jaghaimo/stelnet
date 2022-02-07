@@ -1,8 +1,10 @@
 package stelnet.filter;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import lombok.EqualsAndHashCode;
 
-public class MarketNotHidden extends MarketFilter {
+@EqualsAndHashCode(callSuper = false)
+public final class MarketNotHidden extends MarketFilter {
 
     @Override
     protected boolean acceptMarket(MarketAPI market) {

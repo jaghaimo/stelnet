@@ -6,9 +6,18 @@
             "query": "graphics/icons/intel/investigation.png",
             "storage": "graphics/icons/intel/all.png",
             "viewer": "graphics/icons/markets/headquarters.png",
-            "low": "graphics/icons/intel/beacon_low.png",
-            "medium": "graphics/icons/intel/beacon_med.png",
-            "high": "graphics/icons/intel/beacon_high.png"
+
+            "result_0": "graphics/icons/markets/population00.png",
+            "result_1": "graphics/icons/markets/population01.png",
+            "result_2": "graphics/icons/markets/population02.png",
+            "result_3": "graphics/icons/markets/population03.png",
+            "result_4": "graphics/icons/markets/population04.png",
+            "result_5": "graphics/icons/markets/population05.png",
+            "result_6": "graphics/icons/markets/population06.png",
+            "result_7": "graphics/icons/markets/population07.png",
+            "result_8": "graphics/icons/markets/population08.png",
+            "result_9": "graphics/icons/markets/population09.png",
+            "result_10": "graphics/icons/markets/population10.png"
         }
     }
 }

@@ -31,22 +31,22 @@ public class ButtonViewFactory implements RenderableFactory {
         sortCommodities(commodities);
         buttons.add(new Spacer(1));
         for (CommoditySpecAPI commodity : commodities) {
-            buttons.add(createContainer(commodity, commodityId));
+            buttons.add(getCommodityButton(commodity, commodityId));
         }
         Group group = new Group(buttons);
-        group.setSize(new Size(200, size.getHeight() - 54));
+        group.setSize(new Size(200, size.getHeight() - 100));
         group.setOffset(new Position(size.getWidth() - 200, 28));
         return Collections.<Renderable>singletonList(group);
-    }
-
-    private Button createContainer(CommoditySpecAPI commodity, String activeId) {
-        boolean isOn = commodity.getId().equals(activeId);
-        return new CommodityButton(commodity, isOn);
     }
 
     private void filterCommodities(List<CommoditySpecAPI> commodities) {
         CollectionUtils.reduce(commodities, new LogicalNot(new AnyHasTag("nonecon")));
         CollectionUtils.reduce(commodities, new LogicalNot(new AnyHasTag("meta")));
+    }
+
+    private Button getCommodityButton(CommoditySpecAPI commodity, String activeId) {
+        boolean isOn = commodity.getId().equals(activeId);
+        return new CommodityButton(commodity, isOn);
     }
 
     private void sortCommodities(List<CommoditySpecAPI> commodities) {

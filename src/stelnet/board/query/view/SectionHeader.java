@@ -1,4 +1,4 @@
-package stelnet.board.query.view.add;
+package stelnet.board.query.view;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.ui.UIComponentAPI;
@@ -32,12 +32,12 @@ public class SectionHeader extends HeadingWithButtons {
         tooltip.addSpacer(UiConstants.DEFAULT_SPACER);
         renderQueryHeading(tooltip, isEnabled, heading);
         if (buttons != null) {
-            UIComponentAPI first = renderFirst(
+            UIComponentAPI first = renderFirstButton(
                 new SelectDeselectButton(CommonL10n.NONE, isEnabled, false, buttons),
                 getSize().getWidth(),
                 tooltip
             );
-            renderNext(new SelectDeselectButton(CommonL10n.ALL, isEnabled, true, buttons), tooltip, first);
+            renderNextButton(new SelectDeselectButton(CommonL10n.ALL, isEnabled, true, buttons), tooltip, first);
         }
         tooltip.addSpacer(UiConstants.DEFAULT_SPACER);
     }

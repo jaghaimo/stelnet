@@ -8,10 +8,10 @@ import uilib.property.Size;
 
 public class GlobalButton extends C2Button {
 
-    public GlobalButton(Enum<?> titleEnum) {
-        super(new Size(UiConstants.AUTO_WIDTH, UiConstants.VICTOR_14_BUTTON_HEIGHT), L10n.get(titleEnum), true);
+    public GlobalButton(Enum<?> titleEnum, float width) {
+        super(new Size(width, UiConstants.VICTOR_14_BUTTON_HEIGHT), L10n.get(titleEnum), true);
         setCutStyle(CutStyle.C2_MENU);
         setPadding(1);
-        overrideSize(20);
+        overrideSize(40);
     }
 }

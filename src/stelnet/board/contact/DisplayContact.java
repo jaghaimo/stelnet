@@ -60,13 +60,13 @@ public class DisplayContact extends HeadingWithButtons {
         String label2 = L10n.get(CommonL10n.SHOW);
         Size buttonSize = getButtonSize(tooltip, label1, label2);
         tooltip.setButtonFontVictor14();
-        UIComponentAPI call = renderFirst(
+        UIComponentAPI call = renderFirstButton(
             new CallContact(label1, buttonSize, market, person),
             getSize().getWidth() - 5,
             tooltip
         );
         call.getPosition().setYAlignOffset(imageHeight + 8);
-        renderNext(
+        renderNextButton(
             new ShowContactButton(label2, buttonSize, intel, person.getFaction()),
             tooltip,
             call,

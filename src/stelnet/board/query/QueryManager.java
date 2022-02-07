@@ -1,11 +1,17 @@
 package stelnet.board.query;
 
-import java.util.Iterator;
+import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.econ.SubmarketSpecAPI;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
+import stelnet.board.query.grouping.GroupingStrategy;
+import stelnet.filter.Filter;
+import stelnet.filter.ResultHasId;
+import stelnet.util.CollectionUtils;
+import stelnet.util.Excluder;
 import stelnet.util.IntelUtils;
 import stelnet.util.SectorUtils;
 
@@ -14,42 +20,61 @@ public class QueryManager {
     private int queryCounter = 0;
 
     @Getter
-    private Query activeQuery;
+    private final Set<Filter> dModCountFilters = new LinkedHashSet<>();
+
+    @Getter
+    private final Set<Filter> dModTypesFilters = new LinkedHashSet<>();
+
+    @Getter
+    private final Set<Filter> otherFilters = new LinkedHashSet<>();
+
+    @Getter
+    private final Set<Filter> submarketFilters = new LinkedHashSet<>();
 
     @Getter
     @Setter
-    private boolean groupedBySystem;
+    private GroupingStrategy groupingStrategy = GroupingStrategy.BY_MARKET;
 
     @Getter
     private final Set<Query> queries = new LinkedHashSet<>();
 
     private final ResultMap resultMap = new ResultMap();
 
+    public QueryManager() {
+        List<SubmarketSpecAPI> allSubmarketSpecs = getSubmarketSpecs();
+        for (SubmarketSpecAPI submarketSpec : allSubmarketSpecs) {
+            submarketFilters.add(getSubmarketFilter(submarketSpec));
+        }
+    }
+
     public void addQuery(Query query) {
         if (!queries.contains(query)) {
             query.setNumber(++queryCounter);
             queries.add(query);
-            setActiveQuery(null, query);
             updateIntel(query);
         }
     }
 
     public void deleteAll() {
-        activeQuery = null;
         queries.clear();
         updateIntel();
     }
 
     public void deleteQuery(Query query) {
-        setActiveQuery(query, null);
         if (queries.contains(query)) {
             queries.remove(query);
             updateIntel();
         }
-        Iterator<Query> iterator = queries.iterator();
-        if (iterator.hasNext()) {
-            setActiveQuery(null, iterator.next());
-        }
+    }
+
+    public Filter getSubmarketFilter(SubmarketSpecAPI submarketSpec) {
+        return new ResultHasId(submarketSpec.getId());
+    }
+
+    public List<SubmarketSpecAPI> getSubmarketSpecs() {
+        List<SubmarketSpecAPI> allSubmarketSpecs = Global.getSettings().getAllSubmarketSpecs();
+        CollectionUtils.reduce(allSubmarketSpecs, Excluder.getQuerySubmarketFilter());
+        return allSubmarketSpecs;
     }
 
     public void setAllEnabled(boolean isEnabled) {
@@ -61,13 +86,6 @@ public class QueryManager {
 
     public int numberOfQueries() {
         return queries.size();
-    }
-
-    public void selectQuery(Query newActiveQuery) {
-        for (Query query : queries) {
-            query.setSelected(false);
-        }
-        setActiveQuery(activeQuery, newActiveQuery);
     }
 
     public void updateIntel() {
@@ -82,29 +100,23 @@ public class QueryManager {
     }
 
     private void updateIntel(Query query) {
-        List<ResultSet> resultSets = query.execute(groupedBySystem);
+        List<ResultSet> resultSets = query.execute(groupingStrategy);
         for (ResultSet resultSet : resultSets) {
             updateResult(resultSet);
         }
     }
 
-    private void setActiveQuery(Query checkForThisQuery, Query setToThisQuery) {
-        if (activeQuery != checkForThisQuery) {
-            return;
-        }
-        activeQuery = setToThisQuery;
-        if (setToThisQuery != null) {
-            setToThisQuery.setSelected(true);
-        }
-    }
-
     private void updateResult(ResultSet resultSet) {
-        if (resultMap.containsKey(resultSet)) {
+        boolean hasGrouping = resultSet.getKey() != null;
+        boolean hasIntel = resultMap.containsKey(resultSet);
+        boolean needsIntel = !hasGrouping || !hasIntel;
+        if (hasIntel) {
             resultMap.update(resultSet);
-            return;
+        } else {
+            resultMap.add(resultSet);
         }
-        resultMap.add(resultSet);
-        ResultIntel intel = new ResultIntel(this, resultSet);
-        IntelUtils.add(intel, true);
+        if (needsIntel) {
+            groupingStrategy.createIntel(this, resultSet);
+        }
     }
 }

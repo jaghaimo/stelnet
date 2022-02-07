@@ -17,13 +17,24 @@ import uilib.property.Size;
 @Setter
 public class ViewerState implements RenderableState, MarketViewState {
 
-    private final ButtonManager filteringButtons = new ButtonManager();
-    private ContentRenderer contentRenderer = ContentRenderer.ITEMS;
-    private InMarketStrategy displayStrategy = new InMarketStrategy(null);
+    private transient ButtonManager buttonManager;
+    private transient ContentRenderer contentRenderer;
+    private transient InMarketStrategy displayStrategy;
+
+    public ViewerState() {
+        readResolve();
+    }
 
     @Override
     public List<Renderable> toRenderableList(Size size) {
         List<SectorEntityToken> entities = MarketProvider.convertMarketsToTokens(MarketProvider.getMarkets(true));
         return new ViewerView(entities, this).create(size);
+    }
+
+    public Object readResolve() {
+        buttonManager = new ButtonManager();
+        contentRenderer = ContentRenderer.ITEMS;
+        displayStrategy = new InMarketStrategy(null);
+        return this;
     }
 }

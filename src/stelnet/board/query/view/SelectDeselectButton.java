@@ -1,4 +1,4 @@
-package stelnet.board.query.view.add;
+package stelnet.board.query.view;
 
 import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.ui.IntelUIAPI;

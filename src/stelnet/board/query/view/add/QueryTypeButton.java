@@ -2,6 +2,7 @@ package stelnet.board.query.view.add;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import lombok.Getter;
+import stelnet.board.query.view.FilteringButton;
 import stelnet.util.L10n;
 import uilib.EventHandler;
 

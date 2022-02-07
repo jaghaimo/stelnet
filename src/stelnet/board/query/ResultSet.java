@@ -8,7 +8,6 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
-import com.fs.starfarer.api.util.Misc;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -16,8 +15,9 @@ import java.util.Set;
 import java.util.TreeSet;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import stelnet.BoardInfo;
-import stelnet.util.L10n;
+import stelnet.board.query.grouping.GroupingData;
+import stelnet.board.query.grouping.GroupingStrategy;
+import uilib.RenderableIntelInfo;
 
 /**
  * A set of unique results for a given star system.
@@ -26,7 +26,7 @@ import stelnet.util.L10n;
 @RequiredArgsConstructor
 public class ResultSet {
 
-    private final boolean groupBySystem;
+    private final GroupingStrategy groupingStrategy;
     private final MarketAPI market;
     private final StarSystemAPI system;
     private final Set<MarketAPI> marketSet = new HashSet<>();
@@ -39,8 +39,8 @@ public class ResultSet {
         }
     );
 
-    public ResultSet(boolean groupBySystem, MarketAPI market) {
-        this(groupBySystem, market, market.getStarSystem());
+    public ResultSet(GroupingStrategy groupingStrategy, MarketAPI market) {
+        this(groupingStrategy, market, market.getStarSystem());
         marketSet.add(market);
     }
 
@@ -72,33 +72,32 @@ public class ResultSet {
         }
     }
 
-    public BoardInfo getBoardInfo() {
-        if (wantsMarket()) {
-            String name = String.format("%s, %s", market.getName(), market.getFaction().getDisplayName());
-            return new BoardInfo(name, L10n.get(QueryL10n.RESULTS_IN_MARKET, getResultNumber()));
-        }
-        return new BoardInfo(
-            system.getName(),
-            L10n.get(QueryL10n.RESULTS_IN_SYSTEM, getResultNumber(), marketSet.size())
-        );
+    public RenderableIntelInfo getBoardInfo() {
+        return getGroupingData().getInfo();
     }
 
     public FactionAPI getFaction() {
-        if (wantsMarket()) {
-            return market.getFaction();
-        }
-        return Misc.getClaimingFaction(market.getPrimaryEntity());
+        return getGroupingData().getFaction();
     }
 
-    public int getResultNumber() {
-        return resultSet.size();
+    public String getKey() {
+        return getGroupingData().getKey();
+    }
+
+    private GroupingData getGroupingData() {
+        return groupingStrategy.getGroupingData(this);
+    }
+
+    public int getResultCount() {
+        int i = 0;
+        for (Result result : resultSet) {
+            i += result.getCount();
+        }
+        return i;
     }
 
     public SectorEntityToken getToken() {
-        if (wantsMarket()) {
-            return market.getPrimaryEntity();
-        }
-        return system.getCenter();
+        return getGroupingData().getToken();
     }
 
     public void refresh() {
@@ -108,7 +107,7 @@ public class ResultSet {
         }
     }
 
-    private boolean wantsMarket() {
-        return system == null || !groupBySystem;
+    public int size() {
+        return resultSet.size();
     }
 }

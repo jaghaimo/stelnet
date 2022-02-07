@@ -9,7 +9,7 @@ import lombok.Setter;
 import uilib.property.Size;
 
 @Setter
-public class ShowShips extends RenderableComponent {
+public class ShowShips extends RenderableShowComponent {
 
     private final List<FleetMemberAPI> ships;
     private final String optionalTitle;
@@ -21,6 +21,7 @@ public class ShowShips extends RenderableComponent {
     }
 
     public ShowShips(List<FleetMemberAPI> ships, String optionalTitle, String emptyDescription, Size size) {
+        super(ships.size());
         this.ships = ships;
         this.optionalTitle = optionalTitle;
         this.emptyDescription = emptyDescription;
@@ -30,13 +31,13 @@ public class ShowShips extends RenderableComponent {
     @Override
     public void render(TooltipMakerAPI tooltip) {
         if (ships.isEmpty()) {
-            tooltip.addPara(emptyDescription, UiConstants.DEFAULT_SPACER);
+            tooltip.addPara(emptyDescription, 0);
             return;
         }
         if (optionalTitle != null) {
-            addSectionTitle(tooltip, optionalTitle, titleColor, getSize().getWidth() - 12);
+            addSectionTitle(tooltip, optionalTitle, titleColor, getSize().getWidth() - UiConstants.DEFAULT_SPACER);
         }
-        tooltip.showShips(ships, ships.size(), true, 5f);
+        tooltip.showShips(ships, getMaxElements(), true, 5f);
         setOffsetOfLast(tooltip, -6);
     }
 }

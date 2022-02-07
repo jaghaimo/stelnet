@@ -34,7 +34,7 @@ public class MarketProvider {
         List<Filter> filters = Arrays.<Filter>asList(Excluder.getMarketFilters(), new MarketNotHidden());
         CollectionUtils.reduce(markets, filters);
         if (refreshContent && needsRefresh) {
-            log.debug("Refreshing all markets, this may take a while");
+            log.debug("Refreshing all markets, this may take a moment");
             updateMarkets(markets);
             needsRefresh = false;
         }
@@ -57,14 +57,14 @@ public class MarketProvider {
         ListenerUtil.reportPlayerOpenedMarketAndCargoUpdated(market);
     }
 
-    public static void updateOfficers(MarketAPI market) {
+    private static void updateOfficers(MarketAPI market) {
         List<OfficerManagerEvent> managers = SectorUtils.getListenerManager().getListeners(OfficerManagerEvent.class);
         for (OfficerManagerEvent manager : managers) {
             manager.reportPlayerOpenedMarket(market);
         }
     }
 
-    public static void updateSubmarkets(MarketAPI market) {
+    private static void updateSubmarkets(MarketAPI market) {
         for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
             submarket.getPlugin().updateCargoPrePlayerInteraction();
             ListenerUtil.reportSubmarketCargoAndShipsUpdated(submarket);

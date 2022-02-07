@@ -3,10 +3,12 @@ package stelnet.filter;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
+@EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
-public class CargoStackIsManufacturer extends CargoStackFilter {
+public final class CargoStackIsManufacturer extends CargoStackFilter {
 
     private final String manufacturer;
 

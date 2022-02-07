@@ -1,6 +1,7 @@
 package stelnet.board.query.view.add;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
+import stelnet.board.query.view.FilteringButton;
 import stelnet.filter.Filter;
 import uilib.EventHandler;
 

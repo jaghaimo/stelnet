@@ -1,7 +1,9 @@
-package stelnet.board.query.view.add;
+package stelnet.board.query.view;
 
 import java.util.Set;
 import lombok.Getter;
+import lombok.Setter;
+import stelnet.board.query.QueryManager;
 import stelnet.filter.Filter;
 import stelnet.util.L10n;
 import uilib.AreaCheckbox;
@@ -9,11 +11,20 @@ import uilib.UiConstants;
 import uilib.property.Size;
 
 @Getter
+@Setter
 public class FilteringButton extends AreaCheckbox {
 
-    private boolean isVisible = true;
-    private String filteringButtonId;
-    private final Filter filter;
+    protected boolean isVisible = true;
+    protected String filteringButtonId;
+    protected Filter filter;
+    protected QueryManager manager;
+
+    public FilteringButton(QueryManager manager, String title, Filter filter, float width, boolean isStateOn) {
+        super(new Size(width, UiConstants.DEFAULT_BUTTON_HEIGHT), title, true, isStateOn);
+        setFilter(filter);
+        setPadding(1);
+        setManager(manager);
+    }
 
     public FilteringButton(Enum<?> translationId, Filter filter) {
         this(L10n.get(translationId), filter);
@@ -21,8 +32,8 @@ public class FilteringButton extends AreaCheckbox {
 
     public FilteringButton(String translatedString, Filter filter) {
         super(new Size(UiConstants.AUTO_WIDTH, UiConstants.DEFAULT_BUTTON_HEIGHT), translatedString, true, false);
-        this.filter = filter;
-        setPadding(0);
+        setFilter(filter);
+        setPadding(1);
     }
 
     public FilteringButton(String translatedString, Filter filter, String filteringButtonId) {

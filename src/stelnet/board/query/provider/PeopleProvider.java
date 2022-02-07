@@ -5,10 +5,15 @@ import com.fs.starfarer.api.characters.PersonAPI;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import stelnet.board.query.QueryL10n;
 import stelnet.board.query.ResultSet;
-import stelnet.board.query.view.add.QueryFactory;
+import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
+import stelnet.util.L10n;
+import uilib.RenderableShowComponent;
+import uilib.ShowPeople;
+import uilib.property.Size;
 
 public class PeopleProvider extends QueryProvider {
 
@@ -16,10 +21,6 @@ public class PeopleProvider extends QueryProvider {
 
     public static void reset() {
         people = null;
-    }
-
-    public PeopleProvider(QueryFactory factory) {
-        super(factory);
     }
 
     @Override
@@ -32,16 +33,21 @@ public class PeopleProvider extends QueryProvider {
     }
 
     @Override
+    public RenderableShowComponent getPreview(Set<Filter> filters, Size size) {
+        return new ShowPeople(getMatching(filters), L10n.get(QueryL10n.NO_MATCHING_PEOPLE), size);
+    }
+
+    @Override
     protected void processMarkets(
         List<ResultSet> resultSets,
         List<MarketAPI> markets,
         Set<Filter> filters,
-        final boolean groupBySystem
+        final GroupingStrategy groupingStrategy
     ) {
         for (MarketAPI market : markets) {
             List<PersonAPI> people = market.getPeopleCopy();
             CollectionUtils.reduce(people, filters);
-            ResultSet resultSet = new ResultSet(groupBySystem, market);
+            ResultSet resultSet = new ResultSet(groupingStrategy, market);
             resultSet.addPeople(market, people);
             addToResultSets(resultSets, resultSet);
         }

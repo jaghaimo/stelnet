@@ -1,6 +1,5 @@
 package stelnet.board.query.view.add;
 
-import com.fs.starfarer.api.campaign.CargoAPI;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,20 +8,22 @@ import lombok.Getter;
 import stelnet.CommonL10n;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.ItemProvider;
+import stelnet.board.query.view.ButtonGroup;
+import stelnet.board.query.view.FilteringButton;
+import stelnet.board.query.view.SectionHeader;
+import stelnet.board.query.view.dialog.ItemPickerDialog;
+import stelnet.board.query.view.dialog.PickerDialog;
 import stelnet.filter.CargoStackNotKnownModspec;
 import stelnet.filter.Filter;
 import stelnet.util.CargoUtils;
 import stelnet.util.L10n;
 import uilib.Button;
 import uilib.Renderable;
-import uilib.RenderableComponent;
-import uilib.ShowCargo;
-import uilib.property.Size;
 
 public class ItemQueryFactory extends QueryFactory {
 
     @Getter
-    private transient ItemProvider provider = new ItemProvider(this);
+    private transient ItemProvider provider = new ItemProvider();
 
     private final FilteringButton[] itemTypes = ItemButtonUtils.createItemTypes();
     private final FilteringButton[] designTypes = ItemButtonUtils.createManufacturers(provider);
@@ -32,12 +33,12 @@ public class ItemQueryFactory extends QueryFactory {
     private final FilteringButton[] wingRoles = ItemButtonUtils.createWingRole();
 
     public Object readResolve() {
-        provider = new ItemProvider(this);
+        provider = new ItemProvider();
         return this;
     }
 
     @Override
-    public Set<Filter> getFilters(boolean forResults) {
+    public Set<Filter> getFilters() {
         Set<Filter> filters = new LinkedHashSet<>();
         addSelectedOrAll(filters, itemTypes, L10n.get(QueryL10n.ITEM_TYPES));
         addSelectedOrNone(filters, designTypes, L10n.get(QueryL10n.MANUFACTURERS), hasWeapons() || hasFighterWings());
@@ -50,21 +51,12 @@ public class ItemQueryFactory extends QueryFactory {
     }
 
     @Override
-    public RenderableComponent getPreview(Set<Filter> filters, Size size) {
-        return new ShowCargo(
-            getCargo(filters),
-            L10n.get(QueryL10n.MATCHING_ITEMS),
-            L10n.get(QueryL10n.NO_MATCHING_ITEMS),
-            size
-        );
-    }
-
-    @Override
     protected Button[] getFinalComponents() {
-        Set<Filter> filters = getFilters(false);
+        Set<Filter> filters = getFilters();
+        PickerDialog picker = new ItemPickerDialog(CargoUtils.makeCargoFromStacks(provider.getMatching(filters)), this);
         return new Button[] {
             new FindMatchingButton(this, L10n.get(CommonL10n.ITEMS)),
-            new FindSelectedButton(this, getCargo(filters)),
+            new FindSelectedButton(picker),
         };
     }
 
@@ -88,10 +80,6 @@ public class ItemQueryFactory extends QueryFactory {
         );
         elements.add(new ButtonGroup(sizeHelper, designTypes, hasWeapons() || hasFighterWings()));
         return elements;
-    }
-
-    private CargoAPI getCargo(Set<Filter> filters) {
-        return CargoUtils.makeCargoFromStacks(provider.getMatching(filters));
     }
 
     private boolean hasWeapons() {

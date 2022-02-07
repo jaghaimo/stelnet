@@ -2,10 +2,12 @@ package stelnet.filter;
 
 import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
+@EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
-public class MarketIsInSystem extends MarketFilter {
+public final class MarketIsInSystem extends MarketFilter {
 
     private final String systemId;
 

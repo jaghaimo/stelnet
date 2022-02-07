@@ -39,14 +39,10 @@ public class ResultIntel extends BaseIntel {
 
     @Override
     public String getIcon() {
-        int results = resultSet.getResultNumber();
-        if (results > 30) {
-            return SettingsUtils.getSpriteName("high");
-        }
-        if (results > 10) {
-            return SettingsUtils.getSpriteName("medium");
-        }
-        return SettingsUtils.getSpriteName("low");
+        int results = Math.min(100, resultSet.getResultCount());
+        double rounded = Math.floor(results / 10);
+        String icon = String.format("result_%.0f", rounded);
+        return SettingsUtils.getSpriteName(icon);
     }
 
     @Override
@@ -61,6 +57,6 @@ public class ResultIntel extends BaseIntel {
 
     @Override
     protected List<Renderable> getRenderableList(Size size) {
-        return new ResultView(this, resultSet).create(size);
+        return resultSet.getGroupingStrategy().getView(this, resultSet).create(size);
     }
 }

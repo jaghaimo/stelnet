@@ -19,9 +19,8 @@ import uilib.property.Size;
 public class ContactsState implements RenderableState {
 
     private Map<MarketAPI, TrackingCargoFleetData> awaitingCollection;
-    // make these transient on next minor update (backwards-incompatible change)
-    private Set<ContactFilterButton> contactTypeButtons;
-    private Set<ContactFilterButton> importanceButtons;
+    private transient Set<ContactFilterButton> contactTypeButtons;
+    private transient Set<ContactFilterButton> importanceButtons;
     private transient ContactProvider provider;
 
     public ContactsState() {
@@ -61,10 +60,7 @@ public class ContactsState implements RenderableState {
     }
 
     private void createImportanceButtons() {
-        if (importanceButtons == null) {
-            importanceButtons = new LinkedHashSet<>();
-        }
-        importanceButtons.clear();
+        importanceButtons = new LinkedHashSet<>();
         for (PersonImportance importance : provider.getAllPersonImportances()) {
             importanceButtons.add(
                 new ContactFilterButton(importance.getDisplayName(), new ContactIsOfImportance(importance))
@@ -73,10 +69,7 @@ public class ContactsState implements RenderableState {
     }
 
     private void createTypeButtons() {
-        if (contactTypeButtons == null) {
-            contactTypeButtons = new TreeSet<>();
-        }
-        contactTypeButtons.clear();
+        contactTypeButtons = new TreeSet<>();
         for (ContactTagSpec type : provider.getAllMissionTypes()) {
             contactTypeButtons.add(new ContactFilterButton(type.getName(), new AnyHasTag(type.getTag())));
         }

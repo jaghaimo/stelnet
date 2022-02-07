@@ -20,13 +20,14 @@ import uilib.property.Size;
  * Show list of people. Mimics showCargo() and showShips() look and feel.
  */
 @Setter
-public class ShowPeople extends RenderableComponent implements Comparator<PersonAPI> {
+public class ShowPeople extends RenderableShowComponent implements Comparator<PersonAPI> {
 
     private final List<PersonAPI> people;
     private final String emptyDescription;
     private Color groupColor = Misc.getTextColor();
 
     public ShowPeople(List<PersonAPI> people, String emptyDescription, Size size) {
+        super(people.size());
         Collections.sort(people, this);
         this.people = people;
         this.emptyDescription = emptyDescription;
@@ -39,10 +40,17 @@ public class ShowPeople extends RenderableComponent implements Comparator<Person
             tooltip.addPara(emptyDescription, UiConstants.DEFAULT_SPACER);
         }
         String lastPost = null;
+        int i = 0;
+        int numberOfPeople = people.size();
         for (PersonAPI person : people) {
+            i++;
             addPostIfNeeded(tooltip, lastPost, person.getPost());
             lastPost = person.getPost();
             addPerson(tooltip, person);
+            if (i >= getMaxElements() && numberOfPeople != getMaxElements()) {
+                tooltip.addPara("... and %s other people.", 4, Misc.getHighlightColor(), "" + (numberOfPeople - i));
+                return;
+            }
         }
     }
 
@@ -53,7 +61,7 @@ public class ShowPeople extends RenderableComponent implements Comparator<Person
         if (previousPost != null) {
             tooltip.addSpacer(UiConstants.DEFAULT_SPACER);
         }
-        addSectionTitle(tooltip, currentPost, groupColor, getSize().getWidth() - 12);
+        addSectionTitle(tooltip, currentPost, groupColor, getSize().getWidth() - UiConstants.DEFAULT_SPACER);
     }
 
     private void addPerson(TooltipMakerAPI tooltip, PersonAPI person) {

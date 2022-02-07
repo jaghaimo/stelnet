@@ -1,5 +1,6 @@
 package stelnet.board.query.view.add;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -8,14 +9,17 @@ import lombok.extern.log4j.Log4j;
 import stelnet.CommonL10n;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.QueryProvider;
+import stelnet.board.query.view.ButtonGroup;
+import stelnet.board.query.view.SizeHelper;
 import stelnet.filter.Filter;
 import uilib.Button;
+import uilib.HorizontalViewContainer;
 import uilib.Renderable;
 import uilib.RenderableComponent;
 import uilib.RenderableFactory;
 import uilib.Spacer;
 import uilib.UiConstants;
-import uilib.property.Location;
+import uilib.VerticalViewContainer;
 import uilib.property.Size;
 
 @Getter
@@ -32,13 +36,21 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
 
     @Override
     public List<Renderable> create(Size size) {
-        setSizeHelper(new SizeHelper(size));
-        return getQueryBuildingComponents();
+        float previewWidth = Math.max(250, size.getWidth() - 950);
+        float previewHeight = size.getHeight();
+        float width = size.getWidth() - previewWidth - 10;
+        float height = size.getHeight() - 36;
+        Size mainSize = new Size(width, height);
+        Size sideSize = new Size(previewWidth, previewHeight);
+        setSizeHelper(new SizeHelper(mainSize));
+        RenderableComponent mainColumn = new VerticalViewContainer(getQueryBuildingComponents());
+        RenderableComponent sideColumn = getPreview(getFilters(), sideSize);
+        return Arrays.<Renderable>asList(new HorizontalViewContainer(mainColumn, sideColumn));
     }
 
     @Override
-    public Set<Filter> getFilters(boolean forResults) {
-        return findNextFactory().getFilters(forResults);
+    public Set<Filter> getFilters() {
+        return findNextFactory().getFilters();
     }
 
     @Override
@@ -48,9 +60,7 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
 
     @Override
     public RenderableComponent getPreview(Set<Filter> filters, Size size) {
-        RenderableComponent preview = findNextFactory().getPreview(filters, size);
-        preview.setLocation(Location.TOP_RIGHT);
-        return preview;
+        return findNextFactory().getPreview(filters, size);
     }
 
     @Override

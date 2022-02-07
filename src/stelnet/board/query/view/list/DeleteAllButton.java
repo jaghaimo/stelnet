@@ -10,8 +10,8 @@ import uilib.EventHandler;
 
 public class DeleteAllButton extends GlobalButton {
 
-    public DeleteAllButton(final QueryManager manager, boolean isEnabled) {
-        super(QueryL10n.DELETE_ALL);
+    public DeleteAllButton(final QueryManager manager, boolean isEnabled, float width) {
+        super(QueryL10n.DELETE_ALL, width);
         setEnabled(isEnabled);
         setTextColor(Misc.getNegativeHighlightColor());
         setBackgroundColor(Misc.getNegativeHighlightColor());
