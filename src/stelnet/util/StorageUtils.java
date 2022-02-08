@@ -90,8 +90,22 @@ public class StorageUtils {
             "mairaath_abandoned_station1",
         };
         for (String station : stations) {
-            SectorEntityToken token = Global.getSector().getEntityById(station);
-            submarkets.add(token.getMarket().getSubmarket(Submarkets.SUBMARKET_STORAGE));
+            SubmarketAPI submarket = getStorage(station);
+            if (submarket != null) {
+                submarkets.add(submarket);
+            }
         }
+    }
+
+    private static SubmarketAPI getStorage(String station) {
+        SectorEntityToken token = Global.getSector().getEntityById(station);
+        if (token == null) {
+            return null;
+        }
+        MarketAPI market = token.getMarket();
+        if (market == null) {
+            return null;
+        }
+        return market.getSubmarket(Submarkets.SUBMARKET_STORAGE);
     }
 }
