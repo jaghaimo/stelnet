@@ -60,8 +60,8 @@ public class ButtonUtils {
         return dModCount.toArray(new FilteringButton[] {});
     }
 
-    public static Button[] getGroupingButtons(QueryManager manager) {
-        return new Button[] {
+    public static GroupByButton[] getGroupingButtons(QueryManager manager) {
+        return new GroupByButton[] {
             new GroupByButton(manager, GroupingStrategy.BY_MARKET),
             new GroupByButton(manager, GroupingStrategy.BY_SYSTEM),
         };

@@ -24,7 +24,7 @@ public class ManageResultsFactory extends FilterAwareFactory implements Renderab
 
     private final FilteringButton[] dModCount;
     private final FilteringButton[] dModAllowed;
-    private final Button[] groupingButtons;
+    private final GroupByButton[] groupingButtons;
     private final Button[] submarketButtons;
     private final Button[] otherButtons;
 
@@ -52,6 +52,20 @@ public class ManageResultsFactory extends FilterAwareFactory implements Renderab
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.MANAGE_DMOD_COUNT, dModCount, true));
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.MANAGE_DMOD_SET, dModAllowed));
         return elements;
+    }
+
+    private Color getDesiredColor(FilteringButton button, Color positiveColor, Color negativeColor) {
+        if (!button.isStateOn()) {
+            return positiveColor;
+        }
+        return negativeColor;
+    }
+
+    private float getDesiredScale(FilteringButton button) {
+        if (!button.isStateOn()) {
+            return 1.0f;
+        }
+        return 0.7f;
     }
 
     private boolean hasDmodSelection() {
@@ -88,19 +102,5 @@ public class ManageResultsFactory extends FilterAwareFactory implements Renderab
         } else {
             button.setTextColor(textColor);
         }
-    }
-
-    private Color getDesiredColor(FilteringButton button, Color positiveColor, Color negativeColor) {
-        if (!button.isStateOn()) {
-            return positiveColor;
-        }
-        return negativeColor;
-    }
-
-    private float getDesiredScale(FilteringButton button) {
-        if (!button.isStateOn()) {
-            return 1.0f;
-        }
-        return 0.7f;
     }
 }
