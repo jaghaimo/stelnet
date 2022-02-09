@@ -13,6 +13,7 @@ import stelnet.board.query.view.FilteringButton;
 import stelnet.filter.Filter;
 import stelnet.filter.ResultFleetMemberHasDModCount;
 import stelnet.filter.ResultFleetMemberWithoutDMod;
+import stelnet.filter.ResultIsFriendly;
 import stelnet.filter.ResultIsPurchasable;
 import stelnet.util.L10n;
 import uilib.Button;
@@ -76,8 +77,8 @@ public class ButtonUtils {
             ),
             new FilterSetAwareButton(
                 manager,
-                L10n.get(QueryL10n.RESULTS_ONLY_PURCHASABLE),
-                new ResultIsPurchasable(),
+                L10n.get(QueryL10n.RESULTS_ONLY_FRIENDLY),
+                new ResultIsFriendly(),
                 manager.getOtherFilters()
             ),
         };
