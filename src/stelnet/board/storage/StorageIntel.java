@@ -75,13 +75,11 @@ public class StorageIntel extends BaseIntel {
         CargoAPI cargo = storage.getCargo().createCopy();
         List<FleetMemberAPI> ships = storage.getCargo().getMothballedShips().getMembersListCopy();
         return Arrays.<Renderable>asList(
-            new Heading(L10n.get(StorageL10n.INTEL_HEADER_ITEMS, getLocationName()), baseColor, darkColor),
+            new Heading(getLocationName(), baseColor, darkColor),
             new Spacer(UiConstants.DEFAULT_SPACER),
-            new ShowCargo(cargo, L10n.get(StorageL10n.INTEL_NO_ITEMS), size),
+            new ShowCargo(cargo, L10n.get(CommonL10n.ITEMS), L10n.get(StorageL10n.INTEL_NO_ITEMS), size),
             new Spacer(UiConstants.DEFAULT_SPACER * 2),
-            new Heading(L10n.get(StorageL10n.INTEL_HEADER_SHIPS, getLocationName()), baseColor, darkColor),
-            new Spacer(UiConstants.DEFAULT_SPACER),
-            new ShowShips(ships, L10n.get(StorageL10n.INTEL_NO_SHIPS), size)
+            new ShowShips(ships, L10n.get(CommonL10n.SHIPS), L10n.get(StorageL10n.INTEL_NO_SHIPS), size)
         );
     }
 

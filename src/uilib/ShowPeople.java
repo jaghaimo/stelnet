@@ -37,6 +37,7 @@ public class ShowPeople extends RenderableShowComponent implements Comparator<Pe
     @Override
     public void render(TooltipMakerAPI tooltip) {
         if (people.isEmpty()) {
+            addPostIfNeeded(tooltip, null, "Personnel"); // TODO L10n
             tooltip.addPara(emptyDescription, UiConstants.DEFAULT_SPACER);
         }
         String lastPost = null;
@@ -48,6 +49,7 @@ public class ShowPeople extends RenderableShowComponent implements Comparator<Pe
             lastPost = person.getPost();
             addPerson(tooltip, person);
             if (i >= getMaxElements() && numberOfPeople != getMaxElements()) {
+                // TODO L10n
                 tooltip.addPara("... and %s other people.", 4, Misc.getHighlightColor(), "" + (numberOfPeople - i));
                 return;
             }
