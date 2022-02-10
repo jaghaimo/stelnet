@@ -44,7 +44,7 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
         Size sideSize = new Size(previewWidth, previewHeight);
         setSizeHelper(new SizeHelper(mainSize));
         RenderableComponent mainColumn = new VerticalViewContainer(getQueryBuildingComponents());
-        mainColumn.setSize(mainSize);
+        mainColumn.setSize(new Size(width, mainColumn.getSize().getHeight()));
         RenderableComponent sideColumn = getPreview(getFilters(), sideSize);
         return Arrays.<Renderable>asList(new HorizontalViewContainer(mainColumn, sideColumn));
     }
