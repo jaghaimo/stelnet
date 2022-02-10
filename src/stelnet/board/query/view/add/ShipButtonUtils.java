@@ -14,8 +14,7 @@ import stelnet.filter.ShipHullHasBuiltIn;
 import stelnet.filter.ShipHullIsManufacturer;
 import stelnet.filter.ShipHullIsSize;
 import stelnet.filter.ShipHullNoBuiltIns;
-import stelnet.filter.WeaponSlotIsSize;
-import stelnet.filter.WeaponSlotIsType;
+import stelnet.filter.WeaponSlotIsSizeType;
 import stelnet.util.L10n;
 
 public class ShipButtonUtils {
@@ -46,24 +45,16 @@ public class ShipButtonUtils {
         return manufacturers.toArray(new FilteringButton[] {});
     }
 
-    public static FilteringButton[] getMountSizes() {
+    public static FilteringButton[] getMountTypes(WeaponSize weaponSize) {
         return new FilteringButton[] {
-            new FilteringButton(WeaponSize.SMALL.getDisplayName(), new WeaponSlotIsSize(WeaponSize.SMALL)),
-            new FilteringButton(WeaponSize.MEDIUM.getDisplayName(), new WeaponSlotIsSize(WeaponSize.MEDIUM)),
-            new FilteringButton(WeaponSize.LARGE.getDisplayName(), new WeaponSlotIsSize(WeaponSize.LARGE)),
-        };
-    }
-
-    public static FilteringButton[] getMountTypes() {
-        return new FilteringButton[] {
-            new FilteringButton(WeaponType.BALLISTIC.getDisplayName(), new WeaponSlotIsType(WeaponType.BALLISTIC)),
-            new FilteringButton(WeaponType.MISSILE.getDisplayName(), new WeaponSlotIsType(WeaponType.MISSILE)),
-            new FilteringButton(WeaponType.ENERGY.getDisplayName(), new WeaponSlotIsType(WeaponType.ENERGY)),
-            new FilteringButton(WeaponType.HYBRID.getDisplayName(), new WeaponSlotIsType(WeaponType.HYBRID)),
-            new FilteringButton(WeaponType.SYNERGY.getDisplayName(), new WeaponSlotIsType(WeaponType.SYNERGY)),
-            new FilteringButton(WeaponType.COMPOSITE.getDisplayName(), new WeaponSlotIsType(WeaponType.COMPOSITE)),
-            new FilteringButton(WeaponType.UNIVERSAL.getDisplayName(), new WeaponSlotIsType(WeaponType.UNIVERSAL)),
-            new FilteringButton(WeaponType.BUILT_IN.getDisplayName(), new WeaponSlotIsType(WeaponType.BUILT_IN)),
+            getMountTypeSize(weaponSize, WeaponType.BALLISTIC),
+            getMountTypeSize(weaponSize, WeaponType.MISSILE),
+            getMountTypeSize(weaponSize, WeaponType.ENERGY),
+            getMountTypeSize(weaponSize, WeaponType.HYBRID),
+            getMountTypeSize(weaponSize, WeaponType.SYNERGY),
+            getMountTypeSize(weaponSize, WeaponType.COMPOSITE),
+            getMountTypeSize(weaponSize, WeaponType.UNIVERSAL),
+            getMountTypeSize(weaponSize, WeaponType.BUILT_IN),
         };
     }
 
@@ -82,5 +73,9 @@ public class ShipButtonUtils {
             );
         }
         return builtInList.toArray(new FilteringButton[] {});
+    }
+
+    private static FilteringButton getMountTypeSize(WeaponSize weaponSize, WeaponType weaponType) {
+        return new FilteringButton(weaponType.getDisplayName(), new WeaponSlotIsSizeType(weaponSize, weaponType));
     }
 }

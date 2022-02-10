@@ -1,7 +1,10 @@
 package stelnet.util;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import stelnet.filter.Filter;
 
 public class CollectionUtils {
@@ -16,6 +19,15 @@ public class CollectionUtils {
             }
         }
         return true;
+    }
+
+    public static <T> T[] merge(T[] array1, T[]... arrays) {
+        List<T> list = new LinkedList<>();
+        Collections.addAll(list, array1);
+        for (T[] array : arrays) {
+            Collections.addAll(list, array);
+        }
+        return list.toArray(array1);
     }
 
     public static <E, F extends Filter> void reduce(Iterable<E> entities, Iterable<F> filters) {

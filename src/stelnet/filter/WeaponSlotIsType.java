@@ -13,8 +13,8 @@ public final class WeaponSlotIsType extends WeaponSlotFilter {
 
     @Override
     protected boolean acceptWeaponSlot(WeaponSlotAPI weaponSlot) {
-        if (weaponSlot.isSystemSlot()) {
-            return true;
+        if (weaponSlot.isHidden()) {
+            return false;
         }
         return weaponSlot.getWeaponType().equals(weaponType);
     }

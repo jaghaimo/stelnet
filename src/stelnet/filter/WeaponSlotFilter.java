@@ -23,9 +23,6 @@ public abstract class WeaponSlotFilter extends ShipHullFilter {
     @Override
     protected boolean acceptShipHull(ShipHullSpecAPI shipHull) {
         List<WeaponSlotAPI> weaponSlots = shipHull.getAllWeaponSlotsCopy();
-        if (weaponSlots.isEmpty()) {
-            return true;
-        }
         for (WeaponSlotAPI weaponSlot : weaponSlots) {
             if (acceptWeaponSlot(weaponSlot)) {
                 return true;
