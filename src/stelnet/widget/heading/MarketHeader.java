@@ -49,9 +49,13 @@ public class MarketHeader extends RenderableComponent {
 
     private void renderButtons(TooltipMakerAPI tooltip, UIComponentAPI headingComponent) {
         tooltip.setButtonFontVictor10();
-        UIComponentAPI showComponent = renderFirstButton(showButton, tooltip, headingComponent);
-        UIComponentAPI peekComponent = renderNextButton(peekButton, tooltip, showComponent);
-        renderNextButton(goButton, tooltip, peekComponent);
+        UIComponentAPI lastComponent = renderFirstButton(goButton, tooltip, headingComponent);
+        if (peekButton.isEnabled()) {
+            lastComponent = renderNextButton(peekButton, tooltip, lastComponent);
+        }
+        if (showButton.isEnabled()) {
+            renderNextButton(showButton, tooltip, lastComponent);
+        }
     }
 
     private void resetTooltip(TooltipMakerAPI tooltip, UIComponentAPI headingComponent) {

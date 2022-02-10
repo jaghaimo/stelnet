@@ -15,7 +15,7 @@ import stelnet.board.commodity.price.Price;
 import stelnet.board.commodity.view.DeleteIntel;
 import stelnet.util.L10n;
 import stelnet.util.ModConstants;
-import uilib.Heading;
+import stelnet.widget.heading.MarketHeader;
 import uilib.Image;
 import uilib.Paragraph;
 import uilib.Renderable;
@@ -74,9 +74,11 @@ public class CommodityIntel extends BaseIntel {
     @Override
     protected List<Renderable> getRenderableList(Size size) {
         float width = size.getWidth();
+        MarketHeader marketHeader = new MarketHeader(market, this);
+        marketHeader.getShowButton().setEnabled(false);
         FactionAPI faction = market.getFaction();
         List<Renderable> elements = new ArrayList<>();
-        elements.add(new Heading(market.getName(), faction.getBaseUIColor(), faction.getDarkUIColor()));
+        elements.add(marketHeader);
         elements.add(new Image(faction.getLogo(), width, 128));
         elements.add(new Spacer(10f));
         addPriceChange(elements, width);

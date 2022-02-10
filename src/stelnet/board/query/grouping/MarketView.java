@@ -28,8 +28,11 @@ public class MarketView extends ResultView {
 
     @Override
     protected void addResults(List<Renderable> elements, float width) {
+        MarketHeader marketHeader;
         for (MarketAPI market : resultOrganiser.getMarkets(resultSet)) {
-            elements.add(new MarketHeader(market, intel));
+            marketHeader = new MarketHeader(market, intel);
+            marketHeader.getShowButton().setEnabled(false);
+            elements.add(marketHeader);
             addPeople(elements, market, width);
             addSubmarkets(elements, market, width);
             elements.add(new Spacer(2 * UiConstants.DEFAULT_SPACER));
