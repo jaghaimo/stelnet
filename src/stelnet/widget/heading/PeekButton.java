@@ -1,4 +1,4 @@
-package stelnet.board.query.view.result;
+package stelnet.widget.heading;
 
 import com.fs.starfarer.api.campaign.CoreUITabId;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;

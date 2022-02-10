@@ -1,4 +1,4 @@
-package stelnet.widget;
+package stelnet.widget.heading;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.ui.Alignment;

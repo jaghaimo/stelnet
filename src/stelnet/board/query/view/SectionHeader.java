@@ -5,7 +5,7 @@ import com.fs.starfarer.api.ui.UIComponentAPI;
 import lombok.RequiredArgsConstructor;
 import stelnet.CommonL10n;
 import stelnet.util.L10n;
-import stelnet.widget.HeadingWithButtons;
+import stelnet.widget.heading.HeadingWithButtons;
 import uilib.UiConstants;
 import uilib.property.Size;
 
