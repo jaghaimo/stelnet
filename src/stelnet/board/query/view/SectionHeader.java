@@ -20,8 +20,8 @@ public class SectionHeader extends HeadingWithButtons {
         this(width, label, isEnabled, null);
     }
 
-    public SectionHeader(float width, Enum<?> label, boolean isEnabled, FilteringButton[] filterButtons) {
-        this(filterButtons, L10n.get(label), isEnabled);
+    public SectionHeader(float width, Enum<?> label, boolean isEnabled, FilteringButton[] buttons) {
+        this(buttons, L10n.get(label), isEnabled);
         setSize(new Size(width, UiConstants.DEFAULT_ROW_HEIGHT + UiConstants.DEFAULT_SPACER * 3));
         setWithScroller(false);
     }
