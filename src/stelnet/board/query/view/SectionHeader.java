@@ -12,27 +12,16 @@ import uilib.property.Size;
 @RequiredArgsConstructor
 public class SectionHeader extends HeadingWithButtons {
 
-    private final FilteringButton[] filterButtons;
-    private final FilteringButton filterLogicButton;
+    private final FilteringButton[] buttons;
     private final String heading;
     private final boolean isEnabled;
 
     public SectionHeader(float width, Enum<?> label, boolean isEnabled) {
-        this(width, label, isEnabled, null, null);
+        this(width, label, isEnabled, null);
     }
 
     public SectionHeader(float width, Enum<?> label, boolean isEnabled, FilteringButton[] filterButtons) {
-        this(width, label, isEnabled, filterButtons, null);
-    }
-
-    public SectionHeader(
-        float width,
-        Enum<?> label,
-        boolean isEnabled,
-        FilteringButton[] filterButtons,
-        FilteringButton filterLogicButton
-    ) {
-        this(filterButtons, filterLogicButton, L10n.get(label), isEnabled);
+        this(filterButtons, L10n.get(label), isEnabled);
         setSize(new Size(width, UiConstants.DEFAULT_ROW_HEIGHT + UiConstants.DEFAULT_SPACER * 3));
         setWithScroller(false);
     }
@@ -42,7 +31,7 @@ public class SectionHeader extends HeadingWithButtons {
         tooltip.addSpacer(UiConstants.DEFAULT_SPACER);
         tooltip.addSpacer(UiConstants.DEFAULT_SPACER);
         renderQueryHeading(tooltip, isEnabled, heading);
-        if (filterButtons != null) {
+        if (buttons != null) {
             renderButtons(tooltip);
         }
         tooltip.addSpacer(UiConstants.DEFAULT_SPACER);
@@ -50,18 +39,15 @@ public class SectionHeader extends HeadingWithButtons {
 
     private void renderButtons(TooltipMakerAPI tooltip) {
         UIComponentAPI currentComponent = renderFirstButton(
-            new SelectDeselectButton(CommonL10n.NONE, isEnabled, false, filterButtons),
+            new SelectDeselectButton(CommonL10n.NONE, isEnabled, false, buttons),
             getSize().getWidth(),
             tooltip
         );
         currentComponent =
             renderNextButton(
-                new SelectDeselectButton(CommonL10n.ALL, isEnabled, true, filterButtons),
+                new SelectDeselectButton(CommonL10n.ALL, isEnabled, true, buttons),
                 tooltip,
                 currentComponent
             );
-        if (filterLogicButton != null) {
-            renderNextButton(filterLogicButton, tooltip, currentComponent);
-        }
     }
 }
