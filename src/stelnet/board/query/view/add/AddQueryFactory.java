@@ -13,6 +13,7 @@ import stelnet.board.query.view.ButtonGroup;
 import stelnet.board.query.view.SizeHelper;
 import stelnet.filter.Filter;
 import uilib.Button;
+import uilib.CustomPanel;
 import uilib.HorizontalViewContainer;
 import uilib.Renderable;
 import uilib.RenderableComponent;
@@ -39,13 +40,16 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
         float previewWidth = Math.max(250, size.getWidth() - 950);
         float previewHeight = size.getHeight();
         float width = size.getWidth() - previewWidth - 10;
-        float height = size.getHeight() - 36;
+        float height = size.getHeight();
         Size mainSize = new Size(width, height);
         Size sideSize = new Size(previewWidth, previewHeight);
         setSizeHelper(new SizeHelper(mainSize));
-        RenderableComponent mainColumn = new VerticalViewContainer(getQueryBuildingComponents());
+        RenderableComponent mainColumn = new CustomPanel(new VerticalViewContainer(getQueryBuildingComponents()));
+        mainColumn.setSize(mainSize.increase(new Size(10, 0)));
         RenderableComponent sideColumn = getPreview(getFilters(), sideSize);
-        return Arrays.<Renderable>asList(new HorizontalViewContainer(mainColumn, sideColumn));
+        RenderableComponent fullView = new HorizontalViewContainer(mainColumn, sideColumn);
+        fullView.setSize(size);
+        return Arrays.<Renderable>asList(fullView);
     }
 
     @Override

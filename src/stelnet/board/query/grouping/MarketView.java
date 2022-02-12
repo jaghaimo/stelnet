@@ -10,9 +10,9 @@ import stelnet.board.query.QueryL10n;
 import stelnet.board.query.ResultIntel;
 import stelnet.board.query.ResultSet;
 import stelnet.board.query.ResultView;
-import stelnet.board.query.view.result.MarketHeader;
 import stelnet.util.CargoUtils;
 import stelnet.util.L10n;
+import stelnet.widget.heading.MarketHeader;
 import uilib.Renderable;
 import uilib.ShowCargo;
 import uilib.ShowShips;
@@ -28,8 +28,11 @@ public class MarketView extends ResultView {
 
     @Override
     protected void addResults(List<Renderable> elements, float width) {
+        MarketHeader marketHeader;
         for (MarketAPI market : resultOrganiser.getMarkets(resultSet)) {
-            elements.add(new MarketHeader(market, intel));
+            marketHeader = new MarketHeader(market, intel);
+            marketHeader.getShowButton().setEnabled(false);
+            elements.add(marketHeader);
             addPeople(elements, market, width);
             addSubmarkets(elements, market, width);
             elements.add(new Spacer(2 * UiConstants.DEFAULT_SPACER));

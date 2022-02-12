@@ -30,12 +30,13 @@ public class ShowShips extends RenderableShowComponent {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        if (ships.isEmpty()) {
-            tooltip.addPara(emptyDescription, 0);
-            return;
-        }
         if (optionalTitle != null) {
             addSectionTitle(tooltip, optionalTitle, titleColor, getSize().getWidth() - UiConstants.DEFAULT_SPACER);
+        }
+        if (ships.isEmpty()) {
+            tooltip.addSpacer(UiConstants.DEFAULT_SPACER);
+            tooltip.addPara(emptyDescription, -1);
+            return;
         }
         tooltip.showShips(ships, getMaxElements(), true, 5f);
         setOffsetOfLast(tooltip, -6);

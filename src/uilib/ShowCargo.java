@@ -36,12 +36,13 @@ public class ShowCargo extends RenderableShowComponent {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        if (cargo.isEmpty()) {
-            tooltip.addPara(emptyDescription, 0);
-            return;
-        }
         if (optionalTitle != null) {
             addSectionTitle(tooltip, optionalTitle, titleColor, getSize().getWidth() - UiConstants.DEFAULT_SPACER);
+        }
+        if (cargo.isEmpty()) {
+            tooltip.addSpacer(UiConstants.DEFAULT_SPACER);
+            tooltip.addPara(emptyDescription, 0);
+            return;
         }
         tooltip.showCargo(cargo, getMaxElements(), false, 5);
         setOffsetOfLast(tooltip, -6);

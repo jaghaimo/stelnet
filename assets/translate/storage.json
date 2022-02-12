@@ -5,6 +5,6 @@
     "INTEL_CONTENT": "{0, choice, 0#no items|1#one item|1<{0, number, integer} items} and {1, choice, 0#no ships|1#one ship|1<{1, number, integer} ships}",
     "INTEL_HEADER_ITEMS": "{0} Items",
     "INTEL_HEADER_SHIPS": "{0} Ships",
-    "INTEL_NO_ITEMS": "There are no items in this storage.",
-    "INTEL_NO_SHIPS": "There are no ships in this storage."
+    "INTEL_NO_ITEMS": "There are no items in this storage",
+    "INTEL_NO_SHIPS": "There are no ships in this storage"
 }

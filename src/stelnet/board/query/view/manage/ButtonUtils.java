@@ -13,6 +13,7 @@ import stelnet.board.query.view.FilteringButton;
 import stelnet.filter.Filter;
 import stelnet.filter.ResultFleetMemberHasDModCount;
 import stelnet.filter.ResultFleetMemberWithoutDMod;
+import stelnet.filter.ResultIsFriendly;
 import stelnet.filter.ResultIsPurchasable;
 import stelnet.util.L10n;
 import uilib.Button;
@@ -59,8 +60,8 @@ public class ButtonUtils {
         return dModCount.toArray(new FilteringButton[] {});
     }
 
-    public static Button[] getGroupingButtons(QueryManager manager) {
-        return new Button[] {
+    public static GroupByButton[] getGroupingButtons(QueryManager manager) {
+        return new GroupByButton[] {
             new GroupByButton(manager, GroupingStrategy.BY_MARKET),
             new GroupByButton(manager, GroupingStrategy.BY_SYSTEM),
         };
@@ -76,8 +77,8 @@ public class ButtonUtils {
             ),
             new FilterSetAwareButton(
                 manager,
-                L10n.get(QueryL10n.RESULTS_ONLY_PURCHASABLE),
-                new ResultIsPurchasable(),
+                L10n.get(QueryL10n.RESULTS_ONLY_FRIENDLY),
+                new ResultIsFriendly(),
                 manager.getOtherFilters()
             ),
         };

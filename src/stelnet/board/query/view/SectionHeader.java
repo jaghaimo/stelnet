@@ -5,7 +5,7 @@ import com.fs.starfarer.api.ui.UIComponentAPI;
 import lombok.RequiredArgsConstructor;
 import stelnet.CommonL10n;
 import stelnet.util.L10n;
-import stelnet.widget.HeadingWithButtons;
+import stelnet.widget.heading.HeadingWithButtons;
 import uilib.UiConstants;
 import uilib.property.Size;
 
@@ -32,13 +32,22 @@ public class SectionHeader extends HeadingWithButtons {
         tooltip.addSpacer(UiConstants.DEFAULT_SPACER);
         renderQueryHeading(tooltip, isEnabled, heading);
         if (buttons != null) {
-            UIComponentAPI first = renderFirstButton(
-                new SelectDeselectButton(CommonL10n.NONE, isEnabled, false, buttons),
-                getSize().getWidth(),
-                tooltip
-            );
-            renderNextButton(new SelectDeselectButton(CommonL10n.ALL, isEnabled, true, buttons), tooltip, first);
+            renderButtons(tooltip);
         }
         tooltip.addSpacer(UiConstants.DEFAULT_SPACER);
+    }
+
+    private void renderButtons(TooltipMakerAPI tooltip) {
+        UIComponentAPI currentComponent = renderFirstButton(
+            new SelectDeselectButton(CommonL10n.NONE, isEnabled, false, buttons),
+            getSize().getWidth(),
+            tooltip
+        );
+        currentComponent =
+            renderNextButton(
+                new SelectDeselectButton(CommonL10n.ALL, isEnabled, true, buttons),
+                tooltip,
+                currentComponent
+            );
     }
 }

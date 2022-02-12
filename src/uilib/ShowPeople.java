@@ -26,6 +26,9 @@ public class ShowPeople extends RenderableShowComponent implements Comparator<Pe
     private final String emptyDescription;
     private Color groupColor = Misc.getTextColor();
 
+    public static String PERSONNEL = "Personnel";
+    public static String AND_X_OTHER_PEOPLE = "... and %s other people.";
+
     public ShowPeople(List<PersonAPI> people, String emptyDescription, Size size) {
         super(people.size());
         Collections.sort(people, this);
@@ -37,6 +40,7 @@ public class ShowPeople extends RenderableShowComponent implements Comparator<Pe
     @Override
     public void render(TooltipMakerAPI tooltip) {
         if (people.isEmpty()) {
+            addPostIfNeeded(tooltip, null, PERSONNEL);
             tooltip.addPara(emptyDescription, UiConstants.DEFAULT_SPACER);
         }
         String lastPost = null;
@@ -48,7 +52,7 @@ public class ShowPeople extends RenderableShowComponent implements Comparator<Pe
             lastPost = person.getPost();
             addPerson(tooltip, person);
             if (i >= getMaxElements() && numberOfPeople != getMaxElements()) {
-                tooltip.addPara("... and %s other people.", 4, Misc.getHighlightColor(), "" + (numberOfPeople - i));
+                tooltip.addPara(AND_X_OTHER_PEOPLE, 4, Misc.getHighlightColor(), "" + (numberOfPeople - i));
                 return;
             }
         }

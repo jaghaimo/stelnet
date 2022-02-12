@@ -1,5 +1,6 @@
 package stelnet.board.query.view.add;
 
+import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -16,6 +17,7 @@ import stelnet.board.query.view.SectionHeader;
 import stelnet.board.query.view.dialog.PickerDialog;
 import stelnet.board.query.view.dialog.ShipPickerDialog;
 import stelnet.filter.Filter;
+import stelnet.util.CollectionUtils;
 import stelnet.util.L10n;
 import uilib.Button;
 import uilib.Renderable;
@@ -26,8 +28,9 @@ public class ShipQueryFactory extends QueryFactory {
     private transient ShipProvider provider = new ShipProvider();
 
     private final FilteringButton[] classSizes = ShipButtonUtils.getClassSizes();
-    private final FilteringButton[] mountSizes = ShipButtonUtils.getMountSizes();
-    private final FilteringButton[] mountTypes = ShipButtonUtils.getMountTypes();
+    private final FilteringButton[] mountSmall = ShipButtonUtils.getMountTypes(WeaponSize.SMALL);
+    private final FilteringButton[] mountMedium = ShipButtonUtils.getMountTypes(WeaponSize.MEDIUM);
+    private final FilteringButton[] mountLarge = ShipButtonUtils.getMountTypes(WeaponSize.LARGE);
     private final FilteringButton[] mountBays = ShipButtonUtils.getMountBays(this);
     private final FilteringButton[] designTypes = ShipButtonUtils.getManufacturers(provider);
     private final FilteringButton[] builtIns = ShipButtonUtils.getBuiltIns(provider);
@@ -71,9 +74,13 @@ public class ShipQueryFactory extends QueryFactory {
         prepareBuiltIns();
         List<Renderable> elements = new LinkedList<>();
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.CLASS_SIZE, classSizes, true));
-        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.WEAPON_MOUNTS, true));
-        elements.add(new ButtonGroup(sizeHelper, QueryL10n.MOUNT_TYPE, mountTypes, true));
-        elements.add(new ButtonGroup(sizeHelper, QueryL10n.MOUNT_SIZE, mountSizes, true));
+        FilteringButton[] allMountSizeType = CollectionUtils.merge(mountSmall, mountMedium, mountLarge);
+        elements.add(
+            new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.WEAPON_MOUNTS, true, allMountSizeType)
+        );
+        elements.add(new ButtonGroup(sizeHelper, QueryL10n.MOUNT_SIZE_SMALL, mountSmall, true));
+        elements.add(new ButtonGroup(sizeHelper, QueryL10n.MOUNT_SIZE_MEDIUM, mountMedium, true));
+        elements.add(new ButtonGroup(sizeHelper, QueryL10n.MOUNT_SIZE_LARGE, mountLarge, true));
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.FIGHTER_BAYS, mountBays, true));
         elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.MANUFACTURERS, true, designTypes));
         elements.add(new ButtonGroup(sizeHelper, designTypes, true));
@@ -85,8 +92,8 @@ public class ShipQueryFactory extends QueryFactory {
     protected Set<Filter> getCommonFilters() {
         Set<Filter> filters = new LinkedHashSet<>();
         addSelectedOrAll(filters, classSizes, L10n.get(QueryL10n.CLASS_SIZE));
-        addSelectedOrNone(filters, mountSizes, L10n.get(QueryL10n.MOUNT_SIZE), true);
-        addSelectedOrNone(filters, mountTypes, L10n.get(QueryL10n.MOUNT_TYPE), true);
+        FilteringButton[] allMountSizeType = CollectionUtils.merge(mountSmall, mountMedium, mountLarge);
+        addSelectedOrNone(filters, allMountSizeType, L10n.get(QueryL10n.MOUNT_SIZE_TYPE), true);
         addSelectedOrNone(filters, mountBays, L10n.get(QueryL10n.FIGHTER_BAYS), true);
         addSelectedOrNone(filters, designTypes, L10n.get(QueryL10n.MANUFACTURERS), true);
         return filters;

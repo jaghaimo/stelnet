@@ -3,7 +3,7 @@ package stelnet.board.query.view.list;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.ui.UIComponentAPI;
 import stelnet.board.query.Query;
-import stelnet.widget.HeadingWithButtons;
+import stelnet.widget.heading.HeadingWithButtons;
 import uilib.UiConstants;
 import uilib.property.Size;
 
