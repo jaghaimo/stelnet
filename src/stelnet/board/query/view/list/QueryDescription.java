@@ -25,7 +25,7 @@ public class QueryDescription extends RenderableComponent {
     public QueryDescription(float width, Query query) {
         this.width = width;
         this.query = query;
-        labelWidth = Math.max(120, width - 1000);
+        labelWidth = Math.max(160, width - 1000);
         buildFilterDescription();
         setSize(new Size(width, gridLineAdjustment + description.size() * rowHeight));
         setColors();
