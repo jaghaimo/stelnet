@@ -1,4 +1,4 @@
-package stelnet.board.commodity.view;
+package stelnet.board.commodity.view.board;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
@@ -12,15 +12,13 @@ import uilib.property.Location;
 import uilib.property.Position;
 import uilib.property.Size;
 
-public class DeleteAllIntel extends C2Button {
+public class DeleteCommodityIntel extends C2Button {
 
-    public DeleteAllIntel() {
-        super(
-            new Size(190, UiConstants.DEFAULT_BUTTON_HEIGHT),
-            L10n.get(CommodityL10n.DELETE_ALL),
-            true,
-            Misc.getNegativeHighlightColor()
-        );
+    private final String commodityId;
+
+    public DeleteCommodityIntel(String commodityId) {
+        super(new Size(190, UiConstants.DEFAULT_BUTTON_HEIGHT), L10n.get(CommodityL10n.DELETE_THIS), true);
+        this.commodityId = commodityId;
         setLocation(Location.BOTTOM_RIGHT);
         setOffset(new Position(8, 1));
     }
@@ -33,11 +31,11 @@ public class DeleteAllIntel extends C2Button {
     @Override
     public void onConfirm(IntelUIAPI ui) {
         CommodityBoard board = CommodityBoard.getInstance(CommodityBoard.class);
-        board.getRenderableState().deleteIntel();
+        board.getRenderableState().deleteIntel(commodityId);
     }
 
     @Override
     public void onPrompt(TooltipMakerAPI tooltipMaker) {
-        tooltipMaker.addPara(L10n.get(CommodityL10n.DELETE_ALL_CONFIRMATION), Misc.getTextColor(), 0f);
+        tooltipMaker.addPara(L10n.get(CommodityL10n.DELETE_THIS_CONFIRMATION), Misc.getTextColor(), 0f);
     }
 }
