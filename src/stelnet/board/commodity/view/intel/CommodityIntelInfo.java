@@ -6,6 +6,8 @@ import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.commodity.CommodityIntel;
+import stelnet.board.commodity.CommodityL10n;
+import stelnet.util.L10n;
 import uilib.RenderableIntelInfo;
 
 @RequiredArgsConstructor
@@ -25,20 +27,28 @@ public class CommodityIntelInfo implements RenderableIntelInfo {
             faction.getBaseUIColor(),
             faction.getDisplayName()
         );
-        addPrice(info, bulletColor, "Buy at", intel.getBuyPrice(), intel.getSupplyPrice());
-        addPrice(info, bulletColor, "Sell at", intel.getSellPrice(), intel.getDemandPrice());
+        addPrice(
+            info,
+            bulletColor,
+            CommodityL10n.INTEL_BUY_AT,
+            new DisplayablePrice(intel, intel.getBuyPrice(), intel.getSupplyPrice())
+        );
+        addPrice(
+            info,
+            bulletColor,
+            CommodityL10n.INTEL_SELL_FOR,
+            new DisplayablePrice(intel, intel.getSellPrice(), intel.getDemandPrice())
+        );
         intel.unindent(info);
     }
 
-    private void addPrice(TooltipMakerAPI info, Color bulletColor, String key, float oldPrice, float newPrice) {
-        String oldPriceDgs = Misc.getDGSCredits(oldPrice);
-        String newPriceDgs = Misc.getDGSCredits(newPrice);
-        String displayedPrice = oldPriceDgs;
-        String highlightedString = oldPriceDgs;
-        if (intel.isDifferent(oldPrice, newPrice)) {
-            displayedPrice = newPriceDgs + " (was " + oldPriceDgs + ")";
-            highlightedString = newPriceDgs;
-        }
-        info.addPara(key + ": " + displayedPrice, 0f, bulletColor, Misc.getHighlightColor(), highlightedString);
+    private void addPrice(TooltipMakerAPI info, Color bulletColor, Enum<?> key, DisplayablePrice price) {
+        info.addPara(
+            L10n.get(key) + price.getDisplayedPrice(),
+            0f,
+            bulletColor,
+            Misc.getHighlightColor(),
+            price.getHighlightedString()
+        );
     }
 }

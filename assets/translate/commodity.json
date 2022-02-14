@@ -21,6 +21,8 @@
     "HEADER_SELL_LOCATION": "Sell location",
     "HEADER_SYSTEM": "Star system",
     "HEADER_TRIP": "Trip (ly)",
+    "INTEL_BUY_AT": "Buy at: ",
+    "INTEL_SELL_FOR": "Sell for: ",
     "INTEL_TITLE": "{0} on {1}",
-    "PRICE_CHANGED": "The original {2} price has changed from {0} to {1}."
+    "PRICE_CHANGED": "{0} (was {1})"
 }
