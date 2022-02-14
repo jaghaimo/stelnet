@@ -25,16 +25,14 @@ import uilib.property.Size;
 @Getter
 public class CommodityIntel extends BaseIntel {
 
-    private final String action;
     private final CommoditySpecAPI commodity;
     private final MarketAPI market;
     private final Price priceProvider;
     private final float price;
     private final String tag = ModConstants.TAG_COMMODITY;
 
-    public CommodityIntel(String action, CommoditySpecAPI commodity, MarketAPI market, Price priceProvider) {
+    public CommodityIntel(CommoditySpecAPI commodity, MarketAPI market, Price priceProvider) {
         super(market.getFaction(), market.getPrimaryEntity());
-        this.action = action;
         this.commodity = commodity;
         this.market = market;
         this.priceProvider = priceProvider;
@@ -44,11 +42,6 @@ public class CommodityIntel extends BaseIntel {
     @Override
     public String getIcon() {
         return commodity.getIconName();
-    }
-
-    @Override
-    public String getSortString() {
-        return getTitle();
     }
 
     @Override
@@ -118,6 +111,6 @@ public class CommodityIntel extends BaseIntel {
     }
 
     private String getTitle() {
-        return L10n.get(CommodityL10n.INTEL_TITLE, action, commodity.getName(), Misc.getDGSCredits(price));
+        return L10n.get(CommodityL10n.INTEL_TITLE, commodity.getName(), market.getName());
     }
 }
