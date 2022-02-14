@@ -11,6 +11,7 @@ import stelnet.board.commodity.CommodityIntel;
 import stelnet.board.commodity.view.board.DeleteIntel;
 import stelnet.util.L10n;
 import stelnet.widget.heading.MarketHeader;
+import uilib.Button;
 import uilib.Image;
 import uilib.Paragraph;
 import uilib.Renderable;
@@ -19,7 +20,7 @@ import uilib.Spacer;
 import uilib.property.Size;
 
 @RequiredArgsConstructor
-public class IntelViewFactory implements RenderableFactory {
+public class CommodityIntelViewFactory implements RenderableFactory {
 
     private final MarketAPI market;
     private final CommodityIntel intel;
@@ -27,35 +28,21 @@ public class IntelViewFactory implements RenderableFactory {
     @Override
     public List<Renderable> create(Size size) {
         float width = size.getWidth();
-        MarketHeader marketHeader = new MarketHeader(market, intel);
-        marketHeader.getShowButton().setEnabled(false);
-        FactionAPI faction = market.getFaction();
         List<Renderable> elements = new ArrayList<>();
-        elements.add(marketHeader);
-        elements.add(new Image(faction.getLogo(), width, 128));
-        elements.add(new Spacer(10f));
-        // addPriceChange(elements, width);
+        addMarketHeader(elements, width);
         addRelationship(elements, width);
-        elements.add(new Spacer(30f));
-        elements.add(new DeleteIntel(size.getWidth(), intel));
+        addDelete(elements, width);
         return elements;
     }
 
-    // private void addPriceChange(List<Renderable> elements, float width) {
-    //     if (isEnding()) {
-    //         float currentPrice = priceProvider.getPriceAmount(market);
-    //         String priceChangeText = L10n.get(
-    //             CommodityL10n.PRICE_CHANGED,
-    //             Misc.getDGSCredits(price),
-    //             Misc.getDGSCredits(currentPrice)
-    //         );
-    //         Paragraph priceChangeRenderable = new Paragraph(priceChangeText, width);
-    //         priceChangeRenderable.setHighlightStrings(Misc.getDGSCredits(price), Misc.getDGSCredits(currentPrice));
-    //         priceChangeRenderable.setHighlightColors(Misc.getHighlightColor(), Misc.getHighlightColor());
-    //         elements.add(priceChangeRenderable);
-    //         elements.add(new Spacer(10f));
-    //     }
-    // }
+    private void addMarketHeader(List<Renderable> elements, float width) {
+        MarketHeader marketHeader = new MarketHeader(market, intel);
+        marketHeader.getShowButton().setEnabled(false);
+        FactionAPI faction = market.getFaction();
+        elements.add(marketHeader);
+        elements.add(new Image(faction.getLogo(), width, 128));
+        elements.add(new Spacer(10f));
+    }
 
     private void addRelationship(List<Renderable> elements, float width) {
         FactionAPI faction = market.getFaction();
@@ -68,5 +55,14 @@ public class IntelViewFactory implements RenderableFactory {
         relationshipRenderable.setHighlightStrings(translatedRep);
         relationshipRenderable.setHighlightColors(relationship.getRelColor());
         elements.add(relationshipRenderable);
+    }
+
+    private void addDelete(List<Renderable> elements, float width) {
+        FactionAPI faction = market.getFaction();
+        Button delete = new DeleteIntel(width, intel);
+        delete.setTextColor(faction.getBaseUIColor());
+        delete.setBackgroundColor(faction.getDarkUIColor());
+        elements.add(new Spacer(30f));
+        elements.add(delete);
     }
 }

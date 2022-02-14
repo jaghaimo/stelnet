@@ -22,5 +22,5 @@
     "HEADER_SYSTEM": "Star system",
     "HEADER_TRIP": "Trip (ly)",
     "INTEL_TITLE": "{0} on {1}",
-    "PRICE_CHANGED": "The original price of {0} has changed to {1}."
+    "PRICE_CHANGED": "The original {2} price has changed from {0} to {1}."
 }

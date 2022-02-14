@@ -8,13 +8,14 @@ import java.awt.Color;
 import java.util.List;
 import lombok.Getter;
 import stelnet.BaseIntel;
-import stelnet.IntelInfo;
 import stelnet.board.commodity.price.DemandPrice;
 import stelnet.board.commodity.price.SupplyPrice;
-import stelnet.board.commodity.view.intel.IntelViewFactory;
+import stelnet.board.commodity.view.intel.CommodityIntelInfo;
+import stelnet.board.commodity.view.intel.CommodityIntelViewFactory;
 import stelnet.util.L10n;
 import stelnet.util.ModConstants;
 import uilib.Renderable;
+import uilib.RenderableIntelInfo;
 import uilib.property.Size;
 
 @Getter
@@ -43,8 +44,8 @@ public class CommodityIntel extends BaseIntel {
     public boolean isEnding() {
         float supplyPrice = getSupplyPrice();
         float demandPrice = getDemandPrice();
-        boolean buyChanged = Math.abs(buyPrice - supplyPrice) > 1;
-        boolean sellChanged = Math.abs(sellPrice - demandPrice) > 1;
+        boolean buyChanged = isDifferent(buyPrice, supplyPrice);
+        boolean sellChanged = isDifferent(sellPrice, demandPrice);
         return buyChanged || sellChanged;
     }
 
@@ -53,18 +54,15 @@ public class CommodityIntel extends BaseIntel {
     }
 
     @Override
-    protected IntelInfo getIntelInfo() {
-        return new IntelInfo(
-            getTitle(),
-            "Buy",
-            Misc.getDGSCredits(getSupplyPrice()),
-            "Sell",
-            Misc.getDGSCredits(getDemandPrice())
-        );
+    protected RenderableIntelInfo getIntelInfo() {
+        return new CommodityIntelInfo(this);
     }
 
     @Override
     public Color getCircleBorderColorOverride() {
+        if (isEnding()) {
+            return Misc.getGrayColor();
+        }
         String commodityId = getCommodityId();
         CommodityOnMarketAPI commodityOnMarket = market.getCommodityData(commodityId);
         if (commodityOnMarket.getExcessQuantity() > 0) {
@@ -73,23 +71,27 @@ public class CommodityIntel extends BaseIntel {
         if (commodityOnMarket.getDeficitQuantity() > 0) {
             return Misc.getNegativeHighlightColor();
         }
-        return Misc.getGrayColor();
+        return Misc.getTextColor();
     }
 
     @Override
     protected List<Renderable> getRenderableList(Size size) {
-        return (new IntelViewFactory(market, this)).create(size);
+        return (new CommodityIntelViewFactory(market, this)).create(size);
     }
 
-    private float getDemandPrice() {
+    public float getDemandPrice() {
         return (new DemandPrice(commodity.getId())).getPriceAmount(market);
     }
 
-    private float getSupplyPrice() {
+    public float getSupplyPrice() {
         return (new SupplyPrice(commodity.getId())).getPriceAmount(market);
     }
 
-    private String getTitle() {
+    public String getTitle() {
         return L10n.get(CommodityL10n.INTEL_TITLE, commodity.getName(), market.getName());
+    }
+
+    public boolean isDifferent(float oldPrice, float newPrice) {
+        return Math.abs(oldPrice - newPrice) >= 1;
     }
 }

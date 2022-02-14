@@ -91,6 +91,21 @@ public abstract class RenderableIntel extends BaseIntelPlugin {
         return false;
     }
 
+    @Override
+    public void bullet(TooltipMakerAPI info) {
+        super.bullet(info);
+    }
+
+    @Override
+    public void indent(TooltipMakerAPI info) {
+        super.indent(info);
+    }
+
+    @Override
+    public void unindent(TooltipMakerAPI info) {
+        super.unindent(info);
+    }
+
     protected List<Renderable> getRenderableList(Size size) {
         return Collections.<Renderable>emptyList();
     }
