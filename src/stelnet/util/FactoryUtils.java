@@ -25,6 +25,10 @@ public class FactoryUtils {
         return cargo;
     }
 
+    public static CargoStackAPI createCommodityItem(String commodityId) {
+        return getFactory().createCargoStack(CargoItemType.RESOURCES, commodityId, null);
+    }
+
     public static CargoStackAPI createFighterItem(String variant) {
         return getFactory().createCargoStack(CargoItemType.FIGHTER_CHIP, variant, null);
     }

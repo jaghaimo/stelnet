@@ -4,9 +4,9 @@ import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
-import java.util.List;
 
 public class TableCellHelper {
 
@@ -48,11 +48,17 @@ public class TableCellHelper {
 
     private static int getAvailableOnMarket(MarketAPI market, String commodityId) {
         float available = 0;
-        List<SubmarketAPI> submarkets = market.getSubmarketsCopy();
-        for (SubmarketAPI submarket : submarkets) {
-            available += submarket.getCargo().getCommodityQuantity(commodityId);
-        }
+        available += getAvailableOnMarket(market.getSubmarket(Submarkets.SUBMARKET_OPEN), commodityId);
+        available += getAvailableOnMarket(market.getSubmarket(Submarkets.GENERIC_MILITARY), commodityId);
+        available += getAvailableOnMarket(market.getSubmarket(Submarkets.SUBMARKET_BLACK), commodityId);
         return (int) smartRounding(available);
+    }
+
+    private static float getAvailableOnMarket(SubmarketAPI submarket, String commodityId) {
+        if (submarket == null) {
+            return 0;
+        }
+        return submarket.getCargo().getCommodityQuantity(commodityId);
     }
 
     private static float smartRounding(float number) {
