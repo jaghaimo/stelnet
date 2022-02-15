@@ -55,9 +55,8 @@ public class ConfigUtils {
 
     private static void initCommodity(boolean hasCommodities) {
         if (hasCommodities) {
-            CommodityBoard board = CommodityBoard.getInstance(CommodityBoard.class);
+            CommodityBoard.getInstance(CommodityBoard.class).restore();
             TradeBoard.getInstance(TradeBoard.class);
-            board.getRenderableState().getIntelTracker().restore();
             log.info("Enabled Commodity plugin");
         } else {
             purgeIntel(CommodityBoard.class, CommodityIntel.class, TradeBoard.class);

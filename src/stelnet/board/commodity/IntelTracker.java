@@ -14,10 +14,10 @@ import stelnet.util.IntelUtils;
 @Log4j
 public class IntelTracker {
 
-    private transient Map<String, CommodityIntel> intelMap = new LinkedHashMap<>();
+    private final Map<String, CommodityIntel> intelMap = new LinkedHashMap<>();
 
     public void restore() {
-        intelMap = new LinkedHashMap<>();
+        intelMap.clear();
         for (IntelInfoPlugin intel : IntelUtils.getAll(CommodityIntel.class)) {
             CommodityIntel elevatedIntel = (CommodityIntel) intel;
             CommoditySpecAPI commodity = elevatedIntel.getCommodity();

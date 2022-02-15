@@ -17,4 +17,8 @@ public class CommodityBoard extends BaseBoard {
     );
     private final CommodityState renderableState = new CommodityState();
     private final String tag = ModConstants.TAG_COMMODITY;
+
+    public void restore() {
+        renderableState.getIntelTracker().restore();
+    }
 }
