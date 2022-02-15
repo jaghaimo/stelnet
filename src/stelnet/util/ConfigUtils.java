@@ -10,6 +10,7 @@ import stelnet.board.query.ResultIntel;
 import stelnet.board.storage.StorageBoard;
 import stelnet.board.storage.StorageIntel;
 import stelnet.board.storage.StorageListener;
+import stelnet.board.trade.TradeBoard;
 import stelnet.board.viewer.ViewerBoard;
 
 @Log4j
@@ -55,10 +56,11 @@ public class ConfigUtils {
     private static void initCommodity(boolean hasCommodities) {
         if (hasCommodities) {
             CommodityBoard board = CommodityBoard.getInstance(CommodityBoard.class);
+            TradeBoard.getInstance(TradeBoard.class);
             board.getRenderableState().getIntelTracker().restore();
             log.info("Enabled Commodity plugin");
         } else {
-            purgeIntel(CommodityBoard.class, CommodityIntel.class);
+            purgeIntel(CommodityBoard.class, CommodityIntel.class, TradeBoard.class);
             log.info("Disabled Commodity plugin");
         }
     }

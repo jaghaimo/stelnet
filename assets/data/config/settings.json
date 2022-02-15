@@ -5,6 +5,7 @@
             "commodity": "graphics/icons/intel/tutorial_mission.png",
             "query": "graphics/icons/intel/investigation.png",
             "storage": "graphics/icons/intel/all.png",
+            "trade": "graphics/icons/intel/price_update.png",
             "viewer": "graphics/icons/markets/headquarters.png",
 
             "result_0": "graphics/icons/markets/population00.png",
