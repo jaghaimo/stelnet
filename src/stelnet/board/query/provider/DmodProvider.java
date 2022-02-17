@@ -16,7 +16,7 @@ public class DmodProvider {
 
     public List<HullModSpecAPI> getDMods() {
         if (allDMods == null) {
-            allDMods = DModManager.getModsWithTags(Tags.HULLMOD_DAMAGE);
+            allDMods = DModManager.getModsWithTags(Tags.HULLMOD_DMOD);
             Collections.sort(allDMods, new ShipHullSpecSorter());
         }
         return allDMods;

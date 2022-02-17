@@ -1,6 +1,7 @@
 package uilib;
 
 import com.fs.starfarer.api.ui.CutStyle;
+import stelnet.util.ColorUtils;
 import uilib.property.Size;
 
 public class TabButton extends Button {
@@ -11,6 +12,7 @@ public class TabButton extends Button {
         if (isActive) {
             setHighlight(true);
         }
+        setBackgroundColor(ColorUtils.buttonBgDark());
         setCutStyle(CutStyle.TOP);
         if (shortcut > 0) {
             setShortcut(shortcut);

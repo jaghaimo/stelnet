@@ -1,5 +1,6 @@
 package stelnet.board.query.view;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
 import java.util.Arrays;
@@ -70,7 +71,7 @@ public class ButtonGroup extends HorizontalViewContainer {
     private void prepareButtons(Button[] buttons, boolean isEnabled) {
         for (Button button : buttons) {
             button.setTextColor(ColorUtils.buttonText());
-            button.setBackgroundColor(ColorUtils.buttonBgDark());
+            button.setBackgroundColor(Global.getSettings().getDarkPlayerColor());
             button.setEnabled(isEnabled);
         }
         if (isEnabled) {
