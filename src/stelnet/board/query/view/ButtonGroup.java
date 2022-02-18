@@ -1,6 +1,5 @@
 package stelnet.board.query.view;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
 import java.util.Arrays;
