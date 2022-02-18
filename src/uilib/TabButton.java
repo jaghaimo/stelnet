@@ -12,6 +12,7 @@ public class TabButton extends Button {
         if (isActive) {
             setHighlight(true);
         }
+        setTextColor(ColorUtils.buttonText());
         setBackgroundColor(ColorUtils.buttonBgDark());
         setCutStyle(CutStyle.TOP);
         if (shortcut > 0) {
