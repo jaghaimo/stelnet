@@ -55,10 +55,6 @@ public class ManageResultsFactory extends FilterAwareFactory implements Renderab
     private void prepareDmods() {
         Color textColor = ColorUtils.basePlayerColor();
         Color backgroundColor = ColorUtils.darkPlayerColor();
-        prepareDmods(textColor, backgroundColor);
-    }
-
-    private void prepareDmods(Color textColor, Color backgroundColor) {
         for (FilteringButton button : dModAllowed) {
             button.setTextColor(textColor);
             button.setBackgroundColor(backgroundColor);

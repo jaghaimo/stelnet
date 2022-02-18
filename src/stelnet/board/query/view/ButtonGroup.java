@@ -70,8 +70,8 @@ public class ButtonGroup extends HorizontalViewContainer {
 
     private void prepareButtons(Button[] buttons, boolean isEnabled) {
         for (Button button : buttons) {
-            button.setTextColor(ColorUtils.buttonText());
-            button.setBackgroundColor(Global.getSettings().getDarkPlayerColor());
+            button.setTextColor(ColorUtils.basePlayerColor());
+            button.setBackgroundColor(ColorUtils.darkPlayerColor());
             button.setEnabled(isEnabled);
         }
         if (isEnabled) {
