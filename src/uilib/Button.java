@@ -28,7 +28,7 @@ public class Button extends RenderableComponent implements ButtonHandler {
     private boolean highlight = false;
 
     public Button(Size size, String title, boolean isEnabled) {
-        this(size, title, isEnabled, ColorUtils.buttonText(), ColorUtils.buttonBgDark());
+        this(size, title, isEnabled, ColorUtils.basePlayerColor(), ColorUtils.darkPlayerColor());
     }
 
     public Button(Size size, String title, boolean isEnabled, Color color) {
@@ -42,7 +42,7 @@ public class Button extends RenderableComponent implements ButtonHandler {
         this.textColor = textColor;
         this.backgroundColor = backgroundColor;
         if (size.getWidth() == 0) {
-            size = new Size(SettingsUtils.computeStringWidth(title) + 10, size.getHeight());
+            size = new Size(SettingsUtils.computeStringWidth(title) + 20, size.getHeight());
         }
         setSize(size);
         setWithScroller(false);

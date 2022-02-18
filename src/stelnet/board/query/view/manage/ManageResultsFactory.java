@@ -3,7 +3,6 @@ package stelnet.board.query.view.manage;
 import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
 import stelnet.board.query.view.ButtonGroup;
@@ -11,7 +10,6 @@ import stelnet.board.query.view.FilterAwareFactory;
 import stelnet.board.query.view.FilteringButton;
 import stelnet.board.query.view.SectionHeader;
 import stelnet.board.query.view.SizeHelper;
-import stelnet.filter.Filter;
 import stelnet.util.ColorUtils;
 import uilib.Button;
 import uilib.Renderable;
@@ -48,59 +46,30 @@ public class ManageResultsFactory extends FilterAwareFactory implements Renderab
         elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.MANAGE_FILTERING, true));
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.MANAGE_FILTERING_SUBMARKET, submarketButtons, true));
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.MANAGE_FILTERING_OTHER, otherButtons, true));
-        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.MANAGE_DMODS, true, dModAllowed));
+        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.MANAGE_DMODS, true));
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.MANAGE_DMOD_COUNT, dModCount, true));
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.MANAGE_DMOD_SET, dModAllowed));
         return elements;
     }
 
-    private Color getDesiredColor(FilteringButton button, Color positiveColor, Color negativeColor) {
-        if (!button.isStateOn()) {
-            return positiveColor;
-        }
-        return negativeColor;
-    }
-
-    private float getDesiredScale(FilteringButton button) {
-        if (!button.isStateOn()) {
-            return 1.0f;
-        }
-        return 0.7f;
-    }
-
-    private boolean hasDmodSelection() {
-        Set<Filter> allowedDmods = getFilters(dModAllowed, true);
-        Set<Filter> disallowedDmods = getFilters(dModAllowed, false);
-        return !allowedDmods.isEmpty() && !disallowedDmods.isEmpty();
-    }
-
     private void prepareDmods() {
-        Color textColor = null;
-        Color positiveColor = ColorUtils.positiveHighlight();
-        Color negativeColor = ColorUtils.negativeHighlight();
-        if (!hasDmodSelection()) {
-            textColor = ColorUtils.buttonText();
-            positiveColor = negativeColor = ColorUtils.buttonBgDark();
-        }
-        prepareDmods(textColor, positiveColor, negativeColor);
-    }
-
-    private void prepareDmods(Color textColor, Color positiveColor, Color negativeColor) {
+        Color textColor = ColorUtils.basePlayerColor();
+        Color backgroundColor = ColorUtils.darkPlayerColor();
         for (FilteringButton button : dModAllowed) {
-            Color desiredColor = getDesiredColor(button, positiveColor, negativeColor);
-            float desiredScale = getDesiredScale(button);
-            prepareDmods(button, textColor, desiredColor, desiredScale);
+            button.setTextColor(textColor);
+            button.setBackgroundColor(backgroundColor);
+            prepareDmods(button);
         }
     }
 
-    private void prepareDmods(FilteringButton button, Color textColor, Color desiredColor, float desiredScale) {
-        button.setTextColor(desiredColor);
-        button.setBackgroundColor(desiredColor);
-        if (textColor == null) {
-            button.scaleTextColor(desiredScale);
-            button.scaleBackground(desiredScale * 0.5f);
-        } else {
-            button.setTextColor(textColor);
+    private void prepareDmods(FilteringButton button) {
+        float textScale = 1.0f;
+        float backgroundScale = 1.0f;
+        if (button.isStateOn()) {
+            textScale = 0.5f;
+            backgroundScale = 0;
         }
+        button.scaleTextColor(textScale);
+        button.scaleBackground(backgroundScale);
     }
 }
