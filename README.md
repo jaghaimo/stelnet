@@ -17,10 +17,13 @@ All items and ships acquired during the call will be deposited to the Storage of
 ### Commodity
 
 Commodity board (formerly [Galactic Markets](https://fractalsoftworks.com/forum/index.php?topic=19383)) is used to display buying and selling prices among all known markets.
-It also hosts a Profit tab that can be used to find viable trade routes.
 
 ![Commodity](images/commodity.png?raw=1)
 
+#### Profit
+Commodity board also hosts a Profit tab which can be used to find viable trade routes. Filters by most profitable routes in descending order and displays only routes where potential profit margin is over 100000 credits. When the route is within the same system, highlights the sector total distance colour in yellow.
+
+![Profit](images/profit.png?raw=1)
 ### Market
 
 Queries board (formerly [Hyperspace Networks](https://fractalsoftworks.com/forum/index.php?topic=19252)) manages market searches.
