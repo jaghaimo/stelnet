@@ -31,18 +31,26 @@ public class ProfitTableContent implements TableContent {
     public List<TableProfitRow> getRows() {
         List<TableProfitRow> rows = new ArrayList<>();
         for (MarketAPI buyMarket : buyMarkets) {
-            for (MarketAPI sellMarket : sellmarkets) {
-                if (ProfitCalculator.getPotentialProfit(buyMarket, sellMarket, commodityId) <= 100000) {
-                    continue;
-                }
-
-                TableProfitRow row = new TableProfitRow(buyMarket, sellMarket, commodityId);
-                rows.add(row);
-            }
+            List<TableProfitRow> sellMarkets = getViableSellMarketsForBuy(buyMarket);
+            rows.addAll(sellMarkets);
         }
 
         Collections.sort(rows);
 
+        return rows;
+    }
+
+    private List<TableProfitRow> getViableSellMarketsForBuy(MarketAPI buyMarket) {
+        List<TableProfitRow> rows = new ArrayList<>();
+
+        for (MarketAPI sellMarket : sellmarkets) {
+            if (ProfitCalculator.getPotentialProfit(buyMarket, sellMarket, commodityId) <= 100000) {
+                continue;
+            }
+
+            TableProfitRow row = new TableProfitRow(buyMarket, sellMarket, commodityId);
+            rows.add(row);
+        }
         return rows;
     }
 }
