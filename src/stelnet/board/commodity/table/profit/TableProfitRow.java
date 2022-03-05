@@ -1,12 +1,12 @@
 package stelnet.board.commodity.table.profit;
 
-import java.awt.Color;
-import java.util.LinkedList;
-import java.util.List;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
+import java.awt.Color;
+import java.util.LinkedList;
+import java.util.List;
 import lombok.Getter;
 import stelnet.board.commodity.price.Price;
 import stelnet.board.commodity.price.SupplyPrice;
@@ -34,7 +34,12 @@ public class TableProfitRow implements Comparable, TableContentRow {
         addCell(Misc.getHighlightColor(), Misc.getDGSCredits(sellPrice));
 
         // Available / Demand
-        addCell(Misc.getHighlightColor(), Misc.getWithDGS(TableCellHelper.getAvailable(buyFromCommodity)) + " / " + Misc.getWithDGS(TableCellHelper.getDemand(sellMarket, sellToMarketCommodity)));
+        addCell(
+            Misc.getHighlightColor(),
+            Misc.getWithDGS(TableCellHelper.getAvailable(buyFromCommodity)) +
+            " / " +
+            Misc.getWithDGS(TableCellHelper.getDemand(sellMarket, sellToMarketCommodity))
+        );
         // Profit
         profit = ProfitCalculator.getPotentialProfit(buyMarket, sellMarket, commodityId);
         addDGSCreditsCell(profit);
@@ -54,7 +59,6 @@ public class TableProfitRow implements Comparable, TableContentRow {
         float buyToSell = Misc.getDistanceLY(buyMarket.getPrimaryEntity(), sellMarket.getPrimaryEntity());
 
         addCell(buySystemColor, String.format("%.1f", playerToBuy + buyToSell));
-
     }
 
     private void addDGSCreditsCell(float value) {

@@ -7,6 +7,7 @@ import stelnet.board.commodity.price.SupplyPrice;
 import stelnet.util.TableCellHelper;
 
 public class ProfitCalculator {
+
     static float getPotentialProfit(MarketAPI buyMarket, MarketAPI sellMarket, String commodityId) {
         Price price = new SupplyPrice(commodityId);
         float buyPrice = price.getPriceAmount(buyMarket);
