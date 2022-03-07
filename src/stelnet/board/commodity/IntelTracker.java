@@ -8,33 +8,32 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import lombok.extern.log4j.Log4j;
-import stelnet.board.commodity.price.Price;
 import stelnet.util.EconomyUtils;
 import stelnet.util.IntelUtils;
 
 @Log4j
 public class IntelTracker {
 
-    private transient Map<String, CommodityIntel> intelMap = new LinkedHashMap<>();
+    private final Map<String, CommodityIntel> intelMap = new LinkedHashMap<>();
 
     public void restore() {
-        intelMap = new LinkedHashMap<>();
+        intelMap.clear();
         for (IntelInfoPlugin intel : IntelUtils.getAll(CommodityIntel.class)) {
             CommodityIntel elevatedIntel = (CommodityIntel) intel;
             CommoditySpecAPI commodity = elevatedIntel.getCommodity();
-            String key = getKey(elevatedIntel.getAction(), commodity.getId(), elevatedIntel.getMarket());
+            String key = getKey(commodity.getId(), elevatedIntel.getMarket());
             intelMap.put(key, elevatedIntel);
         }
     }
 
-    public boolean has(String action, String commodityId, MarketAPI market) {
-        String key = getKey(action, commodityId, market);
+    public boolean has(String commodityId, MarketAPI market) {
+        String key = getKey(commodityId, market);
         CommodityIntel intel = intelMap.get(key);
         return intel != null;
     }
 
     public void remove(CommodityIntel intel) {
-        String key = getKey(intel.getAction(), intel.getCommodityId(), intel.getMarket());
+        String key = getKey(intel.getCommodityId(), intel.getMarket());
         removeIntel(intel, key);
     }
 
@@ -53,8 +52,7 @@ public class IntelTracker {
     }
 
     public void toggle(String commodityId, CommodityAction commodityAction, MarketAPI market) {
-        String action = commodityAction.name();
-        String key = getKey(action, commodityId, market);
+        String key = getKey(commodityId, market);
         CommodityIntel intel = intelMap.get(key);
         if (intel == null) {
             addIntel(commodityId, commodityAction, market);
@@ -64,18 +62,16 @@ public class IntelTracker {
     }
 
     private void addIntel(String commodityId, CommodityAction commodityAction, MarketAPI market) {
-        String action = commodityAction.name();
-        String key = getKey(action, commodityId, market);
+        String key = getKey(commodityId, market);
         CommoditySpecAPI commodity = EconomyUtils.getCommoditySpec(commodityId);
-        Price price = commodityAction.getPrice(commodityId);
-        CommodityIntel intel = new CommodityIntel(action, commodity, market, price);
+        CommodityIntel intel = new CommodityIntel(commodity, market);
         IntelUtils.add(intel, true);
         intelMap.put(key, intel);
         log.debug("Added new intel with key " + key);
     }
 
-    private String getKey(String action, String commodityId, MarketAPI market) {
-        return action + ":" + commodityId + ":" + market.getName();
+    private String getKey(String commodityId, MarketAPI market) {
+        return commodityId + ":" + market.getName();
     }
 
     private void removeIfCommodity(String key, String commodityId) {

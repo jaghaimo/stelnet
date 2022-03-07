@@ -1,4 +1,4 @@
-package stelnet.board.commodity.view;
+package stelnet.board.commodity.view.board;
 
 import java.util.Collections;
 import java.util.List;

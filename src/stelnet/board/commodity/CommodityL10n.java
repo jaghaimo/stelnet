@@ -23,6 +23,8 @@ public enum CommodityL10n {
     HEADER_SELL_LOCATION,
     HEADER_SYSTEM,
     HEADER_TRIP,
+    INTEL_BUY_AT,
+    INTEL_SELL_FOR,
     INTEL_TITLE,
     PRICE_CHANGED,
 }
