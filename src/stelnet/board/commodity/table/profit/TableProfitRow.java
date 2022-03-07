@@ -41,7 +41,7 @@ public class TableProfitRow implements Comparable, TableContentRow {
             Misc.getWithDGS(TableCellHelper.getDemand(sellMarket, sellToMarketCommodity))
         );
         // Profit
-        profit = ProfitCalculator.getPotentialProfit(buyMarket, sellMarket, commodityId);
+        profit = ProfitCalculator.calculateProfit(buyMarket, sellMarket, commodityId);
         addDGSCreditsCell(profit);
 
         addCell(buyMarket.getTextColorForFactionOrPlanet(), TableCellHelper.getLocation(buyMarket));

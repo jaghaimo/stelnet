@@ -8,7 +8,9 @@ import stelnet.util.TableCellHelper;
 
 public class ProfitCalculator {
 
-    static float getPotentialProfit(MarketAPI buyMarket, MarketAPI sellMarket, String commodityId) {
+    private static final int MINIMUM_AVAILABLE_COMMODITY = 400;
+
+    static float calculateProfit(MarketAPI buyMarket, MarketAPI sellMarket, String commodityId) {
         Price price = new SupplyPrice(commodityId);
         float buyPrice = price.getPriceAmount(buyMarket);
         float sellPrice = price.getPriceAmount(sellMarket);
@@ -22,7 +24,7 @@ public class ProfitCalculator {
         int available = TableCellHelper.getAvailable(buyFromCommodity);
         int demand = TableCellHelper.getDemand(sellMarket, sellToCommodity);
 
-        if (available < 400) {
+        if (available < MINIMUM_AVAILABLE_COMMODITY) {
             return 0;
         }
 

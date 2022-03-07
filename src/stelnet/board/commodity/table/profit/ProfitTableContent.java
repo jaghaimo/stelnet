@@ -10,6 +10,8 @@ import uilib.TableContent;
 @RequiredArgsConstructor
 public class ProfitTableContent implements TableContent {
 
+    private static final int MINIMUM_PROFIT_VALUE = 100000;
+
     private final List<MarketAPI> sellmarkets;
     private final List<MarketAPI> buyMarkets;
     private final String commodityId;
@@ -51,7 +53,7 @@ public class ProfitTableContent implements TableContent {
         List<TableProfitRow> rows = new ArrayList<>();
 
         for (MarketAPI sellMarket : sellmarkets) {
-            if (ProfitCalculator.getPotentialProfit(buyMarket, sellMarket, commodityId) <= 100000) {
+            if (ProfitCalculator.calculateProfit(buyMarket, sellMarket, commodityId) <= MINIMUM_PROFIT_VALUE) {
                 continue;
             }
 
