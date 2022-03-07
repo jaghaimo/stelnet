@@ -13,10 +13,10 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-          - name: Checkout
-            uses: actions/checkout@v2
-            with:
-              lfs: true
+            - name: Checkout
+              uses: actions/checkout@v2
+              with:
+                lfs: true
 
             - name: Install Prettier
               run: npm install
