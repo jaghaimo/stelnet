@@ -8,6 +8,7 @@ import org.lwjgl.input.Keyboard;
 import stelnet.board.commodity.CommodityAction;
 import stelnet.board.commodity.table.BuyTableContent;
 import stelnet.board.commodity.table.SellTableContent;
+import stelnet.board.commodity.table.profit.ProfitTableContent;
 import uilib.Renderable;
 import uilib.RenderableFactory;
 import uilib.TabViewContainer;
@@ -29,6 +30,7 @@ public class TabViewFactory implements RenderableFactory {
         tabViewContainer.setSize(new Size(width, height));
         addBuyTab(tabViewContainer, width);
         addSellTab(tabViewContainer, width);
+        addProfitTab(tabViewContainer, width);
         return Collections.<Renderable>singletonList(tabViewContainer);
     }
 
@@ -46,6 +48,13 @@ public class TabViewFactory implements RenderableFactory {
         tabViewContainer.addTab(tabButton, table, isActive);
     }
 
+    private void addProfitTab(TabViewContainer tabViewContainer, float width) {
+        CommodityTabButton tabButton = getTabButton(CommodityAction.PROFIT, Keyboard.KEY_P);
+        Table table = getProfitTable(width);
+        boolean isActive = isActive(CommodityAction.PROFIT);
+        tabViewContainer.addTab(tabButton, table, isActive);
+    }
+
     private Table getBuyTable(float width) {
         List<MarketAPI> markets = CommodityAction.BUY.getMarkets(commodityId);
         TableContent tableContent = new BuyTableContent(commodityId, markets);
@@ -55,6 +64,13 @@ public class TabViewFactory implements RenderableFactory {
     private Table getSellTable(float width) {
         List<MarketAPI> markets = CommodityAction.SELL.getMarkets(commodityId);
         TableContent tableContent = new SellTableContent(commodityId, markets);
+        return new Table(commodityId, width, 0, tableContent);
+    }
+
+    private Table getProfitTable(float width) {
+        List<MarketAPI> sellMarkets = CommodityAction.PROFIT.getSellMarkets(commodityId);
+        List<MarketAPI> buyMarkets = CommodityAction.PROFIT.getBuyMarkets(commodityId);
+        TableContent tableContent = new ProfitTableContent(sellMarkets, buyMarkets, commodityId);
         return new Table(commodityId, width, 0, tableContent);
     }
 
