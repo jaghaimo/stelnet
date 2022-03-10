@@ -9,9 +9,9 @@ import uilib.property.Location;
 import uilib.property.Position;
 import uilib.property.Size;
 
-public class DoubleMarketButton extends AreaCheckbox {
+public class MultiMarketButton extends AreaCheckbox {
 
-    public DoubleMarketButton(
+    public MultiMarketButton(
         int i,
         final String commodityId,
         final MarketAPI buyMarket,

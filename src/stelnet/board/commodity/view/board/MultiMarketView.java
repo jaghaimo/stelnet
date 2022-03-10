@@ -34,7 +34,7 @@ public class MultiMarketView implements RenderableFactory {
         for (int i = 0; i < numberOfButtons; i++) {
             TableProfitRow profitRow = profitRows.get(i);
             buttons.add(
-                new DoubleMarketButton(i + 1, commodityId, profitRow.getBuyMarket(), profitRow.getSellMarket(), tracker)
+                new MultiMarketButton(i + 1, commodityId, profitRow.getBuyMarket(), profitRow.getSellMarket(), tracker)
             );
         }
 
