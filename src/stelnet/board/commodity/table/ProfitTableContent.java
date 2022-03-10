@@ -41,7 +41,7 @@ public class ProfitTableContent implements TableContent {
     public List<ProfitTableRow> getRows() {
         List<ProfitTableRow> rows = createRows();
         Collections.sort(rows);
-        insertNumbers(rows);
+        injectNumbers(rows);
         return rows;
     }
 
@@ -68,7 +68,7 @@ public class ProfitTableContent implements TableContent {
         return rows;
     }
 
-    private void insertNumbers(List<ProfitTableRow> rows) {
+    private void injectNumbers(List<ProfitTableRow> rows) {
         int i = 1;
         for (ProfitTableRow row : rows) {
             row.addNumber(i++);
