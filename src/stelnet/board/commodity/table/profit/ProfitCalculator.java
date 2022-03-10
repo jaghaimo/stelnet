@@ -6,9 +6,13 @@ import stelnet.board.commodity.price.Price;
 import stelnet.board.commodity.price.SupplyPrice;
 import stelnet.util.TableCellHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProfitCalculator {
 
     private static final int MINIMUM_AVAILABLE_COMMODITY = 400;
+    private static final int MINIMUM_PROFIT_VALUE = 100000;
 
     static float calculateProfit(MarketAPI buyMarket, MarketAPI sellMarket, String commodityId) {
         Price price = new SupplyPrice(commodityId);
@@ -35,5 +39,19 @@ public class ProfitCalculator {
         float bought = buyPrice * demand;
         float sold = sellPrice * demand;
         return sold - bought;
+    }
+
+    public static List<MarketAPI> getProfitableSellMarkets(MarketAPI buyMarket, List<MarketAPI> sellmarkets, String commodityId) {
+        List<MarketAPI> rows = new ArrayList<>();
+
+        for (MarketAPI sellMarket : sellmarkets) {
+            if (ProfitCalculator.calculateProfit(buyMarket, sellMarket, commodityId) <= MINIMUM_PROFIT_VALUE) {
+                continue;
+            }
+
+            rows.add(sellMarket);
+        }
+
+        return rows;
     }
 }

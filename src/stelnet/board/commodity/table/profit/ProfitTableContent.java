@@ -10,8 +10,6 @@ import uilib.TableContent;
 @RequiredArgsConstructor
 public class ProfitTableContent implements TableContent {
 
-    private static final int MINIMUM_PROFIT_VALUE = 100000;
-
     private final List<MarketAPI> sellmarkets;
     private final List<MarketAPI> buyMarkets;
     private final String commodityId;
@@ -40,8 +38,9 @@ public class ProfitTableContent implements TableContent {
     public List<TableProfitRow> getRows() {
         List<TableProfitRow> rows = new ArrayList<>();
         for (MarketAPI buyMarket : buyMarkets) {
-            List<TableProfitRow> sellMarkets = getViableSellMarketsForBuy(buyMarket);
-            rows.addAll(sellMarkets);
+            List<MarketAPI> profitableMarketsToSellAt = ProfitCalculator.getProfitableSellMarkets(buyMarket, sellmarkets, commodityId);
+            List<TableProfitRow> sellMarketTableRows = createSellMarketRows(buyMarket, profitableMarketsToSellAt);
+            rows.addAll(sellMarketTableRows);
         }
 
         Collections.sort(rows);
@@ -49,17 +48,13 @@ public class ProfitTableContent implements TableContent {
         return rows;
     }
 
-    private List<TableProfitRow> getViableSellMarketsForBuy(MarketAPI buyMarket) {
+    private List<TableProfitRow> createSellMarketRows(MarketAPI buyMarket, List<MarketAPI> sellmarkets) {
         List<TableProfitRow> rows = new ArrayList<>();
-
         for (MarketAPI sellMarket : sellmarkets) {
-            if (ProfitCalculator.calculateProfit(buyMarket, sellMarket, commodityId) <= MINIMUM_PROFIT_VALUE) {
-                continue;
-            }
-
             TableProfitRow row = new TableProfitRow(buyMarket, sellMarket, commodityId);
             rows.add(row);
         }
+
         return rows;
     }
 }

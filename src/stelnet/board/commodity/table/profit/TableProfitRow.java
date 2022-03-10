@@ -18,9 +18,13 @@ import uilib.TableContentRow;
 public class TableProfitRow implements Comparable, TableContentRow {
 
     private List<Object> elements = new LinkedList<>();
+    private final MarketAPI buyMarket;
+    private final MarketAPI sellMarket;
     private float profit;
 
     public TableProfitRow(MarketAPI buyMarket, MarketAPI sellMarket, String commodityId) {
+        this.buyMarket = buyMarket;
+        this.sellMarket = sellMarket;
         Price price = new SupplyPrice(commodityId);
         float buyPrice = price.getPriceAmount(buyMarket);
         float sellPrice = price.getPriceAmount(sellMarket);
