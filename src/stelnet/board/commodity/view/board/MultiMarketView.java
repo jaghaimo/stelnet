@@ -1,4 +1,4 @@
-package stelnet.board.commodity.view.board.profit;
+package stelnet.board.commodity.view.board;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import java.util.Collections;
@@ -9,14 +9,13 @@ import stelnet.board.commodity.CommodityAction;
 import stelnet.board.commodity.IntelTracker;
 import stelnet.board.commodity.table.profit.ProfitTableContent;
 import stelnet.board.commodity.table.profit.TableProfitRow;
-import stelnet.board.commodity.view.board.IntelButton;
 import uilib.HorizontalViewContainer;
 import uilib.Renderable;
 import uilib.RenderableFactory;
 import uilib.property.Size;
 
 @AllArgsConstructor
-public class ProfitView implements RenderableFactory {
+public class MultiMarketView implements RenderableFactory {
 
     private final String commodityId;
     private final CommodityAction commodityAction;
@@ -35,7 +34,7 @@ public class ProfitView implements RenderableFactory {
         for (int i = 0; i < numberOfButtons; i++) {
             TableProfitRow profitRow = profitRows.get(i);
             buttons.add(
-                new ProfitIntelButton(i + 1, commodityId, profitRow.getBuyMarket(), profitRow.getSellMarket(), tracker)
+                new DoubleMarketButton(i + 1, commodityId, profitRow.getBuyMarket(), profitRow.getSellMarket(), tracker)
             );
         }
 

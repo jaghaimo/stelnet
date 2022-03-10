@@ -13,7 +13,7 @@ import uilib.RenderableFactory;
 import uilib.property.Size;
 
 @AllArgsConstructor
-public class CommodityView implements RenderableFactory {
+public class SingleMarketView implements RenderableFactory {
 
     private final String commodityId;
     private final CommodityAction commodityAction;
@@ -27,7 +27,7 @@ public class CommodityView implements RenderableFactory {
         List<Renderable> buttons = new LinkedList<>();
         for (int i = 0; i < numberOfButtons; i++) {
             MarketAPI market = markets.get(i);
-            buttons.add(new IntelButton(i + 1, commodityId, market, tracker));
+            buttons.add(new SingleMarketButton(i + 1, commodityId, market, tracker));
         }
 
         HorizontalViewContainer rows = new HorizontalViewContainer(buttons);

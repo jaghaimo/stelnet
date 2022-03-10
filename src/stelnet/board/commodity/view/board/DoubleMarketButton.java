@@ -1,4 +1,4 @@
-package stelnet.board.commodity.view.board.profit;
+package stelnet.board.commodity.view.board;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.ui.IntelUIAPI;
@@ -9,9 +9,9 @@ import uilib.property.Location;
 import uilib.property.Position;
 import uilib.property.Size;
 
-public class ProfitIntelButton extends AreaCheckbox {
+public class DoubleMarketButton extends AreaCheckbox {
 
-    public ProfitIntelButton(
+    public DoubleMarketButton(
         int i,
         final String commodityId,
         final MarketAPI buyMarket,
