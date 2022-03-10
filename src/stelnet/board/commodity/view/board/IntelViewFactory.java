@@ -1,13 +1,12 @@
 package stelnet.board.commodity.view.board;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import stelnet.board.commodity.CommodityAction;
 import stelnet.board.commodity.IntelTracker;
 import stelnet.board.commodity.view.board.profit.ProfitView;
 import uilib.Renderable;
 import uilib.property.Size;
-
-import java.util.List;
 
 @AllArgsConstructor
 public class IntelViewFactory {
@@ -23,5 +22,4 @@ public class IntelViewFactory {
             return new CommodityView(commodityId, commodityAction, tracker).create(size);
         }
     }
-
 }

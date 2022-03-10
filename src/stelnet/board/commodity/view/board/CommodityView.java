@@ -1,6 +1,9 @@
 package stelnet.board.commodity.view.board;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import stelnet.board.commodity.CommodityAction;
 import stelnet.board.commodity.IntelTracker;
@@ -9,12 +12,9 @@ import uilib.Renderable;
 import uilib.RenderableFactory;
 import uilib.property.Size;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
 @AllArgsConstructor
 public class CommodityView implements RenderableFactory {
+
     private final String commodityId;
     private final CommodityAction commodityAction;
     private final IntelTracker tracker;

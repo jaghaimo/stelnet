@@ -38,7 +38,11 @@ public class ProfitTableContent implements TableContent {
     public List<TableProfitRow> getRows() {
         List<TableProfitRow> rows = new ArrayList<>();
         for (MarketAPI buyMarket : buyMarkets) {
-            List<MarketAPI> profitableMarketsToSellAt = ProfitCalculator.getProfitableSellMarkets(buyMarket, sellmarkets, commodityId);
+            List<MarketAPI> profitableMarketsToSellAt = ProfitCalculator.getProfitableSellMarkets(
+                buyMarket,
+                sellmarkets,
+                commodityId
+            );
             List<TableProfitRow> sellMarketTableRows = createSellMarketRows(buyMarket, profitableMarketsToSellAt);
             rows.addAll(sellMarketTableRows);
         }

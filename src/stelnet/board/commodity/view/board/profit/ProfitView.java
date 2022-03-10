@@ -1,6 +1,9 @@
 package stelnet.board.commodity.view.board.profit;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import stelnet.board.commodity.CommodityAction;
 import stelnet.board.commodity.IntelTracker;
@@ -12,12 +15,9 @@ import uilib.Renderable;
 import uilib.RenderableFactory;
 import uilib.property.Size;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
 @AllArgsConstructor
 public class ProfitView implements RenderableFactory {
+
     private final String commodityId;
     private final CommodityAction commodityAction;
     private final IntelTracker tracker;
@@ -29,13 +29,14 @@ public class ProfitView implements RenderableFactory {
         ProfitTableContent tableContent = new ProfitTableContent(sellMarkets, buyMarkets, commodityId);
         List<TableProfitRow> profitRows = tableContent.getRows();
 
-
         int numberOfButtons = calcNumberOfButtons(profitRows.size(), uiSize);
 
         List<Renderable> buttons = new LinkedList<>();
         for (int i = 0; i < numberOfButtons; i++) {
             TableProfitRow profitRow = profitRows.get(i);
-            buttons.add(new ProfitIntelButton(i + 1, commodityId, profitRow.getBuyMarket(), profitRow.getSellMarket(), tracker));
+            buttons.add(
+                new ProfitIntelButton(i + 1, commodityId, profitRow.getBuyMarket(), profitRow.getSellMarket(), tracker)
+            );
         }
 
         HorizontalViewContainer rows = new HorizontalViewContainer(buttons);

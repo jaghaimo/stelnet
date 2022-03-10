@@ -2,12 +2,11 @@ package stelnet.board.commodity.table.profit;
 
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import java.util.ArrayList;
+import java.util.List;
 import stelnet.board.commodity.price.Price;
 import stelnet.board.commodity.price.SupplyPrice;
 import stelnet.util.TableCellHelper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ProfitCalculator {
 
@@ -41,7 +40,11 @@ public class ProfitCalculator {
         return sold - bought;
     }
 
-    public static List<MarketAPI> getProfitableSellMarkets(MarketAPI buyMarket, List<MarketAPI> sellmarkets, String commodityId) {
+    public static List<MarketAPI> getProfitableSellMarkets(
+        MarketAPI buyMarket,
+        List<MarketAPI> sellmarkets,
+        String commodityId
+    ) {
         List<MarketAPI> rows = new ArrayList<>();
 
         for (MarketAPI sellMarket : sellmarkets) {
