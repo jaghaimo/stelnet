@@ -7,8 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.lwjgl.input.Keyboard;
 import stelnet.board.commodity.CommodityAction;
 import stelnet.board.commodity.table.BuyTableContent;
+import stelnet.board.commodity.table.ProfitTableContent;
 import stelnet.board.commodity.table.SellTableContent;
-import stelnet.board.commodity.table.profit.ProfitTableContent;
 import uilib.Renderable;
 import uilib.RenderableFactory;
 import uilib.TabViewContainer;
@@ -35,21 +35,21 @@ public class TabViewFactory implements RenderableFactory {
     }
 
     private void addBuyTab(TabViewContainer tabViewContainer, float width) {
-        CommodityTabButton tabButton = getTabButton(CommodityAction.BUY, Keyboard.KEY_B);
+        TabViewButton tabButton = getTabButton(CommodityAction.BUY, Keyboard.KEY_B);
         Table table = getBuyTable(width);
         boolean isActive = isActive(CommodityAction.BUY);
         tabViewContainer.addTab(tabButton, table, isActive);
     }
 
     private void addSellTab(TabViewContainer tabViewContainer, float width) {
-        CommodityTabButton tabButton = getTabButton(CommodityAction.SELL, Keyboard.KEY_S);
+        TabViewButton tabButton = getTabButton(CommodityAction.SELL, Keyboard.KEY_S);
         Table table = getSellTable(width);
         boolean isActive = isActive(CommodityAction.SELL);
         tabViewContainer.addTab(tabButton, table, isActive);
     }
 
     private void addProfitTab(TabViewContainer tabViewContainer, float width) {
-        CommodityTabButton tabButton = getTabButton(CommodityAction.PROFIT, Keyboard.KEY_P);
+        TabViewButton tabButton = getTabButton(CommodityAction.PROFIT, Keyboard.KEY_P);
         Table table = getProfitTable(width);
         boolean isActive = isActive(CommodityAction.PROFIT);
         tabViewContainer.addTab(tabButton, table, isActive);
@@ -74,8 +74,8 @@ public class TabViewFactory implements RenderableFactory {
         return new Table(commodityId, width, 0, tableContent);
     }
 
-    private CommodityTabButton getTabButton(CommodityAction currentTab, int keyboardShortcut) {
-        return new CommodityTabButton(currentTab, commodityAction, keyboardShortcut);
+    private TabViewButton getTabButton(CommodityAction currentTab, int keyboardShortcut) {
+        return new TabViewButton(currentTab, commodityAction, keyboardShortcut);
     }
 
     private boolean isActive(CommodityAction currentAction) {

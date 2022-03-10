@@ -1,4 +1,4 @@
-package stelnet.board.commodity.table.profit;
+package stelnet.board.commodity.table;
 
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;

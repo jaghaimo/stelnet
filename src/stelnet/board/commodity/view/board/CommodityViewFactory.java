@@ -19,7 +19,7 @@ import uilib.property.Position;
 import uilib.property.Size;
 
 @RequiredArgsConstructor
-public class ButtonViewFactory implements RenderableFactory {
+public class CommodityViewFactory implements RenderableFactory {
 
     private final String commodityId;
 

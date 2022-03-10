@@ -7,8 +7,8 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import stelnet.board.commodity.CommodityAction;
 import stelnet.board.commodity.IntelTracker;
-import stelnet.board.commodity.table.profit.ProfitTableContent;
-import stelnet.board.commodity.table.profit.TableProfitRow;
+import stelnet.board.commodity.table.ProfitTableContent;
+import stelnet.board.commodity.table.ProfitTableRow;
 import uilib.HorizontalViewContainer;
 import uilib.Renderable;
 import uilib.RenderableFactory;
@@ -26,13 +26,13 @@ public class MultiMarketView implements RenderableFactory {
         List<MarketAPI> buyMarkets = commodityAction.getBuyMarkets(commodityId);
         List<MarketAPI> sellMarkets = commodityAction.getSellMarkets(commodityId);
         ProfitTableContent tableContent = new ProfitTableContent(sellMarkets, buyMarkets, commodityId);
-        List<TableProfitRow> profitRows = tableContent.getRows();
+        List<ProfitTableRow> profitRows = tableContent.getRows();
 
         int numberOfButtons = calcNumberOfButtons(profitRows.size(), uiSize);
 
         List<Renderable> buttons = new LinkedList<>();
         for (int i = 0; i < numberOfButtons; i++) {
-            TableProfitRow profitRow = profitRows.get(i);
+            ProfitTableRow profitRow = profitRows.get(i);
             buttons.add(
                 new MultiMarketButton(i + 1, commodityId, profitRow.getBuyMarket(), profitRow.getSellMarket(), tracker)
             );

@@ -3,7 +3,7 @@ package stelnet.board.commodity;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import stelnet.board.commodity.view.board.ButtonViewFactory;
+import stelnet.board.commodity.view.board.CommodityViewFactory;
 import stelnet.board.commodity.view.board.DeleteViewFactory;
 import stelnet.board.commodity.view.board.TabViewFactory;
 import uilib.Renderable;
@@ -22,7 +22,7 @@ public class CommodityView implements RenderableFactory {
         List<Renderable> elements = new LinkedList<>();
         elements.addAll(new TabViewFactory(commodityId, activeTab).create(size));
         elements.addAll(activeTab.getFactory(commodityId, intelTracker).create(size));
-        elements.addAll(new ButtonViewFactory(commodityId).create(size));
+        elements.addAll(new CommodityViewFactory(commodityId).create(size));
         elements.addAll(new DeleteViewFactory(commodityId).create(size));
         return elements;
     }

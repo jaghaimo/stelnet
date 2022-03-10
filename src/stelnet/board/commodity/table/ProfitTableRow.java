@@ -1,4 +1,4 @@
-package stelnet.board.commodity.table.profit;
+package stelnet.board.commodity.table;
 
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
@@ -15,14 +15,14 @@ import stelnet.util.TableCellHelper;
 import uilib.TableContentRow;
 
 @Getter
-public class TableProfitRow implements Comparable, TableContentRow {
+public class ProfitTableRow implements Comparable<ProfitTableRow>, TableContentRow {
 
     private List<Object> elements = new LinkedList<>();
     private final MarketAPI buyMarket;
     private final MarketAPI sellMarket;
     private float profit;
 
-    public TableProfitRow(MarketAPI buyMarket, MarketAPI sellMarket, String commodityId) {
+    public ProfitTableRow(MarketAPI buyMarket, MarketAPI sellMarket, String commodityId) {
         this.buyMarket = buyMarket;
         this.sellMarket = sellMarket;
         Price price = new SupplyPrice(commodityId);
@@ -75,14 +75,20 @@ public class TableProfitRow implements Comparable, TableContentRow {
         elements.add(element.toString());
     }
 
+    public void addNumber(int number) {
+        elements.add(0, String.valueOf(number));
+        elements.add(0, Misc.getGrayColor());
+        elements.add(0, Alignment.MID);
+    }
+
     @Override
     public Object[] buildObjectArray() {
         return elements.toArray();
     }
 
     @Override
-    public int compareTo(Object o) {
-        return compare(profit, ((TableProfitRow) o).getProfit());
+    public int compareTo(ProfitTableRow o) {
+        return compare(profit, o.getProfit());
     }
 
     private int compare(float o1, float o2) {
