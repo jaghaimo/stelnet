@@ -61,3 +61,7 @@ This mod can be added to an existing save - just enable it in the mod list and l
 
 This mod can be removed from an existing save - edit `stelnet.json` and set `uninstallMod` to `true`.
 Then load the save, save the game, quit the game, and finally disable this mod in the mod list.
+
+## Integration with Other Mods
+
+See various CSV files in [data/stelnet](assets/data/stelnet/) directory.
