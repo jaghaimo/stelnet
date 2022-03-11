@@ -80,11 +80,11 @@ public class CommodityIntel extends BaseIntel {
     }
 
     public float getDemandPrice() {
-        return (new DemandPrice(commodity.getId())).getPriceAmount(market);
+        return (new DemandPrice(commodity.getId())).getUnitPrice(market);
     }
 
     public float getSupplyPrice() {
-        return (new SupplyPrice(commodity.getId())).getPriceAmount(market);
+        return (new SupplyPrice(commodity.getId())).getUnitPrice(market);
     }
 
     public String getTitle() {

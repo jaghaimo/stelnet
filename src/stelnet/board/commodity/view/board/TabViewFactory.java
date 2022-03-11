@@ -25,7 +25,10 @@ public class TabViewFactory implements RenderableFactory {
     @Override
     public List<Renderable> create(Size size) {
         float width = size.getWidth() - 210;
-        float height = size.getHeight() - 24;
+        float height = size.getHeight();
+        if (!isActive(CommodityAction.PROFIT)) {
+            height -= 24;
+        }
         TabViewContainer tabViewContainer = new TabViewContainer();
         tabViewContainer.setSize(new Size(width, height));
         addBuyTab(tabViewContainer, width);

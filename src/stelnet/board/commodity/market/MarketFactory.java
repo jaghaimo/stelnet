@@ -29,8 +29,8 @@ public abstract class MarketFactory {
             new Comparator<MarketAPI>() {
                 @Override
                 public int compare(MarketAPI marketA, MarketAPI marketB) {
-                    float priceA = getPriceAmount(marketA);
-                    float priceB = getPriceAmount(marketB);
+                    float priceA = getUnitPrice(marketA);
+                    float priceB = getUnitPrice(marketB);
                     return (int) Math.signum(priceB - priceA);
                 }
             }
@@ -39,7 +39,7 @@ public abstract class MarketFactory {
 
     protected abstract Price getPrice();
 
-    protected abstract float getPriceAmount(MarketAPI market);
+    protected abstract float getUnitPrice(MarketAPI market);
 
     protected abstract void filterMarkets(List<MarketAPI> markets);
 }

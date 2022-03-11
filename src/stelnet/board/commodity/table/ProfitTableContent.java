@@ -11,6 +11,8 @@ import uilib.TableContent;
 @RequiredArgsConstructor
 public class ProfitTableContent implements TableContent {
 
+    private static final int MAX_ROWS = 99;
+
     private final List<MarketAPI> sellMarkets;
     private final List<MarketAPI> buyMarkets;
     private final String commodityId;
@@ -20,19 +22,17 @@ public class ProfitTableContent implements TableContent {
         return new Object[] {
             "#",
             .05f * width,
-            "Buy Price",
-            .1f * width,
-            "Sell Price",
-            .1f * width,
-            "Avail. / Demand",
-            .15f * width,
             "Profit",
-            .1f * width,
+            .17f * width,
+            "Buy Price",
+            .14f * width,
+            "Sell Price",
+            .14f * width,
             "Buy Location",
             .2f * width,
             "Sell Location",
             .2f * width,
-            "Total Dist (ly)",
+            "Dist (ly)",
             .1f * width,
         };
     }
@@ -42,7 +42,8 @@ public class ProfitTableContent implements TableContent {
         List<ProfitTableRow> rows = createRows();
         Collections.sort(rows);
         injectNumbers(rows);
-        return rows;
+        int limit = Math.min(MAX_ROWS, rows.size());
+        return rows.subList(0, limit);
     }
 
     private List<ProfitTableRow> createRows() {

@@ -24,7 +24,7 @@ public class SellTableContent extends MarketTableContent {
         CommodityOnMarketAPI commodityData = getCommodityData(market);
         int demand = TableCellHelper.getDemand(market, commodityData);
         int deficit = -commodityData.getDeficitQuantity();
-        float sellPrice = price.getPriceAmount(market);
+        float sellPrice = price.getUnitPrice(market);
         return new TableRow(i, sellPrice, market, demand, deficit);
     }
 }

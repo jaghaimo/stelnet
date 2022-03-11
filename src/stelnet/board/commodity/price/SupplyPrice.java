@@ -14,12 +14,12 @@ public class SupplyPrice implements Price {
     }
 
     @Override
-    public float getPriceAmount(MarketAPI market) {
+    public float getUnitPrice(MarketAPI market) {
         return market.getSupplyPrice(commodityId, econUnit, true) / econUnit;
     }
 
     @Override
-    public float getPriceAmount(MarketAPI market, int quantity) {
+    public float getTotalPrice(MarketAPI market, int quantity) {
         return market.getSupplyPrice(commodityId, quantity, true);
     }
 }

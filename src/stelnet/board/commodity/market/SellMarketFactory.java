@@ -23,7 +23,7 @@ public class SellMarketFactory extends MarketFactory {
     }
 
     @Override
-    protected float getPriceAmount(MarketAPI market) {
-        return price.getPriceAmount(market);
+    protected float getUnitPrice(MarketAPI market) {
+        return price.getUnitPrice(market);
     }
 }

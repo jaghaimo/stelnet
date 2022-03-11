@@ -8,7 +8,7 @@ import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.Getter;
-import stelnet.board.commodity.price.Price;
+import stelnet.board.commodity.price.DemandPrice;
 import stelnet.board.commodity.price.SupplyPrice;
 import stelnet.util.StringUtils;
 import stelnet.util.TableCellHelper;
@@ -25,48 +25,22 @@ public class ProfitTableRow implements Comparable<ProfitTableRow>, TableContentR
     public ProfitTableRow(MarketAPI buyMarket, MarketAPI sellMarket, String commodityId) {
         this.buyMarket = buyMarket;
         this.sellMarket = sellMarket;
-        Price price = new SupplyPrice(commodityId);
-        float buyPrice = price.getPriceAmount(buyMarket);
-        float sellPrice = price.getPriceAmount(sellMarket);
-        CommodityOnMarketAPI sellToMarketCommodity = sellMarket.getCommodityData(commodityId);
+        this.profit = ProfitCalculator.calculateProfit(buyMarket, sellMarket, commodityId);
+        float buyPrice = new SupplyPrice(commodityId).getUnitPrice(buyMarket);
+        float sellPrice = new DemandPrice(commodityId).getUnitPrice(sellMarket);
         CommodityOnMarketAPI buyFromCommodity = buyMarket.getCommodityData(commodityId);
+        CommodityOnMarketAPI sellToMarketCommodity = sellMarket.getCommodityData(commodityId);
+        int available = TableCellHelper.getAvailable(buyFromCommodity);
+        int demand = TableCellHelper.getDemand(sellMarket, sellToMarketCommodity);
+        int quantity = Math.min(available, demand);
+        Color rowColor = getRowColor();
 
-        // Buy Price
-        addCell(Misc.getHighlightColor(), Misc.getDGSCredits(buyPrice));
-
-        // Sell Price
-        addCell(Misc.getHighlightColor(), Misc.getDGSCredits(sellPrice));
-
-        // Available / Demand
-        addCell(
-            Misc.getHighlightColor(),
-            Misc.getWithDGS(TableCellHelper.getAvailable(buyFromCommodity)) +
-            " / " +
-            Misc.getWithDGS(TableCellHelper.getDemand(sellMarket, sellToMarketCommodity))
-        );
-        // Profit
-        profit = ProfitCalculator.calculateProfit(buyMarket, sellMarket, commodityId);
-        addDGSCreditsCell(profit);
-
+        addCell(Misc.getTextColor(), Misc.getDGSCredits(profit) + "  (" + Misc.getWithDGS(quantity) + ")");
+        addCell(rowColor, Misc.getDGSCredits(buyPrice) + "  (" + Misc.getWithDGS(available) + ")");
+        addCell(rowColor, Misc.getDGSCredits(sellPrice) + "  (" + Misc.getWithDGS(demand) + ")");
         addCell(buyMarket.getTextColorForFactionOrPlanet(), TableCellHelper.getLocation(buyMarket));
         addCell(sellMarket.getTextColorForFactionOrPlanet(), TableCellHelper.getLocation(sellMarket));
-
-        String buySystemName = StringUtils.getStarSystem(buyMarket, true);
-        String sellSystemName = StringUtils.getStarSystem(sellMarket, true);
-
-        Color buySystemColor = Misc.getGrayColor();
-        if (buySystemName.equals(sellSystemName)) {
-            buySystemColor = Misc.getHighlightColor();
-        }
-
-        float playerToBuy = Misc.getDistanceToPlayerLY(buyMarket.getPrimaryEntity());
-        float buyToSell = Misc.getDistanceLY(buyMarket.getPrimaryEntity(), sellMarket.getPrimaryEntity());
-
-        addCell(buySystemColor, String.format("%.1f", playerToBuy + buyToSell));
-    }
-
-    private void addDGSCreditsCell(float value) {
-        addCell(Misc.getTextColor(), Misc.getDGSCredits(value));
+        addCell(rowColor, String.format("%.1f", getDistance()));
     }
 
     private void addCell(Color color, Object element) {
@@ -76,7 +50,7 @@ public class ProfitTableRow implements Comparable<ProfitTableRow>, TableContentR
     }
 
     public void addNumber(int number) {
-        elements.add(0, String.valueOf(number));
+        elements.add(0, number + ".");
         elements.add(0, Misc.getGrayColor());
         elements.add(0, Alignment.MID);
     }
@@ -93,5 +67,20 @@ public class ProfitTableRow implements Comparable<ProfitTableRow>, TableContentR
 
     private int compare(float o1, float o2) {
         return (int) (o2 - o1);
+    }
+
+    private float getDistance() {
+        float playerToBuy = Misc.getDistanceToPlayerLY(buyMarket.getPrimaryEntity());
+        float buyToSell = Misc.getDistanceLY(buyMarket.getPrimaryEntity(), sellMarket.getPrimaryEntity());
+        return playerToBuy + buyToSell;
+    }
+
+    public Color getRowColor() {
+        String buySystemName = StringUtils.getStarSystem(buyMarket, true);
+        String sellSystemName = StringUtils.getStarSystem(sellMarket, true);
+        if (buySystemName.equals(sellSystemName)) {
+            return Misc.getHighlightColor();
+        }
+        return Misc.getGrayColor();
     }
 }

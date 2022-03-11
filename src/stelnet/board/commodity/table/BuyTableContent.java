@@ -24,7 +24,7 @@ public class BuyTableContent extends MarketTableContent {
         CommodityOnMarketAPI commodityData = getCommodityData(market);
         int available = TableCellHelper.getAvailable(commodityData);
         int excess = commodityData.getExcessQuantity();
-        float buyPrice = price.getPriceAmount(market);
+        float buyPrice = price.getUnitPrice(market);
         return new TableRow(i, buyPrice, market, available, excess);
     }
 }
