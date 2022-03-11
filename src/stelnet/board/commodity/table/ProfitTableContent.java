@@ -1,7 +1,6 @@
 package stelnet.board.commodity.table;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,9 +8,10 @@ import lombok.RequiredArgsConstructor;
 import uilib.TableContent;
 
 @RequiredArgsConstructor
-public class ProfitTableContent implements TableContent {
+public class ProfitTableContent extends ProfitCalculator implements TableContent {
 
     private static final int MAX_ROWS = 99;
+    private static final int MINIMUM_PROFIT_VALUE = 10000;
 
     private final List<MarketAPI> sellMarkets;
     private final List<MarketAPI> buyMarkets;
@@ -49,11 +49,7 @@ public class ProfitTableContent implements TableContent {
     private List<ProfitTableRow> createRows() {
         List<ProfitTableRow> rows = new LinkedList<>();
         for (MarketAPI buyMarket : buyMarkets) {
-            List<MarketAPI> profitableMarketsToSellAt = ProfitCalculator.getProfitableSellMarkets(
-                buyMarket,
-                sellMarkets,
-                commodityId
-            );
+            List<MarketAPI> profitableMarketsToSellAt = getProfitableSellMarkets(buyMarket, sellMarkets, commodityId);
             List<ProfitTableRow> sellMarketTableRows = createSellMarketRows(buyMarket, profitableMarketsToSellAt);
             rows.addAll(sellMarketTableRows);
         }
@@ -61,7 +57,7 @@ public class ProfitTableContent implements TableContent {
     }
 
     private List<ProfitTableRow> createSellMarketRows(MarketAPI buyMarket, List<MarketAPI> sellMarkets) {
-        List<ProfitTableRow> rows = new ArrayList<>();
+        List<ProfitTableRow> rows = new LinkedList<>();
         for (MarketAPI sellMarket : sellMarkets) {
             ProfitTableRow row = new ProfitTableRow(buyMarket, sellMarket, commodityId);
             rows.add(row);
@@ -74,5 +70,19 @@ public class ProfitTableContent implements TableContent {
         for (ProfitTableRow row : rows) {
             row.addNumber(i++);
         }
+    }
+
+    private List<MarketAPI> getProfitableSellMarkets(
+        MarketAPI buyMarket,
+        List<MarketAPI> sellMarkets,
+        String commodityId
+    ) {
+        List<MarketAPI> rows = new LinkedList<>();
+        for (MarketAPI sellMarket : sellMarkets) {
+            if (calculateProfit(buyMarket, sellMarket, commodityId) >= MINIMUM_PROFIT_VALUE) {
+                rows.add(sellMarket);
+            }
+        }
+        return rows;
     }
 }

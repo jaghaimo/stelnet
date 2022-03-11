@@ -15,7 +15,7 @@ import stelnet.util.TableCellHelper;
 import uilib.TableContentRow;
 
 @Getter
-public class ProfitTableRow implements Comparable<ProfitTableRow>, TableContentRow {
+public class ProfitTableRow extends ProfitCalculator implements Comparable<ProfitTableRow>, TableContentRow {
 
     private List<Object> elements = new LinkedList<>();
     private final MarketAPI buyMarket;
@@ -25,7 +25,7 @@ public class ProfitTableRow implements Comparable<ProfitTableRow>, TableContentR
     public ProfitTableRow(MarketAPI buyMarket, MarketAPI sellMarket, String commodityId) {
         this.buyMarket = buyMarket;
         this.sellMarket = sellMarket;
-        this.profit = ProfitCalculator.calculateProfit(buyMarket, sellMarket, commodityId);
+        this.profit = calculateProfit(buyMarket, sellMarket, commodityId);
         float buyPrice = new SupplyPrice(commodityId).getUnitPrice(buyMarket);
         float sellPrice = new DemandPrice(commodityId).getUnitPrice(sellMarket);
         CommodityOnMarketAPI buyFromCommodity = buyMarket.getCommodityData(commodityId);
