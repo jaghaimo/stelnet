@@ -21,9 +21,4 @@ public class SellMarketFactory extends MarketFactory {
     protected void filterMarkets(List<MarketAPI> markets) {
         CollectionUtils.reduce(markets, new MarketCommodityDemand(commodityId));
     }
-
-    @Override
-    protected float getUnitPrice(MarketAPI market) {
-        return price.getUnitPrice(market);
-    }
 }
