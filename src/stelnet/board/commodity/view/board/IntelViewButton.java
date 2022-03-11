@@ -9,9 +9,9 @@ import uilib.property.Location;
 import uilib.property.Position;
 import uilib.property.Size;
 
-public class IntelMarketButton extends AreaCheckbox {
+public class IntelViewButton extends AreaCheckbox {
 
-    public IntelMarketButton(int i, final String commodityId, final MarketAPI market, final IntelTracker tracker) {
+    public IntelViewButton(int i, final String commodityId, final MarketAPI market, final IntelTracker tracker) {
         super(new Size(28f, 24f), String.valueOf(i), true, tracker.has(commodityId, market));
         setLocation(Location.BOTTOM_LEFT);
         setOffset(new Position(0, 1));
