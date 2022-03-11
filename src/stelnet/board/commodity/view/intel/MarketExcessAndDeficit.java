@@ -46,6 +46,9 @@ public class MarketExcessAndDeficit extends RenderableComponent {
     }
 
     private void addToList(List<CargoStackAPI> list, CommodityOnMarketAPI commodityOnMarket, float quantity) {
+        if (commodityOnMarket.isNonEcon() || commodityOnMarket.isMeta()) {
+            return;
+        }
         quantity = Math.min(quantity, 9999);
         if (quantity < 1) {
             return;
