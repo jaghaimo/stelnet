@@ -18,7 +18,7 @@ public abstract class MarketTableContent implements TableContent {
     protected final String commodityId;
     protected final List<MarketAPI> markets;
     protected final Price price;
-    protected List<TableRow> rows = new LinkedList<>();
+    protected List<MarketTableRow> rows = new LinkedList<>();
 
     protected Object[] getHeader(float width, Enum<?> availableOrDemand, Enum<?> excessOrDeficit) {
         Object header[] = {
@@ -44,7 +44,7 @@ public abstract class MarketTableContent implements TableContent {
         rows.clear();
         int i = 1;
         for (MarketAPI market : markets) {
-            TableRow row = createRowData(i++, market);
+            MarketTableRow row = createRowData(i++, market);
             rows.add(row);
         }
     }
@@ -53,5 +53,5 @@ public abstract class MarketTableContent implements TableContent {
         return market.getCommodityData(commodityId);
     }
 
-    protected abstract TableRow createRowData(int i, MarketAPI market);
+    protected abstract MarketTableRow createRowData(int i, MarketAPI market);
 }

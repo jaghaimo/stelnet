@@ -20,11 +20,11 @@ public class SellTableContent extends MarketTableContent {
     }
 
     @Override
-    protected TableRow createRowData(int i, MarketAPI market) {
+    protected MarketTableRow createRowData(int i, MarketAPI market) {
         CommodityOnMarketAPI commodityData = getCommodityData(market);
         int demand = TableCellHelper.getDemand(market, commodityData);
         int deficit = -commodityData.getDeficitQuantity();
         float sellPrice = price.getUnitPrice(market);
-        return new TableRow(i, sellPrice, market, demand, deficit);
+        return new MarketTableRow(i, sellPrice, market, demand, deficit);
     }
 }

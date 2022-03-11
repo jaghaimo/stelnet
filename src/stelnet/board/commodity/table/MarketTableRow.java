@@ -10,11 +10,11 @@ import stelnet.util.StringUtils;
 import stelnet.util.TableCellHelper;
 import uilib.TableContentRow;
 
-public class TableRow implements TableContentRow {
+public class MarketTableRow implements TableContentRow {
 
     private List<Object> elements = new LinkedList<>();
 
-    public TableRow(int i, float price, MarketAPI market, int demandOrAvailability, int excessOrDeficit) {
+    public MarketTableRow(int i, float price, MarketAPI market, int demandOrAvailability, int excessOrDeficit) {
         String starSystemName = StringUtils.getStarSystem(market);
         addRowNumberCell(i);
         addDGSCreditsCell(price);

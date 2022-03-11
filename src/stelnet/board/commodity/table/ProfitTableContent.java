@@ -5,12 +5,14 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import stelnet.board.commodity.CommodityL10n;
+import stelnet.util.L10n;
 import uilib.TableContent;
 
 @RequiredArgsConstructor
 public class ProfitTableContent extends ProfitCalculator implements TableContent {
 
-    private static final int MAX_ROWS = 99;
+    private static final int MAX_ROWS = 50;
     private static final int MINIMUM_PROFIT_VALUE = 10000;
 
     private final List<MarketAPI> sellMarkets;
@@ -22,17 +24,17 @@ public class ProfitTableContent extends ProfitCalculator implements TableContent
         return new Object[] {
             "#",
             .05f * width,
-            "Profit",
+            L10n.get(CommodityL10n.HEADER_PROFIT),
             .17f * width,
-            "Buy Price",
-            .14f * width,
-            "Sell Price",
-            .14f * width,
-            "Buy Location",
-            .2f * width,
-            "Sell Location",
-            .2f * width,
-            "Dist (ly)",
+            L10n.get(CommodityL10n.HEADER_BUY_LOCATION),
+            .22f * width,
+            L10n.get(CommodityL10n.HEADER_BUY_EXPENSE),
+            .12f * width,
+            L10n.get(CommodityL10n.HEADER_BUY_LOCATION),
+            .22f * width,
+            L10n.get(CommodityL10n.HEADER_SELL_REVENUE),
+            .12f * width,
+            L10n.get(CommodityL10n.HEADER_TRIP),
             .1f * width,
         };
     }

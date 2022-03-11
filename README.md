@@ -23,8 +23,12 @@ Commodity board (formerly [Galactic Markets](https://fractalsoftworks.com/forum/
 #### Profit
 
 Commodity board also hosts a Profit tab which can be used to find viable trade routes.
-Filters by most profitable routes in descending order and displays routes where profit margin is at least 10000 credits.
-Highlights rows when buy and sell markets are in the same system.
+Filters by most profitable routes in descending order and displays routes where:
+
+-   profit margin is at least 10000 credits, and
+-   trade volume is at least 1000.
+
+Highlights rows when buy and sell markets are in the same system and caps results to first 50.
 
 ![Profit](images/profit.png?raw=1)
 
