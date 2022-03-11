@@ -30,7 +30,7 @@ public class ProfitTableContent extends ProfitCalculator implements TableContent
             .22f * width,
             L10n.get(CommodityL10n.HEADER_BUY_EXPENSE),
             .12f * width,
-            L10n.get(CommodityL10n.HEADER_BUY_LOCATION),
+            L10n.get(CommodityL10n.HEADER_SELL_LOCATION),
             .22f * width,
             L10n.get(CommodityL10n.HEADER_SELL_REVENUE),
             .12f * width,
