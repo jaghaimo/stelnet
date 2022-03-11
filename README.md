@@ -21,9 +21,13 @@ Commodity board (formerly [Galactic Markets](https://fractalsoftworks.com/forum/
 ![Commodity](images/commodity.png?raw=1)
 
 #### Profit
-Commodity board also hosts a Profit tab which can be used to find viable trade routes. Filters by most profitable routes in descending order and displays only routes where potential profit margin is over 100000 credits. When the route is within the same system, highlights the sector total distance colour in yellow.
+
+Commodity board also hosts a Profit tab which can be used to find viable trade routes.
+Filters by most profitable routes in descending order and displays routes where profit margin is at least 10000 credits.
+Highlights rows when buy and sell markets are in the same system.
 
 ![Profit](images/profit.png?raw=1)
+
 ### Market
 
 Queries board (formerly [Hyperspace Networks](https://fractalsoftworks.com/forum/index.php?topic=19252)) manages market searches.
