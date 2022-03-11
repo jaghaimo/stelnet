@@ -1,6 +1,5 @@
 package stelnet.board.commodity.table;
 
-import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
@@ -8,32 +7,36 @@ import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import stelnet.board.commodity.price.DemandPrice;
 import stelnet.board.commodity.price.SupplyPrice;
 import stelnet.util.StringUtils;
 import stelnet.util.TableCellHelper;
 import uilib.TableContentRow;
 
-@Getter
+@RequiredArgsConstructor
 public class ProfitTableRow extends ProfitCalculator implements Comparable<ProfitTableRow>, TableContentRow {
 
-    private List<Object> elements = new LinkedList<>();
+    private final List<Object> elements = new LinkedList<>();
     private final MarketAPI buyMarket;
     private final MarketAPI sellMarket;
+
+    @Getter
     private float profit;
 
     public ProfitTableRow(MarketAPI buyMarket, MarketAPI sellMarket, String commodityId) {
-        this.buyMarket = buyMarket;
-        this.sellMarket = sellMarket;
-        this.profit = calculateProfit(buyMarket, sellMarket, commodityId);
+        this(buyMarket, sellMarket);
+        profit = calculateProfit(buyMarket, sellMarket, commodityId);
+        addAllCells(commodityId);
+    }
 
-        int available = getAvailable(commodityId);
-        int demand = getDemand(commodityId);
+    private void addAllCells(String commodityId) {
+        int available = getAvailable(buyMarket, commodityId);
+        int demand = getDemand(sellMarket, commodityId);
         int quantity = Math.min(available, demand);
         float buyPrice = new SupplyPrice(commodityId).getTotalPrice(buyMarket, quantity);
         float sellPrice = new DemandPrice(commodityId).getTotalPrice(sellMarket, quantity);
         Color rowColor = getRowColor(Misc.getTextColor());
-
         addCell(rowColor, Misc.getDGSCredits(profit) + "  (" + Misc.getWithDGS(quantity) + ")");
         addCell(buyMarket.getTextColorForFactionOrPlanet(), TableCellHelper.getLocation(buyMarket));
         addCell(rowColor, Misc.getDGSCredits(buyPrice));
@@ -66,16 +69,6 @@ public class ProfitTableRow extends ProfitCalculator implements Comparable<Profi
 
     private int compare(float o1, float o2) {
         return (int) (o2 - o1);
-    }
-
-    private int getAvailable(String commodityId) {
-        CommodityOnMarketAPI buyFromCommodity = buyMarket.getCommodityData(commodityId);
-        return TableCellHelper.getAvailable(buyFromCommodity);
-    }
-
-    private int getDemand(String commodityId) {
-        CommodityOnMarketAPI sellToMarketCommodity = sellMarket.getCommodityData(commodityId);
-        return TableCellHelper.getDemand(sellMarket, sellToMarketCommodity);
     }
 
     private float getDistance() {

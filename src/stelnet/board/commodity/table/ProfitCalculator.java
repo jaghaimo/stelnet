@@ -7,9 +7,9 @@ import stelnet.board.commodity.price.Price;
 import stelnet.board.commodity.price.SupplyPrice;
 import stelnet.util.TableCellHelper;
 
-public class ProfitCalculator {
+public abstract class ProfitCalculator {
 
-    private static final int MINIMUM_AVAILABLE_COMMODITY = 1000;
+    private static final int MINIMUM_QUANTITY = 1000;
 
     protected float calculateProfit(MarketAPI buyMarket, MarketAPI sellMarket, String commodityId) {
         Price supplyPrice = new SupplyPrice(commodityId);
@@ -20,19 +20,26 @@ public class ProfitCalculator {
             return 0;
         }
 
-        CommodityOnMarketAPI buyFromCommodity = buyMarket.getCommodityData(commodityId);
-        CommodityOnMarketAPI sellToCommodity = sellMarket.getCommodityData(commodityId);
-
-        int available = TableCellHelper.getAvailable(buyFromCommodity);
-        int demand = TableCellHelper.getDemand(sellMarket, sellToCommodity);
+        int available = getAvailable(buyMarket, commodityId);
+        int demand = getDemand(sellMarket, commodityId);
         int quantity = Math.min(available, demand);
 
-        if (quantity < MINIMUM_AVAILABLE_COMMODITY) {
+        if (quantity < MINIMUM_QUANTITY) {
             return 0;
         }
 
         float bought = supplyPrice.getTotalPrice(buyMarket, quantity);
         float sold = demandPrice.getTotalPrice(sellMarket, quantity);
         return sold - bought;
+    }
+
+    protected int getAvailable(MarketAPI buyMarket, String commodityId) {
+        CommodityOnMarketAPI buyFromCommodity = buyMarket.getCommodityData(commodityId);
+        return TableCellHelper.getAvailable(buyFromCommodity);
+    }
+
+    protected int getDemand(MarketAPI sellMarket, String commodityId) {
+        CommodityOnMarketAPI sellToMarketCommodity = sellMarket.getCommodityData(commodityId);
+        return TableCellHelper.getDemand(sellMarket, sellToMarketCommodity);
     }
 }
