@@ -1,5 +1,7 @@
 package stelnet.board.commodity.view.intel;
 
+import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.CargoAPI.CargoItemType;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
@@ -7,7 +9,6 @@ import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import stelnet.util.FactoryUtils;
 import uilib.RenderableComponent;
 import uilib.ShowCargo;
 import uilib.property.Size;
@@ -55,7 +56,9 @@ public class MarketExcessAndDeficit extends RenderableComponent {
         }
         float addedQuantity = 0;
         while (addedQuantity < quantity) {
-            CargoStackAPI stack = FactoryUtils.createCommodityItem(commodityOnMarket.getId());
+            CargoStackAPI stack = Global
+                .getFactory()
+                .createCargoStack(CargoItemType.RESOURCES, commodityOnMarket.getId(), null);
             float desiredSize = Math.min(quantity - addedQuantity, stack.getMaxSize());
             stack.setSize(desiredSize);
             list.add(stack);

@@ -1,9 +1,11 @@
 package stelnet.board.query.provider;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
+import com.fs.starfarer.api.fleet.FleetMemberType;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
 import java.util.Collections;
 import java.util.HashSet;
@@ -19,7 +21,6 @@ import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.EconomyUtils;
 import stelnet.util.Excluder;
-import stelnet.util.FactoryUtils;
 import stelnet.util.L10n;
 import stelnet.util.SettingsUtils;
 import uilib.RenderableShowComponent;
@@ -152,6 +153,6 @@ public class ShipProvider extends QueryProvider {
     }
 
     private FleetMemberAPI makeFleetMember(String hullId) {
-        return FactoryUtils.createFleetMember(hullId + SUFFIX);
+        return Global.getFactory().createFleetMember(FleetMemberType.SHIP, hullId + SUFFIX);
     }
 }

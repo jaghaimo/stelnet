@@ -8,7 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 @Log4j
-public class Reader {
+public abstract class Reader {
 
     protected static List<String> getStrings(String path) {
         List<String> strings = new LinkedList<>();

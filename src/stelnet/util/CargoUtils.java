@@ -20,12 +20,8 @@ public class CargoUtils {
         return fleet.size();
     }
 
-    public static CargoAPI createCargo(boolean unlimitedStacks) {
-        return Global.getFactory().createCargo(unlimitedStacks);
-    }
-
     public static CargoAPI makeCargoFromStacks(List<CargoStackAPI> cargoStacks) {
-        CargoAPI cargo = createCargo(true);
+        CargoAPI cargo = Global.getFactory().createCargo(true);
         for (CargoStackAPI cargoStack : cargoStacks) {
             cargo.addFromStack(cargoStack);
         }
