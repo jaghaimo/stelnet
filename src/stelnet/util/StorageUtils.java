@@ -63,7 +63,7 @@ public class StorageUtils {
                 availableStorages.add(storage);
             }
         }
-        addDerelictStations(availableStorages);
+        addAbandonedStations(availableStorages);
         return availableStorages;
     }
 
@@ -83,13 +83,8 @@ public class StorageUtils {
         return availableStorages;
     }
 
-    private static void addDerelictStations(List<SubmarketAPI> submarkets) {
-        String[] stations = new String[] {
-            "corvus_abandoned_station",
-            "yma_abandoned_station",
-            "mairaath_abandoned_station1",
-        };
-        for (String station : stations) {
+    private static void addAbandonedStations(List<SubmarketAPI> submarkets) {
+        for (String station : Includer.getAbandonedStations()) {
             SubmarketAPI submarket = getStorage(station);
             if (submarket != null) {
                 submarkets.add(submarket);

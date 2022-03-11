@@ -1,14 +1,10 @@
 package stelnet.util;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import lombok.extern.log4j.Log4j;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import stelnet.filter.AnyHasId;
 import stelnet.filter.AnyHasTag;
 import stelnet.filter.Filter;
@@ -21,13 +17,12 @@ import stelnet.filter.MarketIsInSystem;
 /**
  * Provides access to user/mod exclusions in the form of a relevant filter objects.
  */
-@Log4j
-public class Excluder {
+public class Excluder extends Reader {
 
-    private static final String MARKET_BY_FACTION = "exclude/market_by_faction.csv";
-    private static final String MARKET_BY_ID = "exclude/market_by_id.csv";
-    private static final String MARKET_BY_SYSTEM = "exclude/market_by_system.csv";
-    private static final String MARKET_BY_TAG = "exclude/market_by_tag.csv";
+    private static final String MARKET_BY_FACTION = "data/stelnet/exclude/market_by_faction.csv";
+    private static final String MARKET_BY_ID = "data/stelnet/exclude/market_by_id.csv";
+    private static final String MARKET_BY_SYSTEM = "data/stelnet/exclude/market_by_system.csv";
+    private static final String MARKET_BY_TAG = "data/stelnet/exclude/market_by_tag.csv";
 
     private static transient List<Filter> filters;
 
@@ -114,19 +109,5 @@ public class Excluder {
             filters.add(new AnyHasTag(tag));
         }
         return filters;
-    }
-
-    private static List<String> getStrings(String path) {
-        List<String> strings = new ArrayList<>();
-        try {
-            JSONArray config = Global.getSettings().getMergedSpreadsheetDataForMod("id", path, ModConstants.STELNET);
-            for (int i = 0; i < config.length(); i++) {
-                JSONObject row = config.getJSONObject(i);
-                strings.add(row.getString("id"));
-            }
-        } catch (Throwable throwable) {
-            log.warn("Skipping invalid file " + path, throwable);
-        }
-        return strings;
     }
 }
