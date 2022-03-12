@@ -10,11 +10,6 @@ import java.awt.Color;
 
 public class TableCellHelper {
 
-    public static int getAvailable(MarketAPI buyMarket, String commodityId) {
-        CommodityOnMarketAPI buyFromCommodity = buyMarket.getCommodityData(commodityId);
-        return TableCellHelper.getAvailable(buyFromCommodity);
-    }
-
     public static int getAvailable(CommodityOnMarketAPI commodity) {
         String commodityId = commodity.getId();
         MarketAPI market = commodity.getMarket();
@@ -34,11 +29,6 @@ public class TableCellHelper {
     public static Color getClaimingFactionColor(MarketAPI market) {
         FactionAPI faction = Misc.getClaimingFaction(market.getPrimaryEntity());
         return getFactionColor(faction);
-    }
-
-    public static int getDemand(MarketAPI sellMarket, String commodityId) {
-        CommodityOnMarketAPI sellToMarketCommodity = sellMarket.getCommodityData(commodityId);
-        return TableCellHelper.getDemand(sellMarket, sellToMarketCommodity);
     }
 
     public static int getDemand(MarketAPI market, CommodityOnMarketAPI commodity) {

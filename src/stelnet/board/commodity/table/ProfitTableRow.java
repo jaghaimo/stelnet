@@ -1,5 +1,6 @@
 package stelnet.board.commodity.table;
 
+import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
@@ -15,6 +16,7 @@ import stelnet.util.StringUtils;
 import stelnet.util.TableCellHelper;
 import uilib.TableContentRow;
 
+@Getter
 @RequiredArgsConstructor
 public class ProfitTableRow implements Comparable<ProfitTableRow>, TableContentRow {
 
@@ -23,20 +25,17 @@ public class ProfitTableRow implements Comparable<ProfitTableRow>, TableContentR
     private final List<Object> elements = new LinkedList<>();
     private final MarketAPI buyMarket;
     private final MarketAPI sellMarket;
-
-    @Getter
     private float profit;
+    private int quantity;
 
     public ProfitTableRow(MarketAPI buyMarket, MarketAPI sellMarket, String commodityId) {
         this(buyMarket, sellMarket);
+        quantity = calculateQuantity(buyMarket, sellMarket, commodityId);
         profit = calculateProfit(buyMarket, sellMarket, commodityId);
         addAllCells(commodityId);
     }
 
     private void addAllCells(String commodityId) {
-        int available = TableCellHelper.getAvailable(buyMarket, commodityId);
-        int demand = TableCellHelper.getDemand(sellMarket, commodityId);
-        int quantity = Math.min(available, demand);
         float buyPrice = new SupplyPrice(commodityId).getTotalPrice(buyMarket, quantity);
         float sellPrice = new DemandPrice(commodityId).getTotalPrice(sellMarket, quantity);
         Color rowColor = getRowColor(Misc.getTextColor());
@@ -75,6 +74,10 @@ public class ProfitTableRow implements Comparable<ProfitTableRow>, TableContentR
     }
 
     private float calculateProfit(MarketAPI buyMarket, MarketAPI sellMarket, String commodityId) {
+        if (quantity < MINIMUM_QUANTITY) {
+            return 0;
+        }
+
         Price supplyPrice = new SupplyPrice(commodityId);
         Price demandPrice = new DemandPrice(commodityId);
         float buyPrice = supplyPrice.getUnitPrice(buyMarket);
@@ -83,17 +86,17 @@ public class ProfitTableRow implements Comparable<ProfitTableRow>, TableContentR
             return 0;
         }
 
-        int available = TableCellHelper.getAvailable(buyMarket, commodityId);
-        int demand = TableCellHelper.getDemand(sellMarket, commodityId);
-        int quantity = Math.min(available, demand);
-
-        if (quantity < MINIMUM_QUANTITY) {
-            return 0;
-        }
-
         float bought = supplyPrice.getTotalPrice(buyMarket, quantity);
         float sold = demandPrice.getTotalPrice(sellMarket, quantity);
         return sold - bought;
+    }
+
+    private int calculateQuantity(MarketAPI buyMarket, MarketAPI sellMarket, String commodityId) {
+        CommodityOnMarketAPI buyFromCommodity = buyMarket.getCommodityData(commodityId);
+        CommodityOnMarketAPI sellToMarketCommodity = sellMarket.getCommodityData(commodityId);
+        int available = TableCellHelper.getAvailable(buyFromCommodity);
+        int demand = TableCellHelper.getDemand(sellMarket, sellToMarketCommodity);
+        return Math.min(available, demand);
     }
 
     private float getDistance() {
