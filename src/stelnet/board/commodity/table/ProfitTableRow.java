@@ -9,13 +9,16 @@ import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.commodity.price.DemandPrice;
+import stelnet.board.commodity.price.Price;
 import stelnet.board.commodity.price.SupplyPrice;
 import stelnet.util.StringUtils;
 import stelnet.util.TableCellHelper;
 import uilib.TableContentRow;
 
 @RequiredArgsConstructor
-public class ProfitTableRow extends ProfitCalculator implements Comparable<ProfitTableRow>, TableContentRow {
+public class ProfitTableRow implements Comparable<ProfitTableRow>, TableContentRow {
+
+    private static final int MINIMUM_QUANTITY = 1000;
 
     private final List<Object> elements = new LinkedList<>();
     private final MarketAPI buyMarket;
@@ -31,8 +34,8 @@ public class ProfitTableRow extends ProfitCalculator implements Comparable<Profi
     }
 
     private void addAllCells(String commodityId) {
-        int available = getAvailable(buyMarket, commodityId);
-        int demand = getDemand(sellMarket, commodityId);
+        int available = TableCellHelper.getAvailable(buyMarket, commodityId);
+        int demand = TableCellHelper.getDemand(sellMarket, commodityId);
         int quantity = Math.min(available, demand);
         float buyPrice = new SupplyPrice(commodityId).getTotalPrice(buyMarket, quantity);
         float sellPrice = new DemandPrice(commodityId).getTotalPrice(sellMarket, quantity);
@@ -69,6 +72,28 @@ public class ProfitTableRow extends ProfitCalculator implements Comparable<Profi
 
     private int compare(float o1, float o2) {
         return (int) (o2 - o1);
+    }
+
+    private float calculateProfit(MarketAPI buyMarket, MarketAPI sellMarket, String commodityId) {
+        Price supplyPrice = new SupplyPrice(commodityId);
+        Price demandPrice = new DemandPrice(commodityId);
+        float buyPrice = supplyPrice.getUnitPrice(buyMarket);
+        float sellPrice = demandPrice.getUnitPrice(sellMarket);
+        if (buyPrice >= sellPrice) {
+            return 0;
+        }
+
+        int available = TableCellHelper.getAvailable(buyMarket, commodityId);
+        int demand = TableCellHelper.getDemand(sellMarket, commodityId);
+        int quantity = Math.min(available, demand);
+
+        if (quantity < MINIMUM_QUANTITY) {
+            return 0;
+        }
+
+        float bought = supplyPrice.getTotalPrice(buyMarket, quantity);
+        float sold = demandPrice.getTotalPrice(sellMarket, quantity);
+        return sold - bought;
     }
 
     private float getDistance() {

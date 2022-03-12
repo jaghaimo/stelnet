@@ -10,7 +10,7 @@ import stelnet.util.L10n;
 import uilib.TableContent;
 
 @RequiredArgsConstructor
-public class ProfitTableContent extends ProfitCalculator implements TableContent {
+public class ProfitTableContent implements TableContent {
 
     private static final int MAX_ROWS = 50;
     private static final int MINIMUM_PROFIT_VALUE = 10000;
@@ -51,8 +51,7 @@ public class ProfitTableContent extends ProfitCalculator implements TableContent
     private List<ProfitTableRow> createRows() {
         List<ProfitTableRow> rows = new LinkedList<>();
         for (MarketAPI buyMarket : buyMarkets) {
-            List<MarketAPI> profitableMarketsToSellAt = getProfitableSellMarkets(buyMarket, sellMarkets, commodityId);
-            List<ProfitTableRow> sellMarketTableRows = createSellMarketRows(buyMarket, profitableMarketsToSellAt);
+            List<ProfitTableRow> sellMarketTableRows = createSellMarketRows(buyMarket, sellMarkets);
             rows.addAll(sellMarketTableRows);
         }
         return rows;
@@ -62,7 +61,9 @@ public class ProfitTableContent extends ProfitCalculator implements TableContent
         List<ProfitTableRow> rows = new LinkedList<>();
         for (MarketAPI sellMarket : sellMarkets) {
             ProfitTableRow row = new ProfitTableRow(buyMarket, sellMarket, commodityId);
-            rows.add(row);
+            if (row.getProfit() >= MINIMUM_PROFIT_VALUE) {
+                rows.add(row);
+            }
         }
         return rows;
     }
@@ -72,19 +73,5 @@ public class ProfitTableContent extends ProfitCalculator implements TableContent
         for (ProfitTableRow row : rows) {
             row.addNumber(i++);
         }
-    }
-
-    private List<MarketAPI> getProfitableSellMarkets(
-        MarketAPI buyMarket,
-        List<MarketAPI> sellMarkets,
-        String commodityId
-    ) {
-        List<MarketAPI> rows = new LinkedList<>();
-        for (MarketAPI sellMarket : sellMarkets) {
-            if (calculateProfit(buyMarket, sellMarket, commodityId) >= MINIMUM_PROFIT_VALUE) {
-                rows.add(sellMarket);
-            }
-        }
-        return rows;
     }
 }
