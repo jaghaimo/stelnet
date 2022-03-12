@@ -21,7 +21,7 @@ public class CommodityIntelInfo implements RenderableIntelInfo {
         FactionAPI faction = intel.getMarket().getFaction();
         intel.bullet(info);
         info.addPara(
-            "Faction: " + faction.getDisplayName(),
+            L10n.get(CommodityL10n.INTEL_INFO_FACTION, faction.getDisplayName()),
             3f,
             bulletColor,
             faction.getBaseUIColor(),
@@ -44,7 +44,7 @@ public class CommodityIntelInfo implements RenderableIntelInfo {
 
     private void addPrice(TooltipMakerAPI info, Color bulletColor, Enum<?> key, DisplayablePrice price) {
         info.addPara(
-            L10n.get(key) + price.getDisplayedPrice(),
+            L10n.get(key, price.getDisplayedPrice()),
             0f,
             bulletColor,
             Misc.getHighlightColor(),
