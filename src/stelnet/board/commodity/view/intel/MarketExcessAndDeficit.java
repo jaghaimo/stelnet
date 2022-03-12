@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import stelnet.board.commodity.CommodityL10n;
+import stelnet.util.L10n;
 import uilib.RenderableComponent;
 import uilib.ShowCargo;
 import uilib.property.Size;
@@ -33,10 +35,10 @@ public class MarketExcessAndDeficit extends RenderableComponent {
     @Override
     public void render(TooltipMakerAPI tooltip) {
         if (!excess.isEmpty()) {
-            render(tooltip, new ShowCargo(excess, "All commodities with excess", "", size));
+            render(tooltip, new ShowCargo(excess, L10n.get(CommodityL10n.INTEL_WITH_EXCESS), "", size));
         }
         if (!deficit.isEmpty()) {
-            render(tooltip, new ShowCargo(deficit, "All commodities with deficit", "", size));
+            render(tooltip, new ShowCargo(deficit, L10n.get(CommodityL10n.INTEL_WITH_DEFICIT), "", size));
         }
     }
 

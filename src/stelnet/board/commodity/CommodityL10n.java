@@ -33,5 +33,7 @@ public enum CommodityL10n {
     INTEL_QUANTITY,
     INTEL_SELL_FOR,
     INTEL_TITLE,
+    INTEL_WITH_DEFICIT,
+    INTEL_WITH_EXCESS,
     PRICE_CHANGED,
 }

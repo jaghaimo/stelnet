@@ -31,5 +31,7 @@
     "INTEL_QUANTITY": "Quantity",
     "INTEL_SELL_FOR": "Sell for",
     "INTEL_TITLE": "{0} on {1}",
+    "INTEL_WITH_DEFICIT": "All commodities with deficit",
+    "INTEL_WITH_EXCESS": "All commodities with excess",
     "PRICE_CHANGED": "{0} (was {1})"
 }
