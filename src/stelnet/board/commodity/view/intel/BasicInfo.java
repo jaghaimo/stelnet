@@ -3,6 +3,8 @@ package stelnet.board.commodity.view.intel;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import lombok.RequiredArgsConstructor;
+import stelnet.board.commodity.CommodityL10n;
+import stelnet.util.L10n;
 import stelnet.util.TableCellHelper;
 import uilib.RenderableComponent;
 
@@ -20,11 +22,16 @@ public class BasicInfo extends RenderableComponent {
         tooltip.addSpacer(10);
         addSectionTitle(tooltip, name, commodityOnMarket.getMarket().getTextColorForFactionOrPlanet(), width);
         tooltip.beginGrid(width, 1);
-        tooltip.addToGrid(0, 0, "Quantity", "" + TableCellHelper.getAvailable(commodityOnMarket));
-        tooltip.addToGrid(0, 1, "Buy at", buyPrice.getDisplayedPrice());
-        tooltip.addToGrid(0, 2, "Sell for", sellPrice.getDisplayedPrice());
-        addConditional(tooltip, "Excess quantity", commodityOnMarket.getExcessQuantity());
-        addConditional(tooltip, "Deficit quantity", commodityOnMarket.getDeficitQuantity());
+        tooltip.addToGrid(
+            0,
+            0,
+            L10n.get(CommodityL10n.INTEL_QUANTITY),
+            "" + TableCellHelper.getAvailable(commodityOnMarket)
+        );
+        tooltip.addToGrid(0, 1, L10n.get(CommodityL10n.INTEL_BUY_AT), buyPrice.getDisplayedPrice());
+        tooltip.addToGrid(0, 2, L10n.get(CommodityL10n.INTEL_SELL_FOR), sellPrice.getDisplayedPrice());
+        addConditional(tooltip, L10n.get(CommodityL10n.INTEL_EXCESS_QUANTITY), commodityOnMarket.getExcessQuantity());
+        addConditional(tooltip, L10n.get(CommodityL10n.INTEL_DEFICIT_QUANTITY), commodityOnMarket.getDeficitQuantity());
         tooltip.addGrid(4);
         tooltip.addSpacer(10);
     }
