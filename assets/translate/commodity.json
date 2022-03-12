@@ -22,12 +22,13 @@
     "HEADER_SYSTEM": "Star system",
     "HEADER_TRIP": "Trip (ly)",
     "INTEL_BUY_AT": "Buy at",
-    "INTEL_BUY_AT_INFO": "Buy at: ",
+    "INTEL_AT_A_GLANCE": "{0} at a glance",
     "INTEL_DEFICIT_QUANTITY": "Deficit quantity",
     "INTEL_EXCESS_QUANTITY": "Excess quantity",
+    "INTEL_INFO_BUY_AT": "Buy at: ",
+    "INTEL_INFO_SELL_FOR": "Sell for: ",
     "INTEL_QUANTITY": "Quantity",
     "INTEL_SELL_FOR": "Sell for",
-    "INTEL_SELL_FOR_INFO": "Sell for: ",
     "INTEL_TITLE": "{0} on {1}",
     "PRICE_CHANGED": "{0} (was {1})"
 }

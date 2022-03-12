@@ -18,7 +18,7 @@ public class BasicInfo extends RenderableComponent {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        String name = commodityOnMarket.getCommodity().getName() + " at a glance";
+        String name = L10n.get(CommodityL10n.INTEL_AT_A_GLANCE, commodityOnMarket.getCommodity().getName());
         tooltip.addSpacer(10);
         addSectionTitle(tooltip, name, commodityOnMarket.getMarket().getTextColorForFactionOrPlanet(), width);
         tooltip.beginGrid(width, 1);

@@ -30,13 +30,13 @@ public class CommodityIntelInfo implements RenderableIntelInfo {
         addPrice(
             info,
             bulletColor,
-            CommodityL10n.INTEL_BUY_AT_INFO,
+            CommodityL10n.INTEL_INFO_BUY_AT,
             new DisplayablePrice(intel, intel.getBuyPrice(), intel.getSupplyPrice())
         );
         addPrice(
             info,
             bulletColor,
-            CommodityL10n.INTEL_SELL_FOR_INFO,
+            CommodityL10n.INTEL_INFO_SELL_FOR,
             new DisplayablePrice(intel, intel.getSellPrice(), intel.getDemandPrice())
         );
         intel.unindent(info);
