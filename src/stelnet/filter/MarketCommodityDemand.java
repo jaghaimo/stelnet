@@ -15,7 +15,7 @@ public final class MarketCommodityDemand extends MarketFilter {
     @Override
     protected boolean acceptMarket(MarketAPI market) {
         CommodityOnMarketAPI commodity = market.getCommodityData(commodityId);
-        int demand = StelnetHelper.getDemand(market, commodity);
+        int demand = StelnetHelper.getCommodityDemand(market, commodity);
         return demand > 0;
     }
 }

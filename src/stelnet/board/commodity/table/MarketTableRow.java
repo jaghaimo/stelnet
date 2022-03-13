@@ -19,10 +19,7 @@ public class MarketTableRow implements TableContentRow {
         addDGSCreditsCell(price);
         addDGSCell(demandOrAvailability);
         addExcessDemandCell(excessOrDeficit);
-        addCell(
-            StelnetHelper.getFactionColor(market.getFaction()),
-            StelnetHelper.getMarketAndFactionDisplayName(market)
-        );
+        addCell(StelnetHelper.getFactionColor(market.getFaction()), StelnetHelper.getMarketWithFactionName(market));
         addCell(StelnetHelper.getClaimingFactionColor(market), starSystemName);
         addCell(Misc.getTextColor(), String.format("%.1f", Misc.getDistanceToPlayerLY(market.getPrimaryEntity())));
     }

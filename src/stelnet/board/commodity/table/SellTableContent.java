@@ -22,7 +22,7 @@ public class SellTableContent extends MarketTableContent {
     @Override
     protected MarketTableRow createRowData(int i, MarketAPI market) {
         CommodityOnMarketAPI commodityData = getCommodityData(market);
-        int demand = StelnetHelper.getDemand(market, commodityData);
+        int demand = StelnetHelper.getCommodityDemand(market, commodityData);
         int deficit = -commodityData.getDeficitQuantity();
         float sellPrice = price.getUnitPrice(market);
         return new MarketTableRow(i, sellPrice, market, demand, deficit);

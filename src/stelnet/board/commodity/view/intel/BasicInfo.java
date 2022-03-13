@@ -26,7 +26,7 @@ public class BasicInfo extends RenderableComponent {
             0,
             0,
             L10n.get(CommodityL10n.INTEL_QUANTITY),
-            "" + StelnetHelper.getAvailable(commodityOnMarket)
+            "" + StelnetHelper.getCommodityAvailable(commodityOnMarket)
         );
         tooltip.addToGrid(0, 1, L10n.get(CommodityL10n.INTEL_BUY_AT), buyPrice.getDisplayedPrice());
         tooltip.addToGrid(0, 2, L10n.get(CommodityL10n.INTEL_SELL_FOR), sellPrice.getDisplayedPrice());

@@ -8,7 +8,6 @@ import com.fs.starfarer.api.campaign.listeners.ColonyInteractionListener;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.query.provider.MarketProvider;
-import stelnet.util.StelnetHelper;
 
 @Log4j
 public class MarketUpdater implements EveryFrameScript, ColonyInteractionListener {
@@ -78,7 +77,7 @@ public class MarketUpdater implements EveryFrameScript, ColonyInteractionListene
 
     protected MarketAPI pickRandomMarket() {
         WeightedRandomPicker<MarketAPI> markets = new WeightedRandomPicker<>(true);
-        markets.addAll(StelnetHelper.getMarkets());
+        markets.addAll(Global.getSector().getEconomy().getMarketsCopy());
         return markets.pick();
     }
 

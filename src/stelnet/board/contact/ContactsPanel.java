@@ -62,7 +62,7 @@ public class ContactsPanel extends CustomPanel {
                 0,
                 y++,
                 stack.getDisplayName(),
-                StelnetHelper.getMarketAndFactionDisplayName(market),
+                StelnetHelper.getMarketWithFactionName(market),
                 market.getTextColorForFactionOrPlanet()
             );
         }
@@ -71,7 +71,7 @@ public class ContactsPanel extends CustomPanel {
                 0,
                 y++,
                 member.getShipName() + ", " + member.getHullSpec().getNameWithDesignationWithDashClass(),
-                StelnetHelper.getMarketAndFactionDisplayName(market),
+                StelnetHelper.getMarketWithFactionName(market),
                 market.getTextColorForFactionOrPlanet()
             );
         }

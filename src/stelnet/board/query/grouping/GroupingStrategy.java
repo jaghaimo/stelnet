@@ -49,7 +49,7 @@ public enum GroupingStrategy {
     public GroupingData getGroupingData(ResultSet resultSet) {
         MarketAPI market = resultSet.getMarket();
         RenderableIntelInfo info = new BoardInfo(
-            StelnetHelper.getMarketAndFactionDisplayName(market),
+            StelnetHelper.getMarketWithFactionName(market),
             L10n.get(QueryL10n.RESULTS_IN_MARKET, resultSet.getResultCount())
         );
         return new GroupingData(info, market.getFaction(), market.getId(), market.getPrimaryEntity());

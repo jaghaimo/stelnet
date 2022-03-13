@@ -1,5 +1,6 @@
 package stelnet.board.commodity.market;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import java.util.Collections;
 import java.util.Comparator;
@@ -8,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import stelnet.board.commodity.price.Price;
 import stelnet.filter.MarketNotHidden;
 import stelnet.util.CollectionUtils;
-import stelnet.util.StelnetHelper;
 
 @RequiredArgsConstructor
 public abstract class MarketFactory {
@@ -16,7 +16,7 @@ public abstract class MarketFactory {
     protected final String commodityId;
 
     public List<MarketAPI> createMarkets() {
-        List<MarketAPI> markets = StelnetHelper.getMarkets();
+        List<MarketAPI> markets = Global.getSector().getEconomy().getMarketsCopy();
         CollectionUtils.reduce(markets, new MarketNotHidden());
         filterMarkets(markets);
         sortMarkets(markets);

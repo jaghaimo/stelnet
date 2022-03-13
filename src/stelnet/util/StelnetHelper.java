@@ -4,13 +4,10 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.campaign.comm.IntelManagerAPI;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
-import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
-import com.fs.starfarer.api.campaign.econ.EconomyAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
@@ -18,7 +15,6 @@ import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -34,88 +30,6 @@ import stelnet.filter.Filter;
 @Log4j
 public class StelnetHelper {
 
-    @Deprecated
-    public static CommoditySpecAPI getCommoditySpec(String commodityId) {
-        return getEconomy().getCommoditySpec(commodityId);
-    }
-
-    @Deprecated
-    public static List<MarketAPI> getMarkets() {
-        return getEconomy().getMarketsCopy();
-    }
-
-    @Deprecated
-    private static EconomyAPI getEconomy() {
-        return Global.getSector().getEconomy();
-    }
-
-    public static String getMarketAndFactionDisplayName(MarketAPI market) {
-        return L10n.get(CommonL10n.MARKET_FACTION, market.getName(), market.getFaction().getDisplayName());
-    }
-
-    public static String getStarSystemName(StarSystemAPI starSystem, boolean shortName) {
-        if (starSystem == null) {
-            return L10n.get(CommonL10n.HYPERSPACE);
-        }
-        if (shortName) {
-            return starSystem.getNameWithLowercaseTypeShort();
-        }
-        return starSystem.getNameWithLowercaseType();
-    }
-
-    public static CargoAPI getAllItems(Set<Filter> filters) {
-        List<CargoStackAPI> cargoStacks = new ArrayList<>();
-        List<SubmarketAPI> submarkets = getAllWithAccess();
-        for (SubmarketAPI submarket : submarkets) {
-            cargoStacks.addAll(submarket.getCargo().getStacksCopy());
-        }
-        CollectionUtils.reduce(cargoStacks, filters);
-        return StelnetHelper.makeCargoFromStacks(cargoStacks);
-    }
-
-    public static List<FleetMemberAPI> getAllShips(Set<Filter> filters) {
-        List<FleetMemberAPI> ships = new ArrayList<>();
-        List<SubmarketAPI> submarkets = getAllWithAccess();
-        for (SubmarketAPI submarket : submarkets) {
-            ships.addAll(submarket.getCargo().getMothballedShips().getMembersListCopy());
-        }
-        CollectionUtils.reduce(ships, filters);
-        return ships;
-    }
-
-    public static List<SubmarketAPI> getAllWithAccess() {
-        List<SubmarketAPI> availableStorages = new ArrayList<>();
-        for (MarketAPI market : getMarkets()) {
-            if (Misc.playerHasStorageAccess(market)) {
-                SubmarketAPI storage = market.getSubmarket(Submarkets.SUBMARKET_STORAGE);
-                availableStorages.add(storage);
-            }
-        }
-        addAbandonedStations(availableStorages);
-        return availableStorages;
-    }
-
-    private static void addAbandonedStations(List<SubmarketAPI> submarkets) {
-        for (String station : Includer.getAbandonedStations()) {
-            SubmarketAPI submarket = getStorage(station);
-            if (submarket != null) {
-                submarkets.add(submarket);
-            }
-        }
-    }
-
-    private static SubmarketAPI getStorage(String station) {
-        SectorEntityToken token = Global.getSector().getEntityById(station);
-        if (token == null) {
-            return null;
-        }
-        MarketAPI market = token.getMarket();
-        if (market == null) {
-            return null;
-        }
-        return market.getSubmarket(Submarkets.SUBMARKET_STORAGE);
-    }
-
     public static int calculateItemQuantity(CargoAPI cargo) {
         float cargoSpace = 0;
         for (CargoStackAPI stack : cargo.getStacksCopy()) {
@@ -128,20 +42,35 @@ public class StelnetHelper {
         return fleet.size();
     }
 
-    public static int getAvailable(CommodityOnMarketAPI commodity) {
-        String commodityId = commodity.getId();
-        MarketAPI market = commodity.getMarket();
-        if (commodityId == null || market == null) {
-            return 0;
+    public static CargoAPI getAllItems(Set<Filter> filters) {
+        List<CargoStackAPI> cargoStacks = new LinkedList<>();
+        List<SubmarketAPI> submarkets = getAllWithAccess();
+        for (SubmarketAPI submarket : submarkets) {
+            cargoStacks.addAll(submarket.getCargo().getStacksCopy());
         }
-        return getAvailableOnMarket(market, commodityId);
+        CollectionUtils.reduce(cargoStacks, filters);
+        return StelnetHelper.makeCargoFromStacks(cargoStacks);
     }
 
-    public static Color getFactionColor(FactionAPI faction) {
-        if (faction == null) {
-            return Misc.getGrayColor();
+    public static List<FleetMemberAPI> getAllShips(Set<Filter> filters) {
+        List<FleetMemberAPI> ships = new LinkedList<>();
+        List<SubmarketAPI> submarkets = getAllWithAccess();
+        for (SubmarketAPI submarket : submarkets) {
+            ships.addAll(submarket.getCargo().getMothballedShips().getMembersListCopy());
         }
-        return faction.getColor();
+        CollectionUtils.reduce(ships, filters);
+        return ships;
+    }
+
+    public static List<SubmarketAPI> getAllWithAccess() {
+        List<SubmarketAPI> availableStorages = Includer.getAbandonedStations();
+        for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
+            if (Misc.playerHasStorageAccess(market)) {
+                SubmarketAPI storage = market.getSubmarket(Submarkets.SUBMARKET_STORAGE);
+                availableStorages.add(storage);
+            }
+        }
+        return availableStorages;
     }
 
     public static Color getClaimingFactionColor(MarketAPI market) {
@@ -149,7 +78,31 @@ public class StelnetHelper {
         return getFactionColor(faction);
     }
 
-    public static int getDemand(MarketAPI market, CommodityOnMarketAPI commodity) {
+    public static int getCommodityAvailable(CommodityOnMarketAPI commodity) {
+        String commodityId = commodity.getId();
+        MarketAPI market = commodity.getMarket();
+        if (commodityId == null || market == null) {
+            return 0;
+        }
+        return getCommodityAvailable(market, commodityId);
+    }
+
+    public static int getCommodityAvailable(MarketAPI market, String commodityId) {
+        float available = 0;
+        available += getCommodityAvailable(market.getSubmarket(Submarkets.SUBMARKET_OPEN), commodityId);
+        available += getCommodityAvailable(market.getSubmarket(Submarkets.GENERIC_MILITARY), commodityId);
+        available += getCommodityAvailable(market.getSubmarket(Submarkets.SUBMARKET_BLACK), commodityId);
+        return (int) smartRounding(available);
+    }
+
+    public static float getCommodityAvailable(SubmarketAPI submarket, String commodityId) {
+        if (submarket == null) {
+            return 0;
+        }
+        return submarket.getCargo().getCommodityQuantity(commodityId);
+    }
+
+    public static int getCommodityDemand(MarketAPI market, CommodityOnMarketAPI commodity) {
         int demandIcons = commodity.getMaxDemand();
         if (!commodity.getCommodity().isPrimary()) {
             CommodityOnMarketAPI primary = market.getCommodityData(commodity.getCommodity().getDemandClass());
@@ -160,38 +113,29 @@ public class StelnetHelper {
         return demand;
     }
 
-    public static String getLocation(MarketAPI market) {
-        return market.getName() + " - " + market.getFaction().getDisplayName();
+    public static Color getFactionColor(FactionAPI faction) {
+        if (faction == null) {
+            return Misc.getGrayColor();
+        }
+        return faction.getColor();
     }
 
-    private static int getAvailableOnMarket(MarketAPI market, String commodityId) {
-        float available = 0;
-        available += getAvailableOnMarket(market.getSubmarket(Submarkets.SUBMARKET_OPEN), commodityId);
-        available += getAvailableOnMarket(market.getSubmarket(Submarkets.GENERIC_MILITARY), commodityId);
-        available += getAvailableOnMarket(market.getSubmarket(Submarkets.SUBMARKET_BLACK), commodityId);
-        return (int) smartRounding(available);
-    }
-
-    private static float getAvailableOnMarket(SubmarketAPI submarket, String commodityId) {
-        if (submarket == null) {
-            return 0;
-        }
-        return submarket.getCargo().getCommodityQuantity(commodityId);
-    }
-
-    private static float smartRounding(float number) {
-        number = 5 * Math.round(number / 5);
-        if (number > 100) {
-            number = 10 * Math.round(number / 10);
-        }
-        if (number > 1000) {
-            number = 100 * Math.round(number / 100);
-        }
-        return (int) number;
+    public static String getMarketWithFactionName(MarketAPI market) {
+        return L10n.get(CommonL10n.MARKET_FACTION, market.getName(), market.getFaction().getDisplayName());
     }
 
     public static String getSpriteName(String sprite) {
         return Global.getSettings().getSpriteName(ModConstants.STELNET, sprite);
+    }
+
+    public static String getStarSystemName(StarSystemAPI starSystem, boolean shortName) {
+        if (starSystem == null) {
+            return L10n.get(CommonL10n.HYPERSPACE);
+        }
+        if (shortName) {
+            return starSystem.getNameWithLowercaseTypeShort();
+        }
+        return starSystem.getNameWithLowercaseType();
     }
 
     public static List<SubmarketAPI> getSubmarkets(List<MarketAPI> markets) {
@@ -252,6 +196,17 @@ public class StelnetHelper {
             cargo.addFromStack(cargoStack);
         }
         cargo.sort();
+    }
+
+    public static float smartRounding(float number) {
+        number = 5 * Math.round(number / 5);
+        if (number > 100) {
+            number = 10 * Math.round(number / 10);
+        }
+        if (number > 1000) {
+            number = 100 * Math.round(number / 100);
+        }
+        return (int) number;
     }
 
     private static JSONObject getEmptyJsonObject(Exception exception, String filename) {

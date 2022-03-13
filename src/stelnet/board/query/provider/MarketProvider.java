@@ -14,7 +14,6 @@ import stelnet.filter.Filter;
 import stelnet.filter.MarketNotHidden;
 import stelnet.util.CollectionUtils;
 import stelnet.util.Excluder;
-import stelnet.util.StelnetHelper;
 
 @Log4j
 public class MarketProvider {
@@ -30,7 +29,7 @@ public class MarketProvider {
     }
 
     public static List<MarketAPI> getMarkets(boolean refreshContent) {
-        List<MarketAPI> markets = StelnetHelper.getMarkets();
+        List<MarketAPI> markets = Global.getSector().getEconomy().getMarketsCopy();
         List<Filter> filters = Arrays.<Filter>asList(Excluder.getMarketFilters(), new MarketNotHidden());
         CollectionUtils.reduce(markets, filters);
         if (refreshContent && needsRefresh) {
