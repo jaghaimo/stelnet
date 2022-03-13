@@ -11,7 +11,7 @@ import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 import lombok.Getter;
 import lombok.Setter;
-import stelnet.util.ColorUtils;
+import stelnet.util.ColorHelper;
 import uilib.property.Size;
 
 @Getter
@@ -29,7 +29,7 @@ public class Button extends RenderableComponent implements ButtonHandler {
     private boolean highlight = false;
 
     public Button(Size size, String title, boolean isEnabled) {
-        this(size, title, isEnabled, ColorUtils.basePlayerColor(), ColorUtils.darkPlayerColor());
+        this(size, title, isEnabled, ColorHelper.basePlayerColor(), ColorHelper.darkPlayerColor());
     }
 
     public Button(Size size, String title, boolean isEnabled, Color color) {

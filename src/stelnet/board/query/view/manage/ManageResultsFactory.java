@@ -10,7 +10,7 @@ import stelnet.board.query.view.FilterAwareFactory;
 import stelnet.board.query.view.FilteringButton;
 import stelnet.board.query.view.SectionHeader;
 import stelnet.board.query.view.SizeHelper;
-import stelnet.util.ColorUtils;
+import stelnet.util.ColorHelper;
 import uilib.Button;
 import uilib.Renderable;
 import uilib.RenderableFactory;
@@ -53,8 +53,8 @@ public class ManageResultsFactory extends FilterAwareFactory implements Renderab
     }
 
     private void prepareDmods() {
-        Color textColor = ColorUtils.basePlayerColor();
-        Color backgroundColor = ColorUtils.darkPlayerColor();
+        Color textColor = ColorHelper.basePlayerColor();
+        Color backgroundColor = ColorHelper.darkPlayerColor();
         for (FilteringButton button : dModAllowed) {
             button.setTextColor(textColor);
             button.setBackgroundColor(backgroundColor);

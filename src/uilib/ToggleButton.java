@@ -7,7 +7,7 @@ import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 import lombok.Getter;
 import lombok.Setter;
-import stelnet.util.ColorUtils;
+import stelnet.util.ColorHelper;
 import uilib.property.Size;
 
 @Getter
@@ -16,7 +16,7 @@ public class ToggleButton extends Button implements TwoStateButton {
 
     private final String titleOff;
     private boolean isStateOn;
-    private Color backgroundSelectedColor = ColorUtils.buttonHighlightColor();
+    private Color backgroundSelectedColor = ColorHelper.buttonHighlightColor();
 
     public ToggleButton(
         Size size,
