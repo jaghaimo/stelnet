@@ -5,7 +5,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.commodity.CommodityL10n;
 import stelnet.util.L10n;
-import stelnet.util.TableCellHelper;
+import stelnet.util.StelnetHelper;
 import uilib.RenderableComponent;
 
 @RequiredArgsConstructor
@@ -26,7 +26,7 @@ public class BasicInfo extends RenderableComponent {
             0,
             0,
             L10n.get(CommodityL10n.INTEL_QUANTITY),
-            "" + TableCellHelper.getAvailable(commodityOnMarket)
+            "" + StelnetHelper.getAvailable(commodityOnMarket)
         );
         tooltip.addToGrid(0, 1, L10n.get(CommodityL10n.INTEL_BUY_AT), buyPrice.getDisplayedPrice());
         tooltip.addToGrid(0, 2, L10n.get(CommodityL10n.INTEL_SELL_FOR), sellPrice.getDisplayedPrice());

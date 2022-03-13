@@ -1,14 +1,14 @@
 package stelnet.board.query;
 
 import com.fs.starfarer.api.EveryFrameScript;
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.PlayerMarketTransaction;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.listeners.ColonyInteractionListener;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.query.provider.MarketProvider;
-import stelnet.util.EconomyUtils;
-import stelnet.util.SectorUtils;
+import stelnet.util.StelnetHelper;
 
 @Log4j
 public class MarketUpdater implements EveryFrameScript, ColonyInteractionListener {
@@ -20,8 +20,8 @@ public class MarketUpdater implements EveryFrameScript, ColonyInteractionListene
         if (instance == null) {
             instance = new MarketUpdater();
         }
-        SectorUtils.addTransientScript(instance);
-        SectorUtils.getListenerManager().addListener(instance, true);
+        Global.getSector().addTransientScript(instance);
+        Global.getSector().getListenerManager().addListener(instance, true);
         MarketProvider.reset();
         return instance;
     }
@@ -37,7 +37,7 @@ public class MarketUpdater implements EveryFrameScript, ColonyInteractionListene
 
     @Override
     public void advance(float amount) {
-        if (!SectorUtils.isPaused()) {
+        if (!Global.getSector().isPaused()) {
             return;
         }
         MarketAPI market = pickRandomMarket();
@@ -78,7 +78,7 @@ public class MarketUpdater implements EveryFrameScript, ColonyInteractionListene
 
     protected MarketAPI pickRandomMarket() {
         WeightedRandomPicker<MarketAPI> markets = new WeightedRandomPicker<>(true);
-        markets.addAll(EconomyUtils.getMarkets());
+        markets.addAll(StelnetHelper.getMarkets());
         return markets.pick();
     }
 

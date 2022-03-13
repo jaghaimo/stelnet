@@ -1,5 +1,6 @@
 package stelnet.board.query;
 
+import com.fs.starfarer.api.Global;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,8 +13,6 @@ import stelnet.filter.Filter;
 import stelnet.filter.LogicalOr;
 import stelnet.util.CollectionUtils;
 import stelnet.util.L10n;
-import stelnet.util.SectorUtils;
-import stelnet.util.StringUtils;
 import uilib.RenderableComponent;
 import uilib.RenderableShowComponent;
 import uilib.property.Size;
@@ -23,7 +22,7 @@ import uilib.property.Size;
 @RequiredArgsConstructor
 public class Query {
 
-    private final String createdAt = SectorUtils.getCurrentClock().getDateString();
+    private final String createdAt = Global.getSector().getClock().getDateString();
     private final QueryManager manager;
     private final QueryProvider provider;
     private final Set<Filter> filters;
@@ -72,7 +71,7 @@ public class Query {
 
     @Override
     public String toString() {
-        return StringUtils.join(filters, "||", L10n.get(QueryL10n.EMPTY_FILTER));
+        return CollectionUtils.join(filters, "||", L10n.get(QueryL10n.EMPTY_FILTER));
     }
 
     private Set<Filter> getResultFilters() {

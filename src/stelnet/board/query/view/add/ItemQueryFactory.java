@@ -15,8 +15,8 @@ import stelnet.board.query.view.dialog.ItemPickerDialog;
 import stelnet.board.query.view.dialog.PickerDialog;
 import stelnet.filter.CargoStackNotKnownModspec;
 import stelnet.filter.Filter;
-import stelnet.util.CargoUtils;
 import stelnet.util.L10n;
+import stelnet.util.StelnetHelper;
 import uilib.Button;
 import uilib.Renderable;
 
@@ -53,7 +53,10 @@ public class ItemQueryFactory extends QueryFactory {
     @Override
     protected Button[] getFinalComponents() {
         Set<Filter> filters = getFilters();
-        PickerDialog picker = new ItemPickerDialog(CargoUtils.makeCargoFromStacks(provider.getMatching(filters)), this);
+        PickerDialog picker = new ItemPickerDialog(
+            StelnetHelper.makeCargoFromStacks(provider.getMatching(filters)),
+            this
+        );
         return new Button[] {
             new FindMatchingButton(this, L10n.get(CommonL10n.ITEMS)),
             new FindSelectedButton(picker),

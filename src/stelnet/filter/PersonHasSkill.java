@@ -1,11 +1,11 @@
 package stelnet.filter;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.characters.MutableCharacterStatsAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.characters.SkillSpecAPI;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
-import stelnet.util.SettingsUtils;
 
 @EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
@@ -25,7 +25,7 @@ public final class PersonHasSkill extends PersonOfficerFilter {
 
     @Override
     public String toString() {
-        SkillSpecAPI skill = SettingsUtils.getSkill(skillId);
+        SkillSpecAPI skill = Global.getSettings().getSkillSpec(skillId);
         return skill.getName();
     }
 }

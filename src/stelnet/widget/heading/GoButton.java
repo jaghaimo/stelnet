@@ -1,11 +1,11 @@
 package stelnet.widget.heading;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import stelnet.CommonL10n;
 import stelnet.util.L10n;
-import stelnet.util.SectorUtils;
 import uilib.Button;
 import uilib.EventHandler;
 import uilib.UiConstants;
@@ -21,7 +21,7 @@ public class GoButton extends Button {
             new EventHandler() {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
-                    SectorUtils.layInCourseFor(market.getPrimaryEntity());
+                    Global.getSector().layInCourseFor(market.getPrimaryEntity());
                 }
             }
         );

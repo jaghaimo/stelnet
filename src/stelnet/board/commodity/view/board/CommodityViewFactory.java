@@ -1,6 +1,8 @@
 package stelnet.board.commodity.view.board;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
+import com.fs.starfarer.api.campaign.econ.EconomyAPI;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -9,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import stelnet.filter.AnyHasTag;
 import stelnet.filter.LogicalNot;
 import stelnet.util.CollectionUtils;
-import stelnet.util.EconomyUtils;
 import uilib.Button;
 import uilib.Group;
 import uilib.Renderable;
@@ -26,7 +27,7 @@ public class CommodityViewFactory implements RenderableFactory {
     @Override
     public List<Renderable> create(Size size) {
         List<Renderable> buttons = new LinkedList<>();
-        List<CommoditySpecAPI> commodities = EconomyUtils.getAllCommodities();
+        List<CommoditySpecAPI> commodities = getAllCommodities();
         filterCommodities(commodities);
         sortCommodities(commodities);
         buttons.add(new Spacer(1));
@@ -42,6 +43,15 @@ public class CommodityViewFactory implements RenderableFactory {
     private void filterCommodities(List<CommoditySpecAPI> commodities) {
         CollectionUtils.reduce(commodities, new LogicalNot(new AnyHasTag("nonecon")));
         CollectionUtils.reduce(commodities, new LogicalNot(new AnyHasTag("meta")));
+    }
+
+    private List<CommoditySpecAPI> getAllCommodities() {
+        EconomyAPI economy = Global.getSector().getEconomy();
+        List<CommoditySpecAPI> commodities = new LinkedList<>();
+        for (String commodityId : economy.getAllCommodityIds()) {
+            commodities.add(economy.getCommoditySpec(commodityId));
+        }
+        return commodities;
     }
 
     private Button getCommodityButton(CommoditySpecAPI commodity, String activeId) {

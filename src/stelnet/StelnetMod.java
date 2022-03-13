@@ -5,8 +5,8 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignUIAPI;
 import com.fs.starfarer.api.impl.campaign.tutorial.TutorialMissionIntel;
 import stelnet.util.ConfigConstants;
-import stelnet.util.ConfigUtils;
-import stelnet.util.ReportUtils;
+import stelnet.util.Configurator;
+import stelnet.util.Reporter;
 
 public class StelnetMod extends BaseModPlugin {
 
@@ -20,23 +20,23 @@ public class StelnetMod extends BaseModPlugin {
     @Override
     public void beforeGameSave() {
         if (ConfigConstants.UNINSTALL_MOD) {
-            ConfigUtils.deactivate();
+            Configurator.deactivate();
         }
     }
 
     @Override
     public void onApplicationLoad() throws Exception {
-        ReportUtils.generate();
-        ConfigUtils.configure();
+        Reporter.generate();
+        Configurator.configure();
     }
 
     @Override
     public void onGameLoad(boolean newGame) {
         if (TutorialMissionIntel.isTutorialInProgress()) {
-            ConfigUtils.deactivate();
+            Configurator.deactivate();
             return;
         }
-        ConfigUtils.activate();
+        Configurator.activate();
     }
 
     private void showUninstalledDialog() {

@@ -1,12 +1,12 @@
 package stelnet.board.query;
 
+import com.fs.starfarer.api.Global;
 import java.util.List;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 import stelnet.BaseIntel;
 import stelnet.util.ModConstants;
-import stelnet.util.SectorUtils;
-import stelnet.util.SettingsUtils;
+import stelnet.util.StelnetHelper;
 import uilib.Renderable;
 import uilib.RenderableIntelInfo;
 import uilib.property.Size;
@@ -32,7 +32,7 @@ public class ResultIntel extends BaseIntel {
         if (advancedAmount > 1) {
             log.debug("Restoring original token");
             setSectorEntityToken(resultSet.getToken());
-            SectorUtils.removeTransientScript(this);
+            Global.getSector().removeTransientScript(this);
             advancedAmount = 0;
         }
     }
@@ -42,7 +42,7 @@ public class ResultIntel extends BaseIntel {
         int results = Math.min(100, resultSet.getResultCount());
         double rounded = Math.floor(results / 10);
         String icon = String.format("result_%.0f", rounded);
-        return SettingsUtils.getSpriteName(icon);
+        return StelnetHelper.getSpriteName(icon);
     }
 
     @Override

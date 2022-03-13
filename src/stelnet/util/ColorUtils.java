@@ -10,12 +10,21 @@ public class ColorUtils {
         return Misc.getBasePlayerColor();
     }
 
+    public static Color buttonBg() {
+        return Global.getSettings().getColor("buttonBg");
+    }
+
     public static Color buttonBgDark() {
         return Global.getSettings().getColor("buttonBgDark");
     }
 
     public static Color buttonGridColor() {
         return Global.getSettings().getColor("standardGridColor");
+    }
+
+    public static Color buttonHighlightColor() {
+        // not ideal approximation
+        return Misc.scaleColor(buttonBg(), 0.7f);
     }
 
     public static Color buttonText() {

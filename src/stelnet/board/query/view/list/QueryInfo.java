@@ -6,8 +6,8 @@ import com.fs.starfarer.api.util.Misc;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.query.Query;
 import stelnet.board.query.QueryL10n;
+import stelnet.util.ColorUtils;
 import stelnet.util.L10n;
-import stelnet.util.SettingsUtils;
 import uilib.RenderableComponent;
 import uilib.property.Size;
 
@@ -24,7 +24,7 @@ public class QueryInfo extends RenderableComponent {
     @Override
     public void render(TooltipMakerAPI tooltip) {
         tooltip.setParaFont(Fonts.VICTOR_10);
-        tooltip.setParaFontColor(SettingsUtils.getButtonHighlightColor());
+        tooltip.setParaFontColor(ColorUtils.buttonHighlightColor());
         if (!query.isEnabled()) {
             tooltip.setParaFontColor(Misc.scaleAlpha(Misc.getDarkPlayerColor(), 0.4f));
         }

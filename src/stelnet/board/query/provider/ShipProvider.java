@@ -19,10 +19,9 @@ import stelnet.board.query.ResultSet;
 import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
-import stelnet.util.EconomyUtils;
 import stelnet.util.Excluder;
 import stelnet.util.L10n;
-import stelnet.util.SettingsUtils;
+import stelnet.util.StelnetHelper;
 import uilib.RenderableShowComponent;
 import uilib.ShowShips;
 import uilib.property.Size;
@@ -69,7 +68,7 @@ public class ShipProvider extends QueryProvider {
         Set<Filter> filters,
         final GroupingStrategy groupingStrategy
     ) {
-        List<SubmarketAPI> submarkets = EconomyUtils.getSubmarkets(markets);
+        List<SubmarketAPI> submarkets = StelnetHelper.getSubmarkets(markets);
         CollectionUtils.reduce(submarkets, Excluder.getQuerySubmarketFilter());
         for (SubmarketAPI submarket : submarkets) {
             MarketAPI market = submarket.getMarket();
@@ -137,7 +136,7 @@ public class ShipProvider extends QueryProvider {
     private List<HullModSpecAPI> convertToHullMods(Set<String> hullModIds) {
         List<HullModSpecAPI> hullMods = new LinkedList<>();
         for (String hullModId : hullModIds) {
-            hullMods.add(SettingsUtils.getHullModSpec(hullModId));
+            hullMods.add(Global.getSettings().getHullModSpec(hullModId));
         }
         return hullMods;
     }

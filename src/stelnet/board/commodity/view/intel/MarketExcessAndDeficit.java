@@ -1,6 +1,7 @@
 package stelnet.board.commodity.view.intel;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CargoAPI.CargoItemType;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
@@ -11,6 +12,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.commodity.CommodityL10n;
 import stelnet.util.L10n;
+import stelnet.util.StelnetHelper;
 import uilib.RenderableComponent;
 import uilib.ShowCargo;
 import uilib.property.Size;
@@ -34,16 +36,17 @@ public class MarketExcessAndDeficit extends RenderableComponent {
 
     @Override
     public void render(TooltipMakerAPI tooltip) {
-        if (!excess.isEmpty()) {
-            render(tooltip, new ShowCargo(excess, L10n.get(CommodityL10n.INTEL_WITH_EXCESS), "", size));
-        }
-        if (!deficit.isEmpty()) {
-            render(tooltip, new ShowCargo(deficit, L10n.get(CommodityL10n.INTEL_WITH_DEFICIT), "", size));
-        }
+        render(tooltip, excess, L10n.get(CommodityL10n.INTEL_WITH_EXCESS));
+        render(tooltip, deficit, L10n.get(CommodityL10n.INTEL_WITH_DEFICIT));
     }
 
-    private void render(TooltipMakerAPI tooltip, ShowCargo showCargo) {
+    private void render(TooltipMakerAPI tooltip, List<CargoStackAPI> stacks, String label) {
+        if (stacks.isEmpty()) {
+            return;
+        }
         tooltip.addSpacer(10f);
+        CargoAPI cargo = StelnetHelper.makeCargoFromStacks(excess);
+        ShowCargo showCargo = new ShowCargo(cargo, label, "", size);
         showCargo.setTitleColor(factionColor);
         showCargo.render(tooltip);
     }

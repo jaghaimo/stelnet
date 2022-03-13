@@ -1,11 +1,11 @@
 package stelnet.board.contact;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CoreUITabId;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
 import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.ui.IntelUIAPI;
-import stelnet.util.SectorUtils;
 import uilib.Button;
 import uilib.EventHandler;
 import uilib.property.Size;
@@ -20,7 +20,7 @@ public class ShowContactButton extends Button {
             new EventHandler() {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
-                    SectorUtils.getCampaignUI().showCoreUITab(CoreUITabId.INTEL, intel);
+                    Global.getSector().getCampaignUI().showCoreUITab(CoreUITabId.INTEL, intel);
                 }
             }
         );

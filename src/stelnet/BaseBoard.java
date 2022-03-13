@@ -1,12 +1,12 @@
 package stelnet;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
-import stelnet.util.IntelUtils;
 import uilib.Renderable;
 import uilib.RenderableIntel;
 import uilib.RenderableState;
@@ -23,12 +23,12 @@ public abstract class BaseBoard extends RenderableIntel {
      * Requires no-args constructor. Used by all "Boards".
      */
     public static <T extends IntelInfoPlugin> T getInstance(Class<T> className) {
-        IntelInfoPlugin intel = IntelUtils.getFirst(className);
+        IntelInfoPlugin intel = Global.getSector().getIntelManager().getFirstIntel(className);
         if (intel == null) {
             try {
                 @SuppressWarnings("deprecation")
                 IntelInfoPlugin board = className.newInstance();
-                IntelUtils.add(board, true);
+                Global.getSector().getIntelManager().addIntel(board, true);
                 intel = board;
             } catch (Exception exception) {
                 log.error("Couldn't create board for " + className.getName(), exception);

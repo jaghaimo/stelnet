@@ -1,5 +1,6 @@
 package stelnet.board.query.provider;
 
+import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
@@ -16,9 +17,9 @@ import stelnet.board.query.ResultSet;
 import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
-import stelnet.util.EconomyUtils;
 import stelnet.util.Excluder;
 import stelnet.util.L10n;
+import stelnet.util.StelnetHelper;
 import uilib.RenderableShowComponent;
 import uilib.ShowCargo;
 import uilib.property.Size;
@@ -55,12 +56,8 @@ public class ItemProvider extends QueryProvider {
 
     @Override
     public RenderableShowComponent getPreview(Set<Filter> filters, Size size) {
-        return new ShowCargo(
-            getMatching(filters),
-            L10n.get(QueryL10n.MATCHING_ITEMS),
-            L10n.get(QueryL10n.NO_MATCHING_ITEMS),
-            size
-        );
+        CargoAPI cargo = StelnetHelper.makeCargoFromStacks(getMatching(filters));
+        return new ShowCargo(cargo, L10n.get(QueryL10n.MATCHING_ITEMS), L10n.get(QueryL10n.NO_MATCHING_ITEMS), size);
     }
 
     @Override
@@ -70,7 +67,7 @@ public class ItemProvider extends QueryProvider {
         Set<Filter> filters,
         final GroupingStrategy groupingStrategy
     ) {
-        List<SubmarketAPI> submarkets = EconomyUtils.getSubmarkets(markets);
+        List<SubmarketAPI> submarkets = StelnetHelper.getSubmarkets(markets);
         CollectionUtils.reduce(submarkets, Excluder.getQuerySubmarketFilter());
         for (SubmarketAPI submarket : submarkets) {
             MarketAPI market = submarket.getMarket();

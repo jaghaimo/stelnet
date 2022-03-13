@@ -6,8 +6,7 @@ import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
-import stelnet.util.StringUtils;
-import stelnet.util.TableCellHelper;
+import stelnet.util.StelnetHelper;
 import uilib.TableContentRow;
 
 public class MarketTableRow implements TableContentRow {
@@ -15,16 +14,16 @@ public class MarketTableRow implements TableContentRow {
     private List<Object> elements = new LinkedList<>();
 
     public MarketTableRow(int i, float price, MarketAPI market, int demandOrAvailability, int excessOrDeficit) {
-        String starSystemName = StringUtils.getStarSystem(market);
+        String starSystemName = StelnetHelper.getStarSystemName(market.getStarSystem(), true);
         addRowNumberCell(i);
         addDGSCreditsCell(price);
         addDGSCell(demandOrAvailability);
         addExcessDemandCell(excessOrDeficit);
         addCell(
-            TableCellHelper.getFactionColor(market.getFaction()),
-            StringUtils.getMarketAndFactionDisplayName(market)
+            StelnetHelper.getFactionColor(market.getFaction()),
+            StelnetHelper.getMarketAndFactionDisplayName(market)
         );
-        addCell(TableCellHelper.getClaimingFactionColor(market), starSystemName);
+        addCell(StelnetHelper.getClaimingFactionColor(market), starSystemName);
         addCell(Misc.getTextColor(), String.format("%.1f", Misc.getDistanceToPlayerLY(market.getPrimaryEntity())));
     }
 

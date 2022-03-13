@@ -12,8 +12,7 @@ import lombok.RequiredArgsConstructor;
 import stelnet.board.commodity.price.DemandPrice;
 import stelnet.board.commodity.price.Price;
 import stelnet.board.commodity.price.SupplyPrice;
-import stelnet.util.StringUtils;
-import stelnet.util.TableCellHelper;
+import stelnet.util.StelnetHelper;
 import uilib.TableContentRow;
 
 @Getter
@@ -40,9 +39,9 @@ public class ProfitTableRow implements Comparable<ProfitTableRow>, TableContentR
         float sellPrice = new DemandPrice(commodityId).getTotalPrice(sellMarket, quantity);
         Color rowColor = getRowColor(Misc.getTextColor());
         addCell(rowColor, Misc.getDGSCredits(profit) + "  (" + Misc.getWithDGS(quantity) + ")");
-        addCell(buyMarket.getTextColorForFactionOrPlanet(), TableCellHelper.getLocation(buyMarket));
+        addCell(buyMarket.getTextColorForFactionOrPlanet(), StelnetHelper.getLocation(buyMarket));
         addCell(rowColor, Misc.getDGSCredits(buyPrice));
-        addCell(sellMarket.getTextColorForFactionOrPlanet(), TableCellHelper.getLocation(sellMarket));
+        addCell(sellMarket.getTextColorForFactionOrPlanet(), StelnetHelper.getLocation(sellMarket));
         addCell(rowColor, Misc.getDGSCredits(sellPrice));
         addCell(rowColor, String.format("%.1f", getDistance()));
     }
@@ -94,8 +93,8 @@ public class ProfitTableRow implements Comparable<ProfitTableRow>, TableContentR
     private int calculateQuantity(MarketAPI buyMarket, MarketAPI sellMarket, String commodityId) {
         CommodityOnMarketAPI buyFromCommodity = buyMarket.getCommodityData(commodityId);
         CommodityOnMarketAPI sellToMarketCommodity = sellMarket.getCommodityData(commodityId);
-        int available = TableCellHelper.getAvailable(buyFromCommodity);
-        int demand = TableCellHelper.getDemand(sellMarket, sellToMarketCommodity);
+        int available = StelnetHelper.getAvailable(buyFromCommodity);
+        int demand = StelnetHelper.getDemand(sellMarket, sellToMarketCommodity);
         return Math.min(available, demand);
     }
 
@@ -106,8 +105,8 @@ public class ProfitTableRow implements Comparable<ProfitTableRow>, TableContentR
     }
 
     private Color getRowColor(Color defaultColor) {
-        String buySystemName = StringUtils.getStarSystem(buyMarket, true);
-        String sellSystemName = StringUtils.getStarSystem(sellMarket, true);
+        String buySystemName = StelnetHelper.getStarSystemName(buyMarket.getStarSystem(), true);
+        String sellSystemName = StelnetHelper.getStarSystemName(sellMarket.getStarSystem(), true);
         if (buySystemName.equals(sellSystemName)) {
             return Misc.getHighlightColor();
         }

@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import stelnet.util.DistanceCalculator;
 import stelnet.util.L10n;
-import stelnet.util.StringUtils;
+import stelnet.util.StelnetHelper;
 import uilib.RenderableIntel;
 
 @Getter
@@ -63,7 +63,7 @@ public abstract class BaseIntel extends RenderableIntel {
     }
 
     protected String getLocationNameWithSystem() {
-        return StringUtils.getStarSystem(sectorEntityToken) + " - " + getLocationName();
+        return StelnetHelper.getStarSystemName(sectorEntityToken.getStarSystem(), true) + " - " + getLocationName();
     }
 
     protected abstract String getTag();

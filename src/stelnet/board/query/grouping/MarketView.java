@@ -10,8 +10,8 @@ import stelnet.board.query.QueryL10n;
 import stelnet.board.query.ResultIntel;
 import stelnet.board.query.ResultSet;
 import stelnet.board.query.ResultView;
-import stelnet.util.CargoUtils;
 import stelnet.util.L10n;
+import stelnet.util.StelnetHelper;
 import stelnet.widget.heading.MarketHeader;
 import uilib.Renderable;
 import uilib.ShowCargo;
@@ -52,7 +52,7 @@ public class MarketView extends ResultView {
             return;
         }
         elements.add(new Spacer(UiConstants.DEFAULT_SPACER));
-        CargoAPI cargo = CargoUtils.makeCargoFromStacks(items);
+        CargoAPI cargo = StelnetHelper.makeCargoFromStacks(items);
         ShowCargo showCargo = new ShowCargo(
             cargo,
             L10n.get(QueryL10n.SUBMARKET_ITEMS, submarket.getNameOneLine()),

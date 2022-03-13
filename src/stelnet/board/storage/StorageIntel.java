@@ -10,9 +10,9 @@ import lombok.Getter;
 import stelnet.BaseIntel;
 import stelnet.CommonL10n;
 import stelnet.IntelInfo;
-import stelnet.util.CargoUtils;
 import stelnet.util.L10n;
 import stelnet.util.ModConstants;
+import stelnet.util.StelnetHelper;
 import stelnet.widget.heading.MarketHeader;
 import uilib.Renderable;
 import uilib.RenderableIntelInfo;
@@ -85,8 +85,8 @@ public class StorageIntel extends BaseIntel {
 
     private String getStorageContent() {
         CargoAPI cargo = storage.getCargo();
-        int itemCount = CargoUtils.calculateItemQuantity(cargo.createCopy());
-        int shipCount = CargoUtils.calculateShipQuantity(cargo.getMothballedShips().getMembersListCopy());
+        int itemCount = StelnetHelper.calculateItemQuantity(cargo.createCopy());
+        int shipCount = StelnetHelper.calculateShipQuantity(cargo.getMothballedShips().getMembersListCopy());
         return L10n.get(StorageL10n.INTEL_CONTENT, itemCount, shipCount);
     }
 }

@@ -1,5 +1,6 @@
 package stelnet.util;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.JumpPointAPI;
 import com.fs.starfarer.api.campaign.LocationAPI;
@@ -23,7 +24,7 @@ public class DistanceCalculator {
     }
 
     public static float getDistanceToPlayerLY(SectorEntityToken entity) {
-        CampaignFleetAPI player = SectorUtils.getPlayerFleet();
+        CampaignFleetAPI player = Global.getSector().getPlayerFleet();
         return getDistanceLY(player, entity);
     }
 

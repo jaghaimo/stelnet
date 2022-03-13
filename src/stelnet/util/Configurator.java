@@ -14,7 +14,7 @@ import stelnet.board.trade.TradeBoard;
 import stelnet.board.viewer.ViewerBoard;
 
 @Log4j
-public class ConfigUtils {
+public class Configurator {
 
     public static void configure() {
         ConfigConstants.init();
@@ -39,7 +39,7 @@ public class ConfigUtils {
     private static void purgeIntel(Class<?>... classNames) {
         for (Class<?> className : classNames) {
             log.debug("Removing intel " + className);
-            IntelUtils.removeAll(className);
+            StelnetHelper.removeIntel(className);
         }
     }
 

@@ -1,5 +1,6 @@
 package stelnet.board.contact;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
@@ -7,7 +8,6 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.impl.campaign.RuleBasedInteractionDialogPluginImpl;
 import com.fs.starfarer.api.ui.IntelUIAPI;
-import stelnet.util.SectorUtils;
 
 public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
 
@@ -23,7 +23,7 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
         this.person = person;
         this.market = storage.getMarket();
         this.ui = ui;
-        playerData = new CargoFleetData(SectorUtils.getPlayerFleet());
+        playerData = new CargoFleetData(Global.getSector().getPlayerFleet());
         playerData.clear();
         storageData = new CargoFleetData(storage);
     }

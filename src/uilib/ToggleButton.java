@@ -1,11 +1,13 @@
 package uilib;
 
+import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.ui.Fonts;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 import lombok.Getter;
 import lombok.Setter;
-import stelnet.util.SettingsUtils;
+import stelnet.util.ColorUtils;
 import uilib.property.Size;
 
 @Getter
@@ -14,7 +16,7 @@ public class ToggleButton extends Button implements TwoStateButton {
 
     private final String titleOff;
     private boolean isStateOn;
-    private Color backgroundSelectedColor = SettingsUtils.getButtonHighlightColor();
+    private Color backgroundSelectedColor = ColorUtils.buttonHighlightColor();
 
     public ToggleButton(
         Size size,
@@ -26,8 +28,8 @@ public class ToggleButton extends Button implements TwoStateButton {
         super(size, toggledOnTitle, isEnabled);
         if (size.getWidth() == 0) {
             float maxWidth = Math.max(
-                10 + SettingsUtils.computeStringWidth(toggledOnTitle),
-                10 + SettingsUtils.computeStringWidth(toggledOffTitle)
+                10 + Global.getSettings().computeStringWidth(toggledOnTitle, Fonts.DEFAULT_SMALL),
+                10 + Global.getSettings().computeStringWidth(toggledOffTitle, Fonts.DEFAULT_SMALL)
             );
             size = new Size(maxWidth, size.getHeight());
         }

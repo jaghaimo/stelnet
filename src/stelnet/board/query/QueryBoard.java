@@ -1,5 +1,6 @@
 package stelnet.board.query;
 
+import com.fs.starfarer.api.Global;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 import stelnet.BaseBoard;
@@ -7,8 +8,7 @@ import stelnet.BoardInfo;
 import stelnet.board.query.QueryState.QueryBoardTab;
 import stelnet.util.L10n;
 import stelnet.util.ModConstants;
-import stelnet.util.SectorUtils;
-import stelnet.util.SettingsUtils;
+import stelnet.util.StelnetHelper;
 import uilib.RenderableIntelInfo;
 import uilib.RenderableState;
 
@@ -22,13 +22,13 @@ import uilib.RenderableState;
 @Log4j
 public class QueryBoard extends BaseBoard {
 
-    private final String icon = SettingsUtils.getSpriteName("query");
+    private final String icon = StelnetHelper.getSpriteName("query");
     private final QueryState state = new QueryState();
     private final String tag = ModConstants.TAG_QUERY;
 
     @Override
     public void advance(float amount) {
-        SectorUtils.removeTransientScript(this);
+        Global.getSector().removeTransientScript(this);
         log.debug("Performing cleanup and resetting query cache");
         state.resetCache();
         state.setActiveTab(QueryBoardTab.LIST);
@@ -43,7 +43,7 @@ public class QueryBoard extends BaseBoard {
     @Override
     protected RenderableState getRenderableState() {
         log.debug("Adding itself as a script for cleanup operations");
-        SectorUtils.addTransientScript(this);
+        Global.getSector().addTransientScript(this);
         return state;
     }
 }
