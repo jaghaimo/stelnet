@@ -1,5 +1,6 @@
 package stelnet.board.commodity.table;
 
+import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
@@ -20,7 +21,7 @@ public class MarketTableRow implements TableContentRow {
         addDGSCell(demandOrAvailability);
         addExcessDemandCell(excessOrDeficit);
         addCell(StelnetHelper.getFactionColor(market.getFaction()), StelnetHelper.getMarketWithFactionName(market));
-        addCell(StelnetHelper.getClaimingFactionColor(market), starSystemName);
+        addCell(getClaimingFactionColor(market), starSystemName);
         addCell(Misc.getTextColor(), String.format("%.1f", Misc.getDistanceToPlayerLY(market.getPrimaryEntity())));
     }
 
@@ -50,7 +51,12 @@ public class MarketTableRow implements TableContentRow {
         elements.add(element.toString());
     }
 
-    private static String getExcessDemandValue(int excessDemand) {
+    private Color getClaimingFactionColor(MarketAPI market) {
+        FactionAPI faction = Misc.getClaimingFaction(market.getPrimaryEntity());
+        return StelnetHelper.getFactionColor(faction);
+    }
+
+    private String getExcessDemandValue(int excessDemand) {
         if (excessDemand > 0) {
             return Misc.getWithDGS(excessDemand);
         }
@@ -60,7 +66,7 @@ public class MarketTableRow implements TableContentRow {
         return "---";
     }
 
-    private static Color getExcessDemandColor(int excessDemand) {
+    private Color getExcessDemandColor(int excessDemand) {
         if (excessDemand > 0) {
             return Misc.getPositiveHighlightColor();
         }

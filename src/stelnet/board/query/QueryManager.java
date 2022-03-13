@@ -90,7 +90,6 @@ public class QueryManager {
     public void updateIntel() {
         resultMap.clear();
         StelnetHelper.removeIntel(ResultIntel.class);
-        StelnetHelper.removeTransientScripts(ResultIntel.class);
         for (Query query : queries) {
             if (query.isEnabled()) {
                 updateIntel(query);

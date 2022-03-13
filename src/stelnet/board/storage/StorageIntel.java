@@ -86,7 +86,7 @@ public class StorageIntel extends BaseIntel {
     private String getStorageContent() {
         CargoAPI cargo = storage.getCargo();
         int itemCount = StelnetHelper.calculateItemQuantity(cargo.createCopy());
-        int shipCount = StelnetHelper.calculateShipQuantity(cargo.getMothballedShips().getMembersListCopy());
+        int shipCount = cargo.getMothballedShips().getMembersListCopy().size();
         return L10n.get(StorageL10n.INTEL_CONTENT, itemCount, shipCount);
     }
 }

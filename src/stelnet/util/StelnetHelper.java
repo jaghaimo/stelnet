@@ -14,32 +14,26 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import lombok.extern.log4j.Log4j;
-import org.json.JSONException;
-import org.json.JSONObject;
 import stelnet.CommonL10n;
 import stelnet.filter.Filter;
 
 /**
  * `Misc` god class equivalent.
  */
-@Log4j
 public class StelnetHelper {
 
+    /**
+     * Sum of all cargo stack sizes. Contrary to `CargoAPI.getUsedSpace` it ignores item's size.
+     */
     public static int calculateItemQuantity(CargoAPI cargo) {
         float cargoSpace = 0;
         for (CargoStackAPI stack : cargo.getStacksCopy()) {
             cargoSpace += stack.getSize();
         }
         return (int) cargoSpace;
-    }
-
-    public static int calculateShipQuantity(List<FleetMemberAPI> fleet) {
-        return fleet.size();
     }
 
     public static CargoAPI getAllItems(Set<Filter> filters) {
@@ -71,11 +65,6 @@ public class StelnetHelper {
             }
         }
         return availableStorages;
-    }
-
-    public static Color getClaimingFactionColor(MarketAPI market) {
-        FactionAPI faction = Misc.getClaimingFaction(market.getPrimaryEntity());
-        return getFactionColor(faction);
     }
 
     public static int getCommodityAvailable(CommodityOnMarketAPI commodity) {
@@ -146,28 +135,6 @@ public class StelnetHelper {
         return submarkets;
     }
 
-    /**
-     * Used for configuration.
-     */
-    public static JSONObject loadJson(String filename) {
-        try {
-            return Global.getSettings().loadJSON(filename, ModConstants.STELNET);
-        } catch (IOException | JSONException exception) {
-            return getEmptyJsonObject(exception, filename);
-        }
-    }
-
-    /**
-     * Used for translations.
-     */
-    public static JSONObject loadMergedJson(String filename) {
-        try {
-            return Global.getSettings().getMergedJSONForMod(filename, ModConstants.STELNET);
-        } catch (IOException | JSONException exception) {
-            return getEmptyJsonObject(exception, filename);
-        }
-    }
-
     public static CargoAPI makeCargoFromStacks(List<CargoStackAPI> cargoStacks) {
         CargoAPI cargo = Global.getFactory().createCargo(true);
         for (CargoStackAPI cargoStack : cargoStacks) {
@@ -184,18 +151,7 @@ public class StelnetHelper {
             manager.removeIntel(plugin);
             plugin = manager.getFirstIntel(className);
         }
-    }
-
-    public static void removeTransientScripts(Class<?> className) {
         Global.getSector().removeTransientScriptsOfClass(className);
-    }
-
-    public static void replaceCargoStacks(CargoAPI cargo, List<CargoStackAPI> cargoStacks) {
-        cargo.clear();
-        for (CargoStackAPI cargoStack : cargoStacks) {
-            cargo.addFromStack(cargoStack);
-        }
-        cargo.sort();
     }
 
     public static float smartRounding(float number) {
@@ -207,10 +163,5 @@ public class StelnetHelper {
             number = 100 * Math.round(number / 100);
         }
         return (int) number;
-    }
-
-    private static JSONObject getEmptyJsonObject(Exception exception, String filename) {
-        log.warn("Failed to read " + filename, exception);
-        return new JSONObject();
     }
 }

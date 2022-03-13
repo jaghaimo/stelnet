@@ -64,7 +64,7 @@ public class PerMarketStrategy implements DisplayStrategy {
         CargoAPI items = storageCargo.createCopy();
         List<CargoStackAPI> cargoStacks = storageCargo.getStacksCopy();
         CollectionUtils.reduce(cargoStacks, filteringButtons.getFilters());
-        StelnetHelper.replaceCargoStacks(items, cargoStacks);
+        replaceCargoStacks(items, cargoStacks);
         return items;
     }
 
@@ -72,5 +72,13 @@ public class PerMarketStrategy implements DisplayStrategy {
         List<FleetMemberAPI> ships = storageCargo.getMothballedShips().getMembersInPriorityOrder();
         CollectionUtils.reduce(ships, filteringButtons.getFilters());
         return ships;
+    }
+
+    private void replaceCargoStacks(CargoAPI cargo, List<CargoStackAPI> cargoStacks) {
+        cargo.clear();
+        for (CargoStackAPI cargoStack : cargoStacks) {
+            cargo.addFromStack(cargoStack);
+        }
+        cargo.sort();
     }
 }
