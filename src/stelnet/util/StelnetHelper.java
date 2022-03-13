@@ -25,7 +25,7 @@ import stelnet.CommonL10n;
 import stelnet.filter.Filter;
 
 /**
- * Provides additional functionality. Stelnet's own `Global` and `Misc` god class equivalent.
+ * `Misc` god class equivalent.
  */
 @Log4j
 public class StelnetHelper {
