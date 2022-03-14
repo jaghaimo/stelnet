@@ -41,19 +41,28 @@ public class IntelTracker {
         return intel != null;
     }
 
+    /**
+     * Removes one intel.
+     */
     public void remove(CommodityIntel intel) {
         String key = getKey(intel.getCommodityId(), intel.getMarket());
         removeIntel(intel, key);
     }
 
-    public void removeAll() {
+    /**
+     * Removes all intel.
+     */
+    public void remove() {
         for (CommodityIntel intel : intelMap.values()) {
             Global.getSector().getIntelManager().removeIntel(intel);
         }
         intelMap.clear();
     }
 
-    public void removeCommodity(String commodityId) {
+    /**
+     * Removes all intel for a given `commodityId`.
+     */
+    public void remove(String commodityId) {
         Set<String> keys = new LinkedHashSet<>(intelMap.keySet());
         for (String key : keys) {
             removeIfCommodity(key, commodityId);

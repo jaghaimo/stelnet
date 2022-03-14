@@ -33,7 +33,7 @@ public class DeleteCommodityIntel extends C2Button {
 
     @Override
     public void onConfirm(IntelUIAPI ui) {
-        intelTracker.removeCommodity(commodityId);
+        intelTracker.remove(commodityId);
     }
 
     @Override

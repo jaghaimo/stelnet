@@ -36,7 +36,7 @@ public class DeleteAllIntel extends C2Button {
 
     @Override
     public void onConfirm(IntelUIAPI ui) {
-        intelTracker.removeAll();
+        intelTracker.remove();
     }
 
     @Override
