@@ -15,7 +15,6 @@ import uilib.RenderableIntelInfo;
 @Getter
 public class StorageBoard extends BaseBoard {
 
-    private final Set<Filter> emptySet = Collections.<Filter>emptySet();
     private final String icon = StelnetHelper.getSpriteName("storage");
     private final StorageState renderableState = new StorageState();
     private final String tag = ModConstants.TAG_STORAGE;
@@ -35,11 +34,15 @@ public class StorageBoard extends BaseBoard {
     }
 
     private int getAllItemCount() {
-        CargoAPI cargo = StelnetHelper.getAllItems(emptySet);
+        CargoAPI cargo = StelnetHelper.getAllItems(getEmptySet());
         return StelnetHelper.calculateItemQuantity(cargo);
     }
 
     private int getAllShipCount() {
-        return StelnetHelper.getAllShips(emptySet).size();
+        return StelnetHelper.getAllShips(getEmptySet()).size();
+    }
+
+    private Set<Filter> getEmptySet() {
+        return Collections.<Filter>emptySet();
     }
 }
