@@ -24,7 +24,7 @@ public class CommodityView implements RenderableFactory {
         elements.addAll(new TabViewFactory(commodityId, activeTab).create(size));
         elements.addAll(new IntelViewFactory(commodityId, activeTab, intelTracker).create(size));
         elements.addAll(new CommodityViewFactory(commodityId).create(size));
-        elements.addAll(new DeleteViewFactory(commodityId).create(size));
+        elements.addAll(new DeleteViewFactory(commodityId, intelTracker).create(size));
         return elements;
     }
 }

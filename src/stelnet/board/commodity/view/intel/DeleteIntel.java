@@ -4,7 +4,6 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import org.lwjgl.input.Keyboard;
-import stelnet.board.commodity.CommodityBoard;
 import stelnet.board.commodity.CommodityIntel;
 import stelnet.board.commodity.CommodityL10n;
 import stelnet.util.L10n;
@@ -28,8 +27,7 @@ public class DeleteIntel extends Button {
 
     @Override
     public void onConfirm(IntelUIAPI ui) {
-        CommodityBoard board = CommodityBoard.getInstance(CommodityBoard.class);
-        board.getRenderableState().deleteIntel(intel);
+        intel.remove();
     }
 
     @Override

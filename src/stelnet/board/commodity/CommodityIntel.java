@@ -22,14 +22,16 @@ import uilib.property.Size;
 public class CommodityIntel extends BaseIntel {
 
     private final CommoditySpecAPI commodity;
+    private final IntelTracker intelTracker;
     private final MarketAPI market;
     private final float buyPrice;
     private final float sellPrice;
     private final String tag = ModConstants.TAG_COMMODITY;
 
-    public CommodityIntel(CommoditySpecAPI commodity, MarketAPI market) {
+    public CommodityIntel(CommoditySpecAPI commodity, IntelTracker intelTracker, MarketAPI market) {
         super(market.getFaction(), market.getPrimaryEntity());
         this.commodity = commodity;
+        this.intelTracker = intelTracker;
         this.market = market;
         this.buyPrice = getSupplyPrice();
         this.sellPrice = getDemandPrice();
@@ -51,6 +53,10 @@ public class CommodityIntel extends BaseIntel {
 
     public String getCommodityId() {
         return commodity.getId();
+    }
+
+    public void remove() {
+        intelTracker.remove(this);
     }
 
     @Override

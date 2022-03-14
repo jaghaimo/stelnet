@@ -25,6 +25,16 @@ public class IntelTracker {
         }
     }
 
+    public boolean has(String commodityId) {
+        Set<String> keys = new LinkedHashSet<>(intelMap.keySet());
+        for (String key : keys) {
+            if (intelMap.get(key).getCommodityId().equals(commodityId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean has(String commodityId, MarketAPI market) {
         String key = getKey(commodityId, market);
         CommodityIntel intel = intelMap.get(key);
@@ -50,6 +60,10 @@ public class IntelTracker {
         }
     }
 
+    public int size() {
+        return intelMap.size();
+    }
+
     public void toggle(String commodityId, MarketAPI market) {
         String key = getKey(commodityId, market);
         CommodityIntel intel = intelMap.get(key);
@@ -63,7 +77,7 @@ public class IntelTracker {
     private void addIntel(String commodityId, MarketAPI market) {
         String key = getKey(commodityId, market);
         CommoditySpecAPI commodity = Global.getSector().getEconomy().getCommoditySpec(commodityId);
-        CommodityIntel intel = new CommodityIntel(commodity, market);
+        CommodityIntel intel = new CommodityIntel(commodity, this, market);
         Global.getSector().getIntelManager().addIntel(intel, true);
         intelMap.put(key, intel);
         log.debug("Added new intel with key " + key);

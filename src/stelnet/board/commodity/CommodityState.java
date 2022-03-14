@@ -21,18 +21,6 @@ public class CommodityState implements RenderableState {
         return this;
     }
 
-    public void deleteIntel() {
-        intelTracker.removeAll();
-    }
-
-    public void deleteIntel(CommodityIntel intel) {
-        intelTracker.remove(intel);
-    }
-
-    public void deleteIntel(String commodityId) {
-        intelTracker.removeCommodity(commodityId);
-    }
-
     @Override
     public List<Renderable> toRenderableList(Size size) {
         return new CommodityView(commodityId, activeTab, intelTracker).create(size);
