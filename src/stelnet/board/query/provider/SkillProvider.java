@@ -1,12 +1,12 @@
 package stelnet.board.query.provider;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.characters.SkillSpecAPI;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
-import stelnet.util.SettingsUtils;
 
 public class SkillProvider {
 
@@ -23,10 +23,10 @@ public class SkillProvider {
     }
 
     private List<SkillSpecAPI> getAllSkillSpecs() {
-        List<String> skillIds = SettingsUtils.getAllSkillIds();
+        List<String> skillIds = Global.getSettings().getSkillIds();
         List<SkillSpecAPI> skillSpecs = new LinkedList<>();
         for (String skillId : skillIds) {
-            skillSpecs.add(SettingsUtils.getSkill(skillId));
+            skillSpecs.add(Global.getSettings().getSkillSpec(skillId));
         }
         return skillSpecs;
     }

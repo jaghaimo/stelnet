@@ -5,7 +5,7 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import java.util.List;
 import stelnet.board.commodity.CommodityL10n;
 import stelnet.board.commodity.price.SupplyPrice;
-import stelnet.util.TableCellHelper;
+import stelnet.util.StelnetHelper;
 
 public class BuyTableContent extends MarketTableContent {
 
@@ -20,11 +20,11 @@ public class BuyTableContent extends MarketTableContent {
     }
 
     @Override
-    protected TableRow createRowData(int i, MarketAPI market) {
+    protected MarketTableRow createRowData(int i, MarketAPI market) {
         CommodityOnMarketAPI commodityData = getCommodityData(market);
-        int available = TableCellHelper.getAvailable(commodityData);
+        int available = StelnetHelper.getCommodityAvailable(commodityData);
         int excess = commodityData.getExcessQuantity();
-        float buyPrice = price.getPriceAmount(market);
-        return new TableRow(i, buyPrice, market, available, excess);
+        float buyPrice = price.getUnitPrice(market);
+        return new MarketTableRow(i, buyPrice, market, available, excess);
     }
 }

@@ -13,7 +13,7 @@ public enum CommodityAction {
     BUY {
         @Override
         public List<MarketAPI> getMarkets(String commodityId) {
-            return new BuyMarketFactory(commodityId).createMarkets();
+            return getBuyMarkets(commodityId);
         }
 
         @Override
@@ -24,30 +24,30 @@ public enum CommodityAction {
     SELL {
         @Override
         public List<MarketAPI> getMarkets(String commodityId) {
-            return new SellMarketFactory(commodityId).createMarkets();
+            return getSellMarkets(commodityId);
         }
 
         @Override
         public Price getPrice(String commodityId) {
             return new DemandPrice(commodityId);
         }
-    };
+    },
+
+    PROFIT {};
 
     public List<MarketAPI> getMarkets(String commodityId) {
         return Collections.emptyList();
     }
 
-    public Price getPrice(String commodityId) {
-        return new Price() {
-            @Override
-            public float getPriceAmount(MarketAPI market) {
-                return 0;
-            }
+    public List<MarketAPI> getSellMarkets(String commodityId) {
+        return new SellMarketFactory(commodityId).createMarkets();
+    }
 
-            @Override
-            public float getPriceAmount(MarketAPI market, int quantity) {
-                return 0;
-            }
-        };
+    public List<MarketAPI> getBuyMarkets(String commodityId) {
+        return new BuyMarketFactory(commodityId).createMarkets();
+    }
+
+    public Price getPrice(String commodityId) {
+        return null;
     }
 }

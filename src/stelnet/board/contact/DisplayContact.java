@@ -11,7 +11,7 @@ import com.fs.starfarer.api.util.Misc;
 import lombok.RequiredArgsConstructor;
 import stelnet.CommonL10n;
 import stelnet.util.L10n;
-import stelnet.util.StringUtils;
+import stelnet.util.StelnetHelper;
 import stelnet.widget.heading.HeadingWithButtons;
 import uilib.UiConstants;
 import uilib.property.Size;
@@ -100,7 +100,7 @@ public class DisplayContact extends HeadingWithButtons {
             ContactsL10n.DISPLAY_LOCATION_TEXT,
             Misc.ucFirst(person.getHeOrShe()),
             market.getName(),
-            StringUtils.getStarSystem(market, true)
+            StelnetHelper.getStarSystemName(market.getStarSystem(), true)
         );
     }
 }

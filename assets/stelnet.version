@@ -4,8 +4,8 @@
     "modThreadId": 20836,
     "modVersion": {
         "major": 2,
-        "minor": 4,
-        "patch": 3
+        "minor": 5,
+        "patch": 0
     },
-    "directDownloadURL": "https://github.com/jaghaimo/stelnet/releases/download/2.4.3/stelnet-2.4.3.zip"
+    "directDownloadURL": "https://github.com/jaghaimo/stelnet/releases/download/2.5.0/stelnet-2.5.0.zip"
 }

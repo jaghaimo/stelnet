@@ -1,11 +1,11 @@
 package uilib;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import stelnet.util.SectorUtils;
 import uilib.property.Size;
 
 @RequiredArgsConstructor
@@ -17,7 +17,7 @@ public class Table extends RenderableComponent {
     private final float maxHeight;
     private final TableContent tableContent;
 
-    private FactionAPI faction = SectorUtils.getPlayerFaction();
+    private FactionAPI faction = Global.getSector().getPlayerFaction();
     private String noRowsDescription = "No rows present.";
 
     @Override

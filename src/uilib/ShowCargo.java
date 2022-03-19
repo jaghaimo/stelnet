@@ -1,13 +1,10 @@
 package uilib;
 
 import com.fs.starfarer.api.campaign.CargoAPI;
-import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
-import java.util.List;
 import lombok.Setter;
-import stelnet.util.CargoUtils;
 import uilib.property.Size;
 
 @Setter
@@ -28,10 +25,6 @@ public class ShowCargo extends RenderableShowComponent {
         this.optionalTitle = optionalTitle;
         this.emptyDescription = emptyDescription;
         setSize(size);
-    }
-
-    public ShowCargo(List<CargoStackAPI> stacks, String optionalTitle, String emptyDescription, Size size) {
-        this(CargoUtils.makeCargoFromStacks(stacks), optionalTitle, emptyDescription, size);
     }
 
     @Override

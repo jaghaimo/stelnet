@@ -1,5 +1,6 @@
 package stelnet.board.query;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.SubmarketPlugin.TransferAction;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
@@ -12,7 +13,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import stelnet.util.L10n;
-import stelnet.util.SettingsUtils;
 
 @Getter
 @Setter
@@ -134,7 +134,7 @@ public class Result implements Comparable<Result> {
         }
         if (cargoStack.isSpecialStack()) {
             String id = cargoStack.getSpecialDataIfSpecial().getData();
-            HullModSpecAPI hullModSpec = SettingsUtils.getHullModSpec(id);
+            HullModSpecAPI hullModSpec = Global.getSettings().getHullModSpec(id);
             return hullModSpec.getSpriteName();
         }
         return null;

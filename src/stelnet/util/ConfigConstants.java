@@ -51,7 +51,7 @@ public class ConfigConstants {
     protected static JSONObject load() throws JSONException, IOException {
         if (cachedSettings == null) {
             log.debug("Reading config file");
-            cachedSettings = SettingsUtils.loadJson(ModConstants.STELNET_JSON);
+            cachedSettings = Reader.loadJson(ModConstants.STELNET_JSON);
         }
         return cachedSettings;
     }

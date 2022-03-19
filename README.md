@@ -17,9 +17,20 @@ All items and ships acquired during the call will be deposited to the Storage of
 ### Commodity
 
 Commodity board (formerly [Galactic Markets](https://fractalsoftworks.com/forum/index.php?topic=19383)) is used to display buying and selling prices among all known markets.
-It also hosts a Profit tab that can be used to find viable trade routes.
 
 ![Commodity](images/commodity.png?raw=1)
+
+#### Profit
+
+Commodity board also hosts a Profit tab which can be used to find viable trade routes.
+Filters by most profitable routes in descending order and displays routes where:
+
+-   profit margin is at least 10000 credits, and
+-   trade volume is at least 1000.
+
+Highlights rows when buy and sell markets are in the same system and caps results to first 50.
+
+![Profit](images/profit.png?raw=1)
 
 ### Market
 
@@ -50,3 +61,7 @@ This mod can be added to an existing save - just enable it in the mod list and l
 
 This mod can be removed from an existing save - edit `stelnet.json` and set `uninstallMod` to `true`.
 Then load the save, save the game, quit the game, and finally disable this mod in the mod list.
+
+## Integration with Other Mods
+
+See various CSV files in [data/stelnet](assets/data/stelnet/) directory.

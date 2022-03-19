@@ -1,5 +1,6 @@
 package stelnet.board.query.grouping;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
@@ -11,9 +12,8 @@ import stelnet.board.query.QueryManager;
 import stelnet.board.query.ResultIntel;
 import stelnet.board.query.ResultSet;
 import stelnet.board.query.ResultView;
-import stelnet.util.IntelUtils;
 import stelnet.util.L10n;
-import stelnet.util.StringUtils;
+import stelnet.util.StelnetHelper;
 import uilib.RenderableIntelInfo;
 
 public enum GroupingStrategy {
@@ -43,13 +43,13 @@ public enum GroupingStrategy {
 
     public void createIntel(QueryManager manager, ResultSet resultSet) {
         ResultIntel intel = new ResultIntel(manager, resultSet);
-        IntelUtils.add(intel, true);
+        Global.getSector().getIntelManager().addIntel(intel, true);
     }
 
     public GroupingData getGroupingData(ResultSet resultSet) {
         MarketAPI market = resultSet.getMarket();
         RenderableIntelInfo info = new BoardInfo(
-            StringUtils.getMarketAndFactionDisplayName(market),
+            StelnetHelper.getMarketWithFactionName(market),
             L10n.get(QueryL10n.RESULTS_IN_MARKET, resultSet.getResultCount())
         );
         return new GroupingData(info, market.getFaction(), market.getId(), market.getPrimaryEntity());

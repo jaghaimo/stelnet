@@ -1,4 +1,4 @@
-package stelnet.board.commodity.view;
+package stelnet.board.commodity.view.board;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import java.util.Collections;
@@ -27,7 +27,7 @@ public class IntelViewFactory implements RenderableFactory {
         List<Renderable> buttons = new LinkedList<>();
         for (int i = 0; i < numberOfButtons; i++) {
             MarketAPI market = markets.get(i);
-            buttons.add(new IntelButton(i + 1, commodityAction, commodityId, market, tracker));
+            buttons.add(new IntelViewButton(i + 1, commodityId, market, tracker));
         }
 
         HorizontalViewContainer rows = new HorizontalViewContainer(buttons);

@@ -15,7 +15,7 @@ public class L10n {
     public static void init(String filename) {
         if (!translations.containsKey(filename)) {
             String path = "translate/" + filename;
-            translations.put(filename, SettingsUtils.loadRawJson(path));
+            translations.put(filename, Reader.loadMergedJson(path));
         }
     }
 

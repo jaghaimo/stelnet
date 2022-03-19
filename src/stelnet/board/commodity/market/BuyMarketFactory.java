@@ -24,11 +24,6 @@ public class BuyMarketFactory extends MarketFactory {
     }
 
     @Override
-    protected float getPriceAmount(MarketAPI market) {
-        return price.getPriceAmount(market);
-    }
-
-    @Override
     protected void sortMarkets(List<MarketAPI> markets) {
         super.sortMarkets(markets);
         Collections.reverse(markets);

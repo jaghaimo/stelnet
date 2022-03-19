@@ -1,5 +1,6 @@
 package stelnet.widget.heading;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CoreUITabId;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.ui.CutStyle;
@@ -7,7 +8,6 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 import stelnet.CommonL10n;
 import stelnet.board.viewer.ViewerBoard;
 import stelnet.util.L10n;
-import stelnet.util.SectorUtils;
 import stelnet.widget.viewer.InMarketStrategy;
 import uilib.Button;
 import uilib.EventHandler;
@@ -26,7 +26,7 @@ public class PeekButton extends Button {
                 public void onConfirm(IntelUIAPI ui) {
                     ViewerBoard board = ViewerBoard.getInstance(ViewerBoard.class);
                     board.getRenderableState().setDisplayStrategy(new InMarketStrategy(market));
-                    SectorUtils.getCampaignUI().showCoreUITab(CoreUITabId.INTEL, board);
+                    Global.getSector().getCampaignUI().showCoreUITab(CoreUITabId.INTEL, board);
                 }
             }
         );

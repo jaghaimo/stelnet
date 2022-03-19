@@ -21,6 +21,24 @@ public class CollectionUtils {
         return true;
     }
 
+    public static String join(Iterable<?> iterable, String delimiter, String empty) {
+        int delimiterLength = delimiter.length();
+        StringBuilder builder = new StringBuilder();
+        Iterator<?> iterator = iterable.iterator();
+        while (iterator.hasNext()) {
+            String nextString = iterator.next().toString().trim();
+            if (nextString.isEmpty()) {
+                continue;
+            }
+            builder.append(delimiter);
+            builder.append(nextString);
+        }
+        if (builder.length() > delimiterLength) {
+            return builder.substring(delimiterLength);
+        }
+        return empty;
+    }
+
     public static <T> T[] merge(T[] array1, T[]... arrays) {
         List<T> list = new LinkedList<>();
         Collections.addAll(list, array1);

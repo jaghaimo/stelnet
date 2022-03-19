@@ -1,5 +1,6 @@
 package stelnet.widget.heading;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.PositionAPI;
@@ -7,7 +8,6 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.ui.UIComponentAPI;
 import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
-import stelnet.util.SectorUtils;
 import uilib.Button;
 import uilib.RenderableComponent;
 import uilib.UiConstants;
@@ -15,7 +15,7 @@ import uilib.UiConstants;
 public abstract class HeadingWithButtons extends RenderableComponent {
 
     protected void renderQueryHeading(TooltipMakerAPI tooltip, boolean isEnabled, String headingText) {
-        renderHeading(tooltip, isEnabled, "", SectorUtils.getPlayerFaction());
+        renderHeading(tooltip, isEnabled, "", Global.getSector().getPlayerFaction());
         overlapQueryHeading(tooltip, isEnabled, headingText);
     }
 

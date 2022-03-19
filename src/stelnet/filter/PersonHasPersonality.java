@@ -1,10 +1,10 @@
 package stelnet.filter;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.characters.PersonalityAPI;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
-import stelnet.util.SettingsUtils;
 
 @EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
@@ -24,7 +24,7 @@ public final class PersonHasPersonality extends PersonOfficerFilter {
 
     @Override
     public String toString() {
-        PersonAPI person = SettingsUtils.createPerson();
+        PersonAPI person = Global.getSettings().createPerson();
         person.setPersonality(personalityId);
         return person.getPersonalityAPI().getDisplayName();
     }

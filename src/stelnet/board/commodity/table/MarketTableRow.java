@@ -1,30 +1,27 @@
 package stelnet.board.commodity.table;
 
+import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
-import stelnet.util.StringUtils;
-import stelnet.util.TableCellHelper;
+import stelnet.util.StelnetHelper;
 import uilib.TableContentRow;
 
-public class TableRow implements TableContentRow {
+public class MarketTableRow implements TableContentRow {
 
     private List<Object> elements = new LinkedList<>();
 
-    public TableRow(int i, float price, MarketAPI market, int demandOrAvailability, int excessOrDeficit) {
-        String starSystemName = StringUtils.getStarSystem(market);
+    public MarketTableRow(int i, float price, MarketAPI market, int demandOrAvailability, int excessOrDeficit) {
+        String starSystemName = StelnetHelper.getStarSystemName(market.getStarSystem(), true);
         addRowNumberCell(i);
         addDGSCreditsCell(price);
         addDGSCell(demandOrAvailability);
         addExcessDemandCell(excessOrDeficit);
-        addCell(
-            TableCellHelper.getFactionColor(market.getFaction()),
-            StringUtils.getMarketAndFactionDisplayName(market)
-        );
-        addCell(TableCellHelper.getClaimingFactionColor(market), starSystemName);
+        addCell(StelnetHelper.getFactionColor(market.getFaction()), StelnetHelper.getMarketWithFactionName(market));
+        addCell(getClaimingFactionColor(market), starSystemName);
         addCell(Misc.getTextColor(), String.format("%.1f", Misc.getDistanceToPlayerLY(market.getPrimaryEntity())));
     }
 
@@ -54,7 +51,12 @@ public class TableRow implements TableContentRow {
         elements.add(element.toString());
     }
 
-    private static String getExcessDemandValue(int excessDemand) {
+    private Color getClaimingFactionColor(MarketAPI market) {
+        FactionAPI faction = Misc.getClaimingFaction(market.getPrimaryEntity());
+        return StelnetHelper.getFactionColor(faction);
+    }
+
+    private String getExcessDemandValue(int excessDemand) {
         if (excessDemand > 0) {
             return Misc.getWithDGS(excessDemand);
         }
@@ -64,7 +66,7 @@ public class TableRow implements TableContentRow {
         return "---";
     }
 
-    private static Color getExcessDemandColor(int excessDemand) {
+    private Color getExcessDemandColor(int excessDemand) {
         if (excessDemand > 0) {
             return Misc.getPositiveHighlightColor();
         }

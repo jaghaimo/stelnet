@@ -14,18 +14,11 @@ public class CommodityState implements RenderableState {
 
     private String commodityId = Commodities.SUPPLIES;
     private CommodityAction activeTab = CommodityAction.BUY;
-    private final IntelTracker intelTracker = new IntelTracker();
+    private transient IntelTracker intelTracker = new IntelTracker();
 
-    public void deleteIntel() {
-        intelTracker.removeAll();
-    }
-
-    public void deleteIntel(CommodityIntel intel) {
-        intelTracker.remove(intel);
-    }
-
-    public void deleteIntel(String commodityId) {
-        intelTracker.removeCommodity(commodityId);
+    public Object readResolve() {
+        intelTracker = new IntelTracker();
+        return this;
     }
 
     @Override

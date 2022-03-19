@@ -8,7 +8,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import java.util.Map;
 import stelnet.util.L10n;
-import stelnet.util.StringUtils;
+import stelnet.util.StelnetHelper;
 import uilib.CustomPanel;
 import uilib.Renderable;
 import uilib.UiConstants;
@@ -62,7 +62,7 @@ public class ContactsPanel extends CustomPanel {
                 0,
                 y++,
                 stack.getDisplayName(),
-                StringUtils.getMarketAndFactionDisplayName(market),
+                StelnetHelper.getMarketWithFactionName(market),
                 market.getTextColorForFactionOrPlanet()
             );
         }
@@ -71,7 +71,7 @@ public class ContactsPanel extends CustomPanel {
                 0,
                 y++,
                 member.getShipName() + ", " + member.getHullSpec().getNameWithDesignationWithDashClass(),
-                StringUtils.getMarketAndFactionDisplayName(market),
+                StelnetHelper.getMarketWithFactionName(market),
                 market.getTextColorForFactionOrPlanet()
             );
         }

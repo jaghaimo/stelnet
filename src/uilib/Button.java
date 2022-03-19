@@ -1,16 +1,17 @@
 package uilib;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.ButtonAPI;
 import com.fs.starfarer.api.ui.CutStyle;
+import com.fs.starfarer.api.ui.Fonts;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 import lombok.Getter;
 import lombok.Setter;
-import stelnet.util.ColorUtils;
-import stelnet.util.SettingsUtils;
+import stelnet.util.ColorHelper;
 import uilib.property.Size;
 
 @Getter
@@ -28,7 +29,7 @@ public class Button extends RenderableComponent implements ButtonHandler {
     private boolean highlight = false;
 
     public Button(Size size, String title, boolean isEnabled) {
-        this(size, title, isEnabled, ColorUtils.basePlayerColor(), ColorUtils.darkPlayerColor());
+        this(size, title, isEnabled, ColorHelper.basePlayerColor(), ColorHelper.darkPlayerColor());
     }
 
     public Button(Size size, String title, boolean isEnabled, Color color) {
@@ -42,7 +43,7 @@ public class Button extends RenderableComponent implements ButtonHandler {
         this.textColor = textColor;
         this.backgroundColor = backgroundColor;
         if (size.getWidth() == 0) {
-            size = new Size(SettingsUtils.computeStringWidth(title) + 20, size.getHeight());
+            size = new Size(Global.getSettings().computeStringWidth(title, Fonts.DEFAULT_SMALL) + 20, size.getHeight());
         }
         setSize(size);
         setWithScroller(false);

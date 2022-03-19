@@ -9,7 +9,7 @@ import java.util.Set;
 import lombok.extern.log4j.Log4j;
 import stelnet.filter.Filter;
 import stelnet.util.L10n;
-import stelnet.util.StorageUtils;
+import stelnet.util.StelnetHelper;
 import stelnet.widget.WidgetL10n;
 
 @Log4j
@@ -21,8 +21,8 @@ public class UnifiedStrategy implements DisplayStrategy {
     @Override
     public List<LocationContent> getData(ButtonManager filteringButtons) {
         Set<Filter> filters = filteringButtons.getFilters();
-        CargoAPI items = StorageUtils.getAllItems(filters);
-        List<FleetMemberAPI> ships = StorageUtils.getAllShips(filters);
+        CargoAPI items = StelnetHelper.getAllItems(filters);
+        List<FleetMemberAPI> ships = StelnetHelper.getAllShips(filters);
         log.debug("Found " + items.getStacksCopy().size() + " items");
         log.debug("Found " + ships.size() + " ships");
         return Collections.singletonList(new LocationContent(getLocationData(), items, ships));

@@ -1,4 +1,4 @@
-package stelnet.board.commodity.view;
+package stelnet.board.commodity.view.board;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import java.util.Collections;
@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.lwjgl.input.Keyboard;
 import stelnet.board.commodity.CommodityAction;
 import stelnet.board.commodity.table.BuyTableContent;
+import stelnet.board.commodity.table.ProfitTableContent;
 import stelnet.board.commodity.table.SellTableContent;
 import uilib.Renderable;
 import uilib.RenderableFactory;
@@ -24,25 +25,36 @@ public class TabViewFactory implements RenderableFactory {
     @Override
     public List<Renderable> create(Size size) {
         float width = size.getWidth() - 210;
-        float height = size.getHeight() - 24;
+        float height = size.getHeight();
+        if (!isActive(CommodityAction.PROFIT)) {
+            height -= 24;
+        }
         TabViewContainer tabViewContainer = new TabViewContainer();
         tabViewContainer.setSize(new Size(width, height));
         addBuyTab(tabViewContainer, width);
         addSellTab(tabViewContainer, width);
+        addProfitTab(tabViewContainer, width);
         return Collections.<Renderable>singletonList(tabViewContainer);
     }
 
     private void addBuyTab(TabViewContainer tabViewContainer, float width) {
-        CommodityTabButton tabButton = getTabButton(CommodityAction.BUY, Keyboard.KEY_B);
+        TabViewButton tabButton = getTabButton(CommodityAction.BUY, Keyboard.KEY_B);
         Table table = getBuyTable(width);
         boolean isActive = isActive(CommodityAction.BUY);
         tabViewContainer.addTab(tabButton, table, isActive);
     }
 
     private void addSellTab(TabViewContainer tabViewContainer, float width) {
-        CommodityTabButton tabButton = getTabButton(CommodityAction.SELL, Keyboard.KEY_S);
+        TabViewButton tabButton = getTabButton(CommodityAction.SELL, Keyboard.KEY_S);
         Table table = getSellTable(width);
         boolean isActive = isActive(CommodityAction.SELL);
+        tabViewContainer.addTab(tabButton, table, isActive);
+    }
+
+    private void addProfitTab(TabViewContainer tabViewContainer, float width) {
+        TabViewButton tabButton = getTabButton(CommodityAction.PROFIT, Keyboard.KEY_P);
+        Table table = getProfitTable(width);
+        boolean isActive = isActive(CommodityAction.PROFIT);
         tabViewContainer.addTab(tabButton, table, isActive);
     }
 
@@ -58,8 +70,15 @@ public class TabViewFactory implements RenderableFactory {
         return new Table(commodityId, width, 0, tableContent);
     }
 
-    private CommodityTabButton getTabButton(CommodityAction currentTab, int keyboardShortcut) {
-        return new CommodityTabButton(currentTab, commodityAction, keyboardShortcut);
+    private Table getProfitTable(float width) {
+        List<MarketAPI> sellMarkets = CommodityAction.PROFIT.getSellMarkets(commodityId);
+        List<MarketAPI> buyMarkets = CommodityAction.PROFIT.getBuyMarkets(commodityId);
+        TableContent tableContent = new ProfitTableContent(sellMarkets, buyMarkets, commodityId);
+        return new Table(commodityId, width, 0, tableContent);
+    }
+
+    private TabViewButton getTabButton(CommodityAction currentTab, int keyboardShortcut) {
+        return new TabViewButton(currentTab, commodityAction, keyboardShortcut);
     }
 
     private boolean isActive(CommodityAction currentAction) {

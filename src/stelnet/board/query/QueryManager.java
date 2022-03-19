@@ -12,8 +12,7 @@ import stelnet.filter.Filter;
 import stelnet.filter.ResultHasId;
 import stelnet.util.CollectionUtils;
 import stelnet.util.Excluder;
-import stelnet.util.IntelUtils;
-import stelnet.util.SectorUtils;
+import stelnet.util.StelnetHelper;
 
 public class QueryManager {
 
@@ -90,8 +89,7 @@ public class QueryManager {
 
     public void updateIntel() {
         resultMap.clear();
-        IntelUtils.removeAll(ResultIntel.class);
-        SectorUtils.removeTransientScripts(ResultIntel.class);
+        StelnetHelper.removeIntel(ResultIntel.class);
         for (Query query : queries) {
             if (query.isEnabled()) {
                 updateIntel(query);

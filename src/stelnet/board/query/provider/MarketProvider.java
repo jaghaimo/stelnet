@@ -1,5 +1,6 @@
 package stelnet.board.query.provider;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
@@ -12,9 +13,7 @@ import lombok.extern.log4j.Log4j;
 import stelnet.filter.Filter;
 import stelnet.filter.MarketNotHidden;
 import stelnet.util.CollectionUtils;
-import stelnet.util.EconomyUtils;
 import stelnet.util.Excluder;
-import stelnet.util.SectorUtils;
 
 @Log4j
 public class MarketProvider {
@@ -30,7 +29,7 @@ public class MarketProvider {
     }
 
     public static List<MarketAPI> getMarkets(boolean refreshContent) {
-        List<MarketAPI> markets = EconomyUtils.getMarkets();
+        List<MarketAPI> markets = Global.getSector().getEconomy().getMarketsCopy();
         List<Filter> filters = Arrays.<Filter>asList(Excluder.getMarketFilters(), new MarketNotHidden());
         CollectionUtils.reduce(markets, filters);
         if (refreshContent && needsRefresh) {
@@ -58,7 +57,10 @@ public class MarketProvider {
     }
 
     private static void updateOfficers(MarketAPI market) {
-        List<OfficerManagerEvent> managers = SectorUtils.getListenerManager().getListeners(OfficerManagerEvent.class);
+        List<OfficerManagerEvent> managers = Global
+            .getSector()
+            .getListenerManager()
+            .getListeners(OfficerManagerEvent.class);
         for (OfficerManagerEvent manager : managers) {
             manager.reportPlayerOpenedMarket(market);
         }

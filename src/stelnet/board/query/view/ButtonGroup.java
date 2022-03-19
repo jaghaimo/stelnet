@@ -5,7 +5,7 @@ import com.fs.starfarer.api.util.Misc;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import stelnet.util.ColorUtils;
+import stelnet.util.ColorHelper;
 import stelnet.util.L10n;
 import uilib.Button;
 import uilib.DynamicGroup;
@@ -69,8 +69,8 @@ public class ButtonGroup extends HorizontalViewContainer {
 
     private void prepareButtons(Button[] buttons, boolean isEnabled) {
         for (Button button : buttons) {
-            button.setTextColor(ColorUtils.basePlayerColor());
-            button.setBackgroundColor(ColorUtils.darkPlayerColor());
+            button.setTextColor(ColorHelper.basePlayerColor());
+            button.setBackgroundColor(ColorHelper.darkPlayerColor());
             button.setEnabled(isEnabled);
         }
         if (isEnabled) {
