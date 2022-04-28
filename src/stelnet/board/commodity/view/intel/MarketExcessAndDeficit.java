@@ -45,7 +45,7 @@ public class MarketExcessAndDeficit extends RenderableComponent {
             return;
         }
         tooltip.addSpacer(10f);
-        CargoAPI cargo = StelnetHelper.makeCargoFromStacks(excess);
+        CargoAPI cargo = StelnetHelper.makeCargoFromStacks(stacks);
         ShowCargo showCargo = new ShowCargo(cargo, label, "", size);
         showCargo.setTitleColor(factionColor);
         showCargo.render(tooltip);
