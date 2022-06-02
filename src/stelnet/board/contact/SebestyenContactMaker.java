@@ -15,7 +15,7 @@ import java.util.List;
 import stelnet.util.ConfigConstants;
 
 /**
- * Creates contacts out of normal (e.g. Sebestyen) comm people.
+ * Creates a ContactIntel for Sebestyen.
  */
 public class SebestyenContactMaker implements ColonyInteractionListener {
 
