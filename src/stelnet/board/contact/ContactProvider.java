@@ -21,6 +21,10 @@ import stelnet.util.CollectionUtils;
 @Log4j
 public class ContactProvider {
 
+    public int getSize() {
+        return ContactIntel.getCurrentContacts();
+    }
+
     public List<ContactIntel> getContacts(List<Filter> filters) {
         List<ContactIntel> contacts = new LinkedList<>();
         List<IntelInfoPlugin> plugins = Global.getSector().getIntelManager().getIntel(ContactIntel.class);

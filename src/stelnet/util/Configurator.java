@@ -4,6 +4,7 @@ import lombok.extern.log4j.Log4j;
 import stelnet.board.commodity.CommodityBoard;
 import stelnet.board.commodity.CommodityIntel;
 import stelnet.board.contact.ContactsBoard;
+import stelnet.board.contact.SebestyenContactMaker;
 import stelnet.board.query.MarketUpdater;
 import stelnet.board.query.QueryBoard;
 import stelnet.board.query.ResultIntel;
@@ -46,9 +47,11 @@ public class Configurator {
     private static void initContacts(boolean hasContacts) {
         if (hasContacts) {
             ContactsBoard.getInstance(ContactsBoard.class);
+            SebestyenContactMaker.register();
             log.info("Enabled Contact plugin");
         } else {
             purgeIntel(ContactsBoard.class);
+            SebestyenContactMaker.remove();
             log.info("Disabled Contact plugin");
         }
     }

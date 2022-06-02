@@ -18,6 +18,8 @@ public class ConfigConstants {
     public static transient boolean HAS_MARKET = true;
     public static transient boolean HAS_STORAGE = true;
 
+    public static transient boolean CONTACTS_ADD_SEBESTYEN = true;
+
     public static transient boolean QUERY_USE_OPEN_MARKET = true;
     public static transient boolean QUERY_USE_MILITARY_MARKET = true;
     public static transient boolean QUERY_USE_BLACK_MARKET = true;
@@ -36,6 +38,8 @@ public class ConfigConstants {
         HAS_CONTACTS = get("hasContacts", HAS_CONTACTS);
         HAS_MARKET = get("hasMarket", HAS_MARKET);
         HAS_STORAGE = get("hasStorage", HAS_STORAGE);
+
+        CONTACTS_ADD_SEBESTYEN = get("contactsAddSebestyen", CONTACTS_ADD_SEBESTYEN);
 
         QUERY_USE_OPEN_MARKET = get("queryUseOpenMarket", QUERY_USE_OPEN_MARKET);
         QUERY_USE_MILITARY_MARKET = get("queryUseMilitaryMarket", QUERY_USE_MILITARY_MARKET);

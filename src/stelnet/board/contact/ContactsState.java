@@ -2,7 +2,6 @@ package stelnet.board.contact;
 
 import com.fs.starfarer.api.campaign.PersonImportance;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
 import com.fs.starfarer.api.loading.ContactTagSpec;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -28,7 +27,7 @@ public class ContactsState implements RenderableState {
     }
 
     public int getContactNumber() {
-        return ContactIntel.getCurrentContacts();
+        return provider.getSize();
     }
 
     public Object readResolve() {
