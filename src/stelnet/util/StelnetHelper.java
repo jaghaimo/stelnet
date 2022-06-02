@@ -152,6 +152,7 @@ public class StelnetHelper {
             plugin = manager.getFirstIntel(className);
         }
         Global.getSector().removeTransientScriptsOfClass(className);
+        Global.getSector().removeScriptsOfClass(className);
     }
 
     public static float smartRounding(float number) {

@@ -1,7 +1,7 @@
 {
     # Mod settings
     "autoRefreshMarkets": true, # keeps market information up-to-date
-    "uninstallMod": true, # set to true, load and save the game to remove the mod
+    "uninstallMod": false, # set to true, load and save the game to remove the mod
     # Module toggles - used to enable or disable specific modules
     "hasCommodities": true,
     "hasContacts": true,

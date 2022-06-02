@@ -26,14 +26,6 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
         }
     }
 
-    public static void remove() {
-        SebestyenContactMaker maker = new SebestyenContactMaker();
-        SebestyenContactIntel intel = maker.getContactIntel();
-        if (intel != null) {
-            Global.getSector().getIntelManager().removeIntel(intel);
-        }
-    }
-
     @Override
     public void reportPlayerOpenedMarket(MarketAPI market) {}
 
