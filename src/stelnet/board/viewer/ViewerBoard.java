@@ -1,18 +1,18 @@
 package stelnet.board.viewer;
 
 import lombok.Getter;
-import stelnet.BaseBoard;
-import stelnet.BoardInfo;
+import stelnet.board.BoardBasePlugin;
+import stelnet.board.BoardRenderableInfo;
 import stelnet.util.L10n;
 import stelnet.util.ModConstants;
 import stelnet.util.StelnetHelper;
 import uilib.RenderableIntelInfo;
 
 @Getter
-public class ViewerBoard extends BaseBoard {
+public class ViewerBoard extends BoardBasePlugin {
 
     private final String icon = StelnetHelper.getSpriteName("viewer");
-    private final RenderableIntelInfo intelInfo = new BoardInfo(
+    private final RenderableIntelInfo intelInfo = new BoardRenderableInfo(
         L10n.get(ViewerL10n.TITLE),
         L10n.get(ViewerL10n.DESCRIPTION)
     );

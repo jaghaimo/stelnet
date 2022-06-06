@@ -12,10 +12,10 @@ import org.json.JSONObject;
 @Log4j
 public abstract class Reader {
 
-    protected static List<String> getStrings(String path) {
+    protected static List<String> getStrings(String path, String namespace) {
         List<String> strings = new LinkedList<>();
         try {
-            JSONArray config = Global.getSettings().getMergedSpreadsheetDataForMod("id", path, ModConstants.STELNET);
+            JSONArray config = Global.getSettings().getMergedSpreadsheetDataForMod("id", path, namespace);
             for (int i = 0; i < config.length(); i++) {
                 JSONObject row = config.getJSONObject(i);
                 strings.add(row.getString("id"));
@@ -29,9 +29,9 @@ public abstract class Reader {
     /**
      * Used for configuration.
      */
-    public static JSONObject loadJson(String filename) {
+    public static JSONObject loadJson(String filename, String namespace) {
         try {
-            return Global.getSettings().loadJSON(filename, ModConstants.STELNET);
+            return Global.getSettings().loadJSON(filename, namespace);
         } catch (IOException | JSONException exception) {
             return getEmptyJsonObject(exception, filename);
         }
@@ -40,9 +40,9 @@ public abstract class Reader {
     /**
      * Used for translations.
      */
-    public static JSONObject loadMergedJson(String filename) {
+    public static JSONObject loadMergedJson(String filename, String namespace) {
         try {
-            return Global.getSettings().getMergedJSONForMod(filename, ModConstants.STELNET);
+            return Global.getSettings().getMergedJSONForMod(filename, namespace);
         } catch (IOException | JSONException exception) {
             return getEmptyJsonObject(exception, filename);
         }

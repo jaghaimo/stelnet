@@ -6,7 +6,6 @@ import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
 import java.util.LinkedList;
 import java.util.List;
-import stelnet.CommonL10n;
 import stelnet.board.query.provider.ShipProvider;
 import stelnet.board.query.view.FilteringButton;
 import stelnet.filter.ShipHullHasBays;
@@ -15,6 +14,7 @@ import stelnet.filter.ShipHullIsManufacturer;
 import stelnet.filter.ShipHullIsSize;
 import stelnet.filter.ShipHullNoBuiltIns;
 import stelnet.filter.WeaponSlotIsSizeType;
+import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
 
 public class ShipButtonUtils {

@@ -1,4 +1,4 @@
-package stelnet;
+package stelnet.board;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
@@ -9,7 +9,7 @@ import uilib.RenderableIntelInfo;
 
 @Getter
 @RequiredArgsConstructor
-public class IntelInfo implements RenderableIntelInfo {
+public class IntelRenderableInfo implements RenderableIntelInfo {
 
     private final String title;
     private final String header1;

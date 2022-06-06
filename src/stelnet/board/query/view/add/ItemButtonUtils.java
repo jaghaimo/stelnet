@@ -6,7 +6,6 @@ import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.loading.WingRole;
 import java.util.LinkedList;
 import java.util.List;
-import stelnet.CommonL10n;
 import stelnet.board.query.provider.ItemProvider;
 import stelnet.board.query.view.FilteringButton;
 import stelnet.filter.CargoStackIsManufacturer;
@@ -16,6 +15,7 @@ import stelnet.filter.CargoStackWingIsRole;
 import stelnet.filter.WeaponIsDamage;
 import stelnet.filter.WeaponIsSize;
 import stelnet.filter.WeaponIsType;
+import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
 
 public class ItemButtonUtils {

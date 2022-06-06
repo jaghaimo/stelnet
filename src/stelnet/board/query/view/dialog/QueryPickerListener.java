@@ -10,7 +10,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
-import stelnet.CommonL10n;
 import stelnet.board.query.Query;
 import stelnet.board.query.QueryBoard;
 import stelnet.board.query.QueryManager;
@@ -22,6 +21,7 @@ import stelnet.filter.CargoStackIsStack;
 import stelnet.filter.Filter;
 import stelnet.filter.LogicalOr;
 import stelnet.filter.ShipHullIsHull;
+import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
 
 @RequiredArgsConstructor

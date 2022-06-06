@@ -6,7 +6,7 @@ import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.util.Misc;
 import java.util.Set;
-import stelnet.BoardInfo;
+import stelnet.board.BoardRenderableInfo;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
 import stelnet.board.query.ResultIntel;
@@ -26,7 +26,7 @@ public enum GroupingStrategy {
                 return super.getGroupingData(resultSet);
             }
             Set<MarketAPI> marketSet = resultSet.getMarketSet();
-            RenderableIntelInfo info = new BoardInfo(
+            RenderableIntelInfo info = new BoardRenderableInfo(
                 system.getName(),
                 L10n.get(QueryL10n.RESULTS_IN_SYSTEM, resultSet.getResultCount(), marketSet.size())
             );
@@ -48,7 +48,7 @@ public enum GroupingStrategy {
 
     public GroupingData getGroupingData(ResultSet resultSet) {
         MarketAPI market = resultSet.getMarket();
-        RenderableIntelInfo info = new BoardInfo(
+        RenderableIntelInfo info = new BoardRenderableInfo(
             StelnetHelper.getMarketWithFactionName(market),
             L10n.get(QueryL10n.RESULTS_IN_MARKET, resultSet.getResultCount())
         );

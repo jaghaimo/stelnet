@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.Getter;
-import stelnet.CommonL10n;
 import stelnet.filter.CargoStackIsType;
 import stelnet.filter.CargoStackIsType.Type;
 import stelnet.filter.CargoStackWingIsRole;
@@ -18,6 +17,7 @@ import stelnet.filter.LogicalNot;
 import stelnet.filter.ShipHullHasHint;
 import stelnet.filter.ShipHullIsSize;
 import stelnet.filter.WeaponIsSize;
+import stelnet.util.CommonL10n;
 import uilib.Renderable;
 import uilib.Spacer;
 

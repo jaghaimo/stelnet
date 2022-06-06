@@ -1,9 +1,9 @@
 package stelnet.board.query.view.dialog;
 
 import com.fs.starfarer.api.campaign.CargoAPI;
-import stelnet.CommonL10n;
 import stelnet.board.query.QueryL10n;
 import stelnet.board.query.view.add.QueryFactory;
+import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
 
 public class ItemPickerDialog extends PickerDialog {

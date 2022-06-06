@@ -1,4 +1,4 @@
-package stelnet;
+package stelnet.board;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
@@ -14,7 +14,7 @@ import uilib.property.Size;
 
 @Getter
 @Log4j
-public abstract class BaseBoard extends RenderableIntel {
+public abstract class BoardBasePlugin extends RenderableIntel {
 
     private final IntelSortTier sortTier = IntelSortTier.TIER_0;
 

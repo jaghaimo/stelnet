@@ -6,7 +6,6 @@ import com.fs.starfarer.api.impl.campaign.ids.Ranks;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import stelnet.CommonL10n;
 import stelnet.board.query.provider.SkillProvider;
 import stelnet.board.query.view.FilteringButton;
 import stelnet.filter.AnyHasTag;
@@ -16,6 +15,7 @@ import stelnet.filter.PersonHasPersonality;
 import stelnet.filter.PersonHasSkill;
 import stelnet.filter.PersonIsPostedAs;
 import stelnet.filter.SkillIsCombatOfficer;
+import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
 
 public class PersonnelButtonUtils {

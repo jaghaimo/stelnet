@@ -1,5 +1,9 @@
 package stelnet.util;
 
+import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.CampaignUIAPI;
+import com.fs.starfarer.api.campaign.CoreUITabId;
+import java.awt.event.KeyEvent;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.commodity.CommodityBoard;
 import stelnet.board.commodity.CommodityIntel;
@@ -31,10 +35,12 @@ public class Configurator {
     }
 
     public static void deactivate() {
+        resetIntelUi();
         initContacts(false);
         initCommodity(false);
         initMarket(false);
         initStorage(false);
+        resetIntelUi();
         log.info("Stelnet deactivated");
     }
 
@@ -91,5 +97,14 @@ public class Configurator {
             purgeIntel(StorageBoard.class, StorageIntel.class);
             log.info("Disabled Storage plugin");
         }
+    }
+
+    private static void resetIntelUi() {
+        CampaignUIAPI campaignUi = Global.getSector().getCampaignUI();
+        if (campaignUi == null) {
+            return;
+        }
+        campaignUi.showCoreUITab(CoreUITabId.INTEL, null);
+        StelnetHelper.sendKey(KeyEvent.VK_ESCAPE);
     }
 }

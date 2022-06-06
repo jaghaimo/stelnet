@@ -9,7 +9,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.ui.UIComponentAPI;
 import com.fs.starfarer.api.util.Misc;
 import lombok.RequiredArgsConstructor;
-import stelnet.CommonL10n;
+import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
 import stelnet.util.StelnetHelper;
 import stelnet.widget.heading.HeadingWithButtons;
