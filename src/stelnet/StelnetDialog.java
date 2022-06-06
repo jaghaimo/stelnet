@@ -25,18 +25,22 @@ public class StelnetDialog implements EveryFrameScript {
     public void advance(float amount) {
         CampaignUIAPI campaignUi = Global.getSector().getCampaignUI();
         if (campaignUi == null) {
-            Global.getSector().getTransientScripts().remove(this);
+            unregister();
             return;
         }
         advanced += amount;
         if (advanced > 1) {
             Global.getSector().setPaused(true);
             campaignUi.showMessageDialog(message);
-            Global.getSector().getTransientScripts().remove(this);
+            unregister();
         }
     }
 
     public void register() {
         Global.getSector().getTransientScripts().add(this);
+    }
+
+    public void unregister() {
+        Global.getSector().getTransientScripts().remove(this);
     }
 }
