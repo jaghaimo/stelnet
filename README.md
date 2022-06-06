@@ -62,6 +62,16 @@ This mod can be added to an existing save - just enable it in the mod list and l
 This mod can be removed from an existing save - edit `stelnet.json` and set `uninstallMod` to `true`.
 Then load the save, save the game, quit the game, and finally disable this mod in the mod list.
 
+## Translating the Mod
+
+To translate this mod, edit files in [data/l10n](assets/data/l10n/) directory.
+You can then create the translation mod with the following structure:
+
+```bash
+data/l10n/      # all files you want to translate
+mod_info.json   # the usual content, no need for mod plugin
+```
+
 ## Integration with Other Mods
 
 See various CSV files in [data/stelnet](assets/data/stelnet/) directory.
