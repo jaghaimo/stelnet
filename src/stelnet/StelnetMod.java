@@ -12,7 +12,8 @@ public class StelnetMod extends BaseModPlugin {
     public void afterGameSave() {
         if (ConfigConstants.UNINSTALL_MOD) {
             StelnetDialog dialog = new StelnetDialog(
-                "Stellar Networks has been removed from this save. You can now update (or disable) this mod."
+                "Stellar Networks has been removed from this save. You can now update (or disable) this mod.",
+                1
             );
             dialog.register();
         }

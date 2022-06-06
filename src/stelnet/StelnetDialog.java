@@ -10,6 +10,7 @@ public class StelnetDialog implements EveryFrameScript {
 
     private float advanced = 0;
     private final String message;
+    private final float delayInSeconds;
 
     @Override
     public boolean isDone() {
@@ -29,7 +30,7 @@ public class StelnetDialog implements EveryFrameScript {
             return;
         }
         advanced += amount;
-        if (advanced > 1) {
+        if (advanced > delayInSeconds) {
             Global.getSector().setPaused(true);
             campaignUi.showMessageDialog(message);
             unregister();
