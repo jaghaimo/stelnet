@@ -3,10 +3,12 @@ package stelnet.board.contact;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.PersonImportance;
 import com.fs.starfarer.api.campaign.PlayerMarketTransaction;
+import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.listeners.ColonyInteractionListener;
 import com.fs.starfarer.api.characters.PersonAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Conditions;
 import com.fs.starfarer.api.impl.campaign.ids.People;
 import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
@@ -18,6 +20,8 @@ import stelnet.util.ConfigConstants;
  * Creates a ContactIntel for Sebestyen.
  */
 public class SebestyenContactMaker implements ColonyInteractionListener {
+
+    private final String MET_BAIRD_MEM_KEY = "$metBaird";
 
     public static void register() {
         if (ConfigConstants.CONTACTS_ADD_SEBESTYEN) {
@@ -34,7 +38,9 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
         if (!needContact()) {
             return;
         }
-        addStorage();
+        if (!fixMarket()) {
+            return;
+        }
         addContact();
     }
 
@@ -57,18 +63,28 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
 
     private void addContact() {
         PersonAPI person = getPerson();
-        person.addTag(Tags.CONTACT_SCIENCE);
-        person.setImportance(PersonImportance.VERY_HIGH);
-        ContactIntel contact = new SebestyenContactIntel(person, person.getMarket());
+        MarketAPI market = getGalatia();
+        fixPerson(person, market);
+        ContactIntel contact = new SebestyenContactIntel(person, market);
         Global.getSector().getIntelManager().addIntel(contact);
     }
 
-    private void addStorage() {
-        PersonAPI person = getPerson();
-        MarketAPI market = person.getMarket();
+    private boolean fixMarket() {
+        MarketAPI market = getGalatia();
+        if (market == null) {
+            return false;
+        }
         if (!market.hasSubmarket(Submarkets.SUBMARKET_STORAGE)) {
             market.addSubmarket(Submarkets.SUBMARKET_STORAGE);
+            market.removeCondition(Conditions.DECIVILIZED);
         }
+        return true;
+    }
+
+    private void fixPerson(PersonAPI person, MarketAPI market) {
+        person.setMarket(market);
+        person.addTag(Tags.CONTACT_SCIENCE);
+        person.setImportance(PersonImportance.VERY_HIGH);
     }
 
     private SebestyenContactIntel getContactIntel() {
@@ -79,11 +95,19 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
         return (SebestyenContactIntel) plugins.get(0);
     }
 
+    private MarketAPI getGalatia() {
+        SectorEntityToken token = Global.getSector().getEntityById("station_galatia_academy");
+        if (token == null) {
+            return null;
+        }
+        return (MarketAPI) token.getMarket();
+    }
+
     private PersonAPI getPerson() {
         return Global.getSector().getImportantPeople().getPerson(People.SEBESTYEN);
     }
 
     private boolean hasMetProvost() {
-        return Global.getSector().getMemoryWithoutUpdate().getBoolean("$metBaird");
+        return Global.getSector().getMemoryWithoutUpdate().getBoolean(MET_BAIRD_MEM_KEY);
     }
 }
