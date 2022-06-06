@@ -68,8 +68,9 @@ To translate this mod, edit files in [data/l10n](assets/data/l10n/) directory.
 You can then create the translation mod with the following structure:
 
 ```bash
-data/l10n/      # all files you want to translate
-mod_info.json   # the usual content, no need for mod plugin
+data/config/tag_data.json  # tag names in Intel UI
+data/l10n/                 # strings used in the mod
+mod_info.json              # the usual content, no need for mod plugin
 ```
 
 ## Integration with Other Mods
