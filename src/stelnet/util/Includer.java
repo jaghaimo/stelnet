@@ -27,7 +27,7 @@ public class Includer extends Reader {
     }
 
     private static List<String> getAbandonedStationIds() {
-        return getStrings(ABANDONED_STATION_IDS);
+        return getStrings(ABANDONED_STATION_IDS, ModConstants.STELNET);
     }
 
     private static SubmarketAPI getStorage(String station) {

@@ -4,7 +4,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.ui.IntelUIAPI;
-import stelnet.CommonL10n;
+import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
 import uilib.Button;
 import uilib.EventHandler;

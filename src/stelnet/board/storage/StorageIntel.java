@@ -7,9 +7,9 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import java.util.Arrays;
 import java.util.List;
 import lombok.Getter;
-import stelnet.BaseIntel;
-import stelnet.CommonL10n;
-import stelnet.IntelInfo;
+import stelnet.board.IntelBasePlugin;
+import stelnet.board.IntelRenderableInfo;
+import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
 import stelnet.util.ModConstants;
 import stelnet.util.StelnetHelper;
@@ -23,7 +23,7 @@ import uilib.UiConstants;
 import uilib.property.Size;
 
 @Getter
-public class StorageIntel extends BaseIntel {
+public class StorageIntel extends IntelBasePlugin {
 
     private final SubmarketAPI storage;
     private final String tag = ModConstants.TAG_STORAGE;
@@ -58,7 +58,7 @@ public class StorageIntel extends BaseIntel {
 
     @Override
     protected RenderableIntelInfo getIntelInfo() {
-        return new IntelInfo(
+        return new IntelRenderableInfo(
             getLocationNameWithSystem(),
             L10n.get(CommonL10n.INTEL_LOCATION),
             getStorageContent(),

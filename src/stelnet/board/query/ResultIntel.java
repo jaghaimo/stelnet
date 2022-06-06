@@ -4,7 +4,7 @@ import com.fs.starfarer.api.Global;
 import java.util.List;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
-import stelnet.BaseIntel;
+import stelnet.board.IntelBasePlugin;
 import stelnet.util.ModConstants;
 import stelnet.util.StelnetHelper;
 import uilib.Renderable;
@@ -13,7 +13,7 @@ import uilib.property.Size;
 
 @Getter
 @Log4j
-public class ResultIntel extends BaseIntel {
+public class ResultIntel extends IntelBasePlugin {
 
     private float advancedAmount = 0;
     private final QueryManager queryManager;

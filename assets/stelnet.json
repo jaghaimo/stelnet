@@ -8,6 +8,7 @@
     "hasMarket": true,
     "hasStorage": true,
     # Board specific config
+    "contactsAddSebestyen": true,
     "queryUseOpenMarket": true,
     "queryUseMilitaryMarket": true,
     "queryUseBlackMarket": true,

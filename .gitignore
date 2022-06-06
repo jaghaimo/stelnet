@@ -9,15 +9,8 @@ build/
 gradle.properties
 node_modules/
 package-lock.json
-# VSCode
-.vscode/**/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
 # Local copies of mod structure (dev env)
 /data
 /graphics
 /stelnet*
-/translate
 /mod_info.json

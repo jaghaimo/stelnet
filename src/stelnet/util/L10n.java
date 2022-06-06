@@ -7,15 +7,23 @@ import lombok.extern.log4j.Log4j;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Utility class to translate strings.
+ *
+ * Accepts any enum, will fetch translations from `data/l10n/` folder.
+ *
+ * @see CommonL10n
+ */
 @Log4j
 public class L10n {
 
+    public static String namespace = ModConstants.STELNET;
     private static transient Map<String, JSONObject> translations = new HashMap<>();
 
     public static void init(String filename) {
         if (!translations.containsKey(filename)) {
-            String path = "translate/" + filename;
-            translations.put(filename, Reader.loadMergedJson(path));
+            String path = "data/l10n/" + filename;
+            translations.put(filename, Reader.loadMergedJson(path, namespace));
         }
     }
 

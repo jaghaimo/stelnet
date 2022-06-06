@@ -1,4 +1,4 @@
-package stelnet;
+package stelnet.board;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
@@ -7,6 +7,7 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import stelnet.util.CommonL10n;
 import stelnet.util.DistanceCalculator;
 import stelnet.util.L10n;
 import stelnet.util.StelnetHelper;
@@ -15,13 +16,13 @@ import uilib.RenderableIntel;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public abstract class BaseIntel extends RenderableIntel {
+public abstract class IntelBasePlugin extends RenderableIntel {
 
     private final FactionAPI faction;
     private SectorEntityToken sectorEntityToken;
     private final IntelSortTier sortTier = IntelSortTier.TIER_3;
 
-    public BaseIntel(FactionAPI faction, SectorEntityToken sectorEntityToken) {
+    public IntelBasePlugin(FactionAPI faction, SectorEntityToken sectorEntityToken) {
         this(faction);
         this.sectorEntityToken = sectorEntityToken;
     }

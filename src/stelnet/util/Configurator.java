@@ -1,9 +1,15 @@
 package stelnet.util;
 
+import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.CampaignUIAPI;
+import com.fs.starfarer.api.campaign.CoreUITabId;
+import java.awt.event.KeyEvent;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.commodity.CommodityBoard;
 import stelnet.board.commodity.CommodityIntel;
 import stelnet.board.contact.ContactsBoard;
+import stelnet.board.contact.SebestyenContactIntel;
+import stelnet.board.contact.SebestyenContactMaker;
 import stelnet.board.query.MarketUpdater;
 import stelnet.board.query.QueryBoard;
 import stelnet.board.query.ResultIntel;
@@ -29,10 +35,12 @@ public class Configurator {
     }
 
     public static void deactivate() {
+        resetIntelUi();
         initContacts(false);
         initCommodity(false);
         initMarket(false);
         initStorage(false);
+        resetIntelUi();
         log.info("Stelnet deactivated");
     }
 
@@ -46,9 +54,10 @@ public class Configurator {
     private static void initContacts(boolean hasContacts) {
         if (hasContacts) {
             ContactsBoard.getInstance(ContactsBoard.class);
+            SebestyenContactMaker.register();
             log.info("Enabled Contact plugin");
         } else {
-            purgeIntel(ContactsBoard.class);
+            purgeIntel(ContactsBoard.class, SebestyenContactIntel.class);
             log.info("Disabled Contact plugin");
         }
     }
@@ -88,5 +97,14 @@ public class Configurator {
             purgeIntel(StorageBoard.class, StorageIntel.class);
             log.info("Disabled Storage plugin");
         }
+    }
+
+    private static void resetIntelUi() {
+        CampaignUIAPI campaignUi = Global.getSector().getCampaignUI();
+        if (campaignUi == null) {
+            return;
+        }
+        campaignUi.showCoreUITab(CoreUITabId.INTEL, null);
+        StelnetHelper.sendKey(KeyEvent.VK_ESCAPE);
     }
 }

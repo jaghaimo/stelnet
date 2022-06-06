@@ -7,7 +7,7 @@ import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 import java.util.List;
 import lombok.Getter;
-import stelnet.BaseIntel;
+import stelnet.board.IntelBasePlugin;
 import stelnet.board.commodity.price.DemandPrice;
 import stelnet.board.commodity.price.SupplyPrice;
 import stelnet.board.commodity.view.intel.CommodityIntelInfo;
@@ -19,7 +19,7 @@ import uilib.RenderableIntelInfo;
 import uilib.property.Size;
 
 @Getter
-public class CommodityIntel extends BaseIntel {
+public class CommodityIntel extends IntelBasePlugin {
 
     private final CommoditySpecAPI commodity;
     private final IntelTracker intelTracker;

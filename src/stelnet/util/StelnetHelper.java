@@ -13,16 +13,19 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.util.Misc;
+import java.awt.AWTException;
 import java.awt.Color;
+import java.awt.Robot;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import stelnet.CommonL10n;
+import lombok.extern.log4j.Log4j;
 import stelnet.filter.Filter;
 
 /**
  * `Misc` god class equivalent.
  */
+@Log4j
 public class StelnetHelper {
 
     /**
@@ -152,6 +155,17 @@ public class StelnetHelper {
             plugin = manager.getFirstIntel(className);
         }
         Global.getSector().removeTransientScriptsOfClass(className);
+        Global.getSector().removeScriptsOfClass(className);
+    }
+
+    public static void sendKey(int key) {
+        try {
+            Robot robot = new Robot();
+            robot.keyPress(key);
+            robot.keyRelease(key);
+        } catch (AWTException exception) {
+            log.warn("Something went wrong sending a key!", exception);
+        }
     }
 
     public static float smartRounding(float number) {

@@ -3,8 +3,8 @@ package stelnet.board.query;
 import com.fs.starfarer.api.Global;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
-import stelnet.BaseBoard;
-import stelnet.BoardInfo;
+import stelnet.board.BoardBasePlugin;
+import stelnet.board.BoardRenderableInfo;
 import stelnet.board.query.QueryState.QueryBoardTab;
 import stelnet.util.L10n;
 import stelnet.util.ModConstants;
@@ -20,7 +20,7 @@ import uilib.RenderableState;
  */
 @Getter
 @Log4j
-public class QueryBoard extends BaseBoard {
+public class QueryBoard extends BoardBasePlugin {
 
     private final String icon = StelnetHelper.getSpriteName("query");
     private final QueryState state = new QueryState();
@@ -37,7 +37,7 @@ public class QueryBoard extends BaseBoard {
     @Override
     protected RenderableIntelInfo getIntelInfo() {
         int queryCount = state.getQueryManager().numberOfQueries();
-        return new BoardInfo(L10n.get(QueryL10n.TITLE), L10n.get(QueryL10n.DESCRIPTION, queryCount));
+        return new BoardRenderableInfo(L10n.get(QueryL10n.TITLE), L10n.get(QueryL10n.DESCRIPTION, queryCount));
     }
 
     @Override

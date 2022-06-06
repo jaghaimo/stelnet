@@ -1,5 +1,8 @@
-package stelnet;
+package stelnet.util;
 
+/**
+ * Common translations provided as part of Stelnet.
+ */
 public enum CommonL10n {
     ADMIN,
     AGENT,
