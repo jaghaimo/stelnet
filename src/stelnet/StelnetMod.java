@@ -22,7 +22,7 @@ public class StelnetMod extends BaseModPlugin {
     @Override
     public void beforeGameSave() {
         if (ConfigConstants.UNINSTALL_MOD) {
-            Configurator.deactivate();
+            Configurator.deactivate(false);
         }
     }
 
@@ -35,7 +35,7 @@ public class StelnetMod extends BaseModPlugin {
     @Override
     public void onGameLoad(boolean newGame) {
         if (TutorialMissionIntel.isTutorialInProgress()) {
-            Configurator.deactivate();
+            Configurator.deactivate(true);
             return;
         }
         Configurator.activate();
