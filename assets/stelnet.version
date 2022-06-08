@@ -5,7 +5,7 @@
     "modVersion": {
         "major": 2,
         "minor": 6,
-        "patch": 0
+        "patch": 1
     },
-    "directDownloadURL": "https://github.com/jaghaimo/stelnet/releases/download/2.6.0/stelnet-2.6.0.zip"
+    "directDownloadURL": "https://github.com/jaghaimo/stelnet/releases/download/2.6.1/stelnet-2.6.1.zip"
 }
