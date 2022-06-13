@@ -4,15 +4,22 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.ModSpecAPI;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import lombok.extern.log4j.Log4j;
 
+@Log4j
 public class Reporter {
 
-    public static void generate() throws FileNotFoundException {
-        PrintWriter writer = new PrintWriter(ModConstants.STELNET_LOG);
-        writeProperties(writer);
-        writer.println("");
-        writeMods(writer);
-        writer.close();
+    public static void generate() {
+        PrintWriter writer;
+        try {
+            writer = new PrintWriter(ModConstants.STELNET_LOG);
+            writeProperties(writer);
+            writer.println("");
+            writeMods(writer);
+            writer.close();
+        } catch (FileNotFoundException e) {
+            log.error("Could not write to file", e);
+        }
     }
 
     private static void writeProperties(PrintWriter writer) {

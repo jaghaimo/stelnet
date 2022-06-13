@@ -34,13 +34,13 @@ public class Configurator {
         log.info("Stelnet activated");
     }
 
-    public static void deactivate() {
-        resetIntelUi();
+    public static void deactivate(boolean skipUiReset) {
+        resetIntelUi(skipUiReset);
         initContacts(false);
         initCommodity(false);
         initMarket(false);
         initStorage(false);
-        resetIntelUi();
+        resetIntelUi(skipUiReset);
         log.info("Stelnet deactivated");
     }
 
@@ -99,7 +99,10 @@ public class Configurator {
         }
     }
 
-    private static void resetIntelUi() {
+    private static void resetIntelUi(boolean skipUiReset) {
+        if (skipUiReset) {
+            return;
+        }
         CampaignUIAPI campaignUi = Global.getSector().getCampaignUI();
         if (campaignUi == null) {
             return;
