@@ -4,6 +4,7 @@ import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.impl.campaign.tutorial.TutorialMissionIntel;
 import stelnet.util.ConfigConstants;
 import stelnet.util.Configurator;
+import stelnet.util.LogRotator;
 import stelnet.util.Reporter;
 
 public class StelnetMod extends BaseModPlugin {
@@ -38,6 +39,7 @@ public class StelnetMod extends BaseModPlugin {
             Configurator.deactivate(true);
             return;
         }
+        LogRotator.rotate();
         Configurator.activate();
     }
 }
