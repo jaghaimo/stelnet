@@ -1,5 +1,6 @@
 package stelnet.board.contact;
 
+import com.fs.starfarer.api.Global;
 import lombok.Getter;
 import stelnet.board.BoardBasePlugin;
 import stelnet.board.BoardRenderableInfo;
@@ -26,5 +27,17 @@ public class ContactsBoard extends BoardBasePlugin {
     @Override
     public boolean isHidden() {
         return renderableState.getContactNumber() == 0;
+    }
+
+    public static boolean isCalling() {
+        return Global.getSector().getMemoryWithoutUpdate().getBoolean(ModConstants.MEMORY_IS_CALLING);
+    }
+
+    public static void registerCall() {
+        Global.getSector().getMemoryWithoutUpdate().set(ModConstants.MEMORY_IS_CALLING, true, 0);
+    }
+
+    public static void unregisterCall() {
+        Global.getSector().getMemoryWithoutUpdate().unset(ModConstants.MEMORY_IS_CALLING);
     }
 }

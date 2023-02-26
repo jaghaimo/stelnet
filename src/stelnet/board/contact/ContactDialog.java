@@ -53,6 +53,7 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
     }
 
     private void dismiss() {
+        ContactsBoard.unregisterCall();
         ContactsBoard board = ContactsBoard.getInstance(ContactsBoard.class);
         board.getRenderableState().addTrackingData(market, storageData, playerData);
         storageData.add(playerData);

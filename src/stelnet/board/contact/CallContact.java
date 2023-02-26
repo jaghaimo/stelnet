@@ -13,13 +13,16 @@ public class CallContact extends Button {
 
     public CallContact(String label, Size size, final MarketAPI market, final PersonAPI person) {
         super(size, label, true, person.getFaction().getBrightUIColor(), person.getFaction().getDarkUIColor());
-        setEnabled(market.hasSubmarket(Submarkets.SUBMARKET_STORAGE));
+        boolean hasSubmarket = market.hasSubmarket(Submarkets.SUBMARKET_STORAGE);
+        boolean isCalling = ContactsBoard.isCalling();
+        setEnabled(hasSubmarket && !isCalling);
         setCutStyle(CutStyle.C2_MENU);
         setPadding(0);
         setHandler(
             new EventHandler() {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
+                    ContactsBoard.registerCall();
                     ui.showDialog(
                         market.getPrimaryEntity(),
                         new ContactDialog(ui, person, market.getSubmarket(Submarkets.SUBMARKET_STORAGE))

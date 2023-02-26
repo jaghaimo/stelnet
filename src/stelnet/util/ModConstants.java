@@ -15,4 +15,9 @@ public class ModConstants {
     public static final String TAG_QUERY = TAG_MARKET;
     public static final String TAG_STORAGE = "stelnetStorage";
     public static final String TAG_VIEWER = TAG_MARKET;
+
+    /**
+     * Memory flags used.
+     */
+    public static final String MEMORY_IS_CALLING = "$stelnetIsCalling";
 }
