@@ -13,6 +13,12 @@ import stelnet.board.contact.SebestyenContactMaker;
 import stelnet.board.query.MarketUpdater;
 import stelnet.board.query.QueryBoard;
 import stelnet.board.query.ResultIntel;
+import stelnet.board.query.provider.DmodProvider;
+import stelnet.board.query.provider.FactionProvider;
+import stelnet.board.query.provider.ItemProvider;
+import stelnet.board.query.provider.MarketProvider;
+import stelnet.board.query.provider.ShipProvider;
+import stelnet.board.query.provider.SkillProvider;
 import stelnet.board.storage.StorageBoard;
 import stelnet.board.storage.StorageIntel;
 import stelnet.board.storage.StorageListener;
@@ -42,6 +48,15 @@ public class Configurator {
         initStorage(false);
         resetIntelUi(skipUiReset);
         log.info("Stelnet deactivated");
+    }
+
+    public static void resetCache() {
+        DmodProvider.reset();
+        FactionProvider.reset();
+        ItemProvider.reset();
+        MarketProvider.reset();
+        ShipProvider.reset();
+        SkillProvider.reset();
     }
 
     private static void purgeIntel(Class<?>... classNames) {

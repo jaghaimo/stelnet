@@ -21,6 +21,7 @@ public class StelnetMod extends BaseModPlugin {
 
     @Override
     public void beforeGameSave() {
+        Configurator.resetCache();
         if (ConfigConstants.UNINSTALL_MOD) {
             Configurator.deactivate(false);
         }
@@ -34,10 +35,18 @@ public class StelnetMod extends BaseModPlugin {
 
     @Override
     public void onGameLoad(boolean newGame) {
+        Configurator.resetCache();
         if (TutorialMissionIntel.isTutorialInProgress()) {
             Configurator.deactivate(true);
             return;
         }
+        Configurator.activate();
+    }
+
+    @Override
+    public void onDevModeF8Reload() {
+        Configurator.deactivate(false);
+        Configurator.resetCache();
         Configurator.activate();
     }
 }
