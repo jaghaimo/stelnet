@@ -24,8 +24,10 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
         this.market = storage.getMarket();
         this.ui = ui;
         playerData = new CargoFleetData(Global.getSector().getPlayerFleet());
-        playerData.clear();
         storageData = new CargoFleetData(storage);
+        if (this.isRemoteCall()) {
+            playerData.clear();
+        }
     }
 
     @Override
@@ -52,11 +54,30 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
         super.optionSelected(text, optionData);
     }
 
+    private boolean isRemoteCall() {
+        SectorEntityToken playerFocus = Global.getSector().getPlayerFleet().getOrbitFocus();
+        if (playerFocus == null) {
+            return true;
+        }
+        if (playerFocus.equals(this.market.getPrimaryEntity())) {
+            return false;
+        }
+        for (SectorEntityToken connectedEntity : this.market.getConnectedEntities()) {
+            if (playerFocus.equals(connectedEntity)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private void dismiss() {
+        ContactsBoard.unregisterCall();
         ContactsBoard board = ContactsBoard.getInstance(ContactsBoard.class);
-        board.getRenderableState().addTrackingData(market, storageData, playerData);
-        storageData.add(playerData);
-        playerData.restore();
+        if (this.isRemoteCall()) {
+            board.getRenderableState().addTrackingData(market, storageData, playerData);
+            storageData.add(playerData);
+            playerData.restore();
+        }
         dialog.dismiss();
         ui.recreateIntelUI();
         ui.updateUIForItem(board);

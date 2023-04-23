@@ -10,7 +10,11 @@ import stelnet.util.CollectionUtils;
 
 public class SkillProvider {
 
-    private transient List<SkillSpecAPI> allSkills;
+    private static transient List<SkillSpecAPI> allSkills;
+
+    public static void reset() {
+        allSkills = null;
+    }
 
     public List<SkillSpecAPI> getMatching(List<Filter> filter) {
         if (allSkills == null) {
