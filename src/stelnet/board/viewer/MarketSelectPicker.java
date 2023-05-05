@@ -68,19 +68,16 @@ public class MarketSelectPicker implements CampaignEntityPickerListener {
 
     @Override
     public List<ArrowData> getArrows() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getArrows'");
+        return null;
     }
 
     @Override
     public List<MarkerData> getMarkers() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMarkers'");
+        return null;
     }
 
     @Override
     public Set<StarSystemAPI> getStarSystemsToShow() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getStarSystemsToShow'");
+        return null;
     }
 }

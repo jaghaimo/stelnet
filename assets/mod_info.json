@@ -5,7 +5,7 @@
     "utility": true,
     "version": "3.0.0",
     "description": "A collection of intel boards for Starsector",
-    "gameVersion": "0.96-RC7",
+    "gameVersion": "0.96a-RC7",
     "modPlugin": "stelnet.StelnetMod",
     "jars": [
         "stelnet.jar"
