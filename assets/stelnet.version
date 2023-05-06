@@ -3,9 +3,9 @@
     "modName": "Stellar Networks",
     "modThreadId": 20836,
     "modVersion": {
-        "major": 2,
-        "minor": 6,
-        "patch": 2
+        "major": 3,
+        "minor": 0,
+        "patch": 0
     },
-    "directDownloadURL": "https://github.com/jaghaimo/stelnet/releases/download/2.6.2/stelnet-2.6.2.zip"
+    "directDownloadURL": "https://github.com/jaghaimo/stelnet/releases/download/3.0.0/stelnet-3.0.0.zip"
 }

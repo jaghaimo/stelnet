@@ -39,7 +39,7 @@ build {
 
 // compile time dependencies
 dependencies {
-    implementation "jaghaimo:starsector-api:0.95.1a-RC6@starfarer.api.jar"
+    implementation "jaghaimo:starsector-api:0.96a-RC7@starfarer.api.jar"
 
     // game dependencies
     implementation group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.10'

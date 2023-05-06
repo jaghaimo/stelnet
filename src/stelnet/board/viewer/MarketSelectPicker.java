@@ -3,8 +3,13 @@ package stelnet.board.viewer;
 import com.fs.starfarer.api.campaign.CampaignEntityPickerListener;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
+import com.fs.starfarer.api.campaign.StarSystemAPI;
+import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin.ArrowData;
 import com.fs.starfarer.api.ui.IntelUIAPI;
+import com.fs.starfarer.api.ui.MarkerData;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
+import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import stelnet.util.L10n;
 import stelnet.widget.viewer.InMarketStrategy;
@@ -59,5 +64,20 @@ public class MarketSelectPicker implements CampaignEntityPickerListener {
     @Override
     public float getFuelRangeMult() {
         return 0;
+    }
+
+    @Override
+    public List<ArrowData> getArrows() {
+        return null;
+    }
+
+    @Override
+    public List<MarkerData> getMarkers() {
+        return null;
+    }
+
+    @Override
+    public Set<StarSystemAPI> getStarSystemsToShow() {
+        return null;
     }
 }
