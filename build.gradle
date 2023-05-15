@@ -9,7 +9,8 @@ repositories {
     ivy {
         url 'https://github.com/'
         patternLayout {
-            artifact '/[organization]/[module]/releases/download/[revision]/[ext]'
+            artifact '/[organization]/[module]/releases/download/[revision]/starfarer.api.jar'
+            artifact '/[organization]/[module]/raw/[revision]/jars/[artifact].jar'
         }
         metadataSources {
             artifact()
@@ -31,6 +32,7 @@ build {
     doLast {
         copy {
             from 'assets'
+            from 'changelog.txt'
             from jar
             into '.'
         }
@@ -39,16 +41,17 @@ build {
 
 // compile time dependencies
 dependencies {
-    implementation "jaghaimo:starsector-api:0.96a-RC7@starfarer.api.jar"
+    compileOnly "jaghaimo:starsector-api:0.96a-RC7"
+    compileOnly "Lukas22041:LunaLib:1.7.3"
 
     // game dependencies
-    implementation group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.10'
-    implementation group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: '2.9.3'
-    implementation group: 'org.lwjgl.lwjgl', name: 'lwjgl_util', version: '2.9.3'
-    implementation group: 'log4j', name: 'log4j', version: '1.2.9'
-    implementation group: 'org.json', name: 'json', version: '20090211'
-    implementation group: 'net.java.jinput', name: 'jinput', version: '2.0.7'
-    implementation group: 'org.codehaus.janino', name: 'janino', version: '3.0.7'
+    compileOnly group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.10'
+    compileOnly group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: '2.9.3'
+    compileOnly group: 'org.lwjgl.lwjgl', name: 'lwjgl_util', version: '2.9.3'
+    compileOnly group: 'log4j', name: 'log4j', version: '1.2.9'
+    compileOnly group: 'org.json', name: 'json', version: '20090211'
+    compileOnly group: 'net.java.jinput', name: 'jinput', version: '2.0.7'
+    compileOnly group: 'org.codehaus.janino', name: 'janino', version: '3.0.7'
 
     // lombok
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
