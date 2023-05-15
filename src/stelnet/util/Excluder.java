@@ -28,19 +28,19 @@ public class Excluder extends Reader {
 
     public static Filter getQuerySubmarketFilter() {
         return Excluder.getSubmarketFilters(
-            ConfigConstants.QUERY_USE_OPEN_MARKET,
-            ConfigConstants.QUERY_USE_MILITARY_MARKET,
-            ConfigConstants.QUERY_USE_BLACK_MARKET,
-            ConfigConstants.QUERY_USE_CUSTOM_MARKETS
+            ModSettings.use(ModSettings.QUERY_USE_OPEN_MARKET),
+            ModSettings.use(ModSettings.QUERY_USE_MILITARY_MARKET),
+            ModSettings.use(ModSettings.QUERY_USE_BLACK_MARKET),
+            ModSettings.use(ModSettings.QUERY_USE_CUSTOM_MARKET)
         );
     }
 
     public static Filter getViewerSubmarketFilter() {
         return Excluder.getSubmarketFilters(
-            ConfigConstants.VIEWER_USE_OPEN_MARKET,
-            ConfigConstants.VIEWER_USE_MILITARY_MARKET,
-            ConfigConstants.VIEWER_USE_BLACK_MARKET,
-            ConfigConstants.VIEWER_USE_CUSTOM_MARKETS
+            ModSettings.use(ModSettings.VIEWER_USE_OPEN_MARKET),
+            ModSettings.use(ModSettings.VIEWER_USE_MILITARY_MARKET),
+            ModSettings.use(ModSettings.VIEWER_USE_BLACK_MARKET),
+            ModSettings.use(ModSettings.VIEWER_USE_CUSTOM_MARKET)
         );
     }
 

@@ -2,16 +2,16 @@ package stelnet;
 
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.impl.campaign.tutorial.TutorialMissionIntel;
-import stelnet.util.ConfigConstants;
 import stelnet.util.Configurator;
+import stelnet.util.ModSettings;
 import stelnet.util.Reporter;
 
 public class StelnetMod extends BaseModPlugin {
 
     @Override
     public void afterGameSave() {
-        if (ConfigConstants.UNINSTALL_MOD) {
-            StelnetDialog dialog = new StelnetDialog(
+        if (ModSettings.is(ModSettings.UNINSTALL)) {
+            DelayedDialog dialog = new DelayedDialog(
                 "Stellar Networks has been removed from this save. You can now update (or disable) this mod.",
                 1
             );
@@ -22,7 +22,7 @@ public class StelnetMod extends BaseModPlugin {
     @Override
     public void beforeGameSave() {
         Configurator.resetCache();
-        if (ConfigConstants.UNINSTALL_MOD) {
+        if (ModSettings.is(ModSettings.UNINSTALL)) {
             Configurator.deactivate(false);
         }
     }
@@ -30,7 +30,7 @@ public class StelnetMod extends BaseModPlugin {
     @Override
     public void onApplicationLoad() throws Exception {
         Reporter.generate();
-        Configurator.configure();
+        SettingsListener.register();
     }
 
     @Override

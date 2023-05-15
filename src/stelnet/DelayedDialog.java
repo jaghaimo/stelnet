@@ -6,7 +6,10 @@ import com.fs.starfarer.api.campaign.CampaignUIAPI;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class StelnetDialog implements EveryFrameScript {
+/**
+ * A delayed dialog that shows `message` after `delayInSeconds` time.
+ */
+public class DelayedDialog implements EveryFrameScript {
 
     private float advanced = 0;
     private final String message;

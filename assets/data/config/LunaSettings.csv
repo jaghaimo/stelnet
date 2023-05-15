@@ -1,0 +1,25 @@
+fieldID,fieldName,fieldType,defaultValue,secondaryValue,fieldDescription,minValue,maxValue,tab
+,,,,,,,,
+stelnet_General_Basic_Header,,Header,"Modules",,,,,
+stelnet_General_Basic_Info,,Text,"Toggle specific functionality of Stellar Networks.",,,,,
+stelnet_General_Basic_Commodities,Commodity,Boolean,true,,"Enable commodity board (buy, sell, and profit tabs).",,,
+stelnet_General_Basic_Contacts,Contacts,Boolean,true,,"Enable contacts board (contact list and remote calls) functionality.",,,
+stelnet_General_Basic_Market,Market,Boolean,true,,"Enable market query and market viewer functionality.",,,
+stelnet_General_Basic_Storage,Storage,Boolean,true,,"Enable storage board (search for cargo and view storage content and location) functionality.",,,
+,,,,,,,,
+stelnet_General_Advanced_Header,,Header,"Advanced",,,,,
+stelnet_General_Advanced_Uninstall,Uninstall Mod,Boolean,false,,"Uninstall Stellar Networks during next save. Makes it possible to disable the mod and still continue the playthrough. Usually required when updating to a non-bugfix version.",,,
+stelnet_General_Advanced_AutoRefresh,Refresher Plugin,Boolean,true,,"This plugin will periodically 'visit' a market triggering, if needed, a cargo, ship, and staff refresh. Only runs when the campaign is in a paused state (either by the player, or by the game itself - like showing interaction dialogues). Has negligible game performance effect. Suggested to keep it on for smoother gameplay if you use market functionality.",,,
+stelnet_General_Advanced_Sebestyen,Call Me Maybe,Boolean,true,,"Allow remotely calling Sebestyen, who is a hidden contact (does not show in a Contact intel).",,,
+,,,,,,,,
+stelnet_Market_Query_Header,,Header,"Queries",,,,,Market
+stelnet_Market_Query_UseOpenMarket,Use Open Markets,Boolean,true,,"When enabled, market queries will show results from Open Markets.",,,Market
+stelnet_Market_Query_UseMilitaryMarket,Use Military Markets,Boolean,true,,"When enabled, market queries will show results from Military Markets.",,,Market
+stelnet_Market_Query_UseBlackMarket,Use Black Markets,Boolean,true,,"When enabled, market queries will show results from Black Markets.",,,Market
+stelnet_Market_Query_UseCustomMarket,Use Custom Markets,Boolean,false,,"When enabled, market queries will show results from custom (e.g. modded) markets.",,,Market
+stelnet_Market_Viewer_Header,,Header,"Viewer",,,,,Market
+stelnet_Market_Viewer_UseOpenMarket,Use Open Markets,Boolean,true,,"When enabled, market queries will show results from Open Markets.",,,Market
+stelnet_Market_Viewer_UseMilitaryMarket,Use Military Markets,Boolean,true,,"When enabled, market queries will show results from Military Markets.",,,Market
+stelnet_Market_Viewer_UseBlackMarket,Use Black Markets,Boolean,true,,"When enabled, market queries will show results from Black Markets.",,,Market
+stelnet_Market_Viewer_UseCustomMarket,Use Custom Markets,Boolean,false,,"When enabled, market queries will show results from custom (e.g. modded) markets.",,,Market
+,,,,,,,,

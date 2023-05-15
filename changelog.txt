@@ -1,6 +1,0 @@
-3.1.0
-- Ported configuration handling to LunaLib. Requires LunaLib.
-- Removed `stelnet.json` file, and file-based configuration handling.
-
-3.0.0
-- First 0.96a release. API compatibility changes only.

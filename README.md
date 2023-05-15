@@ -55,11 +55,11 @@ It allows to display a unified view to quickly verify what is available, and per
 
 ## Installation and Configuration
 
-To configure the mod edit [stelnet.json](assets/stelnet.json).
+To configure the open LunaLib menu (F2 by default).
 
 This mod can be added to an existing save - just enable it in the mod list and load the save.
 
-This mod can be removed from an existing save - edit `stelnet.json` and set `uninstallMod` to `true`.
+This mod can be removed from an existing save - in LunaLib menu set `Uninstall Mod` to `true`.
 Then load the save, save the game, quit the game, and finally disable this mod in the mod list.
 
 ## Translating the Mod

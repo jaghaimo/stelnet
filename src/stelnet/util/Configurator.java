@@ -28,15 +28,11 @@ import stelnet.board.viewer.ViewerBoard;
 @Log4j
 public class Configurator {
 
-    public static void configure() {
-        ConfigConstants.init();
-    }
-
     public static void activate() {
-        initCommodity(ConfigConstants.HAS_COMMODITIES);
-        initContacts(ConfigConstants.HAS_CONTACTS);
-        initMarket(ConfigConstants.HAS_MARKET);
-        initStorage(ConfigConstants.HAS_STORAGE);
+        initCommodity(ModSettings.has(ModSettings.COMMODITIES));
+        initContacts(ModSettings.has(ModSettings.CONTACTS));
+        initMarket(ModSettings.has(ModSettings.MARKET));
+        initStorage(ModSettings.has(ModSettings.STORAGE));
         log.info("Stelnet activated");
     }
 
@@ -97,7 +93,7 @@ public class Configurator {
             purgeIntel(QueryBoard.class, ViewerBoard.class, ResultIntel.class);
             log.info("Disabled Market plugin");
         }
-        if (hasMarket && ConfigConstants.AUTO_REFRESH_MARKETS) {
+        if (hasMarket && ModSettings.has(ModSettings.AUTO_REFRESH_MARKETS)) {
             log.info("Enabled Market updater script");
             MarketUpdater.getInstance();
         }
