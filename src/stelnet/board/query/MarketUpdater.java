@@ -15,14 +15,23 @@ public class MarketUpdater implements EveryFrameScript, ColonyInteractionListene
     private static transient MarketUpdater instance;
     private MarketAPI openedMarket;
 
-    public static MarketUpdater getInstance() {
+    public static void register() {
         if (instance == null) {
             instance = new MarketUpdater();
         }
         Global.getSector().addTransientScript(instance);
         Global.getSector().getListenerManager().addListener(instance, true);
         MarketProvider.reset();
-        return instance;
+        log.debug("Enabled Market Updater script");
+    }
+
+    public static void unregister() {
+        if (instance != null) {
+            Global.getSector().removeTransientScript(instance);
+            Global.getSector().getListenerManager().removeListener(instance);
+            instance = null;
+            log.debug("Disabled Market Updater script");
+        }
     }
 
     public static void reset() {

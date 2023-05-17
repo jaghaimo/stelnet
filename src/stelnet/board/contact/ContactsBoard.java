@@ -1,6 +1,7 @@
 package stelnet.board.contact;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import lombok.Getter;
 import stelnet.board.BoardBasePlugin;
 import stelnet.board.BoardRenderableInfo;
@@ -14,7 +15,7 @@ public class ContactsBoard extends BoardBasePlugin {
 
     private final String icon = StelnetHelper.getSpriteName("contacts");
     private final ContactsState renderableState = new ContactsState();
-    private final String tag = ModConstants.TAG_CONTACTS;
+    private final String tag = Tags.INTEL_CONTACTS;
 
     @Override
     protected RenderableIntelInfo getIntelInfo() {

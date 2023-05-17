@@ -9,7 +9,6 @@ public class ModConstants {
     /**
      * Intel tags, these have to match `assets/data/config/tag_data.json` entries.
      */
-    public static final String TAG_CONTACTS = "Contacts";
     public static final String TAG_COMMODITY = "stelnetCommodity";
     public static final String TAG_MARKET = "stelnetMarket";
     public static final String TAG_QUERY = TAG_MARKET;

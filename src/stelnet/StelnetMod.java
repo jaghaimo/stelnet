@@ -46,7 +46,6 @@ public class StelnetMod extends BaseModPlugin {
     @Override
     public void onDevModeF8Reload() {
         Configurator.deactivate(false);
-        Configurator.resetCache();
         Configurator.activate();
     }
 }

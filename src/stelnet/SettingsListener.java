@@ -6,11 +6,12 @@ import lunalib.lunaSettings.LunaSettings;
 import lunalib.lunaSettings.LunaSettingsListener;
 import stelnet.util.Configurator;
 import stelnet.util.ModConstants;
+import stelnet.util.ModSettings;
 
 public class SettingsListener implements LunaSettingsListener {
 
     public static void register() {
-        LunaSettings.INSTANCE.addListener(new SettingsListener());
+        LunaSettings.addSettingsListener(new SettingsListener());
     }
 
     @Override
@@ -21,6 +22,10 @@ public class SettingsListener implements LunaSettingsListener {
         if (Global.getCurrentState().equals(GameState.TITLE)) {
             return;
         }
-        Configurator.activate();
+        if (ModSettings.is(ModSettings.UNINSTALL)) {
+            Configurator.deactivate(false);
+        } else {
+            Configurator.activate();
+        }
     }
 }

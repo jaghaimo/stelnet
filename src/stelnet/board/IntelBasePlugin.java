@@ -20,7 +20,7 @@ public abstract class IntelBasePlugin extends RenderableIntel {
 
     private final FactionAPI faction;
     private SectorEntityToken sectorEntityToken;
-    private final IntelSortTier sortTier = IntelSortTier.TIER_3;
+    private IntelSortTier sortTier = IntelSortTier.TIER_3;
 
     public IntelBasePlugin(FactionAPI faction, SectorEntityToken sectorEntityToken) {
         this(faction);

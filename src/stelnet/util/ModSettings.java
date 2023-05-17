@@ -5,10 +5,11 @@ import lunalib.lunaSettings.LunaSettings;
 public class ModSettings {
 
     /**
-     * Major functionality.
+     * Plugins.
      */
     public static final String COMMODITIES = "stelnet_General_Basic_Commodities";
     public static final String CONTACTS = "stelnet_General_Basic_Contacts";
+    public static final String EXPLORATION = "stelnet_General_Basic_Exploration";
     public static final String MARKET = "stelnet_General_Basic_Market";
     public static final String STORAGE = "stelnet_General_Basic_Storage";
 

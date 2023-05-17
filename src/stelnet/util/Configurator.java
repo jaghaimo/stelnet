@@ -10,6 +10,7 @@ import stelnet.board.commodity.CommodityIntel;
 import stelnet.board.contact.ContactsBoard;
 import stelnet.board.contact.SebestyenContactIntel;
 import stelnet.board.contact.SebestyenContactMaker;
+import stelnet.board.exploration.ExplorationBoard;
 import stelnet.board.query.MarketUpdater;
 import stelnet.board.query.QueryBoard;
 import stelnet.board.query.ResultIntel;
@@ -21,7 +22,7 @@ import stelnet.board.query.provider.ShipProvider;
 import stelnet.board.query.provider.SkillProvider;
 import stelnet.board.storage.StorageBoard;
 import stelnet.board.storage.StorageIntel;
-import stelnet.board.storage.StorageListener;
+import stelnet.board.storage.StorageUpdater;
 import stelnet.board.trade.TradeBoard;
 import stelnet.board.viewer.ViewerBoard;
 
@@ -31,6 +32,7 @@ public class Configurator {
     public static void activate() {
         initCommodity(ModSettings.has(ModSettings.COMMODITIES));
         initContacts(ModSettings.has(ModSettings.CONTACTS));
+        initExploration(ModSettings.has(ModSettings.EXPLORATION));
         initMarket(ModSettings.has(ModSettings.MARKET));
         initStorage(ModSettings.has(ModSettings.STORAGE));
         log.info("Stelnet activated");
@@ -40,9 +42,11 @@ public class Configurator {
         resetIntelUi(skipUiReset);
         initContacts(false);
         initCommodity(false);
+        initExploration(false);
         initMarket(false);
         initStorage(false);
         resetIntelUi(skipUiReset);
+        Configurator.resetCache();
         log.info("Stelnet deactivated");
     }
 
@@ -66,10 +70,10 @@ public class Configurator {
         if (hasContacts) {
             ContactsBoard.getInstance(ContactsBoard.class);
             SebestyenContactMaker.register();
-            log.info("Enabled Contact plugin");
+            log.info("Enabled Contacts module");
         } else {
             purgeIntel(ContactsBoard.class, SebestyenContactIntel.class);
-            log.info("Disabled Contact plugin");
+            log.info("Disabled Contacts module");
         }
     }
 
@@ -77,10 +81,20 @@ public class Configurator {
         if (hasCommodities) {
             CommodityBoard.getInstance(CommodityBoard.class).restore();
             // TradeBoard.getInstance(TradeBoard.class);
-            log.info("Enabled Commodity plugin");
+            log.info("Enabled Commodity module");
         } else {
             purgeIntel(CommodityBoard.class, CommodityIntel.class, TradeBoard.class);
             log.info("Disabled Commodity plugin");
+        }
+    }
+
+    private static void initExploration(boolean hasExploration) {
+        if (hasExploration) {
+            ExplorationBoard.getInstance();
+            log.info("Enabled Exploration module");
+        } else {
+            purgeIntel(ExplorationBoard.class);
+            log.info("Disabled Exploration plugin");
         }
     }
 
@@ -88,25 +102,27 @@ public class Configurator {
         if (hasMarket) {
             QueryBoard.getInstance(QueryBoard.class);
             ViewerBoard.getInstance(ViewerBoard.class);
-            log.info("Enabled Market plugin");
+            log.info("Enabled Market module");
         } else {
             purgeIntel(QueryBoard.class, ViewerBoard.class, ResultIntel.class);
-            log.info("Disabled Market plugin");
+            log.info("Disabled Market module");
         }
         if (hasMarket && ModSettings.has(ModSettings.AUTO_REFRESH_MARKETS)) {
-            log.info("Enabled Market updater script");
-            MarketUpdater.getInstance();
+            MarketUpdater.register();
+        } else {
+            MarketUpdater.unregister();
         }
     }
 
     private static void initStorage(boolean hasStorage) {
         if (hasStorage) {
             StorageBoard.getInstance(StorageBoard.class);
-            StorageListener.register();
-            log.info("Enabled Storage plugin");
+            log.info("Enabled Storage module");
+            StorageUpdater.register();
         } else {
             purgeIntel(StorageBoard.class, StorageIntel.class);
-            log.info("Disabled Storage plugin");
+            log.info("Disabled Storage module");
+            StorageUpdater.unregister();
         }
     }
 

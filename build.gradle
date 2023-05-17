@@ -42,7 +42,7 @@ build {
 // compile time dependencies
 dependencies {
     compileOnly "jaghaimo:starsector-api:0.96a-RC7"
-    compileOnly "Lukas22041:LunaLib:1.7.3"
+    compileOnly "Lukas22041:LunaLib:main"
 
     // game dependencies
     compileOnly group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.10'

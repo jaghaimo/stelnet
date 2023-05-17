@@ -8,7 +8,6 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.campaign.listeners.ColonyDecivListener;
 import com.fs.starfarer.api.campaign.listeners.ColonyInteractionListener;
-import com.fs.starfarer.api.campaign.listeners.ListenerManagerAPI;
 import com.fs.starfarer.api.campaign.listeners.PlayerColonizationListener;
 import java.util.List;
 import lombok.extern.log4j.Log4j;
@@ -20,16 +19,25 @@ import stelnet.util.StelnetHelper;
  * Will also look for any storage intel that are no longer valid.
  */
 @Log4j
-public class StorageListener implements ColonyDecivListener, ColonyInteractionListener, PlayerColonizationListener {
+public class StorageUpdater implements ColonyDecivListener, ColonyInteractionListener, PlayerColonizationListener {
+
+    private static transient StorageUpdater instance;
 
     public static void register() {
-        ListenerManagerAPI listenerManager = Global.getSector().getListenerManager();
-        List<StorageListener> listeners = listenerManager.getListeners(StorageListener.class);
-        if (listeners.isEmpty()) {
-            StorageListener listener = new StorageListener();
-            listenerManager.addListener(listener, true);
+        if (instance == null) {
+            instance = new StorageUpdater();
         }
+        Global.getSector().getListenerManager().addListener(instance, true);
         updateNeeded();
+        log.debug("Enabled Storage Updater script");
+    }
+
+    public static void unregister() {
+        if (instance != null) {
+            Global.getSector().getListenerManager().removeListener(instance);
+            instance = null;
+            log.debug("Disabled Storage Updater script");
+        }
     }
 
     @Override
