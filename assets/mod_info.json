@@ -7,6 +7,12 @@
     "description": "A collection of intel boards for Starsector",
     "gameVersion": "0.96a-RC9",
     "modPlugin": "stelnet.StelnetMod",
+    "dependencies": [
+        {
+            "id": "lunalib",
+            "name": "LunaLib"
+        }
+    ],
     "jars": [
         "stelnet.jar"
     ]

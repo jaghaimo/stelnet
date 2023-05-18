@@ -14,6 +14,7 @@ import stelnet.board.BoardDrawableInfo;
 import stelnet.filter.FactionIsRaiding;
 import stelnet.util.CollectionUtils;
 import stelnet.util.L10n;
+import stelnet.util.MemoryHelper;
 import stelnet.util.StelnetHelper;
 import uilib2.Drawable;
 import uilib2.Spacer;
@@ -74,15 +75,18 @@ public class ExplorationBoard extends DrawableIntel {
 
     private void addTypes(List<Drawable> drawables, float width) {
         ExplorationL10n[] buttonTypes = {
+            ExplorationL10n.TYPE_ANALYZE_MISSION,
+            ExplorationL10n.TYPE_SURVEY_MISSION,
             ExplorationL10n.TYPE_STORY_MISSION,
             ExplorationL10n.TYPE_RAIDING_BASE,
+            ExplorationL10n.TYPE_HISTORIAN_OFFER,
             ExplorationL10n.TYPE_MEMORY_BANK,
             ExplorationL10n.TYPE_OTHER,
         };
         addHeader(drawables, L10n.get(ExplorationL10n.HEADER_TYPE));
         boolean withShift = false;
         for (ExplorationL10n buttonType : buttonTypes) {
-            drawables.add(new TypeButton(memoryPrefix, buttonType, this, width, withShift));
+            drawables.add(new EnumButton(memoryPrefix, buttonType, this, width, withShift));
             withShift = !withShift;
         }
     }
@@ -101,5 +105,20 @@ public class ExplorationBoard extends DrawableIntel {
         }
     }
 
-    private void addMissions(List<Drawable> drawables, float width) {}
+    private void addMissions(List<Drawable> drawables, float width) {
+        ExplorationL10n[] buttonTypes = {
+            ExplorationL10n.BANK_DERELICT_SHIP,
+            ExplorationL10n.BANK_DOMAIN_ERA_PROBE,
+            ExplorationL10n.BANK_ORBITAL_STATION,
+        };
+        addHeader(drawables, L10n.get(ExplorationL10n.HEADER_MEMORY_BANK));
+        boolean withShift = false;
+        String memoryKeyEnabled = MemoryHelper.key(memoryPrefix, ExplorationL10n.TYPE_MEMORY_BANK, "Checked");
+        for (ExplorationL10n buttonType : buttonTypes) {
+            EnumButton button = new EnumButton(memoryPrefix, buttonType, this, width, withShift);
+            button.setMemoryKeyEnabledOverwrite(memoryKeyEnabled);
+            drawables.add(button);
+            withShift = !withShift;
+        }
+    }
 }

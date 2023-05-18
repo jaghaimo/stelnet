@@ -4,17 +4,18 @@ import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import stelnet.util.L10n;
 import stelnet.util.MemoryHelper;
 import uilib2.Drawable;
 import uilib2.UiConstants;
 import uilib2.button.BasicAreaCheckbox;
 import uilib2.button.ButtonBuilder;
-import uilib2.intel.ActionSelectItem;
+import uilib2.intel.ActionUpdateForItem;
 import uilib2.intel.IntelCallbackBuilder;
 
 @RequiredArgsConstructor
-public class TypeButton implements Drawable {
+public class EnumButton implements Drawable {
 
     private final String MEMORY_PREFIX;
     private final Enum<?> buttonType;
@@ -22,10 +23,13 @@ public class TypeButton implements Drawable {
     private final float width;
     private final boolean withShift;
 
+    @Setter
+    private String memoryKeyEnabledOverwrite;
+
     @Override
     public void draw(TooltipMakerAPI tooltip) {
         String memoryKeyChecked = MemoryHelper.key(MEMORY_PREFIX, buttonType, "Checked");
-        String memoryKeyEnabled = MemoryHelper.key(MEMORY_PREFIX, buttonType, "Enabled");
+        String memoryKeyEnabled = getMemoryKeyEnabled();
         boolean isChecked = MemoryHelper.getBoolean(memoryKeyChecked, true);
         boolean isEnabled = MemoryHelper.getBoolean(memoryKeyEnabled, true);
         Drawable button = new ButtonBuilder(getButton(memoryKeyChecked, isChecked))
@@ -38,12 +42,19 @@ public class TypeButton implements Drawable {
         button.draw(tooltip);
     }
 
+    private String getMemoryKeyEnabled() {
+        if (memoryKeyEnabledOverwrite != null) {
+            return memoryKeyEnabledOverwrite;
+        }
+        return MemoryHelper.key(MEMORY_PREFIX, buttonType, "Enabled");
+    }
+
     private BasicAreaCheckbox getButton(String memoryKeyChecked, boolean isChecked) {
         return new BasicAreaCheckbox(
             L10n.get(buttonType),
             new IntelCallbackBuilder()
                 .addConfirmAction(new UpdateMemoryFlag(memoryKeyChecked, !isChecked))
-                .addConfirmAction(new ActionSelectItem(intel))
+                .addConfirmAction(new ActionUpdateForItem(intel))
                 .build(),
             Misc.getBasePlayerColor(),
             Misc.getDarkPlayerColor(),

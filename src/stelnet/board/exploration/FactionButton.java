@@ -10,7 +10,7 @@ import uilib2.Drawable;
 import uilib2.UiConstants;
 import uilib2.button.BasicAreaCheckbox;
 import uilib2.button.ButtonBuilder;
-import uilib2.intel.ActionSelectItem;
+import uilib2.intel.ActionUpdateForItem;
 import uilib2.intel.IntelCallbackBuilder;
 
 @RequiredArgsConstructor
@@ -25,7 +25,7 @@ public class FactionButton implements Drawable {
     @Override
     public void draw(TooltipMakerAPI tooltip) {
         String memoryKeyChecked = MemoryHelper.key(MEMORY_PREFIX, faction, "Checked");
-        String memoryKeyEnabled = MemoryHelper.key(MEMORY_PREFIX, faction, "Enabled");
+        String memoryKeyEnabled = MemoryHelper.key(MEMORY_PREFIX, ExplorationL10n.TYPE_RAIDING_BASE, "Checked");
         boolean isChecked = MemoryHelper.getBoolean(memoryKeyChecked, true);
         boolean isEnabled = MemoryHelper.getBoolean(memoryKeyEnabled, true);
         Drawable button = new ButtonBuilder(getButton(memoryKeyChecked, isChecked))
@@ -44,7 +44,7 @@ public class FactionButton implements Drawable {
             Misc.ucFirst(faction.getDisplayName()),
             new IntelCallbackBuilder()
                 .addConfirmAction(new UpdateMemoryFlag(memoryKeyChecked, !isChecked))
-                .addConfirmAction(new ActionSelectItem(intel))
+                .addConfirmAction(new ActionUpdateForItem(intel))
                 .build(),
             faction.getBaseUIColor(),
             faction.getDarkUIColor(),

@@ -1,10 +1,18 @@
 {
+    "BANK_DERELICT_SHIP": "Derelict Ship",
+    "BANK_DOMAIN_ERA_PROBE": "Domain-era Probe",
+    "BANK_ORBITAL_STATION": "Orbital Station",
+    "BANK_SURVEY_SHIP": "Survey Ship",
     "BOARD_DESCRIPTION": "Manages visibility of exploration intel.",
     "BOARD_TITLE": "Exploration",
-    "HEADER_TYPE": "Intel Type",
     "HEADER_FACTION": "Base Owner",
+    "HEADER_MEMORY_BANK": "Memory Bank",
+    "HEADER_TYPE": "Intel Type",
+    "TYPE_ANALYZE_MISSION": "Analyze Mission",
+    "TYPE_HISTORIAN_OFFER": "Historian Offer",
     "TYPE_MEMORY_BANK": "Memory Bank",
     "TYPE_OTHER": "Other Intel",
     "TYPE_RAIDING_BASE": "Raiding Base",
-    "TYPE_STORY_MISSION": "Story Mission"
+    "TYPE_STORY_MISSION": "Story Mission",
+    "TYPE_SURVEY_MISSION": "Survey Mission"
 }
