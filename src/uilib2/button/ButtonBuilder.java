@@ -1,32 +1,17 @@
 package uilib2.button;
 
 import lombok.AllArgsConstructor;
-import lombok.experimental.ExtensionMethod;
-import stelnet.util.MemoryHelper;
 
 /**
  * Button builder that is using a decorator pattern.
  */
 @AllArgsConstructor
-@ExtensionMethod({ MemoryHelper.class })
 public class ButtonBuilder {
 
     private Button button;
 
-    public ButtonBuilder setCheckedFromMemoryKey(String memoryKey, boolean defaultValue) {
-        boolean isChecked = MemoryHelper.getBoolean(memoryKey, defaultValue);
-        button = new CheckedButton(button, isChecked);
-        return this;
-    }
-
     public ButtonBuilder setChecked(boolean isChecked) {
         button = new CheckedButton(button, isChecked);
-        return this;
-    }
-
-    public ButtonBuilder setEnabledFromMemoryKey(String memoryKey, boolean defaultValue) {
-        boolean isEnabled = MemoryHelper.getBoolean(memoryKey, defaultValue);
-        button = new EnabledButton(button, isEnabled);
         return this;
     }
 
