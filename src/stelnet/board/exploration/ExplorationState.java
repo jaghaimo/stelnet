@@ -4,22 +4,15 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.ui.Alignment;
-import com.fs.starfarer.api.util.Misc;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import stelnet.filter.FactionIsRaiding;
 import stelnet.util.CollectionUtils;
 import stelnet.util.L10n;
-import stelnet.util.MemoryHelper;
 import uilib.UiConstants;
 import uilib2.Drawable;
 import uilib2.Spacer;
-import uilib2.button.BasicAreaCheckbox;
-import uilib2.button.Button;
-import uilib2.button.ButtonBuilder;
-import uilib2.intel.ActionSelectItem;
-import uilib2.intel.IntelCallbackBuilder;
 import uilib2.label.SectionHeading;
 
 @RequiredArgsConstructor
@@ -39,29 +32,7 @@ public class ExplorationState {
             new SectionHeading(L10n.get(ExplorationL10n.HEADER_TYPE), Alignment.MID, UiConstants.DEFAULT_BUTTON_PADDING)
         );
         for (ExplorationL10n buttonType : buttonTypes) {
-            String memoryKeyChecked = MemoryHelper.key(MEMORY_PREFIX, buttonType, "Checked");
-            String memoryKeyEnabled = MemoryHelper.key(MEMORY_PREFIX, buttonType, "Enabled");
-            boolean isChecked = MemoryHelper.getBoolean(memoryKeyChecked, true);
-            boolean isEnabled = MemoryHelper.getBoolean(memoryKeyEnabled, true);
-            Button button = new ButtonBuilder(
-                new BasicAreaCheckbox(
-                    L10n.get(buttonType),
-                    new IntelCallbackBuilder()
-                        .addConfirmAction(new UpdateMemoryFlag(memoryKeyChecked, !isChecked))
-                        .addConfirmAction(new ActionSelectItem(intel))
-                        .build(),
-                    Misc.getBasePlayerColor(),
-                    Misc.getDarkPlayerColor(),
-                    Misc.getBrightPlayerColor(),
-                    width,
-                    height,
-                    UiConstants.DEFAULT_BUTTON_PADDING
-                )
-            )
-                .setChecked(isChecked)
-                .setEnabled(isEnabled)
-                .build();
-            drawables.add(button);
+            drawables.add(new TypeButton(MEMORY_PREFIX, buttonType, intel, width, height));
         }
         addSpacer(drawables);
     }
@@ -80,29 +51,7 @@ public class ExplorationState {
             )
         );
         for (FactionAPI faction : factions) {
-            String memoryKeyChecked = MemoryHelper.key(MEMORY_PREFIX, faction, "Checked");
-            String memoryKeyEnabled = MemoryHelper.key(MEMORY_PREFIX, faction, "Enabled");
-            boolean isChecked = MemoryHelper.getBoolean(memoryKeyChecked, true);
-            boolean isEnabled = MemoryHelper.getBoolean(memoryKeyEnabled, true);
-            Button button = new ButtonBuilder(
-                new BasicAreaCheckbox(
-                    Misc.ucFirst(faction.getDisplayName()),
-                    new IntelCallbackBuilder()
-                        .addConfirmAction(new UpdateMemoryFlag(memoryKeyChecked, !isChecked))
-                        .addConfirmAction(new ActionSelectItem(intel))
-                        .build(),
-                    faction.getBaseUIColor(),
-                    faction.getDarkUIColor(),
-                    faction.getBrightUIColor(),
-                    width,
-                    height,
-                    UiConstants.DEFAULT_BUTTON_PADDING
-                )
-            )
-                .setChecked(isChecked)
-                .setEnabled(isEnabled)
-                .build();
-            drawables.add(button);
+            drawables.add(new FactionButton(MEMORY_PREFIX, faction, intel, width, height));
         }
         addSpacer(drawables);
     }
