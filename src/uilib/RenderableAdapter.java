@@ -5,6 +5,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 import uilib.property.Position;
 import uilib.property.Size;
 import uilib2.Drawable;
@@ -12,6 +13,7 @@ import uilib2.Drawable;
 /**
  * Limited adapter to use uilib2 in uilib. Does not support drawing using CustomPanelAPI.
  */
+@Log4j
 @RequiredArgsConstructor
 public class RenderableAdapter implements Renderable {
 
@@ -27,17 +29,19 @@ public class RenderableAdapter implements Renderable {
 
     @Override
     public Position getOffset() {
-        throw new RuntimeException("UiLib2 does not expose offsets.");
+        log.warn("UiLib does not expose offset.");
+        return new Position(0, 0);
     }
 
     @Override
     public Size getSize() {
-        throw new RuntimeException("UiLib2 does not expose size.");
+        log.warn("UiLib does not expose size.");
+        return new Size(0, 0);
     }
 
     @Override
     public void render(CustomPanelAPI panel, float x, float y) {
-        throw new RuntimeException("UiLib2 does not support CustomPanelAPI.");
+        log.warn("UiLib2 does not support CustomPanelAPI.");
     }
 
     @Override

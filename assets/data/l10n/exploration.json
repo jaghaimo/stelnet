@@ -3,8 +3,8 @@
     "BOARD_TITLE": "Exploration",
     "HEADER_TYPE": "Intel Type",
     "HEADER_FACTION": "Base Owner",
-    "TYPE_BASES": "Bases",
-    "TYPE_MEMORY_BANKS": "Memory Banks",
-    "TYPE_MISSIONS": "Missions",
-    "TYPE_OTHER": "Other"
+    "TYPE_MEMORY_BANK": "Memory Bank",
+    "TYPE_OTHER": "Other Intel",
+    "TYPE_RAIDING_BASE": "Raiding Base",
+    "TYPE_STORY_MISSION": "Story Mission"
 }

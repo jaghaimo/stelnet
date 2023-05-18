@@ -1,17 +1,25 @@
 package stelnet.board.exploration;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
+import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.SectorMapAPI;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import stelnet.board.BoardDrawableInfo;
+import stelnet.filter.FactionIsRaiding;
+import stelnet.util.CollectionUtils;
 import stelnet.util.L10n;
 import stelnet.util.StelnetHelper;
 import uilib2.Drawable;
+import uilib2.Spacer;
+import uilib2.UiConstants;
 import uilib2.intel.DrawableIntel;
 import uilib2.intel.DrawableIntelInfo;
+import uilib2.label.SectionHeading;
 
 @Getter
 public class ExplorationBoard extends DrawableIntel {
@@ -23,8 +31,8 @@ public class ExplorationBoard extends DrawableIntel {
         L10n.get(ExplorationL10n.BOARD_TITLE),
         L10n.get(ExplorationL10n.BOARD_DESCRIPTION)
     );
+    private final String memoryPrefix = "$stelnetExploration";
     private final IntelSortTier sortTier = IntelSortTier.TIER_0;
-    private final ExplorationState state = new ExplorationState(this);
 
     public static ExplorationBoard getInstance() {
         if (instance != null) {
@@ -47,6 +55,47 @@ public class ExplorationBoard extends DrawableIntel {
 
     @Override
     protected List<Drawable> getDrawableList(float width, float height) {
-        return state.toDrawableList(width, height);
+        List<Drawable> drawables = new LinkedList<>();
+        addTypes(drawables, width);
+        addFactions(drawables, width);
+        addMissions(drawables, width);
+        return drawables;
     }
+
+    private void addHeader(List<Drawable> drawables, String title) {
+        drawables.add(new SectionHeading(title, Alignment.MID, UiConstants.SPACER_SMALL));
+    }
+
+    private void addSpacer(List<Drawable> drawables) {
+        drawables.add(new Spacer(UiConstants.SPACER_LARGE));
+    }
+
+    private void addTypes(List<Drawable> drawables, float width) {
+        ExplorationL10n[] buttonTypes = {
+            ExplorationL10n.TYPE_STORY_MISSION,
+            ExplorationL10n.TYPE_RAIDING_BASE,
+            ExplorationL10n.TYPE_MEMORY_BANK,
+            ExplorationL10n.TYPE_OTHER,
+        };
+        addHeader(drawables, L10n.get(ExplorationL10n.HEADER_TYPE));
+        for (ExplorationL10n buttonType : buttonTypes) {
+            drawables.add(new TypeButton(memoryPrefix, buttonType, this, width));
+        }
+        addSpacer(drawables);
+    }
+
+    private void addFactions(List<Drawable> drawables, float width) {
+        List<FactionAPI> factions = Global.getSector().getAllFactions();
+        CollectionUtils.reduce(factions, new FactionIsRaiding());
+        if (factions.isEmpty()) {
+            return;
+        }
+        addHeader(drawables, L10n.get(ExplorationL10n.HEADER_FACTION));
+        for (FactionAPI faction : factions) {
+            drawables.add(new FactionButton(memoryPrefix, faction, this, width));
+        }
+        addSpacer(drawables);
+    }
+
+    private void addMissions(List<Drawable> drawables, float width) {}
 }
