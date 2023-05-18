@@ -1,15 +1,15 @@
-package uilib2.button;
+package uilib2.label;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public abstract class DecoratedButton implements Button {
+public abstract class DecoratedLabel implements Label {
 
-    protected final Button button;
+    protected final Label label;
 
     @Override
     public void draw(TooltipMakerAPI tooltip) {
-        addButton(tooltip);
+        addLabel(tooltip);
     }
 }

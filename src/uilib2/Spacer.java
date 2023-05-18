@@ -1,15 +1,15 @@
-package uilib2.button;
+package uilib2;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public abstract class DecoratedButton implements Button {
+public class Spacer implements Drawable {
 
-    protected final Button button;
+    private final float height;
 
     @Override
     public void draw(TooltipMakerAPI tooltip) {
-        addButton(tooltip);
+        tooltip.addSpacer(height);
     }
 }

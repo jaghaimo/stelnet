@@ -1,4 +1,10 @@
 {
     "BOARD_DESCRIPTION": "Manages visibility of exploration intel.",
-    "BOARD_TITLE": "Exploration"
+    "BOARD_TITLE": "Exploration",
+    "HEADER_TYPE": "Intel Type",
+    "HEADER_FACTION": "Base Owner",
+    "TYPE_BASES": "Bases",
+    "TYPE_MEMORY_BANKS": "Memory Banks",
+    "TYPE_MISSIONS": "Missions",
+    "TYPE_OTHER": "Other"
 }

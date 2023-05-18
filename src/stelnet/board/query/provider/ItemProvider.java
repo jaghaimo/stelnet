@@ -118,8 +118,8 @@ public class ItemProvider extends QueryProvider {
     }
 
     private <T> void addAsCargoStacks(List<CargoStackAPI> cargoStacks, List<T> elements) {
-        for (T hullModSpec : elements) {
-            cargoStacks.add(hullModSpec.asCargoStack());
+        for (T element : elements) {
+            cargoStacks.add(element.asCargoStack());
         }
     }
 }

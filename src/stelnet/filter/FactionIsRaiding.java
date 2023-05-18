@@ -9,7 +9,7 @@ public final class FactionIsRaiding extends FactionFilter {
 
     @Override
     protected boolean acceptFaction(FactionAPI faction) {
-        if (faction.getId() == Factions.LUDDIC_PATH) {
+        if (Factions.LUDDIC_PATH.equals(faction.getId())) {
             return true;
         }
         return faction.getCustomBoolean(Factions.CUSTOM_MAKES_PIRATE_BASES);
