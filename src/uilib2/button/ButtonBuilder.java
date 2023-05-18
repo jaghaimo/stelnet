@@ -2,7 +2,7 @@ package uilib2.button;
 
 import lombok.AllArgsConstructor;
 import lombok.experimental.ExtensionMethod;
-import uilib2.MemoryHelper;
+import stelnet.util.MemoryHelper;
 
 /**
  * Button builder that is using a decorator pattern.

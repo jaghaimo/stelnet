@@ -11,9 +11,9 @@ import lombok.RequiredArgsConstructor;
 import stelnet.filter.FactionIsRaiding;
 import stelnet.util.CollectionUtils;
 import stelnet.util.L10n;
+import stelnet.util.MemoryHelper;
 import uilib.UiConstants;
 import uilib2.Drawable;
-import uilib2.MemoryHelper;
 import uilib2.Spacer;
 import uilib2.button.BasicAreaCheckbox;
 import uilib2.button.Button;
@@ -26,6 +26,7 @@ import uilib2.label.SectionHeading;
 public class ExplorationState {
 
     private final IntelInfoPlugin intel;
+    private final String MEMORY_PREFIX = "$stelnetExploration";
 
     private void addTypes(List<Drawable> drawables, float width, float height) {
         ExplorationL10n[] buttonTypes = {
@@ -38,9 +39,8 @@ public class ExplorationState {
             new SectionHeading(L10n.get(ExplorationL10n.HEADER_TYPE), Alignment.MID, UiConstants.DEFAULT_BUTTON_PADDING)
         );
         for (ExplorationL10n buttonType : buttonTypes) {
-            String memoryKey = "$stelnetExploration" + buttonType.name();
-            String memoryKeyChecked = memoryKey + "Checked";
-            String memoryKeyEnabled = memoryKey + "Enabled";
+            String memoryKeyChecked = MemoryHelper.key(MEMORY_PREFIX, buttonType, "Checked");
+            String memoryKeyEnabled = MemoryHelper.key(MEMORY_PREFIX, buttonType, "Enabled");
             boolean isChecked = MemoryHelper.getBoolean(memoryKeyChecked, true);
             boolean isEnabled = MemoryHelper.getBoolean(memoryKeyEnabled, true);
             Button button = new ButtonBuilder(
@@ -80,9 +80,8 @@ public class ExplorationState {
             )
         );
         for (FactionAPI faction : factions) {
-            String memoryKey = "$stelnetExploration" + faction.getId();
-            String memoryKeyChecked = memoryKey + "Checked";
-            String memoryKeyEnabled = memoryKey + "Enabled";
+            String memoryKeyChecked = MemoryHelper.key(MEMORY_PREFIX, faction, "Checked");
+            String memoryKeyEnabled = MemoryHelper.key(MEMORY_PREFIX, faction, "Enabled");
             boolean isChecked = MemoryHelper.getBoolean(memoryKeyChecked, true);
             boolean isEnabled = MemoryHelper.getBoolean(memoryKeyEnabled, true);
             Button button = new ButtonBuilder(

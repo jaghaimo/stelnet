@@ -2,7 +2,7 @@ package stelnet.board.exploration;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import lombok.RequiredArgsConstructor;
-import uilib2.MemoryHelper;
+import stelnet.util.MemoryHelper;
 import uilib2.intel.IntelUiAction;
 
 @RequiredArgsConstructor
