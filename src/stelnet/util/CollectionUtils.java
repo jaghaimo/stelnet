@@ -39,6 +39,7 @@ public class CollectionUtils {
         return empty;
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> T[] merge(T[] array1, T[]... arrays) {
         List<T> list = new LinkedList<>();
         Collections.addAll(list, array1);

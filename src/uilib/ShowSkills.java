@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import stelnet.filter.SkillIsCombatOfficer;
 import stelnet.util.CollectionUtils;
 
+@Deprecated
 @RequiredArgsConstructor
 public class ShowSkills extends RenderableComponent {
 

@@ -26,6 +26,7 @@ public class ShowPeopleOfficerTooltip implements TooltipCreator {
         String level = String.format(" %s (L%d)", person.getNameString(), person.getStats().getLevel());
         tooltip.addSectionHeading(level, Alignment.LMID, 2);
         tooltip.addSpacer(4);
-        (new ShowSkills(person)).render(tooltip);
+        tooltip.addSkillPanelOneColumn(person, 0);
+        // (new ShowSkills(person)).render(tooltip);
     }
 }
