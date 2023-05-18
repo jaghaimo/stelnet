@@ -5,6 +5,7 @@ import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.SectorMapAPI;
+import com.fs.starfarer.api.util.Misc;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -19,7 +20,7 @@ import uilib2.Spacer;
 import uilib2.UiConstants;
 import uilib2.intel.DrawableIntel;
 import uilib2.intel.DrawableIntelInfo;
-import uilib2.label.SectionHeading;
+import uilib2.label.ColoredSectionHeading;
 
 @Getter
 public class ExplorationBoard extends DrawableIntel {
@@ -35,10 +36,6 @@ public class ExplorationBoard extends DrawableIntel {
     private final IntelSortTier sortTier = IntelSortTier.TIER_0;
 
     public static ExplorationBoard getInstance() {
-        if (instance != null) {
-            Global.getSector().getIntelManager().removeIntel(instance);
-            instance = null;
-        }
         if (instance == null) {
             instance = new ExplorationBoard();
             Global.getSector().getIntelManager().addIntel(instance, true);
@@ -63,11 +60,16 @@ public class ExplorationBoard extends DrawableIntel {
     }
 
     private void addHeader(List<Drawable> drawables, String title) {
-        drawables.add(new SectionHeading(title, Alignment.MID, UiConstants.SPACER_SMALL));
-    }
-
-    private void addSpacer(List<Drawable> drawables) {
-        drawables.add(new Spacer(UiConstants.SPACER_LARGE));
+        drawables.add(
+            new ColoredSectionHeading(
+                title,
+                Misc.getBasePlayerColor(),
+                Misc.zeroColor,
+                Alignment.MID,
+                UiConstants.SPACER_LARGE
+            )
+        );
+        drawables.add(new Spacer(UiConstants.SPACER_SMALL));
     }
 
     private void addTypes(List<Drawable> drawables, float width) {
@@ -78,10 +80,11 @@ public class ExplorationBoard extends DrawableIntel {
             ExplorationL10n.TYPE_OTHER,
         };
         addHeader(drawables, L10n.get(ExplorationL10n.HEADER_TYPE));
+        boolean withShift = false;
         for (ExplorationL10n buttonType : buttonTypes) {
-            drawables.add(new TypeButton(memoryPrefix, buttonType, this, width));
+            drawables.add(new TypeButton(memoryPrefix, buttonType, this, width, withShift));
+            withShift = !withShift;
         }
-        addSpacer(drawables);
     }
 
     private void addFactions(List<Drawable> drawables, float width) {
@@ -91,10 +94,11 @@ public class ExplorationBoard extends DrawableIntel {
             return;
         }
         addHeader(drawables, L10n.get(ExplorationL10n.HEADER_FACTION));
+        boolean withShift = false;
         for (FactionAPI faction : factions) {
-            drawables.add(new FactionButton(memoryPrefix, faction, this, width));
+            drawables.add(new FactionButton(memoryPrefix, faction, this, width, withShift));
+            withShift = !withShift;
         }
-        addSpacer(drawables);
     }
 
     private void addMissions(List<Drawable> drawables, float width) {}
