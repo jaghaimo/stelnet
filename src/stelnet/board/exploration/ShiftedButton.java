@@ -13,11 +13,13 @@ public class ShiftedButton implements Drawable {
 
     @Override
     public void draw(TooltipMakerAPI tooltip) {
+        float heightSoFar = tooltip.getHeightSoFar();
         drawable.draw(tooltip);
         float shiftX = (width / 2) + UiConstants.BUTTON_PADDING;
         tooltip.getPrev().getPosition().setXAlignOffset(shiftX);
         tooltip.getPrev().getPosition().setYAlignOffset(UiConstants.BUTTON_HEIGHT);
         tooltip.addSpacer(0);
         tooltip.getPrev().getPosition().setXAlignOffset(-shiftX - 1); // why does it need -1?
+        tooltip.setHeightSoFar(heightSoFar);
     }
 }

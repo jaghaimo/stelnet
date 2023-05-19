@@ -66,6 +66,7 @@ public class ExplorationBoard extends DrawableIntel {
     private void addTypes(List<Drawable> drawables, float width) {
         ExplorationL10n[] buttonTypes = {
             ExplorationL10n.TYPE_ANALYZE_MISSION,
+            ExplorationL10n.TYPE_COMM_RELAY,
             ExplorationL10n.TYPE_SURVEY_MISSION,
             ExplorationL10n.TYPE_STORY_MISSION,
             ExplorationL10n.TYPE_RAIDING_BASE,
@@ -97,9 +98,16 @@ public class ExplorationBoard extends DrawableIntel {
 
     private void addMissions(List<Drawable> drawables, float width) {
         ExplorationL10n[] buttonTypes = {
+            ExplorationL10n.BANK_DEBRIS_FIELD,
             ExplorationL10n.BANK_DERELICT_SHIP,
             ExplorationL10n.BANK_DOMAIN_ERA_PROBE,
-            ExplorationL10n.BANK_ORBITAL_STATION,
+            ExplorationL10n.BANK_HABITABLE_WORLD,
+            ExplorationL10n.BANK_RUINS_LOCATION,
+            ExplorationL10n.BANK_ORBITAL_HABITAT,
+            ExplorationL10n.BANK_SUPPLY_CACHE,
+            ExplorationL10n.BANK_SURVEY_DATA,
+            ExplorationL10n.BANK_SURVEY_SHIP,
+            ExplorationL10n.BANK_OTHER,
         };
         addHeader(drawables, L10n.get(ExplorationL10n.HEADER_MEMORY_BANK));
         boolean withShift = false;
