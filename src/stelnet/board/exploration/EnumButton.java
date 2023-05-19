@@ -17,7 +17,6 @@ import uilib2.intel.IntelCallbackBuilder;
 @RequiredArgsConstructor
 public class EnumButton implements Drawable {
 
-    private final String MEMORY_PREFIX;
     private final Enum<?> buttonType;
     private final IntelInfoPlugin intel;
     private final float width;
@@ -28,7 +27,11 @@ public class EnumButton implements Drawable {
 
     @Override
     public void draw(TooltipMakerAPI tooltip) {
-        String memoryKeyChecked = MemoryHelper.key(MEMORY_PREFIX, buttonType, "Checked");
+        String memoryKeyChecked = MemoryHelper.key(
+            ExplorationBoard.MEMORY_PREFIX,
+            buttonType,
+            ExplorationBoard.MEMORY_SUFFIX_CHECKED
+        );
         String memoryKeyEnabled = getMemoryKeyEnabled();
         boolean isChecked = MemoryHelper.getBoolean(memoryKeyChecked, true);
         boolean isEnabled = MemoryHelper.getBoolean(memoryKeyEnabled, true);
@@ -46,7 +49,7 @@ public class EnumButton implements Drawable {
         if (memoryKeyEnabledOverwrite != null) {
             return memoryKeyEnabledOverwrite;
         }
-        return MemoryHelper.key(MEMORY_PREFIX, buttonType, "Enabled");
+        return MemoryHelper.key(ExplorationBoard.MEMORY_PREFIX, buttonType, ExplorationBoard.MEMORY_SUFFIX_ENABLED);
     }
 
     private BasicAreaCheckbox getButton(String memoryKeyChecked, boolean isChecked) {

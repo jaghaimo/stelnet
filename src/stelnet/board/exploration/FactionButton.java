@@ -16,7 +16,6 @@ import uilib2.intel.IntelCallbackBuilder;
 @RequiredArgsConstructor
 public class FactionButton implements Drawable {
 
-    private final String MEMORY_PREFIX;
     private final FactionAPI faction;
     private final IntelInfoPlugin intel;
     private final float width;
@@ -24,8 +23,16 @@ public class FactionButton implements Drawable {
 
     @Override
     public void draw(TooltipMakerAPI tooltip) {
-        String memoryKeyChecked = MemoryHelper.key(MEMORY_PREFIX, faction, "Checked");
-        String memoryKeyEnabled = MemoryHelper.key(MEMORY_PREFIX, ExplorationL10n.TYPE_RAIDING_BASE, "Checked");
+        String memoryKeyChecked = MemoryHelper.key(
+            ExplorationBoard.MEMORY_PREFIX,
+            faction,
+            ExplorationBoard.MEMORY_SUFFIX_CHECKED
+        );
+        String memoryKeyEnabled = MemoryHelper.key(
+            ExplorationBoard.MEMORY_PREFIX,
+            ExplorationL10n.TYPE_RAIDING_BASE,
+            ExplorationBoard.MEMORY_SUFFIX_ENABLED
+        );
         boolean isChecked = MemoryHelper.getBoolean(memoryKeyChecked, true);
         boolean isEnabled = MemoryHelper.getBoolean(memoryKeyEnabled, true);
         Drawable button = new ButtonBuilder(getButton(memoryKeyChecked, isChecked))

@@ -26,12 +26,15 @@ import uilib2.label.ColoredSectionHeading;
 @Getter
 public class ExplorationBoard extends DrawableIntel {
 
+    public static final String MEMORY_PREFIX = "$stelnetExploration";
+    public static final String MEMORY_SUFFIX_CHECKED = "Checked";
+    public static final String MEMORY_SUFFIX_ENABLED = "Enabled";
+
     private final String icon = StelnetHelper.getSpriteName("exploration");
     private final DrawableIntelInfo intelInfo = new BoardDrawableInfo(
         L10n.get(ExplorationL10n.BOARD_TITLE),
         L10n.get(ExplorationL10n.BOARD_DESCRIPTION)
     );
-    private final String memoryPrefix = "$stelnetExploration";
     private final IntelSortTier sortTier = IntelSortTier.TIER_0;
 
     @Override
@@ -77,7 +80,7 @@ public class ExplorationBoard extends DrawableIntel {
         addHeader(drawables, L10n.get(ExplorationL10n.HEADER_TYPE));
         boolean withShift = false;
         for (ExplorationL10n buttonType : buttonTypes) {
-            drawables.add(new EnumButton(memoryPrefix, buttonType, this, width, withShift));
+            drawables.add(new EnumButton(buttonType, this, width, withShift));
             withShift = !withShift;
         }
     }
@@ -91,7 +94,7 @@ public class ExplorationBoard extends DrawableIntel {
         addHeader(drawables, L10n.get(ExplorationL10n.HEADER_FACTION));
         boolean withShift = false;
         for (FactionAPI faction : factions) {
-            drawables.add(new FactionButton(memoryPrefix, faction, this, width, withShift));
+            drawables.add(new FactionButton(faction, this, width, withShift));
             withShift = !withShift;
         }
     }
@@ -111,9 +114,13 @@ public class ExplorationBoard extends DrawableIntel {
         };
         addHeader(drawables, L10n.get(ExplorationL10n.HEADER_MEMORY_BANK));
         boolean withShift = false;
-        String memoryKeyEnabled = MemoryHelper.key(memoryPrefix, ExplorationL10n.TYPE_MEMORY_BANK, "Checked");
+        String memoryKeyEnabled = MemoryHelper.key(
+            MEMORY_PREFIX,
+            ExplorationL10n.TYPE_MEMORY_BANK,
+            MEMORY_SUFFIX_CHECKED
+        );
         for (ExplorationL10n buttonType : buttonTypes) {
-            EnumButton button = new EnumButton(memoryPrefix, buttonType, this, width, withShift);
+            EnumButton button = new EnumButton(buttonType, this, width, withShift);
             button.setMemoryKeyEnabledOverwrite(memoryKeyEnabled);
             drawables.add(button);
             withShift = !withShift;
