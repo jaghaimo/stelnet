@@ -6,12 +6,14 @@ import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.util.Misc;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import stelnet.board.BoardDrawableInfo;
 import stelnet.filter.FactionIsRaiding;
+import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 import stelnet.util.L10n;
 import stelnet.util.MemoryHelper;
@@ -30,6 +32,7 @@ public class ExplorationBoard extends DrawableIntel {
     public static final String MEMORY_SUFFIX_CHECKED = "Checked";
     public static final String MEMORY_SUFFIX_ENABLED = "Enabled";
 
+    private final Set<Filter> filters = new LinkedHashSet<>();
     private final String icon = StelnetHelper.getSpriteName("exploration");
     private final DrawableIntelInfo intelInfo = new BoardDrawableInfo(
         L10n.get(ExplorationL10n.BOARD_TITLE),
@@ -80,7 +83,7 @@ public class ExplorationBoard extends DrawableIntel {
         addHeader(drawables, L10n.get(ExplorationL10n.HEADER_TYPE));
         boolean withShift = false;
         for (ExplorationL10n buttonType : buttonTypes) {
-            drawables.add(new EnumButton(buttonType, this, width, withShift));
+            drawables.add(new EnumButton(filters, buttonType, this, width, withShift));
             withShift = !withShift;
         }
     }
@@ -94,7 +97,7 @@ public class ExplorationBoard extends DrawableIntel {
         addHeader(drawables, L10n.get(ExplorationL10n.HEADER_FACTION));
         boolean withShift = false;
         for (FactionAPI faction : factions) {
-            drawables.add(new FactionButton(faction, this, width, withShift));
+            drawables.add(new FactionButton(filters, faction, this, width, withShift));
             withShift = !withShift;
         }
     }
@@ -120,7 +123,7 @@ public class ExplorationBoard extends DrawableIntel {
             MEMORY_SUFFIX_CHECKED
         );
         for (ExplorationL10n buttonType : buttonTypes) {
-            EnumButton button = new EnumButton(buttonType, this, width, withShift);
+            EnumButton button = new EnumButton(filters, buttonType, this, width, withShift);
             button.setMemoryKeyEnabledOverwrite(memoryKeyEnabled);
             drawables.add(button);
             withShift = !withShift;
