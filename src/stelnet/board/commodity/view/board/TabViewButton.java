@@ -4,6 +4,7 @@ import com.fs.starfarer.api.ui.IntelUIAPI;
 import stelnet.board.commodity.CommodityAction;
 import stelnet.board.commodity.CommodityBoard;
 import stelnet.util.L10n;
+import stelnet.util.StelnetHelper;
 import uilib.TabButton;
 
 public class TabViewButton extends TabButton {
@@ -17,7 +18,7 @@ public class TabViewButton extends TabButton {
 
     @Override
     public void onConfirm(IntelUIAPI ui) {
-        CommodityBoard board = CommodityBoard.getInstance(CommodityBoard.class);
+        CommodityBoard board = StelnetHelper.getInstance(CommodityBoard.class);
         board.getRenderableState().setActiveTab(currentTab);
     }
 }

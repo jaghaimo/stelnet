@@ -26,8 +26,6 @@ import uilib2.label.ColoredSectionHeading;
 @Getter
 public class ExplorationBoard extends DrawableIntel {
 
-    private static ExplorationBoard instance;
-
     private final String icon = StelnetHelper.getSpriteName("exploration");
     private final DrawableIntelInfo intelInfo = new BoardDrawableInfo(
         L10n.get(ExplorationL10n.BOARD_TITLE),
@@ -35,14 +33,6 @@ public class ExplorationBoard extends DrawableIntel {
     );
     private final String memoryPrefix = "$stelnetExploration";
     private final IntelSortTier sortTier = IntelSortTier.TIER_0;
-
-    public static ExplorationBoard getInstance() {
-        if (instance == null) {
-            instance = new ExplorationBoard();
-            Global.getSector().getIntelManager().addIntel(instance, true);
-        }
-        return instance;
-    }
 
     @Override
     public Set<String> getIntelTags(SectorMapAPI map) {

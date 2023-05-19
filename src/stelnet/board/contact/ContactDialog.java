@@ -8,6 +8,7 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.impl.campaign.RuleBasedInteractionDialogPluginImpl;
 import com.fs.starfarer.api.ui.IntelUIAPI;
+import stelnet.util.StelnetHelper;
 
 public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
 
@@ -72,7 +73,7 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
 
     private void dismiss() {
         ContactsBoard.unregisterCall();
-        ContactsBoard board = ContactsBoard.getInstance(ContactsBoard.class);
+        ContactsBoard board = StelnetHelper.getInstance(ContactsBoard.class);
         if (this.isRemoteCall()) {
             board.getRenderableState().addTrackingData(market, storageData, playerData);
             storageData.add(playerData);

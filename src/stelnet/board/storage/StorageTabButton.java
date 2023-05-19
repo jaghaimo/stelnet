@@ -2,6 +2,7 @@ package stelnet.board.storage;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import stelnet.util.L10n;
+import stelnet.util.StelnetHelper;
 import stelnet.widget.viewer.ContentRenderer;
 import uilib.EventHandler;
 import uilib.TabButton;
@@ -14,7 +15,7 @@ public class StorageTabButton extends TabButton {
             new EventHandler() {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
-                    StorageBoard board = StorageBoard.getInstance(StorageBoard.class);
+                    StorageBoard board = StelnetHelper.getInstance(StorageBoard.class);
                     board.getRenderableState().setContentRenderer(newRenderer);
                 }
             }

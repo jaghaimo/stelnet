@@ -68,7 +68,7 @@ public class Configurator {
 
     private static void initContacts(boolean hasContacts) {
         if (hasContacts) {
-            ContactsBoard.getInstance(ContactsBoard.class);
+            StelnetHelper.getInstance(ContactsBoard.class);
             SebestyenContactMaker.register();
             log.info("Enabled Contacts module");
         } else {
@@ -79,7 +79,7 @@ public class Configurator {
 
     private static void initCommodity(boolean hasCommodities) {
         if (hasCommodities) {
-            CommodityBoard.getInstance(CommodityBoard.class).restore();
+            StelnetHelper.getInstance(CommodityBoard.class).restore();
             // TradeBoard.getInstance(TradeBoard.class);
             log.info("Enabled Commodity module");
         } else {
@@ -90,7 +90,7 @@ public class Configurator {
 
     private static void initExploration(boolean hasExploration) {
         if (hasExploration) {
-            ExplorationBoard.getInstance();
+            StelnetHelper.getInstance(ExplorationBoard.class);
             log.info("Enabled Exploration module");
         } else {
             purgeIntel(ExplorationBoard.class);
@@ -100,8 +100,8 @@ public class Configurator {
 
     private static void initMarket(boolean hasMarket) {
         if (hasMarket) {
-            QueryBoard.getInstance(QueryBoard.class);
-            ViewerBoard.getInstance(ViewerBoard.class);
+            StelnetHelper.getInstance(QueryBoard.class);
+            StelnetHelper.getInstance(ViewerBoard.class);
             log.info("Enabled Market module");
         } else {
             purgeIntel(QueryBoard.class, ViewerBoard.class, ResultIntel.class);
@@ -116,7 +116,7 @@ public class Configurator {
 
     private static void initStorage(boolean hasStorage) {
         if (hasStorage) {
-            StorageBoard.getInstance(StorageBoard.class);
+            StelnetHelper.getInstance(StorageBoard.class);
             log.info("Enabled Storage module");
             StorageUpdater.register();
         } else {

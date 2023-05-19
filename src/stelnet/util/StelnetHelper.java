@@ -29,6 +29,25 @@ import stelnet.filter.Filter;
 public class StelnetHelper {
 
     /**
+     * Singleton, creates or gets an existing instance of a class that implements IntelInfoPlugin.
+     * Requires no-args constructor. Used by all "Boards".
+     */
+    public static <T extends IntelInfoPlugin> T getInstance(Class<T> className) {
+        IntelInfoPlugin intel = Global.getSector().getIntelManager().getFirstIntel(className);
+        if (intel == null) {
+            try {
+                @SuppressWarnings("deprecation")
+                IntelInfoPlugin board = className.newInstance();
+                Global.getSector().getIntelManager().addIntel(board, true);
+                intel = board;
+            } catch (Exception exception) {
+                log.error("Couldn't create board for " + className.getName(), exception);
+            }
+        }
+        return className.cast(intel);
+    }
+
+    /**
      * Sum of all cargo stack sizes. Contrary to `CargoAPI.getUsedSpace` it ignores item's size.
      */
     public static int calculateItemQuantity(CargoAPI cargo) {
