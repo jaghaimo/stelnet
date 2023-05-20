@@ -24,16 +24,13 @@ public class FactionButton extends ExplorationButton implements Drawable {
 
     @Override
     public void draw(TooltipMakerAPI tooltip) {
+        IdAware key = new PromotedFaction(faction);
         String memoryKeyChecked = MemoryHelper.key(
             ExplorationBoard.MEMORY_PREFIX,
-            new PromotedFaction(faction),
+            key,
             ExplorationBoard.MEMORY_SUFFIX_CHECKED
         );
-        String memoryKeyEnabled = MemoryHelper.key(
-            ExplorationBoard.MEMORY_PREFIX,
-            ExplorationL10n.TYPE_RAIDING_BASE,
-            ExplorationBoard.MEMORY_SUFFIX_ENABLED
-        );
+        String memoryKeyEnabled = getMemoryKeyEnabled(key);
         boolean isChecked = MemoryHelper.getBoolean(memoryKeyChecked, true);
         boolean isEnabled = MemoryHelper.getBoolean(memoryKeyEnabled, true);
         Drawable button = new ButtonBuilder(getButton(memoryKeyChecked, isChecked))
