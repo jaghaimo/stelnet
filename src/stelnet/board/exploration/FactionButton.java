@@ -15,7 +15,7 @@ import uilib2.intel.ActionUpdateIntelList;
 import uilib2.intel.IntelCallbackBuilder;
 
 @RequiredArgsConstructor
-public class FactionButton implements Drawable {
+public class FactionButton extends ExplorationButton implements Drawable {
 
     private final FactionAPI faction;
     private final IntelInfoPlugin intel;
@@ -26,7 +26,7 @@ public class FactionButton implements Drawable {
     public void draw(TooltipMakerAPI tooltip) {
         String memoryKeyChecked = MemoryHelper.key(
             ExplorationBoard.MEMORY_PREFIX,
-            faction,
+            new PromotedFaction(faction),
             ExplorationBoard.MEMORY_SUFFIX_CHECKED
         );
         String memoryKeyEnabled = MemoryHelper.key(

@@ -92,8 +92,15 @@ public class ExplorationBoard extends DrawableIntel {
         }
         addHeader(drawables, L10n.get(ExplorationL10n.HEADER_FACTION));
         boolean withShift = false;
+        String memoryKeyEnabled = MemoryHelper.key(
+            MEMORY_PREFIX,
+            ExplorationL10n.TYPE_RAIDING_BASE,
+            MEMORY_SUFFIX_CHECKED
+        );
         for (FactionAPI faction : factions) {
-            drawables.add(new FactionButton(faction, this, width, withShift));
+            FactionButton button = new FactionButton(faction, this, width, withShift);
+            button.setMemoryKeyEnabledOverwrite(memoryKeyEnabled);
+            drawables.add(button);
             withShift = !withShift;
         }
     }

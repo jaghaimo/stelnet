@@ -1,17 +1,13 @@
 package stelnet.util;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
+import stelnet.board.exploration.IdAware;
 
 public class MemoryHelper {
 
-    public static String key(String prefix, FactionAPI faction, String suffix) {
-        return prefix + faction.getId() + suffix;
-    }
-
-    public static String key(String prefix, Enum<?> body, String suffix) {
-        return prefix + body.name() + suffix;
+    public static String key(String prefix, IdAware entity, String suffix) {
+        return prefix + entity.getId() + suffix;
     }
 
     public static boolean getBoolean(String key, boolean defaultValue) {

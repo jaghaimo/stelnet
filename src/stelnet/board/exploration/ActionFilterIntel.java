@@ -35,7 +35,8 @@ public class ActionFilterIntel implements IntelUiAction {
         List<IntelInfoPlugin> intelList = new ArrayList<>(Global.getSector().getIntelManager().getIntel());
         CollectionUtils.reduce(intelList, new AnyHasTag(Tags.INTEL_EXPLORATION));
         setHidden(intelList, false);
-        if (filters.size() > 1) {
+        CollectionUtils.reduce(intelList, new IntelIsClass(ExplorationBoard.class));
+        if (filters.size() > 0) {
             CollectionUtils.reduce(intelList, filters);
             setHidden(intelList, true);
         }
@@ -57,16 +58,16 @@ public class ActionFilterIntel implements IntelUiAction {
         }
         for (FactionAPI faction : getFactions()) {
             Filter filter = new IntelIsFaction(faction);
-            String isEnabledKey = getMemoryKey(faction, ExplorationBoard.MEMORY_SUFFIX_ENABLED);
-            String isCheckedKey = getMemoryKey(faction, ExplorationBoard.MEMORY_SUFFIX_CHECKED);
+            IdAware key = new PromotedFaction(faction);
+            String isEnabledKey = getMemoryKey(key, ExplorationBoard.MEMORY_SUFFIX_ENABLED);
+            String isCheckedKey = getMemoryKey(key, ExplorationBoard.MEMORY_SUFFIX_CHECKED);
             addIfNeeded(filters, isEnabledKey, isCheckedKey, filter);
         }
-        filters.add(new LogicalNot(new IntelIsClass(ExplorationBoard.class)));
         return filters;
     }
 
     private void addIfNeeded(Set<Filter> filters, String isEnabledKey, String isCheckedKey, Filter filter) {
-        boolean isEnabled = MemoryHelper.getBoolean(isEnabledKey, false);
+        boolean isEnabled = MemoryHelper.getBoolean(isEnabledKey, true);
         if (!isEnabled) {
             return;
         }
@@ -76,11 +77,7 @@ public class ActionFilterIntel implements IntelUiAction {
         }
     }
 
-    private String getMemoryKey(ExplorationL10n key, String suffix) {
-        return MemoryHelper.key(ExplorationBoard.MEMORY_PREFIX, key, suffix);
-    }
-
-    private String getMemoryKey(FactionAPI key, String suffix) {
+    private String getMemoryKey(IdAware key, String suffix) {
         return MemoryHelper.key(ExplorationBoard.MEMORY_PREFIX, key, suffix);
     }
 }

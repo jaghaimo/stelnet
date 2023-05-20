@@ -4,7 +4,6 @@ import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import stelnet.util.L10n;
 import stelnet.util.MemoryHelper;
 import uilib2.Drawable;
@@ -16,15 +15,12 @@ import uilib2.intel.ActionUpdateIntelList;
 import uilib2.intel.IntelCallbackBuilder;
 
 @RequiredArgsConstructor
-public class EnumButton implements Drawable {
+public class EnumButton extends ExplorationButton implements Drawable {
 
     private final ExplorationL10n buttonType;
     private final IntelInfoPlugin intel;
     private final float width;
     private final boolean withShift;
-
-    @Setter
-    private String memoryKeyEnabledOverwrite;
 
     @Override
     public void draw(TooltipMakerAPI tooltip) {
@@ -33,7 +29,7 @@ public class EnumButton implements Drawable {
             buttonType,
             ExplorationBoard.MEMORY_SUFFIX_CHECKED
         );
-        String memoryKeyEnabled = getMemoryKeyEnabled();
+        String memoryKeyEnabled = getMemoryKeyEnabled(buttonType);
         boolean isChecked = MemoryHelper.getBoolean(memoryKeyChecked, true);
         boolean isEnabled = MemoryHelper.getBoolean(memoryKeyEnabled, true);
         Drawable button = new ButtonBuilder(getButton(memoryKeyChecked, isChecked))
@@ -44,13 +40,6 @@ public class EnumButton implements Drawable {
             button = new ShiftedButton(button, width);
         }
         button.draw(tooltip);
-    }
-
-    private String getMemoryKeyEnabled() {
-        if (memoryKeyEnabledOverwrite != null) {
-            return memoryKeyEnabledOverwrite;
-        }
-        return MemoryHelper.key(ExplorationBoard.MEMORY_PREFIX, buttonType, ExplorationBoard.MEMORY_SUFFIX_ENABLED);
     }
 
     private BasicAreaCheckbox getButton(String memoryKeyChecked, boolean isChecked) {

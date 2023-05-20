@@ -1,9 +1,12 @@
 package stelnet.board.exploration;
 
+import com.fs.starfarer.api.impl.campaign.intel.AnalyzeEntityMissionIntel;
+import com.fs.starfarer.api.impl.campaign.intel.SurveyPlanetMissionIntel;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import lombok.experimental.Delegate;
 import stelnet.filter.Filter;
+import stelnet.filter.IntelIsClass;
 import stelnet.filter.LogicalTrue;
 
 public class FilterFactory {
@@ -13,14 +16,14 @@ public class FilterFactory {
 
     // Type missions
     {
-        enumToFilterMap.put(ExplorationL10n.TYPE_ANALYZE_MISSION, new LogicalTrue());
+        enumToFilterMap.put(ExplorationL10n.TYPE_ANALYZE_MISSION, new IntelIsClass(AnalyzeEntityMissionIntel.class));
         enumToFilterMap.put(ExplorationL10n.TYPE_COMM_RELAY, new LogicalTrue());
         enumToFilterMap.put(ExplorationL10n.TYPE_HISTORIAN_OFFER, new LogicalTrue());
         enumToFilterMap.put(ExplorationL10n.TYPE_MEMORY_BANK, new LogicalTrue());
         enumToFilterMap.put(ExplorationL10n.TYPE_OTHER, new LogicalTrue());
         enumToFilterMap.put(ExplorationL10n.TYPE_RAIDING_BASE, new LogicalTrue());
         enumToFilterMap.put(ExplorationL10n.TYPE_STORY_MISSION, new LogicalTrue());
-        enumToFilterMap.put(ExplorationL10n.TYPE_SURVEY_MISSION, new LogicalTrue());
+        enumToFilterMap.put(ExplorationL10n.TYPE_SURVEY_MISSION, new IntelIsClass(SurveyPlanetMissionIntel.class));
     }
 
     // Memory banks

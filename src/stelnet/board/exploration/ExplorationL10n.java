@@ -1,6 +1,6 @@
 package stelnet.board.exploration;
 
-public enum ExplorationL10n {
+public enum ExplorationL10n implements IdAware {
     BANK_DEBRIS_FIELD,
     BANK_DERELICT_SHIP,
     BANK_DOMAIN_ERA_PROBE,
@@ -23,5 +23,10 @@ public enum ExplorationL10n {
     TYPE_OTHER,
     TYPE_RAIDING_BASE,
     TYPE_STORY_MISSION,
-    TYPE_SURVEY_MISSION,
+    TYPE_SURVEY_MISSION;
+
+    @Override
+    public String getId() {
+        return name();
+    }
 }
