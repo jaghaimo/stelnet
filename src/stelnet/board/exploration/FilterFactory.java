@@ -13,9 +13,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import lombok.experimental.Delegate;
 import stelnet.filter.Filter;
+import stelnet.filter.IntelContainsTitle;
 import stelnet.filter.IntelIsClass;
+import stelnet.filter.LogicalNot;
 import stelnet.filter.LogicalOr;
-import stelnet.filter.LogicalTrue;
 
 public class FilterFactory {
 
@@ -24,28 +25,43 @@ public class FilterFactory {
 
     // Type missions
     {
-        enumToFilterMap.put(ExplorationL10n.TYPE_ANALYZE_MISSION, new IntelIsClass(AnalyzeEntityMissionIntel.class));
+        Map<ExplorationL10n, Filter> localMap = new LinkedHashMap<>();
+        localMap.put(ExplorationL10n.TYPE_ANALYZE_MISSION, new IntelIsClass(AnalyzeEntityMissionIntel.class));
         // enumToFilterMap.put(ExplorationL10n.TYPE_COMM_RELAY, new LogicalTrue());
-        enumToFilterMap.put(ExplorationL10n.TYPE_HISTORIAN_OFFER, new IntelIsClass(BaseHistorianOffer.class));
-        enumToFilterMap.put(ExplorationL10n.TYPE_MEMORY_BANK, new IntelIsClass(BreadcrumbIntel.class));
-        // enumToFilterMap.put(ExplorationL10n.TYPE_OTHER, new LogicalTrue());
-        enumToFilterMap.put(ExplorationL10n.TYPE_RAIDING_BASE, getRaidingBaseFilter());
-        enumToFilterMap.put(ExplorationL10n.TYPE_STORY_MISSION, getStoryMissionFilter());
-        enumToFilterMap.put(ExplorationL10n.TYPE_SURVEY_MISSION, new IntelIsClass(SurveyPlanetMissionIntel.class));
+        localMap.put(ExplorationL10n.TYPE_HISTORIAN_OFFER, new IntelIsClass(BaseHistorianOffer.class));
+        localMap.put(ExplorationL10n.TYPE_MEMORY_BANK, new IntelIsClass(BreadcrumbIntel.class));
+        localMap.put(ExplorationL10n.TYPE_RAIDING_BASE, getRaidingBaseFilter());
+        localMap.put(ExplorationL10n.TYPE_STORY_MISSION, getStoryMissionFilter());
+        localMap.put(ExplorationL10n.TYPE_SURVEY_MISSION, new IntelIsClass(SurveyPlanetMissionIntel.class));
+        Filter otherFilter = getOtherFilter(localMap);
+        enumToFilterMap.put(ExplorationL10n.BANK_OTHER, otherFilter);
+        enumToFilterMap.putAll(localMap);
     }
 
     // Memory banks
     {
-        enumToFilterMap.put(ExplorationL10n.BANK_DEBRIS_FIELD, new LogicalTrue());
-        enumToFilterMap.put(ExplorationL10n.BANK_DERELICT_SHIP, new LogicalTrue());
-        enumToFilterMap.put(ExplorationL10n.BANK_DOMAIN_ERA_PROBE, new LogicalTrue());
-        enumToFilterMap.put(ExplorationL10n.BANK_HABITABLE_WORLD, new LogicalTrue());
-        enumToFilterMap.put(ExplorationL10n.BANK_ORBITAL_HABITAT, new LogicalTrue());
-        // enumToFilterMap.put(ExplorationL10n.BANK_OTHER, new LogicalTrue());
-        enumToFilterMap.put(ExplorationL10n.BANK_RUINS_LOCATION, new LogicalTrue());
-        enumToFilterMap.put(ExplorationL10n.BANK_SUPPLY_CACHE, new LogicalTrue());
-        enumToFilterMap.put(ExplorationL10n.BANK_SURVEY_DATA, new LogicalTrue());
-        enumToFilterMap.put(ExplorationL10n.BANK_SURVEY_SHIP, new LogicalTrue());
+        Map<ExplorationL10n, Filter> localMap = new LinkedHashMap<>();
+        localMap.put(ExplorationL10n.BANK_DEBRIS_FIELD, getBankFilter("Debris Field"));
+        // enumToFilterMap.put(ExplorationL10n.BANK_DERELICT_SHIP, getBankFilter());
+        // enumToFilterMap.put(ExplorationL10n.BANK_DOMAIN_ERA_PROBE, getBankFilter());
+        localMap.put(ExplorationL10n.BANK_EQUIPMENT_CACHE, getBankFilter("Equipment Cache"));
+        localMap.put(ExplorationL10n.BANK_HABITABLE_WORLD, getBankFilter("Habitable World"));
+        localMap.put(ExplorationL10n.BANK_ORBITAL_HABITAT, getBankFilter("Orbital Habitat"));
+        localMap.put(ExplorationL10n.BANK_RUINS_LOCATION, getBankFilter("Ruins Location"));
+        localMap.put(ExplorationL10n.BANK_SUPPLY_CACHE, getBankFilter("Supply Cache"));
+        localMap.put(ExplorationL10n.BANK_SURVEY_DATA, getBankFilter("Survey Data for"));
+        // enumToFilterMap.put(ExplorationL10n.BANK_SURVEY_SHIP, getBankFilter());
+        Filter otherFilter = getOtherFilter(localMap);
+        enumToFilterMap.put(ExplorationL10n.BANK_OTHER, otherFilter);
+        enumToFilterMap.putAll(localMap);
+    }
+
+    private Filter getBankFilter(String title) {
+        return new IntelContainsTitle(title);
+    }
+
+    private Filter getOtherFilter(Map<ExplorationL10n, Filter> localMap) {
+        return new LogicalNot(new LogicalOr(localMap.values(), "Everything Else"));
     }
 
     private Filter getRaidingBaseFilter() {
