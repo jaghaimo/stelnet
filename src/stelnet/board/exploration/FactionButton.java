@@ -4,22 +4,19 @@ import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-import java.util.Set;
 import lombok.RequiredArgsConstructor;
-import stelnet.filter.Filter;
-import stelnet.filter.IntelIsFaction;
 import stelnet.util.MemoryHelper;
 import uilib2.Drawable;
 import uilib2.UiConstants;
 import uilib2.button.BasicAreaCheckbox;
 import uilib2.button.ButtonBuilder;
 import uilib2.intel.ActionUpdateForItem;
+import uilib2.intel.ActionUpdateIntelList;
 import uilib2.intel.IntelCallbackBuilder;
 
 @RequiredArgsConstructor
 public class FactionButton implements Drawable {
 
-    private final Set<Filter> filters;
     private final FactionAPI faction;
     private final IntelInfoPlugin intel;
     private final float width;
@@ -55,7 +52,8 @@ public class FactionButton implements Drawable {
             Misc.ucFirst(faction.getDisplayName()),
             new IntelCallbackBuilder()
                 .addConfirmAction(new UpdateMemoryFlag(memoryKeyChecked, !isChecked))
-                .addConfirmAction(new AddFilterAction(filters, memoryKeyChecked, new IntelIsFaction(faction)))
+                .addConfirmAction(new ActionFilterIntel())
+                .addConfirmAction(new ActionUpdateIntelList(true))
                 .addConfirmAction(new ActionUpdateForItem(intel))
                 .build(),
             faction.getBaseUIColor(),

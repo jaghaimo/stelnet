@@ -1,6 +1,5 @@
 package stelnet.board.exploration;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.ui.Alignment;
@@ -12,9 +11,7 @@ import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import stelnet.board.BoardDrawableInfo;
-import stelnet.filter.FactionIsRaiding;
 import stelnet.filter.Filter;
-import stelnet.util.CollectionUtils;
 import stelnet.util.L10n;
 import stelnet.util.MemoryHelper;
 import stelnet.util.StelnetHelper;
@@ -83,21 +80,20 @@ public class ExplorationBoard extends DrawableIntel {
         addHeader(drawables, L10n.get(ExplorationL10n.HEADER_TYPE));
         boolean withShift = false;
         for (ExplorationL10n buttonType : buttonTypes) {
-            drawables.add(new EnumButton(filters, buttonType, this, width, withShift));
+            drawables.add(new EnumButton(buttonType, this, width, withShift));
             withShift = !withShift;
         }
     }
 
     private void addFactions(List<Drawable> drawables, float width) {
-        List<FactionAPI> factions = Global.getSector().getAllFactions();
-        CollectionUtils.reduce(factions, new FactionIsRaiding());
+        List<FactionAPI> factions = ActionFilterIntel.getFactions();
         if (factions.isEmpty()) {
             return;
         }
         addHeader(drawables, L10n.get(ExplorationL10n.HEADER_FACTION));
         boolean withShift = false;
         for (FactionAPI faction : factions) {
-            drawables.add(new FactionButton(filters, faction, this, width, withShift));
+            drawables.add(new FactionButton(faction, this, width, withShift));
             withShift = !withShift;
         }
     }
@@ -123,7 +119,7 @@ public class ExplorationBoard extends DrawableIntel {
             MEMORY_SUFFIX_CHECKED
         );
         for (ExplorationL10n buttonType : buttonTypes) {
-            EnumButton button = new EnumButton(filters, buttonType, this, width, withShift);
+            EnumButton button = new EnumButton(buttonType, this, width, withShift);
             button.setMemoryKeyEnabledOverwrite(memoryKeyEnabled);
             drawables.add(button);
             withShift = !withShift;

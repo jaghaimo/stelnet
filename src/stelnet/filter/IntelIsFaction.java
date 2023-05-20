@@ -10,7 +10,7 @@ import lombok.extern.log4j.Log4j;
 @EqualsAndHashCode(callSuper = false)
 @Log4j
 @RequiredArgsConstructor
-public class IntelIsFaction extends Filter {
+public class IntelIsFaction extends IntelFilter {
 
     private final String factionId;
 

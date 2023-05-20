@@ -2,6 +2,7 @@ package stelnet.filter;
 
 import com.fs.starfarer.api.campaign.CommDirectoryEntryAPI;
 import com.fs.starfarer.api.campaign.StarSystemAPI;
+import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
@@ -27,6 +28,9 @@ public final class AnyHasTag extends Filter {
         if (object instanceof ContactIntel) {
             return acceptContact((ContactIntel) object);
         }
+        if (object instanceof IntelInfoPlugin) {
+            return acceptIntel((IntelInfoPlugin) object);
+        }
         if (object instanceof MarketAPI) {
             return acceptMarket((MarketAPI) object);
         }
@@ -50,6 +54,10 @@ public final class AnyHasTag extends Filter {
 
     protected boolean acceptCommodity(CommoditySpecAPI commodity) {
         return commodity.hasTag(tag);
+    }
+
+    protected boolean acceptIntel(IntelInfoPlugin intel) {
+        return intel.getIntelTags(null).contains(tag);
     }
 
     protected boolean acceptMarket(MarketAPI market) {
