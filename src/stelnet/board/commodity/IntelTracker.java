@@ -86,6 +86,10 @@ public class IntelTracker {
     private void addIntel(String commodityId, MarketAPI market) {
         String key = getKey(commodityId, market);
         CommoditySpecAPI commodity = Global.getSector().getEconomy().getCommoditySpec(commodityId);
+        if (commodity == null) {
+            log.warn("Could not get commodity spec for id " + commodityId + ", avoiding intel creation");
+            return;
+        }
         CommodityIntel intel = new CommodityIntel(commodity, this, market);
         Global.getSector().getIntelManager().addIntel(intel, true);
         intelMap.put(key, intel);
