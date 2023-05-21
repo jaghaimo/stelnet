@@ -15,6 +15,7 @@ import lombok.experimental.Delegate;
 import stelnet.filter.Filter;
 import stelnet.filter.IntelContainsTitle;
 import stelnet.filter.IntelIsClass;
+import stelnet.filter.LogicalAnd;
 import stelnet.filter.LogicalNot;
 import stelnet.filter.LogicalOr;
 
@@ -54,7 +55,10 @@ public class FilterFactory {
         localMap.put(ExplorationL10n.BANK_SUPPLY_CACHE, getBankFilter("Supply Cache"));
         localMap.put(ExplorationL10n.BANK_SURVEY_DATA, getBankFilter("Survey Data for"));
         // enumToFilterMap.put(ExplorationL10n.BANK_SURVEY_SHIP, getBankFilter());
-        Filter otherFilter = getOtherFilter(localMap);
+        Filter otherFilter = new LogicalAnd(
+            Arrays.asList(enumToFilterMap.get(ExplorationL10n.TYPE_MEMORY_BANK), getOtherFilter(localMap)),
+            "Other Banks"
+        );
         enumToFilterMap.put(ExplorationL10n.BANK_OTHER, otherFilter);
         enumToFilterMap.putAll(localMap);
     }
