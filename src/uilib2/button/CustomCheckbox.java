@@ -12,6 +12,7 @@ public class CustomCheckbox implements Button {
     private final float width;
     private final float height;
     private final String text;
+    private final Object data;
     private final String font;
     private final Color textColor;
     private final UICheckboxSize size;
@@ -23,6 +24,6 @@ public class CustomCheckbox implements Button {
     }
 
     public ButtonAPI addButton(TooltipMakerAPI tooltip) {
-        return tooltip.addCheckbox(width, height, text, font, textColor, size, pad);
+        return tooltip.addCheckbox(width, height, text, data, font, textColor, size, pad);
     }
 }

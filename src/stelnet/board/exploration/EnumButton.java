@@ -1,21 +1,22 @@
 package stelnet.board.exploration;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
+import com.fs.starfarer.api.ui.ButtonAPI.UICheckboxSize;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import com.fs.starfarer.api.util.Misc;
 import lombok.RequiredArgsConstructor;
 import stelnet.util.L10n;
 import stelnet.util.MemoryHelper;
 import uilib2.Drawable;
 import uilib2.UiConstants;
-import uilib2.button.BasicAreaCheckbox;
+import uilib2.button.BasicCheckbox;
+import uilib2.button.Button;
 import uilib2.button.ButtonBuilder;
 import uilib2.intel.ActionUpdateForItem;
 import uilib2.intel.ActionUpdateIntelList;
 import uilib2.intel.IntelCallbackBuilder;
 
 @RequiredArgsConstructor
-public class EnumButton extends ExplorationButton implements Drawable {
+public class EnumButton extends ExplorationButton {
 
     private final ExplorationL10n buttonType;
     private final IntelInfoPlugin intel;
@@ -35,6 +36,7 @@ public class EnumButton extends ExplorationButton implements Drawable {
         Drawable button = new ButtonBuilder(getButton(memoryKeyChecked, isChecked))
             .setChecked(isChecked)
             .setEnabled(isEnabled)
+            .setShortcut(buttonType.getShorcut(), false)
             .build();
         if (withShift) {
             button = new ShiftedButton(button, width);
@@ -42,20 +44,18 @@ public class EnumButton extends ExplorationButton implements Drawable {
         button.draw(tooltip);
     }
 
-    private BasicAreaCheckbox getButton(String memoryKeyChecked, boolean isChecked) {
-        return new BasicAreaCheckbox(
+    private Button getButton(String memoryKeyChecked, boolean isChecked) {
+        return new BasicCheckbox(
+            (width - UiConstants.BUTTON_PADDING) / 2,
+            UiConstants.BUTTON_HEIGHT,
             L10n.get(buttonType),
             new IntelCallbackBuilder()
                 .addConfirmAction(new UpdateMemoryFlag(memoryKeyChecked, !isChecked))
                 .addConfirmAction(new ActionFilterIntel())
-                .addConfirmAction(new ActionUpdateIntelList(true))
+                .addConfirmAction(new ActionUpdateIntelList())
                 .addConfirmAction(new ActionUpdateForItem(intel))
                 .build(),
-            Misc.getBasePlayerColor(),
-            Misc.getDarkPlayerColor(),
-            Misc.getBrightPlayerColor(),
-            (width - UiConstants.BUTTON_PADDING) / 2,
-            UiConstants.BUTTON_HEIGHT,
+            UICheckboxSize.SMALL,
             UiConstants.BUTTON_PADDING
         );
     }

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ActionUpdateIntelList implements IntelUiAction {
 
-    private boolean retainCurrentSelection = false;
+    private boolean retainCurrentSelection = true;
 
     @Override
     public void act(IntelUIAPI ui) {

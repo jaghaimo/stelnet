@@ -26,7 +26,9 @@ public class ButtonBuilder {
     }
 
     public ButtonBuilder setShortcut(int shortcut, boolean putLast) {
-        button = new ShortcutButton(button, shortcut, putLast);
+        if (shortcut > 0) {
+            button = new ShortcutButton(button, shortcut, putLast);
+        }
         return this;
     }
 
