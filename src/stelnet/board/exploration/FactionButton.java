@@ -15,7 +15,7 @@ import uilib2.intel.ActionUpdateIntelList;
 import uilib2.intel.IntelCallbackBuilder;
 
 @RequiredArgsConstructor
-public class FactionButton extends ExplorationButton implements Drawable {
+public class FactionButton extends ExplorationButton {
 
     private final FactionAPI faction;
     private final IntelInfoPlugin intel;

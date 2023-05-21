@@ -23,8 +23,12 @@ public class FilterFactory {
     @Delegate
     private final Map<ExplorationL10n, Filter> enumToFilterMap = new LinkedHashMap<>();
 
-    // Type missions
-    {
+    public FilterFactory() {
+        addTypes();
+        addBanks();
+    }
+
+    private void addTypes() {
         Map<ExplorationL10n, Filter> localMap = new LinkedHashMap<>();
         localMap.put(ExplorationL10n.TYPE_ANALYZE_MISSION, new IntelIsClass(AnalyzeEntityMissionIntel.class));
         // enumToFilterMap.put(ExplorationL10n.TYPE_COMM_RELAY, new LogicalTrue());
@@ -38,8 +42,7 @@ public class FilterFactory {
         enumToFilterMap.putAll(localMap);
     }
 
-    // Memory banks
-    {
+    private void addBanks() {
         Map<ExplorationL10n, Filter> localMap = new LinkedHashMap<>();
         localMap.put(ExplorationL10n.BANK_DEBRIS_FIELD, getBankFilter("Debris Field"));
         // enumToFilterMap.put(ExplorationL10n.BANK_DERELICT_SHIP, getBankFilter());

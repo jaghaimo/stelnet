@@ -99,9 +99,7 @@ public class ExplorationBoard extends DrawableIntel {
         );
         for (FactionAPI faction : factions) {
             FactionButton button = new FactionButton(faction, this, width, withShift);
-            button.setMemoryKeyEnabledOverwrite(memoryKeyEnabled);
-            drawables.add(button);
-            withShift = !withShift;
+            withShift = addConditionalButton(drawables, button, withShift, memoryKeyEnabled);
         }
     }
 
@@ -128,9 +126,18 @@ public class ExplorationBoard extends DrawableIntel {
         );
         for (ExplorationL10n buttonType : buttonTypes) {
             EnumButton button = new EnumButton(buttonType, this, width, withShift);
-            button.setMemoryKeyEnabledOverwrite(memoryKeyEnabled);
-            drawables.add(button);
-            withShift = !withShift;
+            withShift = addConditionalButton(drawables, button, withShift, memoryKeyEnabled);
         }
+    }
+
+    private boolean addConditionalButton(
+        List<Drawable> drawables,
+        ExplorationButton button,
+        boolean withShift,
+        String memoryKeyEnabled
+    ) {
+        button.setMemoryKeyEnabledOverwrite(memoryKeyEnabled);
+        drawables.add(button);
+        return !withShift;
     }
 }

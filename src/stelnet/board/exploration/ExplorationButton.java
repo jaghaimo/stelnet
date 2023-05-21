@@ -3,9 +3,10 @@ package stelnet.board.exploration;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import stelnet.util.MemoryHelper;
+import uilib2.Drawable;
 
 @RequiredArgsConstructor
-public class ExplorationButton {
+public abstract class ExplorationButton implements Drawable {
 
     @Setter
     protected String memoryKeyEnabledOverwrite;

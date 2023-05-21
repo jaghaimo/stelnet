@@ -9,8 +9,8 @@ repositories {
     ivy {
         url 'https://github.com/'
         patternLayout {
-            artifact '/[organization]/[module]/releases/download/[revision]/starfarer.api.jar'
-            artifact '/[organization]/[module]/raw/[revision]/jars/[artifact].jar'
+            artifact '/[organization]/[module]/releases/download/[revision]/[ext]'
+            artifact '/[organization]/[module]/raw/[revision]/jars/[ext]'
         }
         metadataSources {
             artifact()
@@ -41,8 +41,8 @@ build {
 
 // compile time dependencies
 dependencies {
-    compileOnly "jaghaimo:starsector-api:0.96a-RC7"
-    compileOnly "Lukas22041:LunaLib:main"
+    compileOnly "jaghaimo:starsector-api:0.96a-RC10@starfarer.api.jar"
+    compileOnly "Lukas22041:LunaLib:main@LunaLib.jar"
 
     // game dependencies
     compileOnly group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.10'
