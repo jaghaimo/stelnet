@@ -4,7 +4,6 @@ import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.SectorMapAPI;
-import com.fs.starfarer.api.util.Misc;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +19,7 @@ import uilib2.Spacer;
 import uilib2.UiConstants;
 import uilib2.intel.DrawableIntel;
 import uilib2.intel.DrawableIntelInfo;
-import uilib2.label.ColoredSectionHeading;
+import uilib2.label.SectionHeading;
 
 @Getter
 public class ExplorationBoard extends DrawableIntel {
@@ -54,15 +53,7 @@ public class ExplorationBoard extends DrawableIntel {
     }
 
     private void addHeader(List<Drawable> drawables, String title) {
-        drawables.add(
-            new ColoredSectionHeading(
-                title,
-                Misc.getBasePlayerColor(),
-                Misc.zeroColor,
-                Alignment.MID,
-                UiConstants.SPACER_LARGE
-            )
-        );
+        drawables.add(new SectionHeading(title, Alignment.MID, UiConstants.SPACER_LARGE));
         drawables.add(new Spacer(UiConstants.SPACER_SMALL));
     }
 
@@ -78,11 +69,7 @@ public class ExplorationBoard extends DrawableIntel {
             // ExplorationL10n.TYPE_OTHER,
         };
         addHeader(drawables, L10n.get(ExplorationL10n.HEADER_TYPE));
-        boolean withShift = false;
-        for (ExplorationL10n buttonType : buttonTypes) {
-            drawables.add(new EnumButton(buttonType, this, width, withShift));
-            withShift = !withShift;
-        }
+        new ButtonFactory(this, width).addAll(drawables, buttonTypes, null);
     }
 
     private void addFactions(List<Drawable> drawables, float width) {
@@ -91,16 +78,12 @@ public class ExplorationBoard extends DrawableIntel {
             return;
         }
         addHeader(drawables, L10n.get(ExplorationL10n.HEADER_FACTION));
-        boolean withShift = false;
         String memoryKeyEnabled = MemoryHelper.key(
             MEMORY_PREFIX,
             ExplorationL10n.TYPE_RAIDING_BASE,
             MEMORY_SUFFIX_CHECKED
         );
-        for (FactionAPI faction : factions) {
-            FactionButton button = new FactionButton(faction, this, width, withShift);
-            withShift = addConditionalButton(drawables, button, withShift, memoryKeyEnabled);
-        }
+        new ButtonFactory(this, width).addAll(drawables, factions, memoryKeyEnabled);
     }
 
     private void addMissions(List<Drawable> drawables, float width) {
@@ -118,26 +101,11 @@ public class ExplorationBoard extends DrawableIntel {
             ExplorationL10n.BANK_OTHER,
         };
         addHeader(drawables, L10n.get(ExplorationL10n.HEADER_MEMORY_BANK));
-        boolean withShift = false;
         String memoryKeyEnabled = MemoryHelper.key(
             MEMORY_PREFIX,
             ExplorationL10n.TYPE_MEMORY_BANK,
             MEMORY_SUFFIX_CHECKED
         );
-        for (ExplorationL10n buttonType : buttonTypes) {
-            EnumButton button = new EnumButton(buttonType, this, width, withShift);
-            withShift = addConditionalButton(drawables, button, withShift, memoryKeyEnabled);
-        }
-    }
-
-    private boolean addConditionalButton(
-        List<Drawable> drawables,
-        ExplorationButton button,
-        boolean withShift,
-        String memoryKeyEnabled
-    ) {
-        button.setMemoryKeyEnabledOverwrite(memoryKeyEnabled);
-        drawables.add(button);
-        return !withShift;
+        new ButtonFactory(this, width).addAll(drawables, buttonTypes, memoryKeyEnabled);
     }
 }
