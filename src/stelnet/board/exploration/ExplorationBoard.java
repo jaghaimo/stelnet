@@ -66,7 +66,7 @@ public class ExplorationBoard extends DrawableIntel {
             ExplorationL10n.TYPE_RAIDING_BASE,
             ExplorationL10n.TYPE_HISTORIAN_OFFER,
             ExplorationL10n.TYPE_MEMORY_BANK,
-            // ExplorationL10n.TYPE_OTHER,
+            ExplorationL10n.TYPE_OTHER,
         };
         addHeader(drawables, L10n.get(ExplorationL10n.HEADER_TYPE));
         new ButtonFactory(this, width).addAll(drawables, buttonTypes, null);

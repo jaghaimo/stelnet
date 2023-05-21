@@ -11,6 +11,7 @@ import stelnet.board.contact.ContactsBoard;
 import stelnet.board.contact.SebestyenContactIntel;
 import stelnet.board.contact.SebestyenContactMaker;
 import stelnet.board.exploration.ExplorationBoard;
+import stelnet.board.exploration.ExplorationListener;
 import stelnet.board.query.MarketUpdater;
 import stelnet.board.query.QueryBoard;
 import stelnet.board.query.ResultIntel;
@@ -84,7 +85,7 @@ public class Configurator {
             log.info("Enabled Commodity module");
         } else {
             purgeIntel(CommodityBoard.class, CommodityIntel.class, TradeBoard.class);
-            log.info("Disabled Commodity plugin");
+            log.info("Disabled Commodity module");
         }
     }
 
@@ -92,9 +93,11 @@ public class Configurator {
         if (hasExploration) {
             StelnetHelper.getInstance(ExplorationBoard.class);
             log.info("Enabled Exploration module");
+            ExplorationListener.register();
         } else {
             purgeIntel(ExplorationBoard.class);
-            log.info("Disabled Exploration plugin");
+            log.info("Disabled Exploration module");
+            ExplorationListener.unregister();
         }
     }
 

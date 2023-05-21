@@ -1,7 +1,7 @@
 package stelnet.filter;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
+import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -20,7 +20,7 @@ public class IntelIsFaction extends IntelFilter {
         this.factionId = faction.getId();
     }
 
-    protected boolean acceptIntel(BaseIntelPlugin intel) {
+    protected boolean acceptIntel(IntelInfoPlugin intel) {
         FactionAPI faction = intel.getFactionForUIColors();
         if (faction == null) {
             log.debug("Token faction is null");
