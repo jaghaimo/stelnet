@@ -2,6 +2,8 @@ package stelnet;
 
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.impl.campaign.tutorial.TutorialMissionIntel;
+import lunalib.lunaDebug.LunaDebug;
+import stelnet.snippets.FactionCommission;
 import stelnet.util.Configurator;
 import stelnet.util.ModSettings;
 import stelnet.util.Reporter;
@@ -31,6 +33,7 @@ public class StelnetMod extends BaseModPlugin {
     public void onApplicationLoad() throws Exception {
         Reporter.generate();
         SettingsListener.register();
+        LunaDebug.addSnippet(new FactionCommission());
     }
 
     @Override
