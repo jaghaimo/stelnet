@@ -13,6 +13,7 @@ import stelnet.filter.LogicalNot;
 import stelnet.filter.LogicalOr;
 import stelnet.filter.MarketBelongsToFaction;
 import stelnet.filter.MarketIsInSystem;
+import stelnet.settings.BooleanSettings;
 
 /**
  * Provides access to user/mod exclusions in the form of a relevant filter objects.
@@ -28,19 +29,19 @@ public class Excluder extends Reader {
 
     public static Filter getQuerySubmarketFilter() {
         return Excluder.getSubmarketFilters(
-            ModSettings.use(ModSettings.QUERY_USE_OPEN_MARKET),
-            ModSettings.use(ModSettings.QUERY_USE_MILITARY_MARKET),
-            ModSettings.use(ModSettings.QUERY_USE_BLACK_MARKET),
-            ModSettings.use(ModSettings.QUERY_USE_CUSTOM_MARKET)
+            BooleanSettings.QUERY_USE_OPEN_MARKET.get(),
+            BooleanSettings.QUERY_USE_MILITARY_MARKET.get(),
+            BooleanSettings.QUERY_USE_BLACK_MARKET.get(),
+            BooleanSettings.QUERY_USE_CUSTOM_MARKET.get()
         );
     }
 
     public static Filter getViewerSubmarketFilter() {
         return Excluder.getSubmarketFilters(
-            ModSettings.use(ModSettings.VIEWER_USE_OPEN_MARKET),
-            ModSettings.use(ModSettings.VIEWER_USE_MILITARY_MARKET),
-            ModSettings.use(ModSettings.VIEWER_USE_BLACK_MARKET),
-            ModSettings.use(ModSettings.VIEWER_USE_CUSTOM_MARKET)
+            BooleanSettings.VIEWER_USE_OPEN_MARKET.get(),
+            BooleanSettings.VIEWER_USE_MILITARY_MARKET.get(),
+            BooleanSettings.VIEWER_USE_BLACK_MARKET.get(),
+            BooleanSettings.VIEWER_USE_CUSTOM_MARKET.get()
         );
     }
 

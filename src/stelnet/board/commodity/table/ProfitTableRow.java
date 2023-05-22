@@ -19,7 +19,7 @@ import uilib.TableContentRow;
 @RequiredArgsConstructor
 public class ProfitTableRow implements Comparable<ProfitTableRow>, TableContentRow {
 
-    private static final int MINIMUM_QUANTITY = 100;
+    public static int MINIMUM_QUANTITY = 100;
 
     private final List<Object> elements = new LinkedList<>();
     private final MarketAPI buyMarket;

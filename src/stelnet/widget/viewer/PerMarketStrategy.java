@@ -45,7 +45,7 @@ public class PerMarketStrategy implements DisplayStrategy {
     }
 
     private List<SubmarketAPI> getAllSortedWithAccess() {
-        List<SubmarketAPI> availableStorages = StelnetHelper.getAllWithAccess();
+        List<SubmarketAPI> availableStorages = new LinkedList<>(StelnetHelper.getAllWithAccess());
         Collections.sort(
             availableStorages,
             new Comparator<SubmarketAPI>() {

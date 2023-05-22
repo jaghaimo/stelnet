@@ -4,9 +4,9 @@ import com.fs.starfarer.api.GameState;
 import com.fs.starfarer.api.Global;
 import lunalib.lunaSettings.LunaSettings;
 import lunalib.lunaSettings.LunaSettingsListener;
+import stelnet.settings.BooleanSettings;
 import stelnet.util.Configurator;
 import stelnet.util.ModConstants;
-import stelnet.util.ModSettings;
 
 public class SettingsListener implements LunaSettingsListener {
 
@@ -22,7 +22,7 @@ public class SettingsListener implements LunaSettingsListener {
         if (Global.getCurrentState().equals(GameState.TITLE)) {
             return;
         }
-        if (ModSettings.is(ModSettings.UNINSTALL)) {
+        if (BooleanSettings.UNINSTALL.get()) {
             Configurator.deactivate(false);
         } else {
             Configurator.activate();

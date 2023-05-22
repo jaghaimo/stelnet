@@ -4,6 +4,7 @@ plugins {
     id 'java'
 }
 
+// define custom repositories
 repositories {
     mavenCentral()
     ivy {
@@ -16,6 +17,27 @@ repositories {
             artifact()
         }
     }
+}
+
+// add zipped configuration
+configurations {
+    zipped
+}
+
+// install dependencies from zipped releases
+task installDependencies(type: Sync) {
+    def extractDir = "${buildDir}/libs"
+    
+    ext.extractedJars = fileTree(extractDir) {
+        include "**/*.jar"
+        builtBy "installDependencies"
+    }
+
+    dependsOn configurations.zipped
+    from { 
+        configurations.zipped.collect { zipTree(it) }
+    }
+    into extractDir
 }
 
 // project level config
@@ -42,7 +64,9 @@ build {
 // compile time dependencies
 dependencies {
     compileOnly "jaghaimo:starsector-api:0.96a-RC10@starfarer.api.jar"
-    compileOnly "Lukas22041:LunaLib:main@LunaLib.jar"
+    zipped "Lukas22041:LunaLib:1.7.4@LunaLib.zip"
+    zipped "LazyWizard:console-commands:2023.05.05@Console_Commands_2023.5.05.zip"
+    compileOnly files({ tasks.installDependencies.extractedJars })
 
     // game dependencies
     compileOnly group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.10'

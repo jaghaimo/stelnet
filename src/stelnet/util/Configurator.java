@@ -7,6 +7,8 @@ import java.awt.event.KeyEvent;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.commodity.CommodityBoard;
 import stelnet.board.commodity.CommodityIntel;
+import stelnet.board.commodity.table.ProfitTableContent;
+import stelnet.board.commodity.table.ProfitTableRow;
 import stelnet.board.contact.ContactsBoard;
 import stelnet.board.contact.SebestyenContactIntel;
 import stelnet.board.contact.SebestyenContactMaker;
@@ -26,16 +28,18 @@ import stelnet.board.storage.StorageIntel;
 import stelnet.board.storage.StorageUpdater;
 import stelnet.board.trade.TradeBoard;
 import stelnet.board.viewer.ViewerBoard;
+import stelnet.settings.BooleanSettings;
+import stelnet.settings.IntSettings;
 
 @Log4j
 public class Configurator {
 
     public static void activate() {
-        initCommodity(ModSettings.has(ModSettings.COMMODITIES));
-        initContacts(ModSettings.has(ModSettings.CONTACTS));
-        initExploration(ModSettings.has(ModSettings.EXPLORATION));
-        initMarket(ModSettings.has(ModSettings.MARKET));
-        initStorage(ModSettings.has(ModSettings.STORAGE));
+        initCommodity(BooleanSettings.COMMODITIES.get());
+        initContacts(BooleanSettings.CONTACTS.get());
+        initExploration(BooleanSettings.EXPLORATION.get());
+        initMarket(BooleanSettings.MARKET.get());
+        initStorage(BooleanSettings.STORAGE.get());
         log.info("Stelnet activated");
     }
 
@@ -83,6 +87,9 @@ public class Configurator {
             StelnetHelper.getInstance(CommodityBoard.class).restore();
             // TradeBoard.getInstance(TradeBoard.class);
             log.info("Enabled Commodity module");
+            ProfitTableContent.MAX_ROWS = IntSettings.COMMODITY_PROFIT_ROW_NUMBER.get();
+            ProfitTableContent.MINIMUM_PROFIT_VALUE = IntSettings.COMMODITY_PROFIT_MIN_PROFIT.get();
+            ProfitTableRow.MINIMUM_QUANTITY = IntSettings.COMMODITY_PROFIT_MIN_QUANTITY.get();
         } else {
             purgeIntel(CommodityBoard.class, CommodityIntel.class, TradeBoard.class);
             log.info("Disabled Commodity module");
@@ -110,7 +117,7 @@ public class Configurator {
             purgeIntel(QueryBoard.class, ViewerBoard.class, ResultIntel.class);
             log.info("Disabled Market module");
         }
-        if (hasMarket && ModSettings.has(ModSettings.AUTO_REFRESH_MARKETS)) {
+        if (hasMarket && BooleanSettings.AUTO_REFRESH_MARKETS.get()) {
             MarketUpdater.register();
         } else {
             MarketUpdater.unregister();

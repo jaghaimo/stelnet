@@ -14,7 +14,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
 import java.util.List;
-import stelnet.util.ModSettings;
+import stelnet.settings.BooleanSettings;
 
 /**
  * Creates a ContactIntel for Sebestyen.
@@ -24,7 +24,7 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
     private final String MET_BAIRD_MEM_KEY = "$metBaird";
 
     public static void register() {
-        if (ModSettings.has(ModSettings.SEBESTYEN)) {
+        if (BooleanSettings.SEBESTYEN.get()) {
             SebestyenContactMaker maker = new SebestyenContactMaker();
             Global.getSector().getListenerManager().addListener(maker, true);
         }
