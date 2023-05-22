@@ -157,6 +157,10 @@ public class StelnetHelper {
         return submarkets;
     }
 
+    public static boolean hasCommodity(String commodityId) {
+        return Global.getSettings().getCommoditySpec(commodityId) != null;
+    }
+
     public static CargoAPI makeCargoFromStacks(List<CargoStackAPI> cargoStacks) {
         CargoAPI cargo = Global.getFactory().createCargo(true);
         for (CargoStackAPI cargoStack : cargoStacks) {

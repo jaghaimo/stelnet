@@ -9,6 +9,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import lombok.extern.log4j.Log4j;
+import stelnet.util.StelnetHelper;
 
 @Log4j
 public class IntelTracker {
@@ -84,14 +85,13 @@ public class IntelTracker {
     }
 
     private void addIntel(String commodityId, MarketAPI market) {
-        String key = getKey(commodityId, market);
-        CommoditySpecAPI commodity = Global.getSector().getEconomy().getCommoditySpec(commodityId);
-        if (commodity == null) {
+        if (StelnetHelper.hasCommodity(commodityId)) {
             log.warn("Could not get commodity spec for id " + commodityId + ", avoiding intel creation");
             return;
         }
-        CommodityIntel intel = new CommodityIntel(commodity, this, market);
+        CommodityIntel intel = new CommodityIntel(commodityId, this, market);
         Global.getSector().getIntelManager().addIntel(intel, true);
+        String key = getKey(commodityId, market);
         intelMap.put(key, intel);
         log.debug("Added new intel with key " + key);
     }
