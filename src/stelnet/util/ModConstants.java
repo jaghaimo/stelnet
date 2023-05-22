@@ -19,4 +19,11 @@ public class ModConstants {
      * Memory flags used.
      */
     public static final String MEMORY_IS_CALLING = "$stelnetIsCalling";
+
+    /**
+     * CaptainsLog integration.
+     */
+
+    public static final String CAPTAINS_LOG_ID = "CaptainsLog";
+    public static final String CAPTAINS_LOG_INTEL = "$captainsLogIntel";
 }

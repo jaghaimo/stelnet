@@ -20,6 +20,8 @@ import stelnet.filter.IntelLocationHasMemory;
 import stelnet.filter.LogicalAnd;
 import stelnet.filter.LogicalNot;
 import stelnet.filter.LogicalOr;
+import stelnet.util.ModConstants;
+import stelnet.util.StelnetHelper;
 
 public class FilterFactory {
 
@@ -34,14 +36,16 @@ public class FilterFactory {
     private void addTypes() {
         Map<ExplorationL10n, Filter> localMap = new LinkedHashMap<>();
         localMap.put(ExplorationL10n.TYPE_ANALYZE_MISSION, new IntelIsClass(AnalyzeEntityMissionIntel.class));
-        localMap.put(ExplorationL10n.TYPE_ANY_RUINS, getCaptainsLogFilter(new IntelContainsTitle("Ruins")));
-        localMap.put(ExplorationL10n.TYPE_COMM_RELAY, getCaptainsLogFilter(new IntelContainsTitle("Comm Relay")));
         localMap.put(ExplorationL10n.TYPE_HISTORIAN_OFFER, new IntelIsClass(BaseHistorianOffer.class));
         localMap.put(ExplorationL10n.TYPE_MEMORY_BANK, new IntelIsClass(BreadcrumbIntel.class));
         localMap.put(ExplorationL10n.TYPE_RAIDING_BASE, getRaidingBaseFilter());
-        localMap.put(ExplorationL10n.TYPE_SALVAGEABLE, getCaptainsLogFilter(new IntelContainsTitle("Salvageable")));
         localMap.put(ExplorationL10n.TYPE_STORY_MISSION, getStoryMissionFilter());
         localMap.put(ExplorationL10n.TYPE_SURVEY_MISSION, new IntelIsClass(SurveyPlanetMissionIntel.class));
+        if (StelnetHelper.hasCaptainsLog()) {
+            localMap.put(ExplorationL10n.TYPE_COMM_RELAY, getCaptainsLogFilter(new IntelContainsTitle("Comm Relay")));
+            localMap.put(ExplorationL10n.TYPE_SALVAGEABLE, getCaptainsLogFilter(new IntelContainsTitle("Salvageable")));
+            localMap.put(ExplorationL10n.TYPE_ANY_RUINS, getCaptainsLogFilter(new IntelContainsTitle("Ruins")));
+        }
         Filter otherFilter = getOtherFilter(localMap);
         enumToFilterMap.put(ExplorationL10n.BANK_OTHER, otherFilter);
         enumToFilterMap.putAll(localMap);
@@ -71,7 +75,7 @@ public class FilterFactory {
 
     private Filter getCaptainsLogFilter(Filter actualFilter) {
         return new LogicalAnd(
-            Arrays.<Filter>asList(new IntelLocationHasMemory("$captainsLogIntel"), actualFilter),
+            Arrays.<Filter>asList(new IntelLocationHasMemory(ModConstants.CAPTAINS_LOG_INTEL), actualFilter),
             "CaptainsLog Custom Filter"
         );
     }

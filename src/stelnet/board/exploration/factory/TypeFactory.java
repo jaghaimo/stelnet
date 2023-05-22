@@ -1,11 +1,11 @@
 package stelnet.board.exploration.factory;
 
-import com.fs.starfarer.api.Global;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import stelnet.board.exploration.ExplorationL10n;
+import stelnet.util.StelnetHelper;
 
 public class TypeFactory {
 
@@ -36,7 +36,7 @@ public class TypeFactory {
                 ExplorationL10n.TYPE_SURVEY_MISSION
             )
         );
-        if (Global.getSettings().getModManager().isModEnabled("CaptainsLog")) {
+        if (StelnetHelper.hasCaptainsLog()) {
             types.add(ExplorationL10n.TYPE_ANY_RUINS);
             types.add(ExplorationL10n.TYPE_COMM_RELAY);
             types.add(ExplorationL10n.TYPE_SALVAGEABLE);
