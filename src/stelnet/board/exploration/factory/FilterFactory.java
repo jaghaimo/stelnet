@@ -16,6 +16,7 @@ import stelnet.board.exploration.ExplorationL10n;
 import stelnet.filter.Filter;
 import stelnet.filter.IntelContainsTitle;
 import stelnet.filter.IntelIsClass;
+import stelnet.filter.IntelLocationHasMemory;
 import stelnet.filter.LogicalAnd;
 import stelnet.filter.LogicalFalse;
 import stelnet.filter.LogicalNot;
@@ -34,12 +35,12 @@ public class FilterFactory {
     private void addTypes() {
         Map<ExplorationL10n, Filter> localMap = new LinkedHashMap<>();
         localMap.put(ExplorationL10n.TYPE_ANALYZE_MISSION, new IntelIsClass(AnalyzeEntityMissionIntel.class));
-        localMap.put(ExplorationL10n.TYPE_ANY_RUINS, new LogicalFalse());
-        localMap.put(ExplorationL10n.TYPE_COMM_RELAY, new LogicalFalse());
+        localMap.put(ExplorationL10n.TYPE_ANY_RUINS, getCaptainsLogFilter(new LogicalFalse()));
+        localMap.put(ExplorationL10n.TYPE_COMM_RELAY, getCaptainsLogFilter(new LogicalFalse()));
         localMap.put(ExplorationL10n.TYPE_HISTORIAN_OFFER, new IntelIsClass(BaseHistorianOffer.class));
         localMap.put(ExplorationL10n.TYPE_MEMORY_BANK, new IntelIsClass(BreadcrumbIntel.class));
         localMap.put(ExplorationL10n.TYPE_RAIDING_BASE, getRaidingBaseFilter());
-        localMap.put(ExplorationL10n.TYPE_SALVAGEABLE, new LogicalFalse());
+        localMap.put(ExplorationL10n.TYPE_SALVAGEABLE, getCaptainsLogFilter(new LogicalFalse()));
         localMap.put(ExplorationL10n.TYPE_STORY_MISSION, getStoryMissionFilter());
         localMap.put(ExplorationL10n.TYPE_SURVEY_MISSION, new IntelIsClass(SurveyPlanetMissionIntel.class));
         Filter otherFilter = getOtherFilter(localMap);
@@ -69,20 +70,31 @@ public class FilterFactory {
         return new IntelContainsTitle(title);
     }
 
+    private Filter getCaptainsLogFilter(Filter actualFilter) {
+        return new LogicalAnd(
+            Arrays.<Filter>asList(new IntelLocationHasMemory("$captainsLogIntel"), actualFilter),
+            "CaptainsLog"
+        );
+    }
+
     private Filter getOtherFilter(Map<ExplorationL10n, Filter> localMap) {
         return new LogicalNot(new LogicalOr(localMap.values(), "Everything Else"));
     }
 
     private Filter getRaidingBaseFilter() {
-        Filter filters[] = { new IntelIsClass(LuddicPathBaseIntel.class), new IntelIsClass(PirateBaseIntel.class) };
-        return new LogicalOr(Arrays.asList(filters), "Raiding Bases");
+        return new LogicalOr(
+            Arrays.<Filter>asList(new IntelIsClass(LuddicPathBaseIntel.class), new IntelIsClass(PirateBaseIntel.class)),
+            "Raiding Bases"
+        );
     }
 
     private Filter getStoryMissionFilter() {
-        Filter filters[] = {
-            new IntelIsClass(PlanetaryShieldIntel.class),
-            new IntelIsClass(ScientistAICoreIntel.class),
-        };
-        return new LogicalOr(Arrays.asList(filters), "Story Missions");
+        return new LogicalOr(
+            Arrays.<Filter>asList(
+                new IntelIsClass(PlanetaryShieldIntel.class),
+                new IntelIsClass(ScientistAICoreIntel.class)
+            ),
+            "Story Missions"
+        );
     }
 }
