@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import lombok.Getter;
+import lombok.extern.log4j.Log4j;
 import stelnet.board.BoardDrawableInfo;
 import stelnet.board.exploration.factory.ButtonFactory;
 import stelnet.board.exploration.factory.TypeFactory;
@@ -24,6 +25,7 @@ import uilib2.intel.DrawableIntelInfo;
 import uilib2.label.SectionHeading;
 
 @Getter
+@Log4j
 public class ExplorationBoard extends DrawableIntel {
 
     public static final String MEMORY_PREFIX = "$stelnetExploration";
@@ -43,6 +45,12 @@ public class ExplorationBoard extends DrawableIntel {
         Set<String> tags = super.getIntelTags(map);
         tags.add(Tags.INTEL_EXPLORATION);
         return tags;
+    }
+
+    @Override
+    public void notifyPlayerAboutToOpenIntelScreen() {
+        log.debug("Forcing filters upon exploration tab intel");
+        new ActionFilterIntel().act(null);
     }
 
     @Override
