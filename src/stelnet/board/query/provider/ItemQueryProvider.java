@@ -13,9 +13,11 @@ import java.util.Set;
 import java.util.TreeSet;
 import lombok.experimental.ExtensionMethod;
 import stelnet.board.query.QueryL10n;
+import stelnet.board.query.QueryManager;
 import stelnet.board.query.ResultSet;
 import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.filter.Filter;
+import stelnet.filter.LogicalOr;
 import stelnet.util.CollectionUtils;
 import stelnet.util.Excluder;
 import stelnet.util.L10n;
@@ -25,7 +27,7 @@ import uilib.ShowCargo;
 import uilib.property.Size;
 
 @ExtensionMethod({ CargoStackExtension.class })
-public class ItemProvider extends QueryProvider {
+public class ItemQueryProvider extends QueryProvider {
 
     private final FactionProvider factionProvider = new FactionProvider();
 
@@ -39,6 +41,13 @@ public class ItemProvider extends QueryProvider {
         allFighterWings = null;
         allHullModSpecs = null;
         allWeaponSpecs = null;
+    }
+
+    @Override
+    public Set<Filter> getAdditionalFilters(QueryManager manager) {
+        Set<Filter> resultFilters = super.getAdditionalFilters(manager);
+        resultFilters.add(new LogicalOr(manager.getSubmarketFilters(), "submarkets"));
+        return resultFilters;
     }
 
     @Override
@@ -68,7 +77,7 @@ public class ItemProvider extends QueryProvider {
         final GroupingStrategy groupingStrategy
     ) {
         List<SubmarketAPI> submarkets = StelnetHelper.getSubmarkets(markets);
-        CollectionUtils.reduce(submarkets, Excluder.getQuerySubmarketFilter());
+        CollectionUtils.reduce(submarkets, Excluder.getSubmarketFilter());
         for (SubmarketAPI submarket : submarkets) {
             MarketAPI market = submarket.getMarket();
             List<CargoStackAPI> cargoStacks = submarket.getCargo().getStacksCopy();

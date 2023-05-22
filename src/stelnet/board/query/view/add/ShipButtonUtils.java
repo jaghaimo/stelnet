@@ -6,7 +6,7 @@ import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
 import java.util.LinkedList;
 import java.util.List;
-import stelnet.board.query.provider.ShipProvider;
+import stelnet.board.query.provider.ShipQueryProvider;
 import stelnet.board.query.view.FilteringButton;
 import stelnet.filter.ShipHullHasBays;
 import stelnet.filter.ShipHullHasBuiltIn;
@@ -28,7 +28,7 @@ public class ShipButtonUtils {
         };
     }
 
-    public static FilteringButton[] getManufacturers(ShipProvider provider) {
+    public static FilteringButton[] getManufacturers(ShipQueryProvider provider) {
         List<FilteringButton> manufacturers = new LinkedList<>();
         for (String manufacturer : provider.getManufacturers()) {
             manufacturers.add(new FilteringButton(manufacturer, new ShipHullIsManufacturer(manufacturer)));
@@ -58,7 +58,7 @@ public class ShipButtonUtils {
         };
     }
 
-    public static FilteringButton[] getBuiltIns(ShipProvider provider) {
+    public static FilteringButton[] getBuiltIns(ShipQueryProvider provider) {
         List<FilteringButton> builtInList = new LinkedList<>();
         builtInList.add(
             new FilteringButton(L10n.get(CommonL10n.NONE), new ShipHullNoBuiltIns(L10n.get(CommonL10n.NONE)), "None")

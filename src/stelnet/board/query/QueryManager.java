@@ -28,9 +28,6 @@ public class QueryManager {
     private final Set<Filter> otherFilters = new LinkedHashSet<>();
 
     @Getter
-    private final Set<Filter> submarketFilters = new LinkedHashSet<>();
-
-    @Getter
     @Setter
     private GroupingStrategy groupingStrategy = GroupingStrategy.BY_MARKET;
 
@@ -38,13 +35,6 @@ public class QueryManager {
     private final Set<Query> queries = new LinkedHashSet<>();
 
     private final ResultMap resultMap = new ResultMap();
-
-    public QueryManager() {
-        List<SubmarketSpecAPI> allSubmarketSpecs = getSubmarketSpecs();
-        for (SubmarketSpecAPI submarketSpec : allSubmarketSpecs) {
-            submarketFilters.add(getSubmarketFilter(submarketSpec));
-        }
-    }
 
     public void addQuery(Query query) {
         if (!queries.contains(query)) {
@@ -66,13 +56,22 @@ public class QueryManager {
         }
     }
 
+    public Set<Filter> getSubmarketFilters() {
+        Set<Filter> submarketFilters = new LinkedHashSet<>();
+        List<SubmarketSpecAPI> allSubmarketSpecs = getSubmarketSpecs();
+        for (SubmarketSpecAPI submarketSpec : allSubmarketSpecs) {
+            submarketFilters.add(getSubmarketFilter(submarketSpec));
+        }
+        return submarketFilters;
+    }
+
     public Filter getSubmarketFilter(SubmarketSpecAPI submarketSpec) {
         return new ResultHasId(submarketSpec.getId());
     }
 
     public List<SubmarketSpecAPI> getSubmarketSpecs() {
         List<SubmarketSpecAPI> allSubmarketSpecs = Global.getSettings().getAllSubmarketSpecs();
-        CollectionUtils.reduce(allSubmarketSpecs, Excluder.getQuerySubmarketFilter());
+        CollectionUtils.reduce(allSubmarketSpecs, Excluder.getSubmarketFilter());
         return allSubmarketSpecs;
     }
 

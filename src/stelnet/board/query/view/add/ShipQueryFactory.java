@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import stelnet.board.query.QueryL10n;
-import stelnet.board.query.provider.ShipProvider;
+import stelnet.board.query.provider.ShipQueryProvider;
 import stelnet.board.query.view.ButtonGroup;
 import stelnet.board.query.view.FilteringButton;
 import stelnet.board.query.view.SectionHeader;
@@ -25,7 +25,7 @@ import uilib.Renderable;
 @Getter
 public class ShipQueryFactory extends QueryFactory {
 
-    private transient ShipProvider provider = new ShipProvider();
+    private transient ShipQueryProvider provider = new ShipQueryProvider();
 
     private final FilteringButton[] classSizes = ShipButtonUtils.getClassSizes();
     private final FilteringButton[] mountSmall = ShipButtonUtils.getMountTypes(WeaponSize.SMALL);
@@ -36,7 +36,7 @@ public class ShipQueryFactory extends QueryFactory {
     private final FilteringButton[] builtIns = ShipButtonUtils.getBuiltIns(provider);
 
     public Object readResolve() {
-        provider = new ShipProvider();
+        provider = new ShipQueryProvider();
         return this;
     }
 

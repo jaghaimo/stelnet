@@ -15,7 +15,7 @@ import uilib.RenderableShowComponent;
 import uilib.ShowPeople;
 import uilib.property.Size;
 
-public class PeopleProvider extends QueryProvider {
+public class PeopleQueryProvider extends QueryProvider {
 
     private static List<PersonAPI> people;
 

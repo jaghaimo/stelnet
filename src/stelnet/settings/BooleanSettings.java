@@ -25,14 +25,10 @@ public enum BooleanSettings {
     /**
      * Market module configuration.
      */
-    QUERY_USE_OPEN_MARKET("stelnet_Market_Query_UseOpenMarket"),
-    QUERY_USE_MILITARY_MARKET("stelnet_Market_Query_UseMilitaryMarket"),
-    QUERY_USE_BLACK_MARKET("stelnet_Market_Query_UseBlackMarket"),
-    QUERY_USE_CUSTOM_MARKET("stelnet_Market_Query_UseCustomMarket"),
-    VIEWER_USE_OPEN_MARKET("stelnet_Market_Viewer_UseOpenMarket"),
-    VIEWER_USE_MILITARY_MARKET("stelnet_Market_Viewer_UseMilitaryMarket"),
-    VIEWER_USE_BLACK_MARKET("stelnet_Market_Viewer_UseBlackMarket"),
-    VIEWER_USE_CUSTOM_MARKET("stelnet_Market_Viewer_UseCustomMarket");
+    MARKET_USE_OPEN_MARKET("stelnet_Market_UseOpenMarket"),
+    MARKET_USE_MILITARY_MARKET("stelnet_Market_UseMilitaryMarket"),
+    MARKET_USE_BLACK_MARKET("stelnet_Market_UseBlackMarket"),
+    MARKET_USE_CUSTOM_MARKET("stelnet_Market_UseCustomMarket");
 
     private final String key;
 

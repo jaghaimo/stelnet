@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import stelnet.board.query.QueryL10n;
-import stelnet.board.query.provider.PeopleProvider;
+import stelnet.board.query.provider.PeopleQueryProvider;
 import stelnet.board.query.view.ButtonGroup;
 import stelnet.board.query.view.FilteringButton;
 import stelnet.board.query.view.SectionHeader;
@@ -19,14 +19,14 @@ import uilib.Renderable;
 public class PersonnelQueryFactory extends QueryFactory {
 
     @Getter
-    private transient PeopleProvider provider = new PeopleProvider();
+    private transient PeopleQueryProvider provider = new PeopleQueryProvider();
 
     private final FilteringButton[] postType = PersonnelButtonUtils.getPostTypeButtons();
     private final FilteringButton[] personality = PersonnelButtonUtils.getPersonalityButtons();
     private final FilteringButton[] skill = PersonnelButtonUtils.getSkillButtons();
 
     public Object readResolve() {
-        provider = new PeopleProvider();
+        provider = new PeopleQueryProvider();
         return this;
     }
 

@@ -6,7 +6,7 @@ import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.loading.WingRole;
 import java.util.LinkedList;
 import java.util.List;
-import stelnet.board.query.provider.ItemProvider;
+import stelnet.board.query.provider.ItemQueryProvider;
 import stelnet.board.query.view.FilteringButton;
 import stelnet.filter.CargoStackIsManufacturer;
 import stelnet.filter.CargoStackIsType;
@@ -73,7 +73,7 @@ public class ItemButtonUtils {
         };
     }
 
-    public static FilteringButton[] createManufacturers(ItemProvider provider) {
+    public static FilteringButton[] createManufacturers(ItemQueryProvider provider) {
         List<FilteringButton> manufacturers = new LinkedList<>();
         for (String manufacturer : provider.getManufacturers()) {
             manufacturers.add(new FilteringButton(manufacturer, new CargoStackIsManufacturer(manufacturer)));

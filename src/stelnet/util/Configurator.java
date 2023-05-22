@@ -19,9 +19,9 @@ import stelnet.board.query.QueryBoard;
 import stelnet.board.query.ResultIntel;
 import stelnet.board.query.provider.DmodProvider;
 import stelnet.board.query.provider.FactionProvider;
-import stelnet.board.query.provider.ItemProvider;
+import stelnet.board.query.provider.ItemQueryProvider;
 import stelnet.board.query.provider.MarketProvider;
-import stelnet.board.query.provider.ShipProvider;
+import stelnet.board.query.provider.ShipQueryProvider;
 import stelnet.board.query.provider.SkillProvider;
 import stelnet.board.storage.StorageBoard;
 import stelnet.board.storage.StorageIntel;
@@ -58,9 +58,9 @@ public class Configurator {
     public static void resetCache() {
         DmodProvider.reset();
         FactionProvider.reset();
-        ItemProvider.reset();
+        ItemQueryProvider.reset();
         MarketProvider.reset();
-        ShipProvider.reset();
+        ShipQueryProvider.reset();
         SkillProvider.reset();
     }
 

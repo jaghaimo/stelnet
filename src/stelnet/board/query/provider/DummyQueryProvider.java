@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import lombok.extern.log4j.Log4j;
+import stelnet.board.query.QueryManager;
 import stelnet.board.query.ResultSet;
 import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.filter.Filter;
@@ -13,7 +14,12 @@ import uilib.RenderableShowComponent;
 import uilib.property.Size;
 
 @Log4j
-public class DummyProvider extends QueryProvider {
+public class DummyQueryProvider extends QueryProvider {
+
+    @Override
+    public Set<Filter> getAdditionalFilters(QueryManager manager) {
+        return Collections.emptySet();
+    }
 
     @Override
     public List<?> getMatching(Set<Filter> filters) {

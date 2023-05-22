@@ -27,21 +27,12 @@ public class Excluder extends Reader {
 
     private static transient List<Filter> filters;
 
-    public static Filter getQuerySubmarketFilter() {
+    public static Filter getSubmarketFilter() {
         return Excluder.getSubmarketFilters(
-            BooleanSettings.QUERY_USE_OPEN_MARKET.get(),
-            BooleanSettings.QUERY_USE_MILITARY_MARKET.get(),
-            BooleanSettings.QUERY_USE_BLACK_MARKET.get(),
-            BooleanSettings.QUERY_USE_CUSTOM_MARKET.get()
-        );
-    }
-
-    public static Filter getViewerSubmarketFilter() {
-        return Excluder.getSubmarketFilters(
-            BooleanSettings.VIEWER_USE_OPEN_MARKET.get(),
-            BooleanSettings.VIEWER_USE_MILITARY_MARKET.get(),
-            BooleanSettings.VIEWER_USE_BLACK_MARKET.get(),
-            BooleanSettings.VIEWER_USE_CUSTOM_MARKET.get()
+            BooleanSettings.MARKET_USE_OPEN_MARKET.get(),
+            BooleanSettings.MARKET_USE_MILITARY_MARKET.get(),
+            BooleanSettings.MARKET_USE_BLACK_MARKET.get(),
+            BooleanSettings.MARKET_USE_CUSTOM_MARKET.get()
         );
     }
 

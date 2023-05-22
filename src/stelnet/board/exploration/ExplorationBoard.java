@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import stelnet.board.BoardDrawableInfo;
+import stelnet.board.exploration.factory.ButtonFactory;
+import stelnet.board.exploration.factory.TypeFactory;
 import stelnet.filter.Filter;
 import stelnet.util.L10n;
 import stelnet.util.MemoryHelper;
@@ -58,18 +60,9 @@ public class ExplorationBoard extends DrawableIntel {
     }
 
     private void addTypes(List<Drawable> drawables, float width) {
-        ExplorationL10n[] buttonTypes = {
-            ExplorationL10n.TYPE_ANALYZE_MISSION,
-            // ExplorationL10n.TYPE_COMM_RELAY,
-            ExplorationL10n.TYPE_SURVEY_MISSION,
-            ExplorationL10n.TYPE_STORY_MISSION,
-            ExplorationL10n.TYPE_RAIDING_BASE,
-            ExplorationL10n.TYPE_HISTORIAN_OFFER,
-            ExplorationL10n.TYPE_MEMORY_BANK,
-            ExplorationL10n.TYPE_OTHER,
-        };
+        List<ExplorationL10n> buttonTypes = TypeFactory.getTypes();
         addHeader(drawables, L10n.get(ExplorationL10n.HEADER_TYPE));
-        new ButtonFactory(this, width).addAll(drawables, buttonTypes, null);
+        new ButtonFactory(this, width).addTypes(drawables, buttonTypes, null);
     }
 
     private void addFactions(List<Drawable> drawables, float width) {
@@ -83,29 +76,17 @@ public class ExplorationBoard extends DrawableIntel {
             ExplorationL10n.TYPE_RAIDING_BASE,
             MEMORY_SUFFIX_CHECKED
         );
-        new ButtonFactory(this, width).addAll(drawables, factions, memoryKeyEnabled);
+        new ButtonFactory(this, width).addFactions(drawables, factions, memoryKeyEnabled);
     }
 
     private void addMissions(List<Drawable> drawables, float width) {
-        ExplorationL10n[] buttonTypes = {
-            ExplorationL10n.BANK_DEBRIS_FIELD,
-            ExplorationL10n.BANK_DERELICT_SHIP,
-            ExplorationL10n.BANK_DOMAIN_ERA_PROBE,
-            ExplorationL10n.BANK_EQUIPMENT_CACHE,
-            ExplorationL10n.BANK_HABITABLE_WORLD,
-            ExplorationL10n.BANK_RUINS_LOCATION,
-            ExplorationL10n.BANK_ORBITAL_HABITAT,
-            ExplorationL10n.BANK_SUPPLY_CACHE,
-            ExplorationL10n.BANK_SURVEY_DATA,
-            ExplorationL10n.BANK_SURVEY_SHIP,
-            ExplorationL10n.BANK_OTHER,
-        };
+        List<ExplorationL10n> buttonTypes = TypeFactory.getBanks();
         addHeader(drawables, L10n.get(ExplorationL10n.HEADER_MEMORY_BANK));
         String memoryKeyEnabled = MemoryHelper.key(
             MEMORY_PREFIX,
             ExplorationL10n.TYPE_MEMORY_BANK,
             MEMORY_SUFFIX_CHECKED
         );
-        new ButtonFactory(this, width).addAll(drawables, buttonTypes, memoryKeyEnabled);
+        new ButtonFactory(this, width).addTypes(drawables, buttonTypes, memoryKeyEnabled);
     }
 }
