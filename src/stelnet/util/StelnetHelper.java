@@ -60,7 +60,7 @@ public class StelnetHelper {
 
     public static CargoAPI getAllItems(Set<Filter> filters) {
         List<CargoStackAPI> cargoStacks = new LinkedList<>();
-        List<SubmarketAPI> submarkets = getAllWithAccess();
+        Set<SubmarketAPI> submarkets = getAllWithAccess();
         for (SubmarketAPI submarket : submarkets) {
             cargoStacks.addAll(submarket.getCargo().getStacksCopy());
         }
@@ -70,7 +70,7 @@ public class StelnetHelper {
 
     public static List<FleetMemberAPI> getAllShips(Set<Filter> filters) {
         List<FleetMemberAPI> ships = new LinkedList<>();
-        List<SubmarketAPI> submarkets = getAllWithAccess();
+        Set<SubmarketAPI> submarkets = getAllWithAccess();
         for (SubmarketAPI submarket : submarkets) {
             ships.addAll(submarket.getCargo().getMothballedShips().getMembersListCopy());
         }
@@ -78,8 +78,8 @@ public class StelnetHelper {
         return ships;
     }
 
-    public static List<SubmarketAPI> getAllWithAccess() {
-        List<SubmarketAPI> availableStorages = Includer.getAbandonedStations();
+    public static Set<SubmarketAPI> getAllWithAccess() {
+        Set<SubmarketAPI> availableStorages = Includer.getAbandonedStations();
         for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
             if (Misc.playerHasStorageAccess(market)) {
                 SubmarketAPI storage = market.getSubmarket(Submarkets.SUBMARKET_STORAGE);

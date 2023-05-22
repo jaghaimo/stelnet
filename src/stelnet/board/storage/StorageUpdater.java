@@ -10,6 +10,7 @@ import com.fs.starfarer.api.campaign.listeners.ColonyDecivListener;
 import com.fs.starfarer.api.campaign.listeners.ColonyInteractionListener;
 import com.fs.starfarer.api.campaign.listeners.PlayerColonizationListener;
 import java.util.List;
+import java.util.Set;
 import lombok.extern.log4j.Log4j;
 import stelnet.util.StelnetHelper;
 
@@ -74,12 +75,12 @@ public class StorageUpdater implements ColonyDecivListener, ColonyInteractionLis
 
     private static void updateNeeded() {
         List<IntelInfoPlugin> existingIntel = Global.getSector().getIntelManager().getIntel(StorageIntel.class);
-        List<SubmarketAPI> storageSubmarkets = StelnetHelper.getAllWithAccess();
+        Set<SubmarketAPI> storageSubmarkets = StelnetHelper.getAllWithAccess();
         addMissing(existingIntel, storageSubmarkets);
         removeObsolete(existingIntel, storageSubmarkets);
     }
 
-    private static void addMissing(List<IntelInfoPlugin> existingIntel, List<SubmarketAPI> storageSubmarkets) {
+    private static void addMissing(List<IntelInfoPlugin> existingIntel, Set<SubmarketAPI> storageSubmarkets) {
         for (SubmarketAPI storage : storageSubmarkets) {
             addMissing(existingIntel, storage);
         }
@@ -92,14 +93,14 @@ public class StorageUpdater implements ColonyDecivListener, ColonyInteractionLis
         }
     }
 
-    private static void removeObsolete(List<IntelInfoPlugin> existingIntel, List<SubmarketAPI> storageSubmarkets) {
+    private static void removeObsolete(List<IntelInfoPlugin> existingIntel, Set<SubmarketAPI> storageSubmarkets) {
         for (int i = existingIntel.size(); i > 0; i--) {
             IntelInfoPlugin intel = existingIntel.get(i - 1);
             removeObsolete(storageSubmarkets, intel);
         }
     }
 
-    private static void removeObsolete(List<SubmarketAPI> storageSubmarkets, IntelInfoPlugin intel) {
+    private static void removeObsolete(Set<SubmarketAPI> storageSubmarkets, IntelInfoPlugin intel) {
         SubmarketAPI storage = extractStorage(intel);
         if (!storageSubmarkets.contains(storage)) {
             Global.getSector().getIntelManager().removeIntel(intel);

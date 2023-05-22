@@ -65,7 +65,7 @@ Then load the save, save the game, quit the game, and finally disable this mod i
 ## Translating the Mod
 
 To translate this mod, edit files in [data/l10n](assets/data/l10n/) directory.
-You can then create the translation mod with the following structure:
+You can then create the translation mod with just the following structure:
 
 ```bash
 data/config/tag_data.json  # tag names in Intel UI
