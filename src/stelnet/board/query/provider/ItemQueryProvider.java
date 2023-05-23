@@ -36,7 +36,7 @@ public class ItemQueryProvider extends QueryProvider {
     private static transient List<HullModSpecAPI> allHullModSpecs;
     private static transient List<WeaponSpecAPI> allWeaponSpecs;
 
-    public static void reset() {
+    public static void resetCache() {
         allCargoStacks = null;
         allFighterWings = null;
         allHullModSpecs = null;

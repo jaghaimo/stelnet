@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import stelnet.board.query.provider.FactionProvider;
 import stelnet.board.query.provider.ItemQueryProvider;
 import stelnet.board.query.provider.MarketProvider;
 import stelnet.board.query.provider.PeopleQueryProvider;
@@ -46,12 +45,10 @@ public class QueryState implements RenderableState, Serializable {
     }
 
     public void resetCache() {
-        FactionProvider.reset();
-        ItemQueryProvider.reset();
+        ItemQueryProvider.resetCache();
+        PeopleQueryProvider.resetCache();
+        ShipQueryProvider.resetCache();
         MarketProvider.reset();
-        PeopleQueryProvider.reset();
-        ShipQueryProvider.reset();
-        MarketUpdater.reset();
     }
 
     @Override

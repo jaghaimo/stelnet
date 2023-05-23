@@ -19,7 +19,7 @@ import stelnet.board.query.ResultIntel;
 import stelnet.board.query.provider.DmodProvider;
 import stelnet.board.query.provider.FactionProvider;
 import stelnet.board.query.provider.ItemQueryProvider;
-import stelnet.board.query.provider.MarketProvider;
+import stelnet.board.query.provider.PeopleQueryProvider;
 import stelnet.board.query.provider.ShipQueryProvider;
 import stelnet.board.query.provider.SkillProvider;
 import stelnet.board.storage.StorageBoard;
@@ -55,12 +55,12 @@ public class Configurator {
     }
 
     public static void resetCache() {
-        DmodProvider.reset();
-        FactionProvider.reset();
-        ItemQueryProvider.reset();
-        MarketProvider.reset();
-        ShipQueryProvider.reset();
-        SkillProvider.reset();
+        DmodProvider.resetCache();
+        FactionProvider.resetCache();
+        SkillProvider.resetCache();
+        ItemQueryProvider.resetCache();
+        PeopleQueryProvider.resetCache();
+        ShipQueryProvider.resetCache();
     }
 
     private static void purgeIntel(Class<?>... classNames) {

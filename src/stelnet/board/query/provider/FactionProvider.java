@@ -17,7 +17,7 @@ public class FactionProvider {
 
     private static transient List<FactionAPI> factions;
 
-    public static void reset() {
+    public static void resetCache() {
         factions = null;
     }
 
@@ -73,6 +73,7 @@ public class FactionProvider {
         Set<String> ships = new HashSet<>();
         for (FactionAPI faction : getFactionIds()) {
             ships.addAll(faction.getKnownShips());
+            ships.addAll(faction.getAlwaysKnownShips());
         }
         return ships;
     }

@@ -34,15 +34,6 @@ public class MarketUpdater implements EveryFrameScript, ColonyInteractionListene
         }
     }
 
-    public static void reset() {
-        if (instance != null) {
-            log.debug("Forcing fake player closed market");
-            instance.reportPlayerClosedMarket(null);
-        }
-    }
-
-    private MarketUpdater() {}
-
     @Override
     public void advance(float amount) {
         if (!Global.getSector().isPaused()) {

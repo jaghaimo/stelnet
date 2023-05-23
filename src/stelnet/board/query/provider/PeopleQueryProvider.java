@@ -19,7 +19,7 @@ public class PeopleQueryProvider extends QueryProvider {
 
     private static List<PersonAPI> people;
 
-    public static void reset() {
+    public static void resetCache() {
         people = null;
     }
 
