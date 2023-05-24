@@ -23,6 +23,7 @@ import uilib2.UiConstants;
 import uilib2.button.FakeLine;
 import uilib2.intel.DrawableIntel;
 import uilib2.intel.DrawableIntelInfo;
+import uilib2.label.HighlightFirst;
 import uilib2.label.ParaColored;
 
 @Getter
@@ -35,11 +36,18 @@ public class ExplorationBoard extends DrawableIntel {
 
     private final Set<Filter> filters = new LinkedHashSet<>();
     private final String icon = StelnetHelper.getSpriteName("exploration");
-    private final DrawableIntelInfo intelInfo = new BoardDrawableInfo(
-        L10n.get(ExplorationL10n.BOARD_TITLE),
-        L10n.get(ExplorationL10n.BOARD_DESCRIPTION)
-    );
     private final IntelSortTier sortTier = IntelSortTier.TIER_0;
+
+    @Override
+    protected DrawableIntelInfo getIntelInfo() {
+        int hiddenIntelNumber = ExplorationHelper.getHiddenNumber();
+        return new BoardDrawableInfo(
+            L10n.get(ExplorationL10n.BOARD_TITLE),
+            L10n.get(ExplorationL10n.BOARD_DESCRIPTION, hiddenIntelNumber),
+            null,
+            new HighlightFirst(String.valueOf(hiddenIntelNumber))
+        );
+    }
 
     @Override
     public Set<String> getIntelTags(SectorMapAPI map) {
@@ -81,7 +89,7 @@ public class ExplorationBoard extends DrawableIntel {
     }
 
     private void addFactions(List<Drawable> drawables, float width) {
-        List<FactionAPI> factions = ActionFilterIntel.getFactions();
+        List<FactionAPI> factions = ExplorationHelper.getFactions();
         if (factions.isEmpty()) {
             return;
         }

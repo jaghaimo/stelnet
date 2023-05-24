@@ -1,23 +1,16 @@
 package stelnet.board.exploration;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
-import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.ui.IntelUIAPI;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import stelnet.board.exploration.factory.FilterFactory;
-import stelnet.filter.AnyHasTag;
-import stelnet.filter.FactionIsRaiding;
 import stelnet.filter.Filter;
-import stelnet.filter.IntelIsClass;
 import stelnet.filter.IntelIsFaction;
 import stelnet.filter.LogicalAnd;
-import stelnet.filter.LogicalNot;
 import stelnet.filter.LogicalOr;
 import stelnet.util.CollectionUtils;
 import stelnet.util.MemoryHelper;
@@ -27,19 +20,11 @@ public class ActionFilterIntel implements IntelUiAction {
 
     private final FilterFactory factory = new FilterFactory();
 
-    public static List<FactionAPI> getFactions() {
-        List<FactionAPI> factions = Global.getSector().getAllFactions();
-        CollectionUtils.reduce(factions, new FactionIsRaiding());
-        return factions;
-    }
-
     @Override
     public void act(IntelUIAPI ui) {
         Set<Filter> filters = getFilters();
-        List<IntelInfoPlugin> intelList = new ArrayList<>(Global.getSector().getIntelManager().getIntel());
-        CollectionUtils.reduce(intelList, new AnyHasTag(Tags.INTEL_EXPLORATION));
+        List<IntelInfoPlugin> intelList = ExplorationHelper.getIntel();
         setHidden(intelList, false);
-        CollectionUtils.reduce(intelList, new LogicalNot(new IntelIsClass(ExplorationBoard.class)));
         if (filters.size() > 0) {
             CollectionUtils.reduce(intelList, new LogicalOr(filters, ""));
             setHidden(intelList, true);
@@ -60,7 +45,7 @@ public class ActionFilterIntel implements IntelUiAction {
             String isCheckedKey = getMemoryKey(key, ExplorationBoard.MEMORY_SUFFIX_CHECKED);
             addIfNeeded(filters, isEnabledKey, isCheckedKey, filter);
         }
-        for (FactionAPI faction : getFactions()) {
+        for (FactionAPI faction : ExplorationHelper.getFactions()) {
             Filter filter = new LogicalAnd(
                 Arrays.<Filter>asList(factory.get(ExplorationL10n.TYPE_RAIDING_BASE), new IntelIsFaction(faction)),
                 "Raiding Faction"

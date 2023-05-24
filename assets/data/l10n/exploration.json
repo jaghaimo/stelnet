@@ -8,7 +8,7 @@
     "BANK_OTHER": "Other Banks",
     "BANK_RUINS_LOCATION": "Ruins Location",
     "BANK_SURVEY_DATA": "Survey Data",
-    "BOARD_DESCRIPTION": "Manages visibility of exploration intel.",
+    "BOARD_DESCRIPTION": "Manages visibility of exploration intel. {0, choice, 0#Showing all intel.|Hiding 1 intel.|1<Hiding {0, number, integer} intel entires.}",
     "BOARD_TITLE": "Exploration",
     "HEADER_FACTION": "Base Owner",
     "HEADER_MEMORY_BANK": "Memory Bank",
