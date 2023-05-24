@@ -1,7 +1,9 @@
 package stelnet.board.exploration;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
+import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
+import com.fs.starfarer.api.campaign.rules.MemoryAPI;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -10,10 +12,13 @@ import java.util.Set;
 import stelnet.board.exploration.factory.FilterFactory;
 import stelnet.filter.Filter;
 import stelnet.filter.IntelIsFaction;
+import stelnet.filter.IntelIsHidden;
 import stelnet.filter.LogicalAnd;
+import stelnet.filter.LogicalNot;
 import stelnet.filter.LogicalOr;
 import stelnet.util.CollectionUtils;
 import stelnet.util.MemoryHelper;
+import stelnet.util.ModConstants;
 import uilib2.intel.IntelUiAction;
 
 public class ActionFilterIntel implements IntelUiAction {
@@ -25,10 +30,27 @@ public class ActionFilterIntel implements IntelUiAction {
         Set<Filter> filters = getFilters();
         List<IntelInfoPlugin> intelList = ExplorationHelper.getFilterableIntel();
         setHidden(intelList, false);
+        // game can have some permanently hidden intel, we don't want to count those
+        CollectionUtils.reduce(intelList, new LogicalNot(new IntelIsHidden()));
         if (filters.size() > 0) {
             CollectionUtils.reduce(intelList, new LogicalOr(filters, ""));
+            setFlag(intelList);
             setHidden(intelList, true);
         }
+    }
+
+    private void setFlag(List<IntelInfoPlugin> intelList) {
+        for (IntelInfoPlugin intel : intelList) {
+            setFlag(intel.getMapLocation(null));
+        }
+    }
+
+    private void setFlag(SectorEntityToken token) {
+        if (token == null) {
+            return;
+        }
+        MemoryAPI memory = token.getMemoryWithoutUpdate();
+        memory.set(ModConstants.EXPLORATION_MANAGE, true, 1);
     }
 
     private void setHidden(List<IntelInfoPlugin> intelList, boolean isHidden) {

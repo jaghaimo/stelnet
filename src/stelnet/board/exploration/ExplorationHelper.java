@@ -10,8 +10,10 @@ import stelnet.filter.AnyHasTag;
 import stelnet.filter.FactionIsRaiding;
 import stelnet.filter.IntelIsClass;
 import stelnet.filter.IntelIsHidden;
+import stelnet.filter.IntelLocationHasMemory;
 import stelnet.filter.LogicalNot;
 import stelnet.util.CollectionUtils;
+import stelnet.util.ModConstants;
 
 public class ExplorationHelper {
 
@@ -24,6 +26,7 @@ public class ExplorationHelper {
 
     public static int getHiddenNumber() {
         List<IntelInfoPlugin> explorationIntel = getFilterableIntel();
+        CollectionUtils.reduce(explorationIntel, new IntelLocationHasMemory(ModConstants.EXPLORATION_MANAGE));
         CollectionUtils.reduce(explorationIntel, new IntelIsHidden());
         return explorationIntel.size();
     }

@@ -18,6 +18,7 @@ public class ModConstants {
     /**
      * Memory flags used.
      */
+    public static final String EXPLORATION_MANAGE = "$stelnetExplorationManage";
     public static final String MEMORY_IS_CALLING = "$stelnetIsCalling";
 
     /**
