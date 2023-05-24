@@ -2,8 +2,8 @@ package stelnet.board.exploration;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
-import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.SectorMapAPI;
+import com.fs.starfarer.api.util.Misc;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,9 +20,10 @@ import stelnet.util.StelnetHelper;
 import uilib2.Drawable;
 import uilib2.Spacer;
 import uilib2.UiConstants;
+import uilib2.button.FakeLine;
 import uilib2.intel.DrawableIntel;
 import uilib2.intel.DrawableIntelInfo;
-import uilib2.label.SectionHeading;
+import uilib2.label.ParaColored;
 
 @Getter
 @Log4j
@@ -62,15 +63,21 @@ public class ExplorationBoard extends DrawableIntel {
         return drawables;
     }
 
-    private void addHeader(List<Drawable> drawables, String title) {
-        drawables.add(new SectionHeading(title, Alignment.MID, UiConstants.SPACER_LARGE));
-        drawables.add(new Spacer(UiConstants.SPACER_SMALL));
+    private void addHeader(List<Drawable> drawables, String title, float width) {
+        drawables.add(new ParaColored(" " + title, Misc.getButtonTextColor(), 0));
+        drawables.add(new FakeLine(width, 0));
+        drawables.add(new Spacer(UiConstants.SPACER_DEFAULT));
+    }
+
+    private void addLargeSpacer(List<Drawable> drawables) {
+        drawables.add(new Spacer(UiConstants.SPACER_LARGE));
     }
 
     private void addTypes(List<Drawable> drawables, float width) {
         List<ExplorationL10n> buttonTypes = TypeFactory.getTypes();
-        addHeader(drawables, L10n.get(ExplorationL10n.HEADER_TYPE));
+        addHeader(drawables, L10n.get(ExplorationL10n.HEADER_TYPE), width);
         new ButtonFactory(this, width).addTypes(drawables, buttonTypes, null);
+        addLargeSpacer(drawables);
     }
 
     private void addFactions(List<Drawable> drawables, float width) {
@@ -78,18 +85,19 @@ public class ExplorationBoard extends DrawableIntel {
         if (factions.isEmpty()) {
             return;
         }
-        addHeader(drawables, L10n.get(ExplorationL10n.HEADER_FACTION));
+        addHeader(drawables, L10n.get(ExplorationL10n.HEADER_FACTION), width);
         String memoryKeyEnabled = MemoryHelper.key(
             MEMORY_PREFIX,
             ExplorationL10n.TYPE_RAIDING_BASE,
             MEMORY_SUFFIX_CHECKED
         );
         new ButtonFactory(this, width).addFactions(drawables, factions, memoryKeyEnabled);
+        addLargeSpacer(drawables);
     }
 
     private void addMissions(List<Drawable> drawables, float width) {
         List<ExplorationL10n> buttonTypes = TypeFactory.getBanks();
-        addHeader(drawables, L10n.get(ExplorationL10n.HEADER_MEMORY_BANK));
+        addHeader(drawables, L10n.get(ExplorationL10n.HEADER_MEMORY_BANK), width);
         String memoryKeyEnabled = MemoryHelper.key(
             MEMORY_PREFIX,
             ExplorationL10n.TYPE_MEMORY_BANK,

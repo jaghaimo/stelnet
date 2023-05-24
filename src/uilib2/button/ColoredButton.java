@@ -6,7 +6,7 @@ import java.awt.Color;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class ColoredButton implements Button {
+public class ColoredButton extends AbstractButton {
 
     private final String text;
     private final Object data;
@@ -15,11 +15,6 @@ public class ColoredButton implements Button {
     private final float width;
     private final float height;
     private final float pad;
-
-    @Override
-    public void draw(TooltipMakerAPI tooltip) {
-        addButton(tooltip);
-    }
 
     public ButtonAPI addButton(TooltipMakerAPI tooltip) {
         return tooltip.addButton(text, data, base, bg, width, height, pad);

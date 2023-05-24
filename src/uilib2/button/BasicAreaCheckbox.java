@@ -6,7 +6,7 @@ import java.awt.Color;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class BasicAreaCheckbox implements Button {
+public class BasicAreaCheckbox extends AbstractButton {
 
     private final String text;
     private final Object data;
@@ -16,11 +16,6 @@ public class BasicAreaCheckbox implements Button {
     private final float width;
     private final float height;
     private final float pad;
-
-    @Override
-    public void draw(TooltipMakerAPI tooltip) {
-        addButton(tooltip);
-    }
 
     public ButtonAPI addButton(TooltipMakerAPI tooltip) {
         return tooltip.addAreaCheckbox(text, data, base, bg, bright, width, height, pad);

@@ -6,7 +6,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class BasicCheckbox implements Button {
+public class BasicCheckbox extends AbstractButton {
 
     private final float width;
     private final float height;
@@ -14,11 +14,6 @@ public class BasicCheckbox implements Button {
     private final Object data;
     private final UICheckboxSize size;
     private final float pad;
-
-    @Override
-    public void draw(TooltipMakerAPI tooltip) {
-        addButton(tooltip);
-    }
 
     public ButtonAPI addButton(TooltipMakerAPI tooltip) {
         return tooltip.addCheckbox(width, height, text, data, size, pad);

@@ -23,7 +23,6 @@ public class ModConstants {
     /**
      * CaptainsLog integration.
      */
-
     public static final String CAPTAINS_LOG_ID = "CaptainsLog";
     public static final String CAPTAINS_LOG_INTEL = "$captainsLogIntel";
 }

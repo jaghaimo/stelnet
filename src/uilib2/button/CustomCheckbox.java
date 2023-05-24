@@ -7,7 +7,7 @@ import java.awt.Color;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class CustomCheckbox implements Button {
+public class CustomCheckbox extends AbstractButton {
 
     private final float width;
     private final float height;
@@ -17,11 +17,6 @@ public class CustomCheckbox implements Button {
     private final Color textColor;
     private final UICheckboxSize size;
     private final float pad;
-
-    @Override
-    public void draw(TooltipMakerAPI tooltip) {
-        addButton(tooltip);
-    }
 
     public ButtonAPI addButton(TooltipMakerAPI tooltip) {
         return tooltip.addCheckbox(width, height, text, data, font, textColor, size, pad);

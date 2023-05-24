@@ -2,7 +2,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "java.configuration.updateBuildConfiguration": "automatic",
-    "cSpell.words": [
-        "Sebestyen"
-    ]
+    "cSpell.words": ["Sebestyen"],
+    "vscode-neovim.neovimInitVimPaths.win32": "C:\\Users\\Bartek\\.neovimrc"
 }

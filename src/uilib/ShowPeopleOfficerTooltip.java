@@ -27,6 +27,5 @@ public class ShowPeopleOfficerTooltip implements TooltipCreator {
         tooltip.addSectionHeading(level, Alignment.LMID, 2);
         tooltip.addSpacer(4);
         tooltip.addSkillPanelOneColumn(person, 0);
-        // (new ShowSkills(person)).render(tooltip);
     }
 }

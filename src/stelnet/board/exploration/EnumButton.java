@@ -56,7 +56,7 @@ public class EnumButton extends ExplorationButton {
                 .addConfirmAction(new ActionUpdateForItem(intel))
                 .build(),
             UICheckboxSize.SMALL,
-            UiConstants.BUTTON_PADDING
+            0
         );
     }
 }
