@@ -40,9 +40,4 @@ jobs:
                   key: v1-dependencies-{{ checksum "build.gradle" }}
 
             # run tests!
-            - run: curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-            - run: sudo apt-get install git-lfs
-            - run: git lfs install
-            - run: git lfs fetch
-            - run: git lfs checkout
             - run: gradle test
