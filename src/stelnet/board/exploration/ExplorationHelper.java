@@ -15,7 +15,7 @@ import stelnet.util.CollectionUtils;
 
 public class ExplorationHelper {
 
-    public static List<IntelInfoPlugin> getIntel() {
+    public static List<IntelInfoPlugin> getFilterableIntel() {
         List<IntelInfoPlugin> intelList = new ArrayList<>(Global.getSector().getIntelManager().getIntel());
         CollectionUtils.reduce(intelList, new AnyHasTag(Tags.INTEL_EXPLORATION));
         CollectionUtils.reduce(intelList, new LogicalNot(new IntelIsClass(ExplorationBoard.class)));
@@ -23,7 +23,7 @@ public class ExplorationHelper {
     }
 
     public static int getHiddenNumber() {
-        List<IntelInfoPlugin> explorationIntel = getIntel();
+        List<IntelInfoPlugin> explorationIntel = getFilterableIntel();
         CollectionUtils.reduce(explorationIntel, new IntelIsHidden());
         return explorationIntel.size();
     }

@@ -23,7 +23,7 @@ public class ActionFilterIntel implements IntelUiAction {
     @Override
     public void act(IntelUIAPI ui) {
         Set<Filter> filters = getFilters();
-        List<IntelInfoPlugin> intelList = ExplorationHelper.getIntel();
+        List<IntelInfoPlugin> intelList = ExplorationHelper.getFilterableIntel();
         setHidden(intelList, false);
         if (filters.size() > 0) {
             CollectionUtils.reduce(intelList, new LogicalOr(filters, ""));
