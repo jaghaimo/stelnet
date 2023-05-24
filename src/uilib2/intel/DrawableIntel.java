@@ -51,7 +51,7 @@ public abstract class DrawableIntel extends CallbackAwareIntel {
         return new DrawableIntelInfo() {
             @Override
             public void draw(TooltipMakerAPI tooltip, Color bulletColor, Color titleColor) {
-                tooltip.addPara("Unimplemented method 'getIntelInfo'", 0);
+                tooltip.addPara("Implement 'getIntelInfo()' method to change this", 0);
             }
         };
     }

@@ -9,40 +9,48 @@ import lombok.extern.log4j.Log4j;
 public abstract class CallbackAwareIntel extends BaseIntelPlugin {
 
     public void buttonPressConfirmed(Object buttonId, IntelUIAPI ui) {
-        try {
-            IntelUiCallback callback = (IntelUiCallback) buttonId;
+        IntelUiCallback callback = getCallback(buttonId);
+        if (isSupported(callback)) {
+            log.debug("Processing 'buttonPressConfirmed'");
             callback.onConfirm(ui);
-        } catch (Exception e) {
-            log.debug("Skipping unsupported 'buttonPressConfirmed' buttonId type'");
         }
     }
 
     public void buttonPressCancelled(Object buttonId, IntelUIAPI ui) {
-        try {
-            IntelUiCallback callback = (IntelUiCallback) buttonId;
+        IntelUiCallback callback = getCallback(buttonId);
+        if (isSupported(callback)) {
+            log.debug("Processing 'buttonPressCancelled'");
             callback.onCancel(ui);
-        } catch (Exception e) {
-            log.debug("Skipping unsupported 'buttonPressCancelled' buttonId type'");
         }
     }
 
     @Override
     public void createConfirmationPrompt(Object buttonId, TooltipMakerAPI tooltip) {
-        try {
-            IntelUiCallback callback = (IntelUiCallback) buttonId;
+        IntelUiCallback callback = getCallback(buttonId);
+        if (isSupported(callback)) {
+            log.debug("Processing 'createConfirmationPrompt'");
             callback.getPrompt().show(tooltip);
-        } catch (Exception e) {
-            log.debug("Skipping unsupported 'createConfirmationPrompt' buttonId type'");
         }
     }
 
     @Override
     public boolean doesButtonHaveConfirmDialog(Object buttonId) {
-        try {
-            IntelUiCallback callback = (IntelUiCallback) buttonId;
+        IntelUiCallback callback = getCallback(buttonId);
+        if (isSupported(callback)) {
+            log.debug("Processing 'doesButtonHaveConfirmDialog'");
             return callback.hasPrompt();
-        } catch (Exception e) {
-            return false;
         }
+        return false;
+    }
+
+    private IntelUiCallback getCallback(Object buttonId) {
+        if (buttonId instanceof IntelUiCallback) {
+            return (IntelUiCallback) buttonId;
+        }
+        return null;
+    }
+
+    private boolean isSupported(IntelUiCallback callback) {
+        return callback != null;
     }
 }
