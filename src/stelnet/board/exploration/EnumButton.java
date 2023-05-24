@@ -8,9 +8,9 @@ import stelnet.util.L10n;
 import stelnet.util.MemoryHelper;
 import uilib2.Drawable;
 import uilib2.UiConstants;
-import uilib2.button.BasicCheckbox;
 import uilib2.button.Button;
 import uilib2.button.ButtonBuilder;
+import uilib2.button.CheckboxBasic;
 import uilib2.intel.ActionUpdateForItem;
 import uilib2.intel.ActionUpdateIntelList;
 import uilib2.intel.IntelCallbackBuilder;
@@ -45,7 +45,7 @@ public class EnumButton extends ExplorationButton {
     }
 
     private Button getButton(String memoryKeyChecked, boolean isChecked) {
-        return new BasicCheckbox(
+        return new CheckboxBasic(
             (width - UiConstants.BUTTON_PADDING) / 2,
             UiConstants.BUTTON_HEIGHT,
             L10n.get(buttonType),

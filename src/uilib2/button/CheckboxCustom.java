@@ -7,7 +7,7 @@ import java.awt.Color;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class CustomCheckbox extends AbstractButton {
+public class CheckboxCustom extends AbstractButton {
 
     private final float width;
     private final float height;

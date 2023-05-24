@@ -7,21 +7,17 @@ import java.awt.Color;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class ColoredSectionHeading implements Label {
+public class SectionHeadingCustom extends AbstractLabel {
 
     private final String str;
     private final Color textColor;
     private final Color bgColor;
     private final Alignment align;
+    private final float width;
     private final float pad;
 
     @Override
-    public void draw(TooltipMakerAPI tooltip) {
-        addLabel(tooltip);
-    }
-
-    @Override
     public LabelAPI addLabel(TooltipMakerAPI tooltip) {
-        return tooltip.addSectionHeading(str, textColor, bgColor, align, pad);
+        return tooltip.addSectionHeading(str, textColor, bgColor, align, width, pad);
     }
 }

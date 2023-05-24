@@ -12,7 +12,7 @@ import uilib2.Drawable;
 import uilib2.UiConstants;
 import uilib2.button.Button;
 import uilib2.button.ButtonBuilder;
-import uilib2.button.CustomCheckbox;
+import uilib2.button.CheckboxCustom;
 import uilib2.intel.ActionUpdateForItem;
 import uilib2.intel.ActionUpdateIntelList;
 import uilib2.intel.IntelCallbackBuilder;
@@ -48,7 +48,7 @@ public class FactionButton extends ExplorationButton {
     }
 
     private Button getButton(String memoryKeyChecked, boolean isChecked) {
-        return new CustomCheckbox(
+        return new CheckboxCustom(
             (width - UiConstants.BUTTON_PADDING) / 2,
             UiConstants.BUTTON_HEIGHT,
             Misc.ucFirst(faction.getDisplayName()),

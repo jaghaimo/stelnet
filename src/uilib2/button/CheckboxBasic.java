@@ -6,7 +6,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class BasicCheckbox extends AbstractButton {
+public class CheckboxBasic extends AbstractButton {
 
     private final float width;
     private final float height;
