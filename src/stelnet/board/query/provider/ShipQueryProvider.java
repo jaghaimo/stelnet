@@ -114,6 +114,7 @@ public class ShipQueryProvider extends QueryProvider {
     }
 
     private List<ShipHullSpecAPI> getShipHulls() {
+        allShipHulls = null;
         if (allShipHulls == null) {
             allShipHulls = factionProvider.getAllShips();
         }

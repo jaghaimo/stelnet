@@ -18,7 +18,6 @@ public enum BooleanSettings {
     /**
      * Advanced options.
      */
-    AUTO_REFRESH_MARKETS("stelnet_General_Advanced_AutoRefresh"),
     SEBESTYEN("stelnet_General_Advanced_Sebestyen"),
     UNINSTALL("stelnet_General_Advanced_Uninstall"),
 
@@ -28,7 +27,10 @@ public enum BooleanSettings {
     MARKET_USE_OPEN_MARKET("stelnet_Market_UseOpenMarket"),
     MARKET_USE_MILITARY_MARKET("stelnet_Market_UseMilitaryMarket"),
     MARKET_USE_BLACK_MARKET("stelnet_Market_UseBlackMarket"),
-    MARKET_USE_CUSTOM_MARKET("stelnet_Market_UseCustomMarket");
+    MARKET_USE_CUSTOM_MARKET("stelnet_Market_UseCustomMarket"),
+    MARKET_AUTO_REFRESH("stelnet_Market_AdvancedAutoRefresh"),
+    MARKET_CODEX_ITEMS("stelnet_Market_AdvancedCodexItems"),
+    MARKET_CODEX_SHIPS("stelnet_Market_AdvancedCodexShips");
 
     private final String key;
 

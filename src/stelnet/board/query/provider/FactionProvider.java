@@ -10,7 +10,12 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import stelnet.filter.AnyHasTag;
 import stelnet.filter.FactionIsShown;
+import stelnet.filter.HullModIsHidden;
+import stelnet.filter.LogicalNot;
+import stelnet.filter.ShipHullIsInCodex;
+import stelnet.settings.BooleanSettings;
 import stelnet.util.CollectionUtils;
 
 public class FactionProvider {
@@ -22,6 +27,11 @@ public class FactionProvider {
     }
 
     public List<FighterWingSpecAPI> getAllFighters() {
+        if (BooleanSettings.MARKET_CODEX_ITEMS.get()) {
+            List<FighterWingSpecAPI> fighterWingSpecs = Global.getSettings().getAllFighterWingSpecs();
+            CollectionUtils.reduce(fighterWingSpecs, new LogicalNot(new AnyHasTag("restricted")));
+            return fighterWingSpecs;
+        }
         List<FighterWingSpecAPI> fighterWingSpecs = new LinkedList<>();
         for (String fighterId : getAllFighterIds()) {
             fighterWingSpecs.add(Global.getSettings().getFighterWingSpec(fighterId));
@@ -30,6 +40,11 @@ public class FactionProvider {
     }
 
     public List<HullModSpecAPI> getAllHullMods() {
+        if (BooleanSettings.MARKET_CODEX_ITEMS.get()) {
+            List<HullModSpecAPI> hullMods = Global.getSettings().getAllHullModSpecs();
+            CollectionUtils.reduce(hullMods, new LogicalNot(new HullModIsHidden()));
+            return hullMods;
+        }
         List<HullModSpecAPI> hullMods = new LinkedList<>();
         for (String hullModId : getAllHullModIds()) {
             hullMods.add(Global.getSettings().getHullModSpec(hullModId));
@@ -38,6 +53,11 @@ public class FactionProvider {
     }
 
     public List<ShipHullSpecAPI> getAllShips() {
+        if (BooleanSettings.MARKET_CODEX_SHIPS.get()) {
+            List<ShipHullSpecAPI> ships = Global.getSettings().getAllShipHullSpecs();
+            CollectionUtils.reduce(ships, new ShipHullIsInCodex());
+            return ships;
+        }
         List<ShipHullSpecAPI> ships = new LinkedList<>();
         for (String shipId : getAllShipIds()) {
             ships.add(Global.getSettings().getHullSpec(shipId));
@@ -46,6 +66,11 @@ public class FactionProvider {
     }
 
     public List<WeaponSpecAPI> getAllWeapons() {
+        if (BooleanSettings.MARKET_CODEX_ITEMS.get()) {
+            List<WeaponSpecAPI> weapons = Global.getSettings().getAllWeaponSpecs();
+            CollectionUtils.reduce(weapons, new LogicalNot(new AnyHasTag("restricted")));
+            return weapons;
+        }
         List<WeaponSpecAPI> weapons = new LinkedList<>();
         for (String weaponId : getAllWeaponIds()) {
             weapons.add(Global.getSettings().getWeaponSpec(weaponId));

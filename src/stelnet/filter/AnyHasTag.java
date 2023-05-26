@@ -8,6 +8,9 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.characters.SkillSpecAPI;
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
+import com.fs.starfarer.api.loading.FighterWingSpecAPI;
+import com.fs.starfarer.api.loading.HullModSpecAPI;
+import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +31,12 @@ public final class AnyHasTag extends Filter {
         if (object instanceof ContactIntel) {
             return acceptContact((ContactIntel) object);
         }
+        if (object instanceof FighterWingSpecAPI) {
+            return acceptFighterWing((FighterWingSpecAPI) object);
+        }
+        if (object instanceof HullModSpecAPI) {
+            return acceptHullMod((HullModSpecAPI) object);
+        }
         if (object instanceof IntelInfoPlugin) {
             return acceptIntel((IntelInfoPlugin) object);
         }
@@ -40,11 +49,10 @@ public final class AnyHasTag extends Filter {
         if (object instanceof SkillSpecAPI) {
             return acceptSkill((SkillSpecAPI) object);
         }
+        if (object instanceof WeaponSpecAPI) {
+            return acceptWeapon((WeaponSpecAPI) object);
+        }
         return super.accept(object);
-    }
-
-    protected boolean acceptContact(ContactIntel intel) {
-        return acceptPerson(intel.getPerson());
     }
 
     protected boolean acceptCommDirectoryEntry(CommDirectoryEntryAPI entry) {
@@ -54,6 +62,18 @@ public final class AnyHasTag extends Filter {
 
     protected boolean acceptCommodity(CommoditySpecAPI commodity) {
         return commodity.hasTag(tag);
+    }
+
+    protected boolean acceptContact(ContactIntel intel) {
+        return acceptPerson(intel.getPerson());
+    }
+
+    protected boolean acceptFighterWing(FighterWingSpecAPI fighterWing) {
+        return fighterWing.getTags().contains(tag);
+    }
+
+    protected boolean acceptHullMod(HullModSpecAPI hullMod) {
+        return hullMod.getTags().contains(tag);
     }
 
     protected boolean acceptIntel(IntelInfoPlugin intel) {
@@ -77,5 +97,9 @@ public final class AnyHasTag extends Filter {
 
     protected boolean acceptSkill(SkillSpecAPI skill) {
         return skill.getTags().contains(tag);
+    }
+
+    protected boolean acceptWeapon(WeaponSpecAPI weapon) {
+        return weapon.getTags().contains(tag);
     }
 }

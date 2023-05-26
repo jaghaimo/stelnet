@@ -114,7 +114,7 @@ public class Configurator {
             purgeIntel(QueryBoard.class, ViewerBoard.class, ResultIntel.class);
             log.info("Disabled Market module");
         }
-        if (hasMarket && BooleanSettings.AUTO_REFRESH_MARKETS.get()) {
+        if (hasMarket && BooleanSettings.MARKET_AUTO_REFRESH.get()) {
             MarketUpdater.register();
         } else {
             MarketUpdater.unregister();
