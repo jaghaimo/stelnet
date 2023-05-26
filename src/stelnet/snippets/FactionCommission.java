@@ -25,7 +25,7 @@ public class FactionCommission extends LunaSnippet {
 
     @Override
     public String getModId() {
-        return ModConstants.STELNET;
+        return ModConstants.STELNET_ID;
     }
 
     @Override

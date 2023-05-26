@@ -136,7 +136,7 @@ public class StelnetHelper {
     }
 
     public static String getSpriteName(String sprite) {
-        return Global.getSettings().getSpriteName(ModConstants.STELNET, sprite);
+        return Global.getSettings().getSpriteName(ModConstants.STELNET_ID, sprite);
     }
 
     public static String getStarSystemName(StarSystemAPI starSystem, boolean shortName) {

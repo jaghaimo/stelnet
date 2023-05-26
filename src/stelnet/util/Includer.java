@@ -18,7 +18,7 @@ public class Includer extends Reader {
     private static final String ADDITIONAL_FACTION_IDS = "data/stelnet/include/additional_factions.csv";
 
     public static List<String> getAdditionalFactions() {
-        return getStrings(ADDITIONAL_FACTION_IDS, ModConstants.STELNET);
+        return getStrings(ADDITIONAL_FACTION_IDS, ModConstants.STELNET_ID);
     }
 
     public static Set<SubmarketAPI> getAbandonedStations() {
@@ -33,7 +33,7 @@ public class Includer extends Reader {
     }
 
     private static List<String> getAbandonedStationIds() {
-        return getStrings(ABANDONED_STATION_IDS, ModConstants.STELNET);
+        return getStrings(ABANDONED_STATION_IDS, ModConstants.STELNET_ID);
     }
 
     private static SubmarketAPI getStorage(String station) {

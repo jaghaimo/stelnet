@@ -16,7 +16,7 @@ public class SettingsListener implements LunaSettingsListener {
 
     @Override
     public void settingsChanged(String modId) {
-        if (!ModConstants.STELNET.equals(modId)) {
+        if (!ModConstants.STELNET_ID.equals(modId)) {
             return;
         }
         if (Global.getCurrentState().equals(GameState.TITLE)) {

@@ -76,28 +76,28 @@ public class Excluder extends Reader {
     }
 
     private static List<Filter> getMarketByFactionFilters(List<Filter> filters) {
-        for (String factionId : getStrings(MARKET_BY_FACTION, ModConstants.STELNET)) {
+        for (String factionId : getStrings(MARKET_BY_FACTION, ModConstants.STELNET_ID)) {
             filters.add(new MarketBelongsToFaction(factionId));
         }
         return filters;
     }
 
     private static List<Filter> getMarketByIdFilters(List<Filter> filters) {
-        for (String marketId : getStrings(MARKET_BY_ID, ModConstants.STELNET)) {
+        for (String marketId : getStrings(MARKET_BY_ID, ModConstants.STELNET_ID)) {
             filters.add(new AnyHasId(marketId));
         }
         return filters;
     }
 
     private static List<Filter> getMarketBySystemFilters(List<Filter> filters) {
-        for (String systemId : getStrings(MARKET_BY_SYSTEM, ModConstants.STELNET)) {
+        for (String systemId : getStrings(MARKET_BY_SYSTEM, ModConstants.STELNET_ID)) {
             filters.add(new MarketIsInSystem(systemId));
         }
         return filters;
     }
 
     private static List<Filter> getMarketByTagFilters(List<Filter> filters) {
-        for (String tag : getStrings(MARKET_BY_TAG, ModConstants.STELNET)) {
+        for (String tag : getStrings(MARKET_BY_TAG, ModConstants.STELNET_ID)) {
             filters.add(new AnyHasTag(tag));
         }
         return filters;

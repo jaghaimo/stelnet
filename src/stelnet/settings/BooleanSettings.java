@@ -34,7 +34,7 @@ public enum BooleanSettings {
 
     private final String key;
 
-    public boolean get() {
-        return LunaSettings.getBoolean(ModConstants.STELNET, key);
+    public Boolean get() {
+        return LunaSettings.getBoolean(ModConstants.STELNET_ID, key);
     }
 }

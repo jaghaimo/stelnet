@@ -17,7 +17,7 @@ import org.json.JSONObject;
 @Log4j
 public class L10n {
 
-    public static String namespace = ModConstants.STELNET;
+    public static String namespace = ModConstants.STELNET_ID;
     private static transient Map<String, JSONObject> translations = new HashMap<>();
 
     public static void init(String filename) {

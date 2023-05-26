@@ -16,6 +16,6 @@ public enum IntSettings {
     private final String key;
 
     public int get() {
-        return LunaSettings.getInt(ModConstants.STELNET, key);
+        return LunaSettings.getInt(ModConstants.STELNET_ID, key);
     }
 }
