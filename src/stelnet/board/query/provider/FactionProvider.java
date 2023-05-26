@@ -6,14 +6,18 @@ import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import stelnet.filter.AnyHasTag;
+import stelnet.filter.FactionIsAdditional;
 import stelnet.filter.FactionIsShown;
+import stelnet.filter.Filter;
 import stelnet.filter.HullModIsHidden;
 import stelnet.filter.LogicalNot;
+import stelnet.filter.LogicalOr;
 import stelnet.filter.ShipHullIsInCodex;
 import stelnet.settings.BooleanSettings;
 import stelnet.util.CollectionUtils;
@@ -114,7 +118,13 @@ public class FactionProvider {
     private List<FactionAPI> getFactionIds() {
         if (factions == null) {
             factions = Global.getSector().getAllFactions();
-            CollectionUtils.reduce(factions, new FactionIsShown());
+            CollectionUtils.reduce(
+                factions,
+                new LogicalOr(
+                    Arrays.<Filter>asList(new FactionIsShown(), new FactionIsAdditional()),
+                    "Shown or explicitly added"
+                )
+            );
         }
         return factions;
     }

@@ -15,6 +15,11 @@ import java.util.Set;
 public class Includer extends Reader {
 
     private static final String ABANDONED_STATION_IDS = "data/stelnet/include/abandoned_stations.csv";
+    private static final String ADDITIONAL_FACTION_IDS = "data/stelnet/include/additional_factions.csv";
+
+    public static List<String> getAdditionalFactions() {
+        return getStrings(ADDITIONAL_FACTION_IDS, ModConstants.STELNET);
+    }
 
     public static Set<SubmarketAPI> getAbandonedStations() {
         Set<SubmarketAPI> submarkets = new LinkedHashSet<>();
