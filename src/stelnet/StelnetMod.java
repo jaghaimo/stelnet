@@ -1,12 +1,16 @@
 package stelnet;
 
 import com.fs.starfarer.api.BaseModPlugin;
+import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.CampaignUIAPI;
+import com.fs.starfarer.api.campaign.CoreUITabId;
 import com.fs.starfarer.api.impl.campaign.tutorial.TutorialMissionIntel;
-import lunalib.lunaDebug.LunaDebug;
+import java.awt.event.KeyEvent;
+import lunalib.lunaSettings.LunaSettings;
 import stelnet.settings.BooleanSettings;
-import stelnet.snippets.FactionCommission;
-import stelnet.util.Configurator;
+import stelnet.util.ModConstants;
 import stelnet.util.Reporter;
+import stelnet.util.StelnetHelper;
 
 public class StelnetMod extends BaseModPlugin {
 
@@ -23,9 +27,9 @@ public class StelnetMod extends BaseModPlugin {
 
     @Override
     public void beforeGameSave() {
-        Configurator.resetCache();
+        SettingsListener.resetCache();
         if (BooleanSettings.UNINSTALL.get()) {
-            Configurator.deactivate(false);
+            resetIntelUi();
         }
     }
 
@@ -33,22 +37,27 @@ public class StelnetMod extends BaseModPlugin {
     public void onApplicationLoad() throws Exception {
         Reporter.generate();
         SettingsListener.register();
-        LunaDebug.addSnippet(new FactionCommission());
     }
 
     @Override
     public void onGameLoad(boolean newGame) {
-        Configurator.resetCache();
-        if (TutorialMissionIntel.isTutorialInProgress()) {
-            Configurator.deactivate(true);
-            return;
-        }
-        Configurator.activate();
+        LunaSettings.reportSettingsChanged(ModConstants.STELNET_ID);
     }
 
     @Override
     public void onDevModeF8Reload() {
-        Configurator.deactivate(false);
-        Configurator.activate();
+        LunaSettings.reportSettingsChanged(ModConstants.STELNET_ID);
+    }
+
+    private void resetIntelUi() {
+        if (TutorialMissionIntel.isTutorialInProgress()) {
+            return;
+        }
+        CampaignUIAPI campaignUi = Global.getSector().getCampaignUI();
+        if (campaignUi == null) {
+            return;
+        }
+        campaignUi.showCoreUITab(CoreUITabId.INTEL, null);
+        StelnetHelper.sendKey(KeyEvent.VK_ESCAPE);
     }
 }
