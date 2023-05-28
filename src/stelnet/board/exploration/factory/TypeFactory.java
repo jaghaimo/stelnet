@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import stelnet.board.exploration.ExplorationL10n;
-import stelnet.util.StelnetHelper;
+import stelnet.settings.CaptainsLogSettings;
 
 public class TypeFactory {
 
@@ -36,9 +36,16 @@ public class TypeFactory {
                 ExplorationL10n.TYPE_SURVEY_MISSION
             )
         );
-        if (StelnetHelper.hasCaptainsLog()) {
-            types.add(ExplorationL10n.TYPE_ANY_RUINS);
+        if (CaptainsLogSettings.COLONY_STRUCTURES.isEnabled()) {
+            types.add(ExplorationL10n.TYPE_COLONY_STRUCTURES);
+        }
+        if (CaptainsLogSettings.COMM_RELAYS.isEnabled()) {
             types.add(ExplorationL10n.TYPE_COMM_RELAY);
+        }
+        if (CaptainsLogSettings.RUINS.isEnabled()) {
+            types.add(ExplorationL10n.TYPE_ANY_RUINS);
+        }
+        if (CaptainsLogSettings.SALVAGEABLE.isEnabled()) {
             types.add(ExplorationL10n.TYPE_SALVAGEABLE);
         }
         Collections.sort(types);

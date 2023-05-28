@@ -2,7 +2,6 @@ package stelnet.settings;
 
 import lombok.RequiredArgsConstructor;
 import lunalib.lunaSettings.LunaSettings;
-import stelnet.util.ModConstants;
 
 @RequiredArgsConstructor
 public enum CaptainsLogSettings {
@@ -12,9 +11,10 @@ public enum CaptainsLogSettings {
     SALVAGEABLE("CaptainsLog_Enable_Salvageable");
 
     private final String key;
+    private static final String CAPTAINS_LOG_ID = "CaptainsLog";
 
     public Boolean isEnabled() {
-        Boolean setting = LunaSettings.getBoolean(ModConstants.CAPTAINS_LOG_ID, key);
+        Boolean setting = LunaSettings.getBoolean(CAPTAINS_LOG_ID, key);
         if (setting == null) {
             return false;
         }

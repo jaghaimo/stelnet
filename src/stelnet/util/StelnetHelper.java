@@ -157,10 +157,6 @@ public class StelnetHelper {
         return submarkets;
     }
 
-    public static boolean hasCaptainsLog() {
-        return Global.getSettings().getModManager().isModEnabled(ModConstants.CAPTAINS_LOG_ID);
-    }
-
     public static boolean hasCommodity(String commodityId) {
         return Global.getSettings().getCommoditySpec(commodityId) != null;
     }

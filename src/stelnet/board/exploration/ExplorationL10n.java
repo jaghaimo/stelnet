@@ -19,6 +19,7 @@ public enum ExplorationL10n implements IdAware {
     HEADER_TYPE,
     TYPE_ANALYZE_MISSION,
     TYPE_ANY_RUINS,
+    TYPE_COLONY_STRUCTURES,
     TYPE_COMM_RELAY,
     TYPE_HISTORIAN_OFFER,
     TYPE_MEMORY_BANK,

@@ -20,8 +20,8 @@ import stelnet.filter.IntelLocationHasMemory;
 import stelnet.filter.LogicalAnd;
 import stelnet.filter.LogicalNot;
 import stelnet.filter.LogicalOr;
+import stelnet.settings.CaptainsLogSettings;
 import stelnet.util.ModConstants;
-import stelnet.util.StelnetHelper;
 
 public class FilterFactory {
 
@@ -41,9 +41,16 @@ public class FilterFactory {
         localMap.put(ExplorationL10n.TYPE_RAIDING_BASE, getRaidingBaseFilter());
         localMap.put(ExplorationL10n.TYPE_STORY_MISSION, getStoryMissionFilter());
         localMap.put(ExplorationL10n.TYPE_SURVEY_MISSION, new IntelIsClass(SurveyPlanetMissionIntel.class));
-        if (StelnetHelper.hasCaptainsLog()) {
+        if (CaptainsLogSettings.COLONY_STRUCTURES.isEnabled()) {
+            localMap.put(ExplorationL10n.TYPE_COMM_RELAY, getCaptainsLogFilter(new IntelContainsTitle("Structure")));
+        }
+        if (CaptainsLogSettings.COMM_RELAYS.isEnabled()) {
             localMap.put(ExplorationL10n.TYPE_COMM_RELAY, getCaptainsLogFilter(new IntelContainsTitle("Comm Relay")));
+        }
+        if (CaptainsLogSettings.SALVAGEABLE.isEnabled()) {
             localMap.put(ExplorationL10n.TYPE_SALVAGEABLE, getCaptainsLogFilter(new IntelContainsTitle("Salvageable")));
+        }
+        if (CaptainsLogSettings.RUINS.isEnabled()) {
             localMap.put(ExplorationL10n.TYPE_ANY_RUINS, getCaptainsLogFilter(new IntelContainsTitle("Ruins")));
         }
         Filter otherFilter = getOtherFilter(localMap);
