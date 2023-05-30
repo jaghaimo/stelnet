@@ -18,6 +18,7 @@ public enum BooleanSettings {
     /**
      * Advanced options.
      */
+    REQUIRE_CIR("stelnet_General_Advanced_RequireCIR"),
     SEBESTYEN("stelnet_General_Advanced_Sebestyen"),
     UNINSTALL("stelnet_General_Advanced_Uninstall"),
 

@@ -6,6 +6,7 @@ import lombok.extern.log4j.Log4j;
 import stelnet.board.BoardBasePlugin;
 import stelnet.board.BoardRenderableInfo;
 import stelnet.board.query.QueryState.QueryBoardTab;
+import stelnet.settings.Modules;
 import stelnet.util.L10n;
 import stelnet.util.ModConstants;
 import stelnet.util.StelnetHelper;
@@ -45,5 +46,10 @@ public class QueryBoard extends BoardBasePlugin {
         log.debug("Adding itself as a script for cleanup operations");
         Global.getSector().addTransientScript(this);
         return state;
+    }
+
+    @Override
+    public boolean isHidden() {
+        return Modules.MARKET.isHidden();
     }
 }

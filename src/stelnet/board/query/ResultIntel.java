@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.IntelBasePlugin;
+import stelnet.settings.Modules;
 import stelnet.util.ModConstants;
 import stelnet.util.StelnetHelper;
 import uilib.Renderable;
@@ -24,6 +25,11 @@ public class ResultIntel extends IntelBasePlugin {
         super(resultSet.getFaction(), resultSet.getToken());
         this.queryManager = queryManager;
         this.resultSet = resultSet;
+    }
+
+    @Override
+    public boolean isHidden() {
+        return Modules.MARKET.isHidden();
     }
 
     @Override

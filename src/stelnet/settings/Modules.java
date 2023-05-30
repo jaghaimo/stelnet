@@ -1,45 +1,38 @@
 package stelnet.settings;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.impl.campaign.tutorial.TutorialMissionIntel;
+import lombok.RequiredArgsConstructor;
 
-public class Modules {
+@RequiredArgsConstructor
+public enum Modules {
+    COMMODITIES(BooleanSettings.COMMODITIES, false),
+    CONTACTS(BooleanSettings.CONTACTS, false),
+    EXPLORATION(BooleanSettings.EXPLORATION, true),
+    MARKET(BooleanSettings.MARKET, false),
+    STORAGE(BooleanSettings.STORAGE, true);
 
-    public static boolean hasCommodities() {
+    private final BooleanSettings setting;
+    private final boolean alwaysVisible;
+
+    public boolean has() {
         if (hasOverride()) {
             return false;
         }
-        return BooleanSettings.COMMODITIES.get();
+        return setting.get();
     }
 
-    public static boolean hasContacts() {
-        if (hasOverride()) {
+    public boolean isHidden() {
+        if (alwaysVisible) {
             return false;
         }
-        return BooleanSettings.CONTACTS.get();
-    }
-
-    public static boolean hasExploration() {
-        if (hasOverride()) {
+        if (!BooleanSettings.REQUIRE_CIR.get()) {
             return false;
         }
-        return BooleanSettings.EXPLORATION.get();
+        return !Global.getSector().getIntelManager().isPlayerInRangeOfCommRelay();
     }
 
-    public static boolean hasMarket() {
-        if (hasOverride()) {
-            return false;
-        }
-        return BooleanSettings.MARKET.get();
-    }
-
-    public static boolean hasStorage() {
-        if (hasOverride()) {
-            return false;
-        }
-        return BooleanSettings.STORAGE.get();
-    }
-
-    private static boolean hasOverride() {
+    private boolean hasOverride() {
         boolean isTutorial = TutorialMissionIntel.isTutorialInProgress();
         boolean isUninstall = BooleanSettings.UNINSTALL.get();
         return isTutorial || isUninstall;

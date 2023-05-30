@@ -49,11 +49,11 @@ public class SettingsListener implements LunaSettingsListener {
             return;
         }
         resetCache();
-        initCommodity(Modules.hasCommodities());
-        initContacts(Modules.hasContacts());
-        initExploration(Modules.hasExploration());
-        initMarket(Modules.hasMarket());
-        initStorage(Modules.hasStorage());
+        initCommodity(Modules.COMMODITIES.has());
+        initContacts(Modules.CONTACTS.has());
+        initExploration(Modules.EXPLORATION.has());
+        initMarket(Modules.MARKET.has());
+        initStorage(Modules.STORAGE.has());
         if (BooleanSettings.UNINSTALL.get()) {
             log.info("Stelnet uninstalled");
         } else {

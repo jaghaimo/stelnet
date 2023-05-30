@@ -11,6 +11,7 @@ stelnet_General_Basic_Storage,Storage,Boolean,true,,"Enable storage board (searc
 stelnet_General_Advanced_Header,,Header,"Advanced",,,,,
 stelnet_General_Advanced_Uninstall,Uninstall Mod,Boolean,false,,"Uninstall Stellar Networks during next save. Makes it possible to disable the mod and still continue the playthrough. Usually required when updating to a non-bugfix version.",,,
 stelnet_General_Advanced_Sebestyen,Call Me Maybe,Boolean,true,,"Allow remotely calling Sebestyen, who is a hidden contact (does not show in a Contact intel).",,,
+stelnet_General_Advanced_RequireCIR,Require Comms in Range,Boolean,false,,"When enabled, Commodity board and intel, Contacts board, and Market Queries and Viewer board, and query results intel will only be visible when within Comms range.",,,
 ,,,,,,,,
 stelnet_Commodity_Profit_Header,,Header,"Commodity Module",,,,,Modules
 stelnet_Commodity_Profit_Info,,Text,"Control some settings of profit tab.",,,,,Modules

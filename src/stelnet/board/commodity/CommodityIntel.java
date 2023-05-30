@@ -15,6 +15,7 @@ import stelnet.board.commodity.price.DemandPrice;
 import stelnet.board.commodity.price.SupplyPrice;
 import stelnet.board.commodity.view.intel.CommodityIntelInfo;
 import stelnet.board.commodity.view.intel.CommodityIntelViewFactory;
+import stelnet.settings.Modules;
 import stelnet.util.L10n;
 import stelnet.util.ModConstants;
 import stelnet.util.StelnetHelper;
@@ -68,6 +69,11 @@ public class CommodityIntel extends IntelBasePlugin {
         boolean buyChanged = isDifferent(buyPrice, supplyPrice);
         boolean sellChanged = isDifferent(sellPrice, demandPrice);
         return buyChanged || sellChanged;
+    }
+
+    @Override
+    public boolean isHidden() {
+        return Modules.COMMODITIES.isHidden();
     }
 
     public CommoditySpecAPI getCommodity() {

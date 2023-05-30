@@ -108,6 +108,6 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
     }
 
     private boolean hasMetProvost() {
-        return Global.getSector().getMemoryWithoutUpdate().getBoolean(MET_BAIRD_MEM_KEY);
+        return Global.getSector().getPlayerFleet().getMemoryWithoutUpdate().getBoolean(MET_BAIRD_MEM_KEY);
     }
 }

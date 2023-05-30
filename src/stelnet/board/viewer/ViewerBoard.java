@@ -3,6 +3,7 @@ package stelnet.board.viewer;
 import lombok.Getter;
 import stelnet.board.BoardBasePlugin;
 import stelnet.board.BoardRenderableInfo;
+import stelnet.settings.Modules;
 import stelnet.util.L10n;
 import stelnet.util.ModConstants;
 import stelnet.util.StelnetHelper;
@@ -19,4 +20,9 @@ public class ViewerBoard extends BoardBasePlugin {
     private final ViewerState renderableState = new ViewerState();
     private final IntelSortTier sortTier = IntelSortTier.TIER_1;
     private final String tag = ModConstants.TAG_VIEWER;
+
+    @Override
+    public boolean isHidden() {
+        return Modules.MARKET.isHidden();
+    }
 }
