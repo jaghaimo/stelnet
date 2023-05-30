@@ -85,7 +85,7 @@ public class IntelTracker {
     }
 
     private void addIntel(String commodityId, MarketAPI market) {
-        if (StelnetHelper.hasCommodity(commodityId)) {
+        if (!StelnetHelper.hasCommodity(commodityId)) {
             log.warn("Could not get commodity spec for id " + commodityId + ", avoiding intel creation");
             return;
         }

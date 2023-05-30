@@ -35,7 +35,7 @@ public class CommodityState implements RenderableState {
      * Make sure what we display does exist, or default to supplies.
      */
     private void correctSelectedCommodity() {
-        if (StelnetHelper.hasCommodity(commodityId)) {
+        if (!StelnetHelper.hasCommodity(commodityId)) {
             log.warn("Commodity with id " + commodityId + " no longer exists, resetting to supplies");
             commodityId = Commodities.SUPPLIES;
         }
