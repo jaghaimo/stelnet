@@ -65,7 +65,6 @@ build {
 dependencies {
     compileOnly "jaghaimo:starsector-api:0.96a-RC10@starfarer.api.jar"
     zipped "Lukas22041:LunaLib:1.7.5@LunaLib.zip"
-    zipped "LazyWizard:console-commands:2023.05.05@Console_Commands_2023.5.05.zip"
     compileOnly files({ tasks.installDependencies.extractedJars })
 
     // game dependencies
