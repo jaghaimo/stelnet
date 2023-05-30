@@ -36,7 +36,7 @@ public class EnumButton extends ExplorationButton {
         Drawable button = new ButtonBuilder(getButton(memoryKeyChecked, isChecked))
             .setChecked(isChecked)
             .setEnabled(isEnabled)
-            .setShortcut(buttonType.getShorcut(), false)
+            .setShortcut(buttonType.getShortcut(), false)
             .build();
         if (withShift) {
             button = new ShiftedButton(button, width);

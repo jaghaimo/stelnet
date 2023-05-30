@@ -1,7 +1,11 @@
 package stelnet.board.exploration;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.lwjgl.input.Keyboard;
 
+@AllArgsConstructor
+@NoArgsConstructor
 public enum ExplorationL10n implements IdAware {
     BANK_ANY_CACHE,
     BANK_DEBRIS_FIELD,
@@ -17,45 +21,26 @@ public enum ExplorationL10n implements IdAware {
     HEADER_FACTION,
     HEADER_MEMORY_BANK,
     HEADER_TYPE,
-    TYPE_ANALYZE_MISSION,
-    TYPE_ANY_RUINS,
-    TYPE_COLONY_STRUCTURES,
-    TYPE_COMM_RELAY,
-    TYPE_HISTORIAN_OFFER,
-    TYPE_MEMORY_BANK,
-    TYPE_OTHER,
-    TYPE_RAIDING_BASE,
-    TYPE_SALVAGEABLE,
-    TYPE_STORY_MISSION,
-    TYPE_SURVEY_MISSION;
+    TYPE_ANALYZE_MISSION(Keyboard.KEY_A),
+    TYPE_ANY_RUINS(Keyboard.KEY_R),
+    TYPE_COLONY_STRUCTURES(Keyboard.KEY_L),
+    TYPE_COMM_RELAY(Keyboard.KEY_C),
+    TYPE_HISTORIAN_OFFER(Keyboard.KEY_H),
+    TYPE_MEMORY_BANK(Keyboard.KEY_M),
+    TYPE_OTHER(Keyboard.KEY_O),
+    TYPE_RAIDING_BASE(Keyboard.KEY_B),
+    TYPE_SALVAGEABLE(Keyboard.KEY_S),
+    TYPE_STORY_MISSION(Keyboard.KEY_T),
+    TYPE_SURVEY_MISSION(Keyboard.KEY_U);
+
+    private int shortcut = 0;
 
     @Override
     public String getId() {
         return name();
     }
 
-    public int getShorcut() {
-        switch (this) {
-            case TYPE_ANALYZE_MISSION:
-                return Keyboard.KEY_A;
-            case TYPE_COMM_RELAY:
-                return Keyboard.KEY_C;
-            case TYPE_HISTORIAN_OFFER:
-                return Keyboard.KEY_H;
-            case TYPE_MEMORY_BANK:
-                return Keyboard.KEY_M;
-            case TYPE_OTHER:
-                return Keyboard.KEY_O;
-            case TYPE_RAIDING_BASE:
-                return Keyboard.KEY_R;
-            case TYPE_SALVAGEABLE:
-                return Keyboard.KEY_S;
-            case TYPE_STORY_MISSION:
-                return Keyboard.KEY_T;
-            case TYPE_SURVEY_MISSION:
-                return Keyboard.KEY_U;
-            default:
-                return 0;
-        }
+    public int getShortcut() {
+        return shortcut;
     }
 }
