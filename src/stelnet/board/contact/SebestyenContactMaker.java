@@ -69,18 +69,28 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
         Global.getSector().getIntelManager().addIntel(contact);
     }
 
+    /**
+     * Change Galatia "market" to be contact-worthy.
+     */
     private boolean fixMarket() {
         MarketAPI market = getGalatia();
         if (market == null) {
             return false;
         }
+        // Stelnet needs a submarket for remote call functionality.
         if (!market.hasSubmarket(Submarkets.SUBMARKET_STORAGE)) {
             market.addSubmarket(Submarkets.SUBMARKET_STORAGE);
+        }
+        // Contacts refuse to occupy decivilized locations.
+        if (market.hasCondition(Conditions.DECIVILIZED)) {
             market.removeCondition(Conditions.DECIVILIZED);
         }
         return true;
     }
 
+    /**
+     * Make Sebestyen a more "solid" person.
+     */
     private void fixPerson(PersonAPI person, MarketAPI market) {
         person.setMarket(market);
         person.addTag(Tags.CONTACT_SCIENCE);
@@ -100,7 +110,7 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
         if (token == null) {
             return null;
         }
-        return (MarketAPI) token.getMarket();
+        return token.getMarket();
     }
 
     private PersonAPI getPerson() {
