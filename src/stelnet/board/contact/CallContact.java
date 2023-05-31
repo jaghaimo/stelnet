@@ -11,11 +11,8 @@ import uilib.property.Size;
 
 public class CallContact extends Button {
 
-    public CallContact(String label, Size size, final MarketAPI market, final PersonAPI person) {
-        super(size, label, true, person.getFaction().getBrightUIColor(), person.getFaction().getDarkUIColor());
-        boolean hasSubmarket = market.hasSubmarket(Submarkets.SUBMARKET_STORAGE);
-        boolean isCalling = ContactsBoard.isCalling();
-        setEnabled(hasSubmarket && !isCalling);
+    public CallContact(String label, boolean isEnabled, Size size, final MarketAPI market, final PersonAPI person) {
+        super(size, label, isEnabled, person.getFaction().getBrightUIColor(), person.getFaction().getDarkUIColor());
         setCutStyle(CutStyle.C2_MENU);
         setPadding(0);
         setHandler(

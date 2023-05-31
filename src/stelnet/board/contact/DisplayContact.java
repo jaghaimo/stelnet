@@ -2,6 +2,7 @@ package stelnet.board.contact;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.LabelAPI;
@@ -9,6 +10,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.ui.UIComponentAPI;
 import com.fs.starfarer.api.util.Misc;
 import lombok.RequiredArgsConstructor;
+import stelnet.settings.Modules;
 import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
 import stelnet.util.StelnetHelper;
@@ -56,12 +58,13 @@ public class DisplayContact extends HeadingWithButtons {
     }
 
     private void renderButtons(TooltipMakerAPI tooltip) {
+        boolean isEnabled = isCallEnabled();
         String label1 = L10n.get(CommonL10n.CALL);
         String label2 = L10n.get(CommonL10n.SHOW);
         Size buttonSize = getButtonSize(tooltip, label1, label2);
         tooltip.setButtonFontVictor14();
         UIComponentAPI call = renderFirstButton(
-            new CallContact(label1, buttonSize, market, person),
+            new CallContact(label1, isEnabled, buttonSize, market, person),
             getSize().getWidth() - 5,
             tooltip
         );
@@ -102,5 +105,13 @@ public class DisplayContact extends HeadingWithButtons {
             market.getName(),
             StelnetHelper.getStarSystemName(market.getStarSystem(), true)
         );
+    }
+
+    private boolean isCallEnabled() {
+        boolean wouldBeHidden = Modules.CONTACTS.isHidden();
+        boolean hasMissions = StelnetHelper.hasActiveMission(person);
+        boolean hasSubmarket = market.hasSubmarket(Submarkets.SUBMARKET_STORAGE);
+        boolean isCalling = ContactsBoard.isCalling();
+        return !wouldBeHidden && !hasMissions && hasSubmarket && !isCalling;
     }
 }

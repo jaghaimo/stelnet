@@ -5,7 +5,6 @@ import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import lombok.Getter;
 import stelnet.board.BoardBasePlugin;
 import stelnet.board.BoardRenderableInfo;
-import stelnet.settings.Modules;
 import stelnet.util.L10n;
 import stelnet.util.ModConstants;
 import stelnet.util.StelnetHelper;
@@ -28,9 +27,7 @@ public class ContactsBoard extends BoardBasePlugin {
 
     @Override
     public boolean isHidden() {
-        boolean isHidden = Modules.EXPLORATION.isHidden();
-        boolean hasNoContacts = renderableState.getContactNumber() == 0;
-        return isHidden || hasNoContacts;
+        return renderableState.getContactNumber() == 0;
     }
 
     public static boolean isCalling() {
