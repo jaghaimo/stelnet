@@ -21,7 +21,7 @@ stelnet_Contacts_Header,,Header,"Contacts Module",,,,,Modules
 stelnet_Contacts_Sebestyen,Call Me Maybe,Boolean,true,,"Allow remotely calling Sebestyen, who is a hidden contact (does not normally show in a Contact intel).
 
 [WARNING!]
-Once Sebestyen is added he cannot be removed. Suspending him can break your Galatia Academy quest line.",,,Modules
+Once Sebestyen is added he cannot be removed. Suspending or deleting him can break your Galatia Academy quest line.",,,Modules
 stelnet_Contacts_Missionless,Do Not Disturb Until Done,Boolean,true,,"Disallow remotely calling contacts which have missions in-progress. Fixes loophole where you could (for example) extract prisoners and immediately "deliver" them via remote call.",,,Modules
 ,,,,,,,,
 stelnet_Market_Header,,Header,"Market Module",,,,,Modules
