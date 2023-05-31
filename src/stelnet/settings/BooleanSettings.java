@@ -24,7 +24,7 @@ public enum BooleanSettings {
     /**
      * Contacts module configuration.
      */
-    CONTACTS_MISSIONLESS("stelnet_Contacts_DoNotDisturb"),
+    CONTACTS_MISSIONLESS("stelnet_Contacts_Missionless"),
     CONTACTS_SEBESTYEN("stelnet_Contacts_Sebestyen"),
 
     /**
