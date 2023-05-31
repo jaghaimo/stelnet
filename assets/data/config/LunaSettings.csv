@@ -1,7 +1,7 @@
 fieldID,fieldName,fieldType,defaultValue,secondaryValue,fieldDescription,minValue,maxValue,tab
 ,,,,,,,,
 stelnet_General_Basic_Header,,Header,"Available Modules",,,,,
-stelnet_General_Basic_Info,,Text,"Toggle specific functionality of Stellar Networks.",,,,,
+stelnet_General_Basic_Info,,Text,"Toggle specific functionality of Stellar Networks. You can fine-control each functionality in Modules section.",,,,,
 stelnet_General_Basic_Commodities,Commodity,Boolean,true,,"Enable commodity board (buy, sell, and profit tabs).",,,
 stelnet_General_Basic_Contacts,Contacts,Boolean,true,,"Enable contacts board (contact list and remote calls) functionality.",,,
 stelnet_General_Basic_Exploration,Exploration,Boolean,true,,"Enable exploration board (managing intel in Exploration tab) functionality. Best consumed with Captains Log enabled.",,,
@@ -10,14 +10,19 @@ stelnet_General_Basic_Storage,Storage,Boolean,true,,"Enable storage board (searc
 ,,,,,,,,
 stelnet_General_Advanced_Header,,Header,"Advanced",,,,,
 stelnet_General_Advanced_Uninstall,Uninstall Mod,Boolean,false,,"Uninstall Stellar Networks during next save. Makes it possible to disable the mod and still continue the playthrough. Usually required when updating to a non-bugfix version.",,,
-stelnet_General_Advanced_Sebestyen,Call Me Maybe,Boolean,true,,"Allow remotely calling Sebestyen, who is a hidden contact (does not normally show in a Contact intel).",,,
 stelnet_General_Advanced_RequireCIR,Require Comms in Range,Boolean,false,,"When enabled, Commodity board and intel, and Market Queries and Viewer board, and query results intel will only be visible when within Comms range. Same restriction will be put on remote Contact call.",,,
 ,,,,,,,,
 stelnet_Commodity_Profit_Header,,Header,"Commodity Module",,,,,Modules
-stelnet_Commodity_Profit_Info,,Text,"Control some settings of profit tab.",,,,,Modules
 stelnet_Commodity_Profit_ResultNumber,Number of Results,Int,50,,"Maximum number of profit tables rows.",10,100,Modules
 stelnet_Commodity_Profit_MinQuantity,Minimum Trade Quantity,Int,100,,"Minimum quantity to trade in order to add a profit table row.",10,1000,Modules
 stelnet_Commodity_Profit_MinProfit,Minimum Trade Profit,Int,10000,,"Minimum profit to be made in order to add a profit table row.",1000,100000,Modules
+,,,,,,,,
+stelnet_Contacts_Header,,Header,"Contacts Module",,,,,Modules
+stelnet_Contacts_Sebestyen,Call Me Maybe,Boolean,true,,"Allow remotely calling Sebestyen, who is a hidden contact (does not normally show in a Contact intel).
+
+[WARNING!]
+Once Sebestyen is added he cannot be removed. Suspending him can break your Galatia Academy quest line.",,,Modules
+stelnet_Contacts_Missionless,Do Not Disturb Until Done,Boolean,true,,"Disallow remotely calling contacts which have missions in-progress. Fixes loophole where you could (for example) extract prisoners and immediately "deliver" them via remote call.",,,Modules
 ,,,,,,,,
 stelnet_Market_Header,,Header,"Market Module",,,,,Modules
 stelnet_Market_UseSubmarketInfo,,Text,"Control which submarkets will be used when using Queries or Viewer board.",,,,,Modules
@@ -25,7 +30,7 @@ stelnet_Market_UseOpenMarket,Use Open Markets,Boolean,true,,"When enabled, marke
 stelnet_Market_UseMilitaryMarket,Use Military Markets,Boolean,true,,"When enabled, market queries will show results from Military Market.",,,Modules
 stelnet_Market_UseBlackMarket,Use Black Markets,Boolean,false,,"When enabled, market queries will show results from Black Market.",,,Modules
 stelnet_Market_UseCustomMarket,Use Custom Markets,Boolean,false,,"When enabled, market queries will show results from custom (e.g. modded) markets.",,,Modules
-stelnet_Market_Advanced,,Text,"Advanced module settings",,,,,Modules
+stelnet_Market_Advanced,,Text,"Advanced module settings.",,,,,Modules
 stelnet_Market_AdvancedAutoRefresh,Refresher Plugin,Boolean,true,,"Enable a plugin that will periodically 'visit' a market triggering, if needed, a cargo, ship, and staff refresh. Only runs when the campaign is in a paused state (either by the player, or by the game itself - like showing interaction dialogues). Has negligible game performance effect. Suggested to keep it on for smoother gameplay if you use market functionality.",,,Modules
-stelnet_Market_AdvancedCodexItems,Use Codex Items,Boolean,false,,"If enabled will build a fighter (LPCs), modspec, and weapon list using Codex. If disabled, will use known lists of visible factions.",,,Modules
-stelnet_Market_AdvancedCodexShips,Use Codex Ships,Boolean,false,,"If enabled will build a ship list using Codex. If disabled, will use known lists of visible factions.",,,Modules
+stelnet_Market_AdvancedCodexItems,Use Codex Items,Boolean,false,,"Create fighter (LPCs), modspec, and weapon lists (for query building) using Codex. If disabled, will use known lists of visible factions.",,,Modules
+stelnet_Market_AdvancedCodexShips,Use Codex Ships,Boolean,false,,"Create ship lists (for query building) using Codex. If disabled, will use known lists of visible factions.",,,Modules

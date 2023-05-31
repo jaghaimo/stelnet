@@ -24,7 +24,7 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
     private final String MET_BAIRD_MEM_KEY = "$metBaird";
 
     public static void register() {
-        if (BooleanSettings.SEBESTYEN.get()) {
+        if (BooleanSettings.CONTACTS_SEBESTYEN.get()) {
             SebestyenContactMaker maker = new SebestyenContactMaker();
             Global.getSector().getListenerManager().addListener(maker, true);
         }

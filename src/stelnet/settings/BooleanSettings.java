@@ -19,8 +19,13 @@ public enum BooleanSettings {
      * Advanced options.
      */
     REQUIRE_CIR("stelnet_General_Advanced_RequireCIR"),
-    SEBESTYEN("stelnet_General_Advanced_Sebestyen"),
     UNINSTALL("stelnet_General_Advanced_Uninstall"),
+
+    /**
+     * Contacts module configuration.
+     */
+    CONTACTS_MISSIONLESS("stelnet_Contacts_DoNotDisturb"),
+    CONTACTS_SEBESTYEN("stelnet_Contacts_Sebestyen"),
 
     /**
      * Market module configuration.

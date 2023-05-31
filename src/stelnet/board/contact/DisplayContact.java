@@ -10,6 +10,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.ui.UIComponentAPI;
 import com.fs.starfarer.api.util.Misc;
 import lombok.RequiredArgsConstructor;
+import stelnet.settings.BooleanSettings;
 import stelnet.settings.Modules;
 import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
@@ -109,7 +110,7 @@ public class DisplayContact extends HeadingWithButtons {
 
     private boolean isCallEnabled() {
         boolean wouldBeHidden = Modules.CONTACTS.isHidden();
-        boolean hasMissions = StelnetHelper.hasActiveMission(person);
+        boolean hasMissions = StelnetHelper.hasActiveMission(person) && BooleanSettings.CONTACTS_MISSIONLESS.get();
         boolean hasSubmarket = market.hasSubmarket(Submarkets.SUBMARKET_STORAGE);
         boolean isCalling = ContactsBoard.isCalling();
         return !wouldBeHidden && !hasMissions && hasSubmarket && !isCalling;
