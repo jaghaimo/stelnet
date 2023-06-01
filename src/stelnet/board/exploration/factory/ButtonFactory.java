@@ -22,6 +22,7 @@ import uilib2.button.Button;
 import uilib2.button.ButtonBuilder;
 import uilib2.button.ButtonCustom;
 import uilib2.intel.ActionUpdateForItem;
+import uilib2.intel.ActionUpdateIntelList;
 import uilib2.intel.IntelCallbackBuilder;
 
 @RequiredArgsConstructor
@@ -53,6 +54,7 @@ public class ButtonFactory {
                 new IntelCallbackBuilder()
                     .addConfirmAction(new FlipMatchingKeys(enumPrefix))
                     .addConfirmAction(new ActionUpdateForItem(intel))
+                    .addConfirmAction(new ActionUpdateIntelList(true))
                     .build(),
                 Misc.getBrightPlayerColor(),
                 Misc.getDarkPlayerColor(),
