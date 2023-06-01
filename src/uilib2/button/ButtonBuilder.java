@@ -32,6 +32,11 @@ public class ButtonBuilder {
         return this;
     }
 
+    public ButtonBuilder setVictor10() {
+        button = new Victor10Button(button);
+        return this;
+    }
+
     public Button build() {
         return button;
     }

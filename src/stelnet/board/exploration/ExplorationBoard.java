@@ -20,11 +20,11 @@ import stelnet.util.StelnetHelper;
 import uilib2.Drawable;
 import uilib2.Spacer;
 import uilib2.UiConstants;
-import uilib2.button.FakeLine;
+import uilib2.button.Button;
 import uilib2.intel.DrawableIntel;
 import uilib2.intel.DrawableIntelInfo;
 import uilib2.label.HighlightFirst;
-import uilib2.label.ParaColored;
+import uilib2.widget.HeaderWithButtons;
 
 @Getter
 @Log4j
@@ -64,16 +64,16 @@ public class ExplorationBoard extends DrawableIntel {
 
     @Override
     protected List<Drawable> getDrawableList(float width, float height) {
+        ButtonFactory factory = new ButtonFactory(this, width);
         List<Drawable> drawables = new LinkedList<>();
-        addTypes(drawables, width);
-        addFactions(drawables, width);
-        addMissions(drawables, width);
+        addTypes(drawables, factory);
+        addFactions(drawables, factory);
+        addMissions(drawables, factory);
         return drawables;
     }
 
-    private void addHeader(List<Drawable> drawables, String title, float width) {
-        drawables.add(new ParaColored(" " + title, Misc.getButtonTextColor(), 0));
-        drawables.add(new FakeLine(width, 0));
+    private void addHeader(List<Drawable> drawables, String title, Button toggleButton) {
+        drawables.add(new HeaderWithButtons(title, Misc.getBasePlayerColor(), Misc.getDarkPlayerColor(), toggleButton));
         drawables.add(new Spacer(UiConstants.SPACER_DEFAULT));
     }
 
@@ -81,36 +81,38 @@ public class ExplorationBoard extends DrawableIntel {
         drawables.add(new Spacer(UiConstants.SPACER_LARGE));
     }
 
-    private void addTypes(List<Drawable> drawables, float width) {
+    private void addTypes(List<Drawable> drawables, ButtonFactory factory) {
         List<ExplorationL10n> buttonTypes = TypeFactory.getTypes();
-        addHeader(drawables, L10n.get(ExplorationL10n.HEADER_TYPE), width);
-        new ButtonFactory(this, width).addTypes(drawables, buttonTypes, null);
+        Button toggleButton = factory.getToggleButton("TYPE_");
+        addHeader(drawables, L10n.get(ExplorationL10n.HEADER_TYPE), toggleButton);
+        factory.addTypes(drawables, buttonTypes, null);
         addLargeSpacer(drawables);
     }
 
-    private void addFactions(List<Drawable> drawables, float width) {
+    private void addFactions(List<Drawable> drawables, ButtonFactory factory) {
         List<FactionAPI> factions = ExplorationHelper.getFactions();
         if (factions.isEmpty()) {
             return;
         }
-        addHeader(drawables, L10n.get(ExplorationL10n.HEADER_FACTION), width);
+        addHeader(drawables, L10n.get(ExplorationL10n.HEADER_FACTION), null);
         String memoryKeyEnabled = MemoryHelper.key(
             MEMORY_PREFIX,
             ExplorationL10n.TYPE_RAIDING_BASE,
             MEMORY_SUFFIX_CHECKED
         );
-        new ButtonFactory(this, width).addFactions(drawables, factions, memoryKeyEnabled);
+        factory.addFactions(drawables, factions, memoryKeyEnabled);
         addLargeSpacer(drawables);
     }
 
-    private void addMissions(List<Drawable> drawables, float width) {
+    private void addMissions(List<Drawable> drawables, ButtonFactory factory) {
         List<ExplorationL10n> buttonTypes = TypeFactory.getBanks();
-        addHeader(drawables, L10n.get(ExplorationL10n.HEADER_MEMORY_BANK), width);
+        Button toggleButton = factory.getToggleButton("BANK_");
+        addHeader(drawables, L10n.get(ExplorationL10n.HEADER_MEMORY_BANK), toggleButton);
         String memoryKeyEnabled = MemoryHelper.key(
             MEMORY_PREFIX,
             ExplorationL10n.TYPE_MEMORY_BANK,
             MEMORY_SUFFIX_CHECKED
         );
-        new ButtonFactory(this, width).addTypes(drawables, buttonTypes, memoryKeyEnabled);
+        factory.addTypes(drawables, buttonTypes, memoryKeyEnabled);
     }
 }

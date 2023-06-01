@@ -20,6 +20,7 @@ public enum CommonL10n {
     FIGHTER_WINGS,
     FILTER_NUMBER_OF_BAYS,
     FILTER_OFFICER_LEVEL,
+    FLIP,
     FRIGATES,
     GO,
     HYPERSPACE,
