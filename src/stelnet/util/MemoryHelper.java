@@ -11,6 +11,17 @@ public class MemoryHelper {
         memoryMap.set(key, !memoryMap.getBoolean(key));
     }
 
+    /**
+     * Returns false if memory key does not exist.
+     */
+    public static boolean getBoolean(String key) {
+        MemoryAPI memoryMap = Global.getSector().getMemoryWithoutUpdate();
+        return memoryMap.getBoolean(key);
+    }
+
+    /**
+     * Returns boolean value stored in the memory key, inserting default value if it does not exist.
+     */
     public static boolean getBoolean(String key, boolean defaultValue) {
         MemoryAPI memoryMap = Global.getSector().getMemoryWithoutUpdate();
         if (!memoryMap.contains(key)) {
@@ -31,5 +42,10 @@ public class MemoryHelper {
     public static void set(String key, Object value) {
         MemoryAPI memoryMap = Global.getSector().getMemoryWithoutUpdate();
         memoryMap.set(key, value);
+    }
+
+    public static void unset(String key) {
+        MemoryAPI memoryMap = Global.getSector().getMemoryWithoutUpdate();
+        memoryMap.unset(key);
     }
 }

@@ -14,6 +14,8 @@ import stelnet.settings.BooleanSettings;
 import stelnet.settings.Modules;
 import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
+import stelnet.util.MemoryHelper;
+import stelnet.util.ModConstants;
 import stelnet.util.StelnetHelper;
 import stelnet.widget.heading.HeadingWithButtons;
 import uilib.UiConstants;
@@ -112,7 +114,7 @@ public class DisplayContact extends HeadingWithButtons {
         boolean wouldBeHidden = Modules.CONTACTS.isHidden();
         boolean hasMissions = StelnetHelper.hasActiveMission(person) && BooleanSettings.CONTACTS_MISSIONLESS.get();
         boolean hasSubmarket = market.hasSubmarket(Submarkets.SUBMARKET_STORAGE);
-        boolean isCalling = ContactsBoard.isCalling();
+        boolean isCalling = MemoryHelper.has(ModConstants.MEMORY_IS_CALLING);
         return !wouldBeHidden && !hasMissions && hasSubmarket && !isCalling;
     }
 }
