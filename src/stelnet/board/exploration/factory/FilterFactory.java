@@ -63,8 +63,7 @@ public class FilterFactory {
         localMap.put(ExplorationL10n.BANK_ANY_CACHE, getBankFilter("Cache"));
         localMap.put(ExplorationL10n.BANK_DEBRIS_FIELD, getBankFilter("Debris Field"));
         localMap.put(ExplorationL10n.BANK_DERELICT_SHIP, getBankFilter("Derelict Ship"));
-        localMap.put(ExplorationL10n.BANK_DOMAIN_ERA_ENTITY, getBankFilter("Domain-Era"));
-        localMap.put(ExplorationL10n.BANK_HABITABLE_WORLD, getBankFilter("Habitable World"));
+        localMap.put(ExplorationL10n.BANK_DOMAIN_ERA_ENTITY, getBankFilter("Domain-era"));
         localMap.put(ExplorationL10n.BANK_ORBITAL_HABITAT, getBankFilter("Orbital Habitat"));
         localMap.put(ExplorationL10n.BANK_RUINS_LOCATION, getBankFilter("Ruins Location"));
         localMap.put(ExplorationL10n.BANK_SURVEY_DATA, getBankFilter("Survey Data for"));

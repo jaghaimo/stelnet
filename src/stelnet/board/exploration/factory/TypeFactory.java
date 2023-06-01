@@ -15,7 +15,6 @@ public class TypeFactory {
             ExplorationL10n.BANK_DEBRIS_FIELD,
             ExplorationL10n.BANK_DERELICT_SHIP,
             ExplorationL10n.BANK_DOMAIN_ERA_ENTITY,
-            ExplorationL10n.BANK_HABITABLE_WORLD,
             ExplorationL10n.BANK_ORBITAL_HABITAT,
             ExplorationL10n.BANK_RUINS_LOCATION,
             ExplorationL10n.BANK_SURVEY_DATA,
