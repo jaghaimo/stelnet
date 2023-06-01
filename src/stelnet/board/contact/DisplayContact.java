@@ -114,7 +114,7 @@ public class DisplayContact extends HeadingWithButtons {
         boolean wouldBeHidden = Modules.CONTACTS.isHidden();
         boolean hasMissions = StelnetHelper.hasActiveMission(person) && BooleanSettings.CONTACTS_MISSIONLESS.get();
         boolean hasSubmarket = market.hasSubmarket(Submarkets.SUBMARKET_STORAGE);
-        boolean isCalling = MemoryHelper.has(ModConstants.MEMORY_IS_CALLING);
+        boolean isCalling = MemoryHelper.getBoolean(ModConstants.MEMORY_IS_CALLING);
         return !wouldBeHidden && !hasMissions && hasSubmarket && !isCalling;
     }
 }
