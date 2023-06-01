@@ -1,4 +1,4 @@
-package stelnet.board.exploration;
+package stelnet.board.exploration.button;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,9 @@
-package stelnet.board.exploration;
+package stelnet.board.exploration.button;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import stelnet.board.exploration.ExplorationBoard;
+import stelnet.board.exploration.IdAware;
 import stelnet.util.MemoryHelper;
 import uilib2.Drawable;
 

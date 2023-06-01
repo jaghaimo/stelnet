@@ -9,11 +9,12 @@ import com.fs.starfarer.api.ui.Fonts;
 import com.fs.starfarer.api.util.Misc;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import stelnet.board.exploration.EnumButton;
-import stelnet.board.exploration.ExplorationButton;
+import stelnet.board.exploration.ActionFilterIntel;
 import stelnet.board.exploration.ExplorationL10n;
-import stelnet.board.exploration.FactionButton;
 import stelnet.board.exploration.FlipMatchingKeys;
+import stelnet.board.exploration.button.EnumButton;
+import stelnet.board.exploration.button.ExplorationButton;
+import stelnet.board.exploration.button.FactionButton;
 import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
 import uilib2.Drawable;
@@ -53,14 +54,15 @@ public class ButtonFactory {
                 label,
                 new IntelCallbackBuilder()
                     .addConfirmAction(new FlipMatchingKeys(enumPrefix))
-                    .addConfirmAction(new ActionUpdateForItem(intel))
+                    .addConfirmAction(new ActionFilterIntel())
                     .addConfirmAction(new ActionUpdateIntelList(true))
+                    .addConfirmAction(new ActionUpdateForItem(intel))
                     .build(),
                 Misc.getBrightPlayerColor(),
                 Misc.getDarkPlayerColor(),
                 Alignment.MID,
                 CutStyle.C2_MENU,
-                UiConstants.SPACER_DEFAULT + width + UiConstants.SPACER_DEFAULT, // add 10px on each side
+                UiConstants.SPACER_DEFAULT + width + UiConstants.SPACER_SMALL, // add 5px on each side
                 UiConstants.SECTION_HEADING_HEIGHT,
                 0
             )
