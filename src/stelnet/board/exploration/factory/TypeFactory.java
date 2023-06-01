@@ -32,12 +32,11 @@ public class TypeFactory {
                 ExplorationL10n.TYPE_HISTORIAN_OFFER,
                 ExplorationL10n.TYPE_MEMORY_BANK,
                 ExplorationL10n.TYPE_RAIDING_BASE,
-                ExplorationL10n.TYPE_STORY_MISSION,
                 ExplorationL10n.TYPE_SURVEY_MISSION
             )
         );
         if (CaptainsLogSettings.COLONY_STRUCTURES.isEnabled()) {
-            types.add(ExplorationL10n.TYPE_COLONY_STRUCTURES);
+            types.add(ExplorationL10n.TYPE_COLONY_STRUCTURE);
         }
         if (CaptainsLogSettings.COMM_RELAYS.isEnabled()) {
             types.add(ExplorationL10n.TYPE_COMM_RELAY);

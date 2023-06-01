@@ -68,7 +68,7 @@ public class ExplorationBoard extends DrawableIntel {
         List<Drawable> drawables = new LinkedList<>();
         addTypes(drawables, factory);
         addFactions(drawables, factory);
-        addMissions(drawables, factory);
+        addBanks(drawables, factory);
         return drawables;
     }
 
@@ -104,7 +104,7 @@ public class ExplorationBoard extends DrawableIntel {
         addLargeSpacer(drawables);
     }
 
-    private void addMissions(List<Drawable> drawables, ButtonFactory factory) {
+    private void addBanks(List<Drawable> drawables, ButtonFactory factory) {
         List<ExplorationL10n> buttonTypes = TypeFactory.getBanks();
         Button toggleButton = factory.getToggleButton("BANK_");
         addHeader(drawables, L10n.get(ExplorationL10n.HEADER_MEMORY_BANK), toggleButton);
@@ -113,6 +113,6 @@ public class ExplorationBoard extends DrawableIntel {
             ExplorationL10n.TYPE_MEMORY_BANK,
             MEMORY_SUFFIX_CHECKED
         );
-        factory.addTypes(drawables, buttonTypes, memoryKeyEnabled);
+        factory.addBanks(drawables, buttonTypes, memoryKeyEnabled);
     }
 }

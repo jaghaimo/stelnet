@@ -2,8 +2,6 @@ package stelnet.board.exploration.factory;
 
 import com.fs.starfarer.api.impl.campaign.intel.AnalyzeEntityMissionIntel;
 import com.fs.starfarer.api.impl.campaign.intel.SurveyPlanetMissionIntel;
-import com.fs.starfarer.api.impl.campaign.intel.bar.events.PlanetaryShieldIntel;
-import com.fs.starfarer.api.impl.campaign.intel.bar.events.ScientistAICoreIntel;
 import com.fs.starfarer.api.impl.campaign.intel.bar.events.historian.BaseHistorianOffer;
 import com.fs.starfarer.api.impl.campaign.intel.bases.LuddicPathBaseIntel;
 import com.fs.starfarer.api.impl.campaign.intel.bases.PirateBaseIntel;
@@ -39,10 +37,12 @@ public class FilterFactory {
         localMap.put(ExplorationL10n.TYPE_HISTORIAN_OFFER, new IntelIsClass(BaseHistorianOffer.class));
         localMap.put(ExplorationL10n.TYPE_MEMORY_BANK, new IntelIsClass(BreadcrumbIntel.class));
         localMap.put(ExplorationL10n.TYPE_RAIDING_BASE, getRaidingBaseFilter());
-        localMap.put(ExplorationL10n.TYPE_STORY_MISSION, getStoryMissionFilter());
         localMap.put(ExplorationL10n.TYPE_SURVEY_MISSION, new IntelIsClass(SurveyPlanetMissionIntel.class));
         if (CaptainsLogSettings.COLONY_STRUCTURES.isEnabled()) {
-            localMap.put(ExplorationL10n.TYPE_COMM_RELAY, getCaptainsLogFilter(new IntelContainsTitle("Structure")));
+            localMap.put(
+                ExplorationL10n.TYPE_COLONY_STRUCTURE,
+                getCaptainsLogFilter(new IntelContainsTitle("Structure"))
+            );
         }
         if (CaptainsLogSettings.COMM_RELAYS.isEnabled()) {
             localMap.put(ExplorationL10n.TYPE_COMM_RELAY, getCaptainsLogFilter(new IntelContainsTitle("Comm Relay")));
@@ -54,7 +54,7 @@ public class FilterFactory {
             localMap.put(ExplorationL10n.TYPE_ANY_RUINS, getCaptainsLogFilter(new IntelContainsTitle("Ruins")));
         }
         Filter otherFilter = getOtherFilter(localMap);
-        enumToFilterMap.put(ExplorationL10n.BANK_OTHER, otherFilter);
+        enumToFilterMap.put(ExplorationL10n.TYPE_OTHER, otherFilter);
         enumToFilterMap.putAll(localMap);
     }
 
@@ -95,16 +95,6 @@ public class FilterFactory {
         return new LogicalOr(
             Arrays.<Filter>asList(new IntelIsClass(LuddicPathBaseIntel.class), new IntelIsClass(PirateBaseIntel.class)),
             "Raiding Bases"
-        );
-    }
-
-    private Filter getStoryMissionFilter() {
-        return new LogicalOr(
-            Arrays.<Filter>asList(
-                new IntelIsClass(PlanetaryShieldIntel.class),
-                new IntelIsClass(ScientistAICoreIntel.class)
-            ),
-            "Story Missions"
         );
     }
 }

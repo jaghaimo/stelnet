@@ -12,9 +12,10 @@ import lombok.RequiredArgsConstructor;
 import stelnet.board.exploration.ActionFilterIntel;
 import stelnet.board.exploration.ExplorationL10n;
 import stelnet.board.exploration.FlipMatchingKeys;
-import stelnet.board.exploration.button.EnumButton;
+import stelnet.board.exploration.button.BankButton;
 import stelnet.board.exploration.button.ExplorationButton;
 import stelnet.board.exploration.button.FactionButton;
+import stelnet.board.exploration.button.TypeButton;
 import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
 import uilib2.Drawable;
@@ -32,17 +33,24 @@ public class ButtonFactory {
     private final IntelInfoPlugin intel;
     private final float width;
 
-    public void addTypes(List<Drawable> drawables, List<ExplorationL10n> types, String memoryKeyEnabled) {
+    public void addBanks(List<Drawable> drawables, List<ExplorationL10n> types, String memoryKeyEnabled) {
         boolean withShift = false;
         for (ExplorationL10n type : types) {
-            withShift = addConditionalButton(drawables, get(type, withShift), withShift, memoryKeyEnabled);
+            withShift = addButton(drawables, makeBankButton(type, withShift), withShift, memoryKeyEnabled);
         }
     }
 
     public void addFactions(List<Drawable> drawables, List<FactionAPI> factions, String memoryKeyEnabled) {
         boolean withShift = false;
         for (FactionAPI faction : factions) {
-            withShift = addConditionalButton(drawables, get(faction, withShift), withShift, memoryKeyEnabled);
+            withShift = addButton(drawables, makeFactionButton(faction, withShift), withShift, memoryKeyEnabled);
+        }
+    }
+
+    public void addTypes(List<Drawable> drawables, List<ExplorationL10n> types, String memoryKeyEnabled) {
+        boolean withShift = false;
+        for (ExplorationL10n type : types) {
+            withShift = addButton(drawables, makeTypeButton(type, withShift), withShift, memoryKeyEnabled);
         }
     }
 
@@ -71,15 +79,19 @@ public class ButtonFactory {
             .build();
     }
 
-    private ExplorationButton get(ExplorationL10n buttonType, boolean withShift) {
-        return new EnumButton(buttonType, intel, width, withShift);
+    private ExplorationButton makeBankButton(ExplorationL10n buttonType, boolean withShift) {
+        return new BankButton(buttonType, intel, width, withShift);
     }
 
-    private ExplorationButton get(FactionAPI faction, boolean withShift) {
+    private ExplorationButton makeFactionButton(FactionAPI faction, boolean withShift) {
         return new FactionButton(faction, intel, width, withShift);
     }
 
-    private boolean addConditionalButton(
+    private ExplorationButton makeTypeButton(ExplorationL10n buttonType, boolean withShift) {
+        return new TypeButton(buttonType, intel, width, withShift);
+    }
+
+    private boolean addButton(
         List<Drawable> drawables,
         ExplorationButton button,
         boolean withShift,

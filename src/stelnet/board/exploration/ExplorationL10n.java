@@ -23,14 +23,13 @@ public enum ExplorationL10n implements IdAware {
     HEADER_TYPE,
     TYPE_ANALYZE_MISSION(Keyboard.KEY_A),
     TYPE_ANY_RUINS(Keyboard.KEY_R),
-    TYPE_COLONY_STRUCTURES(Keyboard.KEY_L),
+    TYPE_COLONY_STRUCTURE(Keyboard.KEY_L),
     TYPE_COMM_RELAY(Keyboard.KEY_C),
     TYPE_HISTORIAN_OFFER(Keyboard.KEY_H),
     TYPE_MEMORY_BANK(Keyboard.KEY_M),
     TYPE_OTHER(Keyboard.KEY_O),
     TYPE_RAIDING_BASE(Keyboard.KEY_B),
     TYPE_SALVAGEABLE(Keyboard.KEY_S),
-    TYPE_STORY_MISSION(Keyboard.KEY_T),
     TYPE_SURVEY_MISSION(Keyboard.KEY_U);
 
     private int shortcut = 0;
