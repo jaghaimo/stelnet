@@ -1,0 +1,23 @@
+Version 3.1.0 (2023.06.07)
+New features:
+- Move setting handling from `stelnet.json` file to LunaLib. Requires LunaLib.
+- Add Exploration tab mini-board that allows intel filtering. Works on intel added by CaptainsLog (will show additional filters).
+- Add option to use Codex entry lists in query builder (default is to use known lists from visible factions).
+- Add option for Commodities, Contacts, and Market modules to only work when within Comms range.
+- Disallow remote calling contacts which have missions in progress. Can be disabled, allowing to call anyone anytime.
+
+Improvements:
+- Show admin skills in a tooltip (Query and Results).
+- Remove suspended, developing, and lost contacts from Contacts board.
+
+Bugfixes:
+- Fix Sebestyen not showing up in contacts.
+- Add missing Lion Guard ships (reskins) in query builder.
+- Rework commodity intel persistence, fixes NPE crash on Starsector updates.
+- Reset commodity selection in case currently selected commodity no longer exists.
+
+
+Version 3.0.0 (2023.05.06)
+- Update mod to Starsector 0.96a.
+
+For older entries check: https://github.com/jaghaimo/stelnet/releases
