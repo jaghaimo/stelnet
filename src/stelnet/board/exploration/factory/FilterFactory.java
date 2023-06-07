@@ -27,46 +27,45 @@ public class FilterFactory {
     private final Map<ExplorationL10n, Filter> enumToFilterMap = new LinkedHashMap<>();
 
     public FilterFactory() {
-        addTypes();
-        addBanks();
+        Filter bankFilter = new IntelIsClass(BreadcrumbIntel.class);
+        Filter captainsLogFilter = new IntelLocationHasMemory(ModConstants.CAPTAINS_LOG_INTEL);
+        addTypes(bankFilter, captainsLogFilter);
+        addBanks(bankFilter);
     }
 
-    private void addTypes() {
+    private void addTypes(Filter bankFilter, Filter captainsLogFilter) {
         Map<ExplorationL10n, Filter> localMap = new LinkedHashMap<>();
         localMap.put(ExplorationL10n.TYPE_ANALYZE_MISSION, new IntelIsClass(AnalyzeEntityMissionIntel.class));
         localMap.put(ExplorationL10n.TYPE_HISTORIAN_OFFER, new IntelIsClass(BaseHistorianOffer.class));
-        localMap.put(ExplorationL10n.TYPE_MEMORY_BANK, new IntelIsClass(BreadcrumbIntel.class));
+        localMap.put(ExplorationL10n.TYPE_MEMORY_BANK, bankFilter);
         localMap.put(ExplorationL10n.TYPE_RAIDING_BASE, getRaidingBaseFilter());
         localMap.put(ExplorationL10n.TYPE_SURVEY_MISSION, new IntelIsClass(SurveyPlanetMissionIntel.class));
         if (CaptainsLogSettings.COLONY_STRUCTURES.isEnabled()) {
-            localMap.put(
-                ExplorationL10n.TYPE_COLONY_STRUCTURE,
-                getCaptainsLogFilter(new IntelContainsTitle("Structure"))
-            );
+            localMap.put(ExplorationL10n.TYPE_COLONY_STRUCTURE, getTitleFilter(captainsLogFilter, "Structure"));
         }
         if (CaptainsLogSettings.COMM_RELAYS.isEnabled()) {
-            localMap.put(ExplorationL10n.TYPE_COMM_RELAY, getCaptainsLogFilter(new IntelContainsTitle("Comm Relay")));
+            localMap.put(ExplorationL10n.TYPE_COMM_RELAY, getTitleFilter(captainsLogFilter, "Comm Relay"));
         }
         if (CaptainsLogSettings.SALVAGEABLE.isEnabled()) {
-            localMap.put(ExplorationL10n.TYPE_SALVAGEABLE, getCaptainsLogFilter(new IntelContainsTitle("Salvageable")));
+            localMap.put(ExplorationL10n.TYPE_SALVAGEABLE, getTitleFilter(captainsLogFilter, "Salvageable"));
         }
         if (CaptainsLogSettings.RUINS.isEnabled()) {
-            localMap.put(ExplorationL10n.TYPE_ANY_RUINS, getCaptainsLogFilter(new IntelContainsTitle("Ruins")));
+            localMap.put(ExplorationL10n.TYPE_ANY_RUINS, getTitleFilter(captainsLogFilter, "Ruins"));
         }
         Filter otherFilter = getOtherFilter(localMap);
         enumToFilterMap.put(ExplorationL10n.TYPE_OTHER, otherFilter);
         enumToFilterMap.putAll(localMap);
     }
 
-    private void addBanks() {
+    private void addBanks(Filter bankFilter) {
         Map<ExplorationL10n, Filter> localMap = new LinkedHashMap<>();
-        localMap.put(ExplorationL10n.BANK_ANY_CACHE, getBankFilter("Cache"));
-        localMap.put(ExplorationL10n.BANK_DEBRIS_FIELD, getBankFilter("Debris Field"));
-        localMap.put(ExplorationL10n.BANK_DERELICT_SHIP, getBankFilter("Derelict Ship"));
-        localMap.put(ExplorationL10n.BANK_DOMAIN_ERA_ENTITY, getBankFilter("Domain-era"));
-        localMap.put(ExplorationL10n.BANK_ORBITAL_HABITAT, getBankFilter("Orbital Habitat"));
-        localMap.put(ExplorationL10n.BANK_RUINS_LOCATION, getBankFilter("Ruins Location"));
-        localMap.put(ExplorationL10n.BANK_SURVEY_DATA, getBankFilter("Survey Data for"));
+        localMap.put(ExplorationL10n.BANK_ANY_CACHE, getTitleFilter(bankFilter, "Cache"));
+        localMap.put(ExplorationL10n.BANK_DEBRIS_FIELD, getTitleFilter(bankFilter, "Debris Field"));
+        localMap.put(ExplorationL10n.BANK_DERELICT_SHIP, getTitleFilter(bankFilter, "Derelict Ship"));
+        localMap.put(ExplorationL10n.BANK_DOMAIN_ERA_ENTITY, getTitleFilter(bankFilter, "Domain-era"));
+        localMap.put(ExplorationL10n.BANK_ORBITAL_HABITAT, getTitleFilter(bankFilter, "Orbital Habitat"));
+        localMap.put(ExplorationL10n.BANK_RUINS_LOCATION, getTitleFilter(bankFilter, "Ruins Location"));
+        localMap.put(ExplorationL10n.BANK_SURVEY_DATA, getTitleFilter(bankFilter, "Survey Data for"));
         Filter otherFilter = new LogicalAnd(
             Arrays.asList(enumToFilterMap.get(ExplorationL10n.TYPE_MEMORY_BANK), getOtherFilter(localMap)),
             "Other Banks"
@@ -75,14 +74,10 @@ public class FilterFactory {
         enumToFilterMap.putAll(localMap);
     }
 
-    private Filter getBankFilter(String title) {
-        return new IntelContainsTitle(title);
-    }
-
-    private Filter getCaptainsLogFilter(Filter actualFilter) {
+    private Filter getTitleFilter(Filter bankFilter, String title) {
         return new LogicalAnd(
-            Arrays.<Filter>asList(new IntelLocationHasMemory(ModConstants.CAPTAINS_LOG_INTEL), actualFilter),
-            "CaptainsLog Custom Filter"
+            Arrays.asList(bankFilter, new IntelContainsTitle(title)),
+            "Compound Title Filter: " + title
         );
     }
 
