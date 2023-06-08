@@ -41,7 +41,7 @@ public class StelnetMod extends BaseModPlugin {
 
     @Override
     public void onGameLoad(boolean newGame) {
-        LunaSettings.reportSettingsChanged(ModConstants.STELNET_ID);
+        SettingsListener.apply();
     }
 
     @Override
