@@ -21,11 +21,11 @@ public abstract class HeadingWithButtons extends RenderableComponent {
 
     protected UIComponentAPI renderFirstButton(Button delete, float width, TooltipMakerAPI tooltip) {
         delete.render(tooltip);
-        UIComponentAPI deleteComponent = tooltip.getPrev();
-        PositionAPI deletePosition = deleteComponent.getPosition();
-        deletePosition.setXAlignOffset(width - deletePosition.getWidth() - 5);
-        deletePosition.setYAlignOffset(UiConstants.DEFAULT_ROW_HEIGHT);
-        return deleteComponent;
+        UIComponentAPI component = tooltip.getPrev();
+        PositionAPI componentPosition = component.getPosition();
+        componentPosition.setXAlignOffset(width - componentPosition.getWidth() - 5);
+        componentPosition.setYAlignOffset(UiConstants.DEFAULT_ROW_HEIGHT);
+        return component;
     }
 
     protected UIComponentAPI renderNextButton(

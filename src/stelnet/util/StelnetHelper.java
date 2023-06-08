@@ -10,8 +10,10 @@ import com.fs.starfarer.api.campaign.comm.IntelManagerAPI;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
+import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
+import com.fs.starfarer.api.impl.campaign.missions.hub.HubMission;
 import com.fs.starfarer.api.util.Misc;
 import java.awt.AWTException;
 import java.awt.Color;
@@ -29,6 +31,25 @@ import stelnet.filter.Filter;
 public class StelnetHelper {
 
     /**
+     * Singleton, creates or gets an existing instance of a class that implements IntelInfoPlugin.
+     * Requires no-args constructor. Used by all "Boards".
+     */
+    public static <T extends IntelInfoPlugin> T getInstance(Class<T> className) {
+        IntelInfoPlugin intel = Global.getSector().getIntelManager().getFirstIntel(className);
+        if (intel == null) {
+            try {
+                @SuppressWarnings("deprecation")
+                IntelInfoPlugin board = className.newInstance();
+                Global.getSector().getIntelManager().addIntel(board, true);
+                intel = board;
+            } catch (Exception exception) {
+                log.error("Couldn't create board for " + className.getName(), exception);
+            }
+        }
+        return className.cast(intel);
+    }
+
+    /**
      * Sum of all cargo stack sizes. Contrary to `CargoAPI.getUsedSpace` it ignores item's size.
      */
     public static int calculateItemQuantity(CargoAPI cargo) {
@@ -41,7 +62,7 @@ public class StelnetHelper {
 
     public static CargoAPI getAllItems(Set<Filter> filters) {
         List<CargoStackAPI> cargoStacks = new LinkedList<>();
-        List<SubmarketAPI> submarkets = getAllWithAccess();
+        Set<SubmarketAPI> submarkets = getAllWithAccess();
         for (SubmarketAPI submarket : submarkets) {
             cargoStacks.addAll(submarket.getCargo().getStacksCopy());
         }
@@ -51,7 +72,7 @@ public class StelnetHelper {
 
     public static List<FleetMemberAPI> getAllShips(Set<Filter> filters) {
         List<FleetMemberAPI> ships = new LinkedList<>();
-        List<SubmarketAPI> submarkets = getAllWithAccess();
+        Set<SubmarketAPI> submarkets = getAllWithAccess();
         for (SubmarketAPI submarket : submarkets) {
             ships.addAll(submarket.getCargo().getMothballedShips().getMembersListCopy());
         }
@@ -59,8 +80,8 @@ public class StelnetHelper {
         return ships;
     }
 
-    public static List<SubmarketAPI> getAllWithAccess() {
-        List<SubmarketAPI> availableStorages = Includer.getAbandonedStations();
+    public static Set<SubmarketAPI> getAllWithAccess() {
+        Set<SubmarketAPI> availableStorages = Includer.getAbandonedStations();
         for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
             if (Misc.playerHasStorageAccess(market)) {
                 SubmarketAPI storage = market.getSubmarket(Submarkets.SUBMARKET_STORAGE);
@@ -117,7 +138,7 @@ public class StelnetHelper {
     }
 
     public static String getSpriteName(String sprite) {
-        return Global.getSettings().getSpriteName(ModConstants.STELNET, sprite);
+        return Global.getSettings().getSpriteName(ModConstants.STELNET_ID, sprite);
     }
 
     public static String getStarSystemName(StarSystemAPI starSystem, boolean shortName) {
@@ -136,6 +157,24 @@ public class StelnetHelper {
             submarkets.addAll(market.getSubmarketsCopy());
         }
         return submarkets;
+    }
+
+    public static boolean hasCommodity(String commodityId) {
+        return Global.getSettings().getCommoditySpec(commodityId) != null;
+    }
+
+    public static boolean hasActiveMission(PersonAPI person) {
+        List<IntelInfoPlugin> missions = Global.getSector().getIntelManager().getIntel(HubMission.class);
+        for (IntelInfoPlugin mission : missions) {
+            if (mission.isEnded()) {
+                continue;
+            }
+            PersonAPI missionPerson = ((HubMission) mission).getPerson();
+            if (missionPerson == person) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static CargoAPI makeCargoFromStacks(List<CargoStackAPI> cargoStacks) {

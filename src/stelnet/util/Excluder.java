@@ -13,6 +13,7 @@ import stelnet.filter.LogicalNot;
 import stelnet.filter.LogicalOr;
 import stelnet.filter.MarketBelongsToFaction;
 import stelnet.filter.MarketIsInSystem;
+import stelnet.settings.BooleanSettings;
 
 /**
  * Provides access to user/mod exclusions in the form of a relevant filter objects.
@@ -26,21 +27,12 @@ public class Excluder extends Reader {
 
     private static transient List<Filter> filters;
 
-    public static Filter getQuerySubmarketFilter() {
+    public static Filter getSubmarketFilter() {
         return Excluder.getSubmarketFilters(
-            ConfigConstants.QUERY_USE_OPEN_MARKET,
-            ConfigConstants.QUERY_USE_MILITARY_MARKET,
-            ConfigConstants.QUERY_USE_BLACK_MARKET,
-            ConfigConstants.QUERY_USE_CUSTOM_MARKETS
-        );
-    }
-
-    public static Filter getViewerSubmarketFilter() {
-        return Excluder.getSubmarketFilters(
-            ConfigConstants.VIEWER_USE_OPEN_MARKET,
-            ConfigConstants.VIEWER_USE_MILITARY_MARKET,
-            ConfigConstants.VIEWER_USE_BLACK_MARKET,
-            ConfigConstants.VIEWER_USE_CUSTOM_MARKETS
+            BooleanSettings.MARKET_USE_OPEN_MARKET.get(),
+            BooleanSettings.MARKET_USE_MILITARY_MARKET.get(),
+            BooleanSettings.MARKET_USE_BLACK_MARKET.get(),
+            BooleanSettings.MARKET_USE_CUSTOM_MARKET.get()
         );
     }
 
@@ -84,28 +76,28 @@ public class Excluder extends Reader {
     }
 
     private static List<Filter> getMarketByFactionFilters(List<Filter> filters) {
-        for (String factionId : getStrings(MARKET_BY_FACTION, ModConstants.STELNET)) {
+        for (String factionId : getStrings(MARKET_BY_FACTION, ModConstants.STELNET_ID)) {
             filters.add(new MarketBelongsToFaction(factionId));
         }
         return filters;
     }
 
     private static List<Filter> getMarketByIdFilters(List<Filter> filters) {
-        for (String marketId : getStrings(MARKET_BY_ID, ModConstants.STELNET)) {
+        for (String marketId : getStrings(MARKET_BY_ID, ModConstants.STELNET_ID)) {
             filters.add(new AnyHasId(marketId));
         }
         return filters;
     }
 
     private static List<Filter> getMarketBySystemFilters(List<Filter> filters) {
-        for (String systemId : getStrings(MARKET_BY_SYSTEM, ModConstants.STELNET)) {
+        for (String systemId : getStrings(MARKET_BY_SYSTEM, ModConstants.STELNET_ID)) {
             filters.add(new MarketIsInSystem(systemId));
         }
         return filters;
     }
 
     private static List<Filter> getMarketByTagFilters(List<Filter> filters) {
-        for (String tag : getStrings(MARKET_BY_TAG, ModConstants.STELNET)) {
+        for (String tag : getStrings(MARKET_BY_TAG, ModConstants.STELNET_ID)) {
             filters.add(new AnyHasTag(tag));
         }
         return filters;

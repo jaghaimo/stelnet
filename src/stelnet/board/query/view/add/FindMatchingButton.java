@@ -12,6 +12,7 @@ import stelnet.board.query.QueryState.QueryBoardTab;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
 import stelnet.util.L10n;
+import stelnet.util.StelnetHelper;
 import uilib.C2Button;
 import uilib.EventHandler;
 import uilib.UiConstants;
@@ -27,7 +28,7 @@ public class FindMatchingButton extends C2Button {
             new EventHandler() {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
-                    QueryState state = QueryBoard.getInstance(QueryBoard.class).getState();
+                    QueryState state = StelnetHelper.getInstance(QueryBoard.class).getState();
                     QueryManager manager = state.getQueryManager();
                     QueryProvider provider = factory.getProvider();
                     Set<Filter> filters = factory.getFilters();

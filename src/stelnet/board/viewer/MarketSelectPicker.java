@@ -12,12 +12,13 @@ import java.util.List;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import stelnet.util.L10n;
+import stelnet.util.StelnetHelper;
 import stelnet.widget.viewer.InMarketStrategy;
 
 @RequiredArgsConstructor
 public class MarketSelectPicker implements CampaignEntityPickerListener {
 
-    private final ViewerBoard board = ViewerBoard.getInstance(ViewerBoard.class);
+    private final ViewerBoard board = StelnetHelper.getInstance(ViewerBoard.class);
     private final InteractionDialogAPI dialog;
     private final IntelUIAPI ui;
 

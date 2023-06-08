@@ -3,11 +3,11 @@
         "stelnet": {
             "contacts": "graphics/icons/markets/organized_crime.png",
             "commodity": "graphics/icons/intel/tutorial_mission.png",
+            "exploration": "graphics/icons/abilities/transponder.png",
             "query": "graphics/icons/intel/investigation.png",
             "storage": "graphics/icons/intel/all.png",
             "trade": "graphics/icons/intel/price_update.png",
             "viewer": "graphics/icons/markets/headquarters.png",
-
             "result_0": "graphics/icons/markets/population00.png",
             "result_1": "graphics/icons/markets/population01.png",
             "result_2": "graphics/icons/markets/population02.png",

@@ -14,7 +14,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
 import java.util.List;
-import stelnet.util.ConfigConstants;
+import stelnet.settings.BooleanSettings;
 
 /**
  * Creates a ContactIntel for Sebestyen.
@@ -24,7 +24,7 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
     private final String MET_BAIRD_MEM_KEY = "$metBaird";
 
     public static void register() {
-        if (ConfigConstants.CONTACTS_ADD_SEBESTYEN) {
+        if (BooleanSettings.CONTACTS_SEBESTYEN.get()) {
             SebestyenContactMaker maker = new SebestyenContactMaker();
             Global.getSector().getListenerManager().addListener(maker, true);
         }
@@ -69,18 +69,28 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
         Global.getSector().getIntelManager().addIntel(contact);
     }
 
+    /**
+     * Change Galatia "market" to be contact-worthy.
+     */
     private boolean fixMarket() {
         MarketAPI market = getGalatia();
         if (market == null) {
             return false;
         }
+        // Stelnet needs a submarket for remote call functionality.
         if (!market.hasSubmarket(Submarkets.SUBMARKET_STORAGE)) {
             market.addSubmarket(Submarkets.SUBMARKET_STORAGE);
+        }
+        // Contacts refuse to occupy decivilized locations.
+        if (market.hasCondition(Conditions.DECIVILIZED)) {
             market.removeCondition(Conditions.DECIVILIZED);
         }
         return true;
     }
 
+    /**
+     * Make Sebestyen a more "solid" person.
+     */
     private void fixPerson(PersonAPI person, MarketAPI market) {
         person.setMarket(market);
         person.addTag(Tags.CONTACT_SCIENCE);
@@ -100,7 +110,7 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
         if (token == null) {
             return null;
         }
-        return (MarketAPI) token.getMarket();
+        return token.getMarket();
     }
 
     private PersonAPI getPerson() {
@@ -108,6 +118,6 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
     }
 
     private boolean hasMetProvost() {
-        return Global.getSector().getMemoryWithoutUpdate().getBoolean(MET_BAIRD_MEM_KEY);
+        return Global.getSector().getPlayerMemoryWithoutUpdate().getBoolean(MET_BAIRD_MEM_KEY);
     }
 }

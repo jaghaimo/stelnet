@@ -3,6 +3,7 @@ package stelnet.board.storage;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import java.util.LinkedList;
 import java.util.List;
+import stelnet.util.StelnetHelper;
 import stelnet.widget.viewer.DisplayStrategyButton;
 import stelnet.widget.viewer.GroupingStrategy;
 import stelnet.widget.viewer.MarketView;
@@ -37,7 +38,7 @@ public class StorageView implements RenderableFactory {
             new EventHandler() {
                 @Override
                 public void onConfirm(IntelUIAPI ui) {
-                    StorageBoard board = StorageBoard.getInstance(StorageBoard.class);
+                    StorageBoard board = StelnetHelper.getInstance(StorageBoard.class);
                     board.getRenderableState().setDisplayStrategy(nextStrategy);
                 }
             }

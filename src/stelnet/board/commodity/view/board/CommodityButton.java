@@ -3,6 +3,7 @@ package stelnet.board.commodity.view.board;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import stelnet.board.commodity.CommodityBoard;
+import stelnet.util.StelnetHelper;
 import uilib.AreaCheckbox;
 import uilib.UiConstants;
 import uilib.property.Location;
@@ -21,7 +22,7 @@ public class CommodityButton extends AreaCheckbox {
 
     @Override
     public void onConfirm(IntelUIAPI ui) {
-        CommodityBoard board = CommodityBoard.getInstance(CommodityBoard.class);
+        CommodityBoard board = StelnetHelper.getInstance(CommodityBoard.class);
         board.getRenderableState().setCommodityId(commodityId);
     }
 }

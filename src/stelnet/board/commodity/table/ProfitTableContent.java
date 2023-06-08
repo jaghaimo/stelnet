@@ -12,8 +12,8 @@ import uilib.TableContent;
 @RequiredArgsConstructor
 public class ProfitTableContent implements TableContent {
 
-    private static final int MAX_ROWS = 50;
-    private static final int MINIMUM_PROFIT_VALUE = 10000;
+    public static int MAX_ROWS = 50;
+    public static int MINIMUM_PROFIT_VALUE = 10000;
 
     private final List<MarketAPI> sellMarkets;
     private final List<MarketAPI> buyMarkets;

@@ -73,13 +73,11 @@ public class ShowPeople extends RenderableShowComponent implements Comparator<Pe
         TooltipMakerAPI inner = tooltip.beginImageWithText(person.getPortraitSprite(), 16);
         String nameString = getName(person);
         String personalityString = getPersonality(person);
-        LabelAPI label = inner.addPara(numberString + " " + nameString + personalityString, Misc.getGrayColor(), 0);
+        LabelAPI label = inner.addPara(numberString + "  " + nameString + personalityString, Misc.getGrayColor(), 0);
         label.setHighlightColors(Misc.getHighlightColor(), Misc.getTextColor());
         label.setHighlight(numberString, nameString);
         tooltip.addImageWithText(7);
-        if (isAnyOfficer(person)) {
-            tooltip.addTooltipToPrevious(new ShowPeopleOfficerTooltip(person), TooltipLocation.LEFT);
-        }
+        tooltip.addTooltipToPrevious(new ShowPeopleTooltip(person), TooltipLocation.LEFT);
     }
 
     private String getName(PersonAPI person) {

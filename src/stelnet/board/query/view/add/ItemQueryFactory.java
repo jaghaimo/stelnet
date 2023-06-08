@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import stelnet.board.query.QueryL10n;
-import stelnet.board.query.provider.ItemProvider;
+import stelnet.board.query.provider.ItemQueryProvider;
 import stelnet.board.query.view.ButtonGroup;
 import stelnet.board.query.view.FilteringButton;
 import stelnet.board.query.view.SectionHeader;
@@ -23,7 +23,7 @@ import uilib.Renderable;
 public class ItemQueryFactory extends QueryFactory {
 
     @Getter
-    private transient ItemProvider provider = new ItemProvider();
+    private transient ItemQueryProvider provider = new ItemQueryProvider();
 
     private final FilteringButton[] itemTypes = ItemButtonUtils.createItemTypes();
     private final FilteringButton[] designTypes = ItemButtonUtils.createManufacturers(provider);
@@ -33,7 +33,7 @@ public class ItemQueryFactory extends QueryFactory {
     private final FilteringButton[] wingRoles = ItemButtonUtils.createWingRole();
 
     public Object readResolve() {
-        provider = new ItemProvider();
+        provider = new ItemQueryProvider();
         return this;
     }
 

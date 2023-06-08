@@ -5,8 +5,9 @@ import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
-import java.util.LinkedList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Provides access to user/mod inclusions.
@@ -14,9 +15,14 @@ import java.util.List;
 public class Includer extends Reader {
 
     private static final String ABANDONED_STATION_IDS = "data/stelnet/include/abandoned_stations.csv";
+    private static final String ADDITIONAL_FACTION_IDS = "data/stelnet/include/additional_factions.csv";
 
-    public static List<SubmarketAPI> getAbandonedStations() {
-        List<SubmarketAPI> submarkets = new LinkedList<>();
+    public static List<String> getAdditionalFactions() {
+        return getStrings(ADDITIONAL_FACTION_IDS, ModConstants.STELNET_ID);
+    }
+
+    public static Set<SubmarketAPI> getAbandonedStations() {
+        Set<SubmarketAPI> submarkets = new LinkedHashSet<>();
         for (String station : getAbandonedStationIds()) {
             SubmarketAPI submarket = getStorage(station);
             if (submarket != null) {
@@ -27,7 +33,7 @@ public class Includer extends Reader {
     }
 
     private static List<String> getAbandonedStationIds() {
-        return getStrings(ABANDONED_STATION_IDS, ModConstants.STELNET);
+        return getStrings(ABANDONED_STATION_IDS, ModConstants.STELNET_ID);
     }
 
     private static SubmarketAPI getStorage(String station) {

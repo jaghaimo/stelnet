@@ -33,7 +33,7 @@ jobs:
 
             - name: Create Mod Zipfile
               run: |
-                  git lfs install 
+                  git lfs install
                   git lfs fetch
                   git lfs checkout
                   ./gradlew release

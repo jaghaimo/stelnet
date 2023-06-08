@@ -3,6 +3,7 @@ package stelnet.board.commodity;
 import lombok.Getter;
 import stelnet.board.BoardBasePlugin;
 import stelnet.board.BoardRenderableInfo;
+import stelnet.settings.Modules;
 import stelnet.util.L10n;
 import stelnet.util.ModConstants;
 import stelnet.util.StelnetHelper;
@@ -20,5 +21,10 @@ public class CommodityBoard extends BoardBasePlugin {
 
     public void restore() {
         renderableState.getIntelTracker().restore();
+    }
+
+    @Override
+    public boolean isHidden() {
+        return Modules.COMMODITIES.isHidden();
     }
 }

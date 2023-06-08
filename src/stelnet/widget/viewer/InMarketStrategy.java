@@ -41,7 +41,7 @@ public class InMarketStrategy extends PerMarketStrategy {
 
     private List<SubmarketAPI> getSubmarkets(MarketAPI market) {
         List<SubmarketAPI> submarkets = market.getSubmarketsCopy();
-        CollectionUtils.reduce(submarkets, Excluder.getViewerSubmarketFilter());
+        CollectionUtils.reduce(submarkets, Excluder.getSubmarketFilter());
         return submarkets;
     }
 

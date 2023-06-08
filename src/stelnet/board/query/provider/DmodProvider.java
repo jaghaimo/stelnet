@@ -10,7 +10,7 @@ public class DmodProvider {
 
     private static transient List<HullModSpecAPI> allDMods;
 
-    public static void reset() {
+    public static void resetCache() {
         allDMods = null;
     }
 

@@ -23,6 +23,7 @@ import stelnet.filter.LogicalOr;
 import stelnet.filter.ShipHullIsHull;
 import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
+import stelnet.util.StelnetHelper;
 
 @RequiredArgsConstructor
 public class QueryPickerListener implements CargoPickerListener, FleetMemberPickerListener {
@@ -72,7 +73,7 @@ public class QueryPickerListener implements CargoPickerListener, FleetMemberPick
     private void addQuery(Set<Filter> selectedFilters, String label) {
         Set<Filter> filters = new LinkedHashSet<>();
         filters.add(new LogicalOr(selectedFilters, label));
-        QueryBoard board = QueryBoard.getInstance(QueryBoard.class);
+        QueryBoard board = StelnetHelper.getInstance(QueryBoard.class);
         QueryState state = board.getState();
         QueryManager manager = state.getQueryManager();
         QueryProvider provider = factory.getProvider();

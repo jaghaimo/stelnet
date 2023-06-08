@@ -30,7 +30,8 @@ public class ShowCargo extends RenderableShowComponent {
     @Override
     public void render(TooltipMakerAPI tooltip) {
         if (optionalTitle != null) {
-            addSectionTitle(tooltip, optionalTitle, titleColor, getSize().getWidth() - UiConstants.DEFAULT_SPACER);
+            String fullTitle = String.format("%s (%d)", optionalTitle, cargo.getStacksCopy().size());
+            addSectionTitle(tooltip, fullTitle, titleColor, getSize().getWidth() - UiConstants.DEFAULT_SPACER);
         }
         if (cargo.isEmpty()) {
             tooltip.addSpacer(UiConstants.DEFAULT_SPACER);

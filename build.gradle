@@ -4,17 +4,41 @@ plugins {
     id 'java'
 }
 
+// define custom repositories
 repositories {
     mavenCentral()
     ivy {
         url 'https://github.com/'
         patternLayout {
             artifact '/[organization]/[module]/releases/download/[revision]/[ext]'
+            artifact '/[organization]/[module]/raw/[revision]/jars/[ext]'
         }
         metadataSources {
             artifact()
         }
     }
+}
+
+// add zipped configuration
+configurations {
+    zipped
+}
+
+// install dependencies from zipped releases
+task installDependencies(type: Sync) {
+    def extractDir = "${buildDir}/libs"
+    
+    ext.extractedJars = fileTree(extractDir) {
+        include "**/*.jar"
+        exclude "stelnet.jar"
+        builtBy "installDependencies"
+    }
+
+    dependsOn configurations.zipped
+    from { 
+        configurations.zipped.collect { zipTree(it) }
+    }
+    into extractDir
 }
 
 // project level config
@@ -39,7 +63,9 @@ build {
 
 // compile time dependencies
 dependencies {
-    implementation "jaghaimo:starsector-api:0.96a-RC7@starfarer.api.jar"
+    implementation "jaghaimo:starsector-api:0.96a-RC10@starfarer.api.jar"
+    zipped "Lukas22041:LunaLib:1.7.6@LunaLib.zip"
+    implementation files({ tasks.installDependencies.extractedJars })
 
     // game dependencies
     implementation group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.10'
@@ -51,8 +77,8 @@ dependencies {
     implementation group: 'org.codehaus.janino', name: 'janino', version: '3.0.7'
 
     // lombok
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
-    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
 }
 
 // custom tasks

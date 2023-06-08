@@ -26,9 +26,10 @@ Commodity board also hosts a Profit tab which can be used to find viable trade r
 Filters by most profitable routes in descending order and displays routes where:
 
 -   profit margin is at least 10000 credits, and
--   trade volume is at least 1000.
+-   trade volume is at least 100.
 
 Highlights rows when buy and sell markets are in the same system and caps results to first 50.
+The above defaults are configurable in LunaLib settings.
 
 ![Profit](images/profit.png?raw=1)
 
@@ -55,17 +56,17 @@ It allows to display a unified view to quickly verify what is available, and per
 
 ## Installation and Configuration
 
-To configure the mod edit [stelnet.json](assets/stelnet.json).
+To configure the open LunaLib menu (F2 by default).
 
 This mod can be added to an existing save - just enable it in the mod list and load the save.
 
-This mod can be removed from an existing save - edit `stelnet.json` and set `uninstallMod` to `true`.
+This mod can be removed from an existing save - in LunaLib menu set `Uninstall Mod` to `true`.
 Then load the save, save the game, quit the game, and finally disable this mod in the mod list.
 
 ## Translating the Mod
 
 To translate this mod, edit files in [data/l10n](assets/data/l10n/) directory.
-You can then create the translation mod with the following structure:
+You can then create the translation mod with just the following structure:
 
 ```bash
 data/config/tag_data.json  # tag names in Intel UI

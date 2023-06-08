@@ -15,6 +15,7 @@ import java.util.Set;
 import lombok.extern.log4j.Log4j;
 import org.json.JSONException;
 import org.json.JSONObject;
+import stelnet.filter.ContactIsValid;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 
@@ -31,6 +32,7 @@ public class ContactProvider {
         for (IntelInfoPlugin plugin : plugins) {
             contacts.add(0, (ContactIntel) plugin);
         }
+        filters.add(new ContactIsValid());
         CollectionUtils.reduce(contacts, filters);
         return contacts;
     }

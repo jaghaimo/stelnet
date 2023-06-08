@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import lombok.extern.log4j.Log4j;
-import stelnet.board.query.provider.DummyProvider;
+import stelnet.board.query.provider.DummyQueryProvider;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.filter.Filter;
 import uilib.Button;
@@ -34,7 +34,7 @@ public class DummyFactory extends QueryFactory {
     @Override
     public QueryProvider getProvider() {
         logUsage();
-        return new DummyProvider();
+        return new DummyQueryProvider();
     }
 
     @Override

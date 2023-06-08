@@ -12,7 +12,7 @@ public class SkillProvider {
 
     private static transient List<SkillSpecAPI> allSkills;
 
-    public static void reset() {
+    public static void resetCache() {
         allSkills = null;
     }
 

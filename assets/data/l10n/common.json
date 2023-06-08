@@ -15,6 +15,7 @@
     "FIGHTER_WINGS": "Fighter Wings",
     "FILTER_NUMBER_OF_BAYS": "{0, choice, 0#None|0<At least {0, number, integer}}",
     "FILTER_OFFICER_LEVEL": "At least {0}",
+    "FLIP": "Flip",
     "FRIGATES": "Frigates",
     "HYPERSPACE": "Hyperspace",
     "GO": "Go",

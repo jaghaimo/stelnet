@@ -17,7 +17,7 @@ import org.json.JSONObject;
 @Log4j
 public class L10n {
 
-    public static String namespace = ModConstants.STELNET;
+    public static String namespace = ModConstants.STELNET_ID;
     private static transient Map<String, JSONObject> translations = new HashMap<>();
 
     public static void init(String filename) {
@@ -37,6 +37,9 @@ public class L10n {
         try {
             String translation = translations.get(filename).getString(key);
             return MessageFormat.format(translation, args);
+        } catch (IllegalArgumentException e) {
+            log.warn("Invalid message format for key " + key + " in " + filename);
+            return key;
         } catch (JSONException e) {
             log.warn("Missing translation for key " + key + " in " + filename);
             return key;

@@ -1,8 +1,11 @@
 package stelnet.board.commodity.price;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import lombok.extern.log4j.Log4j;
 
+@Log4j
 public class SupplyPrice implements Price {
 
     private final String commodityId;
@@ -10,7 +13,15 @@ public class SupplyPrice implements Price {
 
     public SupplyPrice(String commodityId) {
         this.commodityId = commodityId;
-        this.econUnit = Global.getSector().getEconomy().getCommoditySpec(commodityId).getEconUnit();
+        CommoditySpecAPI commodity = Global.getSector().getEconomy().getCommoditySpec(commodityId);
+        float econUnit = 100;
+        if (commodity != null) {
+            econUnit = commodity.getEconUnit();
+        }
+        if (commodity == null) {
+            log.warn("Could not get commodity spec for id " + commodityId + " - assuming 100 econUnit");
+        }
+        this.econUnit = econUnit;
     }
 
     @Override
