@@ -1,4 +1,4 @@
-Version 3.1.0 (2023.06.07)
+Version 3.1.0 (2023.06.08)
 New features:
 - Move setting handling from `stelnet.json` file to LunaLib. Requires LunaLib.
 - Add Exploration tab mini-board that allows intel filtering. Works on intel added by CaptainsLog (will show additional filters).

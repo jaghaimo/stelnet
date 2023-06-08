@@ -30,6 +30,7 @@ task installDependencies(type: Sync) {
     
     ext.extractedJars = fileTree(extractDir) {
         include "**/*.jar"
+        exclude "stelnet.jar"
         builtBy "installDependencies"
     }
 
@@ -54,7 +55,6 @@ build {
     doLast {
         copy {
             from 'assets'
-            from 'changelog.txt'
             from jar
             into '.'
         }
@@ -63,22 +63,22 @@ build {
 
 // compile time dependencies
 dependencies {
-    compileOnly "jaghaimo:starsector-api:0.96a-RC10@starfarer.api.jar"
-    zipped "Lukas22041:LunaLib:1.7.5@LunaLib.zip"
-    compileOnly files({ tasks.installDependencies.extractedJars })
+    implementation "jaghaimo:starsector-api:0.96a-RC10@starfarer.api.jar"
+    zipped "Lukas22041:LunaLib:1.7.6@LunaLib.zip"
+    implementation files({ tasks.installDependencies.extractedJars })
 
     // game dependencies
-    compileOnly group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.10'
-    compileOnly group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: '2.9.3'
-    compileOnly group: 'org.lwjgl.lwjgl', name: 'lwjgl_util', version: '2.9.3'
-    compileOnly group: 'log4j', name: 'log4j', version: '1.2.9'
-    compileOnly group: 'org.json', name: 'json', version: '20090211'
-    compileOnly group: 'net.java.jinput', name: 'jinput', version: '2.0.7'
-    compileOnly group: 'org.codehaus.janino', name: 'janino', version: '3.0.7'
+    implementation group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.10'
+    implementation group: 'org.lwjgl.lwjgl', name: 'lwjgl', version: '2.9.3'
+    implementation group: 'org.lwjgl.lwjgl', name: 'lwjgl_util', version: '2.9.3'
+    implementation group: 'log4j', name: 'log4j', version: '1.2.9'
+    implementation group: 'org.json', name: 'json', version: '20090211'
+    implementation group: 'net.java.jinput', name: 'jinput', version: '2.0.7'
+    implementation group: 'org.codehaus.janino', name: 'janino', version: '3.0.7'
 
     // lombok
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
-    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
 }
 
 // custom tasks
