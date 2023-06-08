@@ -40,14 +40,7 @@ public class SettingsListener implements LunaSettingsListener {
         LunaSettings.addSettingsListener(new SettingsListener());
     }
 
-    @Override
-    public void settingsChanged(String modId) {
-        if (!ModConstants.STELNET_ID.equals(modId)) {
-            return;
-        }
-        if (Global.getCurrentState().equals(GameState.TITLE)) {
-            return;
-        }
+    public static void apply() {
         resetCache();
         initCommodity(Modules.COMMODITIES.has());
         initContacts(Modules.CONTACTS.has());
@@ -70,14 +63,24 @@ public class SettingsListener implements LunaSettingsListener {
         ShipQueryProvider.resetCache();
     }
 
-    private void purgeIntel(Class<?>... classNames) {
+    @Override
+    public void settingsChanged(String modId) {
+        if (!ModConstants.STELNET_ID.equals(modId)) {
+            return;
+        }
+        if (Global.getCurrentState().equals(GameState.CAMPAIGN)) {
+            apply();
+        }
+    }
+
+    private static void purgeIntel(Class<?>... classNames) {
         for (Class<?> className : classNames) {
             log.debug("Removing intel " + className);
             StelnetHelper.removeIntel(className);
         }
     }
 
-    private void initContacts(boolean hasContacts) {
+    private static void initContacts(boolean hasContacts) {
         if (hasContacts) {
             StelnetHelper.getInstance(ContactsBoard.class);
             SebestyenContactMaker.register();
@@ -88,7 +91,7 @@ public class SettingsListener implements LunaSettingsListener {
         }
     }
 
-    private void initCommodity(boolean hasCommodities) {
+    private static void initCommodity(boolean hasCommodities) {
         if (hasCommodities) {
             StelnetHelper.getInstance(CommodityBoard.class).restore();
             // TradeBoard.getInstance(TradeBoard.class);
@@ -102,7 +105,7 @@ public class SettingsListener implements LunaSettingsListener {
         }
     }
 
-    private void initExploration(boolean hasExploration) {
+    private static void initExploration(boolean hasExploration) {
         if (hasExploration) {
             StelnetHelper.getInstance(ExplorationBoard.class);
             log.info("Enabled Exploration module");
@@ -112,7 +115,7 @@ public class SettingsListener implements LunaSettingsListener {
         }
     }
 
-    private void initMarket(boolean hasMarket) {
+    private static void initMarket(boolean hasMarket) {
         if (hasMarket) {
             StelnetHelper.getInstance(QueryBoard.class);
             StelnetHelper.getInstance(ViewerBoard.class);
@@ -128,7 +131,7 @@ public class SettingsListener implements LunaSettingsListener {
         }
     }
 
-    private void initStorage(boolean hasStorage) {
+    private static void initStorage(boolean hasStorage) {
         if (hasStorage) {
             StelnetHelper.getInstance(StorageBoard.class);
             log.info("Enabled Storage module");

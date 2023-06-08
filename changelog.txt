@@ -1,3 +1,7 @@
+Version 3.1.1 (2023.06.08)
+- Correctly initialize Stelnet on a fresh game or save.
+
+
 Version 3.1.0 (2023.06.08)
 New features:
 - Move setting handling from `stelnet.json` file to LunaLib. Requires LunaLib.
