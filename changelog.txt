@@ -1,3 +1,8 @@
+Version 3.2.2 (2023.06.09)
+- Fix unknown crash on Exploration intel filtering (most likely some modded intel).
+- Add back Special Contact from Nexerelin to Contacts Board.
+
+
 Version 3.1.1 (2023.06.08)
 - Correctly initialize Stelnet on a fresh game or save. Stelnet would fail to initialize when starting a New Game or Loading a Game from Main Menu.
 
@@ -13,6 +18,7 @@ New features:
 Improvements:
 - Show admin skills in a tooltip (Query and Results).
 - Remove suspended, developing, and lost contacts from Contacts board.
+- Disable Black Market from Market Queries and Viewer by default (configurable via LunaSettings).
 
 Bugfixes:
 - Fix Sebestyen not showing up in contacts.
