@@ -166,7 +166,7 @@ public class StelnetHelper {
     public static boolean hasActiveMission(PersonAPI person) {
         List<IntelInfoPlugin> missions = Global.getSector().getIntelManager().getIntel(HubMission.class);
         for (IntelInfoPlugin mission : missions) {
-            if (mission.isEnded()) {
+            if (mission.isEnding() || mission.isEnded()) {
                 continue;
             }
             PersonAPI missionPerson = ((HubMission) mission).getPerson();

@@ -11,10 +11,13 @@ import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
 import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
+import java.util.Set;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 
 @EqualsAndHashCode(callSuper = false)
+@Log4j
 @RequiredArgsConstructor
 public final class AnyHasTag extends Filter {
 
@@ -77,7 +80,13 @@ public final class AnyHasTag extends Filter {
     }
 
     protected boolean acceptIntel(IntelInfoPlugin intel) {
-        return intel.getIntelTags(null).contains(tag);
+        log.info("Trying intel " + intel.toString());
+        Set<String> tags = intel.getIntelTags(null);
+        if (tags == null) {
+            log.warn("Intel " + intel.toString() + " has null tags, returning false");
+            return false;
+        }
+        return tags.contains(tag);
     }
 
     protected boolean acceptMarket(MarketAPI market) {
@@ -92,7 +101,16 @@ public final class AnyHasTag extends Filter {
     }
 
     protected boolean acceptPerson(PersonAPI person) {
-        return person.getTags().contains(tag);
+        if (person == null) {
+            log.warn("Person is null, returning false");
+            return false;
+        }
+        Set<String> tags = person.getTags();
+        if (tags == null) {
+            log.warn("Person " + person.toString() + " has null tags, returning false");
+            return false;
+        }
+        return tags.contains(tag);
     }
 
     protected boolean acceptSkill(SkillSpecAPI skill) {
