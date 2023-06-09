@@ -5,7 +5,15 @@ It adds three new intel tabs: Commodity, Market, and Storage.
 Each tab comes with interactive boards that are used to manage presented intel.
 Finally, the mod extends Contacts and Exploration tab by adding QoL boards to it.
 
-For more details, see forums thread: https://fractalsoftworks.com/forum/index.php?topic=20836
+For more details, see [this forums thread](https://fractalsoftworks.com/forum/index.php?topic=20836).
+
+## Contributing to the Mod
+
+Non technical contribution (ideas or bug reports) can be made via [Issues](https://github.com/jaghaimo/stelnet/issues).
+
+In order to contribute code please fork this repository and work on your idea there.
+Once you have enough to share, open a Pull Request and I will review your changes.
+We will then work together to incorporate your changes into a next release.
 
 ## Translating the Mod
 
