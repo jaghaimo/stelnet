@@ -1,17 +1,24 @@
 package stelnet.board.contact;
 
+import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
+import com.fs.starfarer.api.impl.campaign.missions.hub.HubMission;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.LabelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.ui.UIComponentAPI;
 import com.fs.starfarer.api.util.Misc;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import stelnet.filter.IntelHasPerson;
+import stelnet.filter.IntelIsActive;
 import stelnet.settings.BooleanSettings;
 import stelnet.settings.Modules;
+import stelnet.util.CollectionUtils;
 import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
 import stelnet.util.MemoryHelper;
@@ -112,9 +119,16 @@ public class DisplayContact extends HeadingWithButtons {
 
     private boolean isCallEnabled() {
         boolean wouldBeHidden = Modules.CONTACTS.isHidden();
-        boolean hasMissions = StelnetHelper.hasActiveMission(person) && BooleanSettings.CONTACTS_MISSIONLESS.get();
+        boolean hasMissions = hasActiveMission(person) && BooleanSettings.CONTACTS_MISSIONLESS.get();
         boolean hasSubmarket = market.hasSubmarket(Submarkets.SUBMARKET_STORAGE);
         boolean isCalling = MemoryHelper.getBoolean(ModConstants.MEMORY_IS_CALLING);
         return !wouldBeHidden && !hasMissions && hasSubmarket && !isCalling;
+    }
+
+    private boolean hasActiveMission(PersonAPI person) {
+        List<IntelInfoPlugin> missions = Global.getSector().getIntelManager().getIntel(HubMission.class);
+        CollectionUtils.reduce(missions, new IntelHasPerson(person));
+        CollectionUtils.reduce(missions, new IntelIsActive());
+        return !missions.isEmpty();
     }
 }
