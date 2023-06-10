@@ -16,7 +16,7 @@ public class ShortcutButton extends DecoratedButton {
 
     @Override
     public ButtonAPI addButton(TooltipMakerAPI tooltip) {
-        ButtonAPI addedButton = button.addButton(tooltip);
+        ButtonAPI addedButton = super.addButton(tooltip);
         addedButton.setShortcut(shortcut, putLast);
         return addedButton;
     }
