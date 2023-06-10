@@ -1,4 +1,4 @@
-Version 3.2.2 (2023.06.10)
+Version 3.1.2 (2023.06.10)
 - Add back Special Contact from Nexerelin to Contacts Board (accidentally removed in 3.1.0).
 - Fix crash on Exploration intel filtering (NPE if any intel returned `null` tags).
 - Fix D-Mod count filtering in Market query maker.
