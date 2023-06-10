@@ -1,7 +1,7 @@
 Version 3.2.2 (2023.06.09)
 - Fix crash on Exploration intel filtering if any of the added intel returned null tags (e.g. Rougelite Sector).
 - Add back Special Contact from Nexerelin to Contacts Board.
-- Fix D-Mod filtering in Market query maker.
+- Fix D-Mod count filtering in Market query maker.
 
 
 Version 3.1.1 (2023.06.08)
