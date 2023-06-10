@@ -36,7 +36,8 @@ public class ManageResultsFactory extends FilterAwareFactory implements Renderab
 
     @Override
     public List<Renderable> create(Size size) {
-        prepareDmods();
+        prepareButtons(dModCount);
+        prepareButtons(dModAllowed);
         SizeHelper sizeHelper = new SizeHelper(size);
         sizeHelper.movePartition(100);
         List<Renderable> elements = new LinkedList<>();
@@ -47,22 +48,22 @@ public class ManageResultsFactory extends FilterAwareFactory implements Renderab
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.MANAGE_FILTERING_SUBMARKET, submarketButtons, true));
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.MANAGE_FILTERING_OTHER, otherButtons, true));
         elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.MANAGE_DMODS, true));
-        elements.add(new ButtonGroup(sizeHelper, QueryL10n.MANAGE_DMOD_COUNT, dModCount, true));
+        elements.add(new ButtonGroup(sizeHelper, QueryL10n.MANAGE_DMOD_COUNT, dModCount));
         elements.add(new ButtonGroup(sizeHelper, QueryL10n.MANAGE_DMOD_SET, dModAllowed));
         return elements;
     }
 
-    private void prepareDmods() {
+    private void prepareButtons(FilteringButton[] buttonsToPrepare) {
         Color textColor = ColorHelper.basePlayerColor();
         Color backgroundColor = ColorHelper.darkPlayerColor();
-        for (FilteringButton button : dModAllowed) {
+        for (FilteringButton button : buttonsToPrepare) {
             button.setTextColor(textColor);
             button.setBackgroundColor(backgroundColor);
-            prepareDmods(button);
+            prepareButton(button);
         }
     }
 
-    private void prepareDmods(FilteringButton button) {
+    private void prepareButton(FilteringButton button) {
         float textScale = 1.0f;
         float backgroundScale = 1.0f;
         if (button.isStateOn()) {

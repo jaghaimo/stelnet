@@ -10,7 +10,6 @@ import stelnet.board.query.QueryManager;
 import stelnet.board.query.ResultSet;
 import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.filter.Filter;
-import stelnet.filter.LogicalOr;
 import stelnet.util.CollectionUtils;
 import uilib.RenderableShowComponent;
 import uilib.property.Size;
@@ -47,13 +46,5 @@ public abstract class QueryProvider {
         if (resultSet.size() > 0) {
             resultSets.add(resultSet);
         }
-    }
-
-    protected void addDmodCountFilter(QueryManager manager, Set<Filter> resultFilters) {
-        Set<Filter> dModCountFilters = manager.getDModCountFilters();
-        if (dModCountFilters.isEmpty()) {
-            return;
-        }
-        resultFilters.add(new LogicalOr(dModCountFilters, "dmod count"));
     }
 }

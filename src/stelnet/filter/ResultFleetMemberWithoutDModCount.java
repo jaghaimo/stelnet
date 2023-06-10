@@ -9,7 +9,7 @@ import stelnet.board.query.ResultSet;
 
 @EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
-public final class ResultFleetMemberHasDModCount extends ResultFilter {
+public final class ResultFleetMemberWithoutDModCount extends ResultFilter {
 
     private final int numberOfDMods;
 
@@ -24,6 +24,6 @@ public final class ResultFleetMemberHasDModCount extends ResultFilter {
             return true;
         }
         FleetMemberAPI fleetMember = result.getFleetMember();
-        return DModManager.getNumDMods(fleetMember.getVariant()) == numberOfDMods;
+        return DModManager.getNumDMods(fleetMember.getVariant()) != numberOfDMods;
     }
 }

@@ -10,8 +10,8 @@ import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.board.query.provider.DmodProvider;
 import stelnet.board.query.view.FilteringButton;
 import stelnet.filter.Filter;
-import stelnet.filter.ResultFleetMemberHasDModCount;
 import stelnet.filter.ResultFleetMemberWithoutDMod;
+import stelnet.filter.ResultFleetMemberWithoutDModCount;
 import stelnet.filter.ResultIsFriendly;
 import stelnet.filter.ResultIsPurchasable;
 import stelnet.util.CommonL10n;
@@ -43,7 +43,7 @@ public class ButtonUtils {
             new FilterSetAwareButton(
                 manager,
                 L10n.get(CommonL10n.NONE),
-                new ResultFleetMemberHasDModCount(0),
+                new ResultFleetMemberWithoutDModCount(0),
                 manager.getDModCountFilters()
             )
         );
@@ -52,7 +52,7 @@ public class ButtonUtils {
                 new FilterSetAwareButton(
                     manager,
                     String.valueOf(i),
-                    new ResultFleetMemberHasDModCount(i),
+                    new ResultFleetMemberWithoutDModCount(i),
                     manager.getDModCountFilters()
                 )
             );

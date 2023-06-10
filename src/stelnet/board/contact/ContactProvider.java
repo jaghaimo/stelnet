@@ -23,7 +23,8 @@ import stelnet.util.CollectionUtils;
 public class ContactProvider {
 
     public int getSize() {
-        return ContactIntel.getCurrentContacts();
+        List<Filter> filters = new LinkedList<>();
+        return getContacts(filters).size();
     }
 
     public List<ContactIntel> getContacts(List<Filter> filters) {

@@ -10,10 +10,8 @@ import com.fs.starfarer.api.campaign.comm.IntelManagerAPI;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
-import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
-import com.fs.starfarer.api.impl.campaign.missions.hub.HubMission;
 import com.fs.starfarer.api.util.Misc;
 import java.awt.AWTException;
 import java.awt.Color;
@@ -161,20 +159,6 @@ public class StelnetHelper {
 
     public static boolean hasCommodity(String commodityId) {
         return Global.getSettings().getCommoditySpec(commodityId) != null;
-    }
-
-    public static boolean hasActiveMission(PersonAPI person) {
-        List<IntelInfoPlugin> missions = Global.getSector().getIntelManager().getIntel(HubMission.class);
-        for (IntelInfoPlugin mission : missions) {
-            if (mission.isEnded()) {
-                continue;
-            }
-            PersonAPI missionPerson = ((HubMission) mission).getPerson();
-            if (missionPerson == person) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public static CargoAPI makeCargoFromStacks(List<CargoStackAPI> cargoStacks) {
