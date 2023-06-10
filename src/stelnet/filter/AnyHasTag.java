@@ -80,7 +80,6 @@ public final class AnyHasTag extends Filter {
     }
 
     protected boolean acceptIntel(IntelInfoPlugin intel) {
-        log.info("Trying intel " + intel.toString());
         Set<String> tags = intel.getIntelTags(null);
         if (tags == null) {
             log.warn("Intel " + intel.toString() + " has null tags, returning false");

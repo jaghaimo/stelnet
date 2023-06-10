@@ -47,7 +47,7 @@ public class ShipQueryProvider extends QueryProvider {
     public Set<Filter> getAdditionalFilters(QueryManager manager) {
         Set<Filter> resultFilters = super.getAdditionalFilters(manager);
         resultFilters.add(new LogicalOr(manager.getSubmarketFilters(), "submarkets"));
-        addDmodCountFilter(manager, resultFilters);
+        resultFilters.addAll(manager.getDModCountFilters());
         resultFilters.addAll(manager.getDModTypesFilters());
         return resultFilters;
     }
