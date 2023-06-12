@@ -1,6 +1,7 @@
 package uilib2.intel;
 
 import com.fs.starfarer.api.ui.CustomPanelAPI;
+
 import uilib2.Layout;
 
 /**
@@ -10,7 +11,7 @@ public abstract class LargeIntel extends DrawableIntel {
 
     @Override
     public void createLargeDescription(CustomPanelAPI panel, float width, float height) {
-        Layout layout = getLayout();
+        Layout layout = getLayout(width, height);
         layout.draw(panel, width, height);
     }
 
@@ -19,5 +20,5 @@ public abstract class LargeIntel extends DrawableIntel {
         return true;
     }
 
-    protected abstract Layout getLayout();
+    protected abstract Layout getLayout(float width, float height);
 }

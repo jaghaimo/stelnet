@@ -12,6 +12,7 @@ import stelnet.board.commodity.table.ProfitTableRow;
 import stelnet.board.contact.ContactsBoard;
 import stelnet.board.contact.SebestyenContactIntel;
 import stelnet.board.contact.SebestyenContactMaker;
+import stelnet.board.contact2.NewContactsBoard;
 import stelnet.board.exploration.ExplorationBoard;
 import stelnet.board.query.MarketUpdater;
 import stelnet.board.query.QueryBoard;
@@ -83,6 +84,7 @@ public class SettingsListener implements LunaSettingsListener {
     private static void initContacts(boolean hasContacts) {
         if (hasContacts) {
             StelnetHelper.getInstance(ContactsBoard.class);
+            StelnetHelper.getInstance(NewContactsBoard.class);
             SebestyenContactMaker.register();
             log.info("Enabled Contacts module");
         } else {

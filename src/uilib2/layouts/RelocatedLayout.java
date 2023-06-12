@@ -18,7 +18,7 @@ public class RelocatedLayout extends DecoratedLayout {
     @Override
     public PositionAPI draw(CustomPanelAPI panel, float width, float height) {
         PositionAPI position = super.draw(panel, width, height);
-        position.setLocation(x, y);
+        position.inTL(x, y);
         return position;
     }
 }
