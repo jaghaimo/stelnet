@@ -18,9 +18,9 @@ import uilib2.UiConstants;
 import uilib2.button.Button;
 import uilib2.button.ButtonBuilder;
 import uilib2.button.CheckboxCustom;
-import uilib2.intel.ActionUpdateForItem;
-import uilib2.intel.ActionUpdateIntelList;
 import uilib2.intel.IntelCallbackBuilder;
+import uilib2.intel.actions.UpdateForItem;
+import uilib2.intel.actions.UpdateIntelList;
 
 @RequiredArgsConstructor
 public class FactionButton extends ExplorationButton {
@@ -60,8 +60,8 @@ public class FactionButton extends ExplorationButton {
             new IntelCallbackBuilder()
                 .addConfirmAction(new UpdateMemoryFlag(memoryKeyChecked, !isChecked))
                 .addConfirmAction(new ActionFilterIntel())
-                .addConfirmAction(new ActionUpdateIntelList())
-                .addConfirmAction(new ActionUpdateForItem(intel))
+                .addConfirmAction(new UpdateIntelList())
+                .addConfirmAction(new UpdateForItem(intel))
                 .build(),
             Fonts.DEFAULT_SMALL,
             faction.getBaseUIColor(),

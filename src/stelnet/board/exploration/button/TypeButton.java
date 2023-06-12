@@ -9,9 +9,9 @@ import stelnet.util.L10n;
 import uilib2.UiConstants;
 import uilib2.button.AreaCheckboxBasic;
 import uilib2.button.Button;
-import uilib2.intel.ActionUpdateForItem;
-import uilib2.intel.ActionUpdateIntelList;
 import uilib2.intel.IntelCallbackBuilder;
+import uilib2.intel.actions.UpdateForItem;
+import uilib2.intel.actions.UpdateIntelList;
 
 public class TypeButton extends EnumButton {
 
@@ -28,8 +28,8 @@ public class TypeButton extends EnumButton {
             new IntelCallbackBuilder()
                 .addConfirmAction(new UpdateMemoryFlag(memoryKeyChecked, !isChecked))
                 .addConfirmAction(new ActionFilterIntel())
-                .addConfirmAction(new ActionUpdateIntelList())
-                .addConfirmAction(new ActionUpdateForItem(intel))
+                .addConfirmAction(new UpdateIntelList())
+                .addConfirmAction(new UpdateForItem(intel))
                 .build(),
             Misc.getBasePlayerColor(),
             Misc.getDarkPlayerColor(),

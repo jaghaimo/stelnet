@@ -1,16 +1,17 @@
-package uilib2.intel;
+package uilib2.intel.actions;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import lombok.RequiredArgsConstructor;
+import uilib2.intel.IntelUiAction;
 
 @RequiredArgsConstructor
-public class ActionSelectItem implements IntelUiAction {
+public class UpdateForItem implements IntelUiAction {
 
     private final IntelInfoPlugin plugin;
 
     @Override
     public void act(IntelUIAPI ui) {
-        ui.selectItem(plugin);
+        ui.updateUIForItem(plugin);
     }
 }

@@ -21,14 +21,14 @@ import uilib2.Drawable;
 import uilib2.Spacer;
 import uilib2.UiConstants;
 import uilib2.button.Button;
-import uilib2.intel.DrawableIntel;
 import uilib2.intel.DrawableIntelInfo;
+import uilib2.intel.SmallIntel;
 import uilib2.label.HighlightFirst;
 import uilib2.widget.HeaderWithButtons;
 
 @Getter
 @Log4j
-public class ExplorationBoard extends DrawableIntel {
+public class ExplorationBoard extends SmallIntel {
 
     public static final String MEMORY_PREFIX = "$stelnetExploration";
     public static final String MEMORY_SUFFIX_CHECKED = "Checked";

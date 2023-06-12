@@ -2,12 +2,12 @@ package uilib2.intel;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import java.awt.Color;
-import java.util.Collections;
-import java.util.List;
-import lombok.extern.log4j.Log4j;
-import uilib2.Drawable;
 
-@Log4j
+/**
+ * DrawableIntel stub that only provides `createIntelInfo` implementation.
+ *
+ * Your intel class will NEED to override either `hasLargeDescription` or `hasSmallDescription`.
+ */
 public abstract class DrawableIntel extends CallbackAwareIntel {
 
     @Override
@@ -19,23 +19,13 @@ public abstract class DrawableIntel extends CallbackAwareIntel {
     }
 
     @Override
-    public void createSmallDescription(TooltipMakerAPI tooltip, float width, float height) {
-        long startTime = System.currentTimeMillis();
-        for (Drawable drawable : getDrawableList(width, height)) {
-            drawable.draw(tooltip);
-        }
-        long stopTime = System.currentTimeMillis();
-        log.debug(String.format("Created small intel in %dms", stopTime - startTime));
-    }
-
-    @Override
     public boolean hasLargeDescription() {
         return false;
     }
 
     @Override
     public boolean hasSmallDescription() {
-        return true;
+        return false;
     }
 
     @Override
@@ -43,10 +33,9 @@ public abstract class DrawableIntel extends CallbackAwareIntel {
         return false;
     }
 
-    protected List<Drawable> getDrawableList(float width, float height) {
-        return Collections.<Drawable>emptyList();
-    }
-
+    /**
+     * Override this method in your intel class.
+     */
     protected DrawableIntelInfo getIntelInfo() {
         return new DrawableIntelInfo() {
             @Override
