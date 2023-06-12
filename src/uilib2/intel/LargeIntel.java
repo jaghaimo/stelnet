@@ -4,7 +4,7 @@ import com.fs.starfarer.api.ui.CustomPanelAPI;
 import uilib2.Layout;
 
 /**
- * Convenient starting point for building small intel classes using `uilib`.
+ * Convenient starting point for building large intel classes using `uilib2`.
  */
 public abstract class LargeIntel extends DrawableIntel {
 
