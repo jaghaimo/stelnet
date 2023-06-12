@@ -1,10 +1,8 @@
 package uilib2.intel;
 
+import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import java.util.Collections;
 import java.util.List;
-
-import com.fs.starfarer.api.ui.TooltipMakerAPI;
-
 import uilib2.Drawable;
 
 /**
