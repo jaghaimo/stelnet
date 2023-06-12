@@ -1,7 +1,9 @@
 package uilib2.intel;
 
+import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import java.awt.Color;
+import java.util.Set;
 
 /**
  * DrawableIntel stub that only provides `createIntelInfo` implementation.
@@ -19,6 +21,13 @@ public abstract class DrawableIntel extends CallbackAwareIntel {
     }
 
     @Override
+    public Set<String> getIntelTags(SectorMapAPI map) {
+        Set<String> tags = super.getIntelTags(map);
+        tags.add(getMainTag());
+        return tags;
+    }
+
+    @Override
     public boolean hasLargeDescription() {
         return false;
     }
@@ -33,15 +42,7 @@ public abstract class DrawableIntel extends CallbackAwareIntel {
         return false;
     }
 
-    /**
-     * Override this method in your intel class.
-     */
-    protected DrawableIntelInfo getIntelInfo() {
-        return new DrawableIntelInfo() {
-            @Override
-            public void draw(TooltipMakerAPI tooltip, Color bulletColor, Color titleColor) {
-                tooltip.addPara("Implement 'getIntelInfo()' method to change this", 0);
-            }
-        };
-    }
+    protected abstract DrawableIntelInfo getIntelInfo();
+
+    protected abstract String getMainTag();
 }

@@ -2,7 +2,6 @@ package stelnet.board.exploration;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
-import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.util.Misc;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -36,6 +35,7 @@ public class ExplorationBoard extends SmallIntel {
 
     private final Set<Filter> filters = new LinkedHashSet<>();
     private final String icon = StelnetHelper.getSpriteName("exploration");
+    private final String mainTag = Tags.INTEL_EXPLORATION;
     private final IntelSortTier sortTier = IntelSortTier.TIER_0;
 
     @Override
@@ -47,13 +47,6 @@ public class ExplorationBoard extends SmallIntel {
             null,
             new HighlightFirst(String.valueOf(hiddenIntelNumber))
         );
-    }
-
-    @Override
-    public Set<String> getIntelTags(SectorMapAPI map) {
-        Set<String> tags = super.getIntelTags(map);
-        tags.add(Tags.INTEL_EXPLORATION);
-        return tags;
     }
 
     @Override
