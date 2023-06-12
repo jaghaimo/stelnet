@@ -1,6 +1,7 @@
 package uilib2.button;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
+import com.fs.starfarer.api.ui.UIComponentAPI;
 
 /**
  * Base class for all UI elements that return ButtonAPI: buttons, checkboxes, area checkboxes.
@@ -8,7 +9,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 public abstract class AbstractButton implements Button {
 
     @Override
-    public void draw(TooltipMakerAPI tooltip) {
-        addButton(tooltip);
+    public UIComponentAPI draw(TooltipMakerAPI tooltip) {
+        return addButton(tooltip);
     }
 }

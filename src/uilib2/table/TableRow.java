@@ -1,5 +1,7 @@
 package uilib2.table;
 
-import uilib2.Drawable;
+import com.fs.starfarer.api.ui.TooltipMakerAPI;
 
-public interface TableRow extends Drawable {}
+public interface TableRow {
+    public void draw(TooltipMakerAPI tooltip);
+}

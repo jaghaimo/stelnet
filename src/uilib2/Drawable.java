@@ -1,7 +1,8 @@
 package uilib2;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
+import com.fs.starfarer.api.ui.UIComponentAPI;
 
 public interface Drawable {
-    public void draw(TooltipMakerAPI tooltip);
+    public UIComponentAPI draw(TooltipMakerAPI tooltip);
 }

@@ -33,12 +33,12 @@ public class HeaderWithButtons implements Drawable {
     }
 
     @Override
-    public void draw(TooltipMakerAPI tooltip) {
+    public UIComponentAPI draw(TooltipMakerAPI tooltip) {
         float width = tooltip.getWidthSoFar();
         drawSectionHeading(tooltip);
         drawOverlappingPara(tooltip);
         if (firstButton == null) {
-            return;
+            return tooltip.getPrev();
         }
         UIComponentAPI currentComponent = drawFirstButton(tooltip);
         width -= currentComponent.getPosition().getWidth();
@@ -48,6 +48,7 @@ public class HeaderWithButtons implements Drawable {
         }
         tooltip.addSpacer(0);
         tooltip.getPrev().getPosition().setXAlignOffset(-width);
+        return tooltip.getPrev();
     }
 
     private void drawSectionHeading(TooltipMakerAPI tooltip) {
