@@ -5,6 +5,7 @@ import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.ui.ButtonAPI.UICheckboxSize;
 import com.fs.starfarer.api.ui.Fonts;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
+import com.fs.starfarer.api.ui.UIComponentAPI;
 import com.fs.starfarer.api.util.Misc;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.exploration.ActionFilterIntel;
@@ -31,7 +32,7 @@ public class FactionButton extends ExplorationButton {
     private final boolean withShift;
 
     @Override
-    public void draw(TooltipMakerAPI tooltip) {
+    public UIComponentAPI draw(TooltipMakerAPI tooltip) {
         IdAware key = new PromotedFaction(faction);
         String memoryKeyChecked = MemoryHelper.key(
             ExplorationBoard.MEMORY_PREFIX,
@@ -49,7 +50,7 @@ public class FactionButton extends ExplorationButton {
         if (withShift) {
             button = new ShiftedButton(button, width);
         }
-        button.draw(tooltip);
+        return button.draw(tooltip);
     }
 
     private Button getButton(String memoryKeyChecked, boolean isChecked) {

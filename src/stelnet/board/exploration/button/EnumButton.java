@@ -1,6 +1,7 @@
 package stelnet.board.exploration.button;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
+import com.fs.starfarer.api.ui.UIComponentAPI;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.exploration.ExplorationBoard;
 import stelnet.board.exploration.ExplorationL10n;
@@ -17,7 +18,7 @@ public abstract class EnumButton extends ExplorationButton {
     protected final boolean withShift;
 
     @Override
-    public void draw(TooltipMakerAPI tooltip) {
+    public UIComponentAPI draw(TooltipMakerAPI tooltip) {
         String memoryKeyChecked = MemoryHelper.key(
             ExplorationBoard.MEMORY_PREFIX,
             buttonType,
@@ -34,7 +35,7 @@ public abstract class EnumButton extends ExplorationButton {
         if (withShift) {
             button = new ShiftedButton(button, width);
         }
-        button.draw(tooltip);
+        return button.draw(tooltip);
     }
 
     protected abstract Button getButton(String memoryKeyChecked, boolean isChecked);
