@@ -39,6 +39,11 @@ public class SettingsListener implements LunaSettingsListener {
 
     public static void register() {
         LunaSettings.addSettingsListener(new SettingsListener());
+        try {
+            Global.getSettings().loadTexture("graphics/icons/stelnet.png");
+        } catch (Exception exception) {
+            log.error("Failed to load stelnet icon!");
+        }
     }
 
     public static void apply() {

@@ -1,7 +1,6 @@
 package uilib2.intel;
 
 import com.fs.starfarer.api.ui.CustomPanelAPI;
-
 import uilib2.Layout;
 
 /**
