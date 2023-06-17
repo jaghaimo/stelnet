@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
+import stelnet.util.Excluder;
 
 public class SkillProvider {
 
@@ -32,6 +33,7 @@ public class SkillProvider {
         for (String skillId : skillIds) {
             skillSpecs.add(Global.getSettings().getSkillSpec(skillId));
         }
+        CollectionUtils.reduce(skillSpecs, Excluder.getSkillFilter());
         return skillSpecs;
     }
 }
