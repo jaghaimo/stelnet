@@ -30,6 +30,7 @@ import stelnet.board.viewer.ViewerBoard;
 import stelnet.settings.BooleanSettings;
 import stelnet.settings.IntSettings;
 import stelnet.settings.Modules;
+import stelnet.util.Excluder;
 import stelnet.util.ModConstants;
 import stelnet.util.StelnetHelper;
 
@@ -56,6 +57,7 @@ public class SettingsListener implements LunaSettingsListener {
 
     public static void resetCache() {
         DmodProvider.resetCache();
+        Excluder.resetCache();
         FactionProvider.resetCache();
         SkillProvider.resetCache();
         ItemQueryProvider.resetCache();

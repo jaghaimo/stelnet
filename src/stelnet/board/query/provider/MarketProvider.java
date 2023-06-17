@@ -30,7 +30,7 @@ public class MarketProvider {
 
     public static List<MarketAPI> getMarkets(boolean refreshContent) {
         List<MarketAPI> markets = Global.getSector().getEconomy().getMarketsCopy();
-        List<Filter> filters = Arrays.<Filter>asList(Excluder.getMarketFilters(), new MarketNotHidden());
+        List<Filter> filters = Arrays.<Filter>asList(Excluder.getMarketFilter(), new MarketNotHidden());
         CollectionUtils.reduce(markets, filters);
         if (refreshContent && needsRefresh) {
             log.debug("Refreshing all markets, this may take a moment");
