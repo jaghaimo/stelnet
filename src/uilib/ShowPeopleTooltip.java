@@ -13,6 +13,7 @@ import stelnet.filter.LogicalOr;
 import stelnet.filter.SkillIsAdmin;
 import stelnet.filter.SkillIsCombatOfficer;
 import stelnet.util.CollectionUtils;
+import stelnet.util.Excluder;
 
 @RequiredArgsConstructor
 public class ShowPeopleTooltip implements TooltipCreator {
@@ -56,6 +57,7 @@ public class ShowPeopleTooltip implements TooltipCreator {
 
     private List<SkillLevelAPI> getSkills() {
         List<SkillLevelAPI> skills = person.getStats().getSkillsCopy();
+        CollectionUtils.reduce(skills, Excluder.getSkillFilter());
         CollectionUtils.reduce(
             skills,
             new LogicalOr(Arrays.<Filter>asList(new SkillIsAdmin(), new SkillIsCombatOfficer()), "Any Skill")
