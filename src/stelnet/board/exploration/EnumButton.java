@@ -11,7 +11,7 @@ import uilib2.button.ButtonBuilder;
 @RequiredArgsConstructor
 public abstract class EnumButton extends ExplorationButton {
 
-    protected final ExplorationL10n buttonType;
+    protected final IdAware buttonType;
     protected final float width;
     protected final boolean withShift;
 

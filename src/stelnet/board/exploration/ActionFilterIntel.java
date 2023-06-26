@@ -60,15 +60,15 @@ public class ActionFilterIntel implements IntelUiAction {
 
     private Set<Filter> getFilters() {
         final Set<Filter> filters = new LinkedHashSet<>();
-        for (final ExplorationL10n key : factory.keySet()) {
-            final Filter filter = factory.get(key);
+        for (final Types key : factory.types()) {
+            final Filter filter = factory.getType(key);
             final String isEnabledKey = ExplorationHelper.getEnabledKey(key);
             final String isCheckedKey = ExplorationHelper.getCheckedKey(key);
             addIfNeeded(filters, isEnabledKey, isCheckedKey, filter);
         }
         for (final FactionAPI faction : ExplorationHelper.getFactions()) {
             final Filter filter = new LogicalAnd(
-                Arrays.<Filter>asList(factory.get(ExplorationL10n.TYPE_RAIDING_BASE), new IntelIsFaction(faction)),
+                Arrays.<Filter>asList(factory.getType(Types.TYPE_RAIDING_BASE), new IntelIsFaction(faction)),
                 "Raiding Faction: " + faction.getDisplayName()
             );
             final IdAware key = new PromotedFaction(faction);

@@ -1,7 +1,6 @@
 package stelnet.board.exploration;
 
 import com.fs.starfarer.api.ui.ButtonAPI.UICheckboxSize;
-import stelnet.util.L10n;
 import uilib2.UiConstants;
 import uilib2.button.Button;
 import uilib2.button.CheckboxBasic;
@@ -14,7 +13,7 @@ public class BankButton extends EnumButton {
     private final IntelUiAction refreshAction;
 
     public BankButton(
-        final ExplorationL10n buttonType,
+        final IdAware buttonType,
         final IntelUiAction refreshAction,
         final float width,
         final boolean withShift
@@ -27,7 +26,7 @@ public class BankButton extends EnumButton {
         return new CheckboxBasic(
             (width - UiConstants.BUTTON_PADDING) / 2,
             UiConstants.BUTTON_HEIGHT,
-            L10n.get(buttonType),
+            buttonType.getTitle(),
             new IntelCallbackBuilder()
                 .addConfirmAction(new UpdateMemoryFlag(memoryKeyChecked, !isChecked))
                 .addConfirmAction(new ActionFilterIntel())

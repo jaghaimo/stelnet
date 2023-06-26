@@ -1,7 +1,6 @@
 package stelnet.board.exploration;
 
 import com.fs.starfarer.api.util.Misc;
-import stelnet.util.L10n;
 import uilib2.UiConstants;
 import uilib2.button.AreaCheckboxBasic;
 import uilib2.button.Button;
@@ -14,7 +13,7 @@ public class TypeButton extends EnumButton {
     private final IntelUiAction intel;
 
     public TypeButton(
-        final ExplorationL10n buttonType,
+        final IdAware buttonType,
         final IntelUiAction refreshAction,
         final float width,
         final boolean withShift
@@ -25,7 +24,7 @@ public class TypeButton extends EnumButton {
 
     protected Button getButton(final String memoryKeyChecked, final boolean isChecked) {
         return new AreaCheckboxBasic(
-            L10n.get(buttonType),
+            buttonType.getTitle(),
             new IntelCallbackBuilder()
                 .addConfirmAction(new UpdateMemoryFlag(memoryKeyChecked, !isChecked))
                 .addConfirmAction(new ActionFilterIntel())

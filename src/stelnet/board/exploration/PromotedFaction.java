@@ -12,4 +12,19 @@ public class PromotedFaction implements IdAware {
     public String getId() {
         return faction.getId();
     }
+
+    @Override
+    public String getFamily() {
+        return "FACTIONS";
+    }
+
+    @Override
+    public int getShortcut() {
+        return 0;
+    }
+
+    @Override
+    public String getTitle() {
+        return faction.getDisplayName();
+    }
 }

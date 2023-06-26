@@ -11,8 +11,9 @@ import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.BoardDrawableInfo;
 import stelnet.filter.Filter;
-import stelnet.util.L10n;
 import stelnet.util.StelnetHelper;
+import stelnet.util.StringsHelper;
+import stelnet.util.StringsHelper.Category;
 import uilib2.Drawable;
 import uilib2.Spacer;
 import uilib2.UiConstants;
@@ -43,8 +44,8 @@ public class ExplorationBoard extends SmallIntel {
     protected DrawableIntelInfo getIntelInfo() {
         final int hiddenIntelNumber = ExplorationHelper.getHiddenNumber();
         return new BoardDrawableInfo(
-            L10n.get(ExplorationL10n.BOARD_TITLE),
-            L10n.get(ExplorationL10n.BOARD_DESCRIPTION, hiddenIntelNumber),
+            StringsHelper.get(Category.STELNET_EXPLORATION_BOARD, "BOARD_TITLE"),
+            StringsHelper.get(Category.STELNET_EXPLORATION_BOARD, "BOARD_DESCRIPTION", hiddenIntelNumber),
             null,
             new HighlightFirst(String.valueOf(hiddenIntelNumber))
         );
@@ -71,10 +72,12 @@ public class ExplorationBoard extends SmallIntel {
     }
 
     private void addTypes(final List<Drawable> drawables, final ButtonFactory factory) {
-        final List<ExplorationL10n> buttonTypes = TypeFactory.getTypes();
-        final Button toggleButton = factory.getToggleButton("TYPE_");
-        addHeader(drawables, L10n.get(ExplorationL10n.HEADER_TYPE), toggleButton);
-        factory.addTypes(drawables, buttonTypes, null);
+        final List<IdAware> types = TypeFactory.getTypes();
+        final IntelUiAction flipAction = new FlipMatchingKeys(types);
+        final Button toggleButton = factory.getToggleButton(flipAction);
+        final String title = StringsHelper.get(Category.STELNET_EXPLORATION_BOARD, "HEADER_TYPE");
+        addHeader(drawables, title, toggleButton);
+        factory.addTypes(drawables, types, null);
         addLargeSpacer(drawables);
     }
 
@@ -83,17 +86,20 @@ public class ExplorationBoard extends SmallIntel {
         if (factions.isEmpty()) {
             return;
         }
-        addHeader(drawables, L10n.get(ExplorationL10n.HEADER_FACTION), null);
-        final String memoryKeyChecked = ExplorationHelper.getCheckedKey(ExplorationL10n.TYPE_RAIDING_BASE);
+        final String title = StringsHelper.get(Category.STELNET_EXPLORATION_BOARD, "HEADER_FACTION");
+        final String memoryKeyChecked = ExplorationHelper.getCheckedKey(Types.TYPE_RAIDING_BASE);
+        addHeader(drawables, title, null);
         factory.addFactions(drawables, factions, memoryKeyChecked);
         addLargeSpacer(drawables);
     }
 
     private void addBanks(final List<Drawable> drawables, final ButtonFactory factory) {
-        final List<ExplorationL10n> buttonTypes = TypeFactory.getBanks();
-        final Button toggleButton = factory.getToggleButton("BANK_");
-        addHeader(drawables, L10n.get(ExplorationL10n.HEADER_MEMORY_BANK), toggleButton);
-        final String memoryKeyChecked = ExplorationHelper.getCheckedKey(ExplorationL10n.TYPE_MEMORY_BANK);
-        factory.addBanks(drawables, buttonTypes, memoryKeyChecked);
+        final List<IdAware> banks = TypeFactory.getBanks();
+        final IntelUiAction flipAction = new FlipMatchingKeys(banks);
+        final Button toggleButton = factory.getToggleButton(flipAction);
+        final String title = StringsHelper.get(Category.STELNET_EXPLORATION_BOARD, "HEADER_MEMORY_BANK");
+        final String memoryKeyChecked = ExplorationHelper.getCheckedKey(Types.TYPE_MEMORY_BANK);
+        addHeader(drawables, title, toggleButton);
+        factory.addBanks(drawables, banks, memoryKeyChecked);
     }
 }

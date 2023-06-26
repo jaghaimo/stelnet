@@ -1,12 +1,14 @@
 package stelnet.board.exploration;
 
+import java.util.List;
+
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.ui.Fonts;
 import com.fs.starfarer.api.util.Misc;
-import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
@@ -27,11 +29,11 @@ public class ButtonFactory {
 
     public void addBanks(
         final List<Drawable> drawables,
-        final List<ExplorationL10n> types,
+        final List<IdAware> banks,
         final String memoryKeyEnabledOverride
     ) {
         boolean withShift = false;
-        for (final ExplorationL10n type : types) {
+        for (final IdAware type : banks) {
             withShift = addButton(drawables, makeBankButton(type, withShift), withShift, memoryKeyEnabledOverride);
         }
     }
@@ -48,14 +50,14 @@ public class ButtonFactory {
         }
     }
 
-    public Button getToggleButton(final String enumPrefix) {
+    public Button getToggleButton(final IntelUiAction flipAction) {
         final String label = L10n.get(CommonL10n.FLIP);
         final float width = Global.getSettings().computeStringWidth(label, Fonts.VICTOR_10); // minimum size to fit label
         return new ButtonBuilder(
             new ButtonCustom(
                 label,
                 new IntelCallbackBuilder()
-                    .addConfirmAction(new FlipMatchingKeys(enumPrefix))
+                    .addConfirmAction(flipAction)
                     .addConfirmAction(new ActionFilterIntel())
                     .addConfirmAction(new UpdateIntelList(true))
                     .addConfirmAction(refreshAction)
@@ -75,20 +77,20 @@ public class ButtonFactory {
 
     public void addTypes(
         final List<Drawable> drawables,
-        final List<ExplorationL10n> types,
+        final List<IdAware> types,
         final String memoryKeyEnabledOverride
     ) {
         boolean withShift = false;
-        for (final ExplorationL10n type : types) {
+        for (final IdAware type : types) {
             withShift = addButton(drawables, makeTypeButton(type, withShift), withShift, memoryKeyEnabledOverride);
         }
     }
 
-    private ExplorationButton makeBankButton(final ExplorationL10n buttonType, final boolean withShift) {
+    private ExplorationButton makeBankButton(final IdAware buttonType, final boolean withShift) {
         return new BankButton(buttonType, refreshAction, width, withShift);
     }
 
-    private ExplorationButton makeTypeButton(final ExplorationL10n buttonType, final boolean withShift) {
+    private ExplorationButton makeTypeButton(final IdAware buttonType, final boolean withShift) {
         return new TypeButton(buttonType, refreshAction, width, withShift);
     }
 
