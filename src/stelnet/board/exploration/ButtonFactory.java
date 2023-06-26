@@ -1,14 +1,12 @@
 package stelnet.board.exploration;
 
-import java.util.List;
-
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.ui.Fonts;
 import com.fs.starfarer.api.util.Misc;
-
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
