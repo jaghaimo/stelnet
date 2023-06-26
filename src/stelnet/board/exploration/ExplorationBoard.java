@@ -37,7 +37,7 @@ public class ExplorationBoard extends SmallIntel {
     @Override
     public void notifyPlayerAboutToOpenIntelScreen() {
         log.debug("Forcing filters upon exploration tab intel");
-        new ActionFilterIntel().act(null);
+        new FilterIntel().act(null);
     }
 
     @Override
@@ -72,12 +72,12 @@ public class ExplorationBoard extends SmallIntel {
     }
 
     private void addTypes(final List<Drawable> drawables, final ButtonFactory factory) {
-        final List<IdAware> types = TypeFactory.getTypes();
+        final List<ButtonAware> types = Types.getAll();
         final IntelUiAction flipAction = new FlipMatchingKeys(types);
         final Button toggleButton = factory.getToggleButton(flipAction);
         final String title = StringsHelper.get(Category.STELNET_EXPLORATION_BOARD, "HEADER_TYPE");
         addHeader(drawables, title, toggleButton);
-        factory.addTypes(drawables, types, null);
+        factory.addTypes(drawables, types);
         addLargeSpacer(drawables);
     }
 
@@ -94,7 +94,7 @@ public class ExplorationBoard extends SmallIntel {
     }
 
     private void addBanks(final List<Drawable> drawables, final ButtonFactory factory) {
-        final List<IdAware> banks = TypeFactory.getBanks();
+        final List<ButtonAware> banks = Banks.getAll();
         final IntelUiAction flipAction = new FlipMatchingKeys(banks);
         final Button toggleButton = factory.getToggleButton(flipAction);
         final String title = StringsHelper.get(Category.STELNET_EXPLORATION_BOARD, "HEADER_MEMORY_BANK");

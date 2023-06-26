@@ -9,16 +9,16 @@ import uilib2.intel.IntelUiAction;
 @RequiredArgsConstructor
 public class FlipMatchingKeys implements IntelUiAction {
 
-    private final List<IdAware> idAwares;
+    private final List<ButtonAware> entities;
 
     @Override
     public void act(final IntelUIAPI ui) {
-        for (final IdAware idAware : idAwares) {
-            changeIfEligible(idAware);
+        for (final ButtonAware entity : entities) {
+            changeIfEligible(entity);
         }
     }
 
-    private void changeIfEligible(final IdAware value) {
+    private void changeIfEligible(final ButtonAware value) {
         final String key = ExplorationHelper.getCheckedKey(value);
         if (!MemoryHelper.has(key)) {
             return;

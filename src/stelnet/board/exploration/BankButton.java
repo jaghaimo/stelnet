@@ -13,7 +13,7 @@ public class BankButton extends EnumButton {
     private final IntelUiAction refreshAction;
 
     public BankButton(
-        final IdAware buttonType,
+        final ButtonAware buttonType,
         final IntelUiAction refreshAction,
         final float width,
         final boolean withShift
@@ -29,7 +29,7 @@ public class BankButton extends EnumButton {
             buttonType.getTitle(),
             new IntelCallbackBuilder()
                 .addConfirmAction(new UpdateMemoryFlag(memoryKeyChecked, !isChecked))
-                .addConfirmAction(new ActionFilterIntel())
+                .addConfirmAction(new FilterIntel())
                 .addConfirmAction(new UpdateIntelList())
                 .addConfirmAction(refreshAction)
                 .build(),

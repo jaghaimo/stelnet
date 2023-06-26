@@ -22,12 +22,12 @@ public class ExplorationHelper {
     private static final String MEMORY_SUFFIX_CHECKED = "Checked";
     private static final String MEMORY_SUFFIX_ENABLED = "Enabled";
 
-    public static String getCheckedKey(final IdAware idAware) {
-        return MemoryHelper.key(ExplorationHelper.MEMORY_PREFIX, idAware, ExplorationHelper.MEMORY_SUFFIX_CHECKED);
+    public static String getCheckedKey(final ButtonAware entity) {
+        return MemoryHelper.key(ExplorationHelper.MEMORY_PREFIX, entity, ExplorationHelper.MEMORY_SUFFIX_CHECKED);
     }
 
-    public static String getEnabledKey(final IdAware idAware) {
-        return MemoryHelper.key(ExplorationHelper.MEMORY_PREFIX, idAware, ExplorationHelper.MEMORY_SUFFIX_ENABLED);
+    public static String getEnabledKey(final ButtonAware entity) {
+        return MemoryHelper.key(ExplorationHelper.MEMORY_PREFIX, entity, ExplorationHelper.MEMORY_SUFFIX_ENABLED);
     }
 
     public static List<IntelInfoPlugin> getFilterableIntel() {

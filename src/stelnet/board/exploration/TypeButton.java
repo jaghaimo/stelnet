@@ -13,7 +13,7 @@ public class TypeButton extends EnumButton {
     private final IntelUiAction intel;
 
     public TypeButton(
-        final IdAware buttonType,
+        final ButtonAware buttonType,
         final IntelUiAction refreshAction,
         final float width,
         final boolean withShift
@@ -27,7 +27,7 @@ public class TypeButton extends EnumButton {
             buttonType.getTitle(),
             new IntelCallbackBuilder()
                 .addConfirmAction(new UpdateMemoryFlag(memoryKeyChecked, !isChecked))
-                .addConfirmAction(new ActionFilterIntel())
+                .addConfirmAction(new FilterIntel())
                 .addConfirmAction(new UpdateIntelList())
                 .addConfirmAction(intel)
                 .build(),

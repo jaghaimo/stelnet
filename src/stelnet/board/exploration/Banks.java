@@ -1,9 +1,11 @@
 package stelnet.board.exploration;
 
+import java.util.Arrays;
+import java.util.List;
 import stelnet.util.StringsHelper;
 import stelnet.util.StringsHelper.Category;
 
-public enum Banks implements IdAware {
+public enum Banks implements ButtonAware {
     BANK_ANY_CACHE,
     BANK_DEBRIS_FIELD,
     BANK_DERELICT_SHIP,
@@ -13,14 +15,23 @@ public enum Banks implements IdAware {
     BANK_RUINS_LOCATION,
     BANK_SURVEY_DATA;
 
-    @Override
-    public String getId() {
-        return name();
+    public static List<ButtonAware> getAll() {
+        final ButtonAware[] bankTypes = {
+            Banks.BANK_ANY_CACHE,
+            Banks.BANK_DEBRIS_FIELD,
+            Banks.BANK_DERELICT_SHIP,
+            Banks.BANK_DOMAIN_ERA_ENTITY,
+            Banks.BANK_ORBITAL_HABITAT,
+            Banks.BANK_RUINS_LOCATION,
+            Banks.BANK_SURVEY_DATA,
+            Banks.BANK_OTHER,
+        };
+        return Arrays.asList(bankTypes);
     }
 
     @Override
-    public String getFamily() {
-        return "BANKS";
+    public String getId() {
+        return name();
     }
 
     public int getShortcut() {

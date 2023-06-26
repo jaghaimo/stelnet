@@ -20,7 +20,7 @@ import stelnet.util.MemoryHelper;
 import stelnet.util.ModConstants;
 import uilib2.intel.IntelUiAction;
 
-public class ActionFilterIntel implements IntelUiAction {
+public class FilterIntel implements IntelUiAction {
 
     private final FilterFactory factory = new FilterFactory();
 
@@ -71,7 +71,7 @@ public class ActionFilterIntel implements IntelUiAction {
                 Arrays.<Filter>asList(factory.getType(Types.TYPE_RAIDING_BASE), new IntelIsFaction(faction)),
                 "Raiding Faction: " + faction.getDisplayName()
             );
-            final IdAware key = new PromotedFaction(faction);
+            final ButtonAware key = new ExplorationFaction(faction);
             final String isEnabledKey = ExplorationHelper.getEnabledKey(key);
             final String isCheckedKey = ExplorationHelper.getCheckedKey(key);
             addIfNeeded(filters, isEnabledKey, isCheckedKey, filter);

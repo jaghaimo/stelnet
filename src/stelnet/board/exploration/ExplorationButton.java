@@ -10,7 +10,7 @@ public abstract class ExplorationButton implements Drawable {
     @Setter
     protected String memoryKeyEnabledOverwrite;
 
-    protected String getMemoryKeyEnabled(final IdAware entity) {
+    protected String getMemoryKeyEnabled(final ButtonAware entity) {
         if (memoryKeyEnabledOverwrite != null) {
             return memoryKeyEnabledOverwrite;
         }

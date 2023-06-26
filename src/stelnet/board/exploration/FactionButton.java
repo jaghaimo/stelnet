@@ -27,7 +27,7 @@ public class FactionButton extends ExplorationButton {
 
     @Override
     public UIComponentAPI draw(final TooltipMakerAPI tooltip) {
-        final IdAware key = new PromotedFaction(faction);
+        final ButtonAware key = new ExplorationFaction(faction);
         final String memoryKeyChecked = ExplorationHelper.getCheckedKey(key);
         final String memoryKeyEnabled = getMemoryKeyEnabled(key);
         final boolean isChecked = MemoryHelper.getBoolean(memoryKeyChecked, true);
@@ -50,7 +50,7 @@ public class FactionButton extends ExplorationButton {
             Misc.ucFirst(faction.getDisplayName()),
             new IntelCallbackBuilder()
                 .addConfirmAction(new UpdateMemoryFlag(memoryKeyChecked, !isChecked))
-                .addConfirmAction(new ActionFilterIntel())
+                .addConfirmAction(new FilterIntel())
                 .addConfirmAction(new UpdateIntelList())
                 .addConfirmAction(refreshAction)
                 .build(),

@@ -27,11 +27,11 @@ public class ButtonFactory {
 
     public void addBanks(
         final List<Drawable> drawables,
-        final List<IdAware> banks,
+        final List<ButtonAware> banks,
         final String memoryKeyEnabledOverride
     ) {
         boolean withShift = false;
-        for (final IdAware type : banks) {
+        for (final ButtonAware type : banks) {
             withShift = addButton(drawables, makeBankButton(type, withShift), withShift, memoryKeyEnabledOverride);
         }
     }
@@ -48,6 +48,13 @@ public class ButtonFactory {
         }
     }
 
+    public void addTypes(final List<Drawable> drawables, final List<ButtonAware> types) {
+        boolean withShift = false;
+        for (final ButtonAware type : types) {
+            withShift = addButton(drawables, makeTypeButton(type, withShift), withShift, null);
+        }
+    }
+
     public Button getToggleButton(final IntelUiAction flipAction) {
         final String label = L10n.get(CommonL10n.FLIP);
         final float width = Global.getSettings().computeStringWidth(label, Fonts.VICTOR_10); // minimum size to fit label
@@ -56,7 +63,7 @@ public class ButtonFactory {
                 label,
                 new IntelCallbackBuilder()
                     .addConfirmAction(flipAction)
-                    .addConfirmAction(new ActionFilterIntel())
+                    .addConfirmAction(new FilterIntel())
                     .addConfirmAction(new UpdateIntelList(true))
                     .addConfirmAction(refreshAction)
                     .build(),
@@ -73,22 +80,11 @@ public class ButtonFactory {
             .build();
     }
 
-    public void addTypes(
-        final List<Drawable> drawables,
-        final List<IdAware> types,
-        final String memoryKeyEnabledOverride
-    ) {
-        boolean withShift = false;
-        for (final IdAware type : types) {
-            withShift = addButton(drawables, makeTypeButton(type, withShift), withShift, memoryKeyEnabledOverride);
-        }
-    }
-
-    private ExplorationButton makeBankButton(final IdAware buttonType, final boolean withShift) {
+    private ExplorationButton makeBankButton(final ButtonAware buttonType, final boolean withShift) {
         return new BankButton(buttonType, refreshAction, width, withShift);
     }
 
-    private ExplorationButton makeTypeButton(final IdAware buttonType, final boolean withShift) {
+    private ExplorationButton makeTypeButton(final ButtonAware buttonType, final boolean withShift) {
         return new TypeButton(buttonType, refreshAction, width, withShift);
     }
 
