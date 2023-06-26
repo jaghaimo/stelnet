@@ -8,6 +8,9 @@ import java.text.MessageFormat;
  */
 public class StringsHelper {
 
+    /**
+     * Managed string categories.
+     */
     public enum Category {
         STELNET_COMMON,
         STELNET_CONTACTS_BOARD,
