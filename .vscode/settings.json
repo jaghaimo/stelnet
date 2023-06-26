@@ -2,5 +2,10 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "java.configuration.updateBuildConfiguration": "automatic",
+    "java.codeAction.sortMembers.avoidVolatileChanges": false,
+    "editor.codeActionsOnSave": {
+        "source.sortMembers": true,
+        "source.generate.finalModifiers": true
+    },
     "cSpell.words": ["Jaghaimo", "Sebestyen", "Stelnet"]
 }

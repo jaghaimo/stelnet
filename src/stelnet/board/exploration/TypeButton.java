@@ -13,12 +13,17 @@ public class TypeButton extends EnumButton {
 
     private final IntelUiAction intel;
 
-    public TypeButton(ExplorationL10n buttonType, IntelUiAction refreshAction, float width, boolean withShift) {
+    public TypeButton(
+        final ExplorationL10n buttonType,
+        final IntelUiAction refreshAction,
+        final float width,
+        final boolean withShift
+    ) {
         super(buttonType, width, withShift);
         this.intel = refreshAction;
     }
 
-    protected Button getButton(String memoryKeyChecked, boolean isChecked) {
+    protected Button getButton(final String memoryKeyChecked, final boolean isChecked) {
         return new AreaCheckboxBasic(
             L10n.get(buttonType),
             new IntelCallbackBuilder()

@@ -12,7 +12,7 @@ public class UpdateMemoryFlag implements IntelUiAction {
     private final Object value;
 
     @Override
-    public void act(IntelUIAPI ui) {
+    public void act(final IntelUIAPI ui) {
         MemoryHelper.set(key, value);
     }
 }

@@ -13,12 +13,17 @@ public class BankButton extends EnumButton {
 
     private final IntelUiAction refreshAction;
 
-    public BankButton(ExplorationL10n buttonType, IntelUiAction refreshAction, float width, boolean withShift) {
+    public BankButton(
+        final ExplorationL10n buttonType,
+        final IntelUiAction refreshAction,
+        final float width,
+        final boolean withShift
+    ) {
         super(buttonType, width, withShift);
         this.refreshAction = refreshAction;
     }
 
-    protected Button getButton(String memoryKeyChecked, boolean isChecked) {
+    protected Button getButton(final String memoryKeyChecked, final boolean isChecked) {
         return new CheckboxBasic(
             (width - UiConstants.BUTTON_PADDING) / 2,
             UiConstants.BUTTON_HEIGHT,

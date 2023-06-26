@@ -13,26 +13,39 @@ import stelnet.filter.IntelIsHidden;
 import stelnet.filter.IntelLocationHasMemory;
 import stelnet.filter.LogicalNot;
 import stelnet.util.CollectionUtils;
+import stelnet.util.MemoryHelper;
 import stelnet.util.ModConstants;
 
 public class ExplorationHelper {
 
+    private static final String MEMORY_PREFIX = "$stelnetExploration";
+    private static final String MEMORY_SUFFIX_CHECKED = "Checked";
+    private static final String MEMORY_SUFFIX_ENABLED = "Enabled";
+
+    public static String getCheckedKey(final IdAware idAware) {
+        return MemoryHelper.key(ExplorationHelper.MEMORY_PREFIX, idAware, ExplorationHelper.MEMORY_SUFFIX_CHECKED);
+    }
+
+    public static String getEnabledKey(final IdAware idAware) {
+        return MemoryHelper.key(ExplorationHelper.MEMORY_PREFIX, idAware, ExplorationHelper.MEMORY_SUFFIX_ENABLED);
+    }
+
     public static List<IntelInfoPlugin> getFilterableIntel() {
-        List<IntelInfoPlugin> intelList = new ArrayList<>(Global.getSector().getIntelManager().getIntel());
+        final List<IntelInfoPlugin> intelList = new ArrayList<>(Global.getSector().getIntelManager().getIntel());
         CollectionUtils.reduce(intelList, new AnyHasTag(Tags.INTEL_EXPLORATION));
         CollectionUtils.reduce(intelList, new LogicalNot(new IntelIsClass(ExplorationBoard.class)));
         return intelList;
     }
 
     public static int getHiddenNumber() {
-        List<IntelInfoPlugin> explorationIntel = getFilterableIntel();
+        final List<IntelInfoPlugin> explorationIntel = getFilterableIntel();
         CollectionUtils.reduce(explorationIntel, new IntelLocationHasMemory(ModConstants.EXPLORATION_MANAGE));
         CollectionUtils.reduce(explorationIntel, new IntelIsHidden());
         return explorationIntel.size();
     }
 
     public static List<FactionAPI> getFactions() {
-        List<FactionAPI> factions = Global.getSector().getAllFactions();
+        final List<FactionAPI> factions = Global.getSector().getAllFactions();
         CollectionUtils.reduce(factions, new FactionIsRaiding());
         return factions;
     }

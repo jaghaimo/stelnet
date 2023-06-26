@@ -16,15 +16,11 @@ public abstract class EnumButton extends ExplorationButton {
     protected final boolean withShift;
 
     @Override
-    public UIComponentAPI draw(TooltipMakerAPI tooltip) {
-        String memoryKeyChecked = MemoryHelper.key(
-            ExplorationBoard.MEMORY_PREFIX,
-            buttonType,
-            ExplorationBoard.MEMORY_SUFFIX_CHECKED
-        );
-        String memoryKeyEnabled = getMemoryKeyEnabled(buttonType);
-        boolean isChecked = MemoryHelper.getBoolean(memoryKeyChecked, true);
-        boolean isEnabled = MemoryHelper.getBoolean(memoryKeyEnabled, true);
+    public UIComponentAPI draw(final TooltipMakerAPI tooltip) {
+        final String memoryKeyChecked = ExplorationHelper.getCheckedKey(buttonType);
+        final String memoryKeyEnabled = getMemoryKeyEnabled(buttonType);
+        final boolean isChecked = MemoryHelper.getBoolean(memoryKeyChecked, true);
+        final boolean isEnabled = MemoryHelper.getBoolean(memoryKeyEnabled, true);
         Drawable button = new ButtonBuilder(getButton(memoryKeyChecked, isChecked))
             .setChecked(isChecked)
             .setEnabled(isEnabled)

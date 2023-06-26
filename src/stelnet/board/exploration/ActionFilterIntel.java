@@ -25,9 +25,9 @@ public class ActionFilterIntel implements IntelUiAction {
     private final FilterFactory factory = new FilterFactory();
 
     @Override
-    public void act(IntelUIAPI ui) {
-        Set<Filter> filters = getFilters();
-        List<IntelInfoPlugin> intelList = ExplorationHelper.getFilterableIntel();
+    public void act(final IntelUIAPI ui) {
+        final Set<Filter> filters = getFilters();
+        final List<IntelInfoPlugin> intelList = ExplorationHelper.getFilterableIntel();
         setHidden(intelList, false);
         // game can have some permanently hidden intel, we don't want to count those
         CollectionUtils.reduce(intelList, new LogicalNot(new IntelIsHidden()));
@@ -38,59 +38,60 @@ public class ActionFilterIntel implements IntelUiAction {
         }
     }
 
-    private void setFlag(List<IntelInfoPlugin> intelList) {
-        for (IntelInfoPlugin intel : intelList) {
+    private void setFlag(final List<IntelInfoPlugin> intelList) {
+        for (final IntelInfoPlugin intel : intelList) {
             setFlag(intel.getMapLocation(null));
         }
     }
 
-    private void setFlag(SectorEntityToken token) {
+    private void setFlag(final SectorEntityToken token) {
         if (token == null) {
             return;
         }
-        MemoryAPI memory = token.getMemoryWithoutUpdate();
+        final MemoryAPI memory = token.getMemoryWithoutUpdate();
         memory.set(ModConstants.EXPLORATION_MANAGE, true, 1);
     }
 
-    private void setHidden(List<IntelInfoPlugin> intelList, boolean isHidden) {
-        for (IntelInfoPlugin intel : intelList) {
+    private void setHidden(final List<IntelInfoPlugin> intelList, final boolean isHidden) {
+        for (final IntelInfoPlugin intel : intelList) {
             intel.setHidden(isHidden);
         }
     }
 
     private Set<Filter> getFilters() {
-        Set<Filter> filters = new LinkedHashSet<>();
-        for (ExplorationL10n key : factory.keySet()) {
-            Filter filter = factory.get(key);
-            String isEnabledKey = getMemoryKey(key, ExplorationBoard.MEMORY_SUFFIX_ENABLED);
-            String isCheckedKey = getMemoryKey(key, ExplorationBoard.MEMORY_SUFFIX_CHECKED);
+        final Set<Filter> filters = new LinkedHashSet<>();
+        for (final ExplorationL10n key : factory.keySet()) {
+            final Filter filter = factory.get(key);
+            final String isEnabledKey = ExplorationHelper.getEnabledKey(key);
+            final String isCheckedKey = ExplorationHelper.getCheckedKey(key);
             addIfNeeded(filters, isEnabledKey, isCheckedKey, filter);
         }
-        for (FactionAPI faction : ExplorationHelper.getFactions()) {
-            Filter filter = new LogicalAnd(
+        for (final FactionAPI faction : ExplorationHelper.getFactions()) {
+            final Filter filter = new LogicalAnd(
                 Arrays.<Filter>asList(factory.get(ExplorationL10n.TYPE_RAIDING_BASE), new IntelIsFaction(faction)),
-                "Raiding Faction"
+                "Raiding Faction: " + faction.getDisplayName()
             );
-            IdAware key = new PromotedFaction(faction);
-            String isEnabledKey = getMemoryKey(key, ExplorationBoard.MEMORY_SUFFIX_ENABLED);
-            String isCheckedKey = getMemoryKey(key, ExplorationBoard.MEMORY_SUFFIX_CHECKED);
+            final IdAware key = new PromotedFaction(faction);
+            final String isEnabledKey = ExplorationHelper.getEnabledKey(key);
+            final String isCheckedKey = ExplorationHelper.getCheckedKey(key);
             addIfNeeded(filters, isEnabledKey, isCheckedKey, filter);
         }
         return filters;
     }
 
-    private void addIfNeeded(Set<Filter> filters, String isEnabledKey, String isCheckedKey, Filter filter) {
-        boolean isEnabled = MemoryHelper.getBoolean(isEnabledKey, true);
+    private void addIfNeeded(
+        final Set<Filter> filters,
+        final String isEnabledKey,
+        final String isCheckedKey,
+        final Filter filter
+    ) {
+        final boolean isEnabled = MemoryHelper.getBoolean(isEnabledKey, true);
         if (!isEnabled) {
             return;
         }
-        boolean isChecked = MemoryHelper.getBoolean(isCheckedKey, true);
+        final boolean isChecked = MemoryHelper.getBoolean(isCheckedKey, true);
         if (!isChecked) {
             filters.add(filter);
         }
-    }
-
-    private String getMemoryKey(IdAware key, String suffix) {
-        return MemoryHelper.key(ExplorationBoard.MEMORY_PREFIX, key, suffix);
     }
 }

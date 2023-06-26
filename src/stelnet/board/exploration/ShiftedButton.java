@@ -13,10 +13,10 @@ public class ShiftedButton implements Drawable {
     private final float width;
 
     @Override
-    public UIComponentAPI draw(TooltipMakerAPI tooltip) {
-        float heightSoFar = tooltip.getHeightSoFar();
-        UIComponentAPI component = drawable.draw(tooltip);
-        float shiftX = (width / 2) + UiConstants.BUTTON_PADDING;
+    public UIComponentAPI draw(final TooltipMakerAPI tooltip) {
+        final float heightSoFar = tooltip.getHeightSoFar();
+        final UIComponentAPI component = drawable.draw(tooltip);
+        final float shiftX = (width / 2) + UiConstants.BUTTON_PADDING;
         tooltip.getPrev().getPosition().setXAlignOffset(shiftX);
         tooltip.getPrev().getPosition().setYAlignOffset(UiConstants.BUTTON_HEIGHT);
         tooltip.addSpacer(0);

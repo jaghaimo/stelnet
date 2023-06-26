@@ -25,8 +25,8 @@ public class FilterFactory {
     private final Map<ExplorationL10n, Filter> enumToFilterMap = new LinkedHashMap<>();
 
     public FilterFactory() {
-        Filter bankFilter = new IntelIsClass(BreadcrumbIntel.class);
-        Filter captainsLogFilter = new IntelLocationHasMemory(ModConstants.CAPTAINS_LOG_INTEL);
+        final Filter bankFilter = new IntelIsClass(BreadcrumbIntel.class);
+        final Filter captainsLogFilter = new IntelLocationHasMemory(ModConstants.CAPTAINS_LOG_INTEL);
         addTypes(bankFilter, captainsLogFilter);
         addBanks(bankFilter);
     }
@@ -35,12 +35,12 @@ public class FilterFactory {
         return enumToFilterMap.keySet();
     }
 
-    public Filter get(ExplorationL10n key) {
+    public Filter get(final ExplorationL10n key) {
         return enumToFilterMap.get(key);
     }
 
-    private void addTypes(Filter bankFilter, Filter captainsLogFilter) {
-        Map<ExplorationL10n, Filter> localMap = new LinkedHashMap<>();
+    private void addTypes(final Filter bankFilter, final Filter captainsLogFilter) {
+        final Map<ExplorationL10n, Filter> localMap = new LinkedHashMap<>();
         localMap.put(ExplorationL10n.TYPE_ANALYZE_MISSION, new IntelIsClass(AnalyzeEntityMissionIntel.class));
         localMap.put(ExplorationL10n.TYPE_HISTORIAN_OFFER, new IntelIsClass(BaseHistorianOffer.class));
         localMap.put(ExplorationL10n.TYPE_MEMORY_BANK, bankFilter);
@@ -58,13 +58,13 @@ public class FilterFactory {
         if (CaptainsLogSettings.RUINS.isEnabled()) {
             localMap.put(ExplorationL10n.TYPE_ANY_RUINS, getTitleFilter(captainsLogFilter, "Ruins"));
         }
-        Filter otherFilter = getOtherFilter(localMap);
+        final Filter otherFilter = getOtherFilter(localMap);
         enumToFilterMap.put(ExplorationL10n.TYPE_OTHER, otherFilter);
         enumToFilterMap.putAll(localMap);
     }
 
-    private void addBanks(Filter bankFilter) {
-        Map<ExplorationL10n, Filter> localMap = new LinkedHashMap<>();
+    private void addBanks(final Filter bankFilter) {
+        final Map<ExplorationL10n, Filter> localMap = new LinkedHashMap<>();
         localMap.put(ExplorationL10n.BANK_ANY_CACHE, getTitleFilter(bankFilter, "Cache"));
         localMap.put(ExplorationL10n.BANK_DEBRIS_FIELD, getTitleFilter(bankFilter, "Debris Field"));
         localMap.put(ExplorationL10n.BANK_DERELICT_SHIP, getTitleFilter(bankFilter, "Derelict Ship"));
@@ -72,7 +72,7 @@ public class FilterFactory {
         localMap.put(ExplorationL10n.BANK_ORBITAL_HABITAT, getTitleFilter(bankFilter, "Orbital Habitat"));
         localMap.put(ExplorationL10n.BANK_RUINS_LOCATION, getTitleFilter(bankFilter, "Ruins Location"));
         localMap.put(ExplorationL10n.BANK_SURVEY_DATA, getTitleFilter(bankFilter, "Survey Data for"));
-        Filter otherFilter = new LogicalAnd(
+        final Filter otherFilter = new LogicalAnd(
             Arrays.asList(enumToFilterMap.get(ExplorationL10n.TYPE_MEMORY_BANK), getOtherFilter(localMap)),
             "Other Banks"
         );
@@ -80,14 +80,14 @@ public class FilterFactory {
         enumToFilterMap.putAll(localMap);
     }
 
-    private Filter getTitleFilter(Filter bankFilter, String title) {
+    private Filter getTitleFilter(final Filter bankFilter, final String title) {
         return new LogicalAnd(
             Arrays.asList(bankFilter, new IntelContainsTitle(title)),
             "Compound Title Filter: " + title
         );
     }
 
-    private Filter getOtherFilter(Map<ExplorationL10n, Filter> localMap) {
+    private Filter getOtherFilter(final Map<ExplorationL10n, Filter> localMap) {
         return new LogicalNot(new LogicalOr(localMap.values(), "Everything Else"));
     }
 

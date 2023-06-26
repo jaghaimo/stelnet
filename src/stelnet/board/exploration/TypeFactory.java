@@ -4,13 +4,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-
 import stelnet.settings.CaptainsLogSettings;
 
 public class TypeFactory {
 
     public static List<ExplorationL10n> getBanks() {
-        ExplorationL10n[] bankTypes = {
+        final ExplorationL10n[] bankTypes = {
             ExplorationL10n.BANK_ANY_CACHE,
             ExplorationL10n.BANK_DEBRIS_FIELD,
             ExplorationL10n.BANK_DERELICT_SHIP,
@@ -24,7 +23,7 @@ public class TypeFactory {
     }
 
     public static List<ExplorationL10n> getTypes() {
-        List<ExplorationL10n> types = new LinkedList<>();
+        final List<ExplorationL10n> types = new LinkedList<>();
         types.addAll(
             Arrays.asList(
                 ExplorationL10n.TYPE_ANALYZE_MISSION,

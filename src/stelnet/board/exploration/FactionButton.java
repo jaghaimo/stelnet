@@ -26,16 +26,12 @@ public class FactionButton extends ExplorationButton {
     private final boolean withShift;
 
     @Override
-    public UIComponentAPI draw(TooltipMakerAPI tooltip) {
-        IdAware key = new PromotedFaction(faction);
-        String memoryKeyChecked = MemoryHelper.key(
-            ExplorationBoard.MEMORY_PREFIX,
-            key,
-            ExplorationBoard.MEMORY_SUFFIX_CHECKED
-        );
-        String memoryKeyEnabled = getMemoryKeyEnabled(key);
-        boolean isChecked = MemoryHelper.getBoolean(memoryKeyChecked, true);
-        boolean isEnabled = MemoryHelper.getBoolean(memoryKeyEnabled, true);
+    public UIComponentAPI draw(final TooltipMakerAPI tooltip) {
+        final IdAware key = new PromotedFaction(faction);
+        final String memoryKeyChecked = ExplorationHelper.getCheckedKey(key);
+        final String memoryKeyEnabled = getMemoryKeyEnabled(key);
+        final boolean isChecked = MemoryHelper.getBoolean(memoryKeyChecked, true);
+        final boolean isEnabled = MemoryHelper.getBoolean(memoryKeyEnabled, true);
         Drawable button = new ButtonBuilder(getButton(memoryKeyChecked, isChecked))
             .setChecked(isChecked)
             .setEnabled(isEnabled)
@@ -47,7 +43,7 @@ public class FactionButton extends ExplorationButton {
         return button.draw(tooltip);
     }
 
-    private Button getButton(String memoryKeyChecked, boolean isChecked) {
+    private Button getButton(final String memoryKeyChecked, final boolean isChecked) {
         return new CheckboxCustom(
             (width - UiConstants.BUTTON_PADDING) / 2,
             UiConstants.BUTTON_HEIGHT,

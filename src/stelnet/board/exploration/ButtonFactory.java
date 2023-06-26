@@ -25,30 +25,32 @@ public class ButtonFactory {
     private final IntelUiAction refreshAction;
     private final float width;
 
-    public void addBanks(List<Drawable> drawables, List<ExplorationL10n> types, String memoryKeyEnabled) {
+    public void addBanks(
+        final List<Drawable> drawables,
+        final List<ExplorationL10n> types,
+        final String memoryKeyEnabledOverride
+    ) {
         boolean withShift = false;
-        for (ExplorationL10n type : types) {
-            withShift = addButton(drawables, makeBankButton(type, withShift), withShift, memoryKeyEnabled);
+        for (final ExplorationL10n type : types) {
+            withShift = addButton(drawables, makeBankButton(type, withShift), withShift, memoryKeyEnabledOverride);
         }
     }
 
-    public void addFactions(List<Drawable> drawables, List<FactionAPI> factions, String memoryKeyEnabled) {
+    public void addFactions(
+        final List<Drawable> drawables,
+        final List<FactionAPI> factions,
+        final String memoryKeyEnabledOverride
+    ) {
         boolean withShift = false;
-        for (FactionAPI faction : factions) {
-            withShift = addButton(drawables, makeFactionButton(faction, withShift), withShift, memoryKeyEnabled);
+        for (final FactionAPI faction : factions) {
+            withShift =
+                addButton(drawables, makeFactionButton(faction, withShift), withShift, memoryKeyEnabledOverride);
         }
     }
 
-    public void addTypes(List<Drawable> drawables, List<ExplorationL10n> types, String memoryKeyEnabled) {
-        boolean withShift = false;
-        for (ExplorationL10n type : types) {
-            withShift = addButton(drawables, makeTypeButton(type, withShift), withShift, memoryKeyEnabled);
-        }
-    }
-
-    public Button getToggleButton(String enumPrefix) {
-        String label = L10n.get(CommonL10n.FLIP);
-        float width = Global.getSettings().computeStringWidth(label, Fonts.VICTOR_10); // minimum size to fit label
+    public Button getToggleButton(final String enumPrefix) {
+        final String label = L10n.get(CommonL10n.FLIP);
+        final float width = Global.getSettings().computeStringWidth(label, Fonts.VICTOR_10); // minimum size to fit label
         return new ButtonBuilder(
             new ButtonCustom(
                 label,
@@ -71,26 +73,37 @@ public class ButtonFactory {
             .build();
     }
 
-    private ExplorationButton makeBankButton(ExplorationL10n buttonType, boolean withShift) {
+    public void addTypes(
+        final List<Drawable> drawables,
+        final List<ExplorationL10n> types,
+        final String memoryKeyEnabledOverride
+    ) {
+        boolean withShift = false;
+        for (final ExplorationL10n type : types) {
+            withShift = addButton(drawables, makeTypeButton(type, withShift), withShift, memoryKeyEnabledOverride);
+        }
+    }
+
+    private ExplorationButton makeBankButton(final ExplorationL10n buttonType, final boolean withShift) {
         return new BankButton(buttonType, refreshAction, width, withShift);
     }
 
-    private ExplorationButton makeFactionButton(FactionAPI faction, boolean withShift) {
-        return new FactionButton(faction, refreshAction, width, withShift);
-    }
-
-    private ExplorationButton makeTypeButton(ExplorationL10n buttonType, boolean withShift) {
+    private ExplorationButton makeTypeButton(final ExplorationL10n buttonType, final boolean withShift) {
         return new TypeButton(buttonType, refreshAction, width, withShift);
     }
 
+    private ExplorationButton makeFactionButton(final FactionAPI faction, final boolean withShift) {
+        return new FactionButton(faction, refreshAction, width, withShift);
+    }
+
     private boolean addButton(
-        List<Drawable> drawables,
-        ExplorationButton button,
-        boolean withShift,
-        String memoryKeyEnabled
+        final List<Drawable> drawables,
+        final ExplorationButton button,
+        final boolean withShift,
+        final String memoryKeyEnabledOverride
     ) {
-        if (memoryKeyEnabled != null) {
-            button.setMemoryKeyEnabledOverwrite(memoryKeyEnabled);
+        if (memoryKeyEnabledOverride != null) {
+            button.setMemoryKeyEnabledOverwrite(memoryKeyEnabledOverride);
         }
         drawables.add(button);
         return !withShift;
