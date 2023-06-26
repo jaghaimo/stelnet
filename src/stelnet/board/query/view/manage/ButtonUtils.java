@@ -95,6 +95,15 @@ public class ButtonUtils {
         return elements.toArray(new FilteringButton[] {});
     }
 
+    public static BuilderBehaviorButton[] getBehaviorButtons() {
+        return new BuilderBehaviorButton[] {
+            new BuilderBehaviorButton(L10n.get(QueryL10n.BEHAVIOR_AT_LEAST, 1), true),
+            new BuilderBehaviorButton(L10n.get(QueryL10n.BEHAVIOR_AT_LEAST, 2), false),
+            new BuilderBehaviorButton(L10n.get(QueryL10n.BEHAVIOR_AT_LEAST, 3), false),
+            new BuilderBehaviorButton(L10n.get(QueryL10n.BEHAVIOR_ALL_SELECTED), false),
+        };
+    }
+
     private static String getSubmarketName(SubmarketSpecAPI submarketSpec) {
         String name = submarketSpec.getName().replace("\n", " ").trim();
         if (name.isEmpty()) {
