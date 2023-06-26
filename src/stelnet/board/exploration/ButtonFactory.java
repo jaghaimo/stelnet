@@ -1,21 +1,13 @@
-package stelnet.board.exploration.factory;
+package stelnet.board.exploration;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.ui.Fonts;
 import com.fs.starfarer.api.util.Misc;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import stelnet.board.exploration.ActionFilterIntel;
-import stelnet.board.exploration.ExplorationL10n;
-import stelnet.board.exploration.FlipMatchingKeys;
-import stelnet.board.exploration.button.BankButton;
-import stelnet.board.exploration.button.ExplorationButton;
-import stelnet.board.exploration.button.FactionButton;
-import stelnet.board.exploration.button.TypeButton;
 import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
 import uilib2.Drawable;
@@ -24,13 +16,13 @@ import uilib2.button.Button;
 import uilib2.button.ButtonBuilder;
 import uilib2.button.ButtonCustom;
 import uilib2.intel.IntelCallbackBuilder;
-import uilib2.intel.actions.UpdateForItem;
+import uilib2.intel.IntelUiAction;
 import uilib2.intel.actions.UpdateIntelList;
 
 @RequiredArgsConstructor
 public class ButtonFactory {
 
-    private final IntelInfoPlugin intel;
+    private final IntelUiAction refreshAction;
     private final float width;
 
     public void addBanks(List<Drawable> drawables, List<ExplorationL10n> types, String memoryKeyEnabled) {
@@ -64,7 +56,7 @@ public class ButtonFactory {
                     .addConfirmAction(new FlipMatchingKeys(enumPrefix))
                     .addConfirmAction(new ActionFilterIntel())
                     .addConfirmAction(new UpdateIntelList(true))
-                    .addConfirmAction(new UpdateForItem(intel))
+                    .addConfirmAction(refreshAction)
                     .build(),
                 Misc.getBrightPlayerColor(),
                 Misc.getDarkPlayerColor(),
@@ -80,15 +72,15 @@ public class ButtonFactory {
     }
 
     private ExplorationButton makeBankButton(ExplorationL10n buttonType, boolean withShift) {
-        return new BankButton(buttonType, intel, width, withShift);
+        return new BankButton(buttonType, refreshAction, width, withShift);
     }
 
     private ExplorationButton makeFactionButton(FactionAPI faction, boolean withShift) {
-        return new FactionButton(faction, intel, width, withShift);
+        return new FactionButton(faction, refreshAction, width, withShift);
     }
 
     private ExplorationButton makeTypeButton(ExplorationL10n buttonType, boolean withShift) {
-        return new TypeButton(buttonType, intel, width, withShift);
+        return new TypeButton(buttonType, refreshAction, width, withShift);
     }
 
     private boolean addButton(

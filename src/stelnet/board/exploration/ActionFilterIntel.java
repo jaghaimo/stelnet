@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import stelnet.board.exploration.factory.FilterFactory;
 import stelnet.filter.Filter;
 import stelnet.filter.IntelIsFaction;
 import stelnet.filter.IntelIsHidden;

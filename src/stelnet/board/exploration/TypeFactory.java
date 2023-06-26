@@ -1,10 +1,10 @@
-package stelnet.board.exploration.factory;
+package stelnet.board.exploration;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import stelnet.board.exploration.ExplorationL10n;
+
 import stelnet.settings.CaptainsLogSettings;
 
 public class TypeFactory {

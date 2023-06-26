@@ -1,25 +1,21 @@
-package stelnet.board.exploration.button;
+package stelnet.board.exploration;
 
-import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.util.Misc;
-import stelnet.board.exploration.ActionFilterIntel;
-import stelnet.board.exploration.ExplorationL10n;
-import stelnet.board.exploration.UpdateMemoryFlag;
 import stelnet.util.L10n;
 import uilib2.UiConstants;
 import uilib2.button.AreaCheckboxBasic;
 import uilib2.button.Button;
 import uilib2.intel.IntelCallbackBuilder;
-import uilib2.intel.actions.UpdateForItem;
+import uilib2.intel.IntelUiAction;
 import uilib2.intel.actions.UpdateIntelList;
 
 public class TypeButton extends EnumButton {
 
-    private final IntelInfoPlugin intel;
+    private final IntelUiAction intel;
 
-    public TypeButton(ExplorationL10n buttonType, IntelInfoPlugin intel, float width, boolean withShift) {
+    public TypeButton(ExplorationL10n buttonType, IntelUiAction refreshAction, float width, boolean withShift) {
         super(buttonType, width, withShift);
-        this.intel = intel;
+        this.intel = refreshAction;
     }
 
     protected Button getButton(String memoryKeyChecked, boolean isChecked) {
@@ -29,7 +25,7 @@ public class TypeButton extends EnumButton {
                 .addConfirmAction(new UpdateMemoryFlag(memoryKeyChecked, !isChecked))
                 .addConfirmAction(new ActionFilterIntel())
                 .addConfirmAction(new UpdateIntelList())
-                .addConfirmAction(new UpdateForItem(intel))
+                .addConfirmAction(intel)
                 .build(),
             Misc.getBasePlayerColor(),
             Misc.getDarkPlayerColor(),

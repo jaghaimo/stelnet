@@ -1,4 +1,4 @@
-package stelnet.board.exploration.factory;
+package stelnet.board.exploration;
 
 import com.fs.starfarer.api.impl.campaign.intel.AnalyzeEntityMissionIntel;
 import com.fs.starfarer.api.impl.campaign.intel.SurveyPlanetMissionIntel;
@@ -9,8 +9,7 @@ import com.fs.starfarer.api.impl.campaign.intel.misc.BreadcrumbIntel;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import lombok.experimental.Delegate;
-import stelnet.board.exploration.ExplorationL10n;
+import java.util.Set;
 import stelnet.filter.Filter;
 import stelnet.filter.IntelContainsTitle;
 import stelnet.filter.IntelIsClass;
@@ -23,7 +22,6 @@ import stelnet.util.ModConstants;
 
 public class FilterFactory {
 
-    @Delegate
     private final Map<ExplorationL10n, Filter> enumToFilterMap = new LinkedHashMap<>();
 
     public FilterFactory() {
@@ -31,6 +29,14 @@ public class FilterFactory {
         Filter captainsLogFilter = new IntelLocationHasMemory(ModConstants.CAPTAINS_LOG_INTEL);
         addTypes(bankFilter, captainsLogFilter);
         addBanks(bankFilter);
+    }
+
+    public Set<ExplorationL10n> keySet() {
+        return enumToFilterMap.keySet();
+    }
+
+    public Filter get(ExplorationL10n key) {
+        return enumToFilterMap.get(key);
     }
 
     private void addTypes(Filter bankFilter, Filter captainsLogFilter) {

@@ -1,10 +1,8 @@
-package stelnet.board.exploration.button;
+package stelnet.board.exploration;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.ui.UIComponentAPI;
 import lombok.RequiredArgsConstructor;
-import stelnet.board.exploration.ExplorationBoard;
-import stelnet.board.exploration.ExplorationL10n;
 import stelnet.util.MemoryHelper;
 import uilib2.Drawable;
 import uilib2.button.Button;

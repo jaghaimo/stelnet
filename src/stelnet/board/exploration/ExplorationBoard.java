@@ -10,8 +10,6 @@ import java.util.Set;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.BoardDrawableInfo;
-import stelnet.board.exploration.factory.ButtonFactory;
-import stelnet.board.exploration.factory.TypeFactory;
 import stelnet.filter.Filter;
 import stelnet.util.L10n;
 import stelnet.util.MemoryHelper;
@@ -21,7 +19,9 @@ import uilib2.Spacer;
 import uilib2.UiConstants;
 import uilib2.button.Button;
 import uilib2.intel.DrawableIntelInfo;
+import uilib2.intel.IntelUiAction;
 import uilib2.intel.SmallIntel;
+import uilib2.intel.actions.UpdateForItem;
 import uilib2.label.HighlightFirst;
 import uilib2.widget.HeaderWithButtons;
 
@@ -57,7 +57,8 @@ public class ExplorationBoard extends SmallIntel {
 
     @Override
     protected List<Drawable> getDrawableList(float width, float height) {
-        ButtonFactory factory = new ButtonFactory(this, width);
+        IntelUiAction refreshAction = new UpdateForItem(this);
+        ButtonFactory factory = new ButtonFactory(refreshAction, width);
         List<Drawable> drawables = new LinkedList<>();
         addTypes(drawables, factory);
         addFactions(drawables, factory);
