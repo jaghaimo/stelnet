@@ -1,16 +1,14 @@
 package stelnet.board.query.view.dialog;
 
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CargoPickerListener;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.FleetMemberPickerListener;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.query.Query;
 import stelnet.board.query.QueryBoard;

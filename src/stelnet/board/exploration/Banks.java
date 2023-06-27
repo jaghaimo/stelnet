@@ -2,7 +2,6 @@ package stelnet.board.exploration;
 
 import java.util.Arrays;
 import java.util.List;
-
 import stelnet.util.L10n;
 
 public enum Banks implements ButtonAware {
