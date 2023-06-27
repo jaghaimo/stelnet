@@ -31,12 +31,12 @@ public class ContactsView implements RenderableFactory {
     private final Map<MarketAPI, TrackingCargoFleetData> needingPickup;
 
     @Override
-    public List<Renderable> create(Size size) {
-        float width = size.getWidth() - 168;
-        VerticalViewContainer contacts = new VerticalViewContainer(buildLeftPanel(size.getWidth() - 170));
-        CustomPanel panel = new ContactsPanel(width, contacts, needingPickup);
+    public List<Renderable> create(final Size size) {
+        final float width = size.getWidth() - 168;
+        final VerticalViewContainer contacts = new VerticalViewContainer(buildLeftPanel(size.getWidth() - 170));
+        final CustomPanel panel = new ContactsPanel(width, contacts, needingPickup);
         panel.setSize(new Size(width, size.getHeight()));
-        HorizontalViewContainer container = new HorizontalViewContainer(
+        final HorizontalViewContainer container = new HorizontalViewContainer(
             panel,
             new Spacer(UiConstants.DEFAULT_SPACER - 4),
             new VerticalViewContainer(buildRightPanel())
@@ -45,40 +45,40 @@ public class ContactsView implements RenderableFactory {
         return Collections.<Renderable>singletonList(container);
     }
 
-    private List<Renderable> buildLeftPanel(float width) {
-        List<Renderable> elements = new LinkedList<>();
-        List<ContactIntel> contacts = provider.getContacts(getSelectedFilters());
-        for (ContactIntel contact : contacts) {
+    private List<Renderable> buildLeftPanel(final float width) {
+        final List<Renderable> elements = new LinkedList<>();
+        final List<ContactIntel> contacts = provider.getContacts(getSelectedFilters());
+        for (final ContactIntel contact : contacts) {
             elements.add(new DisplayContact(contact, width));
         }
         if (elements.isEmpty()) {
-            elements.add(new Paragraph(L10n.get(ContactsL10n.NONE), width));
+            elements.add(new Paragraph(L10n.contacts("NONE"), width));
         }
         return elements;
     }
 
     private List<Renderable> buildRightPanel() {
-        List<Renderable> elements = new LinkedList<>();
-        elements.add(new Heading(L10n.get(ContactsL10n.CONTACT_TYPE), 165));
+        final List<Renderable> elements = new LinkedList<>();
+        elements.add(new Heading(L10n.contacts("CONTACT_TYPE"), 165));
         elements.add(new Spacer(UiConstants.DEFAULT_SPACER));
         elements.addAll(missionTypeButtons);
         elements.add(new Spacer(UiConstants.DEFAULT_SPACER * 3));
-        elements.add(new Heading(L10n.get(ContactsL10n.IMPORTANCE), 165));
+        elements.add(new Heading(L10n.contacts("IMPORTANCE"), 165));
         elements.add(new Spacer(UiConstants.DEFAULT_SPACER));
         elements.addAll(importanceButtons);
         return elements;
     }
 
     private List<Filter> getSelectedFilters() {
-        List<Filter> selected = new LinkedList<>();
+        final List<Filter> selected = new LinkedList<>();
         selected.add(new LogicalOr(getSelectedFilters(missionTypeButtons), "contact_type"));
         selected.add(new LogicalOr(getSelectedFilters(importanceButtons), "importance"));
         return selected;
     }
 
-    private List<Filter> getSelectedFilters(Set<ContactFilterButton> buttons) {
-        List<Filter> selected = new LinkedList<>();
-        for (ContactFilterButton button : buttons) {
+    private List<Filter> getSelectedFilters(final Set<ContactFilterButton> buttons) {
+        final List<Filter> selected = new LinkedList<>();
+        for (final ContactFilterButton button : buttons) {
             if (button.isStateOn()) {
                 selected.add(button.getFilter());
             }

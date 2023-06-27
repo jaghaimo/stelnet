@@ -14,41 +14,50 @@ import uilib.UiConstants;
 
 public abstract class HeadingWithButtons extends RenderableComponent {
 
-    protected void renderQueryHeading(TooltipMakerAPI tooltip, boolean isEnabled, String headingText) {
+    protected void renderQueryHeading(
+        final TooltipMakerAPI tooltip,
+        final boolean isEnabled,
+        final String headingText
+    ) {
         renderHeading(tooltip, isEnabled, "", Global.getSector().getPlayerFaction());
         overlapQueryHeading(tooltip, isEnabled, headingText);
     }
 
-    protected UIComponentAPI renderFirstButton(Button delete, float width, TooltipMakerAPI tooltip) {
+    protected UIComponentAPI renderFirstButton(final Button delete, final float width, final TooltipMakerAPI tooltip) {
         delete.render(tooltip);
-        UIComponentAPI component = tooltip.getPrev();
-        PositionAPI componentPosition = component.getPosition();
+        final UIComponentAPI component = tooltip.getPrev();
+        final PositionAPI componentPosition = component.getPosition();
         componentPosition.setXAlignOffset(width - componentPosition.getWidth() - 5);
         componentPosition.setYAlignOffset(UiConstants.DEFAULT_ROW_HEIGHT);
         return component;
     }
 
     protected UIComponentAPI renderNextButton(
-        Button button,
-        TooltipMakerAPI tooltip,
-        UIComponentAPI previousComponent
+        final Button button,
+        final TooltipMakerAPI tooltip,
+        final UIComponentAPI previousComponent
     ) {
         return renderNextButton(button, tooltip, previousComponent, 1);
     }
 
     protected UIComponentAPI renderNextButton(
-        Button button,
-        TooltipMakerAPI tooltip,
-        UIComponentAPI previousComponent,
-        float padding
+        final Button button,
+        final TooltipMakerAPI tooltip,
+        final UIComponentAPI previousComponent,
+        final float padding
     ) {
         button.render(tooltip);
-        UIComponentAPI currentComponent = tooltip.getPrev();
+        final UIComponentAPI currentComponent = tooltip.getPrev();
         currentComponent.getPosition().leftOfTop(previousComponent, padding);
         return currentComponent;
     }
 
-    private void renderHeading(TooltipMakerAPI tooltip, boolean isEnabled, String headingText, FactionAPI faction) {
+    private void renderHeading(
+        final TooltipMakerAPI tooltip,
+        final boolean isEnabled,
+        final String headingText,
+        final FactionAPI faction
+    ) {
         Color textColor = faction.getBaseUIColor();
         Color backgroundColor = faction.getDarkUIColor();
         if (!isEnabled) {
@@ -58,7 +67,7 @@ public abstract class HeadingWithButtons extends RenderableComponent {
         tooltip.addSectionHeading(headingText, textColor, backgroundColor, Alignment.LMID, 0);
     }
 
-    private void overlapQueryHeading(TooltipMakerAPI tooltip, boolean isEnabled, String heading) {
+    private void overlapQueryHeading(final TooltipMakerAPI tooltip, final boolean isEnabled, final String heading) {
         tooltip.setParaFontVictor14();
         tooltip.setParaFontColor(Misc.getBrightPlayerColor());
         if (!isEnabled) {

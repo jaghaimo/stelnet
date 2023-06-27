@@ -6,7 +6,7 @@ import java.util.Comparator;
 public class SkillSorter implements Comparator<SkillSpecAPI> {
 
     @Override
-    public int compare(SkillSpecAPI o1, SkillSpecAPI o2) {
+    public int compare(final SkillSpecAPI o1, final SkillSpecAPI o2) {
         return o1.getName().compareTo(o2.getName());
     }
 }

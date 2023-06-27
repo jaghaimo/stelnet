@@ -12,42 +12,46 @@ import stelnet.board.commodity.price.SupplyPrice;
 public enum CommodityAction {
     BUY {
         @Override
-        public List<MarketAPI> getMarkets(String commodityId) {
+        public List<MarketAPI> getMarkets(final String commodityId) {
             return getBuyMarkets(commodityId);
         }
 
         @Override
-        public Price getPrice(String commodityId) {
+        public Price getPrice(final String commodityId) {
             return new SupplyPrice(commodityId);
         }
     },
     SELL {
         @Override
-        public List<MarketAPI> getMarkets(String commodityId) {
+        public List<MarketAPI> getMarkets(final String commodityId) {
             return getSellMarkets(commodityId);
         }
 
         @Override
-        public Price getPrice(String commodityId) {
+        public Price getPrice(final String commodityId) {
             return new DemandPrice(commodityId);
         }
     },
 
     PROFIT {};
 
-    public List<MarketAPI> getMarkets(String commodityId) {
+    public String key() {
+        return "ACTION_" + name();
+    }
+
+    public List<MarketAPI> getMarkets(final String commodityId) {
         return Collections.emptyList();
     }
 
-    public List<MarketAPI> getSellMarkets(String commodityId) {
+    public List<MarketAPI> getSellMarkets(final String commodityId) {
         return new SellMarketFactory(commodityId).createMarkets();
     }
 
-    public List<MarketAPI> getBuyMarkets(String commodityId) {
+    public List<MarketAPI> getBuyMarkets(final String commodityId) {
         return new BuyMarketFactory(commodityId).createMarkets();
     }
 
-    public Price getPrice(String commodityId) {
+    public Price getPrice(final String commodityId) {
         return null;
     }
 }

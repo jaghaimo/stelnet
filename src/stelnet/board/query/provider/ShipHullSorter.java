@@ -7,10 +7,10 @@ import java.util.Comparator;
 public class ShipHullSorter implements Comparator<FleetMemberAPI> {
 
     @Override
-    public int compare(FleetMemberAPI o1, FleetMemberAPI o2) {
-        ShipHullSpecAPI s1 = o1.getHullSpec();
-        ShipHullSpecAPI s2 = o2.getHullSpec();
-        int hullDifference = s2.getHullSize().ordinal() - s1.getHullSize().ordinal();
+    public int compare(final FleetMemberAPI o1, final FleetMemberAPI o2) {
+        final ShipHullSpecAPI s1 = o1.getHullSpec();
+        final ShipHullSpecAPI s2 = o2.getHullSpec();
+        final int hullDifference = s2.getHullSize().ordinal() - s1.getHullSize().ordinal();
         if (hullDifference != 0) {
             return hullDifference;
         }

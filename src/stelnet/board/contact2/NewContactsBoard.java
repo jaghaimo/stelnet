@@ -4,7 +4,6 @@ import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.ui.Alignment;
 import lombok.Getter;
 import stelnet.board.BoardDrawableInfo;
-import stelnet.board.contact.ContactsL10n;
 import stelnet.board.contact.ContactsState;
 import stelnet.util.L10n;
 import stelnet.util.StelnetHelper;
@@ -23,12 +22,12 @@ import uilib2.layouts.RelocatedLayout;
 @Getter
 public class NewContactsBoard extends LargeIntel {
 
+    private static final float filtersWidth = 300;
     private final String icon = StelnetHelper.getSpriteName("contacts");
     private final String mainTag = Tags.INTEL_CONTACTS;
     private final ContactsState renderableState = new ContactsState();
-    private final IntelSortTier sortTier = IntelSortTier.TIER_0;
 
-    private static final float filtersWidth = 300;
+    private final IntelSortTier sortTier = IntelSortTier.TIER_0;
 
     @Override
     public boolean isHidden() {
@@ -36,8 +35,8 @@ public class NewContactsBoard extends LargeIntel {
     }
 
     @Override
-    protected Layout getLayout(float width, float height) {
-        CompositeLayout layout = new CompositeLayout();
+    protected Layout getLayout(final float width, final float height) {
+        final CompositeLayout layout = new CompositeLayout();
         layout.add(getContactsLayout(width, height));
         layout.add(getFiltersLayout(width, height));
         return layout;
@@ -46,13 +45,13 @@ public class NewContactsBoard extends LargeIntel {
     @Override
     protected DrawableIntelInfo getIntelInfo() {
         return new BoardDrawableInfo(
-            L10n.get(ContactsL10n.BOARD_TITLE),
-            L10n.get(ContactsL10n.BOARD_DESCRIPTION, renderableState.getContactNumber())
+            L10n.contacts("BOARD_TITLE"),
+            L10n.contacts("BOARD_DESCRIPTION", renderableState.getContactNumber())
         );
     }
 
-    private Layout getContactsLayout(float width, float height) {
-        BasicLayout layout = new BasicLayout();
+    private Layout getContactsLayout(final float width, final float height) {
+        final BasicLayout layout = new BasicLayout();
         for (int i = 0; i < 10; i++) {
             layout.add(new SectionHeadingBasic("Hello Contacts", Alignment.MID, 0));
             layout.add(new Spacer(UiConstants.SPACER_DEFAULT));
@@ -62,8 +61,8 @@ public class NewContactsBoard extends LargeIntel {
         return new FixedSizeLayout(layout, width - filtersWidth - UiConstants.SPACER_DEFAULT, height);
     }
 
-    private Layout getFiltersLayout(float width, float height) {
-        BasicLayout layout = new BasicLayout();
+    private Layout getFiltersLayout(final float width, final float height) {
+        final BasicLayout layout = new BasicLayout();
         layout.add(new SectionHeadingBasic("Hello Filters", Alignment.MID, 0));
         for (int i = 0; i < 10; i++) {
             layout.add(new ParaBasic("Filters", 0));

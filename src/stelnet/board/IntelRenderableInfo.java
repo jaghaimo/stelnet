@@ -17,7 +17,7 @@ public class IntelRenderableInfo implements RenderableIntelInfo {
     private final String header2;
     private final String content2;
 
-    public void render(TooltipMakerAPI info, Color bulletColor, Color titleColor) {
+    public void render(final TooltipMakerAPI info, final Color bulletColor, final Color titleColor) {
         info.addPara(getTitle(), titleColor, 0);
         info.beginGridFlipped(300, 1, Misc.getTextColor(), 80, 10);
         info.addToGrid(0, 0, info.shortenString(getContent1(), 200), getHeader1(), bulletColor);

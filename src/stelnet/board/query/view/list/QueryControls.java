@@ -11,26 +11,30 @@ public class QueryControls extends HeadingWithButtons {
 
     private final Query query;
 
-    public QueryControls(float width, Query query) {
+    public QueryControls(final float width, final Query query) {
         this.query = query;
         setSize(new Size(width, UiConstants.DEFAULT_ROW_HEIGHT));
         setWithScroller(false);
     }
 
     @Override
-    public void render(TooltipMakerAPI tooltip) {
+    public void render(final TooltipMakerAPI tooltip) {
         tooltip.setButtonFontVictor10();
         renderQueryHeading(tooltip, query.isEnabled(), query.getType() + " #" + query.getNumber());
-        UIComponentAPI deleteComponent = renderFirstButton(new DeleteButton(query), getSize().getWidth(), tooltip);
-        UIComponentAPI spacerComponent = addSpacer(tooltip, deleteComponent);
-        UIComponentAPI onOffComponent = renderNextButton(new OnOffButton(query), tooltip, spacerComponent);
+        final UIComponentAPI deleteComponent = renderFirstButton(
+            new DeleteButton(query),
+            getSize().getWidth(),
+            tooltip
+        );
+        final UIComponentAPI spacerComponent = addSpacer(tooltip, deleteComponent);
+        final UIComponentAPI onOffComponent = renderNextButton(new OnOffButton(query), tooltip, spacerComponent);
         renderNextButton(new PreviewButton(query), tooltip, onOffComponent);
         tooltip.setButtonFontDefault();
     }
 
-    private UIComponentAPI addSpacer(TooltipMakerAPI tooltip, UIComponentAPI previousComponent) {
+    private UIComponentAPI addSpacer(final TooltipMakerAPI tooltip, final UIComponentAPI previousComponent) {
         tooltip.addSpacer(0);
-        UIComponentAPI spacerComponent = tooltip.getPrev();
+        final UIComponentAPI spacerComponent = tooltip.getPrev();
         spacerComponent.getPosition().leftOfTop(previousComponent, UiConstants.DEFAULT_SPACER);
         return spacerComponent;
     }

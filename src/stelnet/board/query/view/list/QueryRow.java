@@ -16,7 +16,7 @@ public class QueryRow extends RenderableComponent {
     private final VerticalViewContainer container;
     private final float width;
 
-    public QueryRow(float width, Query query) {
+    public QueryRow(final float width, final Query query) {
         this.query = query;
         this.width = width;
         this.container = createContainer();
@@ -25,12 +25,12 @@ public class QueryRow extends RenderableComponent {
     }
 
     @Override
-    public void render(CustomPanelAPI panel, float x, float y) {
+    public void render(final CustomPanelAPI panel, final float x, final float y) {
         container.render(panel, x, y);
     }
 
     @Override
-    public void render(TooltipMakerAPI tooltip) {}
+    public void render(final TooltipMakerAPI tooltip) {}
 
     private VerticalViewContainer createContainer() {
         return new VerticalViewContainer(

@@ -23,14 +23,14 @@ import stelnet.util.CollectionUtils;
 public class ContactProvider {
 
     public int getSize() {
-        List<Filter> filters = new LinkedList<>();
+        final List<Filter> filters = new LinkedList<>();
         return getContacts(filters).size();
     }
 
-    public List<ContactIntel> getContacts(List<Filter> filters) {
-        List<ContactIntel> contacts = new LinkedList<>();
-        List<IntelInfoPlugin> plugins = Global.getSector().getIntelManager().getIntel(ContactIntel.class);
-        for (IntelInfoPlugin plugin : plugins) {
+    public List<ContactIntel> getContacts(final List<Filter> filters) {
+        final List<ContactIntel> contacts = new LinkedList<>();
+        final List<IntelInfoPlugin> plugins = Global.getSector().getIntelManager().getIntel(ContactIntel.class);
+        for (final IntelInfoPlugin plugin : plugins) {
             contacts.add(0, (ContactIntel) plugin);
         }
         filters.add(new ContactIsValid());
@@ -39,18 +39,18 @@ public class ContactProvider {
     }
 
     public Set<ContactTagSpec> getAllMissionTypes() {
-        Set<ContactTagSpec> contactSpecs = new LinkedHashSet<>();
+        final Set<ContactTagSpec> contactSpecs = new LinkedHashSet<>();
         JSONObject types;
         try {
             types = Global.getSettings().getMergedJSONForMod("data/config/contact_tag_data.json", "");
             @SuppressWarnings("unchecked")
-            Iterator<String> iterator = types.keys();
+            final Iterator<String> iterator = types.keys();
             while (iterator.hasNext()) {
                 try {
-                    String tag = iterator.next();
-                    JSONObject object = types.getJSONObject(tag);
+                    final String tag = iterator.next();
+                    final JSONObject object = types.getJSONObject(tag);
                     contactSpecs.add(new ContactTagSpec(tag, null, object));
-                } catch (JSONException e) {
+                } catch (final JSONException e) {
                     log.error("Failed reading JSON content", e);
                 }
             }

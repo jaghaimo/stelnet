@@ -11,9 +11,8 @@ import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.BoardDrawableInfo;
 import stelnet.filter.Filter;
+import stelnet.util.L10n;
 import stelnet.util.StelnetHelper;
-import stelnet.util.StringsHelper;
-import stelnet.util.StringsHelper.Category;
 import uilib2.Drawable;
 import uilib2.Spacer;
 import uilib2.UiConstants;
@@ -44,8 +43,8 @@ public class ExplorationBoard extends SmallIntel {
     protected DrawableIntelInfo getIntelInfo() {
         final int hiddenIntelNumber = ExplorationHelper.getHiddenNumber();
         return new BoardDrawableInfo(
-            StringsHelper.get(Category.STELNET_EXPLORATION_BOARD, "BOARD_TITLE"),
-            StringsHelper.get(Category.STELNET_EXPLORATION_BOARD, "BOARD_DESCRIPTION", hiddenIntelNumber),
+            L10n.exploration("BOARD_TITLE"),
+            L10n.exploration("BOARD_DESCRIPTION", hiddenIntelNumber),
             null,
             new HighlightFirst(String.valueOf(hiddenIntelNumber))
         );
@@ -75,7 +74,7 @@ public class ExplorationBoard extends SmallIntel {
         final List<ButtonAware> types = Types.getAll();
         final IntelUiAction flipAction = new FlipMatchingKeys(types);
         final Button toggleButton = factory.getToggleButton(flipAction);
-        final String title = StringsHelper.get(Category.STELNET_EXPLORATION_BOARD, "HEADER_TYPE");
+        final String title = L10n.exploration("HEADER_TYPE");
         addHeader(drawables, title, toggleButton);
         factory.addTypes(drawables, types);
         addLargeSpacer(drawables);
@@ -86,7 +85,7 @@ public class ExplorationBoard extends SmallIntel {
         if (factions.isEmpty()) {
             return;
         }
-        final String title = StringsHelper.get(Category.STELNET_EXPLORATION_BOARD, "HEADER_FACTION");
+        final String title = L10n.exploration("HEADER_FACTION");
         final String memoryKeyChecked = ExplorationHelper.getCheckedKey(Types.TYPE_RAIDING_BASE);
         addHeader(drawables, title, null);
         factory.addFactions(drawables, factions, memoryKeyChecked);
@@ -97,7 +96,7 @@ public class ExplorationBoard extends SmallIntel {
         final List<ButtonAware> banks = Banks.getAll();
         final IntelUiAction flipAction = new FlipMatchingKeys(banks);
         final Button toggleButton = factory.getToggleButton(flipAction);
-        final String title = StringsHelper.get(Category.STELNET_EXPLORATION_BOARD, "HEADER_MEMORY_BANK");
+        final String title = L10n.exploration("HEADER_MEMORY_BANK");
         final String memoryKeyChecked = ExplorationHelper.getCheckedKey(Types.TYPE_MEMORY_BANK);
         addHeader(drawables, title, toggleButton);
         factory.addBanks(drawables, banks, memoryKeyChecked);

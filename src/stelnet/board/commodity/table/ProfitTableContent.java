@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import stelnet.board.commodity.CommodityL10n;
 import stelnet.util.L10n;
 import uilib.TableContent;
 
@@ -20,47 +19,47 @@ public class ProfitTableContent implements TableContent {
     private final String commodityId;
 
     @Override
-    public Object[] getHeaders(float width) {
+    public Object[] getHeaders(final float width) {
         return new Object[] {
             "#",
             .05f * width,
-            L10n.get(CommodityL10n.HEADER_PROFIT),
+            L10n.commodity("HEADER_PROFIT"),
             .17f * width,
-            L10n.get(CommodityL10n.HEADER_BUY_LOCATION),
+            L10n.commodity("HEADER_BUY_LOCATION"),
             .22f * width,
-            L10n.get(CommodityL10n.HEADER_BUY_EXPENSE),
+            L10n.commodity("HEADER_BUY_EXPENSE"),
             .12f * width,
-            L10n.get(CommodityL10n.HEADER_SELL_LOCATION),
+            L10n.commodity("HEADER_SELL_LOCATION"),
             .22f * width,
-            L10n.get(CommodityL10n.HEADER_SELL_REVENUE),
+            L10n.commodity("HEADER_SELL_REVENUE"),
             .12f * width,
-            L10n.get(CommodityL10n.HEADER_TRIP),
+            L10n.commodity("HEADER_TRIP"),
             .1f * width,
         };
     }
 
     @Override
     public List<ProfitTableRow> getRows() {
-        List<ProfitTableRow> rows = createRows();
+        final List<ProfitTableRow> rows = createRows();
         Collections.sort(rows);
         injectNumbers(rows);
-        int limit = Math.min(MAX_ROWS, rows.size());
+        final int limit = Math.min(MAX_ROWS, rows.size());
         return rows.subList(0, limit);
     }
 
     private List<ProfitTableRow> createRows() {
-        List<ProfitTableRow> rows = new LinkedList<>();
-        for (MarketAPI buyMarket : buyMarkets) {
-            List<ProfitTableRow> sellMarketTableRows = createSellMarketRows(buyMarket, sellMarkets);
+        final List<ProfitTableRow> rows = new LinkedList<>();
+        for (final MarketAPI buyMarket : buyMarkets) {
+            final List<ProfitTableRow> sellMarketTableRows = createSellMarketRows(buyMarket, sellMarkets);
             rows.addAll(sellMarketTableRows);
         }
         return rows;
     }
 
-    private List<ProfitTableRow> createSellMarketRows(MarketAPI buyMarket, List<MarketAPI> sellMarkets) {
-        List<ProfitTableRow> rows = new LinkedList<>();
-        for (MarketAPI sellMarket : sellMarkets) {
-            ProfitTableRow row = new ProfitTableRow(buyMarket, sellMarket, commodityId);
+    private List<ProfitTableRow> createSellMarketRows(final MarketAPI buyMarket, final List<MarketAPI> sellMarkets) {
+        final List<ProfitTableRow> rows = new LinkedList<>();
+        for (final MarketAPI sellMarket : sellMarkets) {
+            final ProfitTableRow row = new ProfitTableRow(buyMarket, sellMarket, commodityId);
             if (row.getProfit() >= MINIMUM_PROFIT_VALUE) {
                 rows.add(row);
             }
@@ -68,9 +67,9 @@ public class ProfitTableContent implements TableContent {
         return rows;
     }
 
-    private void injectNumbers(List<ProfitTableRow> rows) {
+    private void injectNumbers(final List<ProfitTableRow> rows) {
         int i = 1;
-        for (ProfitTableRow row : rows) {
+        for (final ProfitTableRow row : rows) {
             row.addNumber(i++);
         }
     }

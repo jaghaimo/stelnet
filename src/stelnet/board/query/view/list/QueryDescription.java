@@ -22,7 +22,7 @@ public class QueryDescription extends RenderableComponent {
     private final float padding = UiConstants.DEFAULT_BUTTON_PADDING;
     private final float rowHeight = UiConstants.DEFAULT_BUTTON_HEIGHT - padding - gridLineAdjustment;
 
-    public QueryDescription(float width, Query query) {
+    public QueryDescription(final float width, final Query query) {
         this.width = width;
         this.query = query;
         labelWidth = Math.max(160, width - 1000);
@@ -32,19 +32,19 @@ public class QueryDescription extends RenderableComponent {
     }
 
     @Override
-    public void render(TooltipMakerAPI tooltip) {
-        float gridWidth = width;
+    public void render(final TooltipMakerAPI tooltip) {
+        final float gridWidth = width;
         tooltip.addSpacer(2);
         tooltip.beginGridFlipped(gridWidth, 1, textColor, labelWidth, padding);
         addQueryDescription(tooltip);
         tooltip.addGrid(0);
     }
 
-    private void addQueryDescription(TooltipMakerAPI tooltip) {
-        float gridWidth = width;
-        float labelWidthWithPadding = padding + labelWidth + padding;
+    private void addQueryDescription(final TooltipMakerAPI tooltip) {
+        final float gridWidth = width;
+        final float labelWidthWithPadding = padding + labelWidth + padding;
         int row = 0;
-        for (String[] filter : description) {
+        for (final String[] filter : description) {
             if (filter.length != 2) {
                 continue;
             }
@@ -59,9 +59,9 @@ public class QueryDescription extends RenderableComponent {
     }
 
     private void buildFilterDescription() {
-        String lines[] = query.toString().split("\\|");
-        for (String line : lines) {
-            String filter[] = line.split(":");
+        final String lines[] = query.toString().split("\\|");
+        for (final String line : lines) {
+            final String filter[] = line.split(":");
             if (filter.length != 2) {
                 continue;
             }

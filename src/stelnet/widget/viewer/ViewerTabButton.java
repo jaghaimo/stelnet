@@ -10,14 +10,14 @@ public class ViewerTabButton extends TabButton {
     public ViewerTabButton(
         final ContentRenderer newRenderer,
         final MarketViewState state,
-        boolean isActive,
-        int shortcut
+        final boolean isActive,
+        final int shortcut
     ) {
-        super(L10n.get(newRenderer), isActive, shortcut);
+        super(L10n.widget(newRenderer.name()), isActive, shortcut);
         setHandler(
             new EventHandler() {
                 @Override
-                public void onConfirm(IntelUIAPI ui) {
+                public void onConfirm(final IntelUIAPI ui) {
                     state.setContentRenderer(newRenderer);
                 }
             }

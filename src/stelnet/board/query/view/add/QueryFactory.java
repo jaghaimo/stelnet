@@ -17,7 +17,7 @@ public abstract class QueryFactory extends FilterAwareFactory {
     @Setter
     protected SizeHelper sizeHelper = new SizeHelper();
 
-    public RenderableComponent getPreview(Set<Filter> filters, Size size) {
+    public RenderableComponent getPreview(final Set<Filter> filters, final Size size) {
         return getProvider().getPreview(filters, size);
     }
 

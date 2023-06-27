@@ -36,7 +36,7 @@ public class QueryManager {
 
     private final ResultMap resultMap = new ResultMap();
 
-    public void addQuery(Query query) {
+    public void addQuery(final Query query) {
         if (!queries.contains(query)) {
             query.setNumber(++queryCounter);
             queries.add(query);
@@ -49,7 +49,7 @@ public class QueryManager {
         updateIntel();
     }
 
-    public void deleteQuery(Query query) {
+    public void deleteQuery(final Query query) {
         if (queries.contains(query)) {
             queries.remove(query);
             updateIntel();
@@ -57,26 +57,26 @@ public class QueryManager {
     }
 
     public Set<Filter> getSubmarketFilters() {
-        Set<Filter> submarketFilters = new LinkedHashSet<>();
-        List<SubmarketSpecAPI> allSubmarketSpecs = getSubmarketSpecs();
-        for (SubmarketSpecAPI submarketSpec : allSubmarketSpecs) {
+        final Set<Filter> submarketFilters = new LinkedHashSet<>();
+        final List<SubmarketSpecAPI> allSubmarketSpecs = getSubmarketSpecs();
+        for (final SubmarketSpecAPI submarketSpec : allSubmarketSpecs) {
             submarketFilters.add(getSubmarketFilter(submarketSpec));
         }
         return submarketFilters;
     }
 
-    public Filter getSubmarketFilter(SubmarketSpecAPI submarketSpec) {
+    public Filter getSubmarketFilter(final SubmarketSpecAPI submarketSpec) {
         return new ResultHasId(submarketSpec.getId());
     }
 
     public List<SubmarketSpecAPI> getSubmarketSpecs() {
-        List<SubmarketSpecAPI> allSubmarketSpecs = Global.getSettings().getAllSubmarketSpecs();
+        final List<SubmarketSpecAPI> allSubmarketSpecs = Global.getSettings().getAllSubmarketSpecs();
         CollectionUtils.reduce(allSubmarketSpecs, Excluder.getSubmarketFilter());
         return allSubmarketSpecs;
     }
 
-    public void setAllEnabled(boolean isEnabled) {
-        for (Query query : queries) {
+    public void setAllEnabled(final boolean isEnabled) {
+        for (final Query query : queries) {
             query.setEnabled(isEnabled);
         }
         updateIntel();
@@ -89,24 +89,24 @@ public class QueryManager {
     public void updateIntel() {
         resultMap.clear();
         StelnetHelper.removeIntel(ResultIntel.class);
-        for (Query query : queries) {
+        for (final Query query : queries) {
             if (query.isEnabled()) {
                 updateIntel(query);
             }
         }
     }
 
-    private void updateIntel(Query query) {
-        List<ResultSet> resultSets = query.execute(groupingStrategy);
-        for (ResultSet resultSet : resultSets) {
+    private void updateIntel(final Query query) {
+        final List<ResultSet> resultSets = query.execute(groupingStrategy);
+        for (final ResultSet resultSet : resultSets) {
             updateResult(resultSet);
         }
     }
 
-    private void updateResult(ResultSet resultSet) {
-        boolean hasGrouping = resultSet.getKey() != null;
-        boolean hasIntel = resultMap.containsKey(resultSet);
-        boolean needsIntel = !hasGrouping || !hasIntel;
+    private void updateResult(final ResultSet resultSet) {
+        final boolean hasGrouping = resultSet.getKey() != null;
+        final boolean hasIntel = resultMap.containsKey(resultSet);
+        final boolean needsIntel = !hasGrouping || !hasIntel;
         if (hasIntel) {
             resultMap.update(resultSet);
         } else {

@@ -1,4 +1,7 @@
 {
+    "ACTION_BUY": "Buy",
+    "ACTION_SELL": "Sell",
+    "ACTION_PROFIT": "Profit",
     "BOARD_DESCRIPTION": "Compare and track commodity prices among all known markets.",
     "BOARD_TITLE": "Commodity Market",
     "DELETE": "Delete",

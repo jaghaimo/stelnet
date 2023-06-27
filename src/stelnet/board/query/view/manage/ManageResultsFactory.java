@@ -3,7 +3,6 @@ package stelnet.board.query.view.manage;
 import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
-import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
 import stelnet.board.query.view.ButtonGroup;
 import stelnet.board.query.view.FilterAwareFactory;
@@ -11,6 +10,7 @@ import stelnet.board.query.view.FilteringButton;
 import stelnet.board.query.view.SectionHeader;
 import stelnet.board.query.view.SizeHelper;
 import stelnet.util.ColorHelper;
+import stelnet.util.L10n;
 import uilib.Button;
 import uilib.Renderable;
 import uilib.RenderableFactory;
@@ -26,7 +26,7 @@ public class ManageResultsFactory extends FilterAwareFactory implements Renderab
     private final Button[] submarketButtons;
     private final Button[] otherButtons;
 
-    public ManageResultsFactory(QueryManager manager) {
+    public ManageResultsFactory(final QueryManager manager) {
         dModCount = ButtonUtils.getDModsCount(manager);
         dModAllowed = ButtonUtils.getDMods(manager);
         groupingButtons = ButtonUtils.getGroupingButtons(manager);
@@ -35,35 +35,35 @@ public class ManageResultsFactory extends FilterAwareFactory implements Renderab
     }
 
     @Override
-    public List<Renderable> create(Size size) {
+    public List<Renderable> create(final Size size) {
         prepareButtons(dModCount);
         prepareButtons(dModAllowed);
-        SizeHelper sizeHelper = new SizeHelper(size);
+        final SizeHelper sizeHelper = new SizeHelper(size);
         sizeHelper.movePartition(100);
-        List<Renderable> elements = new LinkedList<>();
+        final List<Renderable> elements = new LinkedList<>();
         elements.add(new Spacer(-2 * UiConstants.DEFAULT_SPACER));
-        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.MANAGE_GROUPING_SORTING, true));
-        elements.add(new ButtonGroup(sizeHelper, QueryL10n.MANAGE_RESULT_GROUPING, groupingButtons, true));
-        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.MANAGE_FILTERING, true));
-        elements.add(new ButtonGroup(sizeHelper, QueryL10n.MANAGE_FILTERING_SUBMARKET, submarketButtons, true));
-        elements.add(new ButtonGroup(sizeHelper, QueryL10n.MANAGE_FILTERING_OTHER, otherButtons, true));
-        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.MANAGE_DMODS, true));
-        elements.add(new ButtonGroup(sizeHelper, QueryL10n.MANAGE_DMOD_COUNT, dModCount));
-        elements.add(new ButtonGroup(sizeHelper, QueryL10n.MANAGE_DMOD_SET, dModAllowed));
+        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), L10n.query("MANAGE_GROUPING_SORTING"), true));
+        elements.add(new ButtonGroup(sizeHelper, L10n.query("MANAGE_RESULT_GROUPING"), groupingButtons, true));
+        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), L10n.query("MANAGE_FILTERING"), true));
+        elements.add(new ButtonGroup(sizeHelper, L10n.query("MANAGE_FILTERING_SUBMARKET"), submarketButtons, true));
+        elements.add(new ButtonGroup(sizeHelper, L10n.query("MANAGE_FILTERING_OTHER"), otherButtons, true));
+        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), L10n.query("MANAGE_DMODS"), true));
+        elements.add(new ButtonGroup(sizeHelper, L10n.query("MANAGE_DMOD_COUNT"), dModCount));
+        elements.add(new ButtonGroup(sizeHelper, L10n.query("MANAGE_DMOD_SET"), dModAllowed));
         return elements;
     }
 
-    private void prepareButtons(FilteringButton[] buttonsToPrepare) {
-        Color textColor = ColorHelper.basePlayerColor();
-        Color backgroundColor = ColorHelper.darkPlayerColor();
-        for (FilteringButton button : buttonsToPrepare) {
+    private void prepareButtons(final FilteringButton[] buttonsToPrepare) {
+        final Color textColor = ColorHelper.basePlayerColor();
+        final Color backgroundColor = ColorHelper.darkPlayerColor();
+        for (final FilteringButton button : buttonsToPrepare) {
             button.setTextColor(textColor);
             button.setBackgroundColor(backgroundColor);
             prepareButton(button);
         }
     }
 
-    private void prepareButton(FilteringButton button) {
+    private void prepareButton(final FilteringButton button) {
         float textScale = 1.0f;
         float backgroundScale = 1.0f;
         if (button.isStateOn()) {

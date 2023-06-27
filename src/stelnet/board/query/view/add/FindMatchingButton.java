@@ -5,7 +5,6 @@ import java.util.Set;
 import org.lwjgl.input.Keyboard;
 import stelnet.board.query.Query;
 import stelnet.board.query.QueryBoard;
-import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
 import stelnet.board.query.QueryState;
 import stelnet.board.query.QueryState.QueryBoardTab;
@@ -21,18 +20,18 @@ import uilib.property.Size;
 public class FindMatchingButton extends C2Button {
 
     public FindMatchingButton(final QueryFactory factory, final String type) {
-        super(new Size(0, UiConstants.VICTOR_14_BUTTON_HEIGHT), L10n.get(QueryL10n.FIND_MATCHING), true);
+        super(new Size(0, UiConstants.VICTOR_14_BUTTON_HEIGHT), L10n.query("FIND_MATCHING"), true);
         overrideSize(30);
         setShortcut(Keyboard.KEY_F);
         setHandler(
             new EventHandler() {
                 @Override
-                public void onConfirm(IntelUIAPI ui) {
-                    QueryState state = StelnetHelper.getInstance(QueryBoard.class).getState();
-                    QueryManager manager = state.getQueryManager();
-                    QueryProvider provider = factory.getProvider();
-                    Set<Filter> filters = factory.getFilters();
-                    Query query = new Query(manager, provider, filters, type);
+                public void onConfirm(final IntelUIAPI ui) {
+                    final QueryState state = StelnetHelper.getInstance(QueryBoard.class).getState();
+                    final QueryManager manager = state.getQueryManager();
+                    final QueryProvider provider = factory.getProvider();
+                    final Set<Filter> filters = factory.getFilters();
+                    final Query query = new Query(manager, provider, filters, type);
                     manager.addQuery(query);
                     state.setActiveTab(QueryBoardTab.LIST);
                 }

@@ -20,7 +20,7 @@ public class QueryView implements RenderableFactory {
     private final QueryListFactory queryListFactory;
     private final ManageResultsFactory manageResultsFactory;
 
-    public QueryView(QueryState queryState) {
+    public QueryView(final QueryState queryState) {
         activeTab = queryState.getActiveTab();
         addQueryFactory = queryState.getAddQueryFactory();
         queryListFactory = queryState.getQueryListFactory();
@@ -28,11 +28,11 @@ public class QueryView implements RenderableFactory {
     }
 
     @Override
-    public List<Renderable> create(Size size) {
-        float width = size.getWidth() - 10;
-        float height = size.getHeight() - 36;
-        Size tabContentSize = new Size(width, height);
-        TabViewContainer tabViewContainer = new TabViewContainer();
+    public List<Renderable> create(final Size size) {
+        final float width = size.getWidth() - 10;
+        final float height = size.getHeight() - 36;
+        final Size tabContentSize = new Size(width, height);
+        final TabViewContainer tabViewContainer = new TabViewContainer();
         tabViewContainer.setSize(size);
         tabViewContainer.addTab(
             getTabButton(QueryBoardTab.LIST, Keyboard.KEY_L),
@@ -52,14 +52,14 @@ public class QueryView implements RenderableFactory {
         return Collections.<Renderable>singletonList(tabViewContainer);
     }
 
-    private QueryTabButton getTabButton(QueryBoardTab currentTab, int keyboardShortcut) {
+    private QueryTabButton getTabButton(final QueryBoardTab currentTab, final int keyboardShortcut) {
         return new QueryTabButton(currentTab, activeTab, keyboardShortcut);
     }
 
     private VerticalViewContainer getTabContent(
-        RenderableFactory factory,
-        Size tabContentSize,
-        QueryBoardTab currentTab
+        final RenderableFactory factory,
+        final Size tabContentSize,
+        final QueryBoardTab currentTab
     ) {
         if (isActive(currentTab)) {
             return new VerticalViewContainer(factory.create(tabContentSize));
@@ -67,7 +67,7 @@ public class QueryView implements RenderableFactory {
         return null;
     }
 
-    private boolean isActive(QueryBoardTab currentTab) {
+    private boolean isActive(final QueryBoardTab currentTab) {
         return currentTab.equals(activeTab);
     }
 }

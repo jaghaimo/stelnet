@@ -20,22 +20,22 @@ public abstract class PickerDialog implements InteractionDialogPlugin {
     protected InteractionDialogAPI dialog;
 
     @Override
-    public void init(InteractionDialogAPI dialog) {
+    public void init(final InteractionDialogAPI dialog) {
         this.dialog = dialog;
         show();
     }
 
     @Override
-    public void optionSelected(String optionText, Object optionData) {}
+    public void optionSelected(final String optionText, final Object optionData) {}
 
     @Override
-    public void optionMousedOver(String optionText, Object optionData) {}
+    public void optionMousedOver(final String optionText, final Object optionData) {}
 
     @Override
-    public void advance(float amount) {}
+    public void advance(final float amount) {}
 
     @Override
-    public void backFromEngagement(EngagementResultAPI battleResult) {}
+    public void backFromEngagement(final EngagementResultAPI battleResult) {}
 
     @Override
     public Object getContext() {
@@ -47,7 +47,7 @@ public abstract class PickerDialog implements InteractionDialogPlugin {
         return null;
     }
 
-    protected void dismiss(IntelInfoPlugin plugin) {
+    protected void dismiss(final IntelInfoPlugin plugin) {
         dialog.dismiss();
         if (plugin != null) {
             ui.recreateIntelUI();

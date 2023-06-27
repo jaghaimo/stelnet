@@ -14,7 +14,7 @@ import uilib.property.Size;
 
 public class ShowContactButton extends Button {
 
-    public ShowContactButton(String label, Size size, final ContactIntel intel, FactionAPI faction) {
+    public ShowContactButton(final String label, final Size size, final ContactIntel intel, final FactionAPI faction) {
         super(size, label, true, faction.getBrightUIColor(), faction.getDarkUIColor());
         setEnabled(!MemoryHelper.getBoolean(ModConstants.MEMORY_IS_CALLING));
         setCutStyle(CutStyle.C2_MENU);
@@ -22,7 +22,7 @@ public class ShowContactButton extends Button {
         setHandler(
             new EventHandler() {
                 @Override
-                public void onConfirm(IntelUIAPI ui) {
+                public void onConfirm(final IntelUIAPI ui) {
                     Global.getSector().getCampaignUI().showCoreUITab(CoreUITabId.INTEL, intel);
                 }
             }

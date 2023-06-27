@@ -4,7 +4,6 @@ import com.fs.starfarer.api.campaign.econ.SubmarketSpecAPI;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
 import java.util.LinkedList;
 import java.util.List;
-import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
 import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.board.query.provider.DmodProvider;
@@ -14,17 +13,16 @@ import stelnet.filter.ResultFleetMemberWithoutDMod;
 import stelnet.filter.ResultFleetMemberWithoutDModCount;
 import stelnet.filter.ResultIsFriendly;
 import stelnet.filter.ResultIsPurchasable;
-import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
 import uilib.Button;
 import uilib.Renderable;
 
 public class ButtonUtils {
 
-    public static FilteringButton[] getDMods(QueryManager manager) {
-        DmodProvider provider = new DmodProvider();
-        List<FilteringButton> dMods = new LinkedList<>();
-        for (HullModSpecAPI dMod : provider.getDMods()) {
+    public static FilteringButton[] getDMods(final QueryManager manager) {
+        final DmodProvider provider = new DmodProvider();
+        final List<FilteringButton> dMods = new LinkedList<>();
+        for (final HullModSpecAPI dMod : provider.getDMods()) {
             dMods.add(
                 new FilterSetAwareButton(
                     manager,
@@ -37,12 +35,12 @@ public class ButtonUtils {
         return dMods.toArray(new FilteringButton[] {});
     }
 
-    public static FilteringButton[] getDModsCount(QueryManager manager) {
-        List<Button> dModCount = new LinkedList<>();
+    public static FilteringButton[] getDModsCount(final QueryManager manager) {
+        final List<Button> dModCount = new LinkedList<>();
         dModCount.add(
             new FilterSetAwareButton(
                 manager,
-                L10n.get(CommonL10n.NONE),
+                L10n.common("NONE"),
                 new ResultFleetMemberWithoutDModCount(0),
                 manager.getDModCountFilters()
             )
@@ -60,45 +58,45 @@ public class ButtonUtils {
         return dModCount.toArray(new FilteringButton[] {});
     }
 
-    public static GroupByButton[] getGroupingButtons(QueryManager manager) {
+    public static GroupByButton[] getGroupingButtons(final QueryManager manager) {
         return new GroupByButton[] {
             new GroupByButton(manager, GroupingStrategy.BY_MARKET),
             new GroupByButton(manager, GroupingStrategy.BY_SYSTEM),
         };
     }
 
-    public static FilteringButton[] getOtherButtons(QueryManager manager) {
+    public static FilteringButton[] getOtherButtons(final QueryManager manager) {
         return new FilteringButton[] {
             new FilterSetAwareButton(
                 manager,
-                L10n.get(QueryL10n.RESULTS_ONLY_PURCHASABLE),
+                L10n.query("RESULTS_ONLY_PURCHASABLE"),
                 new ResultIsPurchasable(),
                 manager.getOtherFilters()
             ),
             new FilterSetAwareButton(
                 manager,
-                L10n.get(QueryL10n.RESULTS_ONLY_FRIENDLY),
+                L10n.query("RESULTS_ONLY_FRIENDLY"),
                 new ResultIsFriendly(),
                 manager.getOtherFilters()
             ),
         };
     }
 
-    public static FilteringButton[] getSubmarketButtons(QueryManager manager) {
-        List<Renderable> elements = new LinkedList<>();
-        List<SubmarketSpecAPI> allSubmarketSpecs = manager.getSubmarketSpecs();
-        for (SubmarketSpecAPI submarketSpec : allSubmarketSpecs) {
-            String name = getSubmarketName(submarketSpec);
-            Filter filter = manager.getSubmarketFilter(submarketSpec);
+    public static FilteringButton[] getSubmarketButtons(final QueryManager manager) {
+        final List<Renderable> elements = new LinkedList<>();
+        final List<SubmarketSpecAPI> allSubmarketSpecs = manager.getSubmarketSpecs();
+        for (final SubmarketSpecAPI submarketSpec : allSubmarketSpecs) {
+            final String name = getSubmarketName(submarketSpec);
+            final Filter filter = manager.getSubmarketFilter(submarketSpec);
             elements.add(new FilterSetAwareButton(manager, name, filter, manager.getSubmarketFilters()));
         }
         return elements.toArray(new FilteringButton[] {});
     }
 
-    private static String getSubmarketName(SubmarketSpecAPI submarketSpec) {
-        String name = submarketSpec.getName().replace("\n", " ").trim();
+    private static String getSubmarketName(final SubmarketSpecAPI submarketSpec) {
+        final String name = submarketSpec.getName().replace("\n", " ").trim();
         if (name.isEmpty()) {
-            return L10n.get(CommonL10n.MILITARY_MARKET);
+            return L10n.common("MILITARY_MARKET");
         }
         return name;
     }

@@ -17,7 +17,7 @@ import stelnet.filter.LogicalNot;
 import stelnet.filter.ShipHullHasHint;
 import stelnet.filter.ShipHullIsSize;
 import stelnet.filter.WeaponIsSize;
-import stelnet.util.CommonL10n;
+import stelnet.util.L10n;
 import uilib.Renderable;
 import uilib.Spacer;
 
@@ -30,74 +30,74 @@ public class ButtonManager {
     private final Set<Filter> filters = new HashSet<>();
 
     public ButtonManager() {
-        Filter isWeapon = new CargoStackIsType(Type.WEAPON);
-        Filter isFighterWing = new CargoStackIsType(Type.FIGHTER);
+        final Filter isWeapon = new CargoStackIsType(Type.WEAPON);
+        final Filter isFighterWing = new CargoStackIsType(Type.FIGHTER);
         itemButtons =
             new Renderable[] {
                 new Spacer(2),
-                new ItemFilterButton(this, CommonL10n.COMMODITIES, new CargoStackIsType(Type.COMMODITY)),
-                new ItemFilterButton(this, CommonL10n.WEAPONS, isWeapon),
-                new ItemFilterButton(this, CommonL10n.FIGHTER_WINGS, isFighterWing),
-                new ItemFilterButton(this, CommonL10n.OTHERS, new CargoStackIsType(Type.SPECIAL)),
+                new ItemFilterButton(this, L10n.common("COMMODITIES"), new CargoStackIsType(Type.COMMODITY)),
+                new ItemFilterButton(this, L10n.common("WEAPONS"), isWeapon),
+                new ItemFilterButton(this, L10n.common("FIGHTER_WINGS"), isFighterWing),
+                new ItemFilterButton(this, L10n.common("OTHERS"), new CargoStackIsType(Type.SPECIAL)),
                 new Spacer(20),
                 new ItemFilterButton(
                     this,
-                    CommonL10n.MOUNT_SMALL,
+                    L10n.common("MOUNT_SMALL"),
                     new LogicalAnd(Arrays.<Filter>asList(isWeapon, new WeaponIsSize(WeaponSize.SMALL)))
                 ),
                 new ItemFilterButton(
                     this,
-                    CommonL10n.MOUNT_MEDIUM,
+                    L10n.common("MOUNT_MEDIUM"),
                     new LogicalAnd(Arrays.<Filter>asList(isWeapon, new WeaponIsSize(WeaponSize.MEDIUM)))
                 ),
                 new ItemFilterButton(
                     this,
-                    CommonL10n.MOUNT_LARGE,
+                    L10n.common("MOUNT_LARGE"),
                     new LogicalAnd(Arrays.<Filter>asList(isWeapon, new WeaponIsSize(WeaponSize.LARGE)))
                 ),
                 new Spacer(20f),
                 new ItemFilterButton(
                     this,
-                    CommonL10n.WING_FIGHTERS,
+                    L10n.common("WING_FIGHTERS"),
                     new LogicalAnd(Arrays.<Filter>asList(isFighterWing, new CargoStackWingIsRole(WingRole.FIGHTER)))
                 ),
                 new ItemFilterButton(
                     this,
-                    CommonL10n.WING_BOMBERS,
+                    L10n.common("WING_BOMBERS"),
                     new LogicalAnd(Arrays.<Filter>asList(isFighterWing, new CargoStackWingIsRole(WingRole.BOMBER)))
                 ),
                 new ItemFilterButton(
                     this,
-                    CommonL10n.WING_INTERCEPTORS,
+                    L10n.common("WING_INTERCEPTORS"),
                     new LogicalAnd(Arrays.<Filter>asList(isFighterWing, new CargoStackWingIsRole(WingRole.INTERCEPTOR)))
                 ),
             };
         shipButtons =
             new Renderable[] {
                 new Spacer(2),
-                new ShipFilterButton(this, CommonL10n.FRIGATES, new ShipHullIsSize(HullSize.FRIGATE)),
-                new ShipFilterButton(this, CommonL10n.DESTROYERS, new ShipHullIsSize(HullSize.DESTROYER)),
-                new ShipFilterButton(this, CommonL10n.CRUISERS, new ShipHullIsSize(HullSize.CRUISER)),
-                new ShipFilterButton(this, CommonL10n.CAPITALS, new ShipHullIsSize(HullSize.CAPITAL_SHIP)),
+                new ShipFilterButton(this, L10n.common("FRIGATES"), new ShipHullIsSize(HullSize.FRIGATE)),
+                new ShipFilterButton(this, L10n.common("DESTROYERS"), new ShipHullIsSize(HullSize.DESTROYER)),
+                new ShipFilterButton(this, L10n.common("CRUISERS"), new ShipHullIsSize(HullSize.CRUISER)),
+                new ShipFilterButton(this, L10n.common("CAPITALS"), new ShipHullIsSize(HullSize.CAPITAL_SHIP)),
                 new Spacer(20),
-                new ShipFilterButton(this, CommonL10n.CARRIERS, new ShipHullHasHint(ShipTypeHints.CARRIER)),
-                new ShipFilterButton(this, CommonL10n.CIVILIANS, new ShipHullHasHint(ShipTypeHints.CIVILIAN)),
+                new ShipFilterButton(this, L10n.common("CARRIERS"), new ShipHullHasHint(ShipTypeHints.CARRIER)),
+                new ShipFilterButton(this, L10n.common("CIVILIANS"), new ShipHullHasHint(ShipTypeHints.CIVILIAN)),
             };
     }
 
-    public void add(Filter filter) {
+    public void add(final Filter filter) {
         filters.add(filter);
     }
 
     public Set<Filter> getFilters() {
-        Set<Filter> negatedFilters = new HashSet<>();
-        for (Filter filter : filters) {
+        final Set<Filter> negatedFilters = new HashSet<>();
+        for (final Filter filter : filters) {
             negatedFilters.add(new LogicalNot(filter));
         }
         return negatedFilters;
     }
 
-    public void remove(Filter filter) {
+    public void remove(final Filter filter) {
         filters.remove(filter);
     }
 }

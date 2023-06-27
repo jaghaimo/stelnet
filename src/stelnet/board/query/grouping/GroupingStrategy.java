@@ -7,7 +7,6 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.util.Misc;
 import java.util.Set;
 import stelnet.board.BoardRenderableInfo;
-import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
 import stelnet.board.query.ResultIntel;
 import stelnet.board.query.ResultSet;
@@ -20,42 +19,42 @@ public enum GroupingStrategy {
     BY_MARKET,
     BY_SYSTEM {
         @Override
-        public GroupingData getGroupingData(ResultSet resultSet) {
-            StarSystemAPI system = resultSet.getSystem();
+        public GroupingData getGroupingData(final ResultSet resultSet) {
+            final StarSystemAPI system = resultSet.getSystem();
             if (system == null) {
                 return super.getGroupingData(resultSet);
             }
-            Set<MarketAPI> marketSet = resultSet.getMarketSet();
-            RenderableIntelInfo info = new BoardRenderableInfo(
+            final Set<MarketAPI> marketSet = resultSet.getMarketSet();
+            final RenderableIntelInfo info = new BoardRenderableInfo(
                 system.getName(),
-                L10n.get(QueryL10n.RESULTS_IN_SYSTEM, resultSet.getResultCount(), marketSet.size())
+                L10n.query("RESULTS_IN_SYSTEM", resultSet.getResultCount(), marketSet.size())
             );
-            MarketAPI market = resultSet.getMarket();
-            FactionAPI faction = Misc.getClaimingFaction(market.getPrimaryEntity());
+            final MarketAPI market = resultSet.getMarket();
+            final FactionAPI faction = Misc.getClaimingFaction(market.getPrimaryEntity());
             return new GroupingData(info, faction, system.getId(), system.getCenter());
         }
 
         @Override
-        public ResultView getView(ResultIntel intel, ResultSet resultSet) {
+        public ResultView getView(final ResultIntel intel, final ResultSet resultSet) {
             return new SystemView(intel, resultSet);
         }
     };
 
-    public void createIntel(QueryManager manager, ResultSet resultSet) {
-        ResultIntel intel = new ResultIntel(manager, resultSet);
+    public void createIntel(final QueryManager manager, final ResultSet resultSet) {
+        final ResultIntel intel = new ResultIntel(manager, resultSet);
         Global.getSector().getIntelManager().addIntel(intel, true);
     }
 
-    public GroupingData getGroupingData(ResultSet resultSet) {
-        MarketAPI market = resultSet.getMarket();
-        RenderableIntelInfo info = new BoardRenderableInfo(
+    public GroupingData getGroupingData(final ResultSet resultSet) {
+        final MarketAPI market = resultSet.getMarket();
+        final RenderableIntelInfo info = new BoardRenderableInfo(
             StelnetHelper.getMarketWithFactionName(market),
-            L10n.get(QueryL10n.RESULTS_IN_MARKET, resultSet.getResultCount())
+            L10n.query("RESULTS_IN_MARKET", resultSet.getResultCount())
         );
         return new GroupingData(info, market.getFaction(), market.getId(), market.getPrimaryEntity());
     }
 
-    public ResultView getView(ResultIntel intel, ResultSet resultSet) {
+    public ResultView getView(final ResultIntel intel, final ResultSet resultSet) {
         return new MarketView(intel, resultSet);
     }
 }

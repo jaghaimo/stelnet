@@ -13,14 +13,20 @@ import uilib.property.Size;
 
 public class CallContact extends Button {
 
-    public CallContact(String label, boolean isEnabled, Size size, final MarketAPI market, final PersonAPI person) {
+    public CallContact(
+        final String label,
+        final boolean isEnabled,
+        final Size size,
+        final MarketAPI market,
+        final PersonAPI person
+    ) {
         super(size, label, isEnabled, person.getFaction().getBrightUIColor(), person.getFaction().getDarkUIColor());
         setCutStyle(CutStyle.C2_MENU);
         setPadding(0);
         setHandler(
             new EventHandler() {
                 @Override
-                public void onConfirm(IntelUIAPI ui) {
+                public void onConfirm(final IntelUIAPI ui) {
                     MemoryHelper.set(ModConstants.MEMORY_IS_CALLING, true);
                     ui.showDialog(
                         market.getPrimaryEntity(),

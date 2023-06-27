@@ -47,5 +47,20 @@
     "WEAPONS": "Weapons",
     "WING_BOMBERS": "Bombers",
     "WING_FIGHTERS": "Fighters",
-    "WING_INTERCEPTORS": "Interceptors"
+    "WING_INTERCEPTORS": "Interceptors",
+    "STACK_BLUEPRINT": "Blueprint",
+    "STACK_COMMODITY": "Commodity",
+    "STACK_FIGHTER": "Fighter Wing",
+    "STACK_MODSPEC": "Modspec",
+    "STACK_SPECIAL": "Special",
+    "STACK_WEAPON": "Weapon",
+    "ROLE_ASSAULT": "Assault",
+    "ROLE_BOMBER": "Bomber",
+    "ROLE_FIGHTER": "Fighter",
+    "ROLE_INTERCEPTOR": "Interceptor",
+    "ROLE_SUPPORT": "Support",
+    "HULL_CAPITAL_SHIP": "Capital Ship",
+    "HULL_CRUISER": "Cruiser",
+    "HULL_DESTROYER": "Destroyer",
+    "HULL_FRIGATE": "Frigate"
 }

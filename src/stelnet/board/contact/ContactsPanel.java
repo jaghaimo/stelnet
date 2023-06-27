@@ -20,9 +20,9 @@ public class ContactsPanel extends CustomPanel {
     private final Map<MarketAPI, TrackingCargoFleetData> awaitingCollection;
 
     public ContactsPanel(
-        float width,
-        Renderable renderable,
-        Map<MarketAPI, TrackingCargoFleetData> awaitingCollection
+        final float width,
+        final Renderable renderable,
+        final Map<MarketAPI, TrackingCargoFleetData> awaitingCollection
     ) {
         super(renderable);
         this.awaitingCollection = awaitingCollection;
@@ -30,17 +30,17 @@ public class ContactsPanel extends CustomPanel {
     }
 
     @Override
-    public void render(TooltipMakerAPI tooltip) {
+    public void render(final TooltipMakerAPI tooltip) {
         if (!awaitingCollection.isEmpty()) {
             addAwaitingCollection(tooltip);
         }
-        tooltip.addSectionHeading(L10n.get(ContactsL10n.CONTACT_LIST), Alignment.MID, UiConstants.DEFAULT_SPACER);
+        tooltip.addSectionHeading(L10n.contacts("CONTACT_LIST"), Alignment.MID, UiConstants.DEFAULT_SPACER);
         tooltip.addSpacer(UiConstants.DEFAULT_SPACER);
         super.render(tooltip);
     }
 
-    private void addAwaitingCollection(TooltipMakerAPI tooltip) {
-        tooltip.addSectionHeading(L10n.get(ContactsL10n.AWAITING_PICKUP), Alignment.MID, UiConstants.DEFAULT_SPACER);
+    private void addAwaitingCollection(final TooltipMakerAPI tooltip) {
+        tooltip.addSectionHeading(L10n.contacts("AWAITING_PICKUP"), Alignment.MID, UiConstants.DEFAULT_SPACER);
         tooltip.addSpacer(UiConstants.DEFAULT_SPACER);
         tooltip.beginGridFlipped(width, 1, Misc.getTextColor(), marketWidth, UiConstants.DEFAULT_SPACER);
         addMarkets(tooltip);
@@ -48,16 +48,16 @@ public class ContactsPanel extends CustomPanel {
         tooltip.addSpacer(1.5f * UiConstants.DEFAULT_SPACER);
     }
 
-    private void addMarkets(TooltipMakerAPI tooltip) {
+    private void addMarkets(final TooltipMakerAPI tooltip) {
         int y = 0;
-        for (MarketAPI market : awaitingCollection.keySet()) {
+        for (final MarketAPI market : awaitingCollection.keySet()) {
             y = addMarket(tooltip, market, y);
         }
     }
 
-    private int addMarket(TooltipMakerAPI tooltip, MarketAPI market, int y) {
-        TrackingCargoFleetData cargoFleetData = awaitingCollection.get(market);
-        for (CargoStackAPI stack : cargoFleetData.getCargoStacks()) {
+    private int addMarket(final TooltipMakerAPI tooltip, final MarketAPI market, int y) {
+        final TrackingCargoFleetData cargoFleetData = awaitingCollection.get(market);
+        for (final CargoStackAPI stack : cargoFleetData.getCargoStacks()) {
             tooltip.addToGrid(
                 0,
                 y++,
@@ -66,7 +66,7 @@ public class ContactsPanel extends CustomPanel {
                 market.getTextColorForFactionOrPlanet()
             );
         }
-        for (FleetMemberAPI member : cargoFleetData.getFleetMembers()) {
+        for (final FleetMemberAPI member : cargoFleetData.getFleetMembers()) {
             tooltip.addToGrid(
                 0,
                 y++,

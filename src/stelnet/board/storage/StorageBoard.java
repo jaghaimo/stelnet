@@ -21,20 +21,20 @@ public class StorageBoard extends BoardBasePlugin {
 
     @Override
     protected RenderableIntelInfo getIntelInfo() {
-        return new BoardRenderableInfo(L10n.get(StorageL10n.BOARD_TITLE), getDescription());
+        return new BoardRenderableInfo(L10n.storage("BOARD_TITLE"), getDescription());
     }
 
     private String getDescription() {
-        int itemCount = getAllItemCount();
-        int shipCount = getAllShipCount();
+        final int itemCount = getAllItemCount();
+        final int shipCount = getAllShipCount();
         if (itemCount == 0 && shipCount == 0) {
-            return L10n.get(StorageL10n.BOARD_NO_CONTENT);
+            return L10n.storage("BOARD_NO_CONTENT");
         }
-        return L10n.get(StorageL10n.BOARD_CONTENT, itemCount, shipCount);
+        return L10n.storage("BOARD_CONTENT", itemCount, shipCount);
     }
 
     private int getAllItemCount() {
-        CargoAPI cargo = StelnetHelper.getAllItems(getEmptySet());
+        final CargoAPI cargo = StelnetHelper.getAllItems(getEmptySet());
         return StelnetHelper.calculateItemQuantity(cargo);
     }
 

@@ -21,16 +21,16 @@ public abstract class QueryProvider {
 
     public abstract RenderableShowComponent getPreview(Set<Filter> filters, Size size);
 
-    public List<ResultSet> getResults(Set<Filter> filters, GroupingStrategy groupingStrategy) {
-        List<MarketAPI> markets = MarketProvider.getMarkets(true);
+    public List<ResultSet> getResults(final Set<Filter> filters, final GroupingStrategy groupingStrategy) {
+        final List<MarketAPI> markets = MarketProvider.getMarkets(true);
         CollectionUtils.reduce(markets, filters);
-        List<ResultSet> resultSets = new LinkedList<>();
+        final List<ResultSet> resultSets = new LinkedList<>();
         processMarkets(resultSets, markets, filters, groupingStrategy);
         return resultSets;
     }
 
-    public Set<Filter> getAdditionalFilters(QueryManager manager) {
-        Set<Filter> resultFilters = new LinkedHashSet<>();
+    public Set<Filter> getAdditionalFilters(final QueryManager manager) {
+        final Set<Filter> resultFilters = new LinkedHashSet<>();
         resultFilters.addAll(manager.getOtherFilters());
         return resultFilters;
     }
@@ -42,7 +42,7 @@ public abstract class QueryProvider {
         final GroupingStrategy groupingStrategy
     );
 
-    protected void addToResultSets(List<ResultSet> resultSets, ResultSet resultSet) {
+    protected void addToResultSets(final List<ResultSet> resultSets, final ResultSet resultSet) {
         if (resultSet.size() > 0) {
             resultSets.add(resultSet);
         }

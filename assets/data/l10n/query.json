@@ -59,5 +59,10 @@
     "SUBMARKET_SHIPS": "{0} matching ships",
     "TITLE": "Queries",
     "WEAPON_MOUNTS": "Weapon Mounts",
-    "WING_ROLES": "Wing roles"
+    "WING_ROLES": "Wing roles",
+    "STATE_LIST": "List Queries",
+    "STATE_MANAGE": "Manage Results",
+    "STATE_NEW": "Add a New Query",
+    "BY_MARKET": "Group By Market",
+    "BY_SYSTEM": "Group By Star System"
 }

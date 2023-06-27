@@ -33,41 +33,49 @@ public class ResultSet {
     private final Set<Result> resultSet = new TreeSet<>(
         new Comparator<Result>() {
             @Override
-            public int compare(Result o1, Result o2) {
+            public int compare(final Result o1, final Result o2) {
                 return o1.compareTo(o2);
             }
         }
     );
 
-    public ResultSet(GroupingStrategy groupingStrategy, MarketAPI market) {
+    public ResultSet(final GroupingStrategy groupingStrategy, final MarketAPI market) {
         this(groupingStrategy, market, market.getStarSystem());
         marketSet.add(market);
     }
 
-    public void add(Result result) {
+    public void add(final Result result) {
         marketSet.add(result.getMarket());
         resultSet.add(result);
     }
 
-    public void add(ResultSet newResultSet) {
+    public void add(final ResultSet newResultSet) {
         marketSet.addAll(newResultSet.getMarketSet());
         resultSet.addAll(newResultSet.getResultSet());
     }
 
-    public void addCargoStacks(MarketAPI market, SubmarketAPI submarket, List<CargoStackAPI> cargoStacks) {
-        for (CargoStackAPI cargoStack : cargoStacks) {
+    public void addCargoStacks(
+        final MarketAPI market,
+        final SubmarketAPI submarket,
+        final List<CargoStackAPI> cargoStacks
+    ) {
+        for (final CargoStackAPI cargoStack : cargoStacks) {
             add(new Result(market, submarket, cargoStack));
         }
     }
 
-    public void addFleetMembers(MarketAPI market, SubmarketAPI submarket, List<FleetMemberAPI> fleetMembers) {
-        for (FleetMemberAPI fleetMember : fleetMembers) {
+    public void addFleetMembers(
+        final MarketAPI market,
+        final SubmarketAPI submarket,
+        final List<FleetMemberAPI> fleetMembers
+    ) {
+        for (final FleetMemberAPI fleetMember : fleetMembers) {
             add(new Result(market, submarket, fleetMember));
         }
     }
 
-    public void addPeople(MarketAPI market, List<PersonAPI> people) {
-        for (PersonAPI person : people) {
+    public void addPeople(final MarketAPI market, final List<PersonAPI> people) {
+        for (final PersonAPI person : people) {
             add(new Result(market, person));
         }
     }
@@ -84,13 +92,9 @@ public class ResultSet {
         return getGroupingData().getKey();
     }
 
-    private GroupingData getGroupingData() {
-        return groupingStrategy.getGroupingData(this);
-    }
-
     public int getResultCount() {
         int i = 0;
-        for (Result result : resultSet) {
+        for (final Result result : resultSet) {
             i += result.getCount();
         }
         return i;
@@ -102,12 +106,16 @@ public class ResultSet {
 
     public void refresh() {
         marketSet.clear();
-        for (Result result : resultSet) {
+        for (final Result result : resultSet) {
             marketSet.add(result.getMarket());
         }
     }
 
     public int size() {
         return resultSet.size();
+    }
+
+    private GroupingData getGroupingData() {
+        return groupingStrategy.getGroupingData(this);
     }
 }

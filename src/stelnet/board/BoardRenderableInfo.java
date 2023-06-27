@@ -12,7 +12,7 @@ public class BoardRenderableInfo implements RenderableIntelInfo {
     private final String description;
 
     @Override
-    public void render(TooltipMakerAPI info, Color bulletColor, Color titleColor) {
+    public void render(final TooltipMakerAPI info, final Color bulletColor, final Color titleColor) {
         info.addPara(getTitle(), titleColor, 0);
         info.addPara(getDescription(), bulletColor, 1);
     }

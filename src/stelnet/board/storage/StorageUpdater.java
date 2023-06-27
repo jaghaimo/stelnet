@@ -41,79 +41,85 @@ public class StorageUpdater implements ColonyDecivListener, ColonyInteractionLis
         }
     }
 
-    @Override
-    public void reportColonyAboutToBeDecivilized(MarketAPI market, boolean fullyDestroyed) {}
-
-    @Override
-    public void reportColonyDecivilized(MarketAPI market, boolean fullyDestroyed) {
-        updateNeeded();
-    }
-
-    @Override
-    public void reportPlayerColonizedPlanet(PlanetAPI planet) {
-        updateNeeded();
-    }
-
-    @Override
-    public void reportPlayerAbandonedColony(MarketAPI colony) {
-        updateNeeded();
-    }
-
-    @Override
-    public void reportPlayerOpenedMarket(MarketAPI market) {}
-
-    @Override
-    public void reportPlayerClosedMarket(MarketAPI market) {
-        updateNeeded();
-    }
-
-    @Override
-    public void reportPlayerOpenedMarketAndCargoUpdated(MarketAPI market) {}
-
-    @Override
-    public void reportPlayerMarketTransaction(PlayerMarketTransaction transaction) {}
-
     private static void updateNeeded() {
-        List<IntelInfoPlugin> existingIntel = Global.getSector().getIntelManager().getIntel(StorageIntel.class);
-        Set<SubmarketAPI> storageSubmarkets = StelnetHelper.getAllWithAccess();
+        final List<IntelInfoPlugin> existingIntel = Global.getSector().getIntelManager().getIntel(StorageIntel.class);
+        final Set<SubmarketAPI> storageSubmarkets = StelnetHelper.getAllWithAccess();
         addMissing(existingIntel, storageSubmarkets);
         removeObsolete(existingIntel, storageSubmarkets);
     }
 
-    private static void addMissing(List<IntelInfoPlugin> existingIntel, Set<SubmarketAPI> storageSubmarkets) {
-        for (SubmarketAPI storage : storageSubmarkets) {
+    private static void addMissing(
+        final List<IntelInfoPlugin> existingIntel,
+        final Set<SubmarketAPI> storageSubmarkets
+    ) {
+        for (final SubmarketAPI storage : storageSubmarkets) {
             addMissing(existingIntel, storage);
         }
     }
 
-    private static void addMissing(List<IntelInfoPlugin> existingIntel, SubmarketAPI storage) {
-        IntelInfoPlugin plugin = new StorageIntel(storage);
+    private static void addMissing(final List<IntelInfoPlugin> existingIntel, final SubmarketAPI storage) {
+        final IntelInfoPlugin plugin = new StorageIntel(storage);
         if (!existingIntel.contains(plugin)) {
             Global.getSector().getIntelManager().addIntel(plugin, true);
         }
     }
 
-    private static void removeObsolete(List<IntelInfoPlugin> existingIntel, Set<SubmarketAPI> storageSubmarkets) {
+    private static void removeObsolete(
+        final List<IntelInfoPlugin> existingIntel,
+        final Set<SubmarketAPI> storageSubmarkets
+    ) {
         for (int i = existingIntel.size(); i > 0; i--) {
-            IntelInfoPlugin intel = existingIntel.get(i - 1);
+            final IntelInfoPlugin intel = existingIntel.get(i - 1);
             removeObsolete(storageSubmarkets, intel);
         }
     }
 
-    private static void removeObsolete(Set<SubmarketAPI> storageSubmarkets, IntelInfoPlugin intel) {
-        SubmarketAPI storage = extractStorage(intel);
+    private static void removeObsolete(final Set<SubmarketAPI> storageSubmarkets, final IntelInfoPlugin intel) {
+        final SubmarketAPI storage = extractStorage(intel);
         if (!storageSubmarkets.contains(storage)) {
             Global.getSector().getIntelManager().removeIntel(intel);
         }
     }
 
-    private static SubmarketAPI extractStorage(IntelInfoPlugin intel) {
+    private static SubmarketAPI extractStorage(final IntelInfoPlugin intel) {
         try {
-            StorageIntel storageIntel = (StorageIntel) intel;
+            final StorageIntel storageIntel = (StorageIntel) intel;
             return storageIntel.getStorage();
-        } catch (Exception exception) {
+        } catch (final Exception exception) {
             log.warn("Could not extract storage from intel", exception);
         }
         return null;
     }
+
+    @Override
+    public void reportColonyAboutToBeDecivilized(final MarketAPI market, final boolean fullyDestroyed) {}
+
+    @Override
+    public void reportColonyDecivilized(final MarketAPI market, final boolean fullyDestroyed) {
+        updateNeeded();
+    }
+
+    @Override
+    public void reportPlayerColonizedPlanet(final PlanetAPI planet) {
+        updateNeeded();
+    }
+
+    @Override
+    public void reportPlayerAbandonedColony(final MarketAPI colony) {
+        updateNeeded();
+    }
+
+    @Override
+    public void reportPlayerOpenedMarket(final MarketAPI market) {}
+
+    @Override
+    public void reportPlayerClosedMarket(final MarketAPI market) {
+        updateNeeded();
+    }
+
+    @Override
+    public void reportPlayerOpenedMarketAndCargoUpdated(final MarketAPI market) {}
+
+    @Override
+    public void reportPlayerMarketTransaction(final PlayerMarketTransaction transaction) {}
 }

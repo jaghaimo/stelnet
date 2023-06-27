@@ -13,13 +13,18 @@ public class FilterSetAwareButton extends FilteringButton {
 
     private final Set<Filter> filterSet;
 
-    public FilterSetAwareButton(QueryManager manager, String title, Filter filter, Set<Filter> filterSet) {
+    public FilterSetAwareButton(
+        final QueryManager manager,
+        final String title,
+        final Filter filter,
+        final Set<Filter> filterSet
+    ) {
         super(manager, title, filter, UiConstants.AUTO_WIDTH, filterSet.contains(filter));
         this.filterSet = filterSet;
     }
 
     @Override
-    public void onConfirm(IntelUIAPI ui) {
+    public void onConfirm(final IntelUIAPI ui) {
         super.onConfirm(ui);
         if (isStateOn()) {
             filterSet.add(filter);

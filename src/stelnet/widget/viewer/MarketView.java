@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import org.lwjgl.input.Keyboard;
 import stelnet.util.L10n;
-import stelnet.widget.WidgetL10n;
 import uilib.Group;
 import uilib.Heading;
 import uilib.HorizontalViewContainer;
@@ -25,7 +24,7 @@ public class MarketView implements RenderableFactory {
     private final DisplayStrategy activeView;
     private final MarketViewState state;
 
-    public MarketView(MarketViewState state) {
+    public MarketView(final MarketViewState state) {
         buttonManager = state.getButtonManager();
         activeTab = state.getContentRenderer();
         activeView = state.getDisplayStrategy();
@@ -33,16 +32,24 @@ public class MarketView implements RenderableFactory {
     }
 
     @Override
-    public List<Renderable> create(Size size) {
+    public List<Renderable> create(final Size size) {
         return Collections.<Renderable>singletonList(getTabViewContainer(size));
     }
 
-    private Renderable getTabViewContainer(Size size) {
-        float width = size.getWidth() - 210;
-        float height = size.getHeight() - 40;
-        Size contentSize = new Size(width, height);
+    protected boolean isActive(final ContentRenderer currentTab) {
+        return currentTab.equals(activeTab);
+    }
 
-        TabViewContainer tabViewContainer = new TabViewContainer();
+    protected TabButton getTabButton(final ContentRenderer currentTab, final int keyboardShortcut) {
+        return new ViewerTabButton(currentTab, state, isActive(currentTab), keyboardShortcut);
+    }
+
+    private Renderable getTabViewContainer(final Size size) {
+        final float width = size.getWidth() - 210;
+        final float height = size.getHeight() - 40;
+        final Size contentSize = new Size(width, height);
+
+        final TabViewContainer tabViewContainer = new TabViewContainer();
         tabViewContainer.setSize(size);
         tabViewContainer.addTab(
             getTabButton(ContentRenderer.ITEMS, Keyboard.KEY_I),
@@ -58,36 +65,32 @@ public class MarketView implements RenderableFactory {
         return tabViewContainer;
     }
 
-    protected boolean isActive(ContentRenderer currentTab) {
-        return currentTab.equals(activeTab);
-    }
-
-    protected TabButton getTabButton(ContentRenderer currentTab, int keyboardShortcut) {
-        return new ViewerTabButton(currentTab, state, isActive(currentTab), keyboardShortcut);
-    }
-
-    private Renderable getTabPane(Size size, Size contentSize, Renderable[] buttons) {
-        List<Renderable> elements = new ArrayList<>();
-        List<LocationContent> storageData = activeView.getData(buttonManager);
+    private Renderable getTabPane(final Size size, final Size contentSize, final Renderable[] buttons) {
+        final List<Renderable> elements = new ArrayList<>();
+        final List<LocationContent> storageData = activeView.getData(buttonManager);
         addEmptyData(elements, storageData, contentSize.getWidth());
         addStorageData(elements, storageData);
-        Group contentContainer = new Group(elements);
+        final Group contentContainer = new Group(elements);
         contentContainer.setSize(contentSize);
-        Group buttonContainer = new Group(buttons);
+        final Group buttonContainer = new Group(buttons);
         buttonContainer.setSize(new Size(size.reduce(contentSize).getWidth(), contentSize.getHeight()));
         buttonContainer.setOffset(new Position(8, 0));
         return new HorizontalViewContainer(contentContainer, buttonContainer);
     }
 
-    private void addEmptyData(List<Renderable> elements, List<LocationContent> storageData, float width) {
+    private void addEmptyData(
+        final List<Renderable> elements,
+        final List<LocationContent> storageData,
+        final float width
+    ) {
         if (storageData.isEmpty()) {
-            elements.add(new Paragraph(L10n.get(WidgetL10n.VIEWER_NO_STORAGES), width));
+            elements.add(new Paragraph(L10n.widget("VIEWER_NO_STORAGES"), width));
         }
     }
 
-    private void addStorageData(List<Renderable> elements, List<LocationContent> storageData) {
-        for (LocationContent data : storageData) {
-            LocationInfo locationData = data.getLocationInfo();
+    private void addStorageData(final List<Renderable> elements, final List<LocationContent> storageData) {
+        for (final LocationContent data : storageData) {
+            final LocationInfo locationData = data.getLocationInfo();
             elements.add(new Heading(locationData.getName(), locationData.getFgColor(), locationData.getBgColor()));
             elements.add(activeTab.getStorageRenderer(data));
             elements.add(new Spacer(8));
@@ -95,7 +98,7 @@ public class MarketView implements RenderableFactory {
         removeLastElement(elements);
     }
 
-    private void removeLastElement(List<Renderable> elements) {
+    private void removeLastElement(final List<Renderable> elements) {
         if (elements.size() > 0) {
             elements.remove(elements.size() - 1);
         }

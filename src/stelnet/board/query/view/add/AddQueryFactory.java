@@ -6,12 +6,11 @@ import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
-import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.QueryProvider;
 import stelnet.board.query.view.ButtonGroup;
 import stelnet.board.query.view.SizeHelper;
 import stelnet.filter.Filter;
-import stelnet.util.CommonL10n;
+import stelnet.util.L10n;
 import uilib.Button;
 import uilib.CustomPanel;
 import uilib.HorizontalViewContainer;
@@ -29,25 +28,25 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
 
     private final QueryTypeButton[] queryType = createQueryTypeButtons();
 
-    public void setQueryType(QueryTypeButton active) {
-        for (QueryTypeButton button : queryType) {
+    public void setQueryType(final QueryTypeButton active) {
+        for (final QueryTypeButton button : queryType) {
             button.setStateOn(active.equals(button));
         }
     }
 
     @Override
-    public List<Renderable> create(Size size) {
-        float previewWidth = Math.max(250, size.getWidth() - 950);
-        float previewHeight = size.getHeight();
-        float width = size.getWidth() - previewWidth - 10;
-        float height = size.getHeight();
-        Size mainSize = new Size(width, height);
-        Size sideSize = new Size(previewWidth, previewHeight);
+    public List<Renderable> create(final Size size) {
+        final float previewWidth = Math.max(250, size.getWidth() - 950);
+        final float previewHeight = size.getHeight();
+        final float width = size.getWidth() - previewWidth - 10;
+        final float height = size.getHeight();
+        final Size mainSize = new Size(width, height);
+        final Size sideSize = new Size(previewWidth, previewHeight);
         setSizeHelper(new SizeHelper(mainSize));
-        RenderableComponent mainColumn = new CustomPanel(new VerticalViewContainer(getQueryBuildingComponents()));
+        final RenderableComponent mainColumn = new CustomPanel(new VerticalViewContainer(getQueryBuildingComponents()));
         mainColumn.setSize(mainSize.increase(new Size(10, 0)));
-        RenderableComponent sideColumn = getPreview(getFilters(), sideSize);
-        RenderableComponent fullView = new HorizontalViewContainer(mainColumn, sideColumn);
+        final RenderableComponent sideColumn = getPreview(getFilters(), sideSize);
+        final RenderableComponent fullView = new HorizontalViewContainer(mainColumn, sideColumn);
         fullView.setSize(size);
         return Arrays.<Renderable>asList(fullView);
     }
@@ -63,7 +62,7 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
     }
 
     @Override
-    public RenderableComponent getPreview(Set<Filter> filters, Size size) {
+    public RenderableComponent getPreview(final Set<Filter> filters, final Size size) {
         return findNextFactory().getPreview(filters, size);
     }
 
@@ -74,10 +73,10 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
 
     @Override
     protected List<Renderable> getQueryBuildingComponents() {
-        List<Renderable> elements = new LinkedList<>();
+        final List<Renderable> elements = new LinkedList<>();
         elements.add(new Spacer(1));
-        elements.add(new ButtonGroup(sizeHelper, QueryL10n.QUERY_TYPE, queryType, true));
-        QueryFactory nextFactory = findNextFactory();
+        elements.add(new ButtonGroup(sizeHelper, L10n.query("QUERY_TYPE"), queryType, true));
+        final QueryFactory nextFactory = findNextFactory();
         elements.addAll(nextFactory.getQueryBuildingComponents());
         elements.add(new Spacer(UiConstants.DEFAULT_SPACER));
         elements.add(new ButtonGroup(sizeHelper, null, getFinalComponents(), true));
@@ -85,19 +84,19 @@ public class AddQueryFactory extends QueryFactory implements RenderableFactory {
     }
 
     private QueryTypeButton[] createQueryTypeButtons() {
-        QueryTypeButton[] queryType = new QueryTypeButton[] {
-            new QueryTypeButton(this, CommonL10n.PERSONNEL, new PersonnelQueryFactory()),
-            new QueryTypeButton(this, CommonL10n.ITEMS, new ItemQueryFactory()),
-            new QueryTypeButton(this, CommonL10n.SHIPS, new ShipQueryFactory()),
+        final QueryTypeButton[] queryType = new QueryTypeButton[] {
+            new QueryTypeButton(this, L10n.common("PERSONNEL"), new PersonnelQueryFactory()),
+            new QueryTypeButton(this, L10n.common("ITEMS"), new ItemQueryFactory()),
+            new QueryTypeButton(this, L10n.common("SHIPS"), new ShipQueryFactory()),
         };
         queryType[0].setStateOn(true);
         return queryType;
     }
 
     private QueryFactory findNextFactory() {
-        for (QueryTypeButton button : queryType) {
+        for (final QueryTypeButton button : queryType) {
             if (button.isStateOn()) {
-                QueryFactory queryFactory = button.getNextFactory();
+                final QueryFactory queryFactory = button.getNextFactory();
                 queryFactory.setSizeHelper(sizeHelper);
                 return queryFactory;
             }

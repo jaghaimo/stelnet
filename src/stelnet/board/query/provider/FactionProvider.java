@@ -32,12 +32,12 @@ public class FactionProvider {
 
     public List<FighterWingSpecAPI> getAllFighters() {
         if (BooleanSettings.MARKET_CODEX_ITEMS.get()) {
-            List<FighterWingSpecAPI> fighterWingSpecs = Global.getSettings().getAllFighterWingSpecs();
+            final List<FighterWingSpecAPI> fighterWingSpecs = Global.getSettings().getAllFighterWingSpecs();
             CollectionUtils.reduce(fighterWingSpecs, new LogicalNot(new AnyHasTag("restricted")));
             return fighterWingSpecs;
         }
-        List<FighterWingSpecAPI> fighterWingSpecs = new LinkedList<>();
-        for (String fighterId : getAllFighterIds()) {
+        final List<FighterWingSpecAPI> fighterWingSpecs = new LinkedList<>();
+        for (final String fighterId : getAllFighterIds()) {
             fighterWingSpecs.add(Global.getSettings().getFighterWingSpec(fighterId));
         }
         return fighterWingSpecs;
@@ -45,12 +45,12 @@ public class FactionProvider {
 
     public List<HullModSpecAPI> getAllHullMods() {
         if (BooleanSettings.MARKET_CODEX_ITEMS.get()) {
-            List<HullModSpecAPI> hullMods = Global.getSettings().getAllHullModSpecs();
+            final List<HullModSpecAPI> hullMods = Global.getSettings().getAllHullModSpecs();
             CollectionUtils.reduce(hullMods, new LogicalNot(new HullModIsHidden()));
             return hullMods;
         }
-        List<HullModSpecAPI> hullMods = new LinkedList<>();
-        for (String hullModId : getAllHullModIds()) {
+        final List<HullModSpecAPI> hullMods = new LinkedList<>();
+        for (final String hullModId : getAllHullModIds()) {
             hullMods.add(Global.getSettings().getHullModSpec(hullModId));
         }
         return hullMods;
@@ -58,12 +58,12 @@ public class FactionProvider {
 
     public List<ShipHullSpecAPI> getAllShips() {
         if (BooleanSettings.MARKET_CODEX_SHIPS.get()) {
-            List<ShipHullSpecAPI> ships = Global.getSettings().getAllShipHullSpecs();
+            final List<ShipHullSpecAPI> ships = Global.getSettings().getAllShipHullSpecs();
             CollectionUtils.reduce(ships, new ShipHullIsInCodex());
             return ships;
         }
-        List<ShipHullSpecAPI> ships = new LinkedList<>();
-        for (String shipId : getAllShipIds()) {
+        final List<ShipHullSpecAPI> ships = new LinkedList<>();
+        for (final String shipId : getAllShipIds()) {
             ships.add(Global.getSettings().getHullSpec(shipId));
         }
         return ships;
@@ -71,36 +71,36 @@ public class FactionProvider {
 
     public List<WeaponSpecAPI> getAllWeapons() {
         if (BooleanSettings.MARKET_CODEX_ITEMS.get()) {
-            List<WeaponSpecAPI> weapons = Global.getSettings().getAllWeaponSpecs();
+            final List<WeaponSpecAPI> weapons = Global.getSettings().getAllWeaponSpecs();
             CollectionUtils.reduce(weapons, new LogicalNot(new AnyHasTag("restricted")));
             return weapons;
         }
-        List<WeaponSpecAPI> weapons = new LinkedList<>();
-        for (String weaponId : getAllWeaponIds()) {
+        final List<WeaponSpecAPI> weapons = new LinkedList<>();
+        for (final String weaponId : getAllWeaponIds()) {
             weapons.add(Global.getSettings().getWeaponSpec(weaponId));
         }
         return weapons;
     }
 
     private Set<String> getAllFighterIds() {
-        Set<String> fighters = new HashSet<>();
-        for (FactionAPI faction : getFactionIds()) {
+        final Set<String> fighters = new HashSet<>();
+        for (final FactionAPI faction : getFactionIds()) {
             fighters.addAll(faction.getKnownFighters());
         }
         return fighters;
     }
 
     private Set<String> getAllHullModIds() {
-        Set<String> hullMods = new HashSet<>();
-        for (FactionAPI faction : getFactionIds()) {
+        final Set<String> hullMods = new HashSet<>();
+        for (final FactionAPI faction : getFactionIds()) {
             hullMods.addAll(faction.getKnownHullMods());
         }
         return hullMods;
     }
 
     private Set<String> getAllShipIds() {
-        Set<String> ships = new HashSet<>();
-        for (FactionAPI faction : getFactionIds()) {
+        final Set<String> ships = new HashSet<>();
+        for (final FactionAPI faction : getFactionIds()) {
             ships.addAll(faction.getKnownShips());
             ships.addAll(faction.getAlwaysKnownShips());
         }
@@ -108,8 +108,8 @@ public class FactionProvider {
     }
 
     private Set<String> getAllWeaponIds() {
-        Set<String> weapons = new HashSet<>();
-        for (FactionAPI faction : getFactionIds()) {
+        final Set<String> weapons = new HashSet<>();
+        for (final FactionAPI faction : getFactionIds()) {
             weapons.addAll(faction.getKnownWeapons());
         }
         return weapons;

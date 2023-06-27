@@ -9,7 +9,6 @@ import java.util.List;
 import lombok.Getter;
 import stelnet.board.IntelBasePlugin;
 import stelnet.board.IntelRenderableInfo;
-import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
 import stelnet.util.ModConstants;
 import stelnet.util.StelnetHelper;
@@ -28,14 +27,14 @@ public class StorageIntel extends IntelBasePlugin {
     private final SubmarketAPI storage;
     private final String tag = ModConstants.TAG_STORAGE;
 
-    public StorageIntel(SubmarketAPI storage) {
+    public StorageIntel(final SubmarketAPI storage) {
         super(storage.getMarket().getFaction(), storage.getMarket().getPrimaryEntity());
         this.storage = storage;
     }
 
     @Override
     public int hashCode() {
-        MarketAPI market = storage.getMarket();
+        final MarketAPI market = storage.getMarket();
         if (market != null) {
             return market.getId().hashCode();
         }
@@ -43,9 +42,9 @@ public class StorageIntel extends IntelBasePlugin {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj instanceof StorageIntel) {
-            StorageIntel objIntel = (StorageIntel) obj;
+            final StorageIntel objIntel = (StorageIntel) obj;
             return getStorage().equals(objIntel.getStorage());
         }
         return super.equals(obj);
@@ -60,33 +59,33 @@ public class StorageIntel extends IntelBasePlugin {
     protected RenderableIntelInfo getIntelInfo() {
         return new IntelRenderableInfo(
             getLocationNameWithSystem(),
-            L10n.get(CommonL10n.INTEL_LOCATION),
+            L10n.common("INTEL_LOCATION"),
             getStorageContent(),
-            L10n.get(CommonL10n.INTEL_FACTION),
+            L10n.common("INTEL_FACTION"),
             getFactionWithRel()
         );
     }
 
     @Override
-    protected List<Renderable> getRenderableList(Size size) {
-        MarketHeader marketHeader = new MarketHeader(storage.getMarket(), this);
+    protected List<Renderable> getRenderableList(final Size size) {
+        final MarketHeader marketHeader = new MarketHeader(storage.getMarket(), this);
         marketHeader.getPeekButton().setEnabled(false);
         marketHeader.getShowButton().setEnabled(false);
-        CargoAPI cargo = storage.getCargo().createCopy();
-        List<FleetMemberAPI> ships = storage.getCargo().getMothballedShips().getMembersListCopy();
+        final CargoAPI cargo = storage.getCargo().createCopy();
+        final List<FleetMemberAPI> ships = storage.getCargo().getMothballedShips().getMembersListCopy();
         return Arrays.<Renderable>asList(
             marketHeader,
             new Spacer(UiConstants.DEFAULT_SPACER),
-            new ShowCargo(cargo, L10n.get(CommonL10n.ITEMS), L10n.get(StorageL10n.INTEL_NO_ITEMS), size),
+            new ShowCargo(cargo, L10n.common("ITEMS"), L10n.storage("INTEL_NO_ITEMS"), size),
             new Spacer(UiConstants.DEFAULT_SPACER * 2),
-            new ShowShips(ships, L10n.get(CommonL10n.SHIPS), L10n.get(StorageL10n.INTEL_NO_SHIPS), size)
+            new ShowShips(ships, L10n.common("SHIPS"), L10n.storage("INTEL_NO_SHIPS"), size)
         );
     }
 
     private String getStorageContent() {
-        CargoAPI cargo = storage.getCargo();
-        int itemCount = StelnetHelper.calculateItemQuantity(cargo.createCopy());
-        int shipCount = cargo.getMothballedShips().getMembersListCopy().size();
-        return L10n.get(StorageL10n.INTEL_CONTENT, itemCount, shipCount);
+        final CargoAPI cargo = storage.getCargo();
+        final int itemCount = StelnetHelper.calculateItemQuantity(cargo.createCopy());
+        final int shipCount = cargo.getMothballedShips().getMembersListCopy().size();
+        return L10n.storage("INTEL_CONTENT", itemCount, shipCount);
     }
 }

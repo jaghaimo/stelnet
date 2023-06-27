@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.query.Query;
-import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
 import stelnet.util.L10n;
 import uilib.HorizontalViewContainer;
@@ -22,14 +21,14 @@ public class QueryListFactory implements RenderableFactory {
     private final QueryManager manager;
 
     @Override
-    public List<Renderable> create(Size size) {
-        float width = size.getWidth();
-        List<Renderable> elements = new LinkedList<>();
-        for (Query query : manager.getQueries()) {
+    public List<Renderable> create(final Size size) {
+        final float width = size.getWidth();
+        final List<Renderable> elements = new LinkedList<>();
+        for (final Query query : manager.getQueries()) {
             elements.add(new QueryRow(width, query));
         }
 
-        boolean enableButtons = manager.getQueries().size() > 0;
+        final boolean enableButtons = manager.getQueries().size() > 0;
         elements.add(new Spacer(UiConstants.DEFAULT_SPACER));
         elements.add(getGlobalButtons(enableButtons, size.getWidth()));
 
@@ -38,28 +37,28 @@ public class QueryListFactory implements RenderableFactory {
         return elements;
     }
 
-    private void addNewQueries(List<Renderable> elements, float width) {
+    private void addNewQueries(final List<Renderable> elements, final float width) {
         if (elements.isEmpty()) {
-            elements.add(new Paragraph(L10n.get(QueryL10n.NO_QUERIES), width));
+            elements.add(new Paragraph(L10n.query("NO_QUERIES"), width));
         }
     }
 
-    private void adjustSpacerWidth(List<Renderable> elements, Spacer spacer, float width) {
-        float spacerWidth = calculateRemaining(width, elements);
+    private void adjustSpacerWidth(final List<Renderable> elements, final Spacer spacer, final float width) {
+        final float spacerWidth = calculateRemaining(width, elements);
         spacer.setSize(new Size(spacerWidth, 0));
     }
 
-    private float calculateRemaining(float width, List<Renderable> elements) {
+    private float calculateRemaining(final float width, final List<Renderable> elements) {
         float total = 0;
-        for (Renderable element : elements) {
+        for (final Renderable element : elements) {
             total += element.getSize().getWidth();
         }
         return Math.max(0, width - total);
     }
 
-    private Renderable getGlobalButtons(boolean enableButtons, float width) {
-        Spacer spacer = new Spacer(0);
-        List<Renderable> elements = new LinkedList<>();
+    private Renderable getGlobalButtons(final boolean enableButtons, final float width) {
+        final Spacer spacer = new Spacer(0);
+        final List<Renderable> elements = new LinkedList<>();
         elements.add(new RefreshAllButton(manager, enableButtons, 0));
         elements.add(new Spacer(UiConstants.DEFAULT_SPACER));
         elements.add(new EnableAllButton(manager, enableButtons, 0));

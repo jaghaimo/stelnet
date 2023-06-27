@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.commodity.CommodityIntel;
-import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
 import stelnet.widget.heading.MarketHeader;
 import uilib.Button;
@@ -26,9 +25,9 @@ public class CommodityIntelViewFactory implements RenderableFactory {
     private final CommodityIntel intel;
 
     @Override
-    public List<Renderable> create(Size size) {
-        float width = size.getWidth();
-        List<Renderable> elements = new ArrayList<>();
+    public List<Renderable> create(final Size size) {
+        final float width = size.getWidth();
+        final List<Renderable> elements = new ArrayList<>();
         addMarketHeader(elements, width);
         addRelationship(elements, width);
         addBasicInfo(elements, width);
@@ -37,21 +36,21 @@ public class CommodityIntelViewFactory implements RenderableFactory {
         return elements;
     }
 
-    private void addMarketHeader(List<Renderable> elements, float width) {
-        MarketHeader marketHeader = new MarketHeader(market, intel);
+    private void addMarketHeader(final List<Renderable> elements, final float width) {
+        final MarketHeader marketHeader = new MarketHeader(market, intel);
         marketHeader.getShowButton().setEnabled(false);
-        FactionAPI faction = market.getFaction();
+        final FactionAPI faction = market.getFaction();
         elements.add(marketHeader);
         elements.add(new Image(faction.getLogo(), width, 128));
         elements.add(new Spacer(10f));
     }
 
-    private void addRelationship(List<Renderable> elements, float width) {
-        FactionAPI faction = market.getFaction();
-        RelationshipAPI relationship = faction.getRelToPlayer();
-        String translatedRep = relationship.getLevel().getDisplayName().toLowerCase();
-        Paragraph relationshipRenderable = new Paragraph(
-            L10n.get(CommonL10n.INTEL_OWNER_RELATIONSHIP, translatedRep),
+    private void addRelationship(final List<Renderable> elements, final float width) {
+        final FactionAPI faction = market.getFaction();
+        final RelationshipAPI relationship = faction.getRelToPlayer();
+        final String translatedRep = relationship.getLevel().getDisplayName().toLowerCase();
+        final Paragraph relationshipRenderable = new Paragraph(
+            L10n.common("INTEL_OWNER_RELATIONSHIP", translatedRep),
             width
         );
         relationshipRenderable.setHighlightStrings(translatedRep);
@@ -59,19 +58,19 @@ public class CommodityIntelViewFactory implements RenderableFactory {
         elements.add(relationshipRenderable);
     }
 
-    private void addBasicInfo(List<Renderable> elements, float width) {
-        CommodityOnMarketAPI commodityOnMarket = market.getCommodityData(intel.getCommodityId());
-        DisplayablePrice buyPrice = new DisplayablePrice(intel, intel.getBuyPrice(), intel.getSupplyPrice());
-        DisplayablePrice sellPrice = new DisplayablePrice(intel, intel.getSellPrice(), intel.getDemandPrice());
+    private void addBasicInfo(final List<Renderable> elements, final float width) {
+        final CommodityOnMarketAPI commodityOnMarket = market.getCommodityData(intel.getCommodityId());
+        final DisplayablePrice buyPrice = new DisplayablePrice(intel, intel.getBuyPrice(), intel.getSupplyPrice());
+        final DisplayablePrice sellPrice = new DisplayablePrice(intel, intel.getSellPrice(), intel.getDemandPrice());
         elements.add(new BasicInfo(width, commodityOnMarket, buyPrice, sellPrice));
     }
 
-    private void addExcessAndDeficit(List<Renderable> elements, float width) {
-        MarketExcessAndDeficit excessAndDeficit = new MarketExcessAndDeficit(
+    private void addExcessAndDeficit(final List<Renderable> elements, final float width) {
+        final MarketExcessAndDeficit excessAndDeficit = new MarketExcessAndDeficit(
             new Size(width, 0),
             market.getTextColorForFactionOrPlanet()
         );
-        for (CommodityOnMarketAPI commodityOnMarket : market.getCommoditiesCopy()) {
+        for (final CommodityOnMarketAPI commodityOnMarket : market.getCommoditiesCopy()) {
             excessAndDeficit.add(commodityOnMarket);
         }
         if (!excessAndDeficit.isEmpty()) {
@@ -79,9 +78,9 @@ public class CommodityIntelViewFactory implements RenderableFactory {
         }
     }
 
-    private void addDelete(List<Renderable> elements, float width) {
-        FactionAPI faction = market.getFaction();
-        Button delete = new DeleteIntel(width, intel);
+    private void addDelete(final List<Renderable> elements, final float width) {
+        final FactionAPI faction = market.getFaction();
+        final Button delete = new DeleteIntel(width, intel);
         delete.setTextColor(faction.getBaseUIColor());
         delete.setBackgroundColor(faction.getDarkUIColor());
         elements.add(new Spacer(30f));

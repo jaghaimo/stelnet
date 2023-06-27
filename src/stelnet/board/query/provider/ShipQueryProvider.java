@@ -14,7 +14,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import stelnet.board.query.QueryL10n;
 import stelnet.board.query.QueryManager;
 import stelnet.board.query.ResultSet;
 import stelnet.board.query.grouping.GroupingStrategy;
@@ -30,9 +29,8 @@ import uilib.property.Size;
 
 public class ShipQueryProvider extends QueryProvider {
 
-    private final FactionProvider factionProvider = new FactionProvider();
-
     private static final String SUFFIX = "_Hull";
+
     private static transient List<HullModSpecAPI> allBuiltIns;
     private static transient List<FleetMemberAPI> allFleetMembers;
     private static transient List<ShipHullSpecAPI> allShipHulls;
@@ -43,9 +41,11 @@ public class ShipQueryProvider extends QueryProvider {
         allShipHulls = null;
     }
 
+    private final FactionProvider factionProvider = new FactionProvider();
+
     @Override
-    public Set<Filter> getAdditionalFilters(QueryManager manager) {
-        Set<Filter> resultFilters = super.getAdditionalFilters(manager);
+    public Set<Filter> getAdditionalFilters(final QueryManager manager) {
+        final Set<Filter> resultFilters = super.getAdditionalFilters(manager);
         resultFilters.add(new LogicalOr(manager.getSubmarketFilters(), "submarkets"));
         resultFilters.addAll(manager.getDModCountFilters());
         resultFilters.addAll(manager.getDModTypesFilters());
@@ -53,64 +53,59 @@ public class ShipQueryProvider extends QueryProvider {
     }
 
     @Override
-    public List<FleetMemberAPI> getMatching(Set<Filter> filters) {
-        List<ShipHullSpecAPI> allShipHullSpecs = getShipHulls();
-        Set<String> allHullIds = extractHullIds(allShipHullSpecs);
-        List<FleetMemberAPI> fleetMembers = convertToFleetMembers(allHullIds);
+    public List<FleetMemberAPI> getMatching(final Set<Filter> filters) {
+        final List<ShipHullSpecAPI> allShipHullSpecs = getShipHulls();
+        final Set<String> allHullIds = extractHullIds(allShipHullSpecs);
+        final List<FleetMemberAPI> fleetMembers = convertToFleetMembers(allHullIds);
         CollectionUtils.reduce(fleetMembers, filters);
         Collections.sort(fleetMembers, new ShipHullSorter());
         return fleetMembers;
     }
 
     @Override
-    public RenderableShowComponent getPreview(Set<Filter> filters, Size size) {
-        return new ShowShips(
-            getMatching(filters),
-            L10n.get(QueryL10n.MATCHING_SHIPS),
-            L10n.get(QueryL10n.NO_MATCHING_SHIPS),
-            size
-        );
-    }
-
-    @Override
-    protected void processMarkets(
-        List<ResultSet> resultSets,
-        List<MarketAPI> markets,
-        Set<Filter> filters,
-        final GroupingStrategy groupingStrategy
-    ) {
-        List<SubmarketAPI> submarkets = StelnetHelper.getSubmarkets(markets);
-        CollectionUtils.reduce(submarkets, Excluder.getSubmarketFilter());
-        for (SubmarketAPI submarket : submarkets) {
-            MarketAPI market = submarket.getMarket();
-            List<FleetMemberAPI> fleetMembers = submarket.getCargo().getMothballedShips().getMembersListCopy();
-            CollectionUtils.reduce(fleetMembers, filters);
-            ResultSet resultSet = new ResultSet(groupingStrategy, market);
-            resultSet.addFleetMembers(market, submarket, fleetMembers);
-            addToResultSets(resultSets, resultSet);
-        }
+    public RenderableShowComponent getPreview(final Set<Filter> filters, final Size size) {
+        return new ShowShips(getMatching(filters), L10n.query("MATCHING_SHIPS"), L10n.query("NO_MATCHING_SHIPS"), size);
     }
 
     public List<HullModSpecAPI> getBuiltIns() {
         if (allBuiltIns == null) {
-            List<ShipHullSpecAPI> allShipHulls = getShipHulls();
-            Set<String> builtIns = extractBuiltIns(allShipHulls);
+            final List<ShipHullSpecAPI> allShipHulls = getShipHulls();
+            final Set<String> builtIns = extractBuiltIns(allShipHulls);
             allBuiltIns = convertToHullMods(builtIns);
             Collections.sort(allBuiltIns, new ShipHullSpecSorter());
         }
         return allBuiltIns;
     }
 
-    public Set<String> getBuiltInIds(Set<Filter> filters) {
-        List<ShipHullSpecAPI> shipHullsCopy = new LinkedList<>(getShipHulls());
+    public Set<String> getBuiltInIds(final Set<Filter> filters) {
+        final List<ShipHullSpecAPI> shipHullsCopy = new LinkedList<>(getShipHulls());
         CollectionUtils.reduce(shipHullsCopy, filters);
         return extractBuiltIns(shipHullsCopy);
     }
 
     public Set<String> getManufacturers() {
-        List<ShipHullSpecAPI> allShipHullSpecs = getShipHulls();
-        Set<String> manufacturers = extractManufacturers(allShipHullSpecs);
+        final List<ShipHullSpecAPI> allShipHullSpecs = getShipHulls();
+        final Set<String> manufacturers = extractManufacturers(allShipHullSpecs);
         return manufacturers;
+    }
+
+    @Override
+    protected void processMarkets(
+        final List<ResultSet> resultSets,
+        final List<MarketAPI> markets,
+        final Set<Filter> filters,
+        final GroupingStrategy groupingStrategy
+    ) {
+        final List<SubmarketAPI> submarkets = StelnetHelper.getSubmarkets(markets);
+        CollectionUtils.reduce(submarkets, Excluder.getSubmarketFilter());
+        for (final SubmarketAPI submarket : submarkets) {
+            final MarketAPI market = submarket.getMarket();
+            final List<FleetMemberAPI> fleetMembers = submarket.getCargo().getMothballedShips().getMembersListCopy();
+            CollectionUtils.reduce(fleetMembers, filters);
+            final ResultSet resultSet = new ResultSet(groupingStrategy, market);
+            resultSet.addFleetMembers(market, submarket, fleetMembers);
+            addToResultSets(resultSets, resultSet);
+        }
     }
 
     private List<ShipHullSpecAPI> getShipHulls() {
@@ -121,49 +116,49 @@ public class ShipQueryProvider extends QueryProvider {
         return allShipHulls;
     }
 
-    private Set<String> extractBuiltIns(List<ShipHullSpecAPI> shipHulls) {
-        Set<String> builtIns = new HashSet<>();
-        for (ShipHullSpecAPI shipHull : shipHulls) {
+    private Set<String> extractBuiltIns(final List<ShipHullSpecAPI> shipHulls) {
+        final Set<String> builtIns = new HashSet<>();
+        for (final ShipHullSpecAPI shipHull : shipHulls) {
             builtIns.addAll(shipHull.getBuiltInMods());
         }
         return builtIns;
     }
 
-    private Set<String> extractManufacturers(List<ShipHullSpecAPI> shipHulls) {
-        Set<String> manufacturers = new TreeSet<>();
-        for (ShipHullSpecAPI shipHull : shipHulls) {
+    private Set<String> extractManufacturers(final List<ShipHullSpecAPI> shipHulls) {
+        final Set<String> manufacturers = new TreeSet<>();
+        for (final ShipHullSpecAPI shipHull : shipHulls) {
             manufacturers.add(shipHull.getManufacturer());
         }
         return manufacturers;
     }
 
-    private Set<String> extractHullIds(List<ShipHullSpecAPI> shipHullSpecs) {
-        Set<String> hullIds = new LinkedHashSet<>();
-        for (ShipHullSpecAPI shipHullSpec : shipHullSpecs) {
+    private Set<String> extractHullIds(final List<ShipHullSpecAPI> shipHullSpecs) {
+        final Set<String> hullIds = new LinkedHashSet<>();
+        for (final ShipHullSpecAPI shipHullSpec : shipHullSpecs) {
             hullIds.add(shipHullSpec.getHullId());
         }
         return hullIds;
     }
 
-    private List<HullModSpecAPI> convertToHullMods(Set<String> hullModIds) {
-        List<HullModSpecAPI> hullMods = new LinkedList<>();
-        for (String hullModId : hullModIds) {
+    private List<HullModSpecAPI> convertToHullMods(final Set<String> hullModIds) {
+        final List<HullModSpecAPI> hullMods = new LinkedList<>();
+        for (final String hullModId : hullModIds) {
             hullMods.add(Global.getSettings().getHullModSpec(hullModId));
         }
         return hullMods;
     }
 
-    private List<FleetMemberAPI> convertToFleetMembers(Set<String> hullIds) {
+    private List<FleetMemberAPI> convertToFleetMembers(final Set<String> hullIds) {
         if (allFleetMembers == null) {
             allFleetMembers = new LinkedList<>();
-            for (String hullId : hullIds) {
+            for (final String hullId : hullIds) {
                 allFleetMembers.add(makeFleetMember(hullId));
             }
         }
         return new LinkedList<FleetMemberAPI>(allFleetMembers);
     }
 
-    private FleetMemberAPI makeFleetMember(String hullId) {
+    private FleetMemberAPI makeFleetMember(final String hullId) {
         return Global.getFactory().createFleetMember(FleetMemberType.SHIP, hullId + SUFFIX);
     }
 }

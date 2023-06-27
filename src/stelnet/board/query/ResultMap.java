@@ -10,11 +10,11 @@ public class ResultMap {
 
     private final Map<String, ResultSet> resultMap = new HashMap<>();
 
-    public void add(ResultSet resultSet) {
+    public void add(final ResultSet resultSet) {
         resultMap.put(resultSet.getKey(), resultSet);
     }
 
-    public boolean containsKey(ResultSet resultSet) {
+    public boolean containsKey(final ResultSet resultSet) {
         return resultMap.containsKey(resultSet.getKey());
     }
 
@@ -22,12 +22,12 @@ public class ResultMap {
         resultMap.clear();
     }
 
-    public ResultSet get(ResultSet resultSet) {
+    public ResultSet get(final ResultSet resultSet) {
         return resultMap.get(resultSet.getKey());
     }
 
-    public void update(ResultSet resultSet) {
-        ResultSet existingResultSet = get(resultSet);
+    public void update(final ResultSet resultSet) {
+        final ResultSet existingResultSet = get(resultSet);
         existingResultSet.add(resultSet);
     }
 }

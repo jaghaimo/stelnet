@@ -7,7 +7,6 @@ import java.awt.Color;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import stelnet.util.L10n;
-import stelnet.widget.WidgetL10n;
 
 @Data
 @AllArgsConstructor
@@ -17,22 +16,17 @@ public class LocationInfo {
     private final Color fgColor;
     private final Color bgColor;
 
-    public LocationInfo(MarketAPI market) {
+    public LocationInfo(final MarketAPI market) {
         name = market.getName();
         fgColor = market.getFaction().getBaseUIColor();
         bgColor = market.getFaction().getDarkUIColor();
     }
 
-    public LocationInfo(SubmarketAPI submarket) {
-        MarketAPI market = submarket.getMarket();
-        FactionAPI faction = market.getFaction();
+    public LocationInfo(final SubmarketAPI submarket) {
+        final MarketAPI market = submarket.getMarket();
+        final FactionAPI faction = market.getFaction();
         name =
-            L10n.get(
-                WidgetL10n.VIEWER_LOCATION_INFO,
-                submarket.getNameOneLine(),
-                market.getName(),
-                faction.getDisplayName()
-            );
+            L10n.widget("VIEWER_LOCATION_INFO", submarket.getNameOneLine(), market.getName(), faction.getDisplayName());
         fgColor = submarket.getFaction().getBaseUIColor();
         bgColor = submarket.getFaction().getDarkUIColor();
     }

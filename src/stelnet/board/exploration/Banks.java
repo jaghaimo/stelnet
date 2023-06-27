@@ -2,8 +2,8 @@ package stelnet.board.exploration;
 
 import java.util.Arrays;
 import java.util.List;
-import stelnet.util.StringsHelper;
-import stelnet.util.StringsHelper.Category;
+
+import stelnet.util.L10n;
 
 public enum Banks implements ButtonAware {
     BANK_ANY_CACHE,
@@ -40,6 +40,6 @@ public enum Banks implements ButtonAware {
 
     @Override
     public String getTitle() {
-        return StringsHelper.get(Category.STELNET_EXPLORATION_BOARD, name());
+        return L10n.exploration(name());
     }
 }

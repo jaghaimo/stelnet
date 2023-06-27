@@ -42,10 +42,17 @@ public class ContactsState implements RenderableState {
         return this;
     }
 
-    public void addTrackingData(MarketAPI market, CargoFleetData currentContent, CargoFleetData newContent) {
-        TrackingCargoFleetData oldTrackingCargoFleetData = awaitingCollection.get(market);
+    public void addTrackingData(
+        final MarketAPI market,
+        final CargoFleetData currentContent,
+        final CargoFleetData newContent
+    ) {
+        final TrackingCargoFleetData oldTrackingCargoFleetData = awaitingCollection.get(market);
         if (oldTrackingCargoFleetData == null) {
-            TrackingCargoFleetData newTrackingCargoFleetData = new TrackingCargoFleetData(currentContent, newContent);
+            final TrackingCargoFleetData newTrackingCargoFleetData = new TrackingCargoFleetData(
+                currentContent,
+                newContent
+            );
             awaitingCollection.put(market, newTrackingCargoFleetData);
         } else {
             oldTrackingCargoFleetData.add(newContent);
@@ -53,14 +60,14 @@ public class ContactsState implements RenderableState {
     }
 
     @Override
-    public List<Renderable> toRenderableList(Size size) {
+    public List<Renderable> toRenderableList(final Size size) {
         pruneAwaitingCollection();
         return (new ContactsView(contactTypeButtons, importanceButtons, awaitingCollection)).create(size);
     }
 
     private void createImportanceButtons() {
         importanceButtons = new LinkedHashSet<>();
-        for (PersonImportance importance : provider.getAllPersonImportances()) {
+        for (final PersonImportance importance : provider.getAllPersonImportances()) {
             importanceButtons.add(
                 new ContactFilterButton(importance.getDisplayName(), new ContactIsOfImportance(importance))
             );
@@ -69,20 +76,20 @@ public class ContactsState implements RenderableState {
 
     private void createTypeButtons() {
         contactTypeButtons = new TreeSet<>();
-        for (ContactTagSpec type : provider.getAllMissionTypes()) {
+        for (final ContactTagSpec type : provider.getAllMissionTypes()) {
             contactTypeButtons.add(new ContactFilterButton(type.getName(), new AnyHasTag(type.getTag())));
         }
     }
 
     private void pruneAwaitingCollection() {
-        Set<MarketAPI> markets = new LinkedHashSet<>(awaitingCollection.keySet());
-        for (MarketAPI market : markets) {
+        final Set<MarketAPI> markets = new LinkedHashSet<>(awaitingCollection.keySet());
+        for (final MarketAPI market : markets) {
             removeIfNeeded(market);
         }
     }
 
-    private void removeIfNeeded(MarketAPI market) {
-        TrackingCargoFleetData trackingCargoFleetData = awaitingCollection.get(market);
+    private void removeIfNeeded(final MarketAPI market) {
+        final TrackingCargoFleetData trackingCargoFleetData = awaitingCollection.get(market);
         if (!trackingCargoFleetData.hasAny()) {
             awaitingCollection.remove(market);
         }

@@ -25,12 +25,12 @@ public class BoardDrawableInfo implements DrawableIntelInfo {
     private Highlight descriptionHighlight;
 
     @Override
-    public void draw(TooltipMakerAPI tooltip, Color bulletColor, Color titleColor) {
-        LabelAPI titleLabel = tooltip.addPara(getTitle(), titleColor, 0);
+    public void draw(final TooltipMakerAPI tooltip, final Color bulletColor, final Color titleColor) {
+        final LabelAPI titleLabel = tooltip.addPara(getTitle(), titleColor, 0);
         if (titleHighlight != null) {
             titleHighlight.highlight(titleLabel);
         }
-        LabelAPI descriptionLabel = tooltip.addPara(getDescription(), bulletColor, 1);
+        final LabelAPI descriptionLabel = tooltip.addPara(getDescription(), bulletColor, 1);
         if (descriptionHighlight != null) {
             descriptionHighlight.highlight(descriptionLabel);
         }

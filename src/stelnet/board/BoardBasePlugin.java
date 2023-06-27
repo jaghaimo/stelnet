@@ -15,8 +15,8 @@ public abstract class BoardBasePlugin extends RenderableIntel {
     private final IntelSortTier sortTier = IntelSortTier.TIER_0;
 
     @Override
-    public Set<String> getIntelTags(SectorMapAPI map) {
-        Set<String> tags = super.getIntelTags(map);
+    public Set<String> getIntelTags(final SectorMapAPI map) {
+        final Set<String> tags = super.getIntelTags(map);
         tags.add(getTag());
         return tags;
     }
@@ -27,7 +27,7 @@ public abstract class BoardBasePlugin extends RenderableIntel {
     }
 
     @Override
-    protected List<Renderable> getRenderableList(Size size) {
+    protected List<Renderable> getRenderableList(final Size size) {
         return getRenderableState().toRenderableList(size);
     }
 

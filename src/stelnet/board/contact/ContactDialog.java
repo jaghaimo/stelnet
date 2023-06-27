@@ -21,7 +21,7 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
     private final CargoFleetData playerData;
     private final CargoFleetData storageData;
 
-    public ContactDialog(IntelUIAPI ui, PersonAPI person, SubmarketAPI storage) {
+    public ContactDialog(final IntelUIAPI ui, final PersonAPI person, final SubmarketAPI storage) {
         super("OpenCDE");
         this.person = person;
         this.market = storage.getMarket();
@@ -34,8 +34,8 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
     }
 
     @Override
-    public void init(InteractionDialogAPI dialog) {
-        SectorEntityToken token = dialog.getInteractionTarget();
+    public void init(final InteractionDialogAPI dialog) {
+        final SectorEntityToken token = dialog.getInteractionTarget();
         token.setActivePerson(person);
         super.init(dialog);
         this.dialog = dialog;
@@ -49,7 +49,7 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
     }
 
     @Override
-    public void optionSelected(String text, Object optionData) {
+    public void optionSelected(final String text, final Object optionData) {
         if (optionData.equals("cutCommLink")) {
             dismiss();
             return;
@@ -58,14 +58,14 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
     }
 
     private boolean isRemoteCall() {
-        SectorEntityToken playerFocus = Global.getSector().getPlayerFleet().getOrbitFocus();
+        final SectorEntityToken playerFocus = Global.getSector().getPlayerFleet().getOrbitFocus();
         if (playerFocus == null) {
             return true;
         }
         if (playerFocus.equals(this.market.getPrimaryEntity())) {
             return false;
         }
-        for (SectorEntityToken connectedEntity : this.market.getConnectedEntities()) {
+        for (final SectorEntityToken connectedEntity : this.market.getConnectedEntities()) {
             if (playerFocus.equals(connectedEntity)) {
                 return false;
             }
@@ -75,7 +75,7 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
 
     private void dismiss() {
         MemoryHelper.unset(ModConstants.MEMORY_IS_CALLING);
-        ContactsBoard board = StelnetHelper.getInstance(ContactsBoard.class);
+        final ContactsBoard board = StelnetHelper.getInstance(ContactsBoard.class);
         if (this.isRemoteCall()) {
             board.getRenderableState().addTrackingData(market, storageData, playerData);
             storageData.add(playerData);

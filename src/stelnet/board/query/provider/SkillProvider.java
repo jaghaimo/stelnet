@@ -17,20 +17,20 @@ public class SkillProvider {
         allSkills = null;
     }
 
-    public List<SkillSpecAPI> getMatching(List<Filter> filter) {
+    public List<SkillSpecAPI> getMatching(final List<Filter> filter) {
         if (allSkills == null) {
             allSkills = getAllSkillSpecs();
             Collections.sort(allSkills, new SkillSorter());
         }
-        List<SkillSpecAPI> skillsCopy = new LinkedList<SkillSpecAPI>(allSkills);
+        final List<SkillSpecAPI> skillsCopy = new LinkedList<SkillSpecAPI>(allSkills);
         CollectionUtils.reduce(skillsCopy, filter);
         return skillsCopy;
     }
 
     private List<SkillSpecAPI> getAllSkillSpecs() {
-        List<String> skillIds = Global.getSettings().getSkillIds();
-        List<SkillSpecAPI> skillSpecs = new LinkedList<>();
-        for (String skillId : skillIds) {
+        final List<String> skillIds = Global.getSettings().getSkillIds();
+        final List<SkillSpecAPI> skillSpecs = new LinkedList<>();
+        for (final String skillId : skillIds) {
             skillSpecs.add(Global.getSettings().getSkillSpec(skillId));
         }
         CollectionUtils.reduce(skillSpecs, Excluder.getSkillFilter());

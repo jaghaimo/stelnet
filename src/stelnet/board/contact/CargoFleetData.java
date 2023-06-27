@@ -19,19 +19,19 @@ public class CargoFleetData {
     protected final List<CargoStackAPI> cargoStacks;
     protected final List<FleetMemberAPI> fleetMembers;
 
-    public CargoFleetData(CargoAPI cargo, FleetDataAPI fleet) {
+    public CargoFleetData(final CargoAPI cargo, final FleetDataAPI fleet) {
         this(cargo, fleet, cargo.getStacksCopy(), fleet.getMembersListCopy());
     }
 
-    public CargoFleetData(CampaignFleetAPI fleet) {
+    public CargoFleetData(final CampaignFleetAPI fleet) {
         this(fleet.getCargo(), fleet.getFleetData());
     }
 
-    public CargoFleetData(SubmarketAPI submarket) {
+    public CargoFleetData(final SubmarketAPI submarket) {
         this(submarket.getCargo(), submarket.getCargo().getMothballedShips());
     }
 
-    public void add(CargoFleetData other) {
+    public void add(final CargoFleetData other) {
         addCargo(other.getCargo().getStacksCopy());
         addFleet(other.getFleet().getMembersListCopy());
     }
@@ -47,14 +47,14 @@ public class CargoFleetData {
         addFleet(fleetMembers);
     }
 
-    private void addCargo(List<CargoStackAPI> stacks) {
-        for (CargoStackAPI stack : stacks) {
+    private void addCargo(final List<CargoStackAPI> stacks) {
+        for (final CargoStackAPI stack : stacks) {
             cargo.addFromStack(stack);
         }
     }
 
-    private void addFleet(List<FleetMemberAPI> members) {
-        for (FleetMemberAPI member : members) {
+    private void addFleet(final List<FleetMemberAPI> members) {
+        for (final FleetMemberAPI member : members) {
             fleet.addFleetMember(member);
         }
     }

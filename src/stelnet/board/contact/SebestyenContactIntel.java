@@ -6,7 +6,7 @@ import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
 
 public class SebestyenContactIntel extends ContactIntel {
 
-    public SebestyenContactIntel(PersonAPI person, MarketAPI market) {
+    public SebestyenContactIntel(final PersonAPI person, final MarketAPI market) {
         super(person, market);
     }
 

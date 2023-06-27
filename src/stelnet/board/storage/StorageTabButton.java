@@ -9,13 +9,13 @@ import uilib.TabButton;
 
 public class StorageTabButton extends TabButton {
 
-    public StorageTabButton(final ContentRenderer newRenderer, boolean isActive, int shortcut) {
-        super(L10n.get(newRenderer), isActive, shortcut);
+    public StorageTabButton(final ContentRenderer newRenderer, final boolean isActive, final int shortcut) {
+        super(L10n.widget(newRenderer.name()), isActive, shortcut);
         setHandler(
             new EventHandler() {
                 @Override
-                public void onConfirm(IntelUIAPI ui) {
-                    StorageBoard board = StelnetHelper.getInstance(StorageBoard.class);
+                public void onConfirm(final IntelUIAPI ui) {
+                    final StorageBoard board = StelnetHelper.getInstance(StorageBoard.class);
                     board.getRenderableState().setContentRenderer(newRenderer);
                 }
             }

@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import stelnet.util.ColorHelper;
-import stelnet.util.L10n;
 import uilib.Button;
 import uilib.DynamicGroup;
 import uilib.HorizontalViewContainer;
@@ -16,41 +15,41 @@ import uilib.UiConstants;
 
 public class ButtonGroup extends HorizontalViewContainer {
 
-    public ButtonGroup(SizeHelper helper, Enum<?> label, Button[] buttons) {
+    public ButtonGroup(final SizeHelper helper, final String label, final Button[] buttons) {
         super();
         addLabel(helper.getTextWidth(), label, true);
         addGroup(helper.getGroupWidth(), Arrays.asList(buttons));
     }
 
-    public ButtonGroup(SizeHelper helper, Enum<?> label, Button[] buttons, boolean isEnabled) {
+    public ButtonGroup(final SizeHelper helper, final String label, final Button[] buttons, final boolean isEnabled) {
         super();
         prepareButtons(buttons, isEnabled);
         addLabel(helper.getTextWidth(), label, isEnabled);
         addGroup(helper.getGroupWidth(), Arrays.asList(buttons));
     }
 
-    public ButtonGroup(SizeHelper helper, FilteringButton[] buttons, boolean isEnabled) {
+    public ButtonGroup(final SizeHelper helper, final FilteringButton[] buttons, final boolean isEnabled) {
         super();
-        List<Button> filteredButtons = getFilteredButtons(buttons);
+        final List<Button> filteredButtons = getFilteredButtons(buttons);
         prepareButtons(buttons, isEnabled);
         addGroup(helper.getGroupAndTextWidth(), filteredButtons);
     }
 
-    private void addLabel(float width, Enum<?> label, boolean isEnabled) {
-        Paragraph title = new Paragraph(getLabelText(label), width, 4, Alignment.RMID);
+    private void addLabel(final float width, final String label, final boolean isEnabled) {
+        final Paragraph title = new Paragraph(label, width, 4, Alignment.RMID);
         if (!isEnabled) {
             title.setColor(Misc.scaleAlpha(title.getColor(), 0.2f));
         }
         getElements().add(title);
     }
 
-    private void addGroup(float width, List<Button> buttons) {
+    private void addGroup(final float width, final List<Button> buttons) {
         getElements().add(new DynamicGroup(width - UiConstants.DEFAULT_SPACER, buttons.toArray(new Renderable[] {})));
     }
 
-    private List<Button> getFilteredButtons(FilteringButton[] buttons) {
-        List<Button> filteredButtons = new LinkedList<>();
-        for (FilteringButton button : buttons) {
+    private List<Button> getFilteredButtons(final FilteringButton[] buttons) {
+        final List<Button> filteredButtons = new LinkedList<>();
+        for (final FilteringButton button : buttons) {
             button.setEnabled(false);
             if (button.isVisible()) {
                 button.setEnabled(true);
@@ -60,15 +59,8 @@ public class ButtonGroup extends HorizontalViewContainer {
         return filteredButtons;
     }
 
-    private String getLabelText(Enum<?> label) {
-        if (label != null) {
-            return L10n.get(label);
-        }
-        return "";
-    }
-
-    private void prepareButtons(Button[] buttons, boolean isEnabled) {
-        for (Button button : buttons) {
+    private void prepareButtons(final Button[] buttons, final boolean isEnabled) {
+        for (final Button button : buttons) {
             button.setTextColor(ColorHelper.basePlayerColor());
             button.setBackgroundColor(ColorHelper.darkPlayerColor());
             button.setEnabled(isEnabled);
@@ -76,7 +68,7 @@ public class ButtonGroup extends HorizontalViewContainer {
         if (isEnabled) {
             return;
         }
-        for (Button button : buttons) {
+        for (final Button button : buttons) {
             button.scaleTextColor(0.6f);
             button.scaleBackground(0.5f);
         }

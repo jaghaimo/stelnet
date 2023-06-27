@@ -16,15 +16,15 @@ public class ContactsBoard extends BoardBasePlugin {
     private final String tag = Tags.INTEL_CONTACTS;
 
     @Override
-    protected RenderableIntelInfo getIntelInfo() {
-        return new BoardRenderableInfo(
-            L10n.get(ContactsL10n.BOARD_TITLE),
-            L10n.get(ContactsL10n.BOARD_DESCRIPTION, renderableState.getContactNumber())
-        );
+    public boolean isHidden() {
+        return renderableState.getContactNumber() == 0;
     }
 
     @Override
-    public boolean isHidden() {
-        return renderableState.getContactNumber() == 0;
+    protected RenderableIntelInfo getIntelInfo() {
+        return new BoardRenderableInfo(
+            L10n.contacts("BOARD_TITLE"),
+            L10n.contacts("BOARD_DESCRIPTION", renderableState.getContactNumber())
+        );
     }
 }

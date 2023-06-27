@@ -21,7 +21,7 @@ public class ResultIntel extends IntelBasePlugin {
     private final ResultSet resultSet;
     private final String tag = ModConstants.TAG_MARKET;
 
-    public ResultIntel(QueryManager queryManager, ResultSet resultSet) {
+    public ResultIntel(final QueryManager queryManager, final ResultSet resultSet) {
         super(resultSet.getFaction(), resultSet.getToken());
         this.queryManager = queryManager;
         this.resultSet = resultSet;
@@ -33,7 +33,7 @@ public class ResultIntel extends IntelBasePlugin {
     }
 
     @Override
-    public void advance(float amount) {
+    public void advance(final float amount) {
         advancedAmount += amount;
         if (advancedAmount > 1) {
             log.debug("Restoring original token");
@@ -45,9 +45,9 @@ public class ResultIntel extends IntelBasePlugin {
 
     @Override
     public String getIcon() {
-        int results = Math.min(100, resultSet.getResultCount());
-        double rounded = Math.floor(results / 10);
-        String icon = String.format("result_%.0f", rounded);
+        final int results = Math.min(100, resultSet.getResultCount());
+        final double rounded = Math.floor(results / 10);
+        final String icon = String.format("result_%.0f", rounded);
         return StelnetHelper.getSpriteName(icon);
     }
 
@@ -62,7 +62,7 @@ public class ResultIntel extends IntelBasePlugin {
     }
 
     @Override
-    protected List<Renderable> getRenderableList(Size size) {
+    protected List<Renderable> getRenderableList(final Size size) {
         return resultSet.getGroupingStrategy().getView(this, resultSet).create(size);
     }
 }

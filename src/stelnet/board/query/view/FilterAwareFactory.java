@@ -7,7 +7,7 @@ import stelnet.filter.LogicalOr;
 
 public abstract class FilterAwareFactory {
 
-    protected void addSelectedOrAll(Set<Filter> filters, FilteringButton buttons[], String type) {
+    protected void addSelectedOrAll(final Set<Filter> filters, final FilteringButton buttons[], final String type) {
         Set<Filter> selectedFilters = getFilters(buttons, true);
         if (selectedFilters.isEmpty()) {
             selectedFilters = getFilters(buttons, false);
@@ -15,20 +15,25 @@ public abstract class FilterAwareFactory {
         filters.add(new LogicalOr(selectedFilters, type));
     }
 
-    protected void addSelectedOrNone(Set<Filter> filters, FilteringButton buttons[], String type, boolean isEnabled) {
+    protected void addSelectedOrNone(
+        final Set<Filter> filters,
+        final FilteringButton buttons[],
+        final String type,
+        final boolean isEnabled
+    ) {
         if (!isEnabled) {
             return;
         }
-        Set<Filter> selectedFilters = getFilters(buttons, true);
+        final Set<Filter> selectedFilters = getFilters(buttons, true);
         if (!selectedFilters.isEmpty()) {
             filters.add(new LogicalOr(selectedFilters, type));
         }
     }
 
-    protected Set<Filter> getFilters(FilteringButton buttons[], boolean wantedSelectedState) {
-        Set<Filter> selectedFilters = new LinkedHashSet<>();
-        for (FilteringButton button : buttons) {
-            boolean isSelected = button.isEnabled() && button.isStateOn();
+    protected Set<Filter> getFilters(final FilteringButton buttons[], final boolean wantedSelectedState) {
+        final Set<Filter> selectedFilters = new LinkedHashSet<>();
+        for (final FilteringButton button : buttons) {
+            final boolean isSelected = button.isEnabled() && button.isStateOn();
             if (isSelected == wantedSelectedState) {
                 selectedFilters.add(button.getFilter());
             }

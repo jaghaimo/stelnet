@@ -6,12 +6,12 @@ import uilib.EventHandler;
 
 public class ShipFilterButton extends FilteringButton {
 
-    public ShipFilterButton(final ButtonManager filteringButtons, Enum<?> translationId, final Filter filter) {
-        super(translationId);
+    public ShipFilterButton(final ButtonManager filteringButtons, final String title, final Filter filter) {
+        super(title);
         setHandler(
             new EventHandler() {
                 @Override
-                public void onConfirm(IntelUIAPI ui) {
+                public void onConfirm(final IntelUIAPI ui) {
                     if (isStateOn()) {
                         filteringButtons.remove(filter);
                     } else {

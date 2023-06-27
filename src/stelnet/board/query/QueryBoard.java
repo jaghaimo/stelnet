@@ -28,7 +28,7 @@ public class QueryBoard extends BoardBasePlugin {
     private final String tag = ModConstants.TAG_QUERY;
 
     @Override
-    public void advance(float amount) {
+    public void advance(final float amount) {
         Global.getSector().removeTransientScript(this);
         log.debug("Performing cleanup and resetting query cache");
         state.resetCache();
@@ -36,9 +36,14 @@ public class QueryBoard extends BoardBasePlugin {
     }
 
     @Override
+    public boolean isHidden() {
+        return Modules.MARKET.isHidden();
+    }
+
+    @Override
     protected RenderableIntelInfo getIntelInfo() {
-        int queryCount = state.getQueryManager().numberOfQueries();
-        return new BoardRenderableInfo(L10n.get(QueryL10n.TITLE), L10n.get(QueryL10n.DESCRIPTION, queryCount));
+        final int queryCount = state.getQueryManager().numberOfQueries();
+        return new BoardRenderableInfo(L10n.query("TITLE"), L10n.query("DESCRIPTION", queryCount));
     }
 
     @Override
@@ -46,10 +51,5 @@ public class QueryBoard extends BoardBasePlugin {
         log.debug("Adding itself as a script for cleanup operations");
         Global.getSector().addTransientScript(this);
         return state;
-    }
-
-    @Override
-    public boolean isHidden() {
-        return Modules.MARKET.isHidden();
     }
 }

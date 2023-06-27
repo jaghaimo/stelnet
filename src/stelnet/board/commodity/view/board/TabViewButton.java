@@ -11,14 +11,14 @@ public class TabViewButton extends TabButton {
 
     private final CommodityAction currentTab;
 
-    public TabViewButton(CommodityAction currentTab, CommodityAction activeTab, int shortcut) {
-        super(L10n.get(currentTab), currentTab.equals(activeTab), shortcut);
+    public TabViewButton(final CommodityAction currentTab, final CommodityAction activeTab, final int shortcut) {
+        super(L10n.commodity(currentTab.key()), currentTab.equals(activeTab), shortcut);
         this.currentTab = currentTab;
     }
 
     @Override
-    public void onConfirm(IntelUIAPI ui) {
-        CommodityBoard board = StelnetHelper.getInstance(CommodityBoard.class);
+    public void onConfirm(final IntelUIAPI ui) {
+        final CommodityBoard board = StelnetHelper.getInstance(CommodityBoard.class);
         board.getRenderableState().setActiveTab(currentTab);
     }
 }

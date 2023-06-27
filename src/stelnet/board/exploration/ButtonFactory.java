@@ -8,7 +8,6 @@ import com.fs.starfarer.api.ui.Fonts;
 import com.fs.starfarer.api.util.Misc;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
 import uilib2.Drawable;
 import uilib2.UiConstants;
@@ -56,7 +55,7 @@ public class ButtonFactory {
     }
 
     public Button getToggleButton(final IntelUiAction flipAction) {
-        final String label = L10n.get(CommonL10n.FLIP);
+        final String label = L10n.common("FLIP");
         final float width = Global.getSettings().computeStringWidth(label, Fonts.VICTOR_10); // minimum size to fit label
         return new ButtonBuilder(
             new ButtonCustom(

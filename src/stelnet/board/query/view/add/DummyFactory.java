@@ -23,11 +23,11 @@ public class DummyFactory extends QueryFactory {
     }
 
     @Override
-    public RenderableComponent getPreview(Set<Filter> filters, Size size) {
+    public RenderableComponent getPreview(final Set<Filter> filters, final Size size) {
         logUsage();
         return new RenderableComponent() {
             @Override
-            public void render(TooltipMakerAPI tooltip) {}
+            public void render(final TooltipMakerAPI tooltip) {}
         };
     }
 

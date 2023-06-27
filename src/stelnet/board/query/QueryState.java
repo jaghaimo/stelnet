@@ -52,7 +52,7 @@ public class QueryState implements RenderableState, Serializable {
     }
 
     @Override
-    public List<Renderable> toRenderableList(Size size) {
+    public List<Renderable> toRenderableList(final Size size) {
         return new QueryView(this).create(size);
     }
 }

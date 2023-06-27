@@ -13,7 +13,7 @@ public class ContactFilterButton extends AreaCheckbox implements Comparable<Cont
     private final String name;
     private final Filter filter;
 
-    public ContactFilterButton(String translatedString, Filter filter) {
+    public ContactFilterButton(final String translatedString, final Filter filter) {
         super(new Size(150, UiConstants.DEFAULT_BUTTON_HEIGHT), Misc.ucFirst(translatedString), true, true);
         this.name = translatedString;
         this.filter = filter;
@@ -21,9 +21,9 @@ public class ContactFilterButton extends AreaCheckbox implements Comparable<Cont
     }
 
     @Override
-    public int compareTo(ContactFilterButton o) {
-        String self = name + getFilter();
-        String other = o.getName() + o.getFilter();
+    public int compareTo(final ContactFilterButton o) {
+        final String self = name + getFilter();
+        final String other = o.getName() + o.getFilter();
         return self.compareTo(other);
     }
 }

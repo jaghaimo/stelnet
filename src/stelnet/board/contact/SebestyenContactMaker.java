@@ -21,20 +21,20 @@ import stelnet.settings.BooleanSettings;
  */
 public class SebestyenContactMaker implements ColonyInteractionListener {
 
-    private final String MET_BAIRD_MEM_KEY = "$metBaird";
-
     public static void register() {
         if (BooleanSettings.CONTACTS_SEBESTYEN.get()) {
-            SebestyenContactMaker maker = new SebestyenContactMaker();
+            final SebestyenContactMaker maker = new SebestyenContactMaker();
             Global.getSector().getListenerManager().addListener(maker, true);
         }
     }
 
-    @Override
-    public void reportPlayerOpenedMarket(MarketAPI market) {}
+    private final String MET_BAIRD_MEM_KEY = "$metBaird";
 
     @Override
-    public void reportPlayerClosedMarket(MarketAPI market) {
+    public void reportPlayerOpenedMarket(final MarketAPI market) {}
+
+    @Override
+    public void reportPlayerClosedMarket(final MarketAPI market) {
         if (!needContact()) {
             return;
         }
@@ -45,13 +45,13 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
     }
 
     @Override
-    public void reportPlayerOpenedMarketAndCargoUpdated(MarketAPI market) {}
+    public void reportPlayerOpenedMarketAndCargoUpdated(final MarketAPI market) {}
 
     @Override
-    public void reportPlayerMarketTransaction(PlayerMarketTransaction transaction) {}
+    public void reportPlayerMarketTransaction(final PlayerMarketTransaction transaction) {}
 
     private boolean needContact() {
-        boolean hasContact = getContactIntel() != null;
+        final boolean hasContact = getContactIntel() != null;
         if (hasContact) {
             return false;
         }
@@ -62,10 +62,10 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
     }
 
     private void addContact() {
-        PersonAPI person = getPerson();
-        MarketAPI market = getGalatia();
+        final PersonAPI person = getPerson();
+        final MarketAPI market = getGalatia();
         fixPerson(person, market);
-        ContactIntel contact = new SebestyenContactIntel(person, market);
+        final ContactIntel contact = new SebestyenContactIntel(person, market);
         Global.getSector().getIntelManager().addIntel(contact);
     }
 
@@ -73,7 +73,7 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
      * Change Galatia "market" to be contact-worthy.
      */
     private boolean fixMarket() {
-        MarketAPI market = getGalatia();
+        final MarketAPI market = getGalatia();
         if (market == null) {
             return false;
         }
@@ -91,14 +91,17 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
     /**
      * Make Sebestyen a more "solid" person.
      */
-    private void fixPerson(PersonAPI person, MarketAPI market) {
+    private void fixPerson(final PersonAPI person, final MarketAPI market) {
         person.setMarket(market);
         person.addTag(Tags.CONTACT_SCIENCE);
         person.setImportance(PersonImportance.VERY_HIGH);
     }
 
     private SebestyenContactIntel getContactIntel() {
-        List<IntelInfoPlugin> plugins = Global.getSector().getIntelManager().getIntel(SebestyenContactIntel.class);
+        final List<IntelInfoPlugin> plugins = Global
+            .getSector()
+            .getIntelManager()
+            .getIntel(SebestyenContactIntel.class);
         if (plugins.isEmpty()) {
             return null;
         }
@@ -106,7 +109,7 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
     }
 
     private MarketAPI getGalatia() {
-        SectorEntityToken token = Global.getSector().getEntityById("station_galatia_academy");
+        final SectorEntityToken token = Global.getSector().getEntityById("station_galatia_academy");
         if (token == null) {
             return null;
         }

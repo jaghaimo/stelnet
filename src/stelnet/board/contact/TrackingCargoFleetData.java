@@ -7,7 +7,7 @@ import java.util.List;
 
 public class TrackingCargoFleetData extends CargoFleetData {
 
-    public TrackingCargoFleetData(CargoFleetData currentContent, CargoFleetData newContent) {
+    public TrackingCargoFleetData(final CargoFleetData currentContent, final CargoFleetData newContent) {
         super(
             currentContent.getCargo(),
             currentContent.getFleet(),
@@ -17,14 +17,14 @@ public class TrackingCargoFleetData extends CargoFleetData {
     }
 
     @Override
-    public void add(CargoFleetData other) {
+    public void add(final CargoFleetData other) {
         cargoStacks.addAll(other.getCargo().getStacksCopy());
         fleetMembers.addAll(other.getFleet().getMembersListCopy());
     }
 
     public List<CargoStackAPI> getNewContentInCargo() {
-        List<CargoStackAPI> cargoStacksCopy = new LinkedList<>();
-        for (CargoStackAPI stack : cargoStacks) {
+        final List<CargoStackAPI> cargoStacksCopy = new LinkedList<>();
+        for (final CargoStackAPI stack : cargoStacks) {
             if (cargo.getStacksCopy().contains(stack)) {
                 cargoStacksCopy.add(stack);
             }
@@ -33,8 +33,8 @@ public class TrackingCargoFleetData extends CargoFleetData {
     }
 
     public List<FleetMemberAPI> getNewContentInFleet() {
-        List<FleetMemberAPI> fleetMembersCopy = new LinkedList<>();
-        for (FleetMemberAPI member : fleetMembers) {
+        final List<FleetMemberAPI> fleetMembersCopy = new LinkedList<>();
+        for (final FleetMemberAPI member : fleetMembers) {
             if (fleet.getMembersListCopy().contains(member)) {
                 fleetMembersCopy.add(member);
             }
