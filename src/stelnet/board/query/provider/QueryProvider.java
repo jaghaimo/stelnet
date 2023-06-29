@@ -36,9 +36,9 @@ public abstract class QueryProvider {
     }
 
     protected abstract void processMarkets(
-        List<ResultSet> resultSets,
-        List<MarketAPI> markets,
-        Set<Filter> filters,
+        final List<ResultSet> resultSets,
+        final List<MarketAPI> markets,
+        final Set<Filter> filters,
         final GroupingStrategy groupingStrategy
     );
 

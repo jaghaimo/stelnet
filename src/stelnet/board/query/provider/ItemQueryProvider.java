@@ -29,7 +29,6 @@ import uilib.property.Size;
 public class ItemQueryProvider extends QueryProvider {
 
     private static transient List<CargoStackAPI> allCargoStacks;
-
     private static transient List<FighterWingSpecAPI> allFighterWings;
     private static transient List<HullModSpecAPI> allHullModSpecs;
     private static transient List<WeaponSpecAPI> allWeaponSpecs;
