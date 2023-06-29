@@ -113,7 +113,8 @@ public class QueryManager {
             resultMap.add(resultSet);
         }
         if (needsIntel) {
-            groupingStrategy.createIntel(this, resultSet);
+            final ResultIntel intel = new ResultIntel(this, resultSet);
+            Global.getSector().getIntelManager().addIntel(intel, true);
         }
     }
 }

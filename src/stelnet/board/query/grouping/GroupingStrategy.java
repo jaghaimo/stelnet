@@ -1,16 +1,12 @@
 package stelnet.board.query.grouping;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.util.Misc;
 import java.util.Set;
 import stelnet.board.BoardRenderableInfo;
-import stelnet.board.query.QueryManager;
-import stelnet.board.query.ResultIntel;
 import stelnet.board.query.ResultSet;
-import stelnet.board.query.ResultView;
 import stelnet.util.L10n;
 import stelnet.util.StelnetHelper;
 import uilib.RenderableIntelInfo;
@@ -33,17 +29,7 @@ public enum GroupingStrategy {
             final FactionAPI faction = Misc.getClaimingFaction(market.getPrimaryEntity());
             return new GroupingData(info, faction, system.getId(), system.getCenter());
         }
-
-        @Override
-        public ResultView getView(final ResultIntel intel, final ResultSet resultSet) {
-            return new SystemView(intel, resultSet);
-        }
     };
-
-    public void createIntel(final QueryManager manager, final ResultSet resultSet) {
-        final ResultIntel intel = new ResultIntel(manager, resultSet);
-        Global.getSector().getIntelManager().addIntel(intel, true);
-    }
 
     public GroupingData getGroupingData(final ResultSet resultSet) {
         final MarketAPI market = resultSet.getMarket();
@@ -52,9 +38,5 @@ public enum GroupingStrategy {
             L10n.query("RESULTS_IN_MARKET", resultSet.getResultCount())
         );
         return new GroupingData(info, market.getFaction(), market.getId(), market.getPrimaryEntity());
-    }
-
-    public ResultView getView(final ResultIntel intel, final ResultSet resultSet) {
-        return new MarketView(intel, resultSet);
     }
 }

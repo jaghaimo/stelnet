@@ -63,6 +63,6 @@ public class ResultIntel extends IntelBasePlugin {
 
     @Override
     protected List<Renderable> getRenderableList(final Size size) {
-        return resultSet.getGroupingStrategy().getView(this, resultSet).create(size);
+        return new ResultView(this, resultSet).create(size);
     }
 }
