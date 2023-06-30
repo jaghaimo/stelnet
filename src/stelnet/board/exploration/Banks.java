@@ -33,10 +33,6 @@ public enum Banks implements ButtonAware {
         return name();
     }
 
-    public int getShortcut() {
-        return 0;
-    }
-
     @Override
     public String getTitle() {
         return L10n.exploration(name());

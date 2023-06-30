@@ -4,18 +4,13 @@ import com.fs.starfarer.api.campaign.FactionAPI;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class ExplorationFaction implements ButtonAware {
+public class Factions implements ButtonAware {
 
     private final FactionAPI faction;
 
     @Override
     public String getId() {
         return faction.getId();
-    }
-
-    @Override
-    public int getShortcut() {
-        return 0;
     }
 
     @Override

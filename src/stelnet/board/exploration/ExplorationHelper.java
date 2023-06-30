@@ -8,10 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import stelnet.filter.AnyHasTag;
 import stelnet.filter.FactionIsRaiding;
-import stelnet.filter.IntelIsClass;
+import stelnet.filter.Filter;
 import stelnet.filter.IntelIsHidden;
 import stelnet.filter.IntelLocationHasMemory;
-import stelnet.filter.LogicalNot;
 import stelnet.util.CollectionUtils;
 import stelnet.util.MemoryHelper;
 import stelnet.util.ModConstants;
@@ -30,15 +29,15 @@ public class ExplorationHelper {
         return MemoryHelper.key(ExplorationHelper.MEMORY_PREFIX, entity, ExplorationHelper.MEMORY_SUFFIX_ENABLED);
     }
 
-    public static List<IntelInfoPlugin> getFilterableIntel() {
+    public static List<IntelInfoPlugin> getFilterableIntel(final Filter notBoardFilter) {
         final List<IntelInfoPlugin> intelList = new ArrayList<>(Global.getSector().getIntelManager().getIntel());
         CollectionUtils.reduce(intelList, new AnyHasTag(Tags.INTEL_EXPLORATION));
-        CollectionUtils.reduce(intelList, new LogicalNot(new IntelIsClass(ExplorationBoard.class)));
+        CollectionUtils.reduce(intelList, notBoardFilter);
         return intelList;
     }
 
-    public static int getHiddenNumber() {
-        final List<IntelInfoPlugin> explorationIntel = getFilterableIntel();
+    public static int getHiddenNumber(final Filter notBoardFilter) {
+        final List<IntelInfoPlugin> explorationIntel = getFilterableIntel(notBoardFilter);
         CollectionUtils.reduce(explorationIntel, new IntelLocationHasMemory(ModConstants.EXPLORATION_MANAGE));
         CollectionUtils.reduce(explorationIntel, new IntelIsHidden());
         return explorationIntel.size();

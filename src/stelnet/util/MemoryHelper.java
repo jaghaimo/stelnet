@@ -2,9 +2,12 @@ package stelnet.util;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
-import stelnet.board.exploration.ButtonAware;
 
 public class MemoryHelper {
+
+    public interface IdAware {
+        public String getId();
+    }
 
     public static void flip(final String key) {
         final MemoryAPI memoryMap = Global.getSector().getMemoryWithoutUpdate();
@@ -35,7 +38,7 @@ public class MemoryHelper {
         return memoryMap.contains(key);
     }
 
-    public static String key(final String prefix, final ButtonAware entity, final String suffix) {
+    public static String key(final String prefix, final IdAware entity, final String suffix) {
         return prefix + entity.getId() + suffix;
     }
 

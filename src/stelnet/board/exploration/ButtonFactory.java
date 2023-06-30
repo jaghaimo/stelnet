@@ -21,6 +21,7 @@ import uilib2.intel.actions.UpdateIntelList;
 @RequiredArgsConstructor
 public class ButtonFactory {
 
+    private final IntelUiAction filterAction;
     private final IntelUiAction refreshAction;
     private final float width;
 
@@ -31,7 +32,7 @@ public class ButtonFactory {
     ) {
         boolean withShift = false;
         for (final ButtonAware type : banks) {
-            withShift = addButton(drawables, makeBankButton(type, withShift), withShift, memoryKeyEnabledOverride);
+            withShift = addButton(drawables, makeEnumButton(type, withShift), withShift, memoryKeyEnabledOverride);
         }
     }
 
@@ -50,7 +51,7 @@ public class ButtonFactory {
     public void addTypes(final List<Drawable> drawables, final List<ButtonAware> types) {
         boolean withShift = false;
         for (final ButtonAware type : types) {
-            withShift = addButton(drawables, makeTypeButton(type, withShift), withShift, null);
+            withShift = addButton(drawables, makeEnumButton(type, withShift), withShift, null);
         }
     }
 
@@ -62,7 +63,7 @@ public class ButtonFactory {
                 label,
                 new IntelCallbackBuilder()
                     .addConfirmAction(flipAction)
-                    .addConfirmAction(new FilterIntel())
+                    .addConfirmAction(filterAction)
                     .addConfirmAction(new UpdateIntelList(true))
                     .addConfirmAction(refreshAction)
                     .build(),
@@ -79,16 +80,12 @@ public class ButtonFactory {
             .build();
     }
 
-    private ExplorationButton makeBankButton(final ButtonAware buttonType, final boolean withShift) {
-        return new BankButton(buttonType, refreshAction, width, withShift);
-    }
-
-    private ExplorationButton makeTypeButton(final ButtonAware buttonType, final boolean withShift) {
-        return new TypeButton(buttonType, refreshAction, width, withShift);
+    private ExplorationButton makeEnumButton(final ButtonAware buttonType, final boolean withShift) {
+        return new EnumButton(buttonType, filterAction, refreshAction, width, withShift);
     }
 
     private ExplorationButton makeFactionButton(final FactionAPI faction, final boolean withShift) {
-        return new FactionButton(faction, refreshAction, width, withShift);
+        return new FactionButton(faction, filterAction, refreshAction, width, withShift);
     }
 
     private boolean addButton(

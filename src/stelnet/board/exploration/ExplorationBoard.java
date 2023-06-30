@@ -3,14 +3,14 @@ package stelnet.board.exploration;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.util.Misc;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 import stelnet.board.BoardDrawableInfo;
 import stelnet.filter.Filter;
+import stelnet.filter.IntelIsClass;
+import stelnet.filter.LogicalNot;
 import stelnet.util.L10n;
 import stelnet.util.StelnetHelper;
 import uilib2.Drawable;
@@ -28,20 +28,24 @@ import uilib2.widget.HeaderWithButtons;
 @Log4j
 public class ExplorationBoard extends SmallIntel {
 
-    private final Set<Filter> filters = new LinkedHashSet<>();
     private final String icon = StelnetHelper.getSpriteName("exploration");
     private final String mainTag = Tags.INTEL_EXPLORATION;
     private final IntelSortTier sortTier = IntelSortTier.TIER_0;
+    private transient Filter notBoardFilter = new LogicalNot(new IntelIsClass(this.getClass()));
+
+    public void readResolve() {
+        notBoardFilter = new LogicalNot(new IntelIsClass(this.getClass()));
+    }
 
     @Override
     public void notifyPlayerAboutToOpenIntelScreen() {
         log.debug("Forcing filters upon exploration tab intel");
-        new FilterIntel().act(null);
+        new FilterIntel(notBoardFilter).act(null);
     }
 
     @Override
     protected DrawableIntelInfo getIntelInfo() {
-        final int hiddenIntelNumber = ExplorationHelper.getHiddenNumber();
+        final int hiddenIntelNumber = ExplorationHelper.getHiddenNumber(notBoardFilter);
         return new BoardDrawableInfo(
             L10n.exploration("BOARD_TITLE"),
             L10n.exploration("BOARD_DESCRIPTION", hiddenIntelNumber),
@@ -52,8 +56,9 @@ public class ExplorationBoard extends SmallIntel {
 
     @Override
     protected List<Drawable> getDrawableList(final float width, final float height) {
+        final IntelUiAction filterAction = new FilterIntel(notBoardFilter);
         final IntelUiAction refreshAction = new UpdateForItem(this);
-        final ButtonFactory factory = new ButtonFactory(refreshAction, width);
+        final ButtonFactory factory = new ButtonFactory(filterAction, refreshAction, width);
         final List<Drawable> drawables = new LinkedList<>();
         addTypes(drawables, factory);
         addFactions(drawables, factory);

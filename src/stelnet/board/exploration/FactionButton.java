@@ -21,13 +21,14 @@ import uilib2.intel.actions.UpdateIntelList;
 public class FactionButton extends ExplorationButton {
 
     private final FactionAPI faction;
+    private final IntelUiAction filterAction;
     private final IntelUiAction refreshAction;
     private final float width;
     private final boolean withShift;
 
     @Override
     public UIComponentAPI draw(final TooltipMakerAPI tooltip) {
-        final ButtonAware key = new ExplorationFaction(faction);
+        final ButtonAware key = new Factions(faction);
         final String memoryKeyChecked = ExplorationHelper.getCheckedKey(key);
         final String memoryKeyEnabled = getMemoryKeyEnabled(key);
         final boolean isChecked = MemoryHelper.getBoolean(memoryKeyChecked, true);
@@ -50,7 +51,7 @@ public class FactionButton extends ExplorationButton {
             Misc.ucFirst(faction.getDisplayName()),
             new IntelCallbackBuilder()
                 .addConfirmAction(new UpdateMemoryFlag(memoryKeyChecked, !isChecked))
-                .addConfirmAction(new FilterIntel())
+                .addConfirmAction(filterAction)
                 .addConfirmAction(new UpdateIntelList())
                 .addConfirmAction(refreshAction)
                 .build(),

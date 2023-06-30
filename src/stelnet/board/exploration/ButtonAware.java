@@ -1,9 +1,7 @@
 package stelnet.board.exploration;
 
-public interface ButtonAware {
-    public String getId();
+import stelnet.util.MemoryHelper.IdAware;
 
+public interface ButtonAware extends IdAware {
     public String getTitle();
-
-    public int getShortcut();
 }

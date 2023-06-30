@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import lombok.RequiredArgsConstructor;
 import stelnet.filter.Filter;
 import stelnet.filter.IntelIsFaction;
 import stelnet.filter.IntelIsHidden;
@@ -20,14 +21,16 @@ import stelnet.util.MemoryHelper;
 import stelnet.util.ModConstants;
 import uilib2.intel.IntelUiAction;
 
+@RequiredArgsConstructor
 public class FilterIntel implements IntelUiAction {
 
+    private final Filter notBoardIntel;
     private final FilterFactory factory = new FilterFactory();
 
     @Override
     public void act(final IntelUIAPI ui) {
         final Set<Filter> filters = getFilters();
-        final List<IntelInfoPlugin> intelList = ExplorationHelper.getFilterableIntel();
+        final List<IntelInfoPlugin> intelList = ExplorationHelper.getFilterableIntel(notBoardIntel);
         setHidden(intelList, false);
         // game can have some permanently hidden intel, we don't want to count those
         CollectionUtils.reduce(intelList, new LogicalNot(new IntelIsHidden()));
@@ -71,7 +74,7 @@ public class FilterIntel implements IntelUiAction {
                 Arrays.<Filter>asList(factory.getType(Types.TYPE_RAIDING_BASE), new IntelIsFaction(faction)),
                 "Raiding Faction: " + faction.getDisplayName()
             );
-            final ButtonAware key = new ExplorationFaction(faction);
+            final ButtonAware key = new Factions(faction);
             final String isEnabledKey = ExplorationHelper.getEnabledKey(key);
             final String isCheckedKey = ExplorationHelper.getCheckedKey(key);
             addIfNeeded(filters, isEnabledKey, isCheckedKey, filter);
