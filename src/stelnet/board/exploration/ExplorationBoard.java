@@ -31,10 +31,10 @@ public class ExplorationBoard extends SmallIntel {
     private final String icon = StelnetHelper.getSpriteName("exploration");
     private final String mainTag = Tags.INTEL_EXPLORATION;
     private final IntelSortTier sortTier = IntelSortTier.TIER_0;
-    private transient Filter notBoardFilter = new LogicalNot(new IntelIsClass(this.getClass()));
+    private transient Filter notBoardFilter = makeNotBoardFilter();
 
     public void readResolve() {
-        notBoardFilter = new LogicalNot(new IntelIsClass(this.getClass()));
+        notBoardFilter = makeNotBoardFilter();
     }
 
     @Override
@@ -64,6 +64,10 @@ public class ExplorationBoard extends SmallIntel {
         addFactions(drawables, factory);
         addBanks(drawables, factory);
         return drawables;
+    }
+
+    private Filter makeNotBoardFilter() {
+        return new LogicalNot(new IntelIsClass(ExplorationBoard.class));
     }
 
     private void addHeader(final List<Drawable> drawables, final String title, final Button toggleButton) {
