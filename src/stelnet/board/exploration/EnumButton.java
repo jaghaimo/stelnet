@@ -18,14 +18,13 @@ import uilib2.intel.actions.UpdateIntelList;
 public class EnumButton extends ExplorationButton {
 
     protected final ButtonAware buttonType;
-    private final IntelUiAction filterAction;
     private final IntelUiAction refreshAction;
     protected final float width;
     protected final boolean withShift;
 
     @Override
     public UIComponentAPI draw(final TooltipMakerAPI tooltip) {
-        final String memoryKeyChecked = ExplorationHelper.getCheckedKey(buttonType);
+        final String memoryKeyChecked = buttonType.getCheckedKey();
         final String memoryKeyEnabled = getMemoryKeyEnabled(buttonType);
         final boolean isChecked = MemoryHelper.getBoolean(memoryKeyChecked, true);
         final boolean isEnabled = MemoryHelper.getBoolean(memoryKeyEnabled, true);
@@ -46,9 +45,8 @@ public class EnumButton extends ExplorationButton {
             buttonType.getTitle(),
             new IntelCallbackBuilder()
                 .addConfirmAction(new UpdateMemoryFlag(memoryKeyChecked, !isChecked))
-                .addConfirmAction(filterAction)
-                .addConfirmAction(new UpdateIntelList())
                 .addConfirmAction(refreshAction)
+                .addConfirmAction(new UpdateIntelList())
                 .build(),
             UICheckboxSize.SMALL,
             0

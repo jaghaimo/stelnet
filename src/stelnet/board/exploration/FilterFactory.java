@@ -91,20 +91,17 @@ public class FilterFactory {
     }
 
     private Filter getTitleFilter(final Filter bankFilter, final String title) {
-        return new LogicalAnd(
-            Arrays.asList(bankFilter, new IntelContainsTitle(title)),
-            "Compound Title Filter: " + title
-        );
+        return new LogicalAnd(Arrays.asList(bankFilter, new IntelContainsTitle(title)), "Compound Filter: " + title);
     }
 
     private Filter getOtherFilter(final Collection<Filter> filters) {
-        return new LogicalNot(new LogicalOr(filters, "Everything Else"));
+        return new LogicalNot(new LogicalOr(filters, "Compound Filter: Everything Else"));
     }
 
     private Filter getRaidingBaseFilter() {
         return new LogicalOr(
             Arrays.<Filter>asList(new IntelIsClass(LuddicPathBaseIntel.class), new IntelIsClass(PirateBaseIntel.class)),
-            "Raiding Bases"
+            "Compound Filter: Raiding Bases"
         );
     }
 }

@@ -19,7 +19,7 @@ public class FlipMatchingKeys implements IntelUiAction {
     }
 
     private void changeIfEligible(final ButtonAware value) {
-        final String key = ExplorationHelper.getCheckedKey(value);
+        final String key = value.getCheckedKey();
         if (!MemoryHelper.has(key)) {
             return;
         }

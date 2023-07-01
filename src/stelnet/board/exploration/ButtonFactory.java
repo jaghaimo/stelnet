@@ -7,6 +7,7 @@ import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.ui.Fonts;
 import com.fs.starfarer.api.util.Misc;
 import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import stelnet.util.L10n;
 import uilib2.Drawable;
@@ -21,7 +22,6 @@ import uilib2.intel.actions.UpdateIntelList;
 @RequiredArgsConstructor
 public class ButtonFactory {
 
-    private final IntelUiAction filterAction;
     private final IntelUiAction refreshAction;
     private final float width;
 
@@ -38,7 +38,7 @@ public class ButtonFactory {
 
     public void addFactions(
         final List<Drawable> drawables,
-        final List<FactionAPI> factions,
+        final Set<FactionAPI> factions,
         final String memoryKeyEnabledOverride
     ) {
         boolean withShift = false;
@@ -63,9 +63,8 @@ public class ButtonFactory {
                 label,
                 new IntelCallbackBuilder()
                     .addConfirmAction(flipAction)
-                    .addConfirmAction(filterAction)
-                    .addConfirmAction(new UpdateIntelList(true))
                     .addConfirmAction(refreshAction)
+                    .addConfirmAction(new UpdateIntelList())
                     .build(),
                 Misc.getBrightPlayerColor(),
                 Misc.getDarkPlayerColor(),
@@ -81,11 +80,11 @@ public class ButtonFactory {
     }
 
     private ExplorationButton makeEnumButton(final ButtonAware buttonType, final boolean withShift) {
-        return new EnumButton(buttonType, filterAction, refreshAction, width, withShift);
+        return new EnumButton(buttonType, refreshAction, width, withShift);
     }
 
     private ExplorationButton makeFactionButton(final FactionAPI faction, final boolean withShift) {
-        return new FactionButton(faction, filterAction, refreshAction, width, withShift);
+        return new FactionButton(faction, refreshAction, width, withShift);
     }
 
     private boolean addButton(

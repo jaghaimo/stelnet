@@ -3,6 +3,7 @@ package stelnet.board.exploration;
 import java.util.Arrays;
 import java.util.List;
 import stelnet.util.L10n;
+import stelnet.util.MemoryHelper;
 
 public enum Banks implements ButtonAware {
     BANK_ANY_CACHE,
@@ -36,5 +37,15 @@ public enum Banks implements ButtonAware {
     @Override
     public String getTitle() {
         return L10n.exploration(name());
+    }
+
+    @Override
+    public String getCheckedKey() {
+        return MemoryHelper.key(ExplorationConstants.MEMORY_PREFIX, this, ExplorationConstants.MEMORY_SUFFIX_CHECKED);
+    }
+
+    @Override
+    public String getEnabledKey() {
+        return MemoryHelper.key(ExplorationConstants.MEMORY_PREFIX, this, ExplorationConstants.MEMORY_SUFFIX_ENABLED);
     }
 }

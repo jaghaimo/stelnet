@@ -14,6 +14,6 @@ public abstract class ExplorationButton implements Drawable {
         if (memoryKeyEnabledOverwrite != null) {
             return memoryKeyEnabledOverwrite;
         }
-        return ExplorationHelper.getEnabledKey(entity);
+        return entity.getEnabledKey();
     }
 }
