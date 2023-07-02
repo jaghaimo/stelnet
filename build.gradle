@@ -49,6 +49,7 @@ java {
 
 // where to find sources
 sourceSets.main.java.srcDirs = ['src/']
+sourceSets.test.java.srcDirs = ['tests/']
 
 // build everything and make a jar
 build {
@@ -79,6 +80,10 @@ dependencies {
     // lombok
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
+
+    // tests
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:2.28.2'
 }
 
 // custom tasks
