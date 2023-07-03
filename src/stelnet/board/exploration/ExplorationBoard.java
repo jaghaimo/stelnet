@@ -32,8 +32,7 @@ public class ExplorationBoard extends SmallIntel {
 
     @Override
     public void notifyPlayerAboutToOpenIntelScreen() {
-        model.updateFactions();
-        model.updateIntelList(getAllIntel());
+        model.update(getAllIntel());
         model.changeIntelVisibility();
     }
 

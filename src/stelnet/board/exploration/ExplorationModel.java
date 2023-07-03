@@ -36,20 +36,6 @@ public class ExplorationModel {
     private final Filter<IntelInfoPlugin> excludeBoardFilter;
     private final FilterFactory factory = new FilterFactory();
 
-    public void updateFactions() {
-        factions.clear();
-        for (final IntelInfoPlugin intel : filterableIntel) {
-            factions.add(intel.getFactionForUIColors());
-        }
-    }
-
-    public void updateIntelList(final List<IntelInfoPlugin> intelList) {
-        filterableIntel.clear();
-        filterableIntel.addAll(intelList);
-        FilterHelper.reduce(filterableIntel, new IntelHasTag(Tags.INTEL_EXPLORATION));
-        FilterHelper.reduce(filterableIntel, excludeBoardFilter);
-    }
-
     public void changeIntelVisibility() {
         final Set<IntelInfoPlugin> intelSet = new HashSet<>(filterableIntel);
         log.debug("Forcing filters upon exploration tab intel");
@@ -71,24 +57,9 @@ public class ExplorationModel {
         return intelSet.size();
     }
 
-    private void setFlag(final Set<IntelInfoPlugin> intelList) {
-        for (final IntelInfoPlugin intel : intelList) {
-            setFlag(intel.getMapLocation(null));
-        }
-    }
-
-    private void setFlag(final SectorEntityToken token) {
-        if (token == null) {
-            return;
-        }
-        final MemoryAPI memory = token.getMemoryWithoutUpdate();
-        memory.set(ModConstants.EXPLORATION_MANAGE, true, 1);
-    }
-
-    private void setHidden(final Set<IntelInfoPlugin> intelList, final boolean isHidden) {
-        for (final IntelInfoPlugin intel : intelList) {
-            intel.setHidden(isHidden);
-        }
+    public void update(final List<IntelInfoPlugin> intelList) {
+        updateIntelList(intelList);
+        updateFactions();
     }
 
     private Set<Filter<IntelInfoPlugin>> getFilters() {
@@ -124,5 +95,39 @@ public class ExplorationModel {
         if (!isChecked) {
             filters.add(filter);
         }
+    }
+
+    private void setFlag(final Set<IntelInfoPlugin> intelList) {
+        for (final IntelInfoPlugin intel : intelList) {
+            setFlag(intel.getMapLocation(null));
+        }
+    }
+
+    private void setFlag(final SectorEntityToken token) {
+        if (token == null) {
+            return;
+        }
+        final MemoryAPI memory = token.getMemoryWithoutUpdate();
+        memory.set(ModConstants.EXPLORATION_MANAGE, true, 1);
+    }
+
+    private void setHidden(final Set<IntelInfoPlugin> intelList, final boolean isHidden) {
+        for (final IntelInfoPlugin intel : intelList) {
+            intel.setHidden(isHidden);
+        }
+    }
+
+    private void updateFactions() {
+        factions.clear();
+        for (final IntelInfoPlugin intel : filterableIntel) {
+            factions.add(intel.getFactionForUIColors());
+        }
+    }
+
+    private void updateIntelList(final List<IntelInfoPlugin> intelList) {
+        filterableIntel.clear();
+        filterableIntel.addAll(intelList);
+        FilterHelper.reduce(filterableIntel, new IntelHasTag(Tags.INTEL_EXPLORATION));
+        FilterHelper.reduce(filterableIntel, excludeBoardFilter);
     }
 }
