@@ -1,4 +1,4 @@
-name: Tests
+name: Build
 
 on:
     pull_request:
@@ -19,4 +19,6 @@ jobs:
             - name: Run Tests
               run: |
                   chmod +x gradlew
-                  ./gradlew test
+                  ./gradlew build --no-daemon
+
+# TODO: https://www.linkedin.com/pulse/static-code-analysis-sonarlint-github-actions-lucas-persson
