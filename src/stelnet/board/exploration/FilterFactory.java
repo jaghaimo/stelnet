@@ -13,10 +13,10 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import stelnet.filters.And;
 import stelnet.filters.Filter;
-import stelnet.filters.LogicalAnd;
-import stelnet.filters.LogicalNot;
-import stelnet.filters.LogicalOr;
+import stelnet.filters.Not;
+import stelnet.filters.Or;
 import stelnet.filters.intel.IntelContainsTitle;
 import stelnet.filters.intel.IntelFilter;
 import stelnet.filters.intel.IntelIsClass;
@@ -50,7 +50,7 @@ public class FilterFactory {
     }
 
     public Filter<IntelInfoPlugin> getFilter(final FactionAPI faction) {
-        return new LogicalAnd<IntelInfoPlugin>(
+        return new And<IntelInfoPlugin>(
             Arrays.<Filter<IntelInfoPlugin>>asList(getFilter(Types.TYPE_RAIDING_BASE), new IntelIsFaction(faction)),
             "Raiding Faction: " + faction.getDisplayName()
         );
@@ -93,7 +93,7 @@ public class FilterFactory {
         localMap.put(Banks.BANK_ORBITAL_HABITAT, getTitleFilter(bankFilter, "Orbital Habitat"));
         localMap.put(Banks.BANK_RUINS_LOCATION, getTitleFilter(bankFilter, "Ruins Location"));
         localMap.put(Banks.BANK_SURVEY_DATA, getTitleFilter(bankFilter, "Survey Data for"));
-        final Filter<IntelInfoPlugin> otherFilter = new LogicalAnd<IntelInfoPlugin>(
+        final Filter<IntelInfoPlugin> otherFilter = new And<IntelInfoPlugin>(
             Arrays.asList(typeMap.get(Types.TYPE_MEMORY_BANK), getOtherFilter(localMap.values())),
             "Other Banks"
         );
@@ -102,20 +102,18 @@ public class FilterFactory {
     }
 
     private Filter<IntelInfoPlugin> getTitleFilter(final IntelFilter bankFilter, final String title) {
-        return new LogicalAnd<IntelInfoPlugin>(
+        return new And<IntelInfoPlugin>(
             Arrays.<Filter<IntelInfoPlugin>>asList(bankFilter, new IntelContainsTitle(title)),
             "Compound Filter: " + title
         );
     }
 
     private Filter<IntelInfoPlugin> getOtherFilter(final Collection<Filter<IntelInfoPlugin>> filters) {
-        return new LogicalNot<IntelInfoPlugin>(
-            new LogicalOr<IntelInfoPlugin>(filters, "Compound Filter: Everything Else")
-        );
+        return new Not<IntelInfoPlugin>(new Or<IntelInfoPlugin>(filters, "Compound Filter: Everything Else"));
     }
 
     private Filter<IntelInfoPlugin> getRaidingBaseFilter() {
-        return new LogicalOr<IntelInfoPlugin>(
+        return new Or<IntelInfoPlugin>(
             Arrays.<Filter<IntelInfoPlugin>>asList(
                 new IntelIsClass(LuddicPathBaseIntel.class),
                 new IntelIsClass(PirateBaseIntel.class)

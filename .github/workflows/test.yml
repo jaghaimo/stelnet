@@ -1,0 +1,23 @@
+name: Run tests
+
+on:
+    pull_request:
+    push:
+        branches:
+            - master
+
+jobs:
+    build:
+        # The type of runner that the job will run on
+        runs-on: ubuntu-latest
+
+        steps:
+            # Checks-out repository under $GITHUB_WORKSPACE, so your job can access it
+            # GitHub Actions by default doesn't check out tags, so make sure those are included
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Build using gradle
+              run: |
+                  chmod +x gradlew
+                  ./gradlew test

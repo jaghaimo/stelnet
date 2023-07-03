@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
-public class LogicalNot<T> implements Filter<T> {
+public class Not<T> implements Filter<T> {
 
     private final Filter<T> filter;
 

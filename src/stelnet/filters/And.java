@@ -10,10 +10,14 @@ import lombok.extern.log4j.Log4j;
 @Getter
 @EqualsAndHashCode(callSuper = false)
 @RequiredArgsConstructor
-public class LogicalOr<T> implements Filter<T> {
+public class And<T> implements Filter<T> {
 
     private final Collection<Filter<T>> filters;
     private final String type;
+
+    public And(final Collection<Filter<T>> filters) {
+        this(filters, "");
+    }
 
     @Override
     public boolean accept(final T object) {
@@ -22,11 +26,11 @@ public class LogicalOr<T> implements Filter<T> {
                 log.warn("Skipping null filter!");
                 continue;
             }
-            if (filter.accept(object)) {
-                return true;
+            if (!filter.accept(object)) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     @Override

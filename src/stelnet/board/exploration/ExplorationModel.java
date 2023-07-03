@@ -13,8 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import stelnet.filters.Filter;
 import stelnet.filters.FilterHelper;
-import stelnet.filters.LogicalNot;
-import stelnet.filters.LogicalOr;
+import stelnet.filters.Not;
+import stelnet.filters.Or;
 import stelnet.filters.intel.IntelHasTag;
 import stelnet.filters.intel.IntelIsHidden;
 import stelnet.filters.intel.IntelLocationHasMemory;
@@ -40,10 +40,10 @@ public class ExplorationModel {
         final Set<IntelInfoPlugin> intelSet = new HashSet<>(filterableIntel);
         log.debug("Forcing filters upon exploration tab intel");
         setHidden(intelSet, false);
-        FilterHelper.reduce(intelSet, new LogicalNot<IntelInfoPlugin>(new IntelIsHidden()));
+        FilterHelper.reduce(intelSet, new Not<IntelInfoPlugin>(new IntelIsHidden()));
         final Set<Filter<IntelInfoPlugin>> filters = getFilters();
         if (filters.size() > 0) {
-            FilterHelper.reduce(intelSet, new LogicalOr<IntelInfoPlugin>(filters, "Selected Filters"));
+            FilterHelper.reduce(intelSet, new Or<IntelInfoPlugin>(filters, "Selected Filters"));
             setFlag(intelSet);
             setHidden(intelSet, true);
         }
