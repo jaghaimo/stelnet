@@ -1,15 +1,14 @@
 package stelnet.board.exploration;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
-import stelnet.filter.Filter;
-import stelnet.filter.IsObject;
-import stelnet.filter.LogicalNot;
+import stelnet.filters.Filter;
+import stelnet.filters.LogicalNot;
+import stelnet.filters.intel.IntelIsClass;
 import stelnet.util.StelnetHelper;
 import uilib2.Drawable;
 import uilib2.intel.DrawableIntelInfo;
@@ -21,7 +20,9 @@ public class ExplorationBoard extends SmallIntel {
     private transient String icon = StelnetHelper.getSpriteName("exploration");
     private transient String mainTag = Tags.INTEL_EXPLORATION;
     private transient IntelSortTier sortTier = IntelSortTier.TIER_0;
-    private transient Filter excludeBoardFilter = new LogicalNot(new IsObject(this));
+    private transient Filter<IntelInfoPlugin> excludeBoardFilter = new LogicalNot<>(
+        new IntelIsClass(ExplorationBoard.class)
+    );
     private transient ExplorationModel model = new ExplorationModel(this, excludeBoardFilter);
     private transient ExplorationView view = new ExplorationView(model);
 
@@ -31,7 +32,7 @@ public class ExplorationBoard extends SmallIntel {
 
     @Override
     public void notifyPlayerAboutToOpenIntelScreen() {
-        model.updateFactions(getAllFactions());
+        model.updateFactions();
         model.updateIntelList(getAllIntel());
         model.changeIntelVisibility();
     }
@@ -45,10 +46,6 @@ public class ExplorationBoard extends SmallIntel {
     protected List<Drawable> getDrawableList(final float width, final float height) {
         model.changeIntelVisibility();
         return view.getDrawableList(width);
-    }
-
-    private List<FactionAPI> getAllFactions() {
-        return Global.getSector().getAllFactions();
     }
 
     private List<IntelInfoPlugin> getAllIntel() {

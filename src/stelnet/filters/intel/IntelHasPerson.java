@@ -1,4 +1,4 @@
-package stelnet.filter;
+package stelnet.filters.intel;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.characters.PersonAPI;
@@ -12,9 +12,10 @@ public class IntelHasPerson extends IntelFilter {
 
     private final PersonAPI person;
 
-    protected boolean acceptIntel(IntelInfoPlugin intel) {
-        if (intel instanceof HubMission) {
-            HubMission hubMission = (HubMission) intel;
+    @Override
+    public boolean accept(final IntelInfoPlugin object) {
+        if (object instanceof HubMission) {
+            final HubMission hubMission = (HubMission) object;
             return hubMission.getPerson() == person;
         }
         return false;

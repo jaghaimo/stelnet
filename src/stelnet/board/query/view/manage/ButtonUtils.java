@@ -5,14 +5,15 @@ import com.fs.starfarer.api.loading.HullModSpecAPI;
 import java.util.LinkedList;
 import java.util.List;
 import stelnet.board.query.QueryManager;
+import stelnet.board.query.filter.ResultFleetMemberWithoutDMod;
+import stelnet.board.query.filter.ResultFleetMemberWithoutDModCount;
+import stelnet.board.query.filter.ResultIsFriendly;
+import stelnet.board.query.filter.ResultIsPurchasable;
 import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.board.query.provider.DmodProvider;
 import stelnet.board.query.view.FilteringButton;
+import stelnet.filter.FactionIsFriendly;
 import stelnet.filter.Filter;
-import stelnet.filter.ResultFleetMemberWithoutDMod;
-import stelnet.filter.ResultFleetMemberWithoutDModCount;
-import stelnet.filter.ResultIsFriendly;
-import stelnet.filter.ResultIsPurchasable;
 import stelnet.util.L10n;
 import uilib.Button;
 import uilib.Renderable;
@@ -76,7 +77,7 @@ public class ButtonUtils {
             new FilterSetAwareButton(
                 manager,
                 L10n.query("RESULTS_ONLY_FRIENDLY"),
-                new ResultIsFriendly(),
+                new ResultIsFriendly(new FactionIsFriendly()),
                 manager.getOtherFilters()
             ),
         };

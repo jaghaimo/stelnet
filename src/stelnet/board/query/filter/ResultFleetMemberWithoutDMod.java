@@ -1,4 +1,4 @@
-package stelnet.filter;
+package stelnet.board.query.filter;
 
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import lombok.EqualsAndHashCode;

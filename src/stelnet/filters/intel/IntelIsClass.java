@@ -1,4 +1,4 @@
-package stelnet.filter;
+package stelnet.filters.intel;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import lombok.EqualsAndHashCode;
@@ -10,7 +10,8 @@ public class IntelIsClass extends IntelFilter {
 
     private final Class<?> classType;
 
-    protected boolean acceptIntel(IntelInfoPlugin intel) {
-        return classType.isInstance(intel);
+    @Override
+    public boolean accept(final IntelInfoPlugin object) {
+        return classType.isInstance(object);
     }
 }

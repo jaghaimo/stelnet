@@ -1,9 +1,11 @@
-package stelnet.filter;
+package stelnet.board.query.filter;
 
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import lombok.EqualsAndHashCode;
 import stelnet.board.query.Result;
 import stelnet.board.query.ResultSet;
+import stelnet.filter.AnyHasId;
+import stelnet.filter.Filter;
 
 @EqualsAndHashCode(callSuper = false)
 public class ResultHasId extends ResultFilter {

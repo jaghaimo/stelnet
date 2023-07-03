@@ -1,11 +1,11 @@
-package stelnet.util;
+package uilib;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 
 /**
- * Temporary color abstraction (to be moved to `uilib.color` as concrete classes).
+ * Temporary color abstraction.
  *
  * Serializing `java.awt.Color` is bad, as object references will change between game builds.
  */

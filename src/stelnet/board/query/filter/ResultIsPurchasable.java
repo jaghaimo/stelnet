@@ -1,4 +1,4 @@
-package stelnet.filter;
+package stelnet.board.query.filter;
 
 import lombok.EqualsAndHashCode;
 import stelnet.board.query.Result;

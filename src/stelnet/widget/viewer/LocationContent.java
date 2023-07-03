@@ -3,9 +3,11 @@ package stelnet.widget.viewer;
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import java.util.List;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@Data
+@Getter
+@RequiredArgsConstructor
 public class LocationContent {
 
     private final LocationInfo locationInfo;

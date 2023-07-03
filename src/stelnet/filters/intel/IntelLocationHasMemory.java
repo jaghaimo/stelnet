@@ -1,4 +1,4 @@
-package stelnet.filter;
+package stelnet.filters.intel;
 
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
@@ -11,8 +11,9 @@ public class IntelLocationHasMemory extends IntelFilter {
 
     private final String memoryKey;
 
-    protected boolean acceptIntel(IntelInfoPlugin intel) {
-        SectorEntityToken token = intel.getMapLocation(null);
+    @Override
+    public boolean accept(final IntelInfoPlugin object) {
+        final SectorEntityToken token = object.getMapLocation(null);
         if (token == null) {
             return false;
         }

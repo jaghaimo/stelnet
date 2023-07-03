@@ -11,7 +11,6 @@ import com.fs.starfarer.api.util.Misc;
 import java.awt.Color;
 import lombok.Getter;
 import lombok.Setter;
-import stelnet.util.ColorHelper;
 import uilib.property.Size;
 
 @Getter

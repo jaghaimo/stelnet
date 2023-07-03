@@ -1,10 +1,11 @@
-package stelnet.filter;
+package stelnet.board.query.filter;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 import lombok.EqualsAndHashCode;
 import stelnet.board.query.Result;
 import stelnet.board.query.ResultSet;
+import stelnet.filter.Filter;
 import stelnet.util.CollectionUtils;
 
 @EqualsAndHashCode(callSuper = false)

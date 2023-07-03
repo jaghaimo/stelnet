@@ -1,4 +1,4 @@
-package stelnet.filter;
+package stelnet.filters.intel;
 
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import lombok.EqualsAndHashCode;
@@ -10,8 +10,9 @@ public class IntelContainsTitle extends IntelFilter {
 
     private final String title;
 
-    protected boolean acceptIntel(IntelInfoPlugin intel) {
-        String intelTitle = intel.getSmallDescriptionTitle();
+    @Override
+    public boolean accept(final IntelInfoPlugin object) {
+        final String intelTitle = object.getSmallDescriptionTitle();
         if (intelTitle == null) {
             return false;
         }

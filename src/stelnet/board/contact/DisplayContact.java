@@ -14,11 +14,11 @@ import com.fs.starfarer.api.ui.UIComponentAPI;
 import com.fs.starfarer.api.util.Misc;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import stelnet.filter.IntelHasPerson;
-import stelnet.filter.IntelIsActive;
+import stelnet.filters.FilterHelper;
+import stelnet.filters.intel.IntelHasPerson;
+import stelnet.filters.intel.IntelIsActive;
 import stelnet.settings.BooleanSettings;
 import stelnet.settings.Modules;
-import stelnet.util.CollectionUtils;
 import stelnet.util.L10n;
 import stelnet.util.MemoryHelper;
 import stelnet.util.ModConstants;
@@ -126,8 +126,8 @@ public class DisplayContact extends HeadingWithButtons {
 
     private boolean hasActiveMission(final PersonAPI person) {
         final List<IntelInfoPlugin> missions = Global.getSector().getIntelManager().getIntel(HubMission.class);
-        CollectionUtils.reduce(missions, new IntelHasPerson(person));
-        CollectionUtils.reduce(missions, new IntelIsActive());
+        FilterHelper.reduce(missions, new IntelHasPerson(person));
+        FilterHelper.reduce(missions, new IntelIsActive());
         return !missions.isEmpty();
     }
 }

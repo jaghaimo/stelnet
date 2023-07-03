@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
-import stelnet.board.BoardDrawableInfo;
 import stelnet.util.L10n;
 import uilib2.Drawable;
 import uilib2.Spacer;
@@ -14,6 +13,7 @@ import uilib2.UiConstants;
 import uilib2.button.Button;
 import uilib2.intel.DrawableIntelInfo;
 import uilib2.intel.IntelUiAction;
+import uilib2.intel.SimpleDrawableInfo;
 import uilib2.intel.actions.UpdateForItem;
 import uilib2.label.HighlightFirst;
 import uilib2.widget.HeaderWithButtons;
@@ -25,7 +25,7 @@ public class ExplorationView {
 
     public DrawableIntelInfo getIntelInfo() {
         final int hiddenIntelNumber = model.getHiddenIntelNumber();
-        return new BoardDrawableInfo(
+        return new SimpleDrawableInfo(
             L10n.exploration("BOARD_TITLE"),
             L10n.exploration("BOARD_DESCRIPTION", hiddenIntelNumber),
             null,

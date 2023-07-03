@@ -32,7 +32,7 @@ public class ButtonFactory {
     ) {
         boolean withShift = false;
         for (final ButtonAware type : banks) {
-            withShift = addButton(drawables, makeEnumButton(type, withShift), withShift, memoryKeyEnabledOverride);
+            withShift = addButton(drawables, getButton(type, withShift), withShift, memoryKeyEnabledOverride);
         }
     }
 
@@ -43,15 +43,15 @@ public class ButtonFactory {
     ) {
         boolean withShift = false;
         for (final FactionAPI faction : factions) {
-            withShift =
-                addButton(drawables, makeFactionButton(faction, withShift), withShift, memoryKeyEnabledOverride);
+            final ButtonAware buttonType = new ButtonAwareFaction(faction);
+            withShift = addButton(drawables, getButton(buttonType, withShift), withShift, memoryKeyEnabledOverride);
         }
     }
 
     public void addTypes(final List<Drawable> drawables, final List<ButtonAware> types) {
         boolean withShift = false;
         for (final ButtonAware type : types) {
-            withShift = addButton(drawables, makeEnumButton(type, withShift), withShift, null);
+            withShift = addButton(drawables, getButton(type, withShift), withShift, null);
         }
     }
 
@@ -79,12 +79,8 @@ public class ButtonFactory {
             .build();
     }
 
-    private ExplorationButton makeEnumButton(final ButtonAware buttonType, final boolean withShift) {
-        return new EnumButton(buttonType, refreshAction, width, withShift);
-    }
-
-    private ExplorationButton makeFactionButton(final FactionAPI faction, final boolean withShift) {
-        return new FactionButton(faction, refreshAction, width, withShift);
+    private ExplorationButton getButton(final ButtonAware buttonType, final boolean withShift) {
+        return new ExplorationButton(buttonType, refreshAction, width, withShift);
     }
 
     private boolean addButton(

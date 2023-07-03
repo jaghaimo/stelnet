@@ -1,7 +1,7 @@
 package uilib;
 
 import com.fs.starfarer.api.ui.CutStyle;
-import stelnet.util.ColorHelper;
+
 import uilib.property.Size;
 
 public class TabButton extends Button {

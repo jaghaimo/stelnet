@@ -1,11 +1,12 @@
 package stelnet.board.exploration;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
+import java.awt.Color;
 import lombok.RequiredArgsConstructor;
 import stelnet.util.MemoryHelper;
 
 @RequiredArgsConstructor
-public class Factions implements ButtonAware {
+public class ButtonAwareFaction implements ButtonAware {
 
     private final FactionAPI faction;
 
@@ -22,6 +23,11 @@ public class Factions implements ButtonAware {
     @Override
     public String getCheckedKey() {
         return MemoryHelper.key(ExplorationConstants.MEMORY_PREFIX, this, ExplorationConstants.MEMORY_SUFFIX_CHECKED);
+    }
+
+    @Override
+    public Color getColor() {
+        return faction.getBaseUIColor();
     }
 
     @Override

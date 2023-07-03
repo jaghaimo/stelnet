@@ -39,25 +39,25 @@ public class FactionCommission extends LunaSnippet {
     }
 
     @Override
-    public void addParameters(SnippetBuilder builder) {
+    public void addParameters(final SnippetBuilder builder) {
         builder.addStringParameter("faction_id", FACTION_ID);
     }
 
     @Override
-    public void execute(Map<String, Object> parameters, TooltipMakerAPI output) {
-        String factionId = (String) parameters.get(FACTION_ID);
-        FactionAPI faction = Global.getSector().getFaction(factionId);
+    public void execute(final Map<String, Object> parameters, final TooltipMakerAPI output) {
+        final String factionId = (String) parameters.get(FACTION_ID);
+        final FactionAPI faction = Global.getSector().getFaction(factionId);
         if (faction == null) {
             output.addPara("Could not find faction with id " + factionId, 0);
             return;
         }
-        FactionAPI commissionedFaction = Misc.getCommissionFaction();
+        final FactionAPI commissionedFaction = Misc.getCommissionFaction();
         if (commissionedFaction != null) {
-            output.addPara("Player is already comissioned to " + commissionedFaction.getDisplayName(), 0);
+            output.addPara("Player is already commissioned to " + commissionedFaction.getDisplayName(), 0);
             return;
         }
         output.addPara("Player is now commissioned with " + faction.getDisplayName(), 0);
-        FactionCommissionIntel intel = new FactionCommissionIntel(faction);
+        final FactionCommissionIntel intel = new FactionCommissionIntel(faction);
         faction.setRelationship(Factions.PLAYER, RepLevel.FAVORABLE);
         intel.missionAccepted();
         intel.makeRepChanges(null);

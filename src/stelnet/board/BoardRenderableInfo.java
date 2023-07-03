@@ -2,10 +2,12 @@ package stelnet.board;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import java.awt.Color;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import uilib.RenderableIntelInfo;
 
-@Data
+@Getter
+@RequiredArgsConstructor
 public class BoardRenderableInfo implements RenderableIntelInfo {
 
     private final String title;

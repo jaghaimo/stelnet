@@ -1,4 +1,4 @@
-package stelnet.filter;
+package stelnet.filters.intel;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
@@ -16,12 +16,13 @@ public class IntelIsFaction extends IntelFilter {
 
     private final String factionId;
 
-    public IntelIsFaction(FactionAPI faction) {
+    public IntelIsFaction(final FactionAPI faction) {
         this.factionId = faction.getId();
     }
 
-    protected boolean acceptIntel(IntelInfoPlugin intel) {
-        FactionAPI faction = intel.getFactionForUIColors();
+    @Override
+    public boolean accept(final IntelInfoPlugin object) {
+        final FactionAPI faction = object.getFactionForUIColors();
         if (faction == null) {
             log.debug("Token faction is null");
             return false;

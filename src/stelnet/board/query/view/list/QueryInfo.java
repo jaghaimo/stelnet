@@ -5,8 +5,8 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.query.Query;
-import stelnet.util.ColorHelper;
 import stelnet.util.L10n;
+import uilib.ColorHelper;
 import uilib.RenderableComponent;
 import uilib.property.Size;
 

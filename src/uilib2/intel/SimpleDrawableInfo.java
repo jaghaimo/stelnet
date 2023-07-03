@@ -1,19 +1,21 @@
-package stelnet.board;
+package uilib2.intel;
 
 import com.fs.starfarer.api.ui.LabelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import java.awt.Color;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import uilib2.intel.DrawableIntelInfo;
 import uilib2.label.Highlight;
 
-@Data
+/**
+ * Simple implementation of `DrawableIntelInfo` with two lines: title and description.
+ */
+@Getter
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class BoardDrawableInfo implements DrawableIntelInfo {
+public class SimpleDrawableInfo implements DrawableIntelInfo {
 
     private final String title;
     private final String description;

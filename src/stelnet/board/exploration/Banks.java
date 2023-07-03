@@ -1,5 +1,7 @@
 package stelnet.board.exploration;
 
+import com.fs.starfarer.api.util.Misc;
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.List;
 import stelnet.util.L10n;
@@ -42,6 +44,11 @@ public enum Banks implements ButtonAware {
     @Override
     public String getCheckedKey() {
         return MemoryHelper.key(ExplorationConstants.MEMORY_PREFIX, this, ExplorationConstants.MEMORY_SUFFIX_CHECKED);
+    }
+
+    @Override
+    public Color getColor() {
+        return Misc.getBasePlayerColor();
     }
 
     @Override
