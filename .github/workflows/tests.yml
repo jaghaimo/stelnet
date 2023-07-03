@@ -1,4 +1,4 @@
-name: Run tests
+name: Tests
 
 on:
     pull_request:
@@ -16,8 +16,10 @@ jobs:
             # GitHub Actions by default doesn't check out tags, so make sure those are included
             - name: Checkout
               uses: actions/checkout@v2
+              with:
+                  lfs: true
 
-            - name: Build using gradle
+            - name: Run Tests
               run: |
                   chmod +x gradlew
                   ./gradlew test
