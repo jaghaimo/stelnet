@@ -5,15 +5,15 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignUIAPI;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 /**
  * A delayed dialog that shows `message` after `delayInSeconds` time.
  */
+@RequiredArgsConstructor
 public class DelayedDialog implements EveryFrameScript {
 
-    private float advanced = 0;
     private final String message;
     private final float delayInSeconds;
+    private float advanced = 0;
 
     @Override
     public boolean isDone() {
