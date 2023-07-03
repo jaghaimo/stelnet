@@ -18,5 +18,8 @@ jobs:
               with:
                   lfs: true
 
-            - name: Prettier Action
-              uses: creyD/prettier_action@v4.3
+            - name: Install Prettier
+              run: npm install
+
+            - name: Check code using Prettier
+              run: npm run check
