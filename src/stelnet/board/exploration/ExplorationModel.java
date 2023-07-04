@@ -40,10 +40,10 @@ public class ExplorationModel {
         final Set<IntelInfoPlugin> intelSet = new HashSet<>(filterableIntel);
         log.debug("Forcing filters upon exploration tab intel");
         setHidden(intelSet, false);
-        FilterHelper.reduce(intelSet, new Not<IntelInfoPlugin>(new IntelIsHidden()));
+        FilterHelper.reduce(intelSet, new Not<>(new IntelIsHidden()));
         final Set<Filter<IntelInfoPlugin>> filters = getFilters();
         if (filters.size() > 0) {
-            FilterHelper.reduce(intelSet, new Or<IntelInfoPlugin>(filters, "Selected Filters"));
+            FilterHelper.reduce(intelSet, new Or<>(filters, "Selected Filters"));
             setFlag(intelSet);
             setHidden(intelSet, true);
         }
@@ -64,20 +64,32 @@ public class ExplorationModel {
 
     private Set<Filter<IntelInfoPlugin>> getFilters() {
         final Set<Filter<IntelInfoPlugin>> filters = new HashSet<>();
+        addTypeFilters(filters);
+        addFactionFilters(filters);
+        addBankFilters(filters);
+        return filters;
+    }
+
+    private void addTypeFilters(final Set<Filter<IntelInfoPlugin>> filters) {
         for (final Types key : factory.types()) {
             final Filter<IntelInfoPlugin> filter = factory.getFilter(key);
             addIfNeeded(filters, key, filter);
         }
+    }
+
+    private void addFactionFilters(final Set<Filter<IntelInfoPlugin>> filters) {
         for (final FactionAPI faction : factions) {
             final Filter<IntelInfoPlugin> filter = factory.getFilter(faction);
             final ButtonAware key = new ButtonAwareFaction(faction);
             addIfNeeded(filters, key, filter);
         }
+    }
+
+    private void addBankFilters(final Set<Filter<IntelInfoPlugin>> filters) {
         for (final Banks key : factory.banks()) {
             final Filter<IntelInfoPlugin> filter = factory.getFilter(key);
             addIfNeeded(filters, key, filter);
         }
-        return filters;
     }
 
     private void addIfNeeded(

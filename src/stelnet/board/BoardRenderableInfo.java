@@ -1,7 +1,7 @@
 package stelnet.board;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import java.awt.Color;
+import java.awt.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import uilib.RenderableIntelInfo;

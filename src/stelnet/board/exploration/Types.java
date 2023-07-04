@@ -1,7 +1,7 @@
 package stelnet.board.exploration;
 
 import com.fs.starfarer.api.util.Misc;
-import java.awt.Color;
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +22,12 @@ public enum Types implements ButtonAware {
     TYPE_SALVAGEABLE(CaptainsLogSettings.SALVAGEABLE.isEnabled()),
     TYPE_SURVEY_MISSION;
 
+    private final boolean isEnabled;
+
+    Types() {
+        this(true);
+    }
+
     public static List<ButtonAware> getAll() {
         final List<ButtonAware> types = new LinkedList<>();
         for (final Types type : Types.values()) {
@@ -31,12 +37,6 @@ public enum Types implements ButtonAware {
         }
         types.add(Types.TYPE_OTHER);
         return types;
-    }
-
-    private final boolean isEnabled;
-
-    private Types() {
-        this(true);
     }
 
     @Override

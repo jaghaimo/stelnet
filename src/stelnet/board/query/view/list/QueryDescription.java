@@ -2,7 +2,7 @@ package stelnet.board.query.view.list;
 
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-import java.awt.Color;
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 import stelnet.board.query.Query;

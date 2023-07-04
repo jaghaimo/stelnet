@@ -3,7 +3,7 @@ package stelnet.widget.viewer;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
-import java.awt.Color;
+import java.awt.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import stelnet.util.L10n;

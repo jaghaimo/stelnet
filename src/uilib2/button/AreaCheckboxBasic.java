@@ -2,7 +2,7 @@ package uilib2.button;
 
 import com.fs.starfarer.api.ui.ButtonAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import java.awt.Color;
+import java.awt.*;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -17,7 +17,7 @@ public class AreaCheckboxBasic extends AbstractButton {
     private final float height;
     private final float pad;
 
-    public ButtonAPI addButton(TooltipMakerAPI tooltip) {
+    public ButtonAPI addButton(final TooltipMakerAPI tooltip) {
         return tooltip.addAreaCheckbox(text, data, base, bg, bright, width, height, pad);
     }
 }

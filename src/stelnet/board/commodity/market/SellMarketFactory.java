@@ -12,13 +12,13 @@ public class SellMarketFactory extends MarketFactory {
     @Getter
     private final DemandPrice price;
 
-    public SellMarketFactory(String commodityId) {
+    public SellMarketFactory(final String commodityId) {
         super(commodityId);
         this.price = new DemandPrice(commodityId);
     }
 
     @Override
-    protected void filterMarkets(List<MarketAPI> markets) {
+    protected void filterMarkets(final List<MarketAPI> markets) {
         CollectionUtils.reduce(markets, new MarketCommodityDemand(commodityId));
     }
 }

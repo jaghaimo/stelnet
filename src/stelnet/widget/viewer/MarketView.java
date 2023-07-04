@@ -5,15 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import org.lwjgl.input.Keyboard;
 import stelnet.util.L10n;
-import uilib.Group;
-import uilib.Heading;
-import uilib.HorizontalViewContainer;
-import uilib.Paragraph;
-import uilib.Renderable;
-import uilib.RenderableFactory;
-import uilib.Spacer;
-import uilib.TabButton;
-import uilib.TabViewContainer;
+import uilib.*;
 import uilib.property.Position;
 import uilib.property.Size;
 
@@ -33,7 +25,7 @@ public class MarketView implements RenderableFactory {
 
     @Override
     public List<Renderable> create(final Size size) {
-        return Collections.<Renderable>singletonList(getTabViewContainer(size));
+        return Collections.singletonList(getTabViewContainer(size));
     }
 
     protected boolean isActive(final ContentRenderer currentTab) {

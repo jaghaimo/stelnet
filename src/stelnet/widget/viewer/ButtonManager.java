@@ -8,15 +8,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.Getter;
-import stelnet.filter.CargoStackIsType;
+import stelnet.filter.*;
 import stelnet.filter.CargoStackIsType.Type;
-import stelnet.filter.CargoStackWingIsRole;
-import stelnet.filter.Filter;
-import stelnet.filter.LogicalAnd;
-import stelnet.filter.LogicalNot;
-import stelnet.filter.ShipHullHasHint;
-import stelnet.filter.ShipHullIsSize;
-import stelnet.filter.WeaponIsSize;
 import stelnet.util.L10n;
 import uilib.Renderable;
 import uilib.Spacer;
@@ -43,33 +36,33 @@ public class ButtonManager {
                 new ItemFilterButton(
                     this,
                     L10n.common("MOUNT_SMALL"),
-                    new LogicalAnd(Arrays.<Filter>asList(isWeapon, new WeaponIsSize(WeaponSize.SMALL)))
+                    new LogicalAnd(Arrays.asList(isWeapon, new WeaponIsSize(WeaponSize.SMALL)))
                 ),
                 new ItemFilterButton(
                     this,
                     L10n.common("MOUNT_MEDIUM"),
-                    new LogicalAnd(Arrays.<Filter>asList(isWeapon, new WeaponIsSize(WeaponSize.MEDIUM)))
+                    new LogicalAnd(Arrays.asList(isWeapon, new WeaponIsSize(WeaponSize.MEDIUM)))
                 ),
                 new ItemFilterButton(
                     this,
                     L10n.common("MOUNT_LARGE"),
-                    new LogicalAnd(Arrays.<Filter>asList(isWeapon, new WeaponIsSize(WeaponSize.LARGE)))
+                    new LogicalAnd(Arrays.asList(isWeapon, new WeaponIsSize(WeaponSize.LARGE)))
                 ),
                 new Spacer(20f),
                 new ItemFilterButton(
                     this,
                     L10n.common("WING_FIGHTERS"),
-                    new LogicalAnd(Arrays.<Filter>asList(isFighterWing, new CargoStackWingIsRole(WingRole.FIGHTER)))
+                    new LogicalAnd(Arrays.asList(isFighterWing, new CargoStackWingIsRole(WingRole.FIGHTER)))
                 ),
                 new ItemFilterButton(
                     this,
                     L10n.common("WING_BOMBERS"),
-                    new LogicalAnd(Arrays.<Filter>asList(isFighterWing, new CargoStackWingIsRole(WingRole.BOMBER)))
+                    new LogicalAnd(Arrays.asList(isFighterWing, new CargoStackWingIsRole(WingRole.BOMBER)))
                 ),
                 new ItemFilterButton(
                     this,
                     L10n.common("WING_INTERCEPTORS"),
-                    new LogicalAnd(Arrays.<Filter>asList(isFighterWing, new CargoStackWingIsRole(WingRole.INTERCEPTOR)))
+                    new LogicalAnd(Arrays.asList(isFighterWing, new CargoStackWingIsRole(WingRole.INTERCEPTOR)))
                 ),
             };
         shipButtons =

@@ -1,21 +1,13 @@
 package stelnet.board.query.view.manage;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 import stelnet.board.query.QueryManager;
-import stelnet.board.query.view.ButtonGroup;
-import stelnet.board.query.view.FilterAwareFactory;
-import stelnet.board.query.view.FilteringButton;
-import stelnet.board.query.view.SectionHeader;
-import stelnet.board.query.view.SizeHelper;
+import stelnet.board.query.view.*;
 import stelnet.util.L10n;
+import uilib.*;
 import uilib.Button;
-import uilib.ColorHelper;
-import uilib.Renderable;
-import uilib.RenderableFactory;
-import uilib.Spacer;
-import uilib.UiConstants;
 import uilib.property.Size;
 
 public class ManageResultsFactory extends FilterAwareFactory implements RenderableFactory {

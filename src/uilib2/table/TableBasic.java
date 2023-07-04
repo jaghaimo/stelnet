@@ -3,7 +3,7 @@ package uilib2.table;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.ui.UIPanelAPI;
-import java.awt.Color;
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.Getter;
@@ -25,12 +25,12 @@ public class TableBasic extends AbstractTable {
     private final List<TableRow> rows = new LinkedList<>();
 
     public TableBasic(
-        FactionAPI faction,
-        float itemHeight,
-        Object[] columns,
-        String emptyText,
-        int andMore,
-        float pad
+        final FactionAPI faction,
+        final float itemHeight,
+        final Object[] columns,
+        final String emptyText,
+        final int andMore,
+        final float pad
     ) {
         this(
             faction.getBaseUIColor(),
@@ -45,9 +45,9 @@ public class TableBasic extends AbstractTable {
     }
 
     @Override
-    public UIPanelAPI addTable(TooltipMakerAPI tooltip) {
-        UIPanelAPI table = tooltip.beginTable(base, dark, bright, itemHeight, columns);
-        for (TableRow row : rows) {
+    public UIPanelAPI addTable(final TooltipMakerAPI tooltip) {
+        final UIPanelAPI table = tooltip.beginTable(base, dark, bright, itemHeight, columns);
+        for (final TableRow row : rows) {
             row.draw(tooltip);
         }
         tooltip.addTable(emptyText, andMore, pad);

@@ -4,7 +4,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.ui.Fonts;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.util.Misc;
-import java.awt.Color;
+import java.awt.*;
 import lombok.Getter;
 import lombok.Setter;
 import uilib.property.Size;
@@ -19,14 +19,14 @@ public class ToggleButton extends Button implements TwoStateButton {
 
     public ToggleButton(
         Size size,
-        String toggledOnTitle,
-        String toggledOffTitle,
-        boolean isEnabled,
-        boolean isStateOn
+        final String toggledOnTitle,
+        final String toggledOffTitle,
+        final boolean isEnabled,
+        final boolean isStateOn
     ) {
         super(size, toggledOnTitle, isEnabled);
         if (size.getWidth() == 0) {
-            float maxWidth = Math.max(
+            final float maxWidth = Math.max(
                 10 + Global.getSettings().computeStringWidth(toggledOnTitle, Fonts.DEFAULT_SMALL),
                 10 + Global.getSettings().computeStringWidth(toggledOffTitle, Fonts.DEFAULT_SMALL)
             );
@@ -47,13 +47,13 @@ public class ToggleButton extends Button implements TwoStateButton {
     }
 
     @Override
-    public void onConfirm(IntelUIAPI ui) {
+    public void onConfirm(final IntelUIAPI ui) {
         toggle();
         super.onConfirm(ui);
     }
 
     @Override
-    public void scaleBackground(float scale) {
+    public void scaleBackground(final float scale) {
         backgroundSelectedColor = Misc.scaleColor(backgroundSelectedColor, scale);
         super.scaleBackground(scale);
     }

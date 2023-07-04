@@ -8,14 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 import stelnet.board.query.provider.ItemQueryProvider;
 import stelnet.board.query.view.FilteringButton;
-import stelnet.filter.CargoStackIsManufacturer;
-import stelnet.filter.CargoStackIsType;
+import stelnet.filter.*;
 import stelnet.filter.CargoStackIsType.Type;
-import stelnet.filter.CargoStackWingIsRole;
-import stelnet.filter.Filter;
-import stelnet.filter.WeaponIsDamage;
-import stelnet.filter.WeaponIsSize;
-import stelnet.filter.WeaponIsType;
 import stelnet.util.L10n;
 
 public enum ItemButtonUtils {

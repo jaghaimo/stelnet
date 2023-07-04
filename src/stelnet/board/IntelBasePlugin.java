@@ -27,11 +27,6 @@ public abstract class IntelBasePlugin extends RenderableIntel {
     }
 
     @Override
-    public FactionAPI getFactionForUIColors() {
-        return getFaction();
-    }
-
-    @Override
     public Set<String> getIntelTags(final SectorMapAPI map) {
         final Set<String> tags = super.getIntelTags(map);
         tags.add(getTag());
@@ -39,13 +34,18 @@ public abstract class IntelBasePlugin extends RenderableIntel {
     }
 
     @Override
-    public SectorEntityToken getMapLocation(final SectorMapAPI map) {
-        return getSectorEntityToken();
+    public FactionAPI getFactionForUIColors() {
+        return getFaction();
     }
 
     @Override
     public String getSortString() {
         return String.format("%07.2f", DistanceCalculator.getDistanceToPlayerLY(sectorEntityToken));
+    }
+
+    @Override
+    public SectorEntityToken getMapLocation(final SectorMapAPI map) {
+        return getSectorEntityToken();
     }
 
     @Override

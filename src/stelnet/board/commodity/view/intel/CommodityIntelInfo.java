@@ -3,7 +3,7 @@ package stelnet.board.commodity.view.intel;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-import java.awt.Color;
+import java.awt.*;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.commodity.CommodityIntel;
 import stelnet.util.L10n;

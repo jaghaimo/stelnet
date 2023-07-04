@@ -10,12 +10,7 @@ import lombok.RequiredArgsConstructor;
 import stelnet.board.commodity.CommodityIntel;
 import stelnet.util.L10n;
 import stelnet.widget.heading.MarketHeader;
-import uilib.Button;
-import uilib.Image;
-import uilib.Paragraph;
-import uilib.Renderable;
-import uilib.RenderableFactory;
-import uilib.Spacer;
+import uilib.*;
 import uilib.property.Size;
 
 @RequiredArgsConstructor

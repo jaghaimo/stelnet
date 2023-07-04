@@ -28,8 +28,6 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
         }
     }
 
-    private final String MET_BAIRD_MEM_KEY = "$metBaird";
-
     @Override
     public void reportPlayerOpenedMarket(final MarketAPI market) {}
 
@@ -121,6 +119,7 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
     }
 
     private boolean hasMetProvost() {
+        final String MET_BAIRD_MEM_KEY = "$metBaird";
         return Global.getSector().getPlayerMemoryWithoutUpdate().getBoolean(MET_BAIRD_MEM_KEY);
     }
 }

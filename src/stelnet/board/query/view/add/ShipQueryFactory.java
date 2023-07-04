@@ -1,12 +1,7 @@
 package stelnet.board.query.view.add;
 
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponSize;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import lombok.Getter;
 import stelnet.board.query.provider.ShipQueryProvider;
 import stelnet.board.query.view.ButtonGroup;

@@ -22,7 +22,7 @@ import stelnet.util.StelnetHelper;
 @Log4j
 public class StorageUpdater implements ColonyDecivListener, ColonyInteractionListener, PlayerColonizationListener {
 
-    private static transient StorageUpdater instance;
+    private static StorageUpdater instance;
 
     public static void register() {
         if (instance == null) {

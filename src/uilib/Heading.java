@@ -2,7 +2,7 @@ package uilib;
 
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import java.awt.Color;
+import java.awt.*;
 import lombok.Setter;
 import uilib.property.Size;
 
@@ -14,16 +14,16 @@ public class Heading extends RenderableComponent {
     private Color backgroundColor;
     private Alignment alignment = Alignment.MID;
 
-    public Heading(String title) {
+    public Heading(final String title) {
         this(title, null, null);
     }
 
-    public Heading(String title, float width) {
+    public Heading(final String title, final float width) {
         this(title);
         setSize(new Size(width, UiConstants.DEFAULT_ROW_HEIGHT));
     }
 
-    public Heading(String title, Color foregroundColor, Color backgroundColor) {
+    public Heading(final String title, final Color foregroundColor, final Color backgroundColor) {
         this.title = title;
         this.foregroundColor = foregroundColor;
         this.backgroundColor = backgroundColor;
@@ -31,7 +31,7 @@ public class Heading extends RenderableComponent {
     }
 
     @Override
-    public void render(TooltipMakerAPI tooltip) {
+    public void render(final TooltipMakerAPI tooltip) {
         if (foregroundColor == null || backgroundColor == null) {
             tooltip.addSectionHeading(title, alignment, 0);
         } else {

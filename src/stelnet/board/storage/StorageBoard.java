@@ -43,6 +43,6 @@ public class StorageBoard extends BoardBasePlugin {
     }
 
     private Set<Filter> getEmptySet() {
-        return Collections.<Filter>emptySet();
+        return Collections.emptySet();
     }
 }

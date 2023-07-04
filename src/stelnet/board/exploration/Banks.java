@@ -1,7 +1,7 @@
 package stelnet.board.exploration;
 
 import com.fs.starfarer.api.util.Misc;
-import java.awt.Color;
+import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 import stelnet.util.L10n;

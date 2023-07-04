@@ -15,7 +15,7 @@ public abstract class PersonOfficerFilter extends PersonFilter {
     );
 
     @Override
-    public boolean acceptPerson(PersonAPI person) {
+    public boolean acceptPerson(final PersonAPI person) {
         return !isOfficerOrMercenary.accept(person);
     }
 }

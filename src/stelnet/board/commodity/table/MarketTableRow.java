@@ -4,7 +4,7 @@ import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.util.Misc;
-import java.awt.Color;
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 import stelnet.util.StelnetHelper;
@@ -12,10 +12,16 @@ import uilib.TableContentRow;
 
 public class MarketTableRow implements TableContentRow {
 
-    private List<Object> elements = new LinkedList<>();
+    private final List<Object> elements = new LinkedList<>();
 
-    public MarketTableRow(int i, float price, MarketAPI market, int demandOrAvailability, int excessOrDeficit) {
-        String starSystemName = StelnetHelper.getStarSystemName(market.getStarSystem(), true);
+    public MarketTableRow(
+        final int i,
+        final float price,
+        final MarketAPI market,
+        final int demandOrAvailability,
+        final int excessOrDeficit
+    ) {
+        final String starSystemName = StelnetHelper.getStarSystemName(market.getStarSystem(), true);
         addRowNumberCell(i);
         addDGSCreditsCell(price);
         addDGSCell(demandOrAvailability);
@@ -29,34 +35,34 @@ public class MarketTableRow implements TableContentRow {
         return elements.toArray();
     }
 
-    private void addRowNumberCell(Integer i) {
+    private void addRowNumberCell(final Integer i) {
         addCell(Misc.getGrayColor(), i + ".");
     }
 
-    private void addDGSCreditsCell(float value) {
+    private void addDGSCreditsCell(final float value) {
         addCell(Misc.getTextColor(), Misc.getDGSCredits(value));
     }
 
-    private void addDGSCell(int value) {
+    private void addDGSCell(final int value) {
         addCell(Misc.getTextColor(), Misc.getWithDGS(value));
     }
 
-    private void addExcessDemandCell(int value) {
+    private void addExcessDemandCell(final int value) {
         addCell(getExcessDemandColor(value), getExcessDemandValue(value));
     }
 
-    private void addCell(Color color, Object element) {
+    private void addCell(final Color color, final Object element) {
         elements.add(Alignment.MID);
         elements.add(color);
         elements.add(element.toString());
     }
 
-    private Color getClaimingFactionColor(MarketAPI market) {
-        FactionAPI faction = Misc.getClaimingFaction(market.getPrimaryEntity());
+    private Color getClaimingFactionColor(final MarketAPI market) {
+        final FactionAPI faction = Misc.getClaimingFaction(market.getPrimaryEntity());
         return StelnetHelper.getFactionColor(faction);
     }
 
-    private String getExcessDemandValue(int excessDemand) {
+    private String getExcessDemandValue(final int excessDemand) {
         if (excessDemand > 0) {
             return Misc.getWithDGS(excessDemand);
         }
@@ -66,7 +72,7 @@ public class MarketTableRow implements TableContentRow {
         return "---";
     }
 
-    private Color getExcessDemandColor(int excessDemand) {
+    private Color getExcessDemandColor(final int excessDemand) {
         if (excessDemand > 0) {
             return Misc.getPositiveHighlightColor();
         }

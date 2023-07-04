@@ -3,7 +3,7 @@ package uilib;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-import java.awt.Color;
+import java.awt.*;
 import java.util.List;
 import lombok.Setter;
 import uilib.property.Size;
@@ -16,11 +16,16 @@ public class ShowShips extends RenderableShowComponent {
     private final String emptyDescription;
     private Color titleColor = Misc.getTextColor();
 
-    public ShowShips(List<FleetMemberAPI> ships, String emptyDescription, Size size) {
+    public ShowShips(final List<FleetMemberAPI> ships, final String emptyDescription, final Size size) {
         this(ships, null, emptyDescription, size);
     }
 
-    public ShowShips(List<FleetMemberAPI> ships, String optionalTitle, String emptyDescription, Size size) {
+    public ShowShips(
+        final List<FleetMemberAPI> ships,
+        final String optionalTitle,
+        final String emptyDescription,
+        final Size size
+    ) {
         super(ships.size());
         this.ships = ships;
         this.optionalTitle = optionalTitle;
@@ -29,9 +34,9 @@ public class ShowShips extends RenderableShowComponent {
     }
 
     @Override
-    public void render(TooltipMakerAPI tooltip) {
+    public void render(final TooltipMakerAPI tooltip) {
         if (optionalTitle != null) {
-            String fullTitle = String.format("%s (%d)", optionalTitle, ships.size());
+            final String fullTitle = String.format("%s (%d)", optionalTitle, ships.size());
             addSectionTitle(tooltip, fullTitle, titleColor, getSize().getWidth() - UiConstants.DEFAULT_SPACER);
         }
         if (ships.isEmpty()) {

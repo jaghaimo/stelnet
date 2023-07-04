@@ -17,12 +17,14 @@ import uilib2.intel.SmallIntel;
 @Getter
 public class ExplorationBoard extends SmallIntel {
 
-    private transient String icon = StelnetHelper.getSpriteName("exploration");
-    private transient String mainTag = Tags.INTEL_EXPLORATION;
-    private transient IntelSortTier sortTier = IntelSortTier.TIER_0;
-    private transient Filter<IntelInfoPlugin> excludeBoardFilter = new Not<>(new IntelIsClass(ExplorationBoard.class));
-    private transient ExplorationModel model = new ExplorationModel(this, excludeBoardFilter);
-    private transient ExplorationView view = new ExplorationView(model);
+    private final transient String icon = StelnetHelper.getSpriteName("exploration");
+    private final transient String mainTag = Tags.INTEL_EXPLORATION;
+    private final transient IntelSortTier sortTier = IntelSortTier.TIER_0;
+    private final transient Filter<IntelInfoPlugin> excludeBoardFilter = new Not<>(
+        new IntelIsClass(ExplorationBoard.class)
+    );
+    private final transient ExplorationModel model = new ExplorationModel(this, excludeBoardFilter);
+    private final transient ExplorationView view = new ExplorationView(model);
 
     public Object readResolve() {
         return new ExplorationBoard();

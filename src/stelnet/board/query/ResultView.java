@@ -8,20 +8,14 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.util.Misc;
-import java.awt.Color;
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import stelnet.util.L10n;
 import stelnet.util.StelnetHelper;
 import stelnet.widget.heading.MarketHeader;
-import uilib.Renderable;
-import uilib.RenderableFactory;
-import uilib.ShowCargo;
-import uilib.ShowPeople;
-import uilib.ShowShips;
-import uilib.Spacer;
-import uilib.UiConstants;
+import uilib.*;
 import uilib.property.Size;
 
 @RequiredArgsConstructor

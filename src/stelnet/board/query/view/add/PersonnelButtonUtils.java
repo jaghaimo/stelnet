@@ -9,13 +9,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.query.provider.SkillProvider;
 import stelnet.board.query.view.FilteringButton;
-import stelnet.filter.AnyHasTag;
-import stelnet.filter.Filter;
-import stelnet.filter.LogicalNot;
-import stelnet.filter.PersonHasPersonality;
-import stelnet.filter.PersonHasSkill;
-import stelnet.filter.PersonIsPostedAs;
-import stelnet.filter.SkillIsCombatOfficer;
+import stelnet.filter.*;
 import stelnet.util.L10n;
 
 @RequiredArgsConstructor

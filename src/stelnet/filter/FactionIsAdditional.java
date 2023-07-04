@@ -15,7 +15,7 @@ public final class FactionIsAdditional extends FactionFilter {
     }
 
     @Override
-    protected boolean acceptFaction(FactionAPI faction) {
+    protected boolean acceptFaction(final FactionAPI faction) {
         return additionalFactions.contains(faction.getId());
     }
 }

@@ -25,9 +25,9 @@ configurations {
 }
 
 // install dependencies from zipped releases
-task installDependencies(type: Sync) {
+tasks.register('installDependencies', Sync) {
     def extractDir = "${buildDir}/libs"
-    
+
     ext.extractedJars = fileTree(extractDir) {
         include "**/*.jar"
         exclude "stelnet.jar"
@@ -35,7 +35,7 @@ task installDependencies(type: Sync) {
     }
 
     dependsOn configurations.zipped
-    from { 
+    from {
         configurations.zipped.collect { zipTree(it) }
     }
     into extractDir
@@ -87,7 +87,7 @@ dependencies {
 }
 
 // custom tasks
-task release(type: Zip) {
+tasks.register('release', Zip) {
     dependsOn build
     archiveFileName = "${project.name}-${readModInfoJson().version}.zip"
     destinationDirectory = file(rootDir)

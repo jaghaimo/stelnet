@@ -2,7 +2,7 @@ package uilib;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.util.Misc;
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * Temporary color abstraction.

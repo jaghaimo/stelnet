@@ -2,24 +2,12 @@ package stelnet.board.contact;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import lombok.RequiredArgsConstructor;
 import stelnet.filter.Filter;
 import stelnet.filter.LogicalOr;
 import stelnet.util.L10n;
-import uilib.CustomPanel;
-import uilib.Heading;
-import uilib.HorizontalViewContainer;
-import uilib.Paragraph;
-import uilib.Renderable;
-import uilib.RenderableFactory;
-import uilib.Spacer;
-import uilib.UiConstants;
-import uilib.VerticalViewContainer;
+import uilib.*;
 import uilib.property.Size;
 
 @RequiredArgsConstructor

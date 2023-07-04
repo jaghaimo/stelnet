@@ -13,12 +13,7 @@ import stelnet.util.L10n;
 import stelnet.util.ModConstants;
 import stelnet.util.StelnetHelper;
 import stelnet.widget.heading.MarketHeader;
-import uilib.Renderable;
-import uilib.RenderableIntelInfo;
-import uilib.ShowCargo;
-import uilib.ShowShips;
-import uilib.Spacer;
-import uilib.UiConstants;
+import uilib.*;
 import uilib.property.Size;
 
 @Getter
@@ -56,17 +51,6 @@ public class StorageIntel extends IntelBasePlugin {
     }
 
     @Override
-    protected RenderableIntelInfo getIntelInfo() {
-        return new IntelRenderableInfo(
-            getLocationNameWithSystem(),
-            L10n.common("INTEL_LOCATION"),
-            getStorageContent(),
-            L10n.common("INTEL_FACTION"),
-            getFactionWithRel()
-        );
-    }
-
-    @Override
     protected List<Renderable> getRenderableList(final Size size) {
         final MarketHeader marketHeader = new MarketHeader(storage.getMarket(), this);
         marketHeader.getPeekButton().setEnabled(false);
@@ -79,6 +63,17 @@ public class StorageIntel extends IntelBasePlugin {
             new ShowCargo(cargo, L10n.common("ITEMS"), L10n.storage("INTEL_NO_ITEMS"), size),
             new Spacer(UiConstants.DEFAULT_SPACER * 2),
             new ShowShips(ships, L10n.common("SHIPS"), L10n.storage("INTEL_NO_SHIPS"), size)
+        );
+    }
+
+    @Override
+    protected RenderableIntelInfo getIntelInfo() {
+        return new IntelRenderableInfo(
+            getLocationNameWithSystem(),
+            L10n.common("INTEL_LOCATION"),
+            getStorageContent(),
+            L10n.common("INTEL_FACTION"),
+            getFactionWithRel()
         );
     }
 

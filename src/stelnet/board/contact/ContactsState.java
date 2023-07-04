@@ -3,12 +3,7 @@ package stelnet.board.contact;
 import com.fs.starfarer.api.campaign.PersonImportance;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.loading.ContactTagSpec;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 import stelnet.filter.AnyHasTag;
 import stelnet.filter.ContactIsOfImportance;
 import uilib.Renderable;
@@ -67,7 +62,7 @@ public class ContactsState implements RenderableState {
 
     private void createImportanceButtons() {
         importanceButtons = new LinkedHashSet<>();
-        for (final PersonImportance importance : provider.getAllPersonImportances()) {
+        for (final PersonImportance importance : PersonImportance.values()) {
             importanceButtons.add(
                 new ContactFilterButton(importance.getDisplayName(), new ContactIsOfImportance(importance))
             );

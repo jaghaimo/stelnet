@@ -26,7 +26,7 @@ public class CommodityState implements RenderableState {
     }
 
     @Override
-    public List<Renderable> toRenderableList(Size size) {
+    public List<Renderable> toRenderableList(final Size size) {
         return new CommodityView(commodityId, activeTab, intelTracker).create(size);
     }
 

@@ -26,8 +26,8 @@ public class DelayedDialog implements EveryFrameScript {
     }
 
     @Override
-    public void advance(float amount) {
-        CampaignUIAPI campaignUi = Global.getSector().getCampaignUI();
+    public void advance(final float amount) {
+        final CampaignUIAPI campaignUi = Global.getSector().getCampaignUI();
         if (campaignUi == null) {
             unregister();
             return;

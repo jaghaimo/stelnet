@@ -20,7 +20,7 @@ public abstract class MarketTableContent implements TableContent {
     protected List<MarketTableRow> rows = new LinkedList<>();
 
     protected Object[] getHeader(final float width, final String availableOrDemand, final String excessOrDeficit) {
-        final Object header[] = {
+        final Object[] header = {
             "#",
             .05f * width,
             L10n.commodity("HEADER_PRICE"),

@@ -4,7 +4,7 @@ import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.ButtonAPI;
 import com.fs.starfarer.api.ui.CutStyle;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import java.awt.Color;
+import java.awt.*;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -20,7 +20,7 @@ public class ButtonCustom extends AbstractButton {
     private final float height;
     private final float pad;
 
-    public ButtonAPI addButton(TooltipMakerAPI tooltip) {
+    public ButtonAPI addButton(final TooltipMakerAPI tooltip) {
         return tooltip.addButton(text, data, base, bg, align, style, width, height, pad);
     }
 }

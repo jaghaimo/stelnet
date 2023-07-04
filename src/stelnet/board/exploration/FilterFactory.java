@@ -8,17 +8,12 @@ import com.fs.starfarer.api.impl.campaign.intel.bar.events.historian.BaseHistori
 import com.fs.starfarer.api.impl.campaign.intel.bases.LuddicPathBaseIntel;
 import com.fs.starfarer.api.impl.campaign.intel.bases.PirateBaseIntel;
 import com.fs.starfarer.api.impl.campaign.intel.misc.BreadcrumbIntel;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import stelnet.filters.And;
 import stelnet.filters.Filter;
 import stelnet.filters.Not;
 import stelnet.filters.Or;
 import stelnet.filters.intel.IntelContainsTitle;
-import stelnet.filters.intel.IntelFilter;
 import stelnet.filters.intel.IntelIsClass;
 import stelnet.filters.intel.IntelIsFaction;
 import stelnet.filters.intel.IntelLocationHasMemory;
@@ -27,12 +22,12 @@ import stelnet.util.ModConstants;
 
 public class FilterFactory {
 
-    private final Map<Banks, Filter<IntelInfoPlugin>> bankMap = new LinkedHashMap<>();
-    private final Map<Types, Filter<IntelInfoPlugin>> typeMap = new LinkedHashMap<>();
+    private final Map<Banks, Filter<IntelInfoPlugin>> bankMap = new HashMap<>();
+    private final Map<Types, Filter<IntelInfoPlugin>> typeMap = new HashMap<>();
 
     public FilterFactory() {
-        final IntelFilter bankFilter = new IntelIsClass(BreadcrumbIntel.class);
-        final IntelFilter captainsLogFilter = new IntelLocationHasMemory(ModConstants.CAPTAINS_LOG_INTEL);
+        final Filter<IntelInfoPlugin> bankFilter = new IntelIsClass(BreadcrumbIntel.class);
+        final Filter<IntelInfoPlugin> captainsLogFilter = new IntelLocationHasMemory(ModConstants.CAPTAINS_LOG_INTEL);
         addTypes(bankFilter, captainsLogFilter);
         addBanks(bankFilter);
     }
@@ -50,8 +45,8 @@ public class FilterFactory {
     }
 
     public Filter<IntelInfoPlugin> getFilter(final FactionAPI faction) {
-        return new And<IntelInfoPlugin>(
-            Arrays.<Filter<IntelInfoPlugin>>asList(getFilter(Types.TYPE_RAIDING_BASE), new IntelIsFaction(faction)),
+        return new And<>(
+            Arrays.asList(getFilter(Types.TYPE_RAIDING_BASE), new IntelIsFaction(faction)),
             "Raiding Faction: " + faction.getDisplayName()
         );
     }
@@ -60,8 +55,8 @@ public class FilterFactory {
         return typeMap.get(key);
     }
 
-    private void addTypes(final IntelFilter bankFilter, final IntelFilter captainsLogFilter) {
-        final Map<Types, Filter<IntelInfoPlugin>> localMap = new LinkedHashMap<>();
+    private void addTypes(final Filter<IntelInfoPlugin> bankFilter, final Filter<IntelInfoPlugin> captainsLogFilter) {
+        final Map<Types, Filter<IntelInfoPlugin>> localMap = new HashMap<>();
         localMap.put(Types.TYPE_ANALYZE_MISSION, new IntelIsClass(AnalyzeEntityMissionIntel.class));
         localMap.put(Types.TYPE_HISTORIAN_OFFER, new IntelIsClass(BaseHistorianOffer.class));
         localMap.put(Types.TYPE_MEMORY_BANK, bankFilter);
@@ -84,8 +79,8 @@ public class FilterFactory {
         typeMap.putAll(localMap);
     }
 
-    private void addBanks(final IntelFilter bankFilter) {
-        final Map<Banks, Filter<IntelInfoPlugin>> localMap = new LinkedHashMap<>();
+    private void addBanks(final Filter<IntelInfoPlugin> bankFilter) {
+        final Map<Banks, Filter<IntelInfoPlugin>> localMap = new HashMap<>();
         localMap.put(Banks.BANK_ANY_CACHE, getTitleFilter(bankFilter, "Cache"));
         localMap.put(Banks.BANK_DEBRIS_FIELD, getTitleFilter(bankFilter, "Debris Field"));
         localMap.put(Banks.BANK_DERELICT_SHIP, getTitleFilter(bankFilter, "Derelict Ship"));
@@ -93,7 +88,7 @@ public class FilterFactory {
         localMap.put(Banks.BANK_ORBITAL_HABITAT, getTitleFilter(bankFilter, "Orbital Habitat"));
         localMap.put(Banks.BANK_RUINS_LOCATION, getTitleFilter(bankFilter, "Ruins Location"));
         localMap.put(Banks.BANK_SURVEY_DATA, getTitleFilter(bankFilter, "Survey Data for"));
-        final Filter<IntelInfoPlugin> otherFilter = new And<IntelInfoPlugin>(
+        final Filter<IntelInfoPlugin> otherFilter = new And<>(
             Arrays.asList(typeMap.get(Types.TYPE_MEMORY_BANK), getOtherFilter(localMap.values())),
             "Other Banks"
         );
@@ -101,19 +96,16 @@ public class FilterFactory {
         bankMap.putAll(localMap);
     }
 
-    private Filter<IntelInfoPlugin> getTitleFilter(final IntelFilter bankFilter, final String title) {
-        return new And<IntelInfoPlugin>(
-            Arrays.<Filter<IntelInfoPlugin>>asList(bankFilter, new IntelContainsTitle(title)),
-            "Compound Filter: " + title
-        );
+    private Filter<IntelInfoPlugin> getTitleFilter(final Filter<IntelInfoPlugin> bankFilter, final String title) {
+        return new And<>(Arrays.asList(bankFilter, new IntelContainsTitle(title)), "Compound Filter: " + title);
     }
 
     private Filter<IntelInfoPlugin> getOtherFilter(final Collection<Filter<IntelInfoPlugin>> filters) {
-        return new Not<IntelInfoPlugin>(new Or<IntelInfoPlugin>(filters, "Compound Filter: Everything Else"));
+        return new Not<>(new Or<>(filters, "Compound Filter: Everything Else"));
     }
 
     private Filter<IntelInfoPlugin> getRaidingBaseFilter() {
-        return new Or<IntelInfoPlugin>(
+        return new Or<>(
             Arrays.<Filter<IntelInfoPlugin>>asList(
                 new IntelIsClass(LuddicPathBaseIntel.class),
                 new IntelIsClass(PirateBaseIntel.class)

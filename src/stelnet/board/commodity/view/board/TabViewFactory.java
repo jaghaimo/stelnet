@@ -9,11 +9,7 @@ import stelnet.board.commodity.CommodityAction;
 import stelnet.board.commodity.table.BuyTableContent;
 import stelnet.board.commodity.table.ProfitTableContent;
 import stelnet.board.commodity.table.SellTableContent;
-import uilib.Renderable;
-import uilib.RenderableFactory;
-import uilib.TabViewContainer;
-import uilib.Table;
-import uilib.TableContent;
+import uilib.*;
 import uilib.property.Size;
 
 @RequiredArgsConstructor

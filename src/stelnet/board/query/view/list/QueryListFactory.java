@@ -7,12 +7,7 @@ import lombok.RequiredArgsConstructor;
 import stelnet.board.query.Query;
 import stelnet.board.query.QueryManager;
 import stelnet.util.L10n;
-import uilib.HorizontalViewContainer;
-import uilib.Paragraph;
-import uilib.Renderable;
-import uilib.RenderableFactory;
-import uilib.Spacer;
-import uilib.UiConstants;
+import uilib.*;
 import uilib.property.Size;
 
 @RequiredArgsConstructor

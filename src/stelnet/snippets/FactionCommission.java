@@ -7,7 +7,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.intel.FactionCommissionIntel;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import lunalib.lunaDebug.LunaSnippet;
@@ -17,6 +17,11 @@ import stelnet.util.ModConstants;
 public class FactionCommission extends LunaSnippet {
 
     private final String FACTION_ID = "factionId";
+
+    @Override
+    public String getName() {
+        return "Commission to a faction";
+    }
 
     @Override
     public String getDescription() {
@@ -29,13 +34,8 @@ public class FactionCommission extends LunaSnippet {
     }
 
     @Override
-    public String getName() {
-        return "Commision to a faction";
-    }
-
-    @Override
     public List<String> getTags() {
-        return Arrays.asList(SnippetTags.Player.toString());
+        return Collections.singletonList(SnippetTags.Player.toString());
     }
 
     @Override

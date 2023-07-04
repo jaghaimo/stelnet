@@ -1,7 +1,7 @@
 package stelnet.board.exploration;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
-import java.awt.Color;
+import java.awt.*;
 import lombok.RequiredArgsConstructor;
 import stelnet.util.MemoryHelper;
 

@@ -5,7 +5,7 @@ import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.util.Misc;
-import java.awt.Color;
+import java.awt.*;
 import java.util.List;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
@@ -58,11 +58,6 @@ public class CommodityIntel extends IntelBasePlugin {
     }
 
     @Override
-    public String getIcon() {
-        return getCommodity().getIconName();
-    }
-
-    @Override
     public boolean isEnding() {
         final float supplyPrice = getSupplyPrice();
         final float demandPrice = getDemandPrice();
@@ -72,16 +67,13 @@ public class CommodityIntel extends IntelBasePlugin {
     }
 
     @Override
+    public String getIcon() {
+        return getCommodity().getIconName();
+    }
+
+    @Override
     public boolean isHidden() {
         return Modules.COMMODITIES.isHidden();
-    }
-
-    public CommoditySpecAPI getCommodity() {
-        return Global.getSector().getEconomy().getCommoditySpec(commodityId);
-    }
-
-    public void remove() {
-        intelTracker.remove(this);
     }
 
     @Override
@@ -98,6 +90,14 @@ public class CommodityIntel extends IntelBasePlugin {
             return Misc.getNegativeHighlightColor();
         }
         return Misc.getTextColor();
+    }
+
+    public CommoditySpecAPI getCommodity() {
+        return Global.getSector().getEconomy().getCommoditySpec(commodityId);
+    }
+
+    public void remove() {
+        intelTracker.remove(this);
     }
 
     public float getDemandPrice() {
@@ -117,12 +117,12 @@ public class CommodityIntel extends IntelBasePlugin {
     }
 
     @Override
-    protected RenderableIntelInfo getIntelInfo() {
-        return new CommodityIntelInfo(this);
+    protected List<Renderable> getRenderableList(final Size size) {
+        return (new CommodityIntelViewFactory(market, this)).create(size);
     }
 
     @Override
-    protected List<Renderable> getRenderableList(final Size size) {
-        return (new CommodityIntelViewFactory(market, this)).create(size);
+    protected RenderableIntelInfo getIntelInfo() {
+        return new CommodityIntelInfo(this);
     }
 }

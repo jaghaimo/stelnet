@@ -9,15 +9,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import stelnet.board.query.provider.ShipQueryProvider;
 import stelnet.board.query.view.FilteringButton;
-import stelnet.filter.Filter;
-import stelnet.filter.ShipHullHasBays;
-import stelnet.filter.ShipHullHasBuiltIn;
-import stelnet.filter.ShipHullIsManufacturer;
-import stelnet.filter.ShipHullIsSize;
-import stelnet.filter.ShipHullNoBuiltIns;
-import stelnet.filter.WeaponSlotIsSize;
-import stelnet.filter.WeaponSlotIsSizeType;
-import stelnet.filter.WeaponSlotIsType;
+import stelnet.filter.*;
 import stelnet.util.L10n;
 
 @RequiredArgsConstructor

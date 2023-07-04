@@ -1,14 +1,14 @@
 package stelnet.board.exploration;
 
-import java.awt.Color;
+import java.awt.*;
 import stelnet.util.MemoryHelper.IdAware;
 
 public interface ButtonAware extends IdAware {
-    public String getTitle();
+    String getTitle();
 
-    public String getCheckedKey();
+    String getCheckedKey();
 
-    public Color getColor();
+    Color getColor();
 
-    public String getEnabledKey();
+    String getEnabledKey();
 }

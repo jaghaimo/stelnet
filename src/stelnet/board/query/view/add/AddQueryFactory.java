@@ -11,15 +11,7 @@ import stelnet.board.query.view.ButtonGroup;
 import stelnet.board.query.view.SizeHelper;
 import stelnet.filter.Filter;
 import stelnet.util.L10n;
-import uilib.Button;
-import uilib.CustomPanel;
-import uilib.HorizontalViewContainer;
-import uilib.Renderable;
-import uilib.RenderableComponent;
-import uilib.RenderableFactory;
-import uilib.Spacer;
-import uilib.UiConstants;
-import uilib.VerticalViewContainer;
+import uilib.*;
 import uilib.property.Size;
 
 @Getter
