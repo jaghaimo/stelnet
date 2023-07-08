@@ -5,7 +5,7 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 import stelnet.util.L10n;
-import stelnet.util.MemoryHelper;
+import stelnet.util.MemoryManager;
 
 public enum Banks implements ButtonAware {
     BANK_ANY_CACHE,
@@ -43,7 +43,7 @@ public enum Banks implements ButtonAware {
 
     @Override
     public String getCheckedKey() {
-        return MemoryHelper.key(ExplorationConstants.MEMORY_PREFIX, this, ExplorationConstants.MEMORY_SUFFIX_CHECKED);
+        return getKey(ExplorationConstants.MEMORY_SUFFIX_CHECKED);
     }
 
     @Override
@@ -53,6 +53,10 @@ public enum Banks implements ButtonAware {
 
     @Override
     public String getEnabledKey() {
-        return MemoryHelper.key(ExplorationConstants.MEMORY_PREFIX, this, ExplorationConstants.MEMORY_SUFFIX_ENABLED);
+        return getKey(ExplorationConstants.MEMORY_SUFFIX_ENABLED);
+    }
+
+    private String getKey(final String suffix) {
+        return MemoryManager.getInstance().key(ExplorationConstants.MEMORY_PREFIX, this, suffix);
     }
 }

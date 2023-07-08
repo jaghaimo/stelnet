@@ -7,7 +7,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import stelnet.settings.CaptainsLogSettings;
 import stelnet.util.L10n;
-import stelnet.util.MemoryHelper;
+import stelnet.util.MemoryManager;
 
 @RequiredArgsConstructor
 public enum Types implements ButtonAware {
@@ -51,7 +51,7 @@ public enum Types implements ButtonAware {
 
     @Override
     public String getCheckedKey() {
-        return MemoryHelper.key(ExplorationConstants.MEMORY_PREFIX, this, ExplorationConstants.MEMORY_SUFFIX_CHECKED);
+        return getKey(ExplorationConstants.MEMORY_SUFFIX_CHECKED);
     }
 
     @Override
@@ -61,6 +61,10 @@ public enum Types implements ButtonAware {
 
     @Override
     public String getEnabledKey() {
-        return MemoryHelper.key(ExplorationConstants.MEMORY_PREFIX, this, ExplorationConstants.MEMORY_SUFFIX_ENABLED);
+        return getKey(ExplorationConstants.MEMORY_SUFFIX_ENABLED);
+    }
+
+    private String getKey(final String suffix) {
+        return MemoryManager.getInstance().key(ExplorationConstants.MEMORY_PREFIX, this, suffix);
     }
 }

@@ -8,18 +8,18 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.impl.campaign.RuleBasedInteractionDialogPluginImpl;
 import com.fs.starfarer.api.ui.IntelUIAPI;
-import stelnet.util.MemoryHelper;
+import stelnet.util.MemoryManager;
 import stelnet.util.ModConstants;
 import stelnet.util.StelnetHelper;
 
 public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
 
-    private InteractionDialogAPI dialog;
     private final MarketAPI market;
     private final PersonAPI person;
     private final IntelUIAPI ui;
     private final CargoFleetData playerData;
     private final CargoFleetData storageData;
+    private InteractionDialogAPI dialog;
 
     public ContactDialog(final IntelUIAPI ui, final PersonAPI person, final SubmarketAPI storage) {
         super("OpenCDE");
@@ -74,7 +74,7 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
     }
 
     private void dismiss() {
-        MemoryHelper.unset(ModConstants.MEMORY_IS_CALLING);
+        MemoryManager.getInstance().unset(ModConstants.MEMORY_IS_CALLING);
         final ContactsBoard board = StelnetHelper.getInstance(ContactsBoard.class);
         if (this.isRemoteCall()) {
             board.getRenderableState().addTrackingData(market, storageData, playerData);

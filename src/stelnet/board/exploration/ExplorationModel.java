@@ -18,7 +18,7 @@ import stelnet.filters.Or;
 import stelnet.filters.intel.IntelHasTag;
 import stelnet.filters.intel.IntelIsHidden;
 import stelnet.filters.intel.IntelLocationHasMemory;
-import stelnet.util.MemoryHelper;
+import stelnet.util.MemoryManager;
 import stelnet.util.ModConstants;
 
 @Log4j
@@ -98,12 +98,13 @@ public class ExplorationModel {
         final Filter<IntelInfoPlugin> filter
     ) {
         final String isEnabledKey = key.getEnabledKey();
-        final boolean isEnabled = MemoryHelper.getBoolean(isEnabledKey, true);
+        final MemoryManager memoryManager = MemoryManager.getInstance();
+        final boolean isEnabled = memoryManager.getBoolean(isEnabledKey, true);
         if (!isEnabled) {
             return;
         }
         final String isCheckedKey = key.getCheckedKey();
-        final boolean isChecked = MemoryHelper.getBoolean(isCheckedKey, true);
+        final boolean isChecked = memoryManager.getBoolean(isCheckedKey, true);
         if (!isChecked) {
             filters.add(filter);
         }

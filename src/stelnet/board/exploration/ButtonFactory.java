@@ -80,7 +80,7 @@ public class ButtonFactory {
     }
 
     private ExplorationButton getButton(final ButtonAware buttonType, final boolean withShift) {
-        return new ExplorationButton(buttonType, refreshAction, width, withShift);
+        return new ExplorationButton(buttonType, width, withShift, refreshAction);
     }
 
     private boolean addButton(

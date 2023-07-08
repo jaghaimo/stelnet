@@ -2,7 +2,7 @@ package stelnet.board.exploration;
 
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import lombok.RequiredArgsConstructor;
-import stelnet.util.MemoryHelper;
+import stelnet.util.MemoryManager;
 import uilib2.intel.IntelUiAction;
 
 @RequiredArgsConstructor
@@ -13,6 +13,6 @@ public class UpdateMemoryFlag implements IntelUiAction {
 
     @Override
     public void act(final IntelUIAPI ui) {
-        MemoryHelper.set(key, value);
+        MemoryManager.getInstance().set(key, value);
     }
 }

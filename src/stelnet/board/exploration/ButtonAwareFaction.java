@@ -3,7 +3,7 @@ package stelnet.board.exploration;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import java.awt.*;
 import lombok.RequiredArgsConstructor;
-import stelnet.util.MemoryHelper;
+import stelnet.util.MemoryManager;
 
 @RequiredArgsConstructor
 public class ButtonAwareFaction implements ButtonAware {
@@ -22,7 +22,7 @@ public class ButtonAwareFaction implements ButtonAware {
 
     @Override
     public String getCheckedKey() {
-        return MemoryHelper.key(ExplorationConstants.MEMORY_PREFIX, this, ExplorationConstants.MEMORY_SUFFIX_CHECKED);
+        return getKey(ExplorationConstants.MEMORY_SUFFIX_CHECKED);
     }
 
     @Override
@@ -32,6 +32,10 @@ public class ButtonAwareFaction implements ButtonAware {
 
     @Override
     public String getEnabledKey() {
-        return MemoryHelper.key(ExplorationConstants.MEMORY_PREFIX, this, ExplorationConstants.MEMORY_SUFFIX_ENABLED);
+        return getKey(ExplorationConstants.MEMORY_SUFFIX_ENABLED);
+    }
+
+    private String getKey(final String suffix) {
+        return MemoryManager.getInstance().key(ExplorationConstants.MEMORY_PREFIX, this, suffix);
     }
 }
