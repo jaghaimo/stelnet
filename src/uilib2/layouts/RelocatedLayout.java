@@ -9,15 +9,15 @@ public class RelocatedLayout extends DecoratedLayout {
     private final float x;
     private final float y;
 
-    public RelocatedLayout(Layout layout, float x, float y) {
+    public RelocatedLayout(final Layout layout, final float x, final float y) {
         super(layout);
         this.x = x;
         this.y = y;
     }
 
     @Override
-    public PositionAPI draw(CustomPanelAPI panel, float width, float height) {
-        PositionAPI position = super.draw(panel, width, height);
+    public PositionAPI draw(final CustomPanelAPI panel, final float width, final float height) {
+        final PositionAPI position = super.draw(panel, width, height);
         position.inTL(x, y);
         return position;
     }

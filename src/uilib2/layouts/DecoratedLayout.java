@@ -11,7 +11,7 @@ public abstract class DecoratedLayout implements Layout {
     private final Layout layout;
 
     @Override
-    public PositionAPI draw(CustomPanelAPI panel, float width, float height) {
+    public PositionAPI draw(final CustomPanelAPI panel, final float width, final float height) {
         return layout.draw(panel, width, height);
     }
 }

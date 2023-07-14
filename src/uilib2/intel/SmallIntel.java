@@ -11,8 +11,8 @@ import uilib2.Drawable;
 public abstract class SmallIntel extends DrawableIntel {
 
     @Override
-    public void createSmallDescription(TooltipMakerAPI tooltip, float width, float height) {
-        for (Drawable drawable : getDrawableList(width, height)) {
+    public void createSmallDescription(final TooltipMakerAPI tooltip, final float width, final float height) {
+        for (final Drawable drawable : getDrawableList(width, height)) {
             drawable.draw(tooltip);
         }
     }
@@ -22,7 +22,7 @@ public abstract class SmallIntel extends DrawableIntel {
         return true;
     }
 
-    protected List<Drawable> getDrawableList(float width, float height) {
-        return Collections.<Drawable>emptyList();
+    protected List<Drawable> getDrawableList(final float width, final float height) {
+        return Collections.emptyList();
     }
 }

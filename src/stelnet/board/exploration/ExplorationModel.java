@@ -15,6 +15,7 @@ import stelnet.filters.Filter;
 import stelnet.filters.FilterHelper;
 import stelnet.filters.Not;
 import stelnet.filters.Or;
+import stelnet.filters.faction.FactionIsNotPlayer;
 import stelnet.filters.intel.IntelHasTag;
 import stelnet.filters.intel.IntelIsHidden;
 import stelnet.filters.intel.IntelLocationHasMemory;
@@ -135,6 +136,7 @@ public class ExplorationModel {
         for (final IntelInfoPlugin intel : filterableIntel) {
             factions.add(intel.getFactionForUIColors());
         }
+        FilterHelper.reduce(factions, new FactionIsNotPlayer());
     }
 
     private void updateIntelList(final List<IntelInfoPlugin> intelList) {

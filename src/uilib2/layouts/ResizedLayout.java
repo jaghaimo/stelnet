@@ -9,15 +9,15 @@ public class ResizedLayout extends DecoratedLayout {
     private final float width;
     private final float height;
 
-    public ResizedLayout(Layout layout, float width, float height) {
+    public ResizedLayout(final Layout layout, final float width, final float height) {
         super(layout);
         this.width = width;
         this.height = height;
     }
 
     @Override
-    public PositionAPI draw(CustomPanelAPI panel, float width, float height) {
-        PositionAPI position = super.draw(panel, width, height);
+    public PositionAPI draw(final CustomPanelAPI panel, final float width, final float height) {
+        final PositionAPI position = super.draw(panel, width, height);
         position.setSize(this.width, this.height);
         return position;
     }

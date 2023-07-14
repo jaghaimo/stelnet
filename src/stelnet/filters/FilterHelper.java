@@ -7,9 +7,8 @@ public class FilterHelper {
     public static String name(final Iterable<?> iterable, final String delimiter, final String empty) {
         final int delimiterLength = delimiter.length();
         final StringBuilder builder = new StringBuilder();
-        final Iterator<?> iterator = iterable.iterator();
-        while (iterator.hasNext()) {
-            final String nextString = iterator.next().toString().trim();
+        for (final Object o : iterable) {
+            final String nextString = o.toString().trim();
             if (nextString.isEmpty()) {
                 continue;
             }

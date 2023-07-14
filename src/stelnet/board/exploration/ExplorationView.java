@@ -44,7 +44,13 @@ public class ExplorationView {
     }
 
     private void addHeader(final List<Drawable> drawables, final String title, final Button toggleButton) {
-        drawables.add(new HeaderWithButtons(title, Misc.getBasePlayerColor(), Misc.getDarkPlayerColor(), toggleButton));
+        final HeaderWithButtons headerWithButtons = new HeaderWithButtons(
+            title,
+            Misc.getBasePlayerColor(),
+            Misc.getDarkPlayerColor()
+        );
+        headerWithButtons.addRightButton(toggleButton);
+        drawables.add(headerWithButtons);
         drawables.add(new Spacer(UiConstants.SPACER_DEFAULT));
     }
 

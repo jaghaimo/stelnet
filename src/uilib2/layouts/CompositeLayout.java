@@ -5,8 +5,8 @@ import com.fs.starfarer.api.ui.CustomPanelAPI;
 import com.fs.starfarer.api.ui.PositionAPI;
 import java.util.LinkedList;
 import java.util.List;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.Delegate;
 import uilib2.Layout;
 
 /**
@@ -15,7 +15,7 @@ import uilib2.Layout;
 @RequiredArgsConstructor
 public class CompositeLayout implements Layout {
 
-    @Delegate
+    @Getter
     private final List<Layout> layouts;
 
     private final CustomUIPanelPlugin plugin;
@@ -24,18 +24,18 @@ public class CompositeLayout implements Layout {
         this(new LinkedList<Layout>(), null);
     }
 
-    public CompositeLayout(CustomUIPanelPlugin plugin) {
+    public CompositeLayout(final CustomUIPanelPlugin plugin) {
         this(new LinkedList<Layout>(), plugin);
     }
 
-    public CompositeLayout(List<Layout> layouts) {
+    public CompositeLayout(final List<Layout> layouts) {
         this(layouts, null);
     }
 
     @Override
-    public PositionAPI draw(CustomPanelAPI panel, float width, float height) {
-        CustomPanelAPI subPanel = panel.createCustomPanel(width, height, plugin);
-        for (Layout layout : layouts) {
+    public PositionAPI draw(final CustomPanelAPI panel, final float width, final float height) {
+        final CustomPanelAPI subPanel = panel.createCustomPanel(width, height, plugin);
+        for (final Layout layout : layouts) {
             layout.draw(subPanel, width, height);
         }
         return panel.addComponent(subPanel);

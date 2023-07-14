@@ -9,9 +9,9 @@ import stelnet.board.commodity.CommodityBoard;
 import stelnet.board.commodity.CommodityIntel;
 import stelnet.board.commodity.table.ProfitTableContent;
 import stelnet.board.commodity.table.ProfitTableRow;
-import stelnet.board.contact.ContactsBoard;
 import stelnet.board.contact.SebestyenContactIntel;
 import stelnet.board.contact.SebestyenContactMaker;
+import stelnet.board.contact2.ContactBoard;
 import stelnet.board.exploration.ExplorationBoard;
 import stelnet.board.query.MarketUpdater;
 import stelnet.board.query.QueryBoard;
@@ -73,11 +73,11 @@ public class SettingsListener implements LunaSettingsListener {
 
     private static void initContacts(final boolean hasContacts) {
         if (hasContacts) {
-            StelnetHelper.getInstance(ContactsBoard.class);
+            StelnetHelper.getInstance(ContactBoard.class);
             SebestyenContactMaker.register();
             log.info("Enabled Contacts module");
         } else {
-            purgeIntel(ContactsBoard.class, SebestyenContactIntel.class);
+            purgeIntel(ContactBoard.class, SebestyenContactIntel.class);
             log.info("Disabled Contacts module");
         }
     }

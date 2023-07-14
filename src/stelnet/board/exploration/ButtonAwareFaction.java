@@ -1,6 +1,7 @@
 package stelnet.board.exploration;
 
 import com.fs.starfarer.api.campaign.FactionAPI;
+import com.fs.starfarer.api.util.Misc;
 import java.awt.*;
 import lombok.RequiredArgsConstructor;
 import stelnet.util.MemoryManager;
@@ -17,7 +18,7 @@ public class ButtonAwareFaction implements ButtonAware {
 
     @Override
     public String getTitle() {
-        return faction.getDisplayName();
+        return Misc.ucFirst(faction.getDisplayName());
     }
 
     @Override
