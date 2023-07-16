@@ -3,6 +3,7 @@ package stelnet.board.contact2;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -23,14 +24,15 @@ public class ContactModel {
             final Contact contact = makeContact((ContactIntel) intel);
             contacts.add(contact);
         }
-    }
-
-    public int getContactNumber() {
-        return contacts.size();
+        Collections.sort(contacts);
     }
 
     private Contact makeContact(final ContactIntel intel) {
         final boolean hasActiveMissions = false;
         return new Contact(intel, hasActiveMissions);
+    }
+
+    public int getContactNumber() {
+        return contacts.size();
     }
 }

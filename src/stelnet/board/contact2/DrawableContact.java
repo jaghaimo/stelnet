@@ -6,9 +6,7 @@ import com.fs.starfarer.api.ui.UIComponentAPI;
 import java.awt.*;
 import lombok.RequiredArgsConstructor;
 import uilib2.Drawable;
-import uilib2.Spacer;
 import uilib2.UiConstants;
-import uilib2.label.ParaBasic;
 import uilib2.widget.HeaderWithButtons;
 
 @RequiredArgsConstructor
@@ -20,21 +18,19 @@ public class DrawableContact implements Drawable {
     @Override
     public UIComponentAPI draw(final TooltipMakerAPI tooltip) {
         final IntelInfoPlugin intel = contact.getIntel();
-        final Color base = contact.getBaseColor();
-        final Color dark = contact.getDarkColor();
-        final HeaderWithButtons headerWithButtons = new HeaderWithButtons(
-            contact.getName(),
-            contact.getBaseColor(),
-            contact.getDarkColor()
-        );
+        final Color base = contact.getPerson().getFaction().getBaseUIColor();
+        final Color dark = contact.getPerson().getFaction().getDarkUIColor();
+        final HeaderWithButtons headerWithButtons = new HeaderWithButtons(contact.getTitle(), base, dark);
         headerWithButtons.addLeftButton(factory.getLeft(intel, base, dark));
         headerWithButtons.addLeftButton(factory.getNumber(base, dark));
         headerWithButtons.addLeftButton(factory.getRight(intel, base, dark));
         headerWithButtons.addRightButton(factory.getCall(intel, base, dark));
         headerWithButtons.addRightButton(factory.getShow(intel, base, dark));
         headerWithButtons.draw(tooltip);
-        new ParaBasic(contact.getMissionTypeText() + contact.getLocationText(), UiConstants.SPACER_SMALL).draw(tooltip);
-        new Spacer(UiConstants.SPACER_LARGE).draw(tooltip);
+        final TooltipMakerAPI innerTooltip = tooltip.beginImageWithText(contact.getPerson().getPortraitSprite(), 64);
+        innerTooltip.addPara(contact.getMissionTypeText() + contact.getLocationText(), 1);
+        tooltip.addImageWithText(UiConstants.SPACER_SMALL);
+        tooltip.addSpacer(UiConstants.SPACER_LARGE);
         return null;
     }
 }
