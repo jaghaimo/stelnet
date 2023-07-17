@@ -1,16 +1,15 @@
-package stelnet.board.contact2;
+package stelnet.board.contact;
 
+import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
-import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.ui.UIComponentAPI;
 import com.fs.starfarer.api.util.Misc;
-import java.util.HashSet;
-import java.util.Set;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import stelnet.util.L10n;
 import stelnet.util.StelnetHelper;
@@ -24,19 +23,25 @@ public class Contact implements Comparable<Contact>, Drawable {
 
     private static final String SORT_IDX_KEY = "$stelnetSortIdx";
 
-    private final ContactIntel intel;
+    private final IntelInfoPlugin contactBoard;
+    private final IntelInfoPlugin contactIntel;
     private final ContactIntel.ContactState state;
     private final PersonAPI person;
     private final MarketAPI market;
-    private final boolean hasActiveMissions;
 
-    @Getter
-    private final Set<ContactActions> actions = new HashSet<>();
+    @Setter
+    private boolean callEnabled = false;
 
-    private int sortIdx = 0;
+    private int sortIdx = 1;
 
-    public Contact(final ContactIntel intel, final boolean hasActiveMissions) {
-        this(intel, intel.getState(), intel.getPerson(), intel.getMapLocation(null).getMarket(), hasActiveMissions);
+    public Contact(final IntelInfoPlugin contactBoard, final ContactIntel contactIntel) {
+        this(
+            contactBoard,
+            contactIntel,
+            contactIntel.getState(),
+            contactIntel.getPerson(),
+            contactIntel.getMapLocation(null).getMarket()
+        );
         sortIdx = fetchSortIdx();
     }
 
@@ -50,7 +55,7 @@ public class Contact implements Comparable<Contact>, Drawable {
     public boolean isValid() {
         final boolean hasPerson = person != null;
         final boolean hasMarket = market != null;
-        final boolean hasIntel = intel != null;
+        final boolean hasIntel = contactIntel != null;
         final boolean hasState = state != null;
         return hasPerson && hasMarket && hasIntel && hasState;
     }
@@ -63,16 +68,6 @@ public class Contact implements Comparable<Contact>, Drawable {
         final int newSortIdx = Math.min(Math.max(sortIdx + delta, 1), 9);
         sortIdx = newSortIdx;
         person.getMemoryWithoutUpdate().set(SORT_IDX_KEY, newSortIdx);
-    }
-
-    public boolean canCall() {
-        if (hasActiveMissions) {
-            return false;
-        }
-        if (market == null) {
-            return false;
-        }
-        return market.hasSubmarket(Submarkets.SUBMARKET_STORAGE);
     }
 
     public String getTitle() {
@@ -107,7 +102,7 @@ public class Contact implements Comparable<Contact>, Drawable {
     @Override
     public UIComponentAPI draw(final TooltipMakerAPI tooltip) {
         if (isValid()) {
-            return new DrawableContact(this).draw(tooltip);
+            return new DrawableContact(this, new ButtonFactory(this)).draw(tooltip);
         }
         log.warn("Skipping drawing of invalid contact.");
         return new Spacer(0).draw(tooltip);
@@ -118,9 +113,9 @@ public class Contact implements Comparable<Contact>, Drawable {
         if (!isValid() || !o.isValid()) {
             return 0;
         }
-        int sortDelta = getSortIdx() - o.getSortIdx();
+        int sortDelta = o.getSortIdx() - sortIdx;
         if (sortDelta == 0) {
-            sortDelta = getPerson().getNameString().compareTo(o.getPerson().getNameString());
+            sortDelta = person.getNameString().compareTo(o.getPerson().getNameString());
         }
         return sortDelta;
     }

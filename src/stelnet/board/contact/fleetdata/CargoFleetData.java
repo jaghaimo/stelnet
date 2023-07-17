@@ -1,4 +1,4 @@
-package stelnet.board.contact;
+package stelnet.board.contact.fleetdata;
 
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.CargoAPI;
@@ -19,12 +19,12 @@ public class CargoFleetData {
     protected final List<CargoStackAPI> cargoStacks;
     protected final List<FleetMemberAPI> fleetMembers;
 
-    public CargoFleetData(final CargoAPI cargo, final FleetDataAPI fleet) {
-        this(cargo, fleet, cargo.getStacksCopy(), fleet.getMembersListCopy());
-    }
-
     public CargoFleetData(final CampaignFleetAPI fleet) {
         this(fleet.getCargo(), fleet.getFleetData());
+    }
+
+    public CargoFleetData(final CargoAPI cargo, final FleetDataAPI fleet) {
+        this(cargo, fleet, cargo.getStacksCopy(), fleet.getMembersListCopy());
     }
 
     public CargoFleetData(final SubmarketAPI submarket) {
@@ -34,17 +34,6 @@ public class CargoFleetData {
     public void add(final CargoFleetData other) {
         addCargo(other.getCargo().getStacksCopy());
         addFleet(other.getFleet().getMembersListCopy());
-    }
-
-    public void clear() {
-        cargo.clear();
-        fleet.clear();
-    }
-
-    public void restore() {
-        clear();
-        addCargo(cargoStacks);
-        addFleet(fleetMembers);
     }
 
     private void addCargo(final List<CargoStackAPI> stacks) {
@@ -57,5 +46,16 @@ public class CargoFleetData {
         for (final FleetMemberAPI member : members) {
             fleet.addFleetMember(member);
         }
+    }
+
+    public void restore() {
+        clear();
+        addCargo(cargoStacks);
+        addFleet(fleetMembers);
+    }
+
+    public void clear() {
+        cargo.clear();
+        fleet.clear();
     }
 }

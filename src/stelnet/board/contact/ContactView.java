@@ -1,4 +1,4 @@
-package stelnet.board.contact2;
+package stelnet.board.contact;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,6 @@ import uilib2.label.HighlightFirst;
 public class ContactView {
 
     private final ContactModel model;
-    private final int filterWidth = 200;
 
     public DrawableIntelInfo getIntelInfo() {
         final int contactNumber = model.getContactNumber();
@@ -30,6 +29,7 @@ public class ContactView {
     public List<Drawable> getDrawables(final float width, final float height) {
         final List<Drawable> drawables = new ArrayList<Drawable>(model.getContacts());
         drawables.add(new Spacer(-UiConstants.SPACER_DEFAULT));
+        drawables.add(new AwaitingCollection(model.getAwaitingCollection(), width));
         return drawables;
     }
 }

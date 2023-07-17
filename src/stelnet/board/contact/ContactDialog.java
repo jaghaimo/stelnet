@@ -8,6 +8,7 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.impl.campaign.RuleBasedInteractionDialogPluginImpl;
 import com.fs.starfarer.api.ui.IntelUIAPI;
+import stelnet.board.contact.fleetdata.CargoFleetData;
 import stelnet.util.MemoryManager;
 import stelnet.util.ModConstants;
 import stelnet.util.StelnetHelper;
@@ -31,6 +32,22 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
         if (this.isRemoteCall()) {
             playerData.clear();
         }
+    }
+
+    private boolean isRemoteCall() {
+        final SectorEntityToken playerFocus = Global.getSector().getPlayerFleet().getOrbitFocus();
+        if (playerFocus == null) {
+            return true;
+        }
+        if (playerFocus.equals(this.market.getPrimaryEntity())) {
+            return false;
+        }
+        for (final SectorEntityToken connectedEntity : this.market.getConnectedEntities()) {
+            if (playerFocus.equals(connectedEntity)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -57,27 +74,11 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
         super.optionSelected(text, optionData);
     }
 
-    private boolean isRemoteCall() {
-        final SectorEntityToken playerFocus = Global.getSector().getPlayerFleet().getOrbitFocus();
-        if (playerFocus == null) {
-            return true;
-        }
-        if (playerFocus.equals(this.market.getPrimaryEntity())) {
-            return false;
-        }
-        for (final SectorEntityToken connectedEntity : this.market.getConnectedEntities()) {
-            if (playerFocus.equals(connectedEntity)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     private void dismiss() {
         MemoryManager.getInstance().unset(ModConstants.MEMORY_IS_CALLING);
-        final ContactsBoard board = StelnetHelper.getInstance(ContactsBoard.class);
+        final ContactBoard board = StelnetHelper.getInstance(ContactBoard.class);
         if (this.isRemoteCall()) {
-            board.getRenderableState().addTrackingData(market, storageData, playerData);
+            board.getModel().addTrackingData(market, storageData, playerData);
             storageData.add(playerData);
             playerData.restore();
         }

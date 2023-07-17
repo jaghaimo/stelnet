@@ -1,4 +1,4 @@
-package stelnet.board.contact;
+package stelnet.board.contact.sebestyen;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.PersonImportance;
@@ -59,14 +59,6 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
         return getPerson() != null;
     }
 
-    private void addContact() {
-        final PersonAPI person = getPerson();
-        final MarketAPI market = getGalatia();
-        fixPerson(person, market);
-        final ContactIntel contact = new SebestyenContactIntel(person, market);
-        Global.getSector().getIntelManager().addIntel(contact);
-    }
-
     /**
      * Change Galatia "market" to be contact-worthy.
      */
@@ -86,13 +78,12 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
         return true;
     }
 
-    /**
-     * Make Sebestyen a more "solid" person.
-     */
-    private void fixPerson(final PersonAPI person, final MarketAPI market) {
-        person.setMarket(market);
-        person.addTag(Tags.CONTACT_SCIENCE);
-        person.setImportance(PersonImportance.VERY_HIGH);
+    private void addContact() {
+        final PersonAPI person = getPerson();
+        final MarketAPI market = getGalatia();
+        fixPerson(person, market);
+        final ContactIntel contact = new SebestyenContactIntel(person, market);
+        Global.getSector().getIntelManager().addIntel(contact);
     }
 
     private SebestyenContactIntel getContactIntel() {
@@ -106,6 +97,15 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
         return (SebestyenContactIntel) plugins.get(0);
     }
 
+    private boolean hasMetProvost() {
+        final String MET_BAIRD_MEM_KEY = "$metBaird";
+        return Global.getSector().getPlayerMemoryWithoutUpdate().getBoolean(MET_BAIRD_MEM_KEY);
+    }
+
+    private PersonAPI getPerson() {
+        return Global.getSector().getImportantPeople().getPerson(People.SEBESTYEN);
+    }
+
     private MarketAPI getGalatia() {
         final SectorEntityToken token = Global.getSector().getEntityById("station_galatia_academy");
         if (token == null) {
@@ -114,12 +114,12 @@ public class SebestyenContactMaker implements ColonyInteractionListener {
         return token.getMarket();
     }
 
-    private PersonAPI getPerson() {
-        return Global.getSector().getImportantPeople().getPerson(People.SEBESTYEN);
-    }
-
-    private boolean hasMetProvost() {
-        final String MET_BAIRD_MEM_KEY = "$metBaird";
-        return Global.getSector().getPlayerMemoryWithoutUpdate().getBoolean(MET_BAIRD_MEM_KEY);
+    /**
+     * Make Sebestyen a more "solid" person.
+     */
+    private void fixPerson(final PersonAPI person, final MarketAPI market) {
+        person.setMarket(market);
+        person.addTag(Tags.CONTACT_SCIENCE);
+        person.setImportance(PersonImportance.VERY_HIGH);
     }
 }

@@ -9,9 +9,9 @@ import stelnet.board.commodity.CommodityBoard;
 import stelnet.board.commodity.CommodityIntel;
 import stelnet.board.commodity.table.ProfitTableContent;
 import stelnet.board.commodity.table.ProfitTableRow;
-import stelnet.board.contact.SebestyenContactIntel;
-import stelnet.board.contact.SebestyenContactMaker;
-import stelnet.board.contact2.ContactBoard;
+import stelnet.board.contact.ContactBoard;
+import stelnet.board.contact.sebestyen.SebestyenContactIntel;
+import stelnet.board.contact.sebestyen.SebestyenContactMaker;
 import stelnet.board.exploration.ExplorationBoard;
 import stelnet.board.query.MarketUpdater;
 import stelnet.board.query.QueryBoard;
@@ -40,6 +40,16 @@ public class SettingsListener implements LunaSettingsListener {
         }
     }
 
+    @Override
+    public void settingsChanged(final String modId) {
+        if (!ModConstants.STELNET_ID.equals(modId)) {
+            return;
+        }
+        if (Global.getCurrentState().equals(GameState.CAMPAIGN)) {
+            apply();
+        }
+    }
+
     public static void apply() {
         resetCache();
         initCommodity(Modules.COMMODITIES.has());
@@ -64,10 +74,16 @@ public class SettingsListener implements LunaSettingsListener {
         ShipQueryProvider.resetCache();
     }
 
-    private static void purgeIntel(final Class<?>... classNames) {
-        for (final Class<?> className : classNames) {
-            log.debug("Removing intel " + className);
-            StelnetHelper.removeIntel(className);
+    private static void initCommodity(final boolean hasCommodities) {
+        if (hasCommodities) {
+            StelnetHelper.getInstance(CommodityBoard.class).restore();
+            log.info("Enabled Commodity module");
+            ProfitTableContent.MAX_ROWS = IntSettings.COMMODITY_PROFIT_ROW_NUMBER.get();
+            ProfitTableContent.MINIMUM_PROFIT_VALUE = IntSettings.COMMODITY_PROFIT_MIN_PROFIT.get();
+            ProfitTableRow.MINIMUM_QUANTITY = IntSettings.COMMODITY_PROFIT_MIN_QUANTITY.get();
+        } else {
+            purgeIntel(CommodityBoard.class, CommodityIntel.class);
+            log.info("Disabled Commodity module");
         }
     }
 
@@ -79,19 +95,6 @@ public class SettingsListener implements LunaSettingsListener {
         } else {
             purgeIntel(ContactBoard.class, SebestyenContactIntel.class);
             log.info("Disabled Contacts module");
-        }
-    }
-
-    private static void initCommodity(final boolean hasCommodities) {
-        if (hasCommodities) {
-            StelnetHelper.getInstance(CommodityBoard.class).restore();
-            log.info("Enabled Commodity module");
-            ProfitTableContent.MAX_ROWS = IntSettings.COMMODITY_PROFIT_ROW_NUMBER.get();
-            ProfitTableContent.MINIMUM_PROFIT_VALUE = IntSettings.COMMODITY_PROFIT_MIN_PROFIT.get();
-            ProfitTableRow.MINIMUM_QUANTITY = IntSettings.COMMODITY_PROFIT_MIN_QUANTITY.get();
-        } else {
-            purgeIntel(CommodityBoard.class, CommodityIntel.class);
-            log.info("Disabled Commodity module");
         }
     }
 
@@ -133,13 +136,10 @@ public class SettingsListener implements LunaSettingsListener {
         }
     }
 
-    @Override
-    public void settingsChanged(final String modId) {
-        if (!ModConstants.STELNET_ID.equals(modId)) {
-            return;
-        }
-        if (Global.getCurrentState().equals(GameState.CAMPAIGN)) {
-            apply();
+    private static void purgeIntel(final Class<?>... classNames) {
+        for (final Class<?> className : classNames) {
+            log.debug("Removing intel " + className);
+            StelnetHelper.removeIntel(className);
         }
     }
 }

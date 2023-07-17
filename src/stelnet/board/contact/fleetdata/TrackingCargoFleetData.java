@@ -1,4 +1,4 @@
-package stelnet.board.contact;
+package stelnet.board.contact.fleetdata;
 
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
@@ -22,6 +22,18 @@ public class TrackingCargoFleetData extends CargoFleetData {
         fleetMembers.addAll(other.getFleet().getMembersListCopy());
     }
 
+    public boolean hasAny() {
+        return hasAnyInCargo() || hasAnyInFleet();
+    }
+
+    public boolean hasAnyInCargo() {
+        return !getNewContentInCargo().isEmpty();
+    }
+
+    public boolean hasAnyInFleet() {
+        return !getNewContentInFleet().isEmpty();
+    }
+
     public List<CargoStackAPI> getNewContentInCargo() {
         final List<CargoStackAPI> cargoStacksCopy = new LinkedList<>();
         for (final CargoStackAPI stack : cargoStacks) {
@@ -40,17 +52,5 @@ public class TrackingCargoFleetData extends CargoFleetData {
             }
         }
         return fleetMembersCopy;
-    }
-
-    public boolean hasAny() {
-        return hasAnyInCargo() || hasAnyInFleet();
-    }
-
-    public boolean hasAnyInCargo() {
-        return !getNewContentInCargo().isEmpty();
-    }
-
-    public boolean hasAnyInFleet() {
-        return !getNewContentInFleet().isEmpty();
     }
 }

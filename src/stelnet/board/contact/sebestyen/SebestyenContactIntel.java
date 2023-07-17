@@ -1,4 +1,4 @@
-package stelnet.board.contact;
+package stelnet.board.contact.sebestyen;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;

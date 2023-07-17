@@ -1,9 +1,10 @@
-package stelnet.board.contact2;
+package stelnet.board.contact;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.campaign.intel.contacts.ContactIntel;
+import com.fs.starfarer.api.impl.campaign.missions.hub.HubMission;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -25,21 +26,23 @@ public class ContactBoard extends SmallIntel {
         return new ContactBoard();
     }
 
-    @Override
-    public void notifyPlayerAboutToOpenIntelScreen() {
-        model.update(getAllIntel());
-    }
-
     protected List<Drawable> getDrawableList(final float width, final float height) {
         return view.getDrawables(width, height);
     }
 
     @Override
     protected DrawableIntelInfo getIntelInfo() {
+        model.updateContacts(getAllContactIntel());
+        model.updateMissions(getAllMissionIntel());
+        model.pruneAwaitingCollection();
         return view.getIntelInfo();
     }
 
-    private List<IntelInfoPlugin> getAllIntel() {
+    private List<IntelInfoPlugin> getAllContactIntel() {
         return new ArrayList<>(Global.getSector().getIntelManager().getIntel(ContactIntel.class));
+    }
+
+    private List<IntelInfoPlugin> getAllMissionIntel() {
+        return new ArrayList<>(Global.getSector().getIntelManager().getIntel(HubMission.class));
     }
 }
