@@ -35,14 +35,9 @@ public class AwaitingCollection implements Drawable {
     private void addMarkets(final TooltipMakerAPI tooltip) {
         int y = 0;
         for (final MarketAPI market : awaitingCollection.keySet()) {
-            y = addMarket(tooltip, market, y);
+            y = addCargoStacks(tooltip, market, y);
+            y = addFleetMembers(tooltip, market, y);
         }
-    }
-
-    private int addMarket(final TooltipMakerAPI tooltip, final MarketAPI market, int y) {
-        y = addCargoStacks(tooltip, market, y);
-        y = addFleetMembers(tooltip, market, y);
-        return y;
     }
 
     private int addCargoStacks(final TooltipMakerAPI tooltip, final MarketAPI market, int y) {
