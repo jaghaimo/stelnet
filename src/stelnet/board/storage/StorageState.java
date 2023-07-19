@@ -24,7 +24,7 @@ public class StorageState implements RenderableState, MarketViewState {
     }
 
     @Override
-    public List<Renderable> toRenderableList(Size size) {
+    public List<Renderable> toRenderableList(final Size size) {
         return new StorageView(this).create(size);
     }
 

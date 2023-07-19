@@ -21,7 +21,6 @@ import stelnet.filter.CargoStackIsStack;
 import stelnet.filter.Filter;
 import stelnet.filter.LogicalOr;
 import stelnet.filter.ShipHullIsHull;
-import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
 import stelnet.util.StelnetHelper;
 
@@ -33,22 +32,22 @@ public class QueryPickerListener implements CargoPickerListener, FleetMemberPick
     private final String type;
 
     @Override
-    public void pickedCargo(CargoAPI cargo) {
-        Set<Filter> selectedFilters = new LinkedHashSet<>();
+    public void pickedCargo(final CargoAPI cargo) {
+        final Set<Filter> selectedFilters = new LinkedHashSet<>();
         cargo.sort();
-        for (CargoStackAPI cargoStack : cargo.getStacksCopy()) {
+        for (final CargoStackAPI cargoStack : cargo.getStacksCopy()) {
             selectedFilters.add(new CargoStackIsStack(cargoStack));
         }
-        addQuery(selectedFilters, L10n.get(CommonL10n.ITEMS));
+        addQuery(selectedFilters, L10n.common("ITEMS"));
     }
 
     @Override
-    public void pickedFleetMembers(List<FleetMemberAPI> members) {
-        Set<Filter> selectedFilters = new LinkedHashSet<>();
-        for (FleetMemberAPI member : members) {
+    public void pickedFleetMembers(final List<FleetMemberAPI> members) {
+        final Set<Filter> selectedFilters = new LinkedHashSet<>();
+        for (final FleetMemberAPI member : members) {
             selectedFilters.add(new ShipHullIsHull(member.getHullSpec()));
         }
-        addQuery(selectedFilters, L10n.get(CommonL10n.SHIPS));
+        addQuery(selectedFilters, L10n.common("SHIPS"));
     }
 
     @Override
@@ -63,21 +62,21 @@ public class QueryPickerListener implements CargoPickerListener, FleetMemberPick
 
     @Override
     public void recreateTextPanel(
-        TooltipMakerAPI panel,
-        CargoAPI cargo,
-        CargoStackAPI pickedUp,
-        boolean pickedUpFromSource,
-        CargoAPI combined
+        final TooltipMakerAPI panel,
+        final CargoAPI cargo,
+        final CargoStackAPI pickedUp,
+        final boolean pickedUpFromSource,
+        final CargoAPI combined
     ) {}
 
-    private void addQuery(Set<Filter> selectedFilters, String label) {
-        Set<Filter> filters = new LinkedHashSet<>();
+    private void addQuery(final Set<Filter> selectedFilters, final String label) {
+        final Set<Filter> filters = new LinkedHashSet<>();
         filters.add(new LogicalOr(selectedFilters, label));
-        QueryBoard board = StelnetHelper.getInstance(QueryBoard.class);
-        QueryState state = board.getState();
-        QueryManager manager = state.getQueryManager();
-        QueryProvider provider = factory.getProvider();
-        Query query = new Query(manager, provider, filters, type);
+        final QueryBoard board = StelnetHelper.getInstance(QueryBoard.class);
+        final QueryState state = board.getState();
+        final QueryManager manager = state.getQueryManager();
+        final QueryProvider provider = factory.getProvider();
+        final Query query = new Query(manager, provider, filters, type);
         manager.addQuery(query);
         state.setActiveTab(QueryBoardTab.LIST);
         dialog.dismiss(board);

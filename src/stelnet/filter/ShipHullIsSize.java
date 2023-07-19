@@ -12,12 +12,12 @@ public final class ShipHullIsSize extends ShipHullFilter {
 
     private final HullSize hullSize;
 
-    protected boolean acceptShipHull(ShipHullSpecAPI shipHull) {
-        return hullSize.equals(shipHull.getHullSize());
-    }
-
     @Override
     public String toString() {
-        return L10n.get(hullSize);
+        return L10n.common("HULL_" + hullSize);
+    }
+
+    protected boolean acceptShipHull(final ShipHullSpecAPI shipHull) {
+        return hullSize.equals(shipHull.getHullSize());
     }
 }

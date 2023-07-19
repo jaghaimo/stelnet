@@ -20,39 +20,43 @@ import stelnet.util.StelnetHelper;
 public class PerMarketStrategy implements DisplayStrategy {
 
     @Override
-    public List<LocationContent> getData(ButtonManager filteringButtons) {
-        List<LocationContent> data = new LinkedList<>();
-        List<SubmarketAPI> storages = getAllSortedWithAccess();
-        for (SubmarketAPI storage : storages) {
+    public List<LocationContent> getData(final ButtonManager filteringButtons) {
+        final List<LocationContent> data = new LinkedList<>();
+        final List<SubmarketAPI> storages = getAllSortedWithAccess();
+        for (final SubmarketAPI storage : storages) {
             processSubmarket(new LocationInfo(storage.getMarket()), storage, filteringButtons, data);
         }
         return data;
     }
 
     protected void processSubmarket(
-        LocationInfo locationData,
-        SubmarketAPI storage,
-        ButtonManager filteringButtons,
-        List<LocationContent> data
+        final LocationInfo locationData,
+        final SubmarketAPI storage,
+        final ButtonManager filteringButtons,
+        final List<LocationContent> data
     ) {
-        CargoAPI storageCargo = storage.getCargo();
-        CargoAPI items = getItems(filteringButtons, storageCargo);
-        List<FleetMemberAPI> ships = getShips(filteringButtons, storageCargo);
-        String name = storage.getMarket().getName();
+        final CargoAPI storageCargo = storage.getCargo();
+        final CargoAPI items = getItems(filteringButtons, storageCargo);
+        final List<FleetMemberAPI> ships = getShips(filteringButtons, storageCargo);
+        final String name = storage.getMarket().getName();
         log.debug("Found " + items.getStacksCopy().size() + " items in " + name);
         log.debug("Found " + ships.size() + " ships in " + name);
         data.add(new LocationContent(locationData, items, ships));
     }
 
     private List<SubmarketAPI> getAllSortedWithAccess() {
-        List<SubmarketAPI> availableStorages = new LinkedList<>(StelnetHelper.getAllWithAccess());
+        final List<SubmarketAPI> availableStorages = new LinkedList<>(StelnetHelper.getAllWithAccess());
         Collections.sort(
             availableStorages,
             new Comparator<SubmarketAPI>() {
                 @Override
-                public int compare(SubmarketAPI s1, SubmarketAPI s2) {
-                    float s1distance = DistanceCalculator.getDistanceToPlayerLY(s1.getMarket().getPrimaryEntity());
-                    float s2distance = DistanceCalculator.getDistanceToPlayerLY(s2.getMarket().getPrimaryEntity());
+                public int compare(final SubmarketAPI s1, final SubmarketAPI s2) {
+                    final float s1distance = DistanceCalculator.getDistanceToPlayerLY(
+                        s1.getMarket().getPrimaryEntity()
+                    );
+                    final float s2distance = DistanceCalculator.getDistanceToPlayerLY(
+                        s2.getMarket().getPrimaryEntity()
+                    );
                     return Math.round(s1distance - s2distance);
                 }
             }
@@ -60,23 +64,23 @@ public class PerMarketStrategy implements DisplayStrategy {
         return availableStorages;
     }
 
-    private CargoAPI getItems(ButtonManager filteringButtons, CargoAPI storageCargo) {
-        CargoAPI items = storageCargo.createCopy();
-        List<CargoStackAPI> cargoStacks = storageCargo.getStacksCopy();
+    private CargoAPI getItems(final ButtonManager filteringButtons, final CargoAPI storageCargo) {
+        final CargoAPI items = storageCargo.createCopy();
+        final List<CargoStackAPI> cargoStacks = storageCargo.getStacksCopy();
         CollectionUtils.reduce(cargoStacks, filteringButtons.getFilters());
         replaceCargoStacks(items, cargoStacks);
         return items;
     }
 
-    private List<FleetMemberAPI> getShips(ButtonManager filteringButtons, CargoAPI storageCargo) {
-        List<FleetMemberAPI> ships = storageCargo.getMothballedShips().getMembersInPriorityOrder();
+    private List<FleetMemberAPI> getShips(final ButtonManager filteringButtons, final CargoAPI storageCargo) {
+        final List<FleetMemberAPI> ships = storageCargo.getMothballedShips().getMembersInPriorityOrder();
         CollectionUtils.reduce(ships, filteringButtons.getFilters());
         return ships;
     }
 
-    private void replaceCargoStacks(CargoAPI cargo, List<CargoStackAPI> cargoStacks) {
+    private void replaceCargoStacks(final CargoAPI cargo, final List<CargoStackAPI> cargoStacks) {
         cargo.clear();
-        for (CargoStackAPI cargoStack : cargoStacks) {
+        for (final CargoStackAPI cargoStack : cargoStacks) {
             cargo.addFromStack(cargoStack);
         }
         cargo.sort();

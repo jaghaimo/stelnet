@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import stelnet.board.query.QueryManager;
 import stelnet.filter.Filter;
-import stelnet.util.L10n;
 import uilib.AreaCheckbox;
 import uilib.UiConstants;
 import uilib.property.Size;
@@ -19,29 +18,31 @@ public class FilteringButton extends AreaCheckbox {
     protected Filter filter;
     protected QueryManager manager;
 
-    public FilteringButton(QueryManager manager, String title, Filter filter, float width, boolean isStateOn) {
+    public FilteringButton(
+        final QueryManager manager,
+        final String title,
+        final Filter filter,
+        final float width,
+        final boolean isStateOn
+    ) {
         super(new Size(width, UiConstants.DEFAULT_BUTTON_HEIGHT), title, true, isStateOn);
         setFilter(filter);
         setPadding(1);
         setManager(manager);
     }
 
-    public FilteringButton(Enum<?> translationId, Filter filter) {
-        this(L10n.get(translationId), filter);
-    }
-
-    public FilteringButton(String translatedString, Filter filter) {
-        super(new Size(UiConstants.AUTO_WIDTH, UiConstants.DEFAULT_BUTTON_HEIGHT), translatedString, true, false);
+    public FilteringButton(final String title, final Filter filter) {
+        super(new Size(UiConstants.AUTO_WIDTH, UiConstants.DEFAULT_BUTTON_HEIGHT), title, true, false);
         setFilter(filter);
         setPadding(1);
     }
 
-    public FilteringButton(String translatedString, Filter filter, String filteringButtonId) {
-        this(translatedString, filter);
+    public FilteringButton(final String label, final Filter filter, final String filteringButtonId) {
+        this(label, filter);
         this.filteringButtonId = filteringButtonId;
     }
 
-    public void updateVisibility(Set<String> visibleButtonIds) {
+    public void updateVisibility(final Set<String> visibleButtonIds) {
         isVisible = visibleButtonIds.contains(filteringButtonId);
     }
 }

@@ -11,11 +11,7 @@ import lombok.RequiredArgsConstructor;
 import stelnet.filter.AnyHasTag;
 import stelnet.filter.LogicalNot;
 import stelnet.util.CollectionUtils;
-import uilib.Button;
-import uilib.Group;
-import uilib.Renderable;
-import uilib.RenderableFactory;
-import uilib.Spacer;
+import uilib.*;
 import uilib.property.Position;
 import uilib.property.Size;
 
@@ -25,46 +21,46 @@ public class CommodityViewFactory implements RenderableFactory {
     private final String commodityId;
 
     @Override
-    public List<Renderable> create(Size size) {
-        List<Renderable> buttons = new LinkedList<>();
-        List<CommoditySpecAPI> commodities = getAllCommodities();
+    public List<Renderable> create(final Size size) {
+        final List<Renderable> buttons = new LinkedList<>();
+        final List<CommoditySpecAPI> commodities = getAllCommodities();
         filterCommodities(commodities);
         sortCommodities(commodities);
         buttons.add(new Spacer(1));
-        for (CommoditySpecAPI commodity : commodities) {
+        for (final CommoditySpecAPI commodity : commodities) {
             buttons.add(getCommodityButton(commodity, commodityId));
         }
-        Group group = new Group(buttons);
+        final Group group = new Group(buttons);
         group.setSize(new Size(200, size.getHeight() - 100));
         group.setOffset(new Position(size.getWidth() - 200, 28));
         return Collections.<Renderable>singletonList(group);
     }
 
-    private void filterCommodities(List<CommoditySpecAPI> commodities) {
+    private void filterCommodities(final List<CommoditySpecAPI> commodities) {
         CollectionUtils.reduce(commodities, new LogicalNot(new AnyHasTag("nonecon")));
         CollectionUtils.reduce(commodities, new LogicalNot(new AnyHasTag("meta")));
     }
 
     private List<CommoditySpecAPI> getAllCommodities() {
-        EconomyAPI economy = Global.getSector().getEconomy();
-        List<CommoditySpecAPI> commodities = new LinkedList<>();
-        for (String commodityId : economy.getAllCommodityIds()) {
+        final EconomyAPI economy = Global.getSector().getEconomy();
+        final List<CommoditySpecAPI> commodities = new LinkedList<>();
+        for (final String commodityId : economy.getAllCommodityIds()) {
             commodities.add(economy.getCommoditySpec(commodityId));
         }
         return commodities;
     }
 
-    private Button getCommodityButton(CommoditySpecAPI commodity, String activeId) {
-        boolean isOn = commodity.getId().equals(activeId);
+    private Button getCommodityButton(final CommoditySpecAPI commodity, final String activeId) {
+        final boolean isOn = commodity.getId().equals(activeId);
         return new CommodityButton(commodity, isOn);
     }
 
-    private void sortCommodities(List<CommoditySpecAPI> commodities) {
+    private void sortCommodities(final List<CommoditySpecAPI> commodities) {
         Collections.sort(
             commodities,
             new Comparator<CommoditySpecAPI>() {
                 @Override
-                public int compare(CommoditySpecAPI commodityA, CommoditySpecAPI commodityB) {
+                public int compare(final CommoditySpecAPI commodityA, final CommoditySpecAPI commodityB) {
                     return commodityA.getName().compareToIgnoreCase(commodityB.getName());
                 }
             }

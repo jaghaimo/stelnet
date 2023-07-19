@@ -6,8 +6,8 @@ import uilib.property.Size;
 @Getter
 public class SizeHelper {
 
-    private float width;
-    private float height;
+    private final float width;
+    private final float height;
     private float textWidth;
     private float groupWidth;
 
@@ -18,7 +18,7 @@ public class SizeHelper {
         groupWidth = 0;
     }
 
-    public SizeHelper(Size size) {
+    public SizeHelper(final Size size) {
         width = size.getWidth();
         height = size.getHeight();
         groupWidth = Math.max(300, width - 120);
@@ -29,7 +29,7 @@ public class SizeHelper {
         return groupWidth + textWidth;
     }
 
-    public void movePartition(float x) {
+    public void movePartition(final float x) {
         groupWidth -= x;
         textWidth += x;
     }

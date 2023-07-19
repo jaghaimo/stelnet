@@ -17,8 +17,8 @@ public class LogicalOr extends Filter {
     private final String type;
 
     @Override
-    public boolean accept(Object object) {
-        for (Filter filter : filters) {
+    public boolean accept(final Object object) {
+        for (final Filter filter : filters) {
             if (filter == null) {
                 log.warn("Skipping null filter!");
                 continue;

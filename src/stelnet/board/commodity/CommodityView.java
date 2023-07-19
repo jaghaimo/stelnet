@@ -19,8 +19,8 @@ public class CommodityView implements RenderableFactory {
     private final IntelTracker intelTracker;
 
     @Override
-    public List<Renderable> create(Size size) {
-        List<Renderable> elements = new LinkedList<>();
+    public List<Renderable> create(final Size size) {
+        final List<Renderable> elements = new LinkedList<>();
         elements.addAll(new TabViewFactory(commodityId, activeTab).create(size));
         elements.addAll(new IntelViewFactory(commodityId, activeTab, intelTracker).create(size));
         elements.addAll(new CommodityViewFactory(commodityId).create(size));

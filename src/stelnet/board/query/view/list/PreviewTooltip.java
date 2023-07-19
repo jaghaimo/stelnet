@@ -15,18 +15,18 @@ public class PreviewTooltip implements TooltipCreator {
     private final Query query;
 
     @Override
-    public boolean isTooltipExpandable(Object tooltipParam) {
+    public boolean isTooltipExpandable(final Object tooltipParam) {
         return false;
     }
 
     @Override
-    public float getTooltipWidth(Object tooltipParam) {
+    public float getTooltipWidth(final Object tooltipParam) {
         return size.getWidth() - UiConstants.DEFAULT_SPACER;
     }
 
     @Override
-    public void createTooltip(TooltipMakerAPI tooltip, boolean expanded, Object tooltipParam) {
-        RenderableComponent preview = query.getPreview(size);
+    public void createTooltip(final TooltipMakerAPI tooltip, final boolean expanded, final Object tooltipParam) {
+        final RenderableComponent preview = query.getPreview(size);
         preview.render(tooltip);
     }
 }

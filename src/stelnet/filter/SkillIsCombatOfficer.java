@@ -5,24 +5,15 @@ import com.fs.starfarer.api.characters.SkillSpecAPI;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = false)
-public final class SkillIsCombatOfficer extends Filter {
+public final class SkillIsCombatOfficer extends SkillFilter {
 
     @Override
-    public boolean accept(Object object) {
-        if (object instanceof SkillLevelAPI) {
-            return acceptSkillLevel((SkillLevelAPI) object);
-        }
-        if (object instanceof SkillSpecAPI) {
-            return acceptSkill((SkillSpecAPI) object);
-        }
-        return super.accept(object);
-    }
-
-    protected boolean acceptSkillLevel(SkillLevelAPI skillLevel) {
+    protected boolean acceptSkillLevel(final SkillLevelAPI skillLevel) {
         return acceptSkill(skillLevel.getSkill());
     }
 
-    protected boolean acceptSkill(SkillSpecAPI skill) {
+    @Override
+    protected boolean acceptSkill(final SkillSpecAPI skill) {
         return skill.isCombatOfficerSkill();
     }
 }

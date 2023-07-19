@@ -13,8 +13,8 @@ public class CommodityBoard extends BoardBasePlugin {
 
     private final String icon = StelnetHelper.getSpriteName("commodity");
     private final BoardRenderableInfo intelInfo = new BoardRenderableInfo(
-        L10n.get(CommodityL10n.BOARD_TITLE),
-        L10n.get(CommodityL10n.BOARD_DESCRIPTION)
+        L10n.commodity("BOARD_TITLE"),
+        L10n.commodity("BOARD_DESCRIPTION")
     );
     private final CommodityState renderableState = new CommodityState();
     private final String tag = ModConstants.TAG_COMMODITY;

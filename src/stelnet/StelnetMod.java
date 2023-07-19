@@ -17,7 +17,7 @@ public class StelnetMod extends BaseModPlugin {
     @Override
     public void afterGameSave() {
         if (BooleanSettings.UNINSTALL.get()) {
-            DelayedDialog dialog = new DelayedDialog(
+            final DelayedDialog dialog = new DelayedDialog(
                 "Stellar Networks has been removed from this save. You can now update (or disable) this mod.",
                 1
             );
@@ -40,7 +40,7 @@ public class StelnetMod extends BaseModPlugin {
     }
 
     @Override
-    public void onGameLoad(boolean newGame) {
+    public void onGameLoad(final boolean newGame) {
         SettingsListener.apply();
     }
 
@@ -53,7 +53,7 @@ public class StelnetMod extends BaseModPlugin {
         if (TutorialMissionIntel.isTutorialInProgress()) {
             return;
         }
-        CampaignUIAPI campaignUi = Global.getSector().getCampaignUI();
+        final CampaignUIAPI campaignUi = Global.getSector().getCampaignUI();
         if (campaignUi == null) {
             return;
         }

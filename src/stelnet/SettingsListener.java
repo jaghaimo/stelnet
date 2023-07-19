@@ -9,23 +9,17 @@ import stelnet.board.commodity.CommodityBoard;
 import stelnet.board.commodity.CommodityIntel;
 import stelnet.board.commodity.table.ProfitTableContent;
 import stelnet.board.commodity.table.ProfitTableRow;
-import stelnet.board.contact.ContactsBoard;
-import stelnet.board.contact.SebestyenContactIntel;
-import stelnet.board.contact.SebestyenContactMaker;
+import stelnet.board.contact.ContactBoard;
+import stelnet.board.contact.sebestyen.SebestyenContactIntel;
+import stelnet.board.contact.sebestyen.SebestyenContactMaker;
 import stelnet.board.exploration.ExplorationBoard;
 import stelnet.board.query.MarketUpdater;
 import stelnet.board.query.QueryBoard;
 import stelnet.board.query.ResultIntel;
-import stelnet.board.query.provider.DmodProvider;
-import stelnet.board.query.provider.FactionProvider;
-import stelnet.board.query.provider.ItemQueryProvider;
-import stelnet.board.query.provider.PeopleQueryProvider;
-import stelnet.board.query.provider.ShipQueryProvider;
-import stelnet.board.query.provider.SkillProvider;
+import stelnet.board.query.provider.*;
 import stelnet.board.storage.StorageBoard;
 import stelnet.board.storage.StorageIntel;
 import stelnet.board.storage.StorageUpdater;
-import stelnet.board.trade.TradeBoard;
 import stelnet.board.viewer.ViewerBoard;
 import stelnet.settings.BooleanSettings;
 import stelnet.settings.IntSettings;
@@ -39,6 +33,21 @@ public class SettingsListener implements LunaSettingsListener {
 
     public static void register() {
         LunaSettings.addSettingsListener(new SettingsListener());
+        try {
+            Global.getSettings().loadTexture("graphics/icons/stelnet.png");
+        } catch (final Exception exception) {
+            log.error("Failed to load stelnet icon!");
+        }
+    }
+
+    @Override
+    public void settingsChanged(final String modId) {
+        if (!ModConstants.STELNET_ID.equals(modId)) {
+            return;
+        }
+        if (Global.getCurrentState().equals(GameState.CAMPAIGN)) {
+            apply();
+        }
     }
 
     public static void apply() {
@@ -65,49 +74,31 @@ public class SettingsListener implements LunaSettingsListener {
         ShipQueryProvider.resetCache();
     }
 
-    @Override
-    public void settingsChanged(String modId) {
-        if (!ModConstants.STELNET_ID.equals(modId)) {
-            return;
-        }
-        if (Global.getCurrentState().equals(GameState.CAMPAIGN)) {
-            apply();
-        }
-    }
-
-    private static void purgeIntel(Class<?>... classNames) {
-        for (Class<?> className : classNames) {
-            log.debug("Removing intel " + className);
-            StelnetHelper.removeIntel(className);
-        }
-    }
-
-    private static void initContacts(boolean hasContacts) {
-        if (hasContacts) {
-            StelnetHelper.getInstance(ContactsBoard.class);
-            SebestyenContactMaker.register();
-            log.info("Enabled Contacts module");
-        } else {
-            purgeIntel(ContactsBoard.class, SebestyenContactIntel.class);
-            log.info("Disabled Contacts module");
-        }
-    }
-
-    private static void initCommodity(boolean hasCommodities) {
+    private static void initCommodity(final boolean hasCommodities) {
         if (hasCommodities) {
             StelnetHelper.getInstance(CommodityBoard.class).restore();
-            // TradeBoard.getInstance(TradeBoard.class);
             log.info("Enabled Commodity module");
             ProfitTableContent.MAX_ROWS = IntSettings.COMMODITY_PROFIT_ROW_NUMBER.get();
             ProfitTableContent.MINIMUM_PROFIT_VALUE = IntSettings.COMMODITY_PROFIT_MIN_PROFIT.get();
             ProfitTableRow.MINIMUM_QUANTITY = IntSettings.COMMODITY_PROFIT_MIN_QUANTITY.get();
         } else {
-            purgeIntel(CommodityBoard.class, CommodityIntel.class, TradeBoard.class);
+            purgeIntel(CommodityBoard.class, CommodityIntel.class);
             log.info("Disabled Commodity module");
         }
     }
 
-    private static void initExploration(boolean hasExploration) {
+    private static void initContacts(final boolean hasContacts) {
+        if (hasContacts) {
+            StelnetHelper.getInstance(ContactBoard.class);
+            SebestyenContactMaker.register();
+            log.info("Enabled Contacts module");
+        } else {
+            purgeIntel(ContactBoard.class, SebestyenContactIntel.class);
+            log.info("Disabled Contacts module");
+        }
+    }
+
+    private static void initExploration(final boolean hasExploration) {
         if (hasExploration) {
             StelnetHelper.getInstance(ExplorationBoard.class);
             log.info("Enabled Exploration module");
@@ -117,7 +108,7 @@ public class SettingsListener implements LunaSettingsListener {
         }
     }
 
-    private static void initMarket(boolean hasMarket) {
+    private static void initMarket(final boolean hasMarket) {
         if (hasMarket) {
             StelnetHelper.getInstance(QueryBoard.class);
             StelnetHelper.getInstance(ViewerBoard.class);
@@ -133,7 +124,7 @@ public class SettingsListener implements LunaSettingsListener {
         }
     }
 
-    private static void initStorage(boolean hasStorage) {
+    private static void initStorage(final boolean hasStorage) {
         if (hasStorage) {
             StelnetHelper.getInstance(StorageBoard.class);
             log.info("Enabled Storage module");
@@ -142,6 +133,13 @@ public class SettingsListener implements LunaSettingsListener {
             purgeIntel(StorageBoard.class, StorageIntel.class);
             log.info("Disabled Storage module");
             StorageUpdater.unregister();
+        }
+    }
+
+    private static void purgeIntel(final Class<?>... classNames) {
+        for (final Class<?> className : classNames) {
+            log.debug("Removing intel " + className);
+            StelnetHelper.removeIntel(className);
         }
     }
 }

@@ -3,7 +3,7 @@ package uilib;
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-import java.awt.Color;
+import java.awt.*;
 import lombok.Setter;
 import uilib.property.Size;
 
@@ -15,11 +15,11 @@ public class ShowCargo extends RenderableShowComponent {
     private final String emptyDescription;
     private Color titleColor = Misc.getTextColor();
 
-    public ShowCargo(CargoAPI cargo, String emptyDescription, Size size) {
+    public ShowCargo(final CargoAPI cargo, final String emptyDescription, final Size size) {
         this(cargo, null, emptyDescription, size);
     }
 
-    public ShowCargo(CargoAPI cargo, String optionalTitle, String emptyDescription, Size size) {
+    public ShowCargo(final CargoAPI cargo, final String optionalTitle, final String emptyDescription, final Size size) {
         super(cargo.getStacksCopy().size());
         this.cargo = cargo;
         this.optionalTitle = optionalTitle;
@@ -28,9 +28,9 @@ public class ShowCargo extends RenderableShowComponent {
     }
 
     @Override
-    public void render(TooltipMakerAPI tooltip) {
+    public void render(final TooltipMakerAPI tooltip) {
         if (optionalTitle != null) {
-            String fullTitle = String.format("%s (%d)", optionalTitle, cargo.getStacksCopy().size());
+            final String fullTitle = String.format("%s (%d)", optionalTitle, cargo.getStacksCopy().size());
             addSectionTitle(tooltip, fullTitle, titleColor, getSize().getWidth() - UiConstants.DEFAULT_SPACER);
         }
         if (cargo.isEmpty()) {

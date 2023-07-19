@@ -20,17 +20,17 @@ public class MarketProvider {
 
     private static transient boolean needsRefresh = true;
 
-    public static List<SectorEntityToken> convertMarketsToTokens(List<MarketAPI> markets) {
-        List<SectorEntityToken> tokens = new LinkedList<>();
-        for (MarketAPI market : markets) {
+    public static List<SectorEntityToken> convertMarketsToTokens(final List<MarketAPI> markets) {
+        final List<SectorEntityToken> tokens = new LinkedList<>();
+        for (final MarketAPI market : markets) {
             tokens.add(market.getPrimaryEntity());
         }
         return tokens;
     }
 
-    public static List<MarketAPI> getMarkets(boolean refreshContent) {
-        List<MarketAPI> markets = Global.getSector().getEconomy().getMarketsCopy();
-        List<Filter> filters = Arrays.<Filter>asList(Excluder.getMarketFilter(), new MarketNotHidden());
+    public static List<MarketAPI> getMarkets(final boolean refreshContent) {
+        final List<MarketAPI> markets = Global.getSector().getEconomy().getMarketsCopy();
+        final List<Filter> filters = Arrays.<Filter>asList(Excluder.getMarketFilter(), new MarketNotHidden());
         CollectionUtils.reduce(markets, filters);
         if (refreshContent && needsRefresh) {
             log.debug("Refreshing all markets, this may take a moment");
@@ -44,30 +44,30 @@ public class MarketProvider {
         needsRefresh = true;
     }
 
-    public static void updateMarkets(List<MarketAPI> markets) {
-        for (MarketAPI market : markets) {
+    public static void updateMarkets(final List<MarketAPI> markets) {
+        for (final MarketAPI market : markets) {
             updateMarket(market);
         }
     }
 
-    public static void updateMarket(MarketAPI market) {
+    public static void updateMarket(final MarketAPI market) {
         updateOfficers(market);
         updateSubmarkets(market);
         ListenerUtil.reportPlayerOpenedMarketAndCargoUpdated(market);
     }
 
-    private static void updateOfficers(MarketAPI market) {
-        List<OfficerManagerEvent> managers = Global
+    private static void updateOfficers(final MarketAPI market) {
+        final List<OfficerManagerEvent> managers = Global
             .getSector()
             .getListenerManager()
             .getListeners(OfficerManagerEvent.class);
-        for (OfficerManagerEvent manager : managers) {
+        for (final OfficerManagerEvent manager : managers) {
             manager.reportPlayerOpenedMarket(market);
         }
     }
 
-    private static void updateSubmarkets(MarketAPI market) {
-        for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
+    private static void updateSubmarkets(final MarketAPI market) {
+        for (final SubmarketAPI submarket : market.getSubmarketsCopy()) {
             submarket.getPlugin().updateCargoPrePlayerInteraction();
             ListenerUtil.reportSubmarketCargoAndShipsUpdated(submarket);
         }

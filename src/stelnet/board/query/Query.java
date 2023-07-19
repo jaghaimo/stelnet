@@ -33,17 +33,17 @@ public class Query {
         manager.deleteQuery(this);
     }
 
-    public RenderableComponent getPreview(Size size) {
-        RenderableShowComponent preview = provider.getPreview(filters, size);
+    public RenderableComponent getPreview(final Size size) {
+        final RenderableShowComponent preview = provider.getPreview(filters, size);
         preview.setMaxElements(25);
         return preview;
     }
 
-    public List<ResultSet> execute(GroupingStrategy groupingStrategy) {
-        List<ResultSet> results = provider.getResults(filters, groupingStrategy);
+    public List<ResultSet> execute(final GroupingStrategy groupingStrategy) {
+        final List<ResultSet> results = provider.getResults(filters, groupingStrategy);
         CollectionUtils.reduce(results, provider.getAdditionalFilters(manager));
         resultNumber = 0;
-        for (ResultSet resultSet : results) {
+        for (final ResultSet resultSet : results) {
             resultNumber += resultSet.getResultCount();
         }
         return results;
@@ -54,9 +54,9 @@ public class Query {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj instanceof Query) {
-            Set<Filter> objFilters = ((Query) obj).getFilters();
+            final Set<Filter> objFilters = ((Query) obj).getFilters();
             return CollectionUtils.equals(filters, objFilters);
         }
         return false;
@@ -69,6 +69,6 @@ public class Query {
 
     @Override
     public String toString() {
-        return CollectionUtils.join(filters, "||", L10n.get(QueryL10n.EMPTY_FILTER));
+        return CollectionUtils.join(filters, "||", L10n.query("EMPTY_FILTER"));
     }
 }

@@ -23,12 +23,12 @@ public class MarketSelectPicker implements CampaignEntityPickerListener {
     private final IntelUIAPI ui;
 
     @Override
-    public String getMenuItemNameOverrideFor(SectorEntityToken entity) {
+    public String getMenuItemNameOverrideFor(final SectorEntityToken entity) {
         return null;
     }
 
     @Override
-    public void pickedEntity(SectorEntityToken entity) {
+    public void pickedEntity(final SectorEntityToken entity) {
         board.getRenderableState().setDisplayStrategy(new InMarketStrategy(entity.getMarket()));
         ui.updateUIForItem(board);
         dialog.dismiss();
@@ -41,19 +41,15 @@ public class MarketSelectPicker implements CampaignEntityPickerListener {
     }
 
     @Override
-    public String getSelectedTextOverrideFor(SectorEntityToken entity) {
-        return L10n.get(
-            ViewerL10n.DIALOG_SELECTION,
-            entity.getName(),
-            entity.getContainingLocation().getNameWithTypeShort()
-        );
+    public String getSelectedTextOverrideFor(final SectorEntityToken entity) {
+        return L10n.viewer("DIALOG_SELECTION", entity.getName(), entity.getContainingLocation().getNameWithTypeShort());
     }
 
     @Override
-    public void createInfoText(TooltipMakerAPI info, SectorEntityToken entity) {}
+    public void createInfoText(final TooltipMakerAPI info, final SectorEntityToken entity) {}
 
     @Override
-    public boolean canConfirmSelection(SectorEntityToken entity) {
+    public boolean canConfirmSelection(final SectorEntityToken entity) {
         return true;
     }
 

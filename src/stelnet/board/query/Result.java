@@ -29,7 +29,7 @@ public class Result implements Comparable<Result> {
     private final int count;
     private final int hashCode;
 
-    public Result(MarketAPI market, PersonAPI person) {
+    public Result(final MarketAPI market, final PersonAPI person) {
         this.name = person.getNameString();
         this.icon = person.getPortraitSprite();
         this.type = person.getPost();
@@ -41,11 +41,11 @@ public class Result implements Comparable<Result> {
         this.hashCode = hashCode();
     }
 
-    public Result(MarketAPI market, SubmarketAPI submarket, FleetMemberAPI fleetMember) {
-        ShipHullSpecAPI hullSpec = fleetMember.getHullSpec();
+    public Result(final MarketAPI market, final SubmarketAPI submarket, final FleetMemberAPI fleetMember) {
+        final ShipHullSpecAPI hullSpec = fleetMember.getHullSpec();
         this.name = hullSpec.getNameWithDesignationWithDashClass();
         this.icon = hullSpec.getSpriteName();
-        this.type = L10n.get(hullSpec.getHullSize());
+        this.type = L10n.common("HULL_" + hullSpec.getHullSize().name());
         this.object = fleetMember;
         this.market = market;
         this.submarket = submarket;
@@ -54,10 +54,10 @@ public class Result implements Comparable<Result> {
         this.hashCode = hashCode();
     }
 
-    public Result(MarketAPI market, SubmarketAPI submarket, CargoStackAPI cargoStack) {
+    public Result(final MarketAPI market, final SubmarketAPI submarket, final CargoStackAPI cargoStack) {
         this.name = cargoStack.getDisplayName();
         this.icon = getCargoStackIcon(cargoStack);
-        this.type = L10n.get(cargoStack.getType());
+        this.type = L10n.common("STACK_" + cargoStack.getType());
         this.object = cargoStack;
         this.market = market;
         this.submarket = submarket;
@@ -95,15 +95,15 @@ public class Result implements Comparable<Result> {
     }
 
     @Override
-    public int compareTo(Result o) {
+    public int compareTo(final Result o) {
         final String comparables[][] = new String[][] {
             new String[] { getMarket().getName(), o.getMarket().getName() },
             new String[] { String.valueOf(getSubmarketNumber()), String.valueOf(o.getSubmarketNumber()) },
             new String[] { getType(), o.getType() },
             new String[] { getName(), o.getName() },
         };
-        for (String[] compare : comparables) {
-            int compareResult = compare[0].compareTo(compare[1]);
+        for (final String[] compare : comparables) {
+            final int compareResult = compare[0].compareTo(compare[1]);
             if (compareResult != 0) {
                 return compareResult;
             }
@@ -112,9 +112,9 @@ public class Result implements Comparable<Result> {
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(final Object other) {
         if (other instanceof Result) {
-            Result otherResult = (Result) other;
+            final Result otherResult = (Result) other;
             return object == otherResult.getObject();
         }
         return false;
@@ -125,7 +125,7 @@ public class Result implements Comparable<Result> {
         return object.hashCode();
     }
 
-    private String getCargoStackIcon(CargoStackAPI cargoStack) {
+    private String getCargoStackIcon(final CargoStackAPI cargoStack) {
         if (cargoStack.isWeaponStack()) {
             return cargoStack.getWeaponSpecIfWeapon().getTurretSpriteName();
         }
@@ -133,8 +133,8 @@ public class Result implements Comparable<Result> {
             return cargoStack.getFighterWingSpecIfWing().getVariant().getHullSpec().getSpriteName();
         }
         if (cargoStack.isSpecialStack()) {
-            String id = cargoStack.getSpecialDataIfSpecial().getData();
-            HullModSpecAPI hullModSpec = Global.getSettings().getHullModSpec(id);
+            final String id = cargoStack.getSpecialDataIfSpecial().getData();
+            final HullModSpecAPI hullModSpec = Global.getSettings().getHullModSpec(id);
             return hullModSpec.getSpriteName();
         }
         return null;

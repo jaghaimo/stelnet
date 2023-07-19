@@ -5,7 +5,7 @@ import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.util.Misc;
-import java.awt.Color;
+import java.awt.*;
 import java.util.List;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j;
@@ -34,7 +34,7 @@ public class CommodityIntel extends IntelBasePlugin {
     private final float sellPrice;
     private final String tag = ModConstants.TAG_COMMODITY;
 
-    public CommodityIntel(String commodityId, IntelTracker intelTracker, MarketAPI market) {
+    public CommodityIntel(final String commodityId, final IntelTracker intelTracker, final MarketAPI market) {
         super(market.getFaction(), market.getPrimaryEntity());
         this.commodityId = commodityId;
         this.intelTracker = intelTracker;
@@ -58,17 +58,17 @@ public class CommodityIntel extends IntelBasePlugin {
     }
 
     @Override
-    public String getIcon() {
-        return getCommodity().getIconName();
+    public boolean isEnding() {
+        final float supplyPrice = getSupplyPrice();
+        final float demandPrice = getDemandPrice();
+        final boolean buyChanged = isDifferent(buyPrice, supplyPrice);
+        final boolean sellChanged = isDifferent(sellPrice, demandPrice);
+        return buyChanged || sellChanged;
     }
 
     @Override
-    public boolean isEnding() {
-        float supplyPrice = getSupplyPrice();
-        float demandPrice = getDemandPrice();
-        boolean buyChanged = isDifferent(buyPrice, supplyPrice);
-        boolean sellChanged = isDifferent(sellPrice, demandPrice);
-        return buyChanged || sellChanged;
+    public String getIcon() {
+        return getCommodity().getIconName();
     }
 
     @Override
@@ -76,26 +76,13 @@ public class CommodityIntel extends IntelBasePlugin {
         return Modules.COMMODITIES.isHidden();
     }
 
-    public CommoditySpecAPI getCommodity() {
-        return Global.getSector().getEconomy().getCommoditySpec(commodityId);
-    }
-
-    public void remove() {
-        intelTracker.remove(this);
-    }
-
-    @Override
-    protected RenderableIntelInfo getIntelInfo() {
-        return new CommodityIntelInfo(this);
-    }
-
     @Override
     public Color getCircleBorderColorOverride() {
         if (isEnding()) {
             return Misc.getGrayColor();
         }
-        String commodityId = getCommodityId();
-        CommodityOnMarketAPI commodityOnMarket = market.getCommodityData(commodityId);
+        final String commodityId = getCommodityId();
+        final CommodityOnMarketAPI commodityOnMarket = market.getCommodityData(commodityId);
         if (commodityOnMarket.getExcessQuantity() > 0) {
             return Misc.getPositiveHighlightColor();
         }
@@ -105,9 +92,12 @@ public class CommodityIntel extends IntelBasePlugin {
         return Misc.getTextColor();
     }
 
-    @Override
-    protected List<Renderable> getRenderableList(Size size) {
-        return (new CommodityIntelViewFactory(market, this)).create(size);
+    public CommoditySpecAPI getCommodity() {
+        return Global.getSector().getEconomy().getCommoditySpec(commodityId);
+    }
+
+    public void remove() {
+        intelTracker.remove(this);
     }
 
     public float getDemandPrice() {
@@ -119,10 +109,20 @@ public class CommodityIntel extends IntelBasePlugin {
     }
 
     public String getTitle() {
-        return L10n.get(CommodityL10n.INTEL_TITLE, getCommodity().getName(), market.getName());
+        return L10n.commodity("INTEL_TITLE", getCommodity().getName(), market.getName());
     }
 
-    public boolean isDifferent(float oldPrice, float newPrice) {
+    public boolean isDifferent(final float oldPrice, final float newPrice) {
         return Math.abs(oldPrice - newPrice) >= 1;
+    }
+
+    @Override
+    protected List<Renderable> getRenderableList(final Size size) {
+        return (new CommodityIntelViewFactory(market, this)).create(size);
+    }
+
+    @Override
+    protected RenderableIntelInfo getIntelInfo() {
+        return new CommodityIntelInfo(this);
     }
 }

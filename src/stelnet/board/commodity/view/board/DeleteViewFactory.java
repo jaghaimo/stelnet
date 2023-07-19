@@ -16,8 +16,8 @@ public class DeleteViewFactory implements RenderableFactory {
     private final IntelTracker intelTracker;
 
     @Override
-    public List<Renderable> create(Size size) {
-        VerticalViewContainer verticalContainer = new VerticalViewContainer(
+    public List<Renderable> create(final Size size) {
+        final VerticalViewContainer verticalContainer = new VerticalViewContainer(
             new DeleteAllIntel(intelTracker),
             new DeleteCommodityIntel(commodityId, intelTracker)
         );

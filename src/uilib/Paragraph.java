@@ -4,7 +4,7 @@ import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.LabelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-import java.awt.Color;
+import java.awt.*;
 import lombok.Getter;
 import lombok.Setter;
 import uilib.property.Size;
@@ -20,26 +20,26 @@ public class Paragraph extends RenderableComponent {
     private Alignment alignment = Alignment.TL;
     private float padding = 0;
 
-    public Paragraph(String text, float width) {
+    public Paragraph(final String text, final float width) {
         setSize(new Size(width, UiConstants.DEFAULT_ROW_HEIGHT));
         setColor(Misc.getTextColor());
         setText(text);
         setWithScroller(false);
     }
 
-    public Paragraph(String text, float width, float padding) {
+    public Paragraph(final String text, final float width, final float padding) {
         this(text, width);
         setPadding(padding);
     }
 
-    public Paragraph(String text, float width, float padding, Alignment alignment) {
+    public Paragraph(final String text, final float width, final float padding, final Alignment alignment) {
         this(text, width, padding);
         setAlignment(alignment);
     }
 
     @Override
-    public void render(TooltipMakerAPI tooltip) {
-        LabelAPI addedText = tooltip.addPara(text, color, padding);
+    public void render(final TooltipMakerAPI tooltip) {
+        final LabelAPI addedText = tooltip.addPara(text, color, padding);
         if (highlightStrings.length > 0) {
             addedText.setHighlight(highlightStrings);
         }
@@ -49,11 +49,11 @@ public class Paragraph extends RenderableComponent {
         addedText.setAlignment(alignment);
     }
 
-    public void setHighlightColors(Color... highlightColors) {
+    public void setHighlightColors(final Color... highlightColors) {
         this.highlightColors = highlightColors;
     }
 
-    public void setHighlightStrings(String... highlightStrings) {
+    public void setHighlightStrings(final String... highlightStrings) {
         this.highlightStrings = highlightStrings;
     }
 }

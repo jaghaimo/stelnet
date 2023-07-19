@@ -16,13 +16,13 @@ public class LogicalAnd extends Filter {
     private final Collection<Filter> filters;
     private final String type;
 
-    public LogicalAnd(Collection<Filter> filters) {
+    public LogicalAnd(final Collection<Filter> filters) {
         this(filters, "");
     }
 
     @Override
-    public boolean accept(Object object) {
-        for (Filter filter : filters) {
+    public boolean accept(final Object object) {
+        for (final Filter filter : filters) {
             if (filter == null) {
                 log.warn("Skipping null filter!");
                 continue;

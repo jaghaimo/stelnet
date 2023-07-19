@@ -14,7 +14,7 @@ public class CheckedButton extends DecoratedButton {
 
     @Override
     public ButtonAPI addButton(TooltipMakerAPI tooltip) {
-        ButtonAPI addedButton = button.addButton(tooltip);
+        ButtonAPI addedButton = super.addButton(tooltip);
         addedButton.setChecked(isChecked);
         return addedButton;
     }

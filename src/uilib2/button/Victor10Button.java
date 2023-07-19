@@ -12,7 +12,7 @@ public class Victor10Button extends DecoratedButton {
     @Override
     public ButtonAPI addButton(TooltipMakerAPI tooltip) {
         tooltip.setButtonFontVictor10();
-        ButtonAPI buttonApi = button.addButton(tooltip);
+        ButtonAPI buttonApi = super.addButton(tooltip);
         tooltip.setButtonFontDefault();
         return buttonApi;
     }

@@ -5,7 +5,6 @@ import com.fs.starfarer.api.characters.PersonAPI;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import stelnet.board.query.QueryL10n;
 import stelnet.board.query.ResultSet;
 import stelnet.board.query.grouping.GroupingStrategy;
 import stelnet.filter.Filter;
@@ -24,39 +23,39 @@ public class PeopleQueryProvider extends QueryProvider {
     }
 
     @Override
-    public List<PersonAPI> getMatching(Set<Filter> filters) {
-        List<MarketAPI> markets = MarketProvider.getMarkets(true);
-        List<PersonAPI> people = extractPeople(markets);
-        List<PersonAPI> peopleCopy = new LinkedList<>(people);
+    public List<PersonAPI> getMatching(final Set<Filter> filters) {
+        final List<MarketAPI> markets = MarketProvider.getMarkets(true);
+        final List<PersonAPI> people = extractPeople(markets);
+        final List<PersonAPI> peopleCopy = new LinkedList<>(people);
         CollectionUtils.reduce(peopleCopy, filters);
         return peopleCopy;
     }
 
     @Override
-    public RenderableShowComponent getPreview(Set<Filter> filters, Size size) {
-        return new ShowPeople(getMatching(filters), L10n.get(QueryL10n.NO_MATCHING_PEOPLE), size);
+    public RenderableShowComponent getPreview(final Set<Filter> filters, final Size size) {
+        return new ShowPeople(getMatching(filters), L10n.query("NO_MATCHING_PEOPLE"), size);
     }
 
     @Override
     protected void processMarkets(
-        List<ResultSet> resultSets,
-        List<MarketAPI> markets,
-        Set<Filter> filters,
+        final List<ResultSet> resultSets,
+        final List<MarketAPI> markets,
+        final Set<Filter> filters,
         final GroupingStrategy groupingStrategy
     ) {
-        for (MarketAPI market : markets) {
-            List<PersonAPI> people = market.getPeopleCopy();
+        for (final MarketAPI market : markets) {
+            final List<PersonAPI> people = market.getPeopleCopy();
             CollectionUtils.reduce(people, filters);
-            ResultSet resultSet = new ResultSet(groupingStrategy, market);
+            final ResultSet resultSet = new ResultSet(groupingStrategy, market);
             resultSet.addPeople(market, people);
             addToResultSets(resultSets, resultSet);
         }
     }
 
-    private List<PersonAPI> extractPeople(List<MarketAPI> markets) {
+    private List<PersonAPI> extractPeople(final List<MarketAPI> markets) {
         if (people == null) {
             people = new LinkedList<>();
-            for (MarketAPI market : markets) {
+            for (final MarketAPI market : markets) {
                 people.addAll(market.getPeopleCopy());
             }
         }

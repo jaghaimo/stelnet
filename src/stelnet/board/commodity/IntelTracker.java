@@ -18,17 +18,17 @@ public class IntelTracker {
 
     public void restore() {
         intelMap.clear();
-        for (IntelInfoPlugin intel : Global.getSector().getIntelManager().getIntel(CommodityIntel.class)) {
-            CommodityIntel elevatedIntel = (CommodityIntel) intel;
-            CommoditySpecAPI commodity = elevatedIntel.getCommodity();
-            String key = getKey(commodity.getId(), elevatedIntel.getMarket());
+        for (final IntelInfoPlugin intel : Global.getSector().getIntelManager().getIntel(CommodityIntel.class)) {
+            final CommodityIntel elevatedIntel = (CommodityIntel) intel;
+            final CommoditySpecAPI commodity = elevatedIntel.getCommodity();
+            final String key = getKey(commodity.getId(), elevatedIntel.getMarket());
             intelMap.put(key, elevatedIntel);
         }
     }
 
-    public boolean has(String commodityId) {
-        Set<String> keys = new LinkedHashSet<>(intelMap.keySet());
-        for (String key : keys) {
+    public boolean has(final String commodityId) {
+        final Set<String> keys = new LinkedHashSet<>(intelMap.keySet());
+        for (final String key : keys) {
             if (intelMap.get(key).getCommodityId().equals(commodityId)) {
                 return true;
             }
@@ -36,17 +36,17 @@ public class IntelTracker {
         return false;
     }
 
-    public boolean has(String commodityId, MarketAPI market) {
-        String key = getKey(commodityId, market);
-        CommodityIntel intel = intelMap.get(key);
+    public boolean has(final String commodityId, final MarketAPI market) {
+        final String key = getKey(commodityId, market);
+        final CommodityIntel intel = intelMap.get(key);
         return intel != null;
     }
 
     /**
      * Removes one intel.
      */
-    public void remove(CommodityIntel intel) {
-        String key = getKey(intel.getCommodityId(), intel.getMarket());
+    public void remove(final CommodityIntel intel) {
+        final String key = getKey(intel.getCommodityId(), intel.getMarket());
         removeIntel(intel, key);
     }
 
@@ -54,7 +54,7 @@ public class IntelTracker {
      * Removes all intel.
      */
     public void remove() {
-        for (CommodityIntel intel : intelMap.values()) {
+        for (final CommodityIntel intel : intelMap.values()) {
             Global.getSector().getIntelManager().removeIntel(intel);
         }
         intelMap.clear();
@@ -63,9 +63,9 @@ public class IntelTracker {
     /**
      * Removes all intel for a given `commodityId`.
      */
-    public void remove(String commodityId) {
-        Set<String> keys = new LinkedHashSet<>(intelMap.keySet());
-        for (String key : keys) {
+    public void remove(final String commodityId) {
+        final Set<String> keys = new LinkedHashSet<>(intelMap.keySet());
+        for (final String key : keys) {
             removeIfCommodity(key, commodityId);
         }
     }
@@ -74,9 +74,9 @@ public class IntelTracker {
         return intelMap.size();
     }
 
-    public void toggle(String commodityId, MarketAPI market) {
-        String key = getKey(commodityId, market);
-        CommodityIntel intel = intelMap.get(key);
+    public void toggle(final String commodityId, final MarketAPI market) {
+        final String key = getKey(commodityId, market);
+        final CommodityIntel intel = intelMap.get(key);
         if (intel == null) {
             addIntel(commodityId, market);
         } else {
@@ -84,30 +84,30 @@ public class IntelTracker {
         }
     }
 
-    private void addIntel(String commodityId, MarketAPI market) {
+    private void addIntel(final String commodityId, final MarketAPI market) {
         if (!StelnetHelper.hasCommodity(commodityId)) {
             log.warn("Could not get commodity spec for id " + commodityId + ", avoiding intel creation");
             return;
         }
-        CommodityIntel intel = new CommodityIntel(commodityId, this, market);
+        final CommodityIntel intel = new CommodityIntel(commodityId, this, market);
         Global.getSector().getIntelManager().addIntel(intel, true);
-        String key = getKey(commodityId, market);
+        final String key = getKey(commodityId, market);
         intelMap.put(key, intel);
         log.debug("Added new intel with key " + key);
     }
 
-    private String getKey(String commodityId, MarketAPI market) {
+    private String getKey(final String commodityId, final MarketAPI market) {
         return commodityId + ":" + market.getName();
     }
 
-    private void removeIfCommodity(String key, String commodityId) {
-        CommodityIntel intel = intelMap.get(key);
+    private void removeIfCommodity(final String key, final String commodityId) {
+        final CommodityIntel intel = intelMap.get(key);
         if (intel.getCommodityId().equals(commodityId)) {
             removeIntel(intel, key);
         }
     }
 
-    private void removeIntel(CommodityIntel intel, String key) {
+    private void removeIntel(final CommodityIntel intel, final String key) {
         Global.getSector().getIntelManager().removeIntel(intel);
         intelMap.remove(key);
         log.debug("Removed existing intel with key " + key);

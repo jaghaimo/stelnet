@@ -8,7 +8,7 @@ import java.util.List;
 public abstract class WeaponSlotFilter extends ShipHullFilter {
 
     @Override
-    public boolean accept(Object object) {
+    public boolean accept(final Object object) {
         if (object instanceof WeaponSlotAPI) {
             return acceptWeaponSlot((WeaponSlotAPI) object);
         }
@@ -16,14 +16,14 @@ public abstract class WeaponSlotFilter extends ShipHullFilter {
     }
 
     @Override
-    protected boolean acceptFleetMember(FleetMemberAPI ship) {
+    protected boolean acceptFleetMember(final FleetMemberAPI ship) {
         return acceptShipHull(ship.getHullSpec());
     }
 
     @Override
-    protected boolean acceptShipHull(ShipHullSpecAPI shipHull) {
-        List<WeaponSlotAPI> weaponSlots = shipHull.getAllWeaponSlotsCopy();
-        for (WeaponSlotAPI weaponSlot : weaponSlots) {
+    protected boolean acceptShipHull(final ShipHullSpecAPI shipHull) {
+        final List<WeaponSlotAPI> weaponSlots = shipHull.getAllWeaponSlotsCopy();
+        for (final WeaponSlotAPI weaponSlot : weaponSlots) {
             if (acceptWeaponSlot(weaponSlot)) {
                 return true;
             }

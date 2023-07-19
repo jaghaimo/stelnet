@@ -43,6 +43,15 @@ public abstract class CallbackAwareIntel extends BaseIntelPlugin {
         return false;
     }
 
+    @Override
+    public void tableRowClicked(IntelUIAPI ui, TableRowClickData data) {
+        IntelUiCallback callback = getCallback(data.rowId);
+        if (isSupported(callback)) {
+            log.debug("Processing 'tableRowClicked'");
+            callback.onConfirm(ui);
+        }
+    }
+
     private IntelUiCallback getCallback(Object buttonId) {
         if (buttonId instanceof IntelUiCallback) {
             return (IntelUiCallback) buttonId;

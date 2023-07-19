@@ -14,7 +14,7 @@ public class RenamedLabel extends DecoratedLabel {
 
     @Override
     public LabelAPI addLabel(TooltipMakerAPI tooltip) {
-        LabelAPI addedLabel = label.addLabel(tooltip);
+        LabelAPI addedLabel = super.addLabel(tooltip);
         addedLabel.setText(title);
         return addedLabel;
     }

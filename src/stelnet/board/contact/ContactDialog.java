@@ -8,20 +8,21 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.impl.campaign.RuleBasedInteractionDialogPluginImpl;
 import com.fs.starfarer.api.ui.IntelUIAPI;
-import stelnet.util.MemoryHelper;
+import stelnet.board.contact.fleetdata.CargoFleetData;
+import stelnet.util.MemoryManager;
 import stelnet.util.ModConstants;
 import stelnet.util.StelnetHelper;
 
 public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
 
-    private InteractionDialogAPI dialog;
     private final MarketAPI market;
     private final PersonAPI person;
     private final IntelUIAPI ui;
     private final CargoFleetData playerData;
     private final CargoFleetData storageData;
+    private InteractionDialogAPI dialog;
 
-    public ContactDialog(IntelUIAPI ui, PersonAPI person, SubmarketAPI storage) {
+    public ContactDialog(final IntelUIAPI ui, final PersonAPI person, final SubmarketAPI storage) {
         super("OpenCDE");
         this.person = person;
         this.market = storage.getMarket();
@@ -33,9 +34,25 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
         }
     }
 
+    private boolean isRemoteCall() {
+        final SectorEntityToken playerFocus = Global.getSector().getPlayerFleet().getOrbitFocus();
+        if (playerFocus == null) {
+            return true;
+        }
+        if (playerFocus.equals(this.market.getPrimaryEntity())) {
+            return false;
+        }
+        for (final SectorEntityToken connectedEntity : this.market.getConnectedEntities()) {
+            if (playerFocus.equals(connectedEntity)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
-    public void init(InteractionDialogAPI dialog) {
-        SectorEntityToken token = dialog.getInteractionTarget();
+    public void init(final InteractionDialogAPI dialog) {
+        final SectorEntityToken token = dialog.getInteractionTarget();
         token.setActivePerson(person);
         super.init(dialog);
         this.dialog = dialog;
@@ -49,7 +66,7 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
     }
 
     @Override
-    public void optionSelected(String text, Object optionData) {
+    public void optionSelected(final String text, final Object optionData) {
         if (optionData.equals("cutCommLink")) {
             dismiss();
             return;
@@ -57,27 +74,11 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
         super.optionSelected(text, optionData);
     }
 
-    private boolean isRemoteCall() {
-        SectorEntityToken playerFocus = Global.getSector().getPlayerFleet().getOrbitFocus();
-        if (playerFocus == null) {
-            return true;
-        }
-        if (playerFocus.equals(this.market.getPrimaryEntity())) {
-            return false;
-        }
-        for (SectorEntityToken connectedEntity : this.market.getConnectedEntities()) {
-            if (playerFocus.equals(connectedEntity)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     private void dismiss() {
-        MemoryHelper.unset(ModConstants.MEMORY_IS_CALLING);
-        ContactsBoard board = StelnetHelper.getInstance(ContactsBoard.class);
+        MemoryManager.getInstance().unset(ModConstants.MEMORY_IS_CALLING);
+        final ContactBoard board = StelnetHelper.getInstance(ContactBoard.class);
         if (this.isRemoteCall()) {
-            board.getRenderableState().addTrackingData(market, storageData, playerData);
+            board.getModel().addTrackingData(market, storageData, playerData);
             storageData.add(playerData);
             playerData.restore();
         }

@@ -3,7 +3,7 @@ package uilib;
 import com.fs.starfarer.api.ui.ButtonAPI;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import java.awt.Color;
+import java.awt.*;
 import lombok.Getter;
 import lombok.Setter;
 import uilib.property.Size;
@@ -15,23 +15,23 @@ public class AreaCheckbox extends Button implements TwoStateButton {
     private boolean isStateOn;
     private int padding = UiConstants.DEFAULT_BUTTON_PADDING;
 
-    public AreaCheckbox(Size size, String title, boolean isEnabled, boolean isStateOn) {
+    public AreaCheckbox(final Size size, final String title, final boolean isEnabled, final boolean isStateOn) {
         super(size, title, isEnabled);
         this.isStateOn = isStateOn;
     }
 
     @Override
-    public void onConfirm(IntelUIAPI ui) {
+    public void onConfirm(final IntelUIAPI ui) {
         toggle();
         super.onConfirm(ui);
     }
 
     @Override
-    public void render(TooltipMakerAPI tooltip) {
-        Size size = getSize();
-        Color foregroundColor = getTextColor();
-        Color backgroundColor = getBackgroundColor();
-        ButtonAPI button = tooltip.addAreaCheckbox(
+    public void render(final TooltipMakerAPI tooltip) {
+        final Size size = getSize();
+        final Color foregroundColor = getTextColor();
+        final Color backgroundColor = getBackgroundColor();
+        final ButtonAPI button = tooltip.addAreaCheckbox(
             tooltip.shortenString(getTitle(), size.getWidth()),
             this,
             foregroundColor,

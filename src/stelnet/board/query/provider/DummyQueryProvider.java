@@ -17,22 +17,22 @@ import uilib.property.Size;
 public class DummyQueryProvider extends QueryProvider {
 
     @Override
-    public Set<Filter> getAdditionalFilters(QueryManager manager) {
+    public Set<Filter> getAdditionalFilters(final QueryManager manager) {
         return Collections.emptySet();
     }
 
     @Override
-    public List<?> getMatching(Set<Filter> filters) {
+    public List<?> getMatching(final Set<Filter> filters) {
         logUsage();
         return Collections.emptyList();
     }
 
     @Override
-    public RenderableShowComponent getPreview(Set<Filter> filters, Size size) {
+    public RenderableShowComponent getPreview(final Set<Filter> filters, final Size size) {
         logUsage();
         return new RenderableShowComponent(0) {
             @Override
-            public void render(TooltipMakerAPI tooltip) {
+            public void render(final TooltipMakerAPI tooltip) {
                 logUsage();
             }
         };
@@ -40,9 +40,9 @@ public class DummyQueryProvider extends QueryProvider {
 
     @Override
     protected void processMarkets(
-        List<ResultSet> resultSets,
-        List<MarketAPI> markets,
-        Set<Filter> filters,
+        final List<ResultSet> resultSets,
+        final List<MarketAPI> markets,
+        final Set<Filter> filters,
         final GroupingStrategy groupingStrategy
     ) {
         logUsage();

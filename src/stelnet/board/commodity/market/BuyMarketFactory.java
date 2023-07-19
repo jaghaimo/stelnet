@@ -13,19 +13,19 @@ public class BuyMarketFactory extends MarketFactory {
     @Getter
     private final SupplyPrice price;
 
-    public BuyMarketFactory(String commodityId) {
+    public BuyMarketFactory(final String commodityId) {
         super(commodityId);
         this.price = new SupplyPrice(commodityId);
     }
 
     @Override
-    protected void filterMarkets(List<MarketAPI> markets) {
-        CollectionUtils.reduce(markets, new MarketCommodityAvailable(commodityId));
+    protected void sortMarkets(final List<MarketAPI> markets) {
+        super.sortMarkets(markets);
+        Collections.reverse(markets);
     }
 
     @Override
-    protected void sortMarkets(List<MarketAPI> markets) {
-        super.sortMarkets(markets);
-        Collections.reverse(markets);
+    protected void filterMarkets(final List<MarketAPI> markets) {
+        CollectionUtils.reduce(markets, new MarketCommodityAvailable(commodityId));
     }
 }

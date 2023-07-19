@@ -13,7 +13,6 @@ import stelnet.board.query.provider.MarketProvider;
 public class MarketUpdater implements EveryFrameScript, ColonyInteractionListener {
 
     private static transient MarketUpdater instance;
-    private MarketAPI openedMarket;
 
     public static void register() {
         if (instance == null) {
@@ -34,12 +33,14 @@ public class MarketUpdater implements EveryFrameScript, ColonyInteractionListene
         }
     }
 
+    private MarketAPI openedMarket;
+
     @Override
-    public void advance(float amount) {
+    public void advance(final float amount) {
         if (!Global.getSector().isPaused()) {
             return;
         }
-        MarketAPI market = pickRandomMarket();
+        final MarketAPI market = pickRandomMarket();
         if (openedMarket == market) {
             log.debug("Skipping currently opened market " + market.getId());
             return;
@@ -58,30 +59,30 @@ public class MarketUpdater implements EveryFrameScript, ColonyInteractionListene
     }
 
     @Override
-    public void reportPlayerOpenedMarket(MarketAPI market) {
+    public void reportPlayerOpenedMarket(final MarketAPI market) {
         if (openedMarket == null) {
             openedMarket = market;
         }
     }
 
     @Override
-    public void reportPlayerClosedMarket(MarketAPI market) {
+    public void reportPlayerClosedMarket(final MarketAPI market) {
         openedMarket = null;
     }
 
     @Override
-    public void reportPlayerOpenedMarketAndCargoUpdated(MarketAPI market) {}
+    public void reportPlayerOpenedMarketAndCargoUpdated(final MarketAPI market) {}
 
     @Override
-    public void reportPlayerMarketTransaction(PlayerMarketTransaction transaction) {}
+    public void reportPlayerMarketTransaction(final PlayerMarketTransaction transaction) {}
 
     protected MarketAPI pickRandomMarket() {
-        WeightedRandomPicker<MarketAPI> markets = new WeightedRandomPicker<>(true);
+        final WeightedRandomPicker<MarketAPI> markets = new WeightedRandomPicker<>(true);
         markets.addAll(Global.getSector().getEconomy().getMarketsCopy());
         return markets.pick();
     }
 
-    protected void updateMarket(MarketAPI market) {
+    protected void updateMarket(final MarketAPI market) {
         log.debug("Updating " + market.getId());
         MarketProvider.updateMarket(market);
     }

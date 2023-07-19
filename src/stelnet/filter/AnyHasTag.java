@@ -24,7 +24,7 @@ public final class AnyHasTag extends Filter {
     private final String tag;
 
     @Override
-    public boolean accept(Object object) {
+    public boolean accept(final Object object) {
         if (object instanceof CommDirectoryEntryAPI) {
             return acceptCommDirectoryEntry((CommDirectoryEntryAPI) object);
         }
@@ -58,65 +58,65 @@ public final class AnyHasTag extends Filter {
         return super.accept(object);
     }
 
-    protected boolean acceptCommDirectoryEntry(CommDirectoryEntryAPI entry) {
-        PersonAPI person = (PersonAPI) entry.getEntryData();
+    private boolean acceptCommDirectoryEntry(final CommDirectoryEntryAPI entry) {
+        final PersonAPI person = (PersonAPI) entry.getEntryData();
         return acceptPerson(person);
     }
 
-    protected boolean acceptCommodity(CommoditySpecAPI commodity) {
+    private boolean acceptCommodity(final CommoditySpecAPI commodity) {
         return commodity.hasTag(tag);
     }
 
-    protected boolean acceptContact(ContactIntel intel) {
+    private boolean acceptContact(final ContactIntel intel) {
         return acceptPerson(intel.getPerson());
     }
 
-    protected boolean acceptFighterWing(FighterWingSpecAPI fighterWing) {
+    private boolean acceptFighterWing(final FighterWingSpecAPI fighterWing) {
         return fighterWing.getTags().contains(tag);
     }
 
-    protected boolean acceptHullMod(HullModSpecAPI hullMod) {
+    private boolean acceptHullMod(final HullModSpecAPI hullMod) {
         return hullMod.getTags().contains(tag);
     }
 
-    protected boolean acceptIntel(IntelInfoPlugin intel) {
-        Set<String> tags = intel.getIntelTags(null);
+    private boolean acceptIntel(final IntelInfoPlugin intel) {
+        final Set<String> tags = intel.getIntelTags(null);
         if (tags == null) {
-            log.warn("Intel " + intel.toString() + " has null tags, returning false");
+            log.warn("Intel " + intel + " has null tags, returning false");
             return false;
         }
         return tags.contains(tag);
     }
 
-    protected boolean acceptMarket(MarketAPI market) {
+    private boolean acceptMarket(final MarketAPI market) {
         if (market.hasTag(tag)) {
             return true;
         }
-        StarSystemAPI starSystem = market.getStarSystem();
+        final StarSystemAPI starSystem = market.getStarSystem();
         if (starSystem != null) {
             return starSystem.hasTag(tag);
         }
         return false;
     }
 
-    protected boolean acceptPerson(PersonAPI person) {
+    private boolean acceptPerson(final PersonAPI person) {
         if (person == null) {
             log.warn("Person is null, returning false");
             return false;
         }
-        Set<String> tags = person.getTags();
+        final Set<String> tags = person.getTags();
         if (tags == null) {
-            log.warn("Person " + person.toString() + " has null tags, returning false");
+            log.warn("Person " + person + " has null tags, returning false");
             return false;
         }
         return tags.contains(tag);
     }
 
-    protected boolean acceptSkill(SkillSpecAPI skill) {
+    private boolean acceptSkill(final SkillSpecAPI skill) {
         return skill.getTags().contains(tag);
     }
 
-    protected boolean acceptWeapon(WeaponSpecAPI weapon) {
+    private boolean acceptWeapon(final WeaponSpecAPI weapon) {
         return weapon.getTags().contains(tag);
     }
 }

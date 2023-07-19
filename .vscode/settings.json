@@ -1,6 +1,0 @@
-{
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
-    "java.configuration.updateBuildConfiguration": "automatic",
-    "cSpell.words": ["Sebestyen"]
-}

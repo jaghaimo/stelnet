@@ -12,18 +12,18 @@ import java.util.Set;
 
 public class ResultOrganiser {
 
-    public Set<MarketAPI> getMarkets(ResultSet resultSet) {
-        Set<MarketAPI> markets = new LinkedHashSet<>();
-        for (Result result : resultSet.getResultSet()) {
+    public Set<MarketAPI> getMarkets(final ResultSet resultSet) {
+        final Set<MarketAPI> markets = new LinkedHashSet<>();
+        for (final Result result : resultSet.getResultSet()) {
             markets.add(result.getMarket());
         }
         return markets;
     }
 
-    public Set<SubmarketAPI> getSubmarkets(ResultSet resultSet, MarketAPI market) {
-        Set<SubmarketAPI> submarkets = new LinkedHashSet<>();
-        for (Result result : resultSet.getResultSet()) {
-            SubmarketAPI submarket = result.getSubmarket();
+    public Set<SubmarketAPI> getSubmarkets(final ResultSet resultSet, final MarketAPI market) {
+        final Set<SubmarketAPI> submarkets = new LinkedHashSet<>();
+        for (final Result result : resultSet.getResultSet()) {
+            final SubmarketAPI submarket = result.getSubmarket();
             if (result.getMarket() == market && submarket != null) {
                 submarkets.add(submarket);
             }
@@ -31,9 +31,9 @@ public class ResultOrganiser {
         return submarkets;
     }
 
-    public List<PersonAPI> getPeople(ResultSet resultSet, MarketAPI market) {
-        List<PersonAPI> people = new LinkedList<>();
-        for (Result result : resultSet.getResultSet()) {
+    public List<PersonAPI> getPeople(final ResultSet resultSet, final MarketAPI market) {
+        final List<PersonAPI> people = new LinkedList<>();
+        for (final Result result : resultSet.getResultSet()) {
             if (result.getMarket() == market && result.isPerson()) {
                 people.add(result.getPerson());
             }
@@ -41,9 +41,13 @@ public class ResultOrganiser {
         return people;
     }
 
-    public List<CargoStackAPI> getItems(ResultSet resultSet, MarketAPI market, SubmarketAPI submarket) {
-        List<CargoStackAPI> items = new LinkedList<>();
-        for (Result result : resultSet.getResultSet()) {
+    public List<CargoStackAPI> getItems(
+        final ResultSet resultSet,
+        final MarketAPI market,
+        final SubmarketAPI submarket
+    ) {
+        final List<CargoStackAPI> items = new LinkedList<>();
+        for (final Result result : resultSet.getResultSet()) {
             if (matches(result, market, submarket) && result.isCargoStack()) {
                 items.add(result.getCargoStack());
             }
@@ -51,9 +55,13 @@ public class ResultOrganiser {
         return items;
     }
 
-    public List<FleetMemberAPI> getShips(ResultSet resultSet, MarketAPI market, SubmarketAPI submarket) {
-        List<FleetMemberAPI> ships = new LinkedList<>();
-        for (Result result : resultSet.getResultSet()) {
+    public List<FleetMemberAPI> getShips(
+        final ResultSet resultSet,
+        final MarketAPI market,
+        final SubmarketAPI submarket
+    ) {
+        final List<FleetMemberAPI> ships = new LinkedList<>();
+        for (final Result result : resultSet.getResultSet()) {
             if (matches(result, market, submarket) && result.isFleetMember()) {
                 ships.add(result.getFleetMember());
             }
@@ -61,9 +69,9 @@ public class ResultOrganiser {
         return ships;
     }
 
-    private boolean matches(Result result, MarketAPI market, SubmarketAPI submarket) {
-        boolean matchesMarket = result.getMarket() == market;
-        boolean matchesSubmarket = result.getSubmarket() == submarket || submarket == null;
+    private boolean matches(final Result result, final MarketAPI market, final SubmarketAPI submarket) {
+        final boolean matchesMarket = result.getMarket() == market;
+        final boolean matchesSubmarket = result.getSubmarket() == submarket || submarket == null;
         return matchesMarket && matchesSubmarket;
     }
 }

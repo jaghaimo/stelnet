@@ -14,8 +14,8 @@ public class ViewerBoard extends BoardBasePlugin {
 
     private final String icon = StelnetHelper.getSpriteName("viewer");
     private final RenderableIntelInfo intelInfo = new BoardRenderableInfo(
-        L10n.get(ViewerL10n.TITLE),
-        L10n.get(ViewerL10n.DESCRIPTION)
+        L10n.viewer("TITLE"),
+        L10n.viewer("DESCRIPTION")
     );
     private final ViewerState renderableState = new ViewerState();
     private final IntelSortTier sortTier = IntelSortTier.TIER_1;

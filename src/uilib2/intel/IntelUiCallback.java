@@ -11,6 +11,7 @@ public class IntelUiCallback {
 
     private final List<IntelUiAction> cancelActions = new LinkedList<>();
     private final List<IntelUiAction> confirmActions = new LinkedList<>();
+    private final List<IntelUiAction> rowActions = new LinkedList<>();
 
     @Setter
     private IntelUiPrompt prompt;
@@ -27,6 +28,12 @@ public class IntelUiCallback {
 
     public void onConfirm(IntelUIAPI ui) {
         for (IntelUiAction action : confirmActions) {
+            action.act(ui);
+        }
+    }
+
+    public void onRow(IntelUIAPI ui) {
+        for (IntelUiAction action : rowActions) {
             action.act(ui);
         }
     }

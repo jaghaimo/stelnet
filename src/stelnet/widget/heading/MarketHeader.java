@@ -20,8 +20,8 @@ public class MarketHeader extends RenderableComponent {
     private final ShowButton showButton;
     private final PeekButton peekButton;
 
-    public MarketHeader(MarketAPI market, IntelBasePlugin intel) {
-        FactionAPI faction = market.getFaction();
+    public MarketHeader(final MarketAPI market, final IntelBasePlugin intel) {
+        final FactionAPI faction = market.getFaction();
         heading = new Heading(" " + market.getName(), faction.getBaseUIColor(), faction.getDarkUIColor());
         heading.setAlignment(Alignment.LMID);
         goButton = new GoButton(market);
@@ -36,18 +36,18 @@ public class MarketHeader extends RenderableComponent {
     }
 
     @Override
-    public void render(TooltipMakerAPI tooltip) {
-        UIComponentAPI headingComponent = renderHeading(tooltip);
+    public void render(final TooltipMakerAPI tooltip) {
+        final UIComponentAPI headingComponent = renderHeading(tooltip);
         renderButtons(tooltip, headingComponent);
         resetTooltip(tooltip, headingComponent);
     }
 
-    private UIComponentAPI renderHeading(TooltipMakerAPI tooltip) {
+    private UIComponentAPI renderHeading(final TooltipMakerAPI tooltip) {
         heading.render(tooltip);
         return tooltip.getPrev();
     }
 
-    private void renderButtons(TooltipMakerAPI tooltip, UIComponentAPI headingComponent) {
+    private void renderButtons(final TooltipMakerAPI tooltip, final UIComponentAPI headingComponent) {
         tooltip.setButtonFontVictor10();
         UIComponentAPI lastComponent = renderFirstButton(goButton, tooltip, headingComponent);
         if (peekButton.isEnabled()) {
@@ -58,25 +58,33 @@ public class MarketHeader extends RenderableComponent {
         }
     }
 
-    private void resetTooltip(TooltipMakerAPI tooltip, UIComponentAPI headingComponent) {
+    private void resetTooltip(final TooltipMakerAPI tooltip, final UIComponentAPI headingComponent) {
         tooltip.setButtonFontDefault();
         tooltip.addSpacer(0);
-        PositionAPI spacerReset = tooltip.getPrev().getPosition();
+        final PositionAPI spacerReset = tooltip.getPrev().getPosition();
         spacerReset.belowLeft(headingComponent, 0);
     }
 
-    private UIComponentAPI renderFirstButton(Button button, TooltipMakerAPI tooltip, UIComponentAPI sibling) {
+    private UIComponentAPI renderFirstButton(
+        final Button button,
+        final TooltipMakerAPI tooltip,
+        final UIComponentAPI sibling
+    ) {
         button.render(tooltip);
-        UIComponentAPI component = tooltip.getPrev();
-        PositionAPI position = component.getPosition();
+        final UIComponentAPI component = tooltip.getPrev();
+        final PositionAPI position = component.getPosition();
         position.rightOfMid(sibling, -position.getWidth() + 5);
         return component;
     }
 
-    private UIComponentAPI renderNextButton(Button button, TooltipMakerAPI tooltip, UIComponentAPI sibling) {
+    private UIComponentAPI renderNextButton(
+        final Button button,
+        final TooltipMakerAPI tooltip,
+        final UIComponentAPI sibling
+    ) {
         button.render(tooltip);
-        UIComponentAPI component = tooltip.getPrev();
-        PositionAPI position = component.getPosition();
+        final UIComponentAPI component = tooltip.getPrev();
+        final PositionAPI position = component.getPosition();
         position.leftOfMid(sibling, 1);
         return component;
     }

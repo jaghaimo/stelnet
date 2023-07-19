@@ -3,7 +3,6 @@ package stelnet.board.query.view;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.ui.UIComponentAPI;
 import lombok.RequiredArgsConstructor;
-import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
 import stelnet.widget.heading.HeadingWithButtons;
 import uilib.UiConstants;
@@ -16,18 +15,23 @@ public class SectionHeader extends HeadingWithButtons {
     private final String heading;
     private final boolean isEnabled;
 
-    public SectionHeader(float width, Enum<?> label, boolean isEnabled) {
+    public SectionHeader(final float width, final String label, final boolean isEnabled) {
         this(width, label, isEnabled, null);
     }
 
-    public SectionHeader(float width, Enum<?> label, boolean isEnabled, FilteringButton[] buttons) {
-        this(buttons, L10n.get(label), isEnabled);
+    public SectionHeader(
+        final float width,
+        final String label,
+        final boolean isEnabled,
+        final FilteringButton[] buttons
+    ) {
+        this(buttons, label, isEnabled);
         setSize(new Size(width, UiConstants.DEFAULT_ROW_HEIGHT + UiConstants.DEFAULT_SPACER * 3));
         setWithScroller(false);
     }
 
     @Override
-    public void render(TooltipMakerAPI tooltip) {
+    public void render(final TooltipMakerAPI tooltip) {
         tooltip.addSpacer(UiConstants.DEFAULT_SPACER);
         tooltip.addSpacer(UiConstants.DEFAULT_SPACER);
         renderQueryHeading(tooltip, isEnabled, heading);
@@ -37,15 +41,15 @@ public class SectionHeader extends HeadingWithButtons {
         tooltip.addSpacer(UiConstants.DEFAULT_SPACER);
     }
 
-    private void renderButtons(TooltipMakerAPI tooltip) {
+    private void renderButtons(final TooltipMakerAPI tooltip) {
         UIComponentAPI currentComponent = renderFirstButton(
-            new SelectDeselectButton(CommonL10n.NONE, isEnabled, false, buttons),
+            new SelectDeselectButton(L10n.common("NONE"), isEnabled, false, buttons),
             getSize().getWidth(),
             tooltip
         );
         currentComponent =
             renderNextButton(
-                new SelectDeselectButton(CommonL10n.ALL, isEnabled, true, buttons),
+                new SelectDeselectButton(L10n.common("ALL"), isEnabled, true, buttons),
                 tooltip,
                 currentComponent
             );

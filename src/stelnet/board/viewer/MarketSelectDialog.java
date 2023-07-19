@@ -21,9 +21,9 @@ public class MarketSelectDialog implements InteractionDialogPlugin {
     @Override
     public void init(final InteractionDialogAPI dialog) {
         dialog.showCampaignEntityPicker(
-            L10n.get(ViewerL10n.DIALOG_SELECT_MARKET),
-            L10n.get(ViewerL10n.DIALOG_SELECTED),
-            L10n.get(ViewerL10n.DIALOG_CONFIRM),
+            L10n.viewer("DIALOG_SELECT_MARKET"),
+            L10n.viewer("DIALOG_SELECTED"),
+            L10n.viewer("DIALOG_CONFIRM"),
             Global.getSector().getPlayerFaction(),
             entities,
             new MarketSelectPicker(dialog, ui)
@@ -31,16 +31,16 @@ public class MarketSelectDialog implements InteractionDialogPlugin {
     }
 
     @Override
-    public void optionSelected(String optionText, Object optionData) {}
+    public void optionSelected(final String optionText, final Object optionData) {}
 
     @Override
-    public void optionMousedOver(String optionText, Object optionData) {}
+    public void optionMousedOver(final String optionText, final Object optionData) {}
 
     @Override
-    public void advance(float amount) {}
+    public void advance(final float amount) {}
 
     @Override
-    public void backFromEngagement(EngagementResultAPI battleResult) {}
+    public void backFromEngagement(final EngagementResultAPI battleResult) {}
 
     @Override
     public Object getContext() {

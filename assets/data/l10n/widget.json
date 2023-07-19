@@ -4,5 +4,9 @@
     "VIEWER_NO_MARKETS": "Please select a market to view.",
     "VIEWER_NO_SHIPS": "There are no matching ships to display.",
     "VIEWER_NO_STORAGES": "You do not have any storages.",
-    "VIEWER_UNIFIED_VIEW_TITLE": "Unified View"
+    "VIEWER_UNIFIED_VIEW_TITLE": "Unified View",
+    "PER_LOCATION": "Per Location",
+    "UNIFIED": "Unified",
+    "ITEMS": "Items",
+    "SHIPS": "Ships"
 }

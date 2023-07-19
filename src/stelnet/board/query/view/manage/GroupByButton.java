@@ -17,7 +17,7 @@ public class GroupByButton extends AreaCheckbox {
     public GroupByButton(final QueryManager manager, final GroupingStrategy groupingStrategy) {
         super(
             new Size(UiConstants.AUTO_WIDTH, UiConstants.DEFAULT_BUTTON_HEIGHT),
-            L10n.get(groupingStrategy),
+            L10n.query(groupingStrategy.name()),
             true,
             manager.getGroupingStrategy().equals(groupingStrategy)
         );
@@ -27,13 +27,13 @@ public class GroupByButton extends AreaCheckbox {
     }
 
     @Override
-    public void render(TooltipMakerAPI tooltip) {
+    public void render(final TooltipMakerAPI tooltip) {
         setStateOn(groupingStrategy.equals(manager.getGroupingStrategy()));
         super.render(tooltip);
     }
 
     @Override
-    public void onConfirm(IntelUIAPI ui) {
+    public void onConfirm(final IntelUIAPI ui) {
         manager.setGroupingStrategy(groupingStrategy);
         manager.updateIntel();
     }

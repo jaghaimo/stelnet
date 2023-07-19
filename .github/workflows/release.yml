@@ -1,23 +1,16 @@
 name: GitHub Release
 
 on:
-    # Triggers the workflow on pushing a tag only
     push:
         tags: "*"
         branches:
             - "!*"
 
-    # Allows you to run this workflow manually from the Actions tab
-    workflow_dispatch:
-
 jobs:
     build:
-        # The type of runner that the job will run on
         runs-on: ubuntu-latest
 
         steps:
-            # Checks-out repository under $GITHUB_WORKSPACE, so your job can access it
-            # GitHub Actions by default doesn't check out tags, so make sure those are included
             - name: Checkout
               uses: actions/checkout@v2
               with:

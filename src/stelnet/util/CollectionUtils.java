@@ -1,10 +1,6 @@
 package stelnet.util;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import stelnet.filter.Filter;
 
 public class CollectionUtils {

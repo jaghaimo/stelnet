@@ -10,7 +10,6 @@ import lombok.extern.log4j.Log4j;
 import stelnet.filter.Filter;
 import stelnet.util.L10n;
 import stelnet.util.StelnetHelper;
-import stelnet.widget.WidgetL10n;
 
 @Log4j
 /**
@@ -19,10 +18,10 @@ import stelnet.widget.WidgetL10n;
 public class UnifiedStrategy implements DisplayStrategy {
 
     @Override
-    public List<LocationContent> getData(ButtonManager filteringButtons) {
-        Set<Filter> filters = filteringButtons.getFilters();
-        CargoAPI items = StelnetHelper.getAllItems(filters);
-        List<FleetMemberAPI> ships = StelnetHelper.getAllShips(filters);
+    public List<LocationContent> getData(final ButtonManager filteringButtons) {
+        final Set<Filter> filters = filteringButtons.getFilters();
+        final CargoAPI items = StelnetHelper.getAllItems(filters);
+        final List<FleetMemberAPI> ships = StelnetHelper.getAllShips(filters);
         log.debug("Found " + items.getStacksCopy().size() + " items");
         log.debug("Found " + ships.size() + " ships");
         return Collections.singletonList(new LocationContent(getLocationData(), items, ships));
@@ -30,7 +29,7 @@ public class UnifiedStrategy implements DisplayStrategy {
 
     private LocationInfo getLocationData() {
         return new LocationInfo(
-            L10n.get(WidgetL10n.VIEWER_UNIFIED_VIEW_TITLE),
+            L10n.widget("VIEWER_UNIFIED_VIEW_TITLE"),
             Misc.getBasePlayerColor(),
             Misc.getDarkPlayerColor()
         );

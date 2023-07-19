@@ -25,9 +25,9 @@ configurations {
 }
 
 // install dependencies from zipped releases
-task installDependencies(type: Sync) {
+tasks.register('installDependencies', Sync) {
     def extractDir = "${buildDir}/libs"
-    
+
     ext.extractedJars = fileTree(extractDir) {
         include "**/*.jar"
         exclude "stelnet.jar"
@@ -35,7 +35,7 @@ task installDependencies(type: Sync) {
     }
 
     dependsOn configurations.zipped
-    from { 
+    from {
         configurations.zipped.collect { zipTree(it) }
     }
     into extractDir
@@ -49,6 +49,7 @@ java {
 
 // where to find sources
 sourceSets.main.java.srcDirs = ['src/']
+sourceSets.test.java.srcDirs = ['tests/']
 
 // build everything and make a jar
 build {
@@ -64,7 +65,7 @@ build {
 // compile time dependencies
 dependencies {
     implementation "jaghaimo:starsector-api:0.96a-RC10@starfarer.api.jar"
-    zipped "Lukas22041:LunaLib:1.7.6@LunaLib.zip"
+    zipped "Lukas22041:LunaLib:1.7.7@LunaLib.zip"
     implementation files({ tasks.installDependencies.extractedJars })
 
     // game dependencies
@@ -79,10 +80,14 @@ dependencies {
     // lombok
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
+
+    // tests
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:2.28.2'
 }
 
 // custom tasks
-task release(type: Zip) {
+tasks.register('release', Zip) {
     dependsOn build
     archiveFileName = "${project.name}-${readModInfoJson().version}.zip"
     destinationDirectory = file(rootDir)

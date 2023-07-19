@@ -1,31 +1,28 @@
 package uilib2.intel;
 
+import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import java.awt.Color;
-import java.util.Collections;
-import java.util.List;
-import lombok.extern.log4j.Log4j;
-import uilib2.Drawable;
+import java.awt.*;
+import java.util.Set;
 
-@Log4j
+/**
+ * DrawableIntel stub that only provides `createIntelInfo` implementation.
+ * <p>
+ * Your intel class will NEED to override either `hasLargeDescription` or `hasSmallDescription`.
+ */
 public abstract class DrawableIntel extends CallbackAwareIntel {
 
     @Override
-    public void createIntelInfo(TooltipMakerAPI info, ListInfoMode mode) {
-        DrawableIntelInfo intelInfo = getIntelInfo();
-        Color bulletColor = getBulletColorForMode(mode);
-        Color titleColor = getTitleColor(mode);
+    public void createIntelInfo(final TooltipMakerAPI info, final ListInfoMode mode) {
+        final DrawableIntelInfo intelInfo = getIntelInfo();
+        final Color bulletColor = getBulletColorForMode(mode);
+        final Color titleColor = getTitleColor(mode);
         intelInfo.draw(info, bulletColor, titleColor);
     }
 
     @Override
-    public void createSmallDescription(TooltipMakerAPI tooltip, float width, float height) {
-        long startTime = System.currentTimeMillis();
-        for (Drawable drawable : getDrawableList(width, height)) {
-            drawable.draw(tooltip);
-        }
-        long stopTime = System.currentTimeMillis();
-        log.debug(String.format("Created small intel in %dms", stopTime - startTime));
+    public boolean hasSmallDescription() {
+        return false;
     }
 
     @Override
@@ -34,8 +31,10 @@ public abstract class DrawableIntel extends CallbackAwareIntel {
     }
 
     @Override
-    public boolean hasSmallDescription() {
-        return true;
+    public Set<String> getIntelTags(final SectorMapAPI map) {
+        final Set<String> tags = super.getIntelTags(map);
+        tags.add(getMainTag());
+        return tags;
     }
 
     @Override
@@ -43,16 +42,7 @@ public abstract class DrawableIntel extends CallbackAwareIntel {
         return false;
     }
 
-    protected List<Drawable> getDrawableList(float width, float height) {
-        return Collections.<Drawable>emptyList();
-    }
+    protected abstract DrawableIntelInfo getIntelInfo();
 
-    protected DrawableIntelInfo getIntelInfo() {
-        return new DrawableIntelInfo() {
-            @Override
-            public void draw(TooltipMakerAPI tooltip, Color bulletColor, Color titleColor) {
-                tooltip.addPara("Implement 'getIntelInfo()' method to change this", 0);
-            }
-        };
-    }
+    protected abstract String getMainTag();
 }

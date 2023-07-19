@@ -3,22 +3,21 @@ package stelnet.board.query.view.add;
 import com.fs.starfarer.api.ui.IntelUIAPI;
 import lombok.Getter;
 import stelnet.board.query.view.FilteringButton;
-import stelnet.util.L10n;
 import uilib.EventHandler;
 
 public class QueryTypeButton extends FilteringButton {
 
     @Getter
-    private QueryFactory nextFactory;
+    private final QueryFactory nextFactory;
 
-    public QueryTypeButton(final AddQueryFactory factory, Enum<?> translationId, QueryFactory nextFactory) {
-        super(L10n.get(translationId), null);
+    public QueryTypeButton(final AddQueryFactory factory, final String title, final QueryFactory nextFactory) {
+        super(title, null);
         this.nextFactory = nextFactory;
         final QueryTypeButton button = this;
         setHandler(
             new EventHandler() {
                 @Override
-                public void onConfirm(IntelUIAPI ui) {
+                public void onConfirm(final IntelUIAPI ui) {
                     factory.setQueryType(button);
                 }
             }

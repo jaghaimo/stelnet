@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import lombok.Getter;
-import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.ItemQueryProvider;
 import stelnet.board.query.view.ButtonGroup;
 import stelnet.board.query.view.FilteringButton;
@@ -14,7 +13,6 @@ import stelnet.board.query.view.dialog.ItemPickerDialog;
 import stelnet.board.query.view.dialog.PickerDialog;
 import stelnet.filter.CargoStackNotKnownModspec;
 import stelnet.filter.Filter;
-import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
 import stelnet.util.StelnetHelper;
 import uilib.Button;
@@ -39,44 +37,43 @@ public class ItemQueryFactory extends QueryFactory {
 
     @Override
     public Set<Filter> getFilters() {
-        Set<Filter> filters = new LinkedHashSet<>();
-        addSelectedOrAll(filters, itemTypes, L10n.get(QueryL10n.ITEM_TYPES));
-        addSelectedOrNone(filters, designTypes, L10n.get(QueryL10n.MANUFACTURERS), hasWeapons() || hasFighterWings());
-        addSelectedOrNone(filters, weaponDamageTypes, L10n.get(QueryL10n.DAMAGE_TYPE), hasWeapons());
-        addSelectedOrNone(filters, weaponMountSizes, L10n.get(QueryL10n.MOUNT_SIZE), hasWeapons());
-        addSelectedOrNone(filters, weaponMountTypes, L10n.get(QueryL10n.MOUNT_TYPE), hasWeapons());
-        addSelectedOrNone(filters, wingRoles, L10n.get(QueryL10n.WING_ROLES), hasFighterWings());
+        final Set<Filter> filters = new LinkedHashSet<>();
+        addSelectedOrAll(filters, itemTypes, L10n.query("ITEM_TYPES"));
+        addSelectedOrNone(filters, designTypes, L10n.query("MANUFACTURERS"), hasWeapons() || hasFighterWings());
+        addSelectedOrNone(filters, weaponDamageTypes, L10n.query("DAMAGE_TYPE"), hasWeapons());
+        addSelectedOrNone(filters, weaponMountSizes, L10n.query("MOUNT_SIZE"), hasWeapons());
+        addSelectedOrNone(filters, weaponMountTypes, L10n.query("MOUNT_TYPE"), hasWeapons());
+        addSelectedOrNone(filters, wingRoles, L10n.query("WING_ROLES"), hasFighterWings());
         filters.add(new CargoStackNotKnownModspec());
         return filters;
     }
 
     @Override
     protected Button[] getFinalComponents() {
-        Set<Filter> filters = getFilters();
-        PickerDialog picker = new ItemPickerDialog(
+        final Set<Filter> filters = getFilters();
+        final PickerDialog picker = new ItemPickerDialog(
             StelnetHelper.makeCargoFromStacks(provider.getMatching(filters)),
             this
         );
-        return new Button[] {
-            new FindMatchingButton(this, L10n.get(CommonL10n.ITEMS)),
-            new FindSelectedButton(picker),
-        };
+        return new Button[] { new FindMatchingButton(this, L10n.common("ITEMS")), new FindSelectedButton(picker) };
     }
 
     @Override
     protected List<Renderable> getQueryBuildingComponents() {
-        List<Renderable> elements = new LinkedList<>();
-        elements.add(new ButtonGroup(sizeHelper, QueryL10n.ITEM_TYPES, itemTypes, true));
-        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), CommonL10n.WEAPONS, hasWeapons()));
-        elements.add(new ButtonGroup(sizeHelper, QueryL10n.DAMAGE_TYPE, weaponDamageTypes, hasWeapons()));
-        elements.add(new ButtonGroup(sizeHelper, QueryL10n.MOUNT_TYPE, weaponMountTypes, hasWeapons()));
-        elements.add(new ButtonGroup(sizeHelper, QueryL10n.MOUNT_SIZE, weaponMountSizes, hasWeapons()));
-        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), CommonL10n.FIGHTER_WINGS, hasFighterWings()));
-        elements.add(new ButtonGroup(sizeHelper, QueryL10n.WING_ROLES, wingRoles, hasFighterWings()));
+        final List<Renderable> elements = new LinkedList<>();
+        elements.add(new ButtonGroup(sizeHelper, L10n.query("ITEM_TYPES"), itemTypes, true));
+        elements.add(new SectionHeader(sizeHelper.getGroupAndTextWidth(), L10n.common("WEAPONS"), hasWeapons()));
+        elements.add(new ButtonGroup(sizeHelper, L10n.query("DAMAGE_TYPE"), weaponDamageTypes, hasWeapons()));
+        elements.add(new ButtonGroup(sizeHelper, L10n.query("MOUNT_TYPE"), weaponMountTypes, hasWeapons()));
+        elements.add(new ButtonGroup(sizeHelper, L10n.query("MOUNT_SIZE"), weaponMountSizes, hasWeapons()));
+        elements.add(
+            new SectionHeader(sizeHelper.getGroupAndTextWidth(), L10n.common("FIGHTER_WINGS"), hasFighterWings())
+        );
+        elements.add(new ButtonGroup(sizeHelper, L10n.query("WING_ROLES"), wingRoles, hasFighterWings()));
         elements.add(
             new SectionHeader(
                 sizeHelper.getGroupAndTextWidth(),
-                QueryL10n.MANUFACTURERS,
+                L10n.query("MANUFACTURERS"),
                 hasWeapons() || hasFighterWings(),
                 designTypes
             )
@@ -94,7 +91,7 @@ public class ItemQueryFactory extends QueryFactory {
     }
 
     private boolean hasNothing() {
-        for (FilteringButton button : itemTypes) {
+        for (final FilteringButton button : itemTypes) {
             if (button.isStateOn()) {
                 return false;
             }

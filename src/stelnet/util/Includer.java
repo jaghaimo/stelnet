@@ -24,7 +24,7 @@ public class Includer extends Reader {
     public static Set<SubmarketAPI> getAbandonedStations() {
         Set<SubmarketAPI> submarkets = new LinkedHashSet<>();
         for (String station : getAbandonedStationIds()) {
-            SubmarketAPI submarket = getStorage(station);
+            SubmarketAPI submarket = getDiscoveredStorage(station);
             if (submarket != null) {
                 submarkets.add(submarket);
             }
@@ -36,9 +36,12 @@ public class Includer extends Reader {
         return getStrings(ABANDONED_STATION_IDS, ModConstants.STELNET_ID);
     }
 
-    private static SubmarketAPI getStorage(String station) {
-        SectorEntityToken token = Global.getSector().getEntityById(station);
+    private static SubmarketAPI getDiscoveredStorage(String stationId) {
+        SectorEntityToken token = Global.getSector().getEntityById(stationId);
         if (token == null) {
+            return null;
+        }
+        if (token.isDiscoverable()) {
             return null;
         }
         MarketAPI market = token.getMarket();

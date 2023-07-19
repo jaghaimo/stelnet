@@ -16,21 +16,21 @@ public abstract class MarketFactory {
     protected final String commodityId;
 
     public List<MarketAPI> createMarkets() {
-        List<MarketAPI> markets = Global.getSector().getEconomy().getMarketsCopy();
+        final List<MarketAPI> markets = Global.getSector().getEconomy().getMarketsCopy();
         CollectionUtils.reduce(markets, new MarketNotHidden());
         filterMarkets(markets);
         sortMarkets(markets);
         return markets;
     }
 
-    protected void sortMarkets(List<MarketAPI> markets) {
+    protected void sortMarkets(final List<MarketAPI> markets) {
         Collections.sort(
             markets,
             new Comparator<MarketAPI>() {
                 @Override
-                public int compare(MarketAPI marketA, MarketAPI marketB) {
-                    float priceA = getPrice().getUnitPrice(marketA);
-                    float priceB = getPrice().getUnitPrice(marketB);
+                public int compare(final MarketAPI marketA, final MarketAPI marketB) {
+                    final float priceA = getPrice().getUnitPrice(marketA);
+                    final float priceB = getPrice().getUnitPrice(marketB);
                     return (int) Math.signum(priceB - priceA);
                 }
             }

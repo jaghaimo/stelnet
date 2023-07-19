@@ -5,13 +5,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import lombok.Getter;
-import stelnet.board.query.QueryL10n;
 import stelnet.board.query.provider.PeopleQueryProvider;
 import stelnet.board.query.view.ButtonGroup;
 import stelnet.board.query.view.FilteringButton;
 import stelnet.board.query.view.SectionHeader;
 import stelnet.filter.Filter;
-import stelnet.util.CommonL10n;
 import stelnet.util.L10n;
 import uilib.Button;
 import uilib.Renderable;
@@ -32,33 +30,33 @@ public class PersonnelQueryFactory extends QueryFactory {
 
     @Override
     public Set<Filter> getFilters() {
-        Set<Filter> filters = new LinkedHashSet<>();
-        addSelectedOrAll(filters, postType, L10n.get(QueryL10n.PERSONNEL_POST_TYPES));
-        addSelectedOrNone(filters, personality, L10n.get(QueryL10n.PERSONNEL_PERSONALITY), hasOfficers());
-        addSelectedOrNone(filters, skill, L10n.get(QueryL10n.PERSONNEL_SKILLS), hasOfficers());
+        final Set<Filter> filters = new LinkedHashSet<>();
+        addSelectedOrAll(filters, postType, L10n.query("PERSONNEL_POST_TYPES"));
+        addSelectedOrNone(filters, personality, L10n.query("PERSONNEL_PERSONALITY"), hasOfficers());
+        addSelectedOrNone(filters, skill, L10n.query("PERSONNEL_SKILLS"), hasOfficers());
         return filters;
     }
 
     @Override
     protected Button[] getFinalComponents() {
-        return new Button[] { new FindMatchingButton(this, L10n.get(CommonL10n.PERSONNEL)) };
+        return new Button[] { new FindMatchingButton(this, L10n.common("PERSONNEL")) };
     }
 
     @Override
     protected List<Renderable> getQueryBuildingComponents() {
-        List<Renderable> elements = new LinkedList<>();
-        elements.add(new ButtonGroup(sizeHelper, QueryL10n.PERSONNEL_POST_TYPES, postType, true));
+        final List<Renderable> elements = new LinkedList<>();
+        elements.add(new ButtonGroup(sizeHelper, L10n.query("PERSONNEL_POST_TYPES"), postType, true));
         elements.add(
-            new SectionHeader(sizeHelper.getGroupAndTextWidth(), QueryL10n.OFFICERS_AND_MERCENARIES, hasOfficers())
+            new SectionHeader(sizeHelper.getGroupAndTextWidth(), L10n.query("OFFICERS_AND_MERCENARIES"), hasOfficers())
         );
-        elements.add(new ButtonGroup(sizeHelper, QueryL10n.PERSONNEL_PERSONALITY, personality, hasOfficers()));
-        elements.add(new ButtonGroup(sizeHelper, QueryL10n.PERSONNEL_SKILLS, skill, hasOfficers()));
+        elements.add(new ButtonGroup(sizeHelper, L10n.query("PERSONNEL_PERSONALITY"), personality, hasOfficers()));
+        elements.add(new ButtonGroup(sizeHelper, L10n.query("PERSONNEL_SKILLS"), skill, hasOfficers()));
         return elements;
     }
 
     private boolean hasOfficers() {
-        boolean hasAdmin = postType[0].isStateOn();
-        boolean hasOfficerOrMerc = postType[1].isStateOn() || postType[2].isStateOn();
+        final boolean hasAdmin = postType[0].isStateOn();
+        final boolean hasOfficerOrMerc = postType[1].isStateOn() || postType[2].isStateOn();
         return hasOfficerOrMerc || (!hasAdmin && !hasOfficerOrMerc);
     }
 }

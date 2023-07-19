@@ -7,13 +7,13 @@ import uilib.EventHandler;
 
 public class FighterBaysButton extends FilteringButton {
 
-    public FighterBaysButton(final ShipQueryFactory factory, String label, Filter filter) {
+    public FighterBaysButton(final ShipQueryFactory factory, final String label, final Filter filter) {
         super(label, filter);
         final FighterBaysButton button = this;
         setHandler(
             new EventHandler() {
                 @Override
-                public void onConfirm(IntelUIAPI ui) {
+                public void onConfirm(final IntelUIAPI ui) {
                     factory.setFighterBays(button);
                 }
             }

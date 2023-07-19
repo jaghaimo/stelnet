@@ -15,7 +15,7 @@ public final class CargoStackWingIsRole extends CargoStackFilter {
     private final WingRole wingRole;
 
     @Override
-    public boolean accept(Object object) {
+    public boolean accept(final Object object) {
         if (object instanceof FighterWingAPI) {
             return acceptWing((FighterWingAPI) object);
         }
@@ -26,23 +26,23 @@ public final class CargoStackWingIsRole extends CargoStackFilter {
     }
 
     @Override
-    protected boolean acceptCargoStack(CargoStackAPI cargoStack) {
+    public String toString() {
+        return L10n.common("ROLE_" + wingRole.name());
+    }
+
+    @Override
+    protected boolean acceptCargoStack(final CargoStackAPI cargoStack) {
         if (cargoStack.isFighterWingStack()) {
             return acceptWingSpec(cargoStack.getFighterWingSpecIfWing());
         }
         return true;
     }
 
-    protected boolean acceptWing(FighterWingAPI wing) {
+    protected boolean acceptWing(final FighterWingAPI wing) {
         return wing.getRole().equals(wingRole);
     }
 
-    protected boolean acceptWingSpec(FighterWingSpecAPI wingSpec) {
+    protected boolean acceptWingSpec(final FighterWingSpecAPI wingSpec) {
         return wingSpec.getRole().equals(wingRole);
-    }
-
-    @Override
-    public String toString() {
-        return L10n.get(wingRole);
     }
 }

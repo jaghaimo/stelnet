@@ -18,14 +18,14 @@ public class StorageView implements RenderableFactory {
     private final GroupingStrategy groupingStrategy;
     private final MarketViewState state;
 
-    public StorageView(StorageState state) {
+    public StorageView(final StorageState state) {
         groupingStrategy = state.getDisplayStrategy();
         this.state = state;
     }
 
     @Override
-    public List<Renderable> create(Size size) {
-        List<Renderable> elements = new LinkedList<>();
+    public List<Renderable> create(final Size size) {
+        final List<Renderable> elements = new LinkedList<>();
         elements.addAll(new MarketView(state).create(size));
         elements.add(getNextStrategyButton());
         return elements;
@@ -33,12 +33,12 @@ public class StorageView implements RenderableFactory {
 
     private Renderable getNextStrategyButton() {
         final GroupingStrategy nextStrategy = groupingStrategy.getNext();
-        DisplayStrategyButton button = new DisplayStrategyButton(nextStrategy);
+        final DisplayStrategyButton button = new DisplayStrategyButton(nextStrategy);
         button.setHandler(
             new EventHandler() {
                 @Override
-                public void onConfirm(IntelUIAPI ui) {
-                    StorageBoard board = StelnetHelper.getInstance(StorageBoard.class);
+                public void onConfirm(final IntelUIAPI ui) {
+                    final StorageBoard board = StelnetHelper.getInstance(StorageBoard.class);
                     board.getRenderableState().setDisplayStrategy(nextStrategy);
                 }
             }

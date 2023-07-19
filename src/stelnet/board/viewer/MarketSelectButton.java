@@ -14,14 +14,14 @@ import uilib.property.Size;
 public class MarketSelectButton extends C2Button {
 
     public MarketSelectButton(final List<SectorEntityToken> entities) {
-        super(new Size(180, 24), L10n.get(ViewerL10n.SELECT_MARKET), true);
+        super(new Size(180, 24), L10n.viewer("SELECT_MARKET"), true);
         setShortcut(Keyboard.KEY_M);
         setLocation(Location.BOTTOM_RIGHT);
         setOffset(new Position(16, 8));
         setHandler(
             new EventHandler() {
                 @Override
-                public void onConfirm(IntelUIAPI ui) {
+                public void onConfirm(final IntelUIAPI ui) {
                     ui.showDialog(null, new MarketSelectDialog(ui, entities));
                 }
             }

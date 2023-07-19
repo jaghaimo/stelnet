@@ -7,7 +7,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.intel.FactionCommissionIntel;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import lunalib.lunaDebug.LunaSnippet;
@@ -17,6 +17,11 @@ import stelnet.util.ModConstants;
 public class FactionCommission extends LunaSnippet {
 
     private final String FACTION_ID = "factionId";
+
+    @Override
+    public String getName() {
+        return "Commission to a faction";
+    }
 
     @Override
     public String getDescription() {
@@ -29,35 +34,30 @@ public class FactionCommission extends LunaSnippet {
     }
 
     @Override
-    public String getName() {
-        return "Commision to a faction";
-    }
-
-    @Override
     public List<String> getTags() {
-        return Arrays.asList(SnippetTags.Player.toString());
+        return Collections.singletonList(SnippetTags.Player.toString());
     }
 
     @Override
-    public void addParameters(SnippetBuilder builder) {
+    public void addParameters(final SnippetBuilder builder) {
         builder.addStringParameter("faction_id", FACTION_ID);
     }
 
     @Override
-    public void execute(Map<String, Object> parameters, TooltipMakerAPI output) {
-        String factionId = (String) parameters.get(FACTION_ID);
-        FactionAPI faction = Global.getSector().getFaction(factionId);
+    public void execute(final Map<String, Object> parameters, final TooltipMakerAPI output) {
+        final String factionId = (String) parameters.get(FACTION_ID);
+        final FactionAPI faction = Global.getSector().getFaction(factionId);
         if (faction == null) {
             output.addPara("Could not find faction with id " + factionId, 0);
             return;
         }
-        FactionAPI commissionedFaction = Misc.getCommissionFaction();
+        final FactionAPI commissionedFaction = Misc.getCommissionFaction();
         if (commissionedFaction != null) {
-            output.addPara("Player is already comissioned to " + commissionedFaction.getDisplayName(), 0);
+            output.addPara("Player is already commissioned to " + commissionedFaction.getDisplayName(), 0);
             return;
         }
         output.addPara("Player is now commissioned with " + faction.getDisplayName(), 0);
-        FactionCommissionIntel intel = new FactionCommissionIntel(faction);
+        final FactionCommissionIntel intel = new FactionCommissionIntel(faction);
         faction.setRelationship(Factions.PLAYER, RepLevel.FAVORABLE);
         intel.missionAccepted();
         intel.makeRepChanges(null);

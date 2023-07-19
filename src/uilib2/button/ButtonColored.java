@@ -2,7 +2,7 @@ package uilib2.button;
 
 import com.fs.starfarer.api.ui.ButtonAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
-import java.awt.Color;
+import java.awt.*;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -16,7 +16,7 @@ public class ButtonColored extends AbstractButton {
     private final float height;
     private final float pad;
 
-    public ButtonAPI addButton(TooltipMakerAPI tooltip) {
+    public ButtonAPI addButton(final TooltipMakerAPI tooltip) {
         return tooltip.addButton(text, data, base, bg, width, height, pad);
     }
 }

@@ -20,25 +20,25 @@ public class IntelViewFactory implements RenderableFactory {
     private final IntelTracker tracker;
 
     @Override
-    public List<Renderable> create(Size size) {
-        List<MarketAPI> markets = commodityAction.getMarkets(commodityId);
-        int numberOfButtons = calcNumberOfButtons(markets, size);
+    public List<Renderable> create(final Size size) {
+        final List<MarketAPI> markets = commodityAction.getMarkets(commodityId);
+        final int numberOfButtons = calcNumberOfButtons(markets, size);
 
-        List<Renderable> buttons = new LinkedList<>();
+        final List<Renderable> buttons = new LinkedList<>();
         for (int i = 0; i < numberOfButtons; i++) {
-            MarketAPI market = markets.get(i);
+            final MarketAPI market = markets.get(i);
             buttons.add(new IntelViewButton(i + 1, commodityId, market, tracker));
         }
 
-        HorizontalViewContainer rows = new HorizontalViewContainer(buttons);
+        final HorizontalViewContainer rows = new HorizontalViewContainer(buttons);
         rows.setSize(size);
         return Collections.<Renderable>singletonList(rows);
     }
 
-    private int calcNumberOfButtons(List<MarketAPI> markets, Size size) {
-        float width = size.getWidth() - 210;
-        int buttonsOnScreen = (int) Math.floor(width / 28f);
-        int maxButtons = markets.size();
+    private int calcNumberOfButtons(final List<MarketAPI> markets, final Size size) {
+        final float width = size.getWidth() - 210;
+        final int buttonsOnScreen = (int) Math.floor(width / 28f);
+        final int maxButtons = markets.size();
         return Math.min(buttonsOnScreen, maxButtons);
     }
 }
