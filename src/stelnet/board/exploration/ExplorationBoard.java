@@ -38,6 +38,10 @@ public class ExplorationBoard extends DrawableIntel {
     private final String icon = StelnetHelper.getSpriteName("exploration");
     private final IntelSortTier sortTier = IntelSortTier.TIER_0;
 
+    protected String getName() {
+        return L10n.get(ExplorationL10n.BOARD_TITLE);
+    }
+
     @Override
     protected DrawableIntelInfo getIntelInfo() {
         int hiddenIntelNumber = ExplorationHelper.getHiddenNumber();

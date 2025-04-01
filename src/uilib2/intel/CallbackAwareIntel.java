@@ -8,6 +8,11 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public abstract class CallbackAwareIntel extends BaseIntelPlugin {
 
+    protected String getName() {
+        // Fallback to empty string to prevent game crashes.
+        return "";
+    }
+
     public void buttonPressConfirmed(Object buttonId, IntelUIAPI ui) {
         IntelUiCallback callback = getCallback(buttonId);
         if (isSupported(callback)) {

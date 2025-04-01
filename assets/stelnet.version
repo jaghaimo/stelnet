@@ -4,8 +4,8 @@
     "modThreadId": 20836,
     "modVersion": {
         "major": 3,
-        "minor": 1,
-        "patch": 3
+        "minor": 2,
+        "patch": 0
     },
     "directDownloadURL": "https://github.com/jaghaimo/stelnet/releases/download/3.1.3/stelnet-3.1.3.zip",
     "changelogURL": "https://raw.githubusercontent.com/jaghaimo/stelnet/3.1.3/changelog.txt"

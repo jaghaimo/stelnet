@@ -1,3 +1,5 @@
+# Local IDE files
+.idea
 # Local development files
 .classpath
 .gradle/

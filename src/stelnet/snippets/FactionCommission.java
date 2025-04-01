@@ -30,7 +30,7 @@ public class FactionCommission extends LunaSnippet {
 
     @Override
     public String getName() {
-        return "Commision to a faction";
+        return "Commission to a faction";
     }
 
     @Override

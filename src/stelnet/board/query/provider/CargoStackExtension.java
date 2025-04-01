@@ -32,7 +32,7 @@ public class CargoStackExtension {
 
     public static CargoStackAPI asCargoStack(HullModSpecAPI hullMod) {
         String hullModId = hullMod.getId();
-        SpecialItemData specialItemData = new SpecialItemData(Items.MODSPEC, hullModId);
+        SpecialItemData specialItemData = new SpecialItemData(Items.TAG_MODSPEC, hullModId);
         CargoStackAPI stack = Global.getFactory().createCargoStack(CargoItemType.SPECIAL, specialItemData, null);
         return getValidStack(stack);
     }

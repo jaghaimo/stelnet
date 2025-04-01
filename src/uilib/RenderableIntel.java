@@ -13,6 +13,11 @@ import uilib.property.Size;
 @Log4j
 public abstract class RenderableIntel extends BaseIntelPlugin {
 
+    protected String getName() {
+        // Fallback to empty string to prevent game crashes.
+        return "";
+    }
+
     @Override
     public void buttonPressCancelled(Object buttonId, IntelUIAPI ui) {
         log.debug("Calling cancel()");
