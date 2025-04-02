@@ -1,0 +1,9 @@
+package stelnet.snippets;
+
+public enum SnippetsL10n {
+    COMMISSION_ADDED,
+    COMMISSION_DESCRIPTION,
+    COMMISSION_FACTION_MISSING,
+    COMMISSION_NAME,
+    COMMISSION_ONGOING,
+}

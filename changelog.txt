@@ -1,3 +1,7 @@
+Version 3.2.0 (2025.04.02)
+- Update mod to Starsector 0.98a-RC5.
+
+
 Version 3.1.3 (2023.06.17)
 - Filter out "Unique" admin skill added by Tahlan Shipworks mod from Admin skills preview in Query builder and results.
 - Add merging CSV support for filtering more skills from Admin skills preview in Query builder and results.
