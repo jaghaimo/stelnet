@@ -1,4 +1,9 @@
 {
+    "BEHAVIOR_ALL_SELECTED": "All selected",
+    "BEHAVIOR_AT_LEAST": "At least {0}",
+    "BEHAVIOR_MERCENARY_SKILLS": "Mercenary Skills",
+    "BEHAVIOR_SHIP_WEAPON_MOUNTS": "Ship Weapon Mounts",
+    "BEHAVIOR_SHIP_BUILT_INS": "Ship Built-Ins",
     "BUILT_IN": "Built-in hullmods",
     "CLASS_SIZE": "Class size",
     "DAMAGE_TYPE": "Damage type",
@@ -15,6 +20,8 @@
     "FIND_MATCHING": "Find Matching",
     "FIND_SELECTED": "Select & Search",
     "ITEM_TYPES": "Item types",
+    "MANAGE_BEHAVIOR": "Query Building Logic",
+    "MANAGE_BEHAVIOR_INFO": "Define how many selected criteria have to be matched.",
     "MANAGE_DMODS": "Ship filtering based on d-mods",
     "MANAGE_DMOD_COUNT": "D-mod count",
     "MANAGE_DMOD_SET": "Allowed and disallowed d-mods",
