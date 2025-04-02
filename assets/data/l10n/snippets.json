@@ -1,7 +1,7 @@
 {
-  "COMMISSION_ADDED": "Player is now commissioned with {0}",
-  "COMMISSION_DESCRIPTION": "Makes player commissioned to a selected faction. Forces FAVOURABLE reputation with said faction.",
-  "COMMISSION_FACTION_MISSING":  "Could not find faction with id {0}",
-  "COMMISSION_NAME": "Commission to a faction",
-  "COMMISSION_ONGOING":  "Player is already commissioned to {0}"
+    "COMMISSION_ADDED": "Player is now commissioned with {0}",
+    "COMMISSION_DESCRIPTION": "Makes player commissioned to a selected faction. Forces FAVOURABLE reputation with said faction.",
+    "COMMISSION_FACTION_MISSING": "Could not find faction with id {0}",
+    "COMMISSION_NAME": "Commission to a faction",
+    "COMMISSION_ONGOING": "Player is already commissioned to {0}"
 }
