@@ -51,7 +51,7 @@ public final class CargoStackIsType extends CargoStackFilter {
         if (!c.isSpecialStack()) {
             return false;
         }
-        return c.getSpecialDataIfSpecial().getId().equals(Items.MODSPEC);
+        return c.getSpecialDataIfSpecial().getId().equals(Items.TAG_MODSPEC);
     }
 
     protected boolean isBlueprint(CargoStackAPI c) {

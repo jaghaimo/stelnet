@@ -25,9 +25,9 @@ configurations {
 }
 
 // install dependencies from zipped releases
-task installDependencies(type: Sync) {
+tasks.register('installDependencies', Sync) {
     def extractDir = "${buildDir}/libs"
-    
+
     ext.extractedJars = fileTree(extractDir) {
         include "**/*.jar"
         exclude "stelnet.jar"
@@ -35,7 +35,7 @@ task installDependencies(type: Sync) {
     }
 
     dependsOn configurations.zipped
-    from { 
+    from {
         configurations.zipped.collect { zipTree(it) }
     }
     into extractDir
@@ -43,8 +43,8 @@ task installDependencies(type: Sync) {
 
 // project level config
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 // where to find sources
@@ -63,8 +63,8 @@ build {
 
 // compile time dependencies
 dependencies {
-    implementation "jaghaimo:starsector-api:0.96a-RC10@starfarer.api.jar"
-    zipped "Lukas22041:LunaLib:1.7.6@LunaLib.zip"
+    implementation "jaghaimo:starsector-api:0.98a-RC5@starfarer.api.jar"
+    zipped "Lukas22041:LunaLib:2.0.2@LunaLib.zip"
     implementation files({ tasks.installDependencies.extractedJars })
 
     // game dependencies
@@ -82,7 +82,7 @@ dependencies {
 }
 
 // custom tasks
-task release(type: Zip) {
+tasks.register('release', Zip) {
     dependsOn build
     archiveFileName = "${project.name}-${readModInfoJson().version}.zip"
     destinationDirectory = file(rootDir)

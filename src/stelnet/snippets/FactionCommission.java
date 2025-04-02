@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import lunalib.lunaDebug.LunaSnippet;
 import lunalib.lunaDebug.SnippetBuilder;
+import stelnet.util.L10n;
 import stelnet.util.ModConstants;
 
 public class FactionCommission extends LunaSnippet {
@@ -20,7 +21,7 @@ public class FactionCommission extends LunaSnippet {
 
     @Override
     public String getDescription() {
-        return "Makes player commissioned to a selected faction. Forces FAVOURABLE reputation with said faction.";
+        return L10n.get(SnippetsL10n.COMMISSION_DESCRIPTION);
     }
 
     @Override
@@ -30,7 +31,7 @@ public class FactionCommission extends LunaSnippet {
 
     @Override
     public String getName() {
-        return "Commision to a faction";
+        return L10n.get(SnippetsL10n.COMMISSION_NAME);
     }
 
     @Override
@@ -48,15 +49,15 @@ public class FactionCommission extends LunaSnippet {
         String factionId = (String) parameters.get(FACTION_ID);
         FactionAPI faction = Global.getSector().getFaction(factionId);
         if (faction == null) {
-            output.addPara("Could not find faction with id " + factionId, 0);
+            output.addPara(L10n.get(SnippetsL10n.COMMISSION_FACTION_MISSING, factionId), 0);
             return;
         }
         FactionAPI commissionedFaction = Misc.getCommissionFaction();
         if (commissionedFaction != null) {
-            output.addPara("Player is already comissioned to " + commissionedFaction.getDisplayName(), 0);
+            output.addPara(L10n.get(SnippetsL10n.COMMISSION_ONGOING, commissionedFaction.getDisplayName()), 0);
             return;
         }
-        output.addPara("Player is now commissioned with " + faction.getDisplayName(), 0);
+        output.addPara(L10n.get(SnippetsL10n.COMMISSION_ADDED, faction.getDisplayName()), 0);
         FactionCommissionIntel intel = new FactionCommissionIntel(faction);
         faction.setRelationship(Factions.PLAYER, RepLevel.FAVORABLE);
         intel.missionAccepted();

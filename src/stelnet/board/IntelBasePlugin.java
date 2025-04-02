@@ -27,6 +27,10 @@ public abstract class IntelBasePlugin extends RenderableIntel {
         this.sectorEntityToken = sectorEntityToken;
     }
 
+    protected String getName() {
+        return sectorEntityToken.getMarket().getStarSystem().getName();
+    }
+
     @Override
     public FactionAPI getFactionForUIColors() {
         return getFaction();
