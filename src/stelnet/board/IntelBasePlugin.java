@@ -28,7 +28,7 @@ public abstract class IntelBasePlugin extends RenderableIntel {
     }
 
     protected String getName() {
-        return sectorEntityToken.getMarket().getStarSystem().getName();
+        return StelnetHelper.getStarSystemName(sectorEntityToken.getStarSystem(), true);
     }
 
     @Override
