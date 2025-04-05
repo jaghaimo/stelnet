@@ -1,5 +1,6 @@
 Version 3.2.1 (2025.04.04)
 - Fix market intel when using Group By Star System method.
+- Update the game dependency to 0.98a-RC7.
 
 
 Version 3.2.0 (2025.04.02)

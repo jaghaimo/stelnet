@@ -63,7 +63,7 @@ build {
 
 // compile time dependencies
 dependencies {
-    implementation "jaghaimo:starsector-api:0.98a-RC5@starfarer.api.jar"
+    implementation "jaghaimo:starsector-api:0.98a-RC7@starfarer.api.jar"
     zipped "Lukas22041:LunaLib:2.0.2@LunaLib.zip"
     implementation files({ tasks.installDependencies.extractedJars })
 
