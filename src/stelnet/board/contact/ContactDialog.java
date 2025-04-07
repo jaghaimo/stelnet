@@ -37,8 +37,8 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
     public void init(InteractionDialogAPI dialog) {
         SectorEntityToken token = dialog.getInteractionTarget();
         token.setActivePerson(person);
-        super.init(dialog);
         this.dialog = dialog;
+        super.init(dialog);
     }
 
     @Override
