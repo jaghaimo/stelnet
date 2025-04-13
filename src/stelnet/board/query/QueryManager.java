@@ -57,12 +57,15 @@ public class QueryManager {
     }
 
     public Set<Filter> getSubmarketFilters() {
-        Set<Filter> submarketFilters = new LinkedHashSet<>();
-        List<SubmarketSpecAPI> allSubmarketSpecs = getSubmarketSpecs();
-        for (SubmarketSpecAPI submarketSpec : allSubmarketSpecs) {
-            submarketFilters.add(getSubmarketFilter(submarketSpec));
+        if (Excluder.submarketFilters == null) {
+            Set<Filter> submarketFilters = new LinkedHashSet<>();
+            List<SubmarketSpecAPI> allSubmarketSpecs = getSubmarketSpecs();
+            for (SubmarketSpecAPI submarketSpec : allSubmarketSpecs) {
+                submarketFilters.add(getSubmarketFilter(submarketSpec));
+            }
+            Excluder.submarketFilters = submarketFilters;
         }
-        return submarketFilters;
+        return Excluder.submarketFilters;
     }
 
     public Filter getSubmarketFilter(SubmarketSpecAPI submarketSpec) {
