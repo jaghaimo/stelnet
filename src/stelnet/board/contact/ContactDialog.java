@@ -8,13 +8,16 @@ import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.impl.campaign.RuleBasedInteractionDialogPluginImpl;
 import com.fs.starfarer.api.ui.IntelUIAPI;
+import lombok.extern.log4j.Log4j;
 import stelnet.util.MemoryHelper;
 import stelnet.util.ModConstants;
 import stelnet.util.StelnetHelper;
 
+@Log4j
 public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
 
     private InteractionDialogAPI dialog;
+    private InteractionDialogAPI dialog2;
     private final MarketAPI market;
     private final PersonAPI person;
     private final IntelUIAPI ui;
@@ -37,13 +40,19 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
     public void init(InteractionDialogAPI dialog) {
         SectorEntityToken token = dialog.getInteractionTarget();
         token.setActivePerson(person);
+        this.dialog2 = dialog;  // Use another variable to log when problem happens.
         super.init(dialog);
         this.dialog = dialog;
     }
 
     @Override
     public void notifyActivePersonChanged() {
-        dialog.hideVisualPanel();
+        if (dialog != null) {
+            dialog.hideVisualPanel();
+        } else {
+            log.warn("Dialog is not set, fallback and call dialog2.hideVisualPanel. For more info see GH issue #119.");
+            //dialog2.hideVisualPanel();  // not needed?
+        }
         super.notifyActivePersonChanged();
         dismiss();
     }
@@ -81,7 +90,12 @@ public class ContactDialog extends RuleBasedInteractionDialogPluginImpl {
             storageData.add(playerData);
             playerData.restore();
         }
-        dialog.dismiss();
+        if (this.dialog != null) {
+            dialog.dismiss();
+        } else {
+            log.warn("Dialog is not set, fallback and call dialog2.dismiss. For more info see GH issue #119.");
+            dialog2.dismiss();
+        }
         ui.recreateIntelUI();
         ui.updateUIForItem(board);
     }
