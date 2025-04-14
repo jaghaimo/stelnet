@@ -1,4 +1,4 @@
-Version 3.2.1-fix118 (TBD)
+Version Unreleased (TBD)
 - Remove duplicate tags from Intel window (first row) and change font color (adjustable in `data/config/tag_data.json`).
 
 
