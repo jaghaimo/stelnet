@@ -1,6 +1,6 @@
-Version 3.2.1-hf120 (TBD)
-- Hotfix for managing markets query results. Result intel entries will respect "Include Submarkets" now.
-  Market Viewer will respect the filter as well, probably shouldn't (need to look into this in a proper fix).
+Version Unreleased (TBD)
+- Fix for managing markets query results. Result intel entries will respect "Include Submarkets" now.
+  Market Viewer will respect the filter as well, consider changing this in the future.
 
 
 Version 3.2.1 (2025.04.04)
