@@ -14,6 +14,10 @@ public final class AnyHasId extends MarketFilter {
 
     private final String id;
 
+    public String toString() {
+        return id;
+    }
+
     @Override
     public boolean accept(Object object) {
         if (object instanceof SkillLevelAPI) {
@@ -36,19 +40,19 @@ public final class AnyHasId extends MarketFilter {
         return id.equalsIgnoreCase(market.getId());
     }
 
-    protected boolean acceptSkillLevel(SkillLevelAPI skillLevel) {
+    private boolean acceptSkillLevel(SkillLevelAPI skillLevel) {
         return acceptSkillSpec(skillLevel.getSkill());
     }
 
-    protected boolean acceptSkillSpec(SkillSpecAPI skillSpec) {
+    private boolean acceptSkillSpec(SkillSpecAPI skillSpec) {
         return id.equalsIgnoreCase(skillSpec.getId());
     }
 
-    protected boolean acceptSubmarket(SubmarketAPI submarket) {
+    private boolean acceptSubmarket(SubmarketAPI submarket) {
         return id.equalsIgnoreCase(submarket.getSpecId());
     }
 
-    protected boolean acceptSubmarketSpec(SubmarketSpecAPI submarketSpec) {
+    private boolean acceptSubmarketSpec(SubmarketSpecAPI submarketSpec) {
         return id.equalsIgnoreCase(submarketSpec.getId());
     }
 }

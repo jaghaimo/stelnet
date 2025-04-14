@@ -14,6 +14,10 @@ public class ResultHasId extends ResultFilter {
         filter = new AnyHasId(id);
     }
 
+    public String toString() {
+        return "ResultHasId:" + filter;
+    }
+
     @Override
     protected boolean acceptResultSet(ResultSet resultSet) {
         return acceptResultSetCopy(resultSet);
