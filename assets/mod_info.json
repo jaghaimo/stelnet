@@ -3,7 +3,7 @@
     "name": "Stellar Networks",
     "author": "Jaghaimo",
     "utility": true,
-    "version": "3.2.2",
+    "version": "3.2.1-dev",
     "description": "A collection of intel boards for Starsector",
     "gameVersion": "0.98a-RC7",
     "modPlugin": "stelnet.StelnetMod",

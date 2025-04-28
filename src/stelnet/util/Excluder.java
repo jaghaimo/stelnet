@@ -43,7 +43,7 @@ public class Excluder extends Reader {
         if (submarketFilter == null) {
             submarketFilter = getSubmarketFilters();
         }
-        // Turn off caching for now.
+        // Turn off caching for now (https://github.com/jaghaimo/stelnet/issues/120).
         return getSubmarketFilters();
     }
 
