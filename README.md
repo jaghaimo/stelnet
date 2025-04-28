@@ -1,5 +1,8 @@
 # Stellar Networks
 
+[![latest release](https://img.shields.io/github/v/release/jaghaimo/stelnet?label=download%20latest)](https://github.com/jaghaimo/stelnet/releases/latest)
+[![Github All Releases](https://img.shields.io/github/downloads/jaghaimo/stelnet/total.svg)](https://github.com/jaghaimo/stelnet/releases)
+
 Stellar Networks is a QoL oriented Starsector mod.
 It adds three new intel tabs: Commodity, Market, and Storage.
 Each tab comes with interactive boards that are used to manage presented intel.
@@ -17,7 +20,7 @@ We will then work together to incorporate your changes into a next release.
 
 ## Translating the Mod
 
-To translate this mod, edit files in [data/l10n](assets/data/l10n/) directory.
+To translate this mod, edit files in [data/l10n](assets/data/l10n) directory.
 You can then create the translation mod with just the following structure:
 
 ```bash
