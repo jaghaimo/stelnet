@@ -4,6 +4,8 @@ import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+
 import stelnet.filter.AnyHasId;
 import stelnet.filter.AnyHasTag;
 import stelnet.filter.Filter;
@@ -12,6 +14,7 @@ import stelnet.filter.LogicalNot;
 import stelnet.filter.LogicalOr;
 import stelnet.filter.MarketBelongsToFaction;
 import stelnet.filter.MarketIsInSystem;
+import stelnet.filter.ResultHasId;
 import stelnet.settings.BooleanSettings;
 
 /**
@@ -25,9 +28,10 @@ public class Excluder extends Reader {
     private static final String MARKET_BY_TAG = "data/stelnet/exclude/market_by_tag.csv";
     private static final String SKILL_BY_ID = "data/stelnet/exclude/skill_by_id.csv";
 
-    private static transient Filter marketFilter;
-    private static transient Filter skillFilter;
-    private static transient Filter submarketFilter;
+    private static Filter marketFilter;
+    private static Filter skillFilter;
+    private static Filter submarketFilter;
+    public static Set<Filter> submarketFilters;
 
     public static void resetCache() {
         marketFilter = null;
@@ -39,7 +43,8 @@ public class Excluder extends Reader {
         if (submarketFilter == null) {
             submarketFilter = getSubmarketFilters();
         }
-        return submarketFilter;
+        // Turn off caching for now (https://github.com/jaghaimo/stelnet/issues/120).
+        return getSubmarketFilters();
     }
 
     public static Filter getMarketFilter() {
@@ -82,6 +87,9 @@ public class Excluder extends Reader {
             filters.add(
                 new LogicalNot(new LogicalOr(Arrays.asList(storage, openMarket, militaryMarket, blackMarket), "Custom"))
             );
+        }
+        if (submarketFilters != null) {
+            filters.removeIf(filter -> !submarketFilters.contains(new ResultHasId(filter.toString())));
         }
         return new LogicalAnd(Arrays.asList(new LogicalNot(storage), new LogicalOr(filters, "Submarkets")));
     }

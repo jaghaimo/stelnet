@@ -2,6 +2,8 @@ Version Unreleased (TBD)
 - Fix for modded contacts that can wipe out player's fleet when calling them remotely while they do not want to talk with the player.
   Instead, a dialog window will be displayed that will disappear immediately.
 - Remove duplicate tags from Intel window (first row) and change font color (adjustable in `data/config/tag_data.json`).
+- Fix for managing markets query results. Result intel entries will respect "Include Submarkets" now.
+  Market Viewer will respect the filter as well, consider changing this in the future.
 
 
 Version 3.2.1 (2025.04.04)
