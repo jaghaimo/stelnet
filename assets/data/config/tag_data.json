@@ -1,17 +1,23 @@
 {
     "stelnetCommodity": {
         "name": "Commodities",
-        "putFirst": true,
-        "sort": 23
+        "color":[100,142,252,255],
+        #"width":150,
+        #"putFirst": true,
+        #"sort": 23
     },
     "stelnetMarket": {
         "name": "Markets",
-        "putFirst": true,
-        "sort": 24
+        "color":[100,142,252,255],
+        #"width":150,
+        #"putFirst": true,
+        #"sort": 24
     },
     "stelnetStorage": {
         "name": "Storage",
-        "putFirst": true,
-        "sort": 25
+        "color":[100,142,252,255],
+        #"width":150,
+        #"putFirst": true,
+        #"sort": 25
     }
 }
