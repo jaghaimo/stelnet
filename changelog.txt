@@ -1,4 +1,7 @@
-Version Unreleased (TBD)
+Unreleased (TBD)
+
+
+Version 3.2.2 (2025.04.28)
 - Fix for modded contacts that can wipe out player's fleet when calling them remotely while they do not want to talk with the player.
   Instead, a dialog window will be displayed that will disappear immediately.
 - Remove duplicate tags from Intel window (first row) and change font color (adjustable in `data/config/tag_data.json`).
