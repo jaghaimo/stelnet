@@ -64,8 +64,7 @@ public class QueryManager {
         for (SubmarketSpecAPI submarketSpec : allSubmarketSpecs) {
             submarketFilters.add(getSubmarketFilter(submarketSpec));
         }
-        Excluder.submarketFilters = submarketFilters;
-        return Excluder.submarketFilters;
+        return Excluder.submarketFilters = submarketFilters;
     }
 
     public Filter getSubmarketFilter(SubmarketSpecAPI submarketSpec) {
