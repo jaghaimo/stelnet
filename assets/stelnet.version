@@ -5,8 +5,8 @@
     "modVersion": {
         "major": 3,
         "minor": 2,
-        "patch": 2
+        "patch": 3
     },
-    "directDownloadURL": "https://github.com/jaghaimo/stelnet/releases/download/3.2.2/stelnet-3.2.2.zip",
+    "directDownloadURL": "https://github.com/jaghaimo/stelnet/releases/download/3.2.3/stelnet-3.2.3.zip",
     "changelogURL": "https://raw.githubusercontent.com/jaghaimo/stelnet/master/changelog.txt"
 }
