@@ -12,7 +12,7 @@ For more details, see [this forums thread](https://fractalsoftworks.com/forum/in
 
 ## Contributing to the Mod
 
-Non-technical contribution (ideas or bug reports) can be made via [Issues](https://github.com/jaghaimo/stelnet/issues).
+Non technical contribution (ideas or bug reports) can be made via [Issues](https://github.com/jaghaimo/stelnet/issues).
 
 In order to contribute code please fork this repository and work on your idea there.
 Once you have enough to share, open a Pull Request and I will review your changes.
@@ -32,4 +32,4 @@ mod_info.json                 # the usual content, no need for mod plugin
 
 ## Integration with Other Mods
 
-See various CSV files in [data/stelnet](assets/data/stelnet) directory.
+See various CSV files in [data/stelnet](assets/data/stelnet/) directory.
