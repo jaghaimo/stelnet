@@ -1,5 +1,2 @@
 *.jar filter=lfs diff=lfs merge=lfs -text
 *.zip filter=lfs diff=lfs merge=lfs -text
-
-# These are Windows script files and should use crlf
-*.bat           text eol=crlf
