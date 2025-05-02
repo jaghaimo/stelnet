@@ -18,18 +18,50 @@ In order to contribute code please fork this repository and work on your idea th
 Once you have enough to share, open a Pull Request and I will review your changes.
 We will then work together to incorporate your changes into a next release.
 
-## Translating the Mod
+### Translating the Mod
 
 To translate this mod, edit files in [data/l10n](assets/data/l10n) directory.
 You can then create the translation mod with just the following structure:
 
-```bash
+```yaml
 data/config/LunaSettings.csv  # LunaLib settings: headers and description
 data/config/tag_data.json     # tag names in Intel UI
 data/l10n/                    # strings used in the mod
 mod_info.json                 # the usual content, no need for mod plugin
 ```
 
-## Integration with Other Mods
+### Integration with Other Mods
 
 See various CSV files in [data/stelnet](assets/data/stelnet) directory.
+
+### Testing unreleased versions
+
+* Clone this repository.
+* Checkout branch you want to try out.
+* <details><summary>Ensure your `JAVA_HOME` environment variable is set to a correct JDK:</summary>
+
+  * Linux/Mac:
+    ```shell
+     JAVA_HOME="/home/$USER/.jdks/azul-17.0.14/"
+    ```
+  * <details><summary>Windows:</summary>
+
+    ```shell
+    ```
+    </details>
+  </details>
+* <details><summary>Run the following command:</summary>
+
+  * Linux/Mac
+
+    ```shell
+     ./gradlew release
+    ```
+  * <details><summary>Windows:</summary>
+
+    ```shell
+    ```
+    </details>
+  </details>
+* Now you can use `stelnet-{version}.zip` archive from the project root directory and unpack it to Starsector's `mods/` directory.
+  ___Note that you need to remove all Stelnet copies from the `mods/` directory!___
