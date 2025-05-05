@@ -1,4 +1,5 @@
 Unreleased (TBD)
+- Fix bug causing the game to crash when trying to start a new campaign with the Stelnet "Uninstall Mod" flag set to true.
 
 
 Version 3.2.2 (2025.04.28)
