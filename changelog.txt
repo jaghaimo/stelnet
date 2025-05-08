@@ -1,4 +1,7 @@
 Unreleased (TBD)
+- Fix bug causing the game to crash when trying to start a new campaign with the Stelnet "Uninstall Mod" flag set to true.
+- Change Commodities Intel tab to filter out markets returned by the `Excluder` - related files:
+  `market_by_faction.csv`, `market_by_id.csv`, `market_by_system.csv`, `market_by_tag.csv` and `skill_by_id.csv`
 
 
 Version 3.2.3 (..)
