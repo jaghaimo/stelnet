@@ -17,8 +17,11 @@ import uilib.property.Position;
 import uilib.property.Size;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
 
 @RequiredArgsConstructor
 public class CommodityViewFactory implements RenderableFactory {
@@ -61,13 +64,21 @@ public class CommodityViewFactory implements RenderableFactory {
     }
 
     private void sortCommodities(List<CommoditySpecAPI> commodities) {
-        List<String> priorityList = Sorter.getPriorityCommodityIds();
+        Map<String, Integer> priorityByCommodityId = new HashMap<>();
+        int i = 0;
+        // Match order of priority commodities to the order of IDs in the CSV.
+        for (var commodityId : Sorter.getPriorityCommodityIds()) priorityByCommodityId.put(commodityId, ++i);
+
         commodities.sort((commodityA, commodityB) -> {
-            boolean containsCommodityA = priorityList.contains(commodityA.getId());
-            boolean containsCommodityB = priorityList.contains(commodityB.getId());
-            if (containsCommodityA != containsCommodityB) {
-                return containsCommodityA ? -1 : 1;
+            Integer priorityA = priorityByCommodityId.get(commodityA.getId());
+            Integer priorityB = priorityByCommodityId.get(commodityB.getId());
+            if (priorityA != null) {
+                if (priorityB != null) return priorityA.compareTo(priorityB);
+
+                return -1;
             }
+
+            if (priorityB != null) return 1;
 
             return commodityA.getName().compareToIgnoreCase(commodityB.getName());
         });
