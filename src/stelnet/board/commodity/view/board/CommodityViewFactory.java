@@ -3,10 +3,6 @@ package stelnet.board.commodity.view.board;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.campaign.econ.EconomyAPI;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import stelnet.filter.AnyHasTag;
 import stelnet.filter.LogicalNot;
@@ -18,6 +14,11 @@ import uilib.RenderableFactory;
 import uilib.Spacer;
 import uilib.property.Position;
 import uilib.property.Size;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 @RequiredArgsConstructor
 public class CommodityViewFactory implements RenderableFactory {
@@ -37,7 +38,7 @@ public class CommodityViewFactory implements RenderableFactory {
         Group group = new Group(buttons);
         group.setSize(new Size(200, size.getHeight() - 100));
         group.setOffset(new Position(size.getWidth() - 200, 28));
-        return Collections.<Renderable>singletonList(group);
+        return Collections.singletonList(group);
     }
 
     private void filterCommodities(List<CommoditySpecAPI> commodities) {
@@ -60,14 +61,20 @@ public class CommodityViewFactory implements RenderableFactory {
     }
 
     private void sortCommodities(List<CommoditySpecAPI> commodities) {
-        Collections.sort(
-            commodities,
-            new Comparator<CommoditySpecAPI>() {
-                @Override
-                public int compare(CommoditySpecAPI commodityA, CommoditySpecAPI commodityB) {
-                    return commodityA.getName().compareToIgnoreCase(commodityB.getName());
-                }
+        List<String> priorityList = new ArrayList<>();
+        priorityList.add("marines");
+        priorityList.add("crew");
+        priorityList.add("supplies");
+        priorityList.add("fuel");
+        priorityList.add("drugs");
+        commodities.sort((commodityA, commodityB) -> {
+            boolean containsCommodityA = priorityList.contains(commodityA.getId());
+            boolean containsCommodityB = priorityList.contains(commodityB.getId());
+            if (containsCommodityA != containsCommodityB) {
+                return containsCommodityA ? -1 : 1;
             }
-        );
+
+            return commodityA.getName().compareToIgnoreCase(commodityB.getName());
+        });
     }
 }
