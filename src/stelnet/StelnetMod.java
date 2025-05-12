@@ -54,7 +54,7 @@ public class StelnetMod extends BaseModPlugin {
             return;
         }
         CampaignUIAPI campaignUi = Global.getSector().getCampaignUI();
-        if (campaignUi == null) {
+        if (campaignUi == null || campaignUi.getCurrentCoreTab() == null) {
             return;
         }
         campaignUi.showCoreUITab(CoreUITabId.INTEL, null);

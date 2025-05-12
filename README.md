@@ -32,7 +32,16 @@ mod_info.json                 # the usual content, no need for mod plugin
 
 ### Integration with Other Mods
 
-See various CSV files in [data/stelnet](assets/data/stelnet) directory.
+To be able to exclude/include markets and storages in the Stelnet intel tab results
+see various CSV files in [data/stelnet](assets/data/stelnet) directory.
+For example, to exclude a faction in your mod create a file:  
+`starsector/mods/{your_mod_dir}/data/stelnet/exclude/market_by_faction.csv`  
+with content:
+```text
+id
+hegemony
+```
+
 
 ### Testing unreleased versions
 
