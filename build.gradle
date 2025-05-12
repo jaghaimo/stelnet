@@ -4,6 +4,17 @@ plugins {
     id 'java'
 }
 
+// project level config
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+wrapper {
+    gradleVersion = '7.3'  // Java: Gradle; 17: 7.3; 18: 7.5; 19: 7.6; 20: 8.1
+    distributionType = Wrapper.DistributionType.BIN
+}
+
 // define custom repositories
 repositories {
     mavenCentral()
@@ -39,12 +50,6 @@ tasks.register('installDependencies', Sync) {
         configurations.zipped.collect { zipTree(it) }
     }
     into extractDir
-}
-
-// project level config
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
 }
 
 // where to find sources
@@ -83,6 +88,8 @@ dependencies {
 
 // custom tasks
 tasks.register('release', Zip) {
+    group = "build"
+    description = "Creates a distributable mod archive."
     dependsOn build
     archiveFileName = "${project.name}-${readModInfoJson().version}.zip"
     destinationDirectory = file(rootDir)
@@ -91,7 +98,22 @@ tasks.register('release', Zip) {
     into project.name
 }
 
+tasks.register('gitPackage', Zip) {
+    group = "build"
+    description = "Creates a mod archive for the current Git HEAD."
+    dependsOn build
+    archiveFileName = "${project.name}-${getCheckedOutGitCommitHash()}.zip"
+    destinationDirectory = file(rootDir)
+    from 'assets'
+    from jar
+    into project.name
+}
+
 // methods
+static def getCheckedOutGitCommitHash() {
+    return 'git-' + 'git rev-parse --verify --short HEAD'.execute().text.trim()
+}
+
 def readModInfoJson() {
     def jsonFile = file('assets/mod_info.json')
     def slurper = new JsonSlurper()
