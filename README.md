@@ -73,4 +73,4 @@ hegemony
     </details>
   </details>
 * Now you can use `stelnet-{version}.zip` archive from the project root directory and unpack it to Starsector's `mods/` directory.  
-  ___Rember to remove all Stelnet copies from the `mods/` directory before unpacking!___
+  ___Note that you need to remove all Stelnet copies from the `mods/` directory before unpacking!___
