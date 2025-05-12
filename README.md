@@ -52,11 +52,12 @@ hegemony
   * Linux/Mac:
     ```shell
      JAVA_HOME="/home/$USER/.jdks/azul-17.0.14/"
+     # Test with:
+     ./gradlew --version
     ```
   * <details><summary>Windows:</summary>
 
-    ```shell
-    ```
+    Not sure if any equivalent for Windows is needed, or it will "just work"? 
     </details>
   </details>
 * <details><summary>Run the following command:</summary>
@@ -64,11 +65,12 @@ hegemony
   * Linux/Mac
 
     ```shell
-     ./gradlew release
+     ./gradlew gitPackage
     ```
   * <details><summary>Windows:</summary>
 
     ```shell
+     # Same as for Linux?
     ```
     </details>
   </details>

@@ -98,7 +98,22 @@ tasks.register('release', Zip) {
     into project.name
 }
 
+tasks.register('gitPackage', Zip) {
+    group = "build"
+    description = "Creates a mod archive for the current Git HEAD."
+    dependsOn build
+    archiveFileName = "${project.name}-${getCheckedOutGitCommitHash()}.zip"
+    destinationDirectory = file(rootDir)
+    from 'assets'
+    from jar
+    into project.name
+}
+
 // methods
+static def getCheckedOutGitCommitHash() {
+    return 'git-' + 'git rev-parse --verify --short HEAD'.execute().text.trim()
+}
+
 def readModInfoJson() {
     def jsonFile = file('assets/mod_info.json')
     def slurper = new JsonSlurper()
