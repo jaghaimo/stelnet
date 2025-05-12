@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import stelnet.filter.AnyHasTag;
 import stelnet.filter.LogicalNot;
 import stelnet.util.CollectionUtils;
+import stelnet.util.Sorter;
 import uilib.Button;
 import uilib.Group;
 import uilib.Renderable;
@@ -15,7 +16,6 @@ import uilib.Spacer;
 import uilib.property.Position;
 import uilib.property.Size;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -61,12 +61,7 @@ public class CommodityViewFactory implements RenderableFactory {
     }
 
     private void sortCommodities(List<CommoditySpecAPI> commodities) {
-        List<String> priorityList = new ArrayList<>();
-        priorityList.add("marines");
-        priorityList.add("crew");
-        priorityList.add("supplies");
-        priorityList.add("fuel");
-        priorityList.add("drugs");
+        List<String> priorityList = Sorter.getPriorityCommodityIds();
         commodities.sort((commodityA, commodityB) -> {
             boolean containsCommodityA = priorityList.contains(commodityA.getId());
             boolean containsCommodityB = priorityList.contains(commodityB.getId());
