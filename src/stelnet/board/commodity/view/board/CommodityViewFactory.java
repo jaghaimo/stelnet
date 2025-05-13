@@ -64,11 +64,7 @@ public class CommodityViewFactory implements RenderableFactory {
     }
 
     private void sortCommodities(List<CommoditySpecAPI> commodities) {
-        Map<String, Integer> priorityByCommodityId = new HashMap<>();
-        int i = 0;
-        // Match order of priority commodities to the order of IDs in the CSV.
-        for (var commodityId : Sorter.getPriorityCommodityIds()) priorityByCommodityId.put(commodityId, ++i);
-
+        Map<String, Integer> priorityByCommodityId = Sorter.getPriorityCommodityIds();
         commodities.sort((commodityA, commodityB) -> {
             Integer priorityA = priorityByCommodityId.get(commodityA.getId());
             Integer priorityB = priorityByCommodityId.get(commodityB.getId());
