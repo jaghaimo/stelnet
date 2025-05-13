@@ -32,15 +32,31 @@ mod_info.json                 # the usual content, no need for mod plugin
 
 ### Integration with Other Mods
 
-To be able to exclude/include markets and storages in the Stelnet intel tab results
-see various CSV files in [data/stelnet](assets/data/stelnet) directory.
-For example, to exclude a faction in your mod create a file:  
-`starsector/mods/{your_mod_dir}/data/stelnet/exclude/market_by_faction.csv`  
-with content:
-```text
+To be able to exclude/include markets and storages in the Stelnet intel tab results see various CSV files in the
+[data/stelnet](assets/data/stelnet) directory. Those files can be either edited in the Stelnet mod directory,
+or created in another mod's data directory. For example, to exclude a faction in your mod create a file:  
+`starsector/mods/{your_mod_dir}/data/stelnet/exclude/market_by_faction.csv`
+<details><summary>content</summary>
+
+```csv
 id
 hegemony
 ```
+</details>
+
+Mods introducing new commodities may hinder finding the basic commodities like supplies or fuel.
+Commodity Market intel board can be forces to show commodities from a CSV file on the top of the right pane list,
+followed by the remaining commodities sorted in alphabetical order. Example `data/stelnet/sort/priority_commodities.csv`:
+<details><summary>content</summary>
+
+```csv
+id
+supplies
+fuel
+crew
+marines
+```
+</details>
 
 
 ### Testing unreleased versions

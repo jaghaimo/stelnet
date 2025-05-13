@@ -1,4 +1,6 @@
 Unreleased (TBD)
+- Add optional priority sorting for Commodity Market intel - commodities from the `priority_commodities.csv` file will
+  be sorted according to the order in the file, followed by the remaining commodities sorted in alphabetical order.
 
 
 Version 3.2.3 (2025.05.12)
