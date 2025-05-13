@@ -17,7 +17,6 @@ import uilib.property.Position;
 import uilib.property.Size;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -64,7 +63,7 @@ public class CommodityViewFactory implements RenderableFactory {
     }
 
     private void sortCommodities(List<CommoditySpecAPI> commodities) {
-        Map<String, Integer> priorityByCommodityId = Sorter.getPriorityCommodityIds();
+        Map<String, Integer> priorityByCommodityId = Sorter.getPriorityByCommodityId();
         commodities.sort((commodityA, commodityB) -> {
             Integer priorityA = priorityByCommodityId.get(commodityA.getId());
             Integer priorityB = priorityByCommodityId.get(commodityB.getId());
