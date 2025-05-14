@@ -1,6 +1,11 @@
 Unreleased (TBD)
 
 
+Version 3.3.0 (2025.05.14)
+- Add optional priority sorting for Commodity Market intel - commodities from the `priority_commodities.csv` file will
+  be sorted according to the order in the file, followed by the remaining commodities sorted in alphabetical order.
+
+
 Version 3.2.3 (2025.05.12)
 - Fix bug causing the game to crash when trying to start a new campaign with the Stelnet "Uninstall Mod" flag set to true.
 - Change Commodities Intel tab to filter out markets returned by the `Excluder` - related files:

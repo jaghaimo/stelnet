@@ -3,14 +3,11 @@ package stelnet.board.commodity.view.board;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.econ.CommoditySpecAPI;
 import com.fs.starfarer.api.campaign.econ.EconomyAPI;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import stelnet.filter.AnyHasTag;
 import stelnet.filter.LogicalNot;
 import stelnet.util.CollectionUtils;
+import stelnet.util.Sorter;
 import uilib.Button;
 import uilib.Group;
 import uilib.Renderable;
@@ -18,6 +15,12 @@ import uilib.RenderableFactory;
 import uilib.Spacer;
 import uilib.property.Position;
 import uilib.property.Size;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 
 @RequiredArgsConstructor
 public class CommodityViewFactory implements RenderableFactory {
@@ -37,7 +40,7 @@ public class CommodityViewFactory implements RenderableFactory {
         Group group = new Group(buttons);
         group.setSize(new Size(200, size.getHeight() - 100));
         group.setOffset(new Position(size.getWidth() - 200, 28));
-        return Collections.<Renderable>singletonList(group);
+        return Collections.singletonList(group);
     }
 
     private void filterCommodities(List<CommoditySpecAPI> commodities) {
@@ -60,14 +63,19 @@ public class CommodityViewFactory implements RenderableFactory {
     }
 
     private void sortCommodities(List<CommoditySpecAPI> commodities) {
-        Collections.sort(
-            commodities,
-            new Comparator<CommoditySpecAPI>() {
-                @Override
-                public int compare(CommoditySpecAPI commodityA, CommoditySpecAPI commodityB) {
-                    return commodityA.getName().compareToIgnoreCase(commodityB.getName());
-                }
+        Map<String, Integer> priorityByCommodityId = Sorter.getPriorityByCommodityId();
+        commodities.sort((commodityA, commodityB) -> {
+            Integer priorityA = priorityByCommodityId.get(commodityA.getId());
+            Integer priorityB = priorityByCommodityId.get(commodityB.getId());
+            if (priorityA != null) {
+                if (priorityB != null) return priorityA.compareTo(priorityB);
+
+                return -1;
             }
-        );
+
+            if (priorityB != null) return 1;
+
+            return commodityA.getName().compareToIgnoreCase(commodityB.getName());
+        });
     }
 }
